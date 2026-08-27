@@ -1,0 +1,37 @@
+# TODO: 正式发布前替换为公司原应用的真实 appId。
+appId: com.alishan.aihuoke.recovered
+productName: 阿里山AI获客
+electronVersion: 24.8.8
+artifactName: ${productName}_${version}.${ext}
+
+directories:
+  output: release
+
+compression: normal
+asar: true
+asarUnpack:
+  - node_modules/better-sqlite3/**/*
+
+files:
+  - dist-protected/**/*
+  - assets/**/*
+  - package.json
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  executableName: 阿里山AI获客
+  # TODO: 公司提供正式图标后启用。
+  # icon: packaging/build/icon.ico
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: 阿里山AI获客
+  uninstallDisplayName: 阿里山AI获客
+  deleteAppDataOnUninstall: false

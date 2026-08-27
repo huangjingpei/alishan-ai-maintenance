@@ -1,0 +1,35 @@
+{
+  "variantId": "alishan-ai",
+  "label": "阿里山AI获客",
+  "productName": "阿里山AI获客",
+  "purchaseUrl": null,
+  "showPurchaseLink": false,
+  "showPricing": false,
+  "features": {
+    "enableXianyu": false
+  },
+  "wechatId": null,
+  "wechatQrSrc": null,
+  "showWeChatContact": false,
+  "icon": null,
+  "iconEffective": "build/icon.effective.png",
+  "outputDir": "dist/alishan-ai",
+  "version": "2.9.89",
+  "apiBase": "https://aihuoker.uk/api",
+  "productSlug": "alishan-ai",
+  "envOverrides": [
+    "API_BASE",
+    "PRODUCT_SLUG",
+    "PRODUCT_TOKEN",
+    "API_BASE_2",
+    "API_BASE2_REGIONS"
+  ],
+  "envSource": "app/.env.production.effective",
+  "appliedAt": "2026-08-18T11:23:49.627Z",
+  "releaseArtifacts": {
+    "windows": "阿里山AI获客_2.9.89.exe",
+    "windows32": "阿里山AI获客_win_32_2.9.89.exe",
+    "macIntel": "阿里山AI获客_mac_intel_2.9.89.dmg",
+    "macApple": "阿里山AI获客_mac_apple_2.9.89.dmg"
+  }
+}
