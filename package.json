@@ -2,8 +2,8 @@
   "name": "huoke-radar-app",
   "version": "2.9.89",
   "private": true,
-  "description": "阿里山AI获客恢复版维护仓库",
-  "productName": "阿里山AI获客",
+  "description": "抖多客(DDK)",
+  "productName": "抖多客",
   "author": "Internal Maintenance Team",
   "main": "dist-protected/main.js",
   "engines": {
@@ -13,6 +13,9 @@
     "validate": "node --experimental-vm-modules scripts/validate.mjs",
     "integrity:report": "node scripts/integrity-report.mjs",
     "dev": "npm run validate && electron .",
+    "dev:local": "npm run validate && node scripts/dev-local.mjs",
+    "local:server": "node scripts/local-backend.mjs",
+    "test": "node --test tests/*.test.mjs",
     "pack:dir": "npm run validate && electron-builder --dir",
     "dist:win": "npm run validate && electron-builder --win nsis --x64",
     "postinstall": "electron-builder install-app-deps"

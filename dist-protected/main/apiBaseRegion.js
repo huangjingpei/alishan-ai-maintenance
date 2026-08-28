@@ -1,6 +1,12 @@
 'use strict';
 
 const DEFAULT_REGIONS_FOR_BASE2 = Object.freeze(["福州", "厦门", "泉州", "漳州", "莆田", "宁德"]);
+function getLocalDevelopmentApiBase() {
+  if (process.env.HUOKE_LOCAL_BOOTSTRAP_ACTIVE !== "1") {
+    return "";
+  }
+  return String(process.env.HUOKE_LOCAL_API_BASE || process.env.API_BASE || "").trim().replace(/\/+$/, "");
+}
 function normalizeRegionText(_0x170190) {
   return String(_0x170190 || "").trim().replace(/\s+/g, "").replace(/市$|地区$|特别行政区$/g, "");
 }
@@ -39,6 +45,16 @@ function pickApiBaseByRegion({
   locationText: _0x2665b4,
   regions: _0x33914f
 } = {}) {
+  const _0x54bdbc = getLocalDevelopmentApiBase();
+  if (_0x54bdbc) {
+    return {
+      apiBase: _0x54bdbc,
+      used: "localDevelopment",
+      matched: true,
+      reason: "local_development",
+      regions: []
+    };
+  }
   const _0x966e92 = stripTrailingSlash(_0x3e98ec);
   const _0x211830 = stripTrailingSlash(_0x41a18e);
   const _0x1e3a94 = parseRegionList(_0x33914f);
@@ -141,6 +157,17 @@ async function resolveApiBaseByIp(_0x5c2cfa, {
   regions: _0x1ec070,
   timeout = 3500
 } = {}) {
+  const _0x17f99b = getLocalDevelopmentApiBase();
+  if (_0x17f99b) {
+    return {
+      apiBase: _0x17f99b,
+      used: "localDevelopment",
+      matched: true,
+      reason: "local_development",
+      regions: [],
+      location: null
+    };
+  }
   const _0x467e86 = stripTrailingSlash(_0x3a7ec5);
   const _0x1ebecf = stripTrailingSlash(_0x519163);
   const _0x363b60 = parseRegionList(_0x1ec070);

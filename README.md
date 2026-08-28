@@ -1,4 +1,4 @@
-# 阿里山AI获客维护仓库
+# 抖多客维护仓库
 
 这是从公司现有 2.9.89 安装包恢复并整理出的可开发仓库。日常开发以本目录为唯一工作基线，不再直接修改 `.reverse_analysis` 下的分析中间文件。
 
@@ -21,6 +21,9 @@ cd E:\zhibodou-ai\alishan-ai-maintenance
 npm install
 npm run validate
 npm run integrity:report
+
+# 使用隔离数据和 localhost 服务启动开发模式
+npm run dev:local
 ```
 
 `npm install` 会让 electron-builder 为 Electron 24.8.8 准备原生依赖。若 `better-sqlite3` 构建失败，不要随意升级 Electron；先检查 Visual Studio Build Tools、Python 和公司 npm 镜像。
@@ -36,6 +39,12 @@ npm run integrity:report
 
 # 在隔离测试环境启动应用
 npm run dev
+
+# 推荐：以 localhost 服务和独立 userData 启动
+npm run dev:local
+
+# 运行本地接口契约测试
+npm test
 
 # 生成未安装的 Windows 目录，输出到 release/win-unpacked
 npm run pack:dir
@@ -57,6 +66,7 @@ npm run dist:win
 | `electron-builder.yml` | electron-builder/NSIS 主配置 |
 | `packaging` | 正式图标和其他发布资源 |
 | `scripts` | 静态校验和完整性差异报告 |
+| `local-services` | 仅供未打包开发态使用的 localhost 接口、兼容运行配置与校验器 |
 | `docs` | 构建、维护和新员工文档 |
 | `baseline` | 原始恢复报告和不可变基线信息 |
 
@@ -77,6 +87,7 @@ npm run dist:win
 3. [`docs/01_恢复版编译与打包指南.md`](docs/01_恢复版编译与打包指南.md)
 4. [`docs/02_新员工维护与二次开发手册.md`](docs/02_新员工维护与二次开发手册.md)
 5. [`docs/安全风险与版本升级约束.md`](docs/安全风险与版本升级约束.md)
+6. [`docs/03_本地开发模式与接口契约.md`](docs/03_本地开发模式与接口契约.md)
 
 ## 正式发布前阻塞项
 

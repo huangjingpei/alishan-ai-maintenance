@@ -1,6 +1,6 @@
 # TODO: 正式发布前替换为公司原应用的真实 appId。
 appId: com.alishan.aihuoke.recovered
-productName: 阿里山AI获客
+productName: 抖多客
 electronVersion: 24.8.8
 artifactName: ${productName}_${version}.${ext}
 
@@ -22,7 +22,7 @@ win:
     - target: nsis
       arch:
         - x64
-  executableName: 阿里山AI获客
+  executableName: 抖多客
   # TODO: 公司提供正式图标后启用。
   # icon: packaging/build/icon.ico
 
@@ -32,6 +32,6 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: 阿里山AI获客
-  uninstallDisplayName: 阿里山AI获客
+  shortcutName: 抖多客
+  uninstallDisplayName: 抖多客
   deleteAppDataOnUninstall: false

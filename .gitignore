@@ -16,3 +16,5 @@ coverage/
 !.env.example
 test-user-data/
 artifacts/
+.local-data/
+.workbuddy/

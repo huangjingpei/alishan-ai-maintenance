@@ -1,7 +1,7 @@
 {
   "variantId": "alishan-ai",
-  "label": "阿里山AI获客",
-  "productName": "阿里山AI获客",
+  "label": "抖多客",
+  "productName": "抖多客",
   "purchaseUrl": null,
   "showPurchaseLink": false,
   "showPricing": false,
@@ -27,9 +27,9 @@
   "envSource": "app/.env.production.effective",
   "appliedAt": "2026-08-18T11:23:49.627Z",
   "releaseArtifacts": {
-    "windows": "阿里山AI获客_2.9.89.exe",
-    "windows32": "阿里山AI获客_win_32_2.9.89.exe",
-    "macIntel": "阿里山AI获客_mac_intel_2.9.89.dmg",
-    "macApple": "阿里山AI获客_mac_apple_2.9.89.dmg"
+    "windows": "抖多客_2.9.89.exe",
+    "windows32": "抖多客_win_32_2.9.89.exe",
+    "macIntel": "抖多客_mac_intel_2.9.89.dmg",
+    "macApple": "抖多客_mac_apple_2.9.89.dmg"
   }
 }

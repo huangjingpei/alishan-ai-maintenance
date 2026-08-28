@@ -8,7 +8,7 @@ const {
 function resolveAppDisplayName({
   appDir: _0x3eeb30
 } = {}) {
-  const _0x3853a4 = String("阿里山AI获客" || "").trim();
+  const _0x3853a4 = String("抖多客" || "").trim();
   if (_0x3853a4) {
     return _0x3853a4;
   }
@@ -67,7 +67,7 @@ function getAppProductName({
   appDir: _0x42d211,
   displayName: _0x2c8039
 } = {}) {
-  const _0x1149f0 = String(typeof _0x2c8039 === "string" ? _0x2c8039 : "").trim() || String("阿里山AI获客" || "").trim();
+  const _0x1149f0 = String(typeof _0x2c8039 === "string" ? _0x2c8039 : "").trim() || String("抖多客" || "").trim();
   if (_0x1149f0) {
     return _0x1149f0;
   }

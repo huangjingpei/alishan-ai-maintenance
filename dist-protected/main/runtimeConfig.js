@@ -1,6 +1,12 @@
 const crypto = require("crypto");
+const {
+  app
+} = require("electron");
 const FETCH_MAX_ATTEMPTS = 3;
 const FETCH_RETRY_DELAYS_MS = [800, 1600];
+function isPlaintextLocalDevelopmentConfigAllowed() {
+  return process.env.HUOKE_LOCAL_DEV === "1" && !app.isPackaged;
+}
 function createRuntimeConfigService({
   store: _0xd45b22,
   axios: _0x407342,
@@ -193,17 +199,18 @@ function createRuntimeConfigService({
       return _0x39d423;
     }
     const _0x1b346e = _0x106ade.data?.data || _0x106ade.data;
-    if (!_0x1b346e?.enc) {
+    const _0x4a9a74 = isPlaintextLocalDevelopmentConfigAllowed() && _0x1b346e?.plain && typeof _0x1b346e.plain === "object" ? _0x1b346e.plain : null;
+    if (!_0x4a9a74 && !_0x1b346e?.enc) {
       throw new Error("response missing ciphertext");
     }
-    const _0x2b3e1b = _0x34c428(_0x5140be, _0x1b346e);
+    const _0x2b3e1b = _0x4a9a74 || _0x34c428(_0x5140be, _0x1b346e);
     if (!_0x30725d(_0x2b3e1b)) {
       throw new Error("runtime config incomplete version=" + (_0x2b3e1b?.version || "-"));
     }
     _0x1edfd8 = _0x1b346e.etag || _0x2b3e1b?.version || null;
     _0x645960 = Date.now();
     _0x2615bd(_0x2b3e1b, _0x5140be);
-    console.log("[RuntimeConfig] 已拉取并解密（仅内存） version=" + (_0x39d423?.version || "-") + (" etag=" + (_0x1edfd8 || "-") + " force=" + force));
+    console.log("[RuntimeConfig] 已拉取" + (_0x4a9a74 ? "本地开发明文配置" : "并解密（仅内存）") + " version=" + (_0x39d423?.version || "-") + (" etag=" + (_0x1edfd8 || "-") + " force=" + force));
     _0x3e321a();
     return _0x39d423;
   }
