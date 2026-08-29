@@ -1,220 +1,220 @@
 'use strict';
 
-function createAutomationLiveViewLifecycle(_0x3275a5 = {}) {
+function createAutomationLiveViewLifecycle(options = {}) {
   const {
-    getPlatformViews: _0x5df713,
-    getViewSettingsMap: _0x11a7f7,
-    getBoundsStateByViewKey: _0x4900ed,
-    shouldAttachAutomationView: _0x2a1997,
-    cancelPendingAutomationViewDestroy: _0x1c007c,
-    recoverMainAutomationView: _0x223491,
-    attachMainAutomationView: _0x160b8c,
-    preserveAutomationViewAfterTaskFinish: _0x301f96,
-    nudgeAutomationViewRepaint: _0xe1d1d4,
-    ensureAutomationPaintWatchdog: _0x2581be,
-    requestAutomationLayoutRefresh: _0x1fab45,
-    ensureBackgroundAutomationLayout: _0x187964,
-    releaseBackgroundAutomationLayout: _0x1cd160,
-    acquireEntityExecutionViewportLease: _0x5c5418,
-    releaseEntityExecutionViewportLease: _0x494a59
-  } = _0x3275a5;
-  const _0x5d28be = new Map();
-  const _0x50e2a2 = new Map();
-  function _0x75f08e(_0x1882fa, _0x5222b9 = null) {
-    if (String(_0x1882fa || "").startsWith("entity_") && typeof _0x494a59 === "function") {
-      return _0x494a59(_0x1882fa, {
-        taskGeneration: _0x5222b9?.generation ?? null
+    getPlatformViews: getPlatformViews,
+    getViewSettingsMap: getViewSettingsMap,
+    getBoundsStateByViewKey: getBoundsStateByViewKey,
+    shouldAttachAutomationView: shouldAttachAutomationView,
+    cancelPendingAutomationViewDestroy: cancelPendingAutomationViewDestroy,
+    recoverMainAutomationView: recoverMainAutomationView,
+    attachMainAutomationView: attachMainAutomationView,
+    preserveAutomationViewAfterTaskFinish: preserveAutomationViewAfterTaskFinish,
+    nudgeAutomationViewRepaint: nudgeAutomationViewRepaint,
+    ensureAutomationPaintWatchdog: ensureAutomationPaintWatchdog,
+    requestAutomationLayoutRefresh: requestAutomationLayoutRefresh,
+    ensureBackgroundAutomationLayout: ensureBackgroundAutomationLayout,
+    releaseBackgroundAutomationLayout: releaseBackgroundAutomationLayout,
+    acquireEntityExecutionViewportLease: acquireEntityExecutionViewportLease,
+    releaseEntityExecutionViewportLease: releaseEntityExecutionViewportLease
+  } = options;
+  const map = new Map();
+  const map2 = new Map();
+  function fn(arg1, arg2 = null) {
+    if (String(arg1 || "").startsWith("entity_") && typeof releaseEntityExecutionViewportLease === "function") {
+      return releaseEntityExecutionViewportLease(arg1, {
+        taskGeneration: arg2?.generation ?? null
       });
     }
-    return _0x1cd160?.(_0x1882fa);
+    return releaseBackgroundAutomationLayout?.(arg1);
   }
-  function _0x4b6351(_0x532a60) {
-    const _0x1bf147 = Number(_0x5d28be.get(_0x532a60) || 0) + 1;
-    _0x5d28be.set(_0x532a60, _0x1bf147);
-    return _0x1bf147;
+  function fn2(arg1) {
+    const value = Number(map.get(arg1) || 0) + 1;
+    map.set(arg1, value);
+    return value;
   }
-  function _0xa03b63(_0x1f62e1, _0x3ebe7f) {
-    return _0x5d28be.get(_0x1f62e1) === _0x3ebe7f;
+  function isCurrent(arg1, arg2) {
+    return map.get(arg1) === arg2;
   }
-  function _0x3820fe(_0x4e2096, _0x14d341 = {}) {
-    const _0xf6c777 = _0x5df713?.()?.get?.(_0x4e2096);
-    if (!_0xf6c777 || _0xf6c777.webContents?.isDestroyed?.()) {
+  function beginTask(arg1, options = {}) {
+    const local = getPlatformViews?.()?.get?.(arg1);
+    if (!local || local.webContents?.isDestroyed?.()) {
       return {
         ok: false,
-        generation: _0x4b6351(_0x4e2096),
+        generation: fn2(arg1),
         reason: "view_unavailable"
       };
     }
-    const _0x218ab8 = _0x11a7f7?.();
-    const _0xc191 = _0x218ab8?.get?.(_0x4e2096);
-    const _0x3524c4 = String(_0x14d341.runtimeTaskId || _0x14d341.taskId || "");
-    const _0x34400d = String(_0xc191?.runtimeTaskId || _0xc191?.taskId || "");
-    if (_0xc191 && !_0xc191.finishedAt && _0x3524c4 && _0x3524c4 === _0x34400d && _0x5d28be.has(_0x4e2096)) {
-      _0x59be60(_0x4e2096);
+    const local2 = getViewSettingsMap?.();
+    const local3 = local2?.get?.(arg1);
+    const result = String(options.runtimeTaskId || options.taskId || "");
+    const result2 = String(local3?.runtimeTaskId || local3?.taskId || "");
+    if (local3 && !local3.finishedAt && result && result === result2 && map.has(arg1)) {
+      wake(arg1);
       return {
         ok: true,
-        generation: _0x5d28be.get(_0x4e2096),
+        generation: map.get(arg1),
         reused: true
       };
     }
-    if (_0x50e2a2.has(_0x4e2096)) {
-      const _0x464c6c = _0x50e2a2.get(_0x4e2096);
-      _0x50e2a2.delete(_0x4e2096);
+    if (map2.has(arg1)) {
+      const result = map2.get(arg1);
+      map2.delete(arg1);
       try {
-        _0x75f08e(_0x4e2096, _0x464c6c);
-      } catch (_0x3fdcc8) {}
+        fn(arg1, result);
+      } catch (error) {}
     }
-    const _0x6dd8e4 = _0x4b6351(_0x4e2096);
-    _0x1c007c?.(_0x4e2096);
-    if (_0x218ab8) {
-      const _0x414f21 = {
-        ...(_0xc191 && typeof _0xc191 === "object" ? _0xc191 : {}),
-        ..._0x14d341,
+    const result3 = fn2(arg1);
+    cancelPendingAutomationViewDestroy?.(arg1);
+    if (local2) {
+      const obj = {
+        ...(local3 && typeof local3 === "object" ? local3 : {}),
+        ...options,
         startedAt: Date.now(),
-        liveViewGeneration: _0x6dd8e4
+        liveViewGeneration: result3
       };
-      delete _0x414f21.finishedAt;
-      _0x218ab8.set(_0x4e2096, _0x414f21);
+      delete obj.finishedAt;
+      local2.set(arg1, obj);
     }
-    _0x2581be?.();
-    const _0x59716d = _0x4900ed?.()?.get?.(_0x4e2096)?.bounds || null;
-    if (_0x2a1997?.(_0x4e2096)) {
-      _0x223491?.(_0x4e2096, _0x59716d, {
+    ensureAutomationPaintWatchdog?.();
+    const local4 = getBoundsStateByViewKey?.()?.get?.(arg1)?.bounds || null;
+    if (shouldAttachAutomationView?.(arg1)) {
+      recoverMainAutomationView?.(arg1, local4, {
         force: true
       });
     } else {
-      _0x160b8c?.(_0x4e2096);
+      attachMainAutomationView?.(arg1);
     }
     try {
-      _0xe1d1d4?.(_0xf6c777.webContents, _0xf6c777);
-    } catch (_0x11373d) {}
-    _0x1fab45?.();
+      nudgeAutomationViewRepaint?.(local.webContents, local);
+    } catch (error) {}
+    requestAutomationLayoutRefresh?.();
     return {
       ok: true,
-      generation: _0x6dd8e4
+      generation: result3
     };
   }
-  function _0x59be60(_0x3cae7f) {
-    const _0x3027cc = _0x5df713?.()?.get?.(_0x3cae7f);
-    if (!_0x3027cc || _0x3027cc.webContents?.isDestroyed?.()) {
+  function wake(arg1) {
+    const local = getPlatformViews?.()?.get?.(arg1);
+    if (!local || local.webContents?.isDestroyed?.()) {
       return false;
     }
-    _0x2581be?.();
+    ensureAutomationPaintWatchdog?.();
     try {
-      _0x3027cc.webContents.setBackgroundThrottling?.(false);
-      _0x3027cc.webContents.setFrameRate?.(30);
-      _0x3027cc.webContents.invalidate?.();
-    } catch (_0x509292) {}
+      local.webContents.setBackgroundThrottling?.(false);
+      local.webContents.setFrameRate?.(30);
+      local.webContents.invalidate?.();
+    } catch (error) {}
     return true;
   }
-  function _0x25c4e5(_0x5b9ace, {
+  function finishTask(arg1, {
     reason = "completed",
     settingsSnapshot = null,
     skipHeavyRepaint = false
   } = {}) {
-    const _0x555ce7 = _0x50e2a2.get(_0x5b9ace);
-    _0x4b6351(_0x5b9ace);
-    _0x50e2a2.delete(_0x5b9ace);
+    const result = map2.get(arg1);
+    fn2(arg1);
+    map2.delete(arg1);
     try {
-      _0x75f08e(_0x5b9ace, _0x555ce7);
-    } catch (_0x1bf629) {}
-    const _0x36b783 = _0x11a7f7?.();
-    if (_0x36b783) {
-      _0x36b783.delete(_0x5b9ace);
+      fn(arg1, result);
+    } catch (error) {}
+    const local = getViewSettingsMap?.();
+    if (local) {
+      local.delete(arg1);
     }
-    const _0x3ae265 = _0x301f96?.(_0x5b9ace, reason, {
+    const local2 = preserveAutomationViewAfterTaskFinish?.(arg1, reason, {
       settingsSnapshot: settingsSnapshot,
       skipHeavyRepaint: skipHeavyRepaint
     });
-    _0x1fab45?.();
-    return _0x3ae265 !== false;
+    requestAutomationLayoutRefresh?.();
+    return local2 !== false;
   }
-  function _0x2e8bdd(_0x551ac8) {
-    if (_0x50e2a2.has(_0x551ac8)) {
-      const _0x5e40e0 = _0x50e2a2.get(_0x551ac8);
-      _0x50e2a2.delete(_0x551ac8);
+  function invalidate(arg1) {
+    if (map2.has(arg1)) {
+      const result = map2.get(arg1);
+      map2.delete(arg1);
       try {
-        _0x75f08e(_0x551ac8, _0x5e40e0);
-      } catch (_0x5ba02c) {}
+        fn(arg1, result);
+      } catch (error) {}
     }
-    return _0x4b6351(_0x551ac8);
+    return fn2(arg1);
   }
-  async function _0x50e0ea(_0x158f8e, {
+  async function acquireExecutionViewport(arg1, {
     runtimeTaskId = ""
   } = {}) {
-    const _0x3adc55 = Number(_0x5d28be.get(_0x158f8e) || 0);
-    const _0x541619 = _0x5df713?.()?.get?.(_0x158f8e);
-    if (!_0x3adc55 || !_0x541619 || _0x541619.webContents?.isDestroyed?.()) {
+    const result = Number(map.get(arg1) || 0);
+    const local = getPlatformViews?.()?.get?.(arg1);
+    if (!result || !local || local.webContents?.isDestroyed?.()) {
       return {
         ok: false,
         reason: "view_unavailable",
-        generation: _0x3adc55
+        generation: result
       };
     }
-    const _0x13f3bf = {
-      generation: _0x3adc55,
+    const obj = {
+      generation: result,
       runtimeTaskId: String(runtimeTaskId || ""),
       acquiredAt: Date.now()
     };
-    _0x50e2a2.set(_0x158f8e, _0x13f3bf);
-    const _0x243beb = String(_0x158f8e || "").startsWith("entity_") && typeof _0x5c5418 === "function" ? await _0x5c5418(_0x158f8e, {
-      taskGeneration: _0x3adc55,
+    map2.set(arg1, obj);
+    const value = String(arg1 || "").startsWith("entity_") && typeof acquireEntityExecutionViewportLease === "function" ? await acquireEntityExecutionViewportLease(arg1, {
+      taskGeneration: result,
       runtimeTaskId: String(runtimeTaskId || "")
-    }) : await _0x187964?.(_0x158f8e);
-    const _0x199534 = _0x50e2a2.get(_0x158f8e);
-    if (!_0x199534 || _0x199534.generation !== _0x3adc55 || !_0xa03b63(_0x158f8e, _0x3adc55) || _0x5df713?.()?.get?.(_0x158f8e) !== _0x541619) {
+    }) : await ensureBackgroundAutomationLayout?.(arg1);
+    const result2 = map2.get(arg1);
+    if (!result2 || result2.generation !== result || !isCurrent(arg1, result) || getPlatformViews?.()?.get?.(arg1) !== local) {
       return {
         ok: false,
         reason: "stale_execution_viewport",
-        generation: _0x3adc55
+        generation: result
       };
     }
-    if (_0x243beb && _0x243beb.ok === false) {
-      _0x50e2a2.delete(_0x158f8e);
+    if (value && value.ok === false) {
+      map2.delete(arg1);
       return {
-        ..._0x243beb,
-        generation: _0x3adc55
+        ...value,
+        generation: result
       };
     }
     return {
       ok: true,
-      generation: _0x3adc55,
-      layout: _0x243beb || null
+      generation: result,
+      layout: value || null
     };
   }
-  function _0x553416(_0x13890b, {
+  function releaseExecutionViewport(arg1, {
     generation = null
   } = {}) {
-    const _0x4f712f = _0x50e2a2.get(_0x13890b);
-    if (!_0x4f712f) {
+    const result = map2.get(arg1);
+    if (!result) {
       return {
         ok: true,
         skipped: true
       };
     }
-    if (generation != null && Number(generation) !== Number(_0x4f712f.generation)) {
+    if (generation != null && Number(generation) !== Number(result.generation)) {
       return {
         ok: false,
         reason: "stale_execution_viewport_release"
       };
     }
-    _0x50e2a2.delete(_0x13890b);
-    const _0x34cd74 = _0x75f08e(_0x13890b, _0x4f712f);
+    map2.delete(arg1);
+    const result2 = fn(arg1, result);
     return {
-      ok: _0x34cd74 !== false && _0x34cd74?.ok !== false,
-      release: _0x34cd74 || null
+      ok: result2 !== false && result2?.ok !== false,
+      release: result2 || null
     };
   }
   return {
-    beginTask: _0x3820fe,
-    wake: _0x59be60,
-    finishTask: _0x25c4e5,
-    invalidate: _0x2e8bdd,
-    acquireExecutionViewport: _0x50e0ea,
-    releaseExecutionViewport: _0x553416,
-    hasExecutionViewport: _0x2fe91e => _0x50e2a2.has(_0x2fe91e),
-    isCurrent: _0xa03b63,
-    getGeneration: _0x1c6b21 => Number(_0x5d28be.get(_0x1c6b21) || 0)
+    beginTask: beginTask,
+    wake: wake,
+    finishTask: finishTask,
+    invalidate: invalidate,
+    acquireExecutionViewport: acquireExecutionViewport,
+    releaseExecutionViewport: releaseExecutionViewport,
+    hasExecutionViewport: arg1 => map2.has(arg1),
+    isCurrent: isCurrent,
+    getGeneration: arg1 => Number(map.get(arg1) || 0)
   };
 }
 module.exports = {
