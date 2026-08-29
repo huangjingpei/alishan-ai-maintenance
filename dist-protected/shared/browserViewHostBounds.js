@@ -1,17 +1,17 @@
 'use strict';
 
-function scaleCssRectToWindowBounds(_0x318c69, _0x2a2be1) {
-  const _0x3fd43c = Number(_0x2a2be1);
-  const _0x5c47ab = Number.isFinite(_0x3fd43c) && _0x3fd43c > 0 ? _0x3fd43c : 1;
-  const _0x4632aa = Number(_0x318c69?.x ?? _0x318c69?.left);
-  const _0x1291fc = Number(_0x318c69?.y ?? _0x318c69?.top);
-  const _0x2100be = Number(_0x318c69?.width);
-  const _0x39ef14 = Number(_0x318c69?.height);
+function scaleCssRectToWindowBounds(arg1, arg2) {
+  const result = Number(arg2);
+  const value = Number.isFinite(result) && result > 0 ? result : 1;
+  const result2 = Number(arg1?.x ?? arg1?.left);
+  const result3 = Number(arg1?.y ?? arg1?.top);
+  const result4 = Number(arg1?.width);
+  const result5 = Number(arg1?.height);
   return {
-    x: Math.round(_0x4632aa * _0x5c47ab),
-    y: Math.round(_0x1291fc * _0x5c47ab),
-    width: Math.round(_0x2100be * _0x5c47ab),
-    height: Math.round(_0x39ef14 * _0x5c47ab)
+    x: Math.round(result2 * value),
+    y: Math.round(result3 * value),
+    width: Math.round(result4 * value),
+    height: Math.round(result5 * value)
   };
 }
 module.exports = {
