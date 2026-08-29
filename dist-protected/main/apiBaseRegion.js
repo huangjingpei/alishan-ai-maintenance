@@ -7,160 +7,160 @@ function getLocalDevelopmentApiBase() {
   }
   return String(process.env.HUOKE_LOCAL_API_BASE || process.env.API_BASE || "").trim().replace(/\/+$/, "");
 }
-function normalizeRegionText(_0x170190) {
-  return String(_0x170190 || "").trim().replace(/\s+/g, "").replace(/市$|地区$|特别行政区$/g, "");
+function normalizeRegionText(arg1) {
+  return String(arg1 || "").trim().replace(/\s+/g, "").replace(/市$|地区$|特别行政区$/g, "");
 }
-function parseRegionList(_0x5b325f, _0x53bbbc = DEFAULT_REGIONS_FOR_BASE2) {
-  if (Array.isArray(_0x5b325f)) {
-    const _0x4f9adc = _0x5b325f.map(normalizeRegionText).filter(Boolean);
-    if (_0x4f9adc.length) {
-      return _0x4f9adc;
+function parseRegionList(arg1, arg2 = DEFAULT_REGIONS_FOR_BASE2) {
+  if (Array.isArray(arg1)) {
+    const result = arg1.map(normalizeRegionText).filter(Boolean);
+    if (result.length) {
+      return result;
     } else {
-      return [..._0x53bbbc];
+      return [...arg2];
     }
   }
-  const _0x4c4d14 = String(_0x5b325f || "").trim();
-  if (!_0x4c4d14) {
-    return [..._0x53bbbc];
+  const result = String(arg1 || "").trim();
+  if (!result) {
+    return [...arg2];
   }
-  return _0x4c4d14.split(/[,，;；|/]/).map(normalizeRegionText).filter(Boolean);
+  return result.split(/[,，;；|/]/).map(normalizeRegionText).filter(Boolean);
 }
-function stripTrailingSlash(_0x345c88) {
-  return String(_0x345c88 || "").trim().replace(/\/+$/, "");
+function stripTrailingSlash(arg1) {
+  return String(arg1 || "").trim().replace(/\/+$/, "");
 }
-function regionMatchesBase2(_0xc68f2c, _0x540f3f) {
-  const _0x5b5677 = normalizeRegionText(_0xc68f2c);
-  if (!_0x5b5677) {
+function regionMatchesBase2(arg1, arg2) {
+  const result = normalizeRegionText(arg1);
+  if (!result) {
     return false;
   }
-  const _0x488e8a = parseRegionList(_0x540f3f);
-  return _0x488e8a.some(_0x43aad1 => _0x43aad1 && _0x5b5677.includes(_0x43aad1));
+  const result2 = parseRegionList(arg2);
+  return result2.some(arg1 => arg1 && result.includes(arg1));
 }
-function buildLocationLabel(_0x4508e4) {
-  return _0x4508e4.map(_0x5d59dd => String(_0x5d59dd || "").trim()).filter(Boolean).join(" ");
+function buildLocationLabel(arg1) {
+  return arg1.map(arg1 => String(arg1 || "").trim()).filter(Boolean).join(" ");
 }
 function pickApiBaseByRegion({
-  apiBase: _0x3e98ec,
-  apiBase2: _0x41a18e,
-  locationText: _0x2665b4,
-  regions: _0x33914f
+  apiBase: apiBase,
+  apiBase2: apiBase2,
+  locationText: locationText,
+  regions: regions
 } = {}) {
-  const _0x54bdbc = getLocalDevelopmentApiBase();
-  if (_0x54bdbc) {
+  const result = getLocalDevelopmentApiBase();
+  if (result) {
     return {
-      apiBase: _0x54bdbc,
+      apiBase: result,
       used: "localDevelopment",
       matched: true,
       reason: "local_development",
       regions: []
     };
   }
-  const _0x966e92 = stripTrailingSlash(_0x3e98ec);
-  const _0x211830 = stripTrailingSlash(_0x41a18e);
-  const _0x1e3a94 = parseRegionList(_0x33914f);
-  if (!_0x966e92 && _0x211830) {
+  const result2 = stripTrailingSlash(apiBase);
+  const result3 = stripTrailingSlash(apiBase2);
+  const result4 = parseRegionList(regions);
+  if (!result2 && result3) {
     return {
-      apiBase: _0x211830,
+      apiBase: result3,
       used: "apiBase2",
       matched: false,
       reason: "fallback_only_base2",
-      regions: _0x1e3a94
+      regions: result4
     };
   }
-  if (!_0x211830 || _0x211830 === _0x966e92) {
+  if (!result3 || result3 === result2) {
     return {
-      apiBase: _0x966e92,
+      apiBase: result2,
       used: "apiBase",
       matched: false,
       reason: "no_apiBase2",
-      regions: _0x1e3a94
+      regions: result4
     };
   }
-  if (regionMatchesBase2(_0x2665b4, _0x1e3a94)) {
+  if (regionMatchesBase2(locationText, result4)) {
     return {
-      apiBase: _0x211830,
+      apiBase: result3,
       used: "apiBase2",
       matched: true,
       reason: "region_match",
-      regions: _0x1e3a94
+      regions: result4
     };
   }
   return {
-    apiBase: _0x966e92,
+    apiBase: result2,
     used: "apiBase",
     matched: false,
     reason: "region_miss",
-    regions: _0x1e3a94
+    regions: result4
   };
 }
-async function tryIpApiCom(_0x55ebca, _0x13cd61) {
-  const _0xc89d30 = await _0x55ebca.get("http://ip-api.com/json/", {
+async function tryIpApiCom(arg1, arg2) {
+  const result = await arg1.get("http://ip-api.com/json/", {
     params: {
       lang: "zh-CN",
       fields: "status,message,country,regionName,city,query"
     },
-    timeout: _0x13cd61,
-    validateStatus: _0x30e315 => _0x30e315 === 200
+    timeout: arg2,
+    validateStatus: arg1 => arg1 === 200
   });
-  const _0x26451f = _0xc89d30.data || {};
-  if (_0x26451f.status !== "success") {
-    throw new Error(_0x26451f.message || "ip-api failed");
+  const local = result.data || {};
+  if (local.status !== "success") {
+    throw new Error(local.message || "ip-api failed");
   }
   return {
-    ip: _0x26451f.query || "",
-    city: _0x26451f.city || "",
-    region: _0x26451f.regionName || "",
-    country: _0x26451f.country || "",
-    locationText: buildLocationLabel([_0x26451f.country, _0x26451f.regionName, _0x26451f.city]),
+    ip: local.query || "",
+    city: local.city || "",
+    region: local.regionName || "",
+    country: local.country || "",
+    locationText: buildLocationLabel([local.country, local.regionName, local.city]),
     provider: "ip-api.com"
   };
 }
-async function tryIpApiCo(_0x4973a1, _0x2287e4) {
-  const _0xe1e3af = await _0x4973a1.get("https://ipapi.co/json/", {
-    timeout: _0x2287e4,
-    validateStatus: _0xe5a776 => _0xe5a776 === 200
+async function tryIpApiCo(arg1, arg2) {
+  const result = await arg1.get("https://ipapi.co/json/", {
+    timeout: arg2,
+    validateStatus: arg1 => arg1 === 200
   });
-  const _0x3c7fcb = _0xe1e3af.data || {};
-  if (_0x3c7fcb.error) {
-    throw new Error(_0x3c7fcb.reason || "ipapi.co failed");
+  const local = result.data || {};
+  if (local.error) {
+    throw new Error(local.reason || "ipapi.co failed");
   }
   return {
-    ip: _0x3c7fcb.ip || "",
-    city: _0x3c7fcb.city || "",
-    region: _0x3c7fcb.region || _0x3c7fcb.region_code || "",
-    country: _0x3c7fcb.country_name || _0x3c7fcb.country || "",
-    locationText: buildLocationLabel([_0x3c7fcb.country_name || _0x3c7fcb.country, _0x3c7fcb.region, _0x3c7fcb.city]),
+    ip: local.ip || "",
+    city: local.city || "",
+    region: local.region || local.region_code || "",
+    country: local.country_name || local.country || "",
+    locationText: buildLocationLabel([local.country_name || local.country, local.region, local.city]),
     provider: "ipapi.co"
   };
 }
-async function fetchIpLocation(_0x1e9677, {
+async function fetchIpLocation(arg1, {
   timeout = 3500
 } = {}) {
-  if (!_0x1e9677 || typeof _0x1e9677.get !== "function") {
+  if (!arg1 || typeof arg1.get !== "function") {
     throw new Error("axios required");
   }
-  const _0x1984af = [];
-  for (const _0xd31866 of [tryIpApiCom, tryIpApiCo]) {
+  const list = [];
+  for (const item of [tryIpApiCom, tryIpApiCo]) {
     try {
-      return await _0xd31866(_0x1e9677, timeout);
-    } catch (_0x22b4a1) {
-      _0x1984af.push(_0x22b4a1?.message || String(_0x22b4a1));
+      return await item(arg1, timeout);
+    } catch (error) {
+      list.push(error?.message || String(error));
     }
   }
-  const _0x3e6ca1 = new Error("ip location failed: " + _0x1984af.join(" | "));
-  _0x3e6ca1.details = _0x1984af;
-  throw _0x3e6ca1;
+  const error = new Error("ip location failed: " + list.join(" | "));
+  error.details = list;
+  throw error;
 }
-async function resolveApiBaseByIp(_0x5c2cfa, {
-  apiBase: _0x3a7ec5,
-  apiBase2: _0x519163,
-  regions: _0x1ec070,
+async function resolveApiBaseByIp(arg1, {
+  apiBase: apiBase,
+  apiBase2: apiBase2,
+  regions: regions,
   timeout = 3500
 } = {}) {
-  const _0x17f99b = getLocalDevelopmentApiBase();
-  if (_0x17f99b) {
+  const result = getLocalDevelopmentApiBase();
+  if (result) {
     return {
-      apiBase: _0x17f99b,
+      apiBase: result,
       used: "localDevelopment",
       matched: true,
       reason: "local_development",
@@ -168,55 +168,55 @@ async function resolveApiBaseByIp(_0x5c2cfa, {
       location: null
     };
   }
-  const _0x467e86 = stripTrailingSlash(_0x3a7ec5);
-  const _0x1ebecf = stripTrailingSlash(_0x519163);
-  const _0x363b60 = parseRegionList(_0x1ec070);
-  if (!_0x1ebecf || _0x1ebecf === _0x467e86) {
+  const result2 = stripTrailingSlash(apiBase);
+  const result3 = stripTrailingSlash(apiBase2);
+  const result4 = parseRegionList(regions);
+  if (!result3 || result3 === result2) {
     return {
-      apiBase: _0x467e86,
+      apiBase: result2,
       used: "apiBase",
       matched: false,
       reason: "no_apiBase2",
-      regions: _0x363b60,
+      regions: result4,
       location: null
     };
   }
   try {
-    const _0x420998 = await fetchIpLocation(_0x5c2cfa, {
+    const result = await fetchIpLocation(arg1, {
       timeout: timeout
     });
-    const _0x274c5b = pickApiBaseByRegion({
-      apiBase: _0x467e86,
-      apiBase2: _0x1ebecf,
-      locationText: _0x420998.locationText,
-      regions: _0x363b60
+    const result5 = pickApiBaseByRegion({
+      apiBase: result2,
+      apiBase2: result3,
+      locationText: result.locationText,
+      regions: result4
     });
     return {
-      ..._0x274c5b,
-      location: _0x420998
+      ...result5,
+      location: result
     };
-  } catch (_0x36fea4) {
+  } catch (error) {
     return {
-      apiBase: _0x467e86,
+      apiBase: result2,
       used: "apiBase",
       matched: false,
       reason: "locate_failed",
-      regions: _0x363b60,
+      regions: result4,
       location: null,
-      error: _0x36fea4?.message || String(_0x36fea4)
+      error: error?.message || String(error)
     };
   }
 }
-function isApiBaseConnResetError(_0x50301a) {
-  if (!_0x50301a) {
+function isApiBaseConnResetError(arg1) {
+  if (!arg1) {
     return false;
   }
-  const _0x2068c3 = String(_0x50301a.code || "");
-  if (_0x2068c3 === "ECONNRESET") {
+  const result = String(arg1.code || "");
+  if (result === "ECONNRESET") {
     return true;
   }
-  const _0x240740 = String(_0x50301a.message || _0x50301a.msg || "");
-  return /ECONNRESET/i.test(_0x240740);
+  const result2 = String(arg1.message || arg1.msg || "");
+  return /ECONNRESET/i.test(result2);
 }
 module.exports = {
   DEFAULT_REGIONS_FOR_BASE2: DEFAULT_REGIONS_FOR_BASE2,
