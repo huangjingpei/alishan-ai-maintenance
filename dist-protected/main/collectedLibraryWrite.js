@@ -6,39 +6,39 @@ const {
   splitVideoCardIntoCollectedRecords,
   isEntityRelationAuthorSource
 } = require("../shared/collectedLeadKeys");
-function isCollectedRouteLead(_0x88748b) {
-  if (!_0x88748b || typeof _0x88748b !== "object") {
+function isCollectedRouteLead(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return false;
   }
-  if (_0x88748b.leadKind === "collected_video" || _0x88748b.leadKind === "collected_author") {
+  if (arg1.leadKind === "collected_video" || arg1.leadKind === "collected_author") {
     return true;
   }
-  if (_0x88748b.identityType === "author") {
+  if (arg1.identityType === "author") {
     return true;
   }
-  if (isEntityRelationAuthorSource(_0x88748b.sourceType, _0x88748b.entrySource)) {
+  if (isEntityRelationAuthorSource(arg1.sourceType, arg1.entrySource)) {
     return true;
   }
-  const _0x31d5f9 = String(_0x88748b.leadId || _0x88748b.userKey || _0x88748b.key || _0x88748b.id || "").trim();
-  if (/^author:/.test(_0x31d5f9)) {
+  const result = String(arg1.leadId || arg1.userKey || arg1.key || arg1.id || "").trim();
+  if (/^author:/.test(result)) {
     return true;
   }
-  const _0x41fe87 = Array.isArray(_0x88748b.collectedFields) ? _0x88748b.collectedFields.map(String) : [];
-  if (_0x41fe87.includes("author") && !_0x41fe87.includes("video")) {
+  const value = Array.isArray(arg1.collectedFields) ? arg1.collectedFields.map(String) : [];
+  if (value.includes("author") && !value.includes("video")) {
     return true;
   }
   try {
-    const _0x4a6349 = require("../shared/leadUserKey");
-    return !!_0x4a6349.isVideoLeadRecord(_0x88748b);
-  } catch (_0x58889f) {
-    if (_0x88748b.leadKind === "video_card" || _0x88748b.sourceType === "video" || _0x88748b.identityType === "video") {
+    const leadUserKey = require("../shared/leadUserKey");
+    return !!leadUserKey.isVideoLeadRecord(arg1);
+  } catch (error) {
+    if (arg1.leadKind === "video_card" || arg1.sourceType === "video" || arg1.identityType === "video") {
       return true;
     }
-    return /^video:\d{10,}$/.test(_0x31d5f9);
+    return /^video:\d{10,}$/.test(result);
   }
 }
-function upsertCollectedFromLead(_0x5cdc33, _0xdae524) {
-  if (!_0x5cdc33 || !_0xdae524) {
+function upsertCollectedFromLead(arg1, arg2) {
+  if (!arg1 || !arg2) {
     return {
       written: false,
       video: false,
@@ -46,100 +46,100 @@ function upsertCollectedFromLead(_0x5cdc33, _0xdae524) {
     };
   }
   const {
-    video: _0x376563,
-    author: _0x2916f9
-  } = splitVideoCardIntoCollectedRecords(_0xdae524);
-  let _0x167c72 = false;
-  let _0x448085 = false;
-  if (_0x376563) {
-    _0x167c72 = collectedVideosStore.upsertOne(_0x5cdc33, _0x376563);
+    video: video,
+    author: author
+  } = splitVideoCardIntoCollectedRecords(arg2);
+  let flag = false;
+  let flag2 = false;
+  if (video) {
+    flag = collectedVideosStore.upsertOne(arg1, video);
   }
-  if (_0x2916f9) {
-    _0x448085 = collectedAuthorsStore.upsertOne(_0x5cdc33, _0x2916f9);
+  if (author) {
+    flag2 = collectedAuthorsStore.upsertOne(arg1, author);
   }
-  if (!_0x2916f9 && (isEntityRelationAuthorSource(_0xdae524.sourceType, _0xdae524.entrySource) || _0xdae524.leadKind === "collected_author" || _0xdae524.identityType === "author" || /^author:/.test(String(_0xdae524.leadId || _0xdae524.key || "")))) {
-    _0x448085 = collectedAuthorsStore.upsertFromLead(_0x5cdc33, {
-      ..._0xdae524,
+  if (!author && (isEntityRelationAuthorSource(arg2.sourceType, arg2.entrySource) || arg2.leadKind === "collected_author" || arg2.identityType === "author" || /^author:/.test(String(arg2.leadId || arg2.key || "")))) {
+    flag2 = collectedAuthorsStore.upsertFromLead(arg1, {
+      ...arg2,
       collectedFields: ["author"],
-      authorProfileUrl: _0xdae524.authorProfileUrl || _0xdae524.userUrl || _0xdae524.leadId
+      authorProfileUrl: arg2.authorProfileUrl || arg2.userUrl || arg2.leadId
     });
   }
   return {
-    written: _0x167c72 || _0x448085,
-    video: _0x167c72,
-    author: _0x448085
+    written: flag || flag2,
+    video: flag,
+    author: flag2
   };
 }
-function upsertCollectedBatch(_0x5ac50e, _0x42cf49 = []) {
-  if (!_0x5ac50e || !Array.isArray(_0x42cf49)) {
+function upsertCollectedBatch(arg1, list = []) {
+  if (!arg1 || !Array.isArray(list)) {
     return 0;
   }
-  let _0x131e32 = 0;
-  const _0x598ef7 = _0x5ac50e.transaction(_0x59a8cf => {
-    for (const _0x574153 of _0x59a8cf) {
-      if (!isCollectedRouteLead(_0x574153)) {
+  let num = 0;
+  const result = arg1.transaction(arg12 => {
+    for (const item of arg12) {
+      if (!isCollectedRouteLead(item)) {
         continue;
       }
-      const _0x22c7fc = upsertCollectedFromLead(_0x5ac50e, _0x574153);
-      if (_0x22c7fc.written) {
-        _0x131e32 += 1;
+      const result = upsertCollectedFromLead(arg1, item);
+      if (result.written) {
+        num += 1;
       }
     }
   });
   try {
-    _0x598ef7(_0x42cf49);
-    return _0x131e32;
-  } catch (_0x45d949) {
-    console.error("[DB] upsertCollectedBatch 失败:", _0x45d949);
-    return _0x131e32;
+    result(list);
+    return num;
+  } catch (error) {
+    console.error("[DB] upsertCollectedBatch 失败:", error);
+    return num;
   }
 }
-function syncEntityCollectedIntoLibraries(_0x2142a7, _0x4e6204) {
-  if (!_0x2142a7 || typeof _0x4e6204 !== "function") {
+function syncEntityCollectedIntoLibraries(arg1, arg2) {
+  if (!arg1 || typeof arg2 !== "function") {
     return {
       synced: 0
     };
   }
   try {
-    const _0x15a5f5 = _0x4e6204();
-    if (!_0x15a5f5.length) {
+    const result = arg2();
+    if (!result.length) {
       return {
         synced: 0
       };
     }
-    const _0x54bd0a = collectedVideosStore.listIds(_0x2142a7);
-    const _0x36eead = collectedAuthorsStore.listIds(_0x2142a7);
-    let _0x906f46 = 0;
-    const _0x2de2bc = _0x2142a7.transaction(_0x4a1893 => {
-      for (const _0x42d1b7 of _0x4a1893) {
+    const result2 = collectedVideosStore.listIds(arg1);
+    const result3 = collectedAuthorsStore.listIds(arg1);
+    let num = 0;
+    const result4 = arg1.transaction(arg12 => {
+      for (const item of arg12) {
         const {
-          video: _0x4fea39,
-          author: _0x684dcd
-        } = splitVideoCardIntoCollectedRecords(_0x42d1b7);
-        if (_0x4fea39 && !_0x54bd0a.has(_0x4fea39.id)) {
-          if (collectedVideosStore.upsertOne(_0x2142a7, _0x4fea39)) {
-            _0x54bd0a.add(_0x4fea39.id);
-            _0x906f46 += 1;
+          video: video,
+          author: author
+        } = splitVideoCardIntoCollectedRecords(item);
+        if (video && !result2.has(video.id)) {
+          if (collectedVideosStore.upsertOne(arg1, video)) {
+            result2.add(video.id);
+            num += 1;
           }
         }
-        if (_0x684dcd && !_0x36eead.has(_0x684dcd.id)) {
-          if (collectedAuthorsStore.upsertOne(_0x2142a7, _0x684dcd)) {
-            _0x36eead.add(_0x684dcd.id);
-            _0x906f46 += 1;
+        if (author && !result3.has(author.id)) {
+          if (collectedAuthorsStore.upsertOne(arg1, author)) {
+            result3.add(author.id);
+            num += 1;
           }
         }
       }
     });
-    _0x2de2bc(_0x15a5f5);
+    result4(result);
     return {
-      synced: _0x906f46,
-      scanned: _0x15a5f5.length
+      synced: num,
+      scanned: result.length
     };
-  } catch (_0x41ad5a) {
-    console.error("[DB] syncEntityCollectedIntoLibraries 失败:", _0x41ad5a);
+  } catch (error) {
+    console.error("[DB] syncEntityCollectedIntoLibraries 失败:", error);
     return {
       synced: 0,
-      error: _0x41ad5a.message || String(_0x41ad5a)
+      error: error.message || String(error)
     };
   }
 }
