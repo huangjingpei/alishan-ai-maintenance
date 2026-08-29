@@ -8,94 +8,94 @@ function createEmptyProxyConfig() {
     password: ""
   };
 }
-function parseProxyString(_0x48230b) {
-  const _0x151558 = String(_0x48230b || "").trim();
-  if (!_0x151558) {
+function parseProxyString(arg1) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return createEmptyProxyConfig();
   }
   try {
-    const _0x4dd38f = /^[a-z][a-z0-9+.-]*:\/\//i.test(_0x151558) ? _0x151558 : "http://" + _0x151558;
-    const _0x396d16 = new URL(_0x4dd38f);
-    const _0x77fa63 = /^socks/i.test(_0x396d16.protocol) ? "socks5" : "http";
+    const value = /^[a-z][a-z0-9+.-]*:\/\//i.test(result) ? result : "http://" + result;
+    const url = new URL(value);
+    const value2 = /^socks/i.test(url.protocol) ? "socks5" : "http";
     return {
       enabled: true,
-      type: _0x77fa63,
-      host: _0x396d16.hostname || "",
-      port: _0x396d16.port ? Number(_0x396d16.port) : "",
-      username: decodeURIComponent(_0x396d16.username || ""),
-      password: decodeURIComponent(_0x396d16.password || "")
+      type: value2,
+      host: url.hostname || "",
+      port: url.port ? Number(url.port) : "",
+      username: decodeURIComponent(url.username || ""),
+      password: decodeURIComponent(url.password || "")
     };
-  } catch (_0x32aa68) {
+  } catch (error) {
     return createEmptyProxyConfig();
   }
 }
-function normalizeProxyConfig(_0xfb2ae5) {
-  if (!_0xfb2ae5) {
+function normalizeProxyConfig(arg1) {
+  if (!arg1) {
     return createEmptyProxyConfig();
   }
-  if (typeof _0xfb2ae5 === "string") {
-    return parseProxyString(_0xfb2ae5);
+  if (typeof arg1 === "string") {
+    return parseProxyString(arg1);
   }
-  if (typeof _0xfb2ae5 !== "object") {
+  if (typeof arg1 !== "object") {
     return createEmptyProxyConfig();
   }
-  const _0x15dcc6 = _0xfb2ae5.port;
-  const _0x4e3f4b = _0x15dcc6 === "" || _0x15dcc6 == null ? "" : Number(_0x15dcc6);
+  const value = arg1.port;
+  const value2 = value === "" || value == null ? "" : Number(value);
   return {
-    enabled: !!_0xfb2ae5.enabled,
-    type: _0xfb2ae5.type === "socks5" ? "socks5" : "http",
-    host: String(_0xfb2ae5.host || "").trim(),
-    port: Number.isFinite(_0x4e3f4b) && _0x4e3f4b > 0 ? Math.floor(_0x4e3f4b) : "",
-    username: String(_0xfb2ae5.username || "").trim(),
-    password: String(_0xfb2ae5.password || "")
+    enabled: !!arg1.enabled,
+    type: arg1.type === "socks5" ? "socks5" : "http",
+    host: String(arg1.host || "").trim(),
+    port: Number.isFinite(value2) && value2 > 0 ? Math.floor(value2) : "",
+    username: String(arg1.username || "").trim(),
+    password: String(arg1.password || "")
   };
 }
-function cloneProxyConfig(_0x2627e7) {
-  const _0x2583e2 = normalizeProxyConfig(_0x2627e7);
+function cloneProxyConfig(arg1) {
+  const result = normalizeProxyConfig(arg1);
   return {
-    ..._0x2583e2
+    ...result
   };
 }
-function isProxyActive(_0x432f96) {
-  const _0x405838 = normalizeProxyConfig(_0x432f96);
-  return _0x405838.enabled && !!_0x405838.host && !!_0x405838.port;
+function isProxyActive(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  return result.enabled && !!result.host && !!result.port;
 }
-function buildProxyRules(_0x31b287) {
-  const _0x4ebe60 = normalizeProxyConfig(_0x31b287);
-  if (!isProxyActive(_0x4ebe60)) {
+function buildProxyRules(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  if (!isProxyActive(result)) {
     return "";
   }
-  const _0x1462ac = _0x4ebe60.host + ":" + _0x4ebe60.port;
-  if (_0x4ebe60.type === "socks5") {
-    return "socks5://" + _0x1462ac;
+  const value = result.host + ":" + result.port;
+  if (result.type === "socks5") {
+    return "socks5://" + value;
   }
-  return "http=" + _0x1462ac + ";https=" + _0x1462ac;
+  return "http=" + value + ";https=" + value;
 }
-function formatProxyLabel(_0xd1a476) {
-  const _0x50bbe9 = normalizeProxyConfig(_0xd1a476);
-  if (!isProxyActive(_0x50bbe9)) {
+function formatProxyLabel(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  if (!isProxyActive(result)) {
     return "";
   }
-  const _0x28e37d = _0x50bbe9.username ? _0x50bbe9.username + "@" : "";
-  const _0x298a5e = _0x50bbe9.type === "socks5" ? "SOCKS5" : "HTTP";
-  return _0x298a5e + " " + _0x28e37d + _0x50bbe9.host + ":" + _0x50bbe9.port;
+  const value = result.username ? result.username + "@" : "";
+  const value2 = result.type === "socks5" ? "SOCKS5" : "HTTP";
+  return value2 + " " + value + result.host + ":" + result.port;
 }
-function formatProxyLegacyString(_0x4ef7c3) {
-  const _0xcbfaf8 = normalizeProxyConfig(_0x4ef7c3);
-  if (!isProxyActive(_0xcbfaf8)) {
+function formatProxyLegacyString(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  if (!isProxyActive(result)) {
     return "";
   }
-  const _0x1404af = _0xcbfaf8.username ? encodeURIComponent(_0xcbfaf8.username) + ":" + encodeURIComponent(_0xcbfaf8.password || "") + "@" : "";
-  const _0x5667c6 = _0xcbfaf8.type === "socks5" ? "socks5" : "http";
-  return _0x5667c6 + "://" + _0x1404af + _0xcbfaf8.host + ":" + _0xcbfaf8.port;
+  const value = result.username ? encodeURIComponent(result.username) + ":" + encodeURIComponent(result.password || "") + "@" : "";
+  const value2 = result.type === "socks5" ? "socks5" : "http";
+  return value2 + "://" + value + result.host + ":" + result.port;
 }
-function migrateAccountProxy(_0x428620 = {}) {
-  if (!_0x428620 || typeof _0x428620 !== "object") {
-    return _0x428620;
+function migrateAccountProxy(options = {}) {
+  if (!options || typeof options !== "object") {
+    return options;
   }
   return {
-    ..._0x428620,
-    proxy: normalizeProxyConfig(_0x428620.proxy)
+    ...options,
+    proxy: normalizeProxyConfig(options.proxy)
   };
 }
 module.exports = {
