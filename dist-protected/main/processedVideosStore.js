@@ -7,293 +7,293 @@ const {
 } = require("../shared/processedVideoKey");
 const MAX_PROCESSED_VIDEOS_STORE_FALLBACK = 3000;
 const MAX_PROCESSED_VIDEOS = 0;
-function ensureTables(_0x579384) {
-  if (!_0x579384) {
+function ensureTables(arg1) {
+  if (!arg1) {
     return;
   }
-  _0x579384.exec("\n    CREATE TABLE IF NOT EXISTS processed_videos (\n      video_id TEXT PRIMARY KEY,\n      title TEXT,\n      author TEXT,\n      lead_count INTEGER DEFAULT 0,\n      updated_at INTEGER NOT NULL,\n      raw_data TEXT NOT NULL\n    );\n    CREATE INDEX IF NOT EXISTS idx_processed_videos_updated ON processed_videos(updated_at DESC);\n  ");
+  arg1.exec("\n    CREATE TABLE IF NOT EXISTS processed_videos (\n      video_id TEXT PRIMARY KEY,\n      title TEXT,\n      author TEXT,\n      lead_count INTEGER DEFAULT 0,\n      updated_at INTEGER NOT NULL,\n      raw_data TEXT NOT NULL\n    );\n    CREATE INDEX IF NOT EXISTS idx_processed_videos_updated ON processed_videos(updated_at DESC);\n  ");
 }
-function resolveVideoId(_0x5a6378 = {}) {
-  const _0x2c2821 = String(_0x5a6378.video_id || _0x5a6378.videoId || "").trim();
-  if (/^\d{10,}$/.test(_0x2c2821)) {
-    return _0x2c2821;
+function resolveVideoId(options = {}) {
+  const result = String(options.video_id || options.videoId || "").trim();
+  if (/^\d{10,}$/.test(result)) {
+    return result;
   }
-  const _0x200172 = extractDouyinVideoId(_0x5a6378.url || _0x5a6378.videoUrl || _0x5a6378.id || "");
-  if (_0x200172) {
-    return _0x200172;
+  const result2 = extractDouyinVideoId(options.url || options.videoUrl || options.id || "");
+  if (result2) {
+    return result2;
   }
-  const _0x40eb45 = normalizeProcessedVideoKey(_0x5a6378.url || _0x5a6378.videoUrl || "");
-  if (_0x40eb45) {
-    const _0x2fbe0a = extractDouyinVideoId(_0x40eb45);
-    if (_0x2fbe0a) {
-      return _0x2fbe0a;
+  const result3 = normalizeProcessedVideoKey(options.url || options.videoUrl || "");
+  if (result3) {
+    const result = extractDouyinVideoId(result3);
+    if (result) {
+      return result;
     }
-    return "url:" + _0x40eb45.slice(0, 180);
+    return "url:" + result3.slice(0, 180);
   }
   return "";
 }
-function toRowPayload(_0x4a25c7 = {}) {
-  const _0x3db59e = resolveVideoId(_0x4a25c7);
-  if (!_0x3db59e) {
+function toRowPayload(options = {}) {
+  const result = resolveVideoId(options);
+  if (!result) {
     return null;
   }
-  const _0x4433e1 = normalizeProcessedVideoKey(_0x4a25c7.url || _0x4a25c7.videoUrl || "") || (_0x3db59e.startsWith("url:") ? _0x3db59e.slice(4) : "https://www.douyin.com/video/" + _0x3db59e);
-  const _0x5e1a94 = Number(_0x4a25c7.timestamp || _0x4a25c7.updated_at || _0x4a25c7.updatedAt || Date.now()) || Date.now();
-  const _0x4c902e = {
-    ..._0x4a25c7,
-    url: _0x4433e1,
-    video_id: _0x3db59e.startsWith("url:") ? "" : _0x3db59e,
-    timestamp: _0x5e1a94
+  const local = normalizeProcessedVideoKey(options.url || options.videoUrl || "") || (result.startsWith("url:") ? result.slice(4) : "https://www.douyin.com/video/" + result);
+  const local2 = Number(options.timestamp || options.updated_at || options.updatedAt || Date.now()) || Date.now();
+  const obj = {
+    ...options,
+    url: local,
+    video_id: result.startsWith("url:") ? "" : result,
+    timestamp: local2
   };
   return {
-    videoId: _0x3db59e,
-    title: String(_0x4a25c7.title || _0x4a25c7.videoTitle || "").slice(0, 300),
-    author: String(_0x4a25c7.authorNickname || _0x4a25c7.author || _0x4a25c7.nickname || "").slice(0, 200),
-    leadCount: Number(_0x4a25c7.lead_count || _0x4a25c7.leadCount || 0) || 0,
-    updatedAt: _0x5e1a94,
-    raw: _0x4c902e
+    videoId: result,
+    title: String(options.title || options.videoTitle || "").slice(0, 300),
+    author: String(options.authorNickname || options.author || options.nickname || "").slice(0, 200),
+    leadCount: Number(options.lead_count || options.leadCount || 0) || 0,
+    updatedAt: local2,
+    raw: obj
   };
 }
-function parseRow(_0x1ebce6) {
-  if (!_0x1ebce6) {
+function parseRow(arg1) {
+  if (!arg1) {
     return null;
   }
   try {
-    const _0x4d641c = JSON.parse(_0x1ebce6.raw_data || "{}");
-    if (!_0x4d641c.url && _0x1ebce6.video_id && !String(_0x1ebce6.video_id).startsWith("url:")) {
-      _0x4d641c.url = "https://www.douyin.com/video/" + _0x1ebce6.video_id;
+    const result = JSON.parse(arg1.raw_data || "{}");
+    if (!result.url && arg1.video_id && !String(arg1.video_id).startsWith("url:")) {
+      result.url = "https://www.douyin.com/video/" + arg1.video_id;
     }
-    if (!_0x4d641c.timestamp && _0x1ebce6.updated_at) {
-      _0x4d641c.timestamp = _0x1ebce6.updated_at;
+    if (!result.timestamp && arg1.updated_at) {
+      result.timestamp = arg1.updated_at;
     }
-    return _0x4d641c;
-  } catch (_0x22e468) {
+    return result;
+  } catch (error) {
     return null;
   }
 }
-function listAll(_0x4b2564) {
-  if (!_0x4b2564) {
+function listAll(arg1) {
+  if (!arg1) {
     return [];
   }
   try {
-    const _0x38ab2d = _0x4b2564.prepare("\n      SELECT video_id, updated_at, raw_data FROM processed_videos\n      ORDER BY updated_at DESC\n    ").all();
-    return _0x38ab2d.map(parseRow).filter(Boolean);
-  } catch (_0x472966) {
-    console.error("[DB] processedVideosStore.listAll 失败:", _0x472966);
+    const result = arg1.prepare("\n      SELECT video_id, updated_at, raw_data FROM processed_videos\n      ORDER BY updated_at DESC\n    ").all();
+    return result.map(parseRow).filter(Boolean);
+  } catch (error) {
+    console.error("[DB] processedVideosStore.listAll 失败:", error);
     return [];
   }
 }
 const HISTORY_VIDEO_WHERE = "COALESCE(json_extract(raw_data, '$.recordType'), '') != 'collected_link'";
-function listHistoryVideos(_0x4c67a6) {
-  if (!_0x4c67a6) {
+function listHistoryVideos(arg1) {
+  if (!arg1) {
     return [];
   }
   try {
-    const _0x4a1c39 = _0x4c67a6.prepare("\n      SELECT video_id, updated_at, raw_data FROM processed_videos\n      WHERE " + HISTORY_VIDEO_WHERE + "\n      ORDER BY updated_at DESC\n    ").all();
-    return _0x4a1c39.map(parseRow).filter(Boolean);
-  } catch (_0x381538) {
-    console.error("[DB] processedVideosStore.listHistoryVideos 失败:", _0x381538);
-    return listAll(_0x4c67a6).filter(_0x3d7729 => _0x3d7729?.recordType !== "collected_link");
+    const result = arg1.prepare("\n      SELECT video_id, updated_at, raw_data FROM processed_videos\n      WHERE " + HISTORY_VIDEO_WHERE + "\n      ORDER BY updated_at DESC\n    ").all();
+    return result.map(parseRow).filter(Boolean);
+  } catch (error) {
+    console.error("[DB] processedVideosStore.listHistoryVideos 失败:", error);
+    return listAll(arg1).filter(arg1 => arg1?.recordType !== "collected_link");
   }
 }
-function queryHistoryPage(_0x5f354c, _0x5e84c8 = {}) {
-  if (!_0x5f354c) {
+function queryHistoryPage(arg1, options = {}) {
+  if (!arg1) {
     return {
       items: [],
       total: 0
     };
   }
   try {
-    const _0x4136fe = Math.max(0, Number(_0x5e84c8.offset) || 0);
-    const _0x1849a6 = Math.max(1, Math.min(500, Number(_0x5e84c8.limit) || 20));
-    const _0x589b63 = String(_0x5e84c8.keyword || "").trim();
-    let _0x1060c8 = "WHERE " + HISTORY_VIDEO_WHERE;
-    const _0x268ac7 = [];
-    if (_0x589b63) {
-      const _0x69394f = "%" + _0x589b63 + "%";
-      _0x1060c8 += " AND (title LIKE ? OR author LIKE ? OR video_id LIKE ? OR IFNULL(json_extract(raw_data, '$.url'), '') LIKE ?)";
-      _0x268ac7.push(_0x69394f, _0x69394f, _0x69394f, _0x69394f);
+    const result = Math.max(0, Number(options.offset) || 0);
+    const result2 = Math.max(1, Math.min(500, Number(options.limit) || 20));
+    const result3 = String(options.keyword || "").trim();
+    let value = "WHERE " + HISTORY_VIDEO_WHERE;
+    const list = [];
+    if (result3) {
+      const value2 = "%" + result3 + "%";
+      value += " AND (title LIKE ? OR author LIKE ? OR video_id LIKE ? OR IFNULL(json_extract(raw_data, '$.url'), '') LIKE ?)";
+      list.push(value2, value2, value2, value2);
     }
-    const _0x4050ed = Number(_0x5f354c.prepare("SELECT COUNT(*) AS c FROM processed_videos " + _0x1060c8).get(..._0x268ac7)?.c) || 0;
-    const _0x39471c = _0x5f354c.prepare("\n      SELECT video_id, updated_at, raw_data FROM processed_videos\n      " + _0x1060c8 + "\n      ORDER BY updated_at DESC\n      LIMIT ? OFFSET ?\n    ").all(..._0x268ac7, _0x1849a6, _0x4136fe);
+    const local = Number(arg1.prepare("SELECT COUNT(*) AS c FROM processed_videos " + value).get(...list)?.c) || 0;
+    const result4 = arg1.prepare("\n      SELECT video_id, updated_at, raw_data FROM processed_videos\n      " + value + "\n      ORDER BY updated_at DESC\n      LIMIT ? OFFSET ?\n    ").all(...list, result2, result);
     return {
-      items: _0x39471c.map(parseRow).filter(Boolean),
-      total: _0x4050ed
+      items: result4.map(parseRow).filter(Boolean),
+      total: local
     };
-  } catch (_0x5db15f) {
-    console.error("[DB] processedVideosStore.queryHistoryPage 失败:", _0x5db15f);
+  } catch (error) {
+    console.error("[DB] processedVideosStore.queryHistoryPage 失败:", error);
     return {
       items: [],
       total: 0
     };
   }
 }
-function count(_0x53f89e) {
-  if (!_0x53f89e) {
+function count(arg1) {
+  if (!arg1) {
     return 0;
   }
   try {
-    return Number(_0x53f89e.prepare("SELECT COUNT(*) AS c FROM processed_videos").get()?.c) || 0;
-  } catch (_0x147ef4) {
+    return Number(arg1.prepare("SELECT COUNT(*) AS c FROM processed_videos").get()?.c) || 0;
+  } catch (error) {
     return 0;
   }
 }
-function upsertOne(_0x42170e, _0x235b40) {
-  if (!_0x42170e || !_0x235b40) {
+function upsertOne(arg1, arg2) {
+  if (!arg1 || !arg2) {
     return false;
   }
-  const _0x2fc27d = toRowPayload(_0x235b40);
-  if (!_0x2fc27d) {
+  const result = toRowPayload(arg2);
+  if (!result) {
     return false;
   }
-  _0x42170e.prepare("\n    INSERT INTO processed_videos (video_id, title, author, lead_count, updated_at, raw_data)\n    VALUES (?, ?, ?, ?, ?, ?)\n    ON CONFLICT(video_id) DO UPDATE SET\n      title = CASE WHEN excluded.title != '' AND excluded.title != '处理中' THEN excluded.title ELSE processed_videos.title END,\n      author = CASE WHEN excluded.author != '' THEN excluded.author ELSE processed_videos.author END,\n      lead_count = excluded.lead_count,\n      updated_at = CASE WHEN excluded.updated_at >= processed_videos.updated_at THEN excluded.updated_at ELSE processed_videos.updated_at END,\n      raw_data = excluded.raw_data\n  ").run(_0x2fc27d.videoId, _0x2fc27d.title, _0x2fc27d.author, _0x2fc27d.leadCount, _0x2fc27d.updatedAt, JSON.stringify(_0x2fc27d.raw));
+  arg1.prepare("\n    INSERT INTO processed_videos (video_id, title, author, lead_count, updated_at, raw_data)\n    VALUES (?, ?, ?, ?, ?, ?)\n    ON CONFLICT(video_id) DO UPDATE SET\n      title = CASE WHEN excluded.title != '' AND excluded.title != '处理中' THEN excluded.title ELSE processed_videos.title END,\n      author = CASE WHEN excluded.author != '' THEN excluded.author ELSE processed_videos.author END,\n      lead_count = excluded.lead_count,\n      updated_at = CASE WHEN excluded.updated_at >= processed_videos.updated_at THEN excluded.updated_at ELSE processed_videos.updated_at END,\n      raw_data = excluded.raw_data\n  ").run(result.videoId, result.title, result.author, result.leadCount, result.updatedAt, JSON.stringify(result.raw));
   return true;
 }
-function upsertMany(_0x48de25, _0x2483bd = [], {
+function upsertMany(arg1, list = [], {
   cap = 0
 } = {}) {
-  if (!_0x48de25 || !Array.isArray(_0x2483bd)) {
+  if (!arg1 || !Array.isArray(list)) {
     return 0;
   }
-  let _0x11a577 = 0;
-  const _0x2435ea = _0x48de25.transaction(_0x5806c1 => {
-    for (const _0x373dd1 of _0x5806c1) {
-      if (upsertOne(_0x48de25, _0x373dd1)) {
-        _0x11a577 += 1;
+  let num = 0;
+  const result = arg1.transaction(arg12 => {
+    for (const item of arg12) {
+      if (upsertOne(arg1, item)) {
+        num += 1;
       }
     }
     if (cap > 0) {
-      const _0x5e2ff2 = _0x48de25.prepare("\n        SELECT video_id FROM processed_videos\n        ORDER BY updated_at DESC\n        LIMIT -1 OFFSET ?\n      ").all(cap);
-      const _0x327d46 = _0x48de25.prepare("DELETE FROM processed_videos WHERE video_id = ?");
-      for (const _0x5d5b90 of _0x5e2ff2) {
-        _0x327d46.run(_0x5d5b90.video_id);
+      const result = arg1.prepare("\n        SELECT video_id FROM processed_videos\n        ORDER BY updated_at DESC\n        LIMIT -1 OFFSET ?\n      ").all(cap);
+      const result2 = arg1.prepare("DELETE FROM processed_videos WHERE video_id = ?");
+      for (const item of result) {
+        result2.run(item.video_id);
       }
     }
   });
   try {
-    _0x2435ea(_0x2483bd);
-    return _0x11a577;
-  } catch (_0x2a26d0) {
-    console.error("[DB] processedVideosStore.upsertMany 失败:", _0x2a26d0);
-    return _0x11a577;
+    result(list);
+    return num;
+  } catch (error) {
+    console.error("[DB] processedVideosStore.upsertMany 失败:", error);
+    return num;
   }
 }
-function replaceAll(_0x5664ac, _0x10efce = []) {
-  if (!_0x5664ac) {
+function replaceAll(arg1, list = []) {
+  if (!arg1) {
     return false;
   }
   try {
-    const _0x5ea99b = _0x5664ac.transaction(_0x18c382 => {
-      _0x5664ac.prepare("DELETE FROM processed_videos").run();
-      for (const _0x36e610 of _0x18c382) {
-        upsertOne(_0x5664ac, _0x36e610);
+    const result = arg1.transaction(arg12 => {
+      arg1.prepare("DELETE FROM processed_videos").run();
+      for (const item of arg12) {
+        upsertOne(arg1, item);
       }
     });
-    _0x5ea99b(Array.isArray(_0x10efce) ? _0x10efce : []);
+    result(Array.isArray(list) ? list : []);
     return true;
-  } catch (_0x22e376) {
-    console.error("[DB] processedVideosStore.replaceAll 失败:", _0x22e376);
+  } catch (error) {
+    console.error("[DB] processedVideosStore.replaceAll 失败:", error);
     return false;
   }
 }
-function findByUrl(_0x56e973, _0x594051) {
-  if (!_0x56e973 || !_0x594051) {
+function findByUrl(arg1, arg2) {
+  if (!arg1 || !arg2) {
     return null;
   }
-  const _0x54a6ad = resolveVideoId({
-    url: _0x594051
+  const result = resolveVideoId({
+    url: arg2
   });
-  if (_0x54a6ad) {
+  if (result) {
     try {
-      const _0x190d77 = _0x56e973.prepare("SELECT raw_data, updated_at, video_id FROM processed_videos WHERE video_id = ?").get(_0x54a6ad);
-      if (_0x190d77) {
-        return parseRow(_0x190d77);
+      const result2 = arg1.prepare("SELECT raw_data, updated_at, video_id FROM processed_videos WHERE video_id = ?").get(result);
+      if (result2) {
+        return parseRow(result2);
       }
-    } catch (_0x11ad35) {}
+    } catch (error) {}
   }
-  const _0x1f4ebc = listAll(_0x56e973);
-  return _0x1f4ebc.find(_0x24c4d4 => processedVideoKeysMatch(_0x24c4d4.url, _0x594051)) || null;
+  const result2 = listAll(arg1);
+  return result2.find(arg1 => processedVideoKeysMatch(arg1.url, arg2)) || null;
 }
-function isProcessed(_0x2b1064, _0x4414e2) {
-  return !!findByUrl(_0x2b1064, _0x4414e2);
+function isProcessed(arg1, arg2) {
+  return !!findByUrl(arg1, arg2);
 }
-function deleteByUrls(_0x4e6d38, _0x437ab3 = []) {
-  if (!_0x4e6d38) {
+function deleteByUrls(arg1, list = []) {
+  if (!arg1) {
     return 0;
   }
-  const _0x3c0f96 = (Array.isArray(_0x437ab3) ? _0x437ab3 : [_0x437ab3]).map(_0x373b08 => String(_0x373b08 || "").trim()).filter(Boolean);
-  if (!_0x3c0f96.length) {
+  const result = (Array.isArray(list) ? list : [list]).map(arg1 => String(arg1 || "").trim()).filter(Boolean);
+  if (!result.length) {
     return 0;
   }
-  let _0x2a8b0e = 0;
-  const _0x255a7e = _0x4e6d38.prepare("DELETE FROM processed_videos WHERE video_id = ?");
-  const _0x4f1afd = _0x4e6d38.transaction(_0x15ce60 => {
-    for (const _0x2e9245 of _0x15ce60) {
-      const _0x211e36 = resolveVideoId({
-        url: _0x2e9245
+  let num = 0;
+  const result2 = arg1.prepare("DELETE FROM processed_videos WHERE video_id = ?");
+  const result3 = arg1.transaction(arg12 => {
+    for (const item of arg12) {
+      const result = resolveVideoId({
+        url: item
       });
-      if (_0x211e36) {
-        _0x2a8b0e += _0x255a7e.run(_0x211e36).changes || 0;
+      if (result) {
+        num += result2.run(result).changes || 0;
         continue;
       }
     }
-    const _0x584d73 = listAll(_0x4e6d38);
-    for (const _0x5dda98 of _0x584d73) {
-      if (_0x3c0f96.some(_0xd8f9ed => processedVideoKeysMatch(_0x5dda98.url, _0xd8f9ed))) {
-        const _0xee3353 = resolveVideoId(_0x5dda98);
-        if (_0xee3353) {
-          _0x2a8b0e += _0x255a7e.run(_0xee3353).changes || 0;
+    const result3 = listAll(arg1);
+    for (const item of result3) {
+      if (result.some(arg1 => processedVideoKeysMatch(item.url, arg1))) {
+        const result = resolveVideoId(item);
+        if (result) {
+          num += result2.run(result).changes || 0;
         }
       }
     }
   });
   try {
-    _0x4f1afd(_0x3c0f96);
-    return _0x2a8b0e;
-  } catch (_0x345859) {
-    console.error("[DB] processedVideosStore.deleteByUrls 失败:", _0x345859);
-    return _0x2a8b0e;
+    result3(result);
+    return num;
+  } catch (error) {
+    console.error("[DB] processedVideosStore.deleteByUrls 失败:", error);
+    return num;
   }
 }
-function clearAuthorUrlByVideoUrls(_0x30d4c3, _0x478f46 = []) {
-  if (!_0x30d4c3) {
+function clearAuthorUrlByVideoUrls(arg1, list = []) {
+  if (!arg1) {
     return 0;
   }
-  const _0x101dee = (Array.isArray(_0x478f46) ? _0x478f46 : [_0x478f46]).filter(Boolean);
-  if (!_0x101dee.length) {
+  const result = (Array.isArray(list) ? list : [list]).filter(Boolean);
+  if (!result.length) {
     return 0;
   }
-  let _0x3446ff = 0;
-  const _0x93b79d = listAll(_0x30d4c3);
-  const _0x54b7c7 = [];
-  for (const _0x43ac02 of _0x93b79d) {
-    if (!_0x101dee.some(_0x393207 => processedVideoKeysMatch(_0x43ac02.url, _0x393207))) {
+  let num = 0;
+  const result2 = listAll(arg1);
+  const list2 = [];
+  for (const item of result2) {
+    if (!result.some(arg1 => processedVideoKeysMatch(item.url, arg1))) {
       continue;
     }
-    if (!_0x43ac02.authorUrl) {
+    if (!item.authorUrl) {
       continue;
     }
-    _0x54b7c7.push({
-      ..._0x43ac02,
+    list2.push({
+      ...item,
       authorUrl: ""
     });
-    _0x3446ff += 1;
+    num += 1;
   }
-  if (_0x54b7c7.length) {
-    upsertMany(_0x30d4c3, _0x54b7c7, {
+  if (list2.length) {
+    upsertMany(arg1, list2, {
       cap: 0
     });
   }
-  return _0x3446ff;
+  return num;
 }
-function clearAll(_0x33a0fe) {
-  if (!_0x33a0fe) {
+function clearAll(arg1) {
+  if (!arg1) {
     return 0;
   }
   try {
-    return _0x33a0fe.prepare("DELETE FROM processed_videos").run().changes || 0;
-  } catch (_0x35f4a5) {
-    console.error("[DB] processedVideosStore.clearAll 失败:", _0x35f4a5);
+    return arg1.prepare("DELETE FROM processed_videos").run().changes || 0;
+  } catch (error) {
+    console.error("[DB] processedVideosStore.clearAll 失败:", error);
     return 0;
   }
 }
