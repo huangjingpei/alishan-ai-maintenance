@@ -2,141 +2,141 @@ const STORE_KEY = "leadgen_keyword_pools_v1";
 const MAX_PERSISTED_POOLS = 50;
 const pools = new Map();
 let persistenceStore = null;
-function normalizeKeywordList(_0x5cb6e4 = []) {
-  const _0xfdb911 = new Set();
-  return (Array.isArray(_0x5cb6e4) ? _0x5cb6e4 : []).map(_0x3b6ed0 => String(_0x3b6ed0 || "").trim()).filter(_0x405efd => {
-    if (!_0x405efd || _0xfdb911.has(_0x405efd)) {
+function normalizeKeywordList(list = []) {
+  const set = new Set();
+  return (Array.isArray(list) ? list : []).map(arg1 => String(arg1 || "").trim()).filter(arg1 => {
+    if (!arg1 || set.has(arg1)) {
       return false;
     }
-    _0xfdb911.add(_0x405efd);
+    set.add(arg1);
     return true;
   });
 }
-function configurePersistence(_0x1aa28c) {
-  persistenceStore = _0x1aa28c && typeof _0x1aa28c.get === "function" && typeof _0x1aa28c.set === "function" ? _0x1aa28c : null;
+function configurePersistence(arg1) {
+  persistenceStore = arg1 && typeof arg1.get === "function" && typeof arg1.set === "function" ? arg1 : null;
 }
 function readPersistedPools() {
   if (!persistenceStore) {
     return {};
   }
   try {
-    const _0x43ee0c = persistenceStore.get(STORE_KEY, {});
-    if (_0x43ee0c && typeof _0x43ee0c === "object") {
-      return _0x43ee0c;
+    const result = persistenceStore.get(STORE_KEY, {});
+    if (result && typeof result === "object") {
+      return result;
     } else {
       return {};
     }
-  } catch (_0x580779) {
+  } catch (error) {
     return {};
   }
 }
-function writePersistedPools(_0x43f52a) {
+function writePersistedPools(arg1) {
   if (!persistenceStore) {
     return;
   }
   try {
-    persistenceStore.set(STORE_KEY, _0x43f52a);
-  } catch (_0x20dda6) {
-    console.warn("[KeywordPool] 保存续跑队列失败:", _0x20dda6.message);
+    persistenceStore.set(STORE_KEY, arg1);
+  } catch (error) {
+    console.warn("[KeywordPool] 保存续跑队列失败:", error.message);
   }
 }
-function serializePool(_0x3c688b) {
+function serializePool(arg1) {
   return {
-    all: [..._0x3c688b.all],
-    queue: [..._0x3c688b.queue],
-    activeByAccount: Object.fromEntries(_0x3c688b.activeByAccount),
+    all: [...arg1.all],
+    queue: [...arg1.queue],
+    activeByAccount: Object.fromEntries(arg1.activeByAccount),
     updatedAt: Date.now()
   };
 }
-function persistPool(_0x2d8b9d, _0x171ad2) {
-  const _0x5c67c6 = readPersistedPools();
-  _0x5c67c6[_0x2d8b9d] = serializePool(_0x171ad2);
-  const _0x2ce338 = Object.entries(_0x5c67c6).sort((_0x1b11b8, _0x44a7c2) => Number(_0x44a7c2[1]?.updatedAt || 0) - Number(_0x1b11b8[1]?.updatedAt || 0)).slice(0, MAX_PERSISTED_POOLS);
-  writePersistedPools(Object.fromEntries(_0x2ce338));
+function persistPool(arg1, arg2) {
+  const result = readPersistedPools();
+  result[arg1] = serializePool(arg2);
+  const result2 = Object.entries(result).sort((arg1, arg2) => Number(arg2[1]?.updatedAt || 0) - Number(arg1[1]?.updatedAt || 0)).slice(0, MAX_PERSISTED_POOLS);
+  writePersistedPools(Object.fromEntries(result2));
 }
-function removePersistedPool(_0xff72d8) {
-  const _0x41c180 = readPersistedPools();
-  if (!Object.prototype.hasOwnProperty.call(_0x41c180, _0xff72d8)) {
+function removePersistedPool(arg1) {
+  const result = readPersistedPools();
+  if (!Object.prototype.hasOwnProperty.call(result, arg1)) {
     return;
   }
-  delete _0x41c180[_0xff72d8];
-  writePersistedPools(_0x41c180);
+  delete result[arg1];
+  writePersistedPools(result);
 }
-function hydratePool(_0x29f92c) {
-  const _0x3349fd = readPersistedPools()[_0x29f92c];
-  if (!_0x3349fd || typeof _0x3349fd !== "object") {
+function hydratePool(arg1) {
+  const value = readPersistedPools()[arg1];
+  if (!value || typeof value !== "object") {
     return null;
   }
-  const _0x405363 = normalizeKeywordList(_0x3349fd.all);
-  const _0x54f6c6 = new Set(_0x405363);
-  const _0x22c345 = normalizeKeywordList(_0x3349fd.queue).filter(_0x544e17 => _0x54f6c6.has(_0x544e17));
-  const _0x513ee4 = new Map(Object.entries(_0x3349fd.activeByAccount || {}).map(([_0x5a7298, _0x109537]) => [String(_0x5a7298), String(_0x109537 || "").trim()]).filter(([, _0x2502f5]) => _0x2502f5 && _0x54f6c6.has(_0x2502f5)));
+  const result = normalizeKeywordList(value.all);
+  const set = new Set(result);
+  const result2 = normalizeKeywordList(value.queue).filter(arg1 => set.has(arg1));
+  const map = new Map(Object.entries(value.activeByAccount || {}).map(([arg1, arg12]) => [String(arg1), String(arg12 || "").trim()]).filter(([, arg1]) => arg1 && set.has(arg1)));
   return {
-    all: _0x405363,
-    queue: _0x22c345,
-    activeByAccount: _0x513ee4
+    all: result,
+    queue: result2,
+    activeByAccount: map
   };
 }
-function reconcilePoolKeywords(_0x462a71, _0x2e574b) {
-  const _0x24a18a = normalizeKeywordList(_0x2e574b);
-  const _0x1b1e73 = new Set(_0x24a18a);
-  const _0x502993 = new Map([..._0x462a71.activeByAccount.entries()].filter(([, _0x4a85cc]) => _0x1b1e73.has(_0x4a85cc)));
-  const _0x273425 = new Set(_0x502993.values());
-  const _0x1db350 = new Set(_0x462a71.all);
-  const _0x59b50a = new Set(_0x462a71.queue);
-  const _0x2b299f = _0x462a71.queue.filter(_0x356aec => _0x1b1e73.has(_0x356aec) && !_0x273425.has(_0x356aec));
-  _0x24a18a.forEach(_0x20d3de => {
-    const _0x2bd6cc = !_0x1db350.has(_0x20d3de);
-    if (_0x2bd6cc && !_0x273425.has(_0x20d3de) && !_0x2b299f.includes(_0x20d3de)) {
-      _0x2b299f.push(_0x20d3de);
+function reconcilePoolKeywords(arg1, arg2) {
+  const result = normalizeKeywordList(arg2);
+  const set = new Set(result);
+  const map = new Map([...arg1.activeByAccount.entries()].filter(([, arg1]) => set.has(arg1)));
+  const set2 = new Set(map.values());
+  const set3 = new Set(arg1.all);
+  const set4 = new Set(arg1.queue);
+  const result2 = arg1.queue.filter(arg1 => set.has(arg1) && !set2.has(arg1));
+  result.forEach(arg1 => {
+    const flag = !set3.has(arg1);
+    if (flag && !set2.has(arg1) && !result2.includes(arg1)) {
+      result2.push(arg1);
     }
-    if (_0x59b50a.has(_0x20d3de) && !_0x273425.has(_0x20d3de) && !_0x2b299f.includes(_0x20d3de)) {
-      _0x2b299f.push(_0x20d3de);
+    if (set4.has(arg1) && !set2.has(arg1) && !result2.includes(arg1)) {
+      result2.push(arg1);
     }
   });
   return {
-    all: _0x24a18a,
-    queue: _0x2b299f,
-    activeByAccount: _0x502993
+    all: result,
+    queue: result2,
+    activeByAccount: map
   };
 }
-function initGlobalKeywordPool(_0x118602, _0x2359fe = [], _0x4064ca = {}) {
-  const _0x378653 = String(_0x118602 || "").trim();
-  if (!_0x378653) {
+function initGlobalKeywordPool(arg1, list = [], options = {}) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return {
       total: 0,
       resumed: false
     };
   }
-  const _0x11dd50 = normalizeKeywordList(_0x2359fe);
-  let _0x8d48be = null;
-  if (_0x4064ca.resume) {
-    _0x8d48be = pools.get(_0x378653) || hydratePool(_0x378653);
-    if (_0x8d48be) {
-      _0x8d48be = reconcilePoolKeywords(_0x8d48be, _0x11dd50);
+  const result2 = normalizeKeywordList(list);
+  let local = null;
+  if (options.resume) {
+    local = pools.get(result) || hydratePool(result);
+    if (local) {
+      local = reconcilePoolKeywords(local, result2);
     }
   }
-  if (!_0x8d48be) {
-    _0x8d48be = {
-      all: [..._0x11dd50],
-      queue: [..._0x11dd50],
+  if (!local) {
+    local = {
+      all: [...result2],
+      queue: [...result2],
       activeByAccount: new Map()
     };
   }
-  pools.set(_0x378653, _0x8d48be);
-  persistPool(_0x378653, _0x8d48be);
-  console.log("[KeywordPool] " + (_0x4064ca.resume ? "恢复" : "初始化") + "任务池 " + _0x378653 + "：共 " + _0x8d48be.all.length + " 个关键词，待领取 " + _0x8d48be.queue.length + " 个");
+  pools.set(result, local);
+  persistPool(result, local);
+  console.log("[KeywordPool] " + (options.resume ? "恢复" : "初始化") + "任务池 " + result + "：共 " + local.all.length + " 个关键词，待领取 " + local.queue.length + " 个");
   return {
-    total: _0x8d48be.all.length,
-    remaining: _0x8d48be.queue.length,
-    resumed: !!_0x4064ca.resume
+    total: local.all.length,
+    remaining: local.queue.length,
+    resumed: !!options.resume
   };
 }
-function claimLeadgenKeyword(_0x162fea, _0x224217, _0x5966d2 = {}) {
-  const _0x17f793 = String(_0x162fea || "").trim();
-  const _0x3269d2 = String(_0x224217 || "");
-  const _0x354b0b = pools.get(_0x17f793) || hydratePool(_0x17f793);
-  if (!_0x354b0b) {
+function claimLeadgenKeyword(arg1, arg2, options = {}) {
+  const result = String(arg1 || "").trim();
+  const result2 = String(arg2 || "");
+  const local = pools.get(result) || hydratePool(result);
+  if (!local) {
     return {
       keyword: null,
       remaining: 0,
@@ -144,68 +144,68 @@ function claimLeadgenKeyword(_0x162fea, _0x224217, _0x5966d2 = {}) {
       claimed: 0
     };
   }
-  pools.set(_0x17f793, _0x354b0b);
-  const _0x51b7fc = String(_0x5966d2.preferredKeyword || "").trim();
-  if (_0x5966d2.reuseActive && _0x51b7fc && _0x354b0b.all.includes(_0x51b7fc)) {
-    const _0x5377a6 = _0x354b0b.all.indexOf(_0x51b7fc);
-    _0x354b0b.activeByAccount.set(_0x3269d2, _0x51b7fc);
-    _0x354b0b.queue = _0x354b0b.queue.filter(_0x5801df => _0x354b0b.all.indexOf(_0x5801df) > _0x5377a6);
-    persistPool(_0x17f793, _0x354b0b);
+  pools.set(result, local);
+  const result3 = String(options.preferredKeyword || "").trim();
+  if (options.reuseActive && result3 && local.all.includes(result3)) {
+    const result4 = local.all.indexOf(result3);
+    local.activeByAccount.set(result2, result3);
+    local.queue = local.queue.filter(arg1 => local.all.indexOf(arg1) > result4);
+    persistPool(result, local);
     return {
-      keyword: _0x51b7fc,
-      remaining: _0x354b0b.queue.length,
-      total: _0x354b0b.all.length,
-      claimed: _0x354b0b.all.length - _0x354b0b.queue.length,
+      keyword: result3,
+      remaining: local.queue.length,
+      total: local.all.length,
+      claimed: local.all.length - local.queue.length,
       resumed: true
     };
   }
-  const _0x5388ee = _0x354b0b.activeByAccount.get(_0x3269d2);
-  if (_0x5966d2.reuseActive && _0x5388ee) {
+  const result4 = local.activeByAccount.get(result2);
+  if (options.reuseActive && result4) {
     return {
-      keyword: _0x5388ee,
-      remaining: _0x354b0b.queue.length,
-      total: _0x354b0b.all.length,
-      claimed: _0x354b0b.all.length - _0x354b0b.queue.length,
+      keyword: result4,
+      remaining: local.queue.length,
+      total: local.all.length,
+      claimed: local.all.length - local.queue.length,
       resumed: true
     };
   }
-  _0x354b0b.activeByAccount.delete(_0x3269d2);
-  if (!_0x354b0b.queue.length) {
-    persistPool(_0x17f793, _0x354b0b);
+  local.activeByAccount.delete(result2);
+  if (!local.queue.length) {
+    persistPool(result, local);
     return {
       keyword: null,
       remaining: 0,
-      total: _0x354b0b.all.length,
-      claimed: _0x354b0b.all.length
+      total: local.all.length,
+      claimed: local.all.length
     };
   }
-  const _0x5a51ec = _0x354b0b.queue.shift();
-  _0x354b0b.activeByAccount.set(_0x3269d2, _0x5a51ec);
-  persistPool(_0x17f793, _0x354b0b);
-  const _0x89f30d = _0x354b0b.queue.length;
-  const _0x3b88b2 = _0x354b0b.all.length - _0x89f30d;
-  console.log("[KeywordPool] " + _0x17f793 + " 账号 " + _0x224217 + " 领取「" + _0x5a51ec + "」（" + _0x3b88b2 + "/" + _0x354b0b.all.length + "，剩余 " + _0x89f30d + "）");
+  const result5 = local.queue.shift();
+  local.activeByAccount.set(result2, result5);
+  persistPool(result, local);
+  const value = local.queue.length;
+  const value2 = local.all.length - value;
+  console.log("[KeywordPool] " + result + " 账号 " + arg2 + " 领取「" + result5 + "」（" + value2 + "/" + local.all.length + "，剩余 " + value + "）");
   return {
-    keyword: _0x5a51ec,
-    remaining: _0x89f30d,
-    total: _0x354b0b.all.length,
-    claimed: _0x3b88b2,
+    keyword: result5,
+    remaining: value,
+    total: local.all.length,
+    claimed: value2,
     resumed: false
   };
 }
-function releaseGlobalKeywordPool(_0x4e8c70, _0x566876 = {}) {
-  const _0x3792d3 = String(_0x4e8c70 || "").trim();
-  if (!_0x3792d3) {
+function releaseGlobalKeywordPool(arg1, options = {}) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return false;
   }
-  const _0x25f7f4 = pools.delete(_0x3792d3);
-  if (!_0x566876.preserve) {
-    removePersistedPool(_0x3792d3);
+  const result2 = pools.delete(result);
+  if (!options.preserve) {
+    removePersistedPool(result);
   }
-  if (_0x25f7f4) {
-    console.log("[KeywordPool] 已释放任务池 " + _0x3792d3 + (_0x566876.preserve ? "（续跑队列已保留）" : ""));
+  if (result2) {
+    console.log("[KeywordPool] 已释放任务池 " + result + (options.preserve ? "（续跑队列已保留）" : ""));
   }
-  return _0x25f7f4;
+  return result2;
 }
 module.exports = {
   configurePersistence: configurePersistence,
