@@ -4,143 +4,143 @@ const VIDEO_LEAD_SQL = "(\n  IFNULL(json_extract(raw_data, '$.leadKind'), '') = 
 const COMMENT_LEAD_SQL = "(\n  NOT " + VIDEO_LEAD_SQL + "\n  AND (\n    IFNULL(json_extract(raw_data, '$.sourceType'), '') = 'comment'\n    OR IFNULL(json_extract(raw_data, '$.entrySource'), '') = 'entity_comment'\n    OR IFNULL(json_extract(raw_data, '$.collectedFields'), '') LIKE '%comment%'\n  )\n)";
 const AUTHOR_LEAD_SQL = "(\n  " + VIDEO_LEAD_SQL + "\n  AND IFNULL(json_extract(raw_data, '$.collectedFields'), '') LIKE '%author%'\n  AND (\n    IFNULL(json_extract(raw_data, '$.authorProfileUrl'), '') != ''\n    OR IFNULL(json_extract(raw_data, '$.userUrl'), '') != ''\n  )\n)";
 const VIDEO_LINK_LEAD_SQL = "(\n  " + VIDEO_LEAD_SQL + "\n  AND (\n    IFNULL(json_extract(raw_data, '$.collectedFields'), '') LIKE '%video%'\n    OR IFNULL(json_extract(raw_data, '$.collectedFields'), '') = ''\n    OR json_extract(raw_data, '$.collectedFields') IS NULL\n  )\n)";
-function escapeLike(_0x48a9f0) {
-  return String(_0x48a9f0 || "").replace(/\\/g, "\\\\").replace(/%/g, "\\%").replace(/_/g, "\\_");
+function escapeLike(arg1) {
+  return String(arg1 || "").replace(/\\/g, "\\\\").replace(/%/g, "\\%").replace(/_/g, "\\_");
 }
-function tabPredicate(_0x30c6f9) {
-  const _0x320c22 = String(_0x30c6f9 || "").trim();
-  if (_0x320c22 === "comments") {
+function tabPredicate(arg1) {
+  const result = String(arg1 || "").trim();
+  if (result === "comments") {
     return COMMENT_LEAD_SQL;
   }
-  if (_0x320c22 === "author") {
+  if (result === "author") {
     return AUTHOR_LEAD_SQL;
   }
-  if (_0x320c22 === "video") {
+  if (result === "video") {
     return VIDEO_LINK_LEAD_SQL;
   }
   return "";
 }
-function buildWhere(_0x3518f5, {
+function buildWhere(arg1, {
   tab = "",
   keyword = ""
 } = {}) {
-  const _0x36716a = ["task_id = ?"];
-  const _0xe56f56 = [String(_0x3518f5)];
-  const _0x36f787 = tabPredicate(tab);
-  if (_0x36f787) {
-    _0x36716a.push(_0x36f787);
+  const list = ["task_id = ?"];
+  const list2 = [String(arg1)];
+  const result = tabPredicate(tab);
+  if (result) {
+    list.push(result);
   }
-  const _0x380463 = String(keyword || "").trim();
-  if (_0x380463) {
-    _0x36716a.push("(\n      nickname LIKE ? ESCAPE '\\'\n      OR IFNULL(account_id, '') LIKE ? ESCAPE '\\'\n      OR IFNULL(source_type, '') LIKE ? ESCAPE '\\'\n      OR raw_data LIKE ? ESCAPE '\\'\n    )");
-    const _0x3376d7 = "%" + escapeLike(_0x380463) + "%";
-    _0xe56f56.push(_0x3376d7, _0x3376d7, _0x3376d7, _0x3376d7);
+  const result2 = String(keyword || "").trim();
+  if (result2) {
+    list.push("(\n      nickname LIKE ? ESCAPE '\\'\n      OR IFNULL(account_id, '') LIKE ? ESCAPE '\\'\n      OR IFNULL(source_type, '') LIKE ? ESCAPE '\\'\n      OR raw_data LIKE ? ESCAPE '\\'\n    )");
+    const value = "%" + escapeLike(result2) + "%";
+    list2.push(value, value, value, value);
   }
   return {
-    sql: _0x36716a.join(" AND "),
-    params: _0xe56f56
+    sql: list.join(" AND "),
+    params: list2
   };
 }
-function parseLeadRow(_0x1b619d) {
-  if (!_0x1b619d) {
+function parseLeadRow(arg1) {
+  if (!arg1) {
     return null;
   }
   try {
-    const _0x524bb2 = JSON.parse(_0x1b619d.raw_data || "{}");
-    if (!_0x524bb2 || typeof _0x524bb2 !== "object") {
+    const result = JSON.parse(arg1.raw_data || "{}");
+    if (!result || typeof result !== "object") {
       return null;
     }
-    if (!_0x524bb2.id && _0x1b619d.id) {
-      _0x524bb2.id = _0x1b619d.id;
+    if (!result.id && arg1.id) {
+      result.id = arg1.id;
     }
-    if (!_0x524bb2.ts && _0x1b619d.ts) {
-      _0x524bb2.ts = _0x1b619d.ts;
+    if (!result.ts && arg1.ts) {
+      result.ts = arg1.ts;
     }
-    if (!_0x524bb2.taskId && _0x1b619d.task_id) {
-      _0x524bb2.taskId = _0x1b619d.task_id;
+    if (!result.taskId && arg1.task_id) {
+      result.taskId = arg1.task_id;
     }
-    return _0x524bb2;
-  } catch (_0x34406a) {
+    return result;
+  } catch (error) {
     return null;
   }
 }
-function isVideoStyleLead(_0x4cb3c1 = {}) {
-  const _0x3d05ce = String(_0x4cb3c1.leadKind || "");
-  const _0xde35b9 = String(_0x4cb3c1.sourceType || "");
-  const _0x222ca2 = String(_0x4cb3c1.identityType || "");
-  const _0x39fe4b = String(_0x4cb3c1.leadId || "");
-  const _0x217772 = String(_0x4cb3c1.userKey || "");
-  const _0x94328c = String(_0x4cb3c1.id || "");
-  return _0x3d05ce === "video_card" || _0xde35b9 === "video" || _0x222ca2 === "video" || _0x39fe4b.startsWith("video:") || _0x217772.startsWith("video:") || _0x39fe4b.startsWith("author:") || _0x94328c.startsWith("video:") || _0x94328c.startsWith("author:");
+function isVideoStyleLead(options = {}) {
+  const result = String(options.leadKind || "");
+  const result2 = String(options.sourceType || "");
+  const result3 = String(options.identityType || "");
+  const result4 = String(options.leadId || "");
+  const result5 = String(options.userKey || "");
+  const result6 = String(options.id || "");
+  return result === "video_card" || result2 === "video" || result3 === "video" || result4.startsWith("video:") || result5.startsWith("video:") || result4.startsWith("author:") || result6.startsWith("video:") || result6.startsWith("author:");
 }
-function collectedFieldsText(_0x3850f2 = {}) {
-  const _0x136c87 = Array.isArray(_0x3850f2.collectedFields) ? _0x3850f2.collectedFields : [];
-  return _0x136c87.map(String).join(",");
+function collectedFieldsText(options = {}) {
+  const value = Array.isArray(options.collectedFields) ? options.collectedFields : [];
+  return value.map(String).join(",");
 }
-function matchesTab(_0x3a8f49, _0x40732f) {
-  const _0xc952d9 = String(_0x40732f || "").trim();
-  if (!_0xc952d9) {
+function matchesTab(arg1, arg2) {
+  const result = String(arg2 || "").trim();
+  if (!result) {
     return true;
   }
-  const _0x36b607 = isVideoStyleLead(_0x3a8f49);
-  if (_0xc952d9 === "comments") {
-    if (_0x36b607) {
+  const flag = isVideoStyleLead(arg1);
+  if (result === "comments") {
+    if (flag) {
       return false;
     }
-    const _0x2bd354 = String(_0x3a8f49.sourceType || "");
-    const _0x355582 = String(_0x3a8f49.entrySource || "");
-    const _0x5034b0 = collectedFieldsText(_0x3a8f49);
-    return _0x2bd354 === "comment" || _0x355582 === "entity_comment" || _0x5034b0.includes("comment");
+    const result = String(arg1.sourceType || "");
+    const result2 = String(arg1.entrySource || "");
+    const result3 = collectedFieldsText(arg1);
+    return result === "comment" || result2 === "entity_comment" || result3.includes("comment");
   }
-  if (_0xc952d9 === "author") {
-    if (!_0x36b607) {
+  if (result === "author") {
+    if (!flag) {
       return false;
     }
-    const _0x3eebe3 = collectedFieldsText(_0x3a8f49);
-    if (!_0x3eebe3.includes("author")) {
+    const result = collectedFieldsText(arg1);
+    if (!result.includes("author")) {
       return false;
     }
-    return !!String(_0x3a8f49.authorProfileUrl || "").trim() || !!String(_0x3a8f49.userUrl || "").trim();
+    return !!String(arg1.authorProfileUrl || "").trim() || !!String(arg1.userUrl || "").trim();
   }
-  if (_0xc952d9 === "video") {
-    if (!_0x36b607) {
+  if (result === "video") {
+    if (!flag) {
       return false;
     }
-    const _0x4c6205 = collectedFieldsText(_0x3a8f49);
-    return !_0x4c6205 || _0x4c6205.includes("video");
+    const result = collectedFieldsText(arg1);
+    return !result || result.includes("video");
   }
   return true;
 }
-function matchesKeyword(_0x12ce3c, _0x4ad956) {
-  const _0x491f6e = String(_0x4ad956 || "").trim().toLowerCase();
-  if (!_0x491f6e) {
+function matchesKeyword(arg1, arg2) {
+  const result = String(arg2 || "").trim().toLowerCase();
+  if (!result) {
     return true;
   }
-  const _0x3fb85c = [_0x12ce3c.nickname, _0x12ce3c.title, _0x12ce3c.uid, _0x12ce3c.accountId, _0x12ce3c.secUid, _0x12ce3c.userUrl, _0x12ce3c.authorProfileUrl, _0x12ce3c.videoUrl, _0x12ce3c.url, _0x12ce3c.content, _0x12ce3c.sourceType, _0x12ce3c.sourceVideoTitle, _0x12ce3c.searchKeyword].filter(Boolean).join(" ").toLowerCase();
-  return _0x3fb85c.includes(_0x491f6e);
+  const result2 = [arg1.nickname, arg1.title, arg1.uid, arg1.accountId, arg1.secUid, arg1.userUrl, arg1.authorProfileUrl, arg1.videoUrl, arg1.url, arg1.content, arg1.sourceType, arg1.sourceVideoTitle, arg1.searchKeyword].filter(Boolean).join(" ").toLowerCase();
+  return result2.includes(result);
 }
-function paginateLeadsArray(_0x21b3da = [], _0x2ff73c = {}) {
-  const _0x4d569f = Array.isArray(_0x21b3da) ? _0x21b3da : [];
-  const _0x5e4410 = Math.max(1, Math.min(100, Number(_0x2ff73c.limit) || 20));
-  const _0x22c469 = Math.max(0, Number(_0x2ff73c.offset) || 0);
-  const _0x2bd1a4 = _0x2ff73c.tab;
-  const _0x257837 = _0x2ff73c.keyword;
-  const _0x4c2fb6 = _0x4d569f.filter(_0x4877d7 => matchesTab(_0x4877d7, _0x2bd1a4) && matchesKeyword(_0x4877d7, _0x257837));
-  _0x4c2fb6.sort((_0x1bf7de, _0x42e2e9) => Number(_0x42e2e9.ts || 0) - Number(_0x1bf7de.ts || 0));
-  const _0x474ab3 = {
-    all: _0x4d569f.length,
-    comments: _0x4d569f.filter(_0x11e5c1 => matchesTab(_0x11e5c1, "comments")).length,
-    video: _0x4d569f.filter(_0x5d508b => matchesTab(_0x5d508b, "video")).length,
-    author: _0x4d569f.filter(_0x4f9bf9 => matchesTab(_0x4f9bf9, "author")).length
+function paginateLeadsArray(list = [], options = {}) {
+  const value = Array.isArray(list) ? list : [];
+  const result = Math.max(1, Math.min(100, Number(options.limit) || 20));
+  const result2 = Math.max(0, Number(options.offset) || 0);
+  const value2 = options.tab;
+  const value3 = options.keyword;
+  const result3 = value.filter(arg1 => matchesTab(arg1, value2) && matchesKeyword(arg1, value3));
+  result3.sort((arg1, arg2) => Number(arg2.ts || 0) - Number(arg1.ts || 0));
+  const obj = {
+    all: value.length,
+    comments: value.filter(arg1 => matchesTab(arg1, "comments")).length,
+    video: value.filter(arg1 => matchesTab(arg1, "video")).length,
+    author: value.filter(arg1 => matchesTab(arg1, "author")).length
   };
   return {
-    items: _0x4c2fb6.slice(_0x22c469, _0x22c469 + _0x5e4410),
-    total: _0x4c2fb6.length,
-    counts: _0x474ab3
+    items: result3.slice(result2, result2 + result),
+    total: result3.length,
+    counts: obj
   };
 }
-function listEntityLeadgenLeadsPage(_0x191a8d, _0x2a6604, _0x750f43 = {}) {
-  if (!_0x191a8d || !_0x2a6604) {
+function listEntityLeadgenLeadsPage(arg1, arg2, options = {}) {
+  if (!arg1 || !arg2) {
     return {
       items: [],
       total: 0,
@@ -152,26 +152,26 @@ function listEntityLeadgenLeadsPage(_0x191a8d, _0x2a6604, _0x750f43 = {}) {
       }
     };
   }
-  const _0x18f6c1 = Math.max(1, Math.min(100, Number(_0x750f43.limit) || 20));
-  const _0x90c679 = Math.max(0, Number(_0x750f43.offset) || 0);
+  const result = Math.max(1, Math.min(100, Number(options.limit) || 20));
+  const result2 = Math.max(0, Number(options.offset) || 0);
   const {
-    sql: _0x22f2b6,
-    params: _0x394c1a
-  } = buildWhere(_0x2a6604, _0x750f43);
-  const _0x3cfb1b = Number(_0x191a8d.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE " + _0x22f2b6).get(..._0x394c1a)?.c) || 0;
-  const _0x2e7869 = _0x191a8d.prepare("\n    SELECT id, task_id, ts, raw_data\n    FROM entity_leadgen_leads\n    WHERE " + _0x22f2b6 + "\n    ORDER BY ts DESC\n    LIMIT ? OFFSET ?\n  ").all(..._0x394c1a, _0x18f6c1, _0x90c679);
-  const _0x4cce68 = _0x2e7869.map(parseLeadRow).filter(Boolean);
-  const _0x158b2e = String(_0x2a6604);
-  const _0x5c8c59 = {
-    all: Number(_0x191a8d.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ?").get(_0x158b2e)?.c) || 0,
-    comments: Number(_0x191a8d.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ? AND " + COMMENT_LEAD_SQL).get(_0x158b2e)?.c) || 0,
-    video: Number(_0x191a8d.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ? AND " + VIDEO_LINK_LEAD_SQL).get(_0x158b2e)?.c) || 0,
-    author: Number(_0x191a8d.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ? AND " + AUTHOR_LEAD_SQL).get(_0x158b2e)?.c) || 0
+    sql: sql,
+    params: params
+  } = buildWhere(arg2, options);
+  const local = Number(arg1.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE " + sql).get(...params)?.c) || 0;
+  const result3 = arg1.prepare("\n    SELECT id, task_id, ts, raw_data\n    FROM entity_leadgen_leads\n    WHERE " + sql + "\n    ORDER BY ts DESC\n    LIMIT ? OFFSET ?\n  ").all(...params, result, result2);
+  const result4 = result3.map(parseLeadRow).filter(Boolean);
+  const result5 = String(arg2);
+  const obj = {
+    all: Number(arg1.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ?").get(result5)?.c) || 0,
+    comments: Number(arg1.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ? AND " + COMMENT_LEAD_SQL).get(result5)?.c) || 0,
+    video: Number(arg1.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ? AND " + VIDEO_LINK_LEAD_SQL).get(result5)?.c) || 0,
+    author: Number(arg1.prepare("SELECT COUNT(*) AS c FROM entity_leadgen_leads WHERE task_id = ? AND " + AUTHOR_LEAD_SQL).get(result5)?.c) || 0
   };
   return {
-    items: _0x4cce68,
-    total: _0x3cfb1b,
-    counts: _0x5c8c59
+    items: result4,
+    total: local,
+    counts: obj
   };
 }
 module.exports = {
