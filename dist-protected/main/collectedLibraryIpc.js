@@ -16,181 +16,181 @@ const {
   toCollectedAuthorKey
 } = require("../shared/collectedLeadKeys");
 const processedVideosAccess = require("./processedVideosAccess");
-function registerCollectedLibraryIpc(_0x28d522) {
+function registerCollectedLibraryIpc(arg1) {
   const {
-    store: _0x9ca9ae,
-    ensureDatabaseInitialized: _0x43888e,
-    isLeadsSqliteRuntime: _0x4f4070,
-    HISTORY_FILE: _0x1fdc85,
-    CRYPTO_KEY: _0x4b22a4,
-    CRYPTO_IV: _0x931b03,
-    getPlatformViews: _0x45885f,
-    inFlightProcessedVideos: _0x5c6c75,
-    historyManager: _0x2491e5
-  } = _0x28d522;
-  function _0x4d3e79(_0x2cecc6 = []) {
-    const _0x37f199 = (Array.isArray(_0x2cecc6) ? _0x2cecc6 : []).map(_0x534c4c => String(_0x534c4c || "").trim()).filter(Boolean);
-    if (!_0x37f199.length) {
+    store: store,
+    ensureDatabaseInitialized: ensureDatabaseInitialized,
+    isLeadsSqliteRuntime: isLeadsSqliteRuntime,
+    HISTORY_FILE: historyFile,
+    CRYPTO_KEY: cryptoKey,
+    CRYPTO_IV: cryptoIv,
+    getPlatformViews: getPlatformViews,
+    inFlightProcessedVideos: inFlightProcessedVideos,
+    historyManager: historyManager
+  } = arg1;
+  function broadcastForgetProcessedVideos(list = []) {
+    const result = (Array.isArray(list) ? list : []).map(arg1 => String(arg1 || "").trim()).filter(Boolean);
+    if (!result.length) {
       return;
     }
-    for (const _0x5b3408 of _0x37f199) {
-      _0x5c6c75.delete(_0x5b3408);
-      const _0x5d7ec2 = extractDouyinVideoId(_0x5b3408);
-      if (_0x5d7ec2) {
-        _0x5c6c75.delete("https://www.douyin.com/video/" + _0x5d7ec2);
+    for (const item of result) {
+      inFlightProcessedVideos.delete(item);
+      const result = extractDouyinVideoId(item);
+      if (result) {
+        inFlightProcessedVideos.delete("https://www.douyin.com/video/" + result);
       }
     }
-    _0x45885f().forEach(_0x47dc80 => {
-      if (_0x47dc80 && !_0x47dc80.webContents.isDestroyed()) {
-        _0x47dc80.webContents.send("forget-processed-videos", {
-          urls: _0x37f199
+    getPlatformViews().forEach(arg1 => {
+      if (arg1 && !arg1.webContents.isDestroyed()) {
+        arg1.webContents.send("forget-processed-videos", {
+          urls: result
         });
       }
     });
   }
   try {
-    _0x2491e5?.setProcessedVideosRemovedHandler?.(_0x4d3e79);
-  } catch (_0x1a5385) {}
-  function _0x4d8519(_0x3ddba0, _0x33e5b8) {
-    if (_0x33e5b8.length > 0) {
-      processedVideosAccess.clearAuthorUrls(_0x9ca9ae, _0x33e5b8);
+    historyManager?.setProcessedVideosRemovedHandler?.(broadcastForgetProcessedVideos);
+  } catch (error) {}
+  function fn2(arg1, arg2) {
+    if (arg2.length > 0) {
+      processedVideosAccess.clearAuthorUrls(store, arg2);
     }
-    if (_0x3ddba0.length > 0) {
-      processedVideosAccess.removeByUrls(_0x9ca9ae, _0x3ddba0);
-      _0x4d3e79(_0x3ddba0);
+    if (arg1.length > 0) {
+      processedVideosAccess.removeByUrls(store, arg1);
+      broadcastForgetProcessedVideos(arg1);
     }
   }
-  function _0x51e116(_0x550d66, _0x49b0b7) {
-    const _0x336d23 = [..._0x550d66, ..._0x49b0b7];
+  function fn3(arg1, arg2) {
+    const list = [...arg1, ...arg2];
     return {
-      videos: _0x550d66,
-      authors: _0x49b0b7,
+      videos: arg1,
+      authors: arg2,
       tasks: [{
         taskId: "sqlite_collected",
         taskName: "采集库",
         timestamp: Date.now(),
-        items: _0x336d23
+        items: list
       }]
     };
   }
-  function _0x3f7662() {
+  function registerIpc() {
     ipcMain.handle("list-collected-video-import-keys", async () => {
       try {
-        await _0x43888e();
-        if (!_0x4f4070()) {
+        await ensureDatabaseInitialized();
+        if (!isLeadsSqliteRuntime()) {
           return {
             keys: []
           };
         }
-        const _0x4481a6 = dbManager.listCollectedVideoImportKeys?.() || [];
-        const _0x4ad016 = [];
-        for (const _0x428370 of _0x4481a6) {
-          if (_0x428370.videoId) {
-            _0x4ad016.push(_0x428370.videoId);
+        const local = dbManager.listCollectedVideoImportKeys?.() || [];
+        const list = [];
+        for (const item of local) {
+          if (item.videoId) {
+            list.push(item.videoId);
           }
-          const _0x4114f7 = normalizeProcessedVideoKey(_0x428370.videoUrl || "");
-          if (_0x4114f7) {
-            _0x4ad016.push(_0x4114f7);
+          const result = normalizeProcessedVideoKey(item.videoUrl || "");
+          if (result) {
+            list.push(result);
           }
-          if (_0x428370.videoUrl) {
-            _0x4ad016.push(String(_0x428370.videoUrl).trim());
+          if (item.videoUrl) {
+            list.push(String(item.videoUrl).trim());
           }
         }
         return {
-          keys: [...new Set(_0x4ad016.filter(Boolean))]
+          keys: [...new Set(list.filter(Boolean))]
         };
-      } catch (_0x1e32c7) {
-        console.error("[Main] list-collected-video-import-keys failed:", _0x1e32c7?.message || _0x1e32c7);
+      } catch (error) {
+        console.error("[Main] list-collected-video-import-keys failed:", error?.message || error);
         return {
           keys: []
         };
       }
     });
-    ipcMain.handle("get-collected-videos-page", async (_0x2cdd2a, _0x5b86d6 = {}) => {
+    ipcMain.handle("get-collected-videos-page", async (arg1, options = {}) => {
       try {
-        await _0x43888e();
-        if (!_0x4f4070()) {
+        await ensureDatabaseInitialized();
+        if (!isLeadsSqliteRuntime()) {
           return {
             items: [],
             total: 0,
             runtime: "enc"
           };
         }
-        const _0x594d3c = Math.max(1, Number(_0x5b86d6.page) || Number(_0x5b86d6.current) || 1);
-        const _0x4d2a4e = Math.max(1, Math.min(500, Number(_0x5b86d6.pageSize) || Number(_0x5b86d6.limit) || 50));
-        const _0x2ca382 = (_0x594d3c - 1) * _0x4d2a4e;
-        const _0x5a2734 = dbManager.queryCollectedVideosPage({
-          offset: _0x2ca382,
-          limit: _0x4d2a4e,
-          keyword: _0x5b86d6.keyword || _0x5b86d6.search || ""
+        const result = Math.max(1, Number(options.page) || Number(options.current) || 1);
+        const result2 = Math.max(1, Math.min(500, Number(options.pageSize) || Number(options.limit) || 50));
+        const value = (result - 1) * result2;
+        const result3 = dbManager.queryCollectedVideosPage({
+          offset: value,
+          limit: result2,
+          keyword: options.keyword || options.search || ""
         });
         return {
-          ..._0x5a2734,
-          page: _0x594d3c,
-          pageSize: _0x4d2a4e,
+          ...result3,
+          page: result,
+          pageSize: result2,
           runtime: "sqlite"
         };
-      } catch (_0x51d833) {
-        console.error("[Main] get-collected-videos-page failed:", _0x51d833?.message || _0x51d833);
+      } catch (error) {
+        console.error("[Main] get-collected-videos-page failed:", error?.message || error);
         return {
           items: [],
           total: 0,
-          error: _0x51d833?.message || String(_0x51d833)
+          error: error?.message || String(error)
         };
       }
     });
-    ipcMain.handle("get-collected-authors-page", async (_0x1cbfb8, _0x215c79 = {}) => {
+    ipcMain.handle("get-collected-authors-page", async (arg1, options = {}) => {
       try {
-        await _0x43888e();
-        if (!_0x4f4070()) {
+        await ensureDatabaseInitialized();
+        if (!isLeadsSqliteRuntime()) {
           return {
             items: [],
             total: 0,
             runtime: "enc"
           };
         }
-        const _0x180d13 = Math.max(1, Number(_0x215c79.page) || Number(_0x215c79.current) || 1);
-        const _0x1dbb70 = Math.max(1, Math.min(500, Number(_0x215c79.pageSize) || Number(_0x215c79.limit) || 50));
-        const _0x3c5f14 = (_0x180d13 - 1) * _0x1dbb70;
-        const _0x5b7da4 = dbManager.queryCollectedAuthorsPage({
-          offset: _0x3c5f14,
-          limit: _0x1dbb70,
-          keyword: _0x215c79.keyword || _0x215c79.search || ""
+        const result = Math.max(1, Number(options.page) || Number(options.current) || 1);
+        const result2 = Math.max(1, Math.min(500, Number(options.pageSize) || Number(options.limit) || 50));
+        const value = (result - 1) * result2;
+        const result3 = dbManager.queryCollectedAuthorsPage({
+          offset: value,
+          limit: result2,
+          keyword: options.keyword || options.search || ""
         });
         return {
-          ..._0x5b7da4,
-          page: _0x180d13,
-          pageSize: _0x1dbb70,
+          ...result3,
+          page: result,
+          pageSize: result2,
           runtime: "sqlite"
         };
-      } catch (_0x329fc8) {
-        console.error("[Main] get-collected-authors-page failed:", _0x329fc8?.message || _0x329fc8);
+      } catch (error) {
+        console.error("[Main] get-collected-authors-page failed:", error?.message || error);
         return {
           items: [],
           total: 0,
-          error: _0x329fc8?.message || String(_0x329fc8)
+          error: error?.message || String(error)
         };
       }
     });
     ipcMain.handle("get-collected-videos-library", async () => {
       try {
-        await _0x43888e();
-        if (!_0x4f4070()) {
+        await ensureDatabaseInitialized();
+        if (!isLeadsSqliteRuntime()) {
           return {
             items: []
           };
         }
-        const _0x3cbf6f = dbManager.queryCollectedVideosPage({
+        const result = dbManager.queryCollectedVideosPage({
           offset: 0,
           limit: 200
         });
         return {
-          items: _0x3cbf6f.items,
-          total: _0x3cbf6f.total,
-          truncated: _0x3cbf6f.total > _0x3cbf6f.items.length
+          items: result.items,
+          total: result.total,
+          truncated: result.total > result.items.length
         };
-      } catch (_0x1e1baf) {
-        console.error("[Main] get-collected-videos-library failed:", _0x1e1baf?.message || _0x1e1baf);
+      } catch (error) {
+        console.error("[Main] get-collected-videos-library failed:", error?.message || error);
         return {
           items: []
         };
@@ -198,387 +198,387 @@ function registerCollectedLibraryIpc(_0x28d522) {
     });
     ipcMain.handle("get-collected-authors-library", async () => {
       try {
-        await _0x43888e();
-        if (!_0x4f4070()) {
+        await ensureDatabaseInitialized();
+        if (!isLeadsSqliteRuntime()) {
           return {
             items: []
           };
         }
-        const _0x5d52a4 = dbManager.queryCollectedAuthorsPage({
+        const result = dbManager.queryCollectedAuthorsPage({
           offset: 0,
           limit: 200
         });
         return {
-          items: _0x5d52a4.items,
-          total: _0x5d52a4.total,
-          truncated: _0x5d52a4.total > _0x5d52a4.items.length
+          items: result.items,
+          total: result.total,
+          truncated: result.total > result.items.length
         };
-      } catch (_0x2cf8c0) {
-        console.error("[Main] get-collected-authors-library failed:", _0x2cf8c0?.message || _0x2cf8c0);
+      } catch (error) {
+        console.error("[Main] get-collected-authors-library failed:", error?.message || error);
         return {
           items: []
         };
       }
     });
-    ipcMain.handle("get-collected-link-library", async (_0x3ec09a, _0x381cea = {}) => {
+    ipcMain.handle("get-collected-link-library", async (arg1, options = {}) => {
       try {
-        await _0x43888e();
-        if (_0x4f4070()) {
-          const _0x3a0270 = Math.max(1, Math.min(500, Number(_0x381cea.pageSize) || Number(_0x381cea.limit) || 200));
-          const _0x766247 = String(_0x381cea.keyword || _0x381cea.search || "").trim();
-          const _0x13ad28 = dbManager.queryCollectedVideosPage({
+        await ensureDatabaseInitialized();
+        if (isLeadsSqliteRuntime()) {
+          const result = Math.max(1, Math.min(500, Number(options.pageSize) || Number(options.limit) || 200));
+          const result2 = String(options.keyword || options.search || "").trim();
+          const result3 = dbManager.queryCollectedVideosPage({
             offset: 0,
-            limit: _0x3a0270,
-            keyword: _0x766247
+            limit: result,
+            keyword: result2
           });
-          const _0x464fcf = dbManager.queryCollectedAuthorsPage({
+          const result4 = dbManager.queryCollectedAuthorsPage({
             offset: 0,
-            limit: _0x3a0270,
-            keyword: _0x766247
+            limit: result,
+            keyword: result2
           });
           if (!dbManager.isCollectedSplitMigrationDone?.()) {
-            const _0x55c3a8 = dbManager.listVideoCardLeads();
-            const _0x51a2f5 = _0x55c3a8.filter(_0x40ce36 => {
-              const _0x2ce1e5 = Array.isArray(_0x40ce36.collectedFields) ? _0x40ce36.collectedFields : [];
-              return _0x2ce1e5.includes("video") || _0x2ce1e5.length === 0;
-            }).slice(0, _0x3a0270);
-            const _0x12fbbc = _0x55c3a8.filter(_0xc1d722 => Array.isArray(_0xc1d722.collectedFields) && _0xc1d722.collectedFields.includes("author")).slice(0, _0x3a0270);
-            const _0x294e94 = _0x51e116(_0x51a2f5, _0x12fbbc);
+            const result2 = dbManager.listVideoCardLeads();
+            const result3 = result2.filter(arg1 => {
+              const value = Array.isArray(arg1.collectedFields) ? arg1.collectedFields : [];
+              return value.includes("video") || value.length === 0;
+            }).slice(0, result);
+            const result4 = result2.filter(arg1 => Array.isArray(arg1.collectedFields) && arg1.collectedFields.includes("author")).slice(0, result);
+            const result5 = fn3(result3, result4);
             return {
-              videos: _0x294e94.videos,
-              authors: _0x294e94.authors,
-              tasks: _0x294e94.tasks,
-              items: _0x294e94.tasks,
+              videos: result5.videos,
+              authors: result5.authors,
+              tasks: result5.tasks,
+              items: result5.tasks,
               truncated: true
             };
           }
-          const _0x1906ff = _0x51e116(_0x13ad28.items, _0x464fcf.items);
+          const result5 = fn3(result3.items, result4.items);
           return {
-            videos: _0x1906ff.videos,
-            authors: _0x1906ff.authors,
-            tasks: _0x1906ff.tasks,
-            items: _0x1906ff.tasks,
-            videosTotal: _0x13ad28.total,
-            authorsTotal: _0x464fcf.total,
-            truncated: _0x13ad28.total > _0x13ad28.items.length || _0x464fcf.total > _0x464fcf.items.length
+            videos: result5.videos,
+            authors: result5.authors,
+            tasks: result5.tasks,
+            items: result5.tasks,
+            videosTotal: result3.total,
+            authorsTotal: result4.total,
+            truncated: result3.total > result3.items.length || result4.total > result4.items.length
           };
         }
-        if (!fs.existsSync(_0x1fdc85)) {
+        if (!fs.existsSync(historyFile)) {
           return [];
         }
-        const _0x563eeb = fs.readFileSync(_0x1fdc85, "utf8");
-        const _0x54aab1 = crypto.createDecipheriv("aes-256-cbc", _0x4b22a4, _0x931b03);
-        let _0x42f2f4 = _0x54aab1.update(_0x563eeb, "hex", "utf8");
-        _0x42f2f4 += _0x54aab1.final("utf8");
-        return JSON.parse(_0x42f2f4);
-      } catch (_0x24afb3) {
-        console.error("[Main] get-collected-link-library failed:", _0x24afb3?.message || _0x24afb3);
+        const result = fs.readFileSync(historyFile, "utf8");
+        const result2 = crypto.createDecipheriv("aes-256-cbc", cryptoKey, cryptoIv);
+        let result3 = result2.update(result, "hex", "utf8");
+        result3 += result2.final("utf8");
+        return JSON.parse(result3);
+      } catch (error) {
+        console.error("[Main] get-collected-link-library failed:", error?.message || error);
         return [];
       }
     });
-    ipcMain.handle("remove-collected-links-from-history", async (_0xe60c6f, _0xcaae7e = {}) => {
-      const _0x433a63 = _0xcaae7e.type === "author" ? "author" : "video";
-      const _0x169bdf = new Set((Array.isArray(_0xcaae7e.keys) ? _0xcaae7e.keys : [_0xcaae7e.keys]).map(_0x53ae67 => String(_0x53ae67 || "").trim()).filter(Boolean));
-      if (_0x169bdf.size === 0) {
+    ipcMain.handle("remove-collected-links-from-history", async (arg1, options = {}) => {
+      const value = options.type === "author" ? "author" : "video";
+      const set = new Set((Array.isArray(options.keys) ? options.keys : [options.keys]).map(arg1 => String(arg1 || "").trim()).filter(Boolean));
+      if (set.size === 0) {
         return false;
       }
-      const _0x50aac9 = _0x19137e => {
-        const _0x298c0 = String(_0x19137e || "").trim();
-        if (!_0x298c0) {
+      const local = arg1 => {
+        const result = String(arg1 || "").trim();
+        if (!result) {
           return [];
         }
-        const _0x11d64c = new Set([_0x298c0]);
-        const _0x146ab4 = toCollectedVideoKey(_0x298c0);
-        if (_0x146ab4) {
-          _0x11d64c.add(_0x146ab4);
-          const _0xb043e9 = _0x146ab4.slice(6);
-          _0x11d64c.add("https://www.douyin.com/video/" + _0xb043e9);
-          const _0x42f27c = normalizeProcessedVideoKey("https://www.douyin.com/video/" + _0xb043e9);
-          if (_0x42f27c) {
-            _0x11d64c.add(_0x42f27c);
+        const set = new Set([result]);
+        const result2 = toCollectedVideoKey(result);
+        if (result2) {
+          set.add(result2);
+          const result = result2.slice(6);
+          set.add("https://www.douyin.com/video/" + result);
+          const result3 = normalizeProcessedVideoKey("https://www.douyin.com/video/" + result);
+          if (result3) {
+            set.add(result3);
           }
         }
-        const _0x1dc05d = toCollectedAuthorKey(_0x298c0);
-        if (_0x1dc05d) {
-          _0x11d64c.add(_0x1dc05d);
+        const result3 = toCollectedAuthorKey(result);
+        if (result3) {
+          set.add(result3);
         }
-        const _0x1e1b8f = extractAuthorSecUid(_0x298c0);
-        if (_0x1e1b8f) {
-          _0x11d64c.add(_0x1e1b8f);
-          _0x11d64c.add("author:" + _0x1e1b8f);
+        const result4 = extractAuthorSecUid(result);
+        if (result4) {
+          set.add(result4);
+          set.add("author:" + result4);
         }
-        const _0x3c2824 = normalizeProcessedVideoKey(_0x298c0) || "";
-        if (_0x3c2824) {
-          _0x11d64c.add(_0x3c2824);
+        const local = normalizeProcessedVideoKey(result) || "";
+        if (local) {
+          set.add(local);
         }
-        return [..._0x11d64c].filter(Boolean);
+        return [...set].filter(Boolean);
       };
-      const _0x58048b = new Set();
-      _0x169bdf.forEach(_0x4364fb => _0x50aac9(_0x4364fb).forEach(_0x3607a0 => _0x58048b.add(_0x3607a0)));
-      if (_0x4f4070()) {
+      const set2 = new Set();
+      set.forEach(arg1 => local(arg1).forEach(arg1 => set2.add(arg1)));
+      if (isLeadsSqliteRuntime()) {
         try {
-          const _0x5dbf5c = [];
-          const _0x3695c2 = [];
-          let _0x4d7937 = false;
-          if (_0x433a63 === "video") {
-            const _0xcc3bd3 = [..._0x169bdf].map(_0xdb39d8 => toCollectedVideoKey(_0xdb39d8)).filter(Boolean);
-            for (const _0x107ad2 of _0xcc3bd3) {
-              const _0xa34e20 = dbManager.listCollectedVideos().find(_0x451e57 => _0x50aac9(_0x451e57.leadId || _0x451e57.videoUrl).some(_0x403f02 => _0x58048b.has(_0x403f02))) || dbManager.listCollectedVideos().find(_0x21c12f => String(_0x21c12f.leadId) === _0x107ad2);
-              const _0x3d8779 = normalizeProcessedVideoKey(_0xa34e20?.videoUrl || _0xa34e20?.url || _0x107ad2);
-              if (_0x3d8779) {
-                _0x5dbf5c.push(_0x3d8779);
+          const list = [];
+          const list2 = [];
+          let flag = false;
+          if (value === "video") {
+            const result = [...set].map(arg1 => toCollectedVideoKey(arg1)).filter(Boolean);
+            for (const item of result) {
+              const local2 = dbManager.listCollectedVideos().find(arg1 => local(arg1.leadId || arg1.videoUrl).some(arg1 => set2.has(arg1))) || dbManager.listCollectedVideos().find(arg1 => String(arg1.leadId) === item);
+              const result = normalizeProcessedVideoKey(local2?.videoUrl || local2?.url || item);
+              if (result) {
+                list.push(result);
               }
             }
-            const _0x1cd60c = dbManager.deleteCollectedVideosByKeys([..._0x169bdf]);
-            if (_0x1cd60c > 0) {
-              _0x4d7937 = true;
+            const result2 = dbManager.deleteCollectedVideosByKeys([...set]);
+            if (result2 > 0) {
+              flag = true;
             }
             try {
-              dbManager.deleteEntityLeadgenVideoCardsByKeys(_0xcc3bd3);
-            } catch (_0x592fa5) {
-              console.warn("[Main] 清理线索采集视频明细失败:", _0x592fa5?.message || _0x592fa5);
+              dbManager.deleteEntityLeadgenVideoCardsByKeys(result);
+            } catch (error) {
+              console.warn("[Main] 清理线索采集视频明细失败:", error?.message || error);
             }
           } else {
-            const _0x3513bb = dbManager.deleteCollectedAuthorsByKeys([..._0x169bdf]);
-            if (_0x3513bb > 0) {
-              _0x4d7937 = true;
+            const result = dbManager.deleteCollectedAuthorsByKeys([...set]);
+            if (result > 0) {
+              flag = true;
             }
-            for (const _0x4ee1d7 of _0x169bdf) {
-              const _0x5e1b89 = extractAuthorSecUid(_0x4ee1d7);
-              if (!_0x5e1b89) {
+            for (const item of set) {
+              const result = extractAuthorSecUid(item);
+              if (!result) {
                 continue;
               }
-              const _0x2817b8 = dbManager.listCollectedVideos().filter(_0x5678d3 => extractAuthorSecUid(_0x5678d3.authorProfileUrl || _0x5678d3.userUrl) === _0x5e1b89);
-              for (const _0x3b0e3c of _0x2817b8) {
-                const _0x57266a = normalizeProcessedVideoKey(_0x3b0e3c.videoUrl || _0x3b0e3c.url || "");
-                if (_0x57266a) {
-                  _0x3695c2.push(_0x57266a);
+              const result2 = dbManager.listCollectedVideos().filter(arg1 => extractAuthorSecUid(arg1.authorProfileUrl || arg1.userUrl) === result);
+              for (const item of result2) {
+                const result = normalizeProcessedVideoKey(item.videoUrl || item.url || "");
+                if (result) {
+                  list2.push(result);
                 }
               }
             }
           }
           if (!dbManager.isCollectedSplitMigrationDone?.()) {
-            const _0x2c6a08 = dbManager.listVideoCardLeads();
-            const _0x45b1fc = [];
-            for (const _0x4193e5 of _0x2c6a08) {
-              const _0x5b64a3 = new Set(Array.isArray(_0x4193e5.collectedFields) ? _0x4193e5.collectedFields : []);
-              const _0x59d01c = String(_0x4193e5.leadId || _0x4193e5.key || "");
-              const _0x71680b = extractAuthorSecUid(_0x4193e5.authorProfileUrl || _0x4193e5.userUrl || "");
-              const _0x51d748 = _0x433a63 === "video" ? _0x50aac9(_0x59d01c).concat(_0x50aac9(_0x4193e5.videoUrl || _0x4193e5.url || "")).some(_0x206eae => _0x58048b.has(_0x206eae)) : _0x169bdf.has(_0x71680b) || _0x169bdf.has("author:" + _0x71680b);
-              if (!_0x51d748) {
+            const result = dbManager.listVideoCardLeads();
+            const list3 = [];
+            for (const item of result) {
+              const set3 = new Set(Array.isArray(item.collectedFields) ? item.collectedFields : []);
+              const result = String(item.leadId || item.key || "");
+              const result2 = extractAuthorSecUid(item.authorProfileUrl || item.userUrl || "");
+              const value2 = value === "video" ? local(result).concat(local(item.videoUrl || item.url || "")).some(arg1 => set2.has(arg1)) : set.has(result2) || set.has("author:" + result2);
+              if (!value2) {
                 continue;
               }
-              _0x5b64a3.delete(_0x433a63);
-              _0x4d7937 = true;
-              if (_0x433a63 === "author") {
-                _0x4193e5.authorProfileUrl = "";
-                _0x4193e5.userUrl = "";
+              set3.delete(value);
+              flag = true;
+              if (value === "author") {
+                item.authorProfileUrl = "";
+                item.userUrl = "";
               }
-              const _0x53bc50 = normalizeProcessedVideoKey(_0x4193e5.videoUrl || _0x4193e5.url || _0x59d01c);
-              if (_0x433a63 === "video" && _0x53bc50) {
-                _0x5dbf5c.push(_0x53bc50);
-              } else if (_0x433a63 === "author" && _0x53bc50) {
-                _0x3695c2.push(_0x53bc50);
+              const result3 = normalizeProcessedVideoKey(item.videoUrl || item.url || result);
+              if (value === "video" && result3) {
+                list.push(result3);
+              } else if (value === "author" && result3) {
+                list2.push(result3);
               }
-              if (_0x5b64a3.size > 0) {
-                _0x4193e5.collectedFields = [..._0x5b64a3];
-                dbManager.upsertLead(_0x4193e5);
-                if (_0x433a63 === "video" && _0x5b64a3.has("author") === false) {
-                  _0x45b1fc.push(_0x4193e5.leadId || _0x4193e5.key);
+              if (set3.size > 0) {
+                item.collectedFields = [...set3];
+                dbManager.upsertLead(item);
+                if (value === "video" && set3.has("author") === false) {
+                  list3.push(item.leadId || item.key);
                 }
               } else {
-                _0x45b1fc.push(_0x4193e5.leadId || _0x4193e5.key || _0x59d01c);
+                list3.push(item.leadId || item.key || result);
               }
             }
-            if (_0x45b1fc.length) {
-              dbManager.deleteLeadsByIds([...new Set(_0x45b1fc.map(String).filter(Boolean))]);
+            if (list3.length) {
+              dbManager.deleteLeadsByIds([...new Set(list3.map(String).filter(Boolean))]);
             }
           }
-          if (!_0x4d7937) {
+          if (!flag) {
             return false;
           }
-          _0x4d8519(_0x5dbf5c, _0x3695c2);
+          fn2(list, list2);
           return true;
-        } catch (_0x5be197) {
-          console.error("[Main] 批量删除采集链接(SQLite)失败:", _0x5be197);
+        } catch (error) {
+          console.error("[Main] 批量删除采集链接(SQLite)失败:", error);
           return false;
         }
       }
-      if (!_0x1fdc85 || !fs.existsSync(_0x1fdc85)) {
+      if (!historyFile || !fs.existsSync(historyFile)) {
         return false;
       }
       try {
-        const _0x311e57 = fs.readFileSync(_0x1fdc85, "utf8");
-        const _0x25087c = crypto.createDecipheriv("aes-256-cbc", _0x4b22a4, _0x931b03);
-        let _0x6edf63 = _0x25087c.update(_0x311e57, "hex", "utf8");
-        _0x6edf63 += _0x25087c.final("utf8");
-        let _0x518a53 = JSON.parse(_0x6edf63);
-        let _0x40d9ea = false;
-        const _0x212062 = [];
-        const _0x2d642c = [];
-        const _0x26c120 = _0x3726b9 => extractAuthorSecUid(_0x3726b9);
-        _0x518a53.forEach(_0x15998f => {
-          const _0x121988 = [];
-          (Array.isArray(_0x15998f.items) ? _0x15998f.items : []).forEach(_0x5897eb => {
-            if (_0x5897eb?.leadKind !== "video_card") {
-              _0x121988.push(_0x5897eb);
+        const result = fs.readFileSync(historyFile, "utf8");
+        const result2 = crypto.createDecipheriv("aes-256-cbc", cryptoKey, cryptoIv);
+        let result3 = result2.update(result, "hex", "utf8");
+        result3 += result2.final("utf8");
+        let result4 = JSON.parse(result3);
+        let flag = false;
+        const list = [];
+        const list2 = [];
+        const local2 = arg1 => extractAuthorSecUid(arg1);
+        result4.forEach(arg1 => {
+          const list3 = [];
+          (Array.isArray(arg1.items) ? arg1.items : []).forEach(arg1 => {
+            if (arg1?.leadKind !== "video_card") {
+              list3.push(arg1);
               return;
             }
-            const _0xc17e9b = new Set(Array.isArray(_0x5897eb.collectedFields) ? _0x5897eb.collectedFields : []);
-            const _0x2213cf = String(_0x5897eb.leadId || _0x5897eb.key || normalizeProcessedVideoKey(_0x5897eb.videoUrl || _0x5897eb.url || ""));
-            const _0x249ef3 = _0x26c120(_0x5897eb.authorProfileUrl || _0x5897eb.userUrl || "");
-            const _0x254fcc = _0x433a63 === "video" ? _0x50aac9(_0x2213cf).concat(_0x50aac9(_0x5897eb.videoUrl || _0x5897eb.url || "")).some(_0x266651 => _0x58048b.has(_0x266651)) : _0x169bdf.has(_0x249ef3) || _0x169bdf.has("author:" + _0x249ef3);
-            if (!_0x254fcc) {
-              _0x121988.push(_0x5897eb);
+            const set3 = new Set(Array.isArray(arg1.collectedFields) ? arg1.collectedFields : []);
+            const result = String(arg1.leadId || arg1.key || normalizeProcessedVideoKey(arg1.videoUrl || arg1.url || ""));
+            const result2 = local2(arg1.authorProfileUrl || arg1.userUrl || "");
+            const value2 = value === "video" ? local(result).concat(local(arg1.videoUrl || arg1.url || "")).some(arg1 => set2.has(arg1)) : set.has(result2) || set.has("author:" + result2);
+            if (!value2) {
+              list3.push(arg1);
               return;
             }
-            _0xc17e9b.delete(_0x433a63);
-            _0x40d9ea = true;
-            if (_0x433a63 === "author") {
-              _0x5897eb.authorProfileUrl = "";
-              _0x5897eb.userUrl = "";
+            set3.delete(value);
+            flag = true;
+            if (value === "author") {
+              arg1.authorProfileUrl = "";
+              arg1.userUrl = "";
             }
-            const _0x3250f6 = normalizeProcessedVideoKey(_0x5897eb.videoUrl || _0x5897eb.url || _0x2213cf);
-            if ((_0x433a63 === "video" || _0xc17e9b.size === 0) && _0x3250f6) {
-              _0x212062.push(_0x3250f6);
-            } else if (_0x433a63 === "author" && _0x3250f6) {
-              _0x2d642c.push(_0x3250f6);
+            const result3 = normalizeProcessedVideoKey(arg1.videoUrl || arg1.url || result);
+            if ((value === "video" || set3.size === 0) && result3) {
+              list.push(result3);
+            } else if (value === "author" && result3) {
+              list2.push(result3);
             }
-            if (_0xc17e9b.size > 0) {
-              _0x5897eb.collectedFields = [..._0xc17e9b];
-              _0x121988.push(_0x5897eb);
+            if (set3.size > 0) {
+              arg1.collectedFields = [...set3];
+              list3.push(arg1);
             }
           });
-          _0x15998f.items = _0x121988;
+          arg1.items = list3;
         });
-        if (!_0x40d9ea) {
+        if (!flag) {
           return false;
         }
-        _0x518a53 = _0x518a53.filter(_0xfb343d => _0xfb343d.items.length > 0 || String(_0xfb343d.remark || "").trim());
-        const _0x38f155 = crypto.createCipheriv("aes-256-cbc", _0x4b22a4, _0x931b03);
-        let _0x21c868 = _0x38f155.update(JSON.stringify(_0x518a53), "utf8", "hex");
-        _0x21c868 += _0x38f155.final("hex");
-        fs.writeFileSync(_0x1fdc85, _0x21c868);
-        _0x4d8519(_0x212062, _0x2d642c);
+        result4 = result4.filter(arg1 => arg1.items.length > 0 || String(arg1.remark || "").trim());
+        const result5 = crypto.createCipheriv("aes-256-cbc", cryptoKey, cryptoIv);
+        let result6 = result5.update(JSON.stringify(result4), "utf8", "hex");
+        result6 += result5.final("hex");
+        fs.writeFileSync(historyFile, result6);
+        fn2(list, list2);
         return true;
-      } catch (_0x5c688e) {
-        console.error("[Main] 批量删除采集链接(enc)失败:", _0x5c688e);
+      } catch (error) {
+        console.error("[Main] 批量删除采集链接(enc)失败:", error);
         return false;
       }
     });
-    ipcMain.handle("clear-collected-library", async (_0x5fd911, _0x380a32 = {}) => {
-      const _0x50a239 = _0x380a32.type === "author" ? "author" : "video";
+    ipcMain.handle("clear-collected-library", async (arg1, options = {}) => {
+      const value = options.type === "author" ? "author" : "video";
       try {
-        _0x43888e();
-        if (!_0x4f4070()) {
+        ensureDatabaseInitialized();
+        if (!isLeadsSqliteRuntime()) {
           return {
             success: false,
             error: "sqlite_required",
             deleted: 0
           };
         }
-        const _0x36992c = [];
-        const _0x19d7ee = [];
-        let _0x5e8ed8 = 0;
-        if (_0x50a239 === "video") {
-          for (const _0x365cab of dbManager.listCollectedVideoUrls?.() || []) {
-            const _0x4c0cce = normalizeProcessedVideoKey(_0x365cab);
-            if (_0x4c0cce) {
-              _0x36992c.push(_0x4c0cce);
+        const list = [];
+        const list2 = [];
+        let num = 0;
+        if (value === "video") {
+          for (const item of dbManager.listCollectedVideoUrls?.() || []) {
+            const result = normalizeProcessedVideoKey(item);
+            if (result) {
+              list.push(result);
             }
           }
-          _0x5e8ed8 = dbManager.clearAllCollectedVideos();
+          num = dbManager.clearAllCollectedVideos();
           try {
             dbManager.clearAllEntityLeadgenVideoCards();
-          } catch (_0x1baf73) {
-            console.warn("[Main] 清空线索采集视频明细失败:", _0x1baf73?.message || _0x1baf73);
+          } catch (error) {
+            console.warn("[Main] 清空线索采集视频明细失败:", error?.message || error);
           }
           if (!dbManager.isCollectedSplitMigrationDone?.()) {
-            const _0x5a8ae7 = dbManager.listVideoCardLeads() || [];
-            const _0x213370 = [];
-            for (const _0x147c51 of _0x5a8ae7) {
-              const _0x402289 = new Set(Array.isArray(_0x147c51.collectedFields) ? _0x147c51.collectedFields : []);
-              if (!_0x402289.has("video") && _0x147c51.leadKind !== "video_card") {
+            const local = dbManager.listVideoCardLeads() || [];
+            const list2 = [];
+            for (const item of local) {
+              const set = new Set(Array.isArray(item.collectedFields) ? item.collectedFields : []);
+              if (!set.has("video") && item.leadKind !== "video_card") {
                 continue;
               }
-              _0x402289.delete("video");
-              const _0x481134 = normalizeProcessedVideoKey(_0x147c51.videoUrl || _0x147c51.url || _0x147c51.leadId || "");
-              if (_0x481134) {
-                _0x36992c.push(_0x481134);
+              set.delete("video");
+              const result = normalizeProcessedVideoKey(item.videoUrl || item.url || item.leadId || "");
+              if (result) {
+                list.push(result);
               }
-              if (_0x402289.size > 0) {
-                _0x147c51.collectedFields = [..._0x402289];
-                dbManager.upsertLead(_0x147c51);
+              if (set.size > 0) {
+                item.collectedFields = [...set];
+                dbManager.upsertLead(item);
               } else {
-                _0x213370.push(_0x147c51.leadId || _0x147c51.key);
+                list2.push(item.leadId || item.key);
               }
             }
-            if (_0x213370.length) {
-              dbManager.deleteLeadsByIds([...new Set(_0x213370.map(String).filter(Boolean))]);
+            if (list2.length) {
+              dbManager.deleteLeadsByIds([...new Set(list2.map(String).filter(Boolean))]);
             }
           }
         } else {
-          for (const _0x2fa0a8 of dbManager.listCollectedVideoUrls?.() || []) {
-            const _0x306aeb = normalizeProcessedVideoKey(_0x2fa0a8);
-            if (_0x306aeb) {
-              _0x19d7ee.push(_0x306aeb);
+          for (const item of dbManager.listCollectedVideoUrls?.() || []) {
+            const result = normalizeProcessedVideoKey(item);
+            if (result) {
+              list2.push(result);
             }
           }
-          _0x5e8ed8 = dbManager.clearAllCollectedAuthors();
+          num = dbManager.clearAllCollectedAuthors();
           try {
             dbManager.stripAuthorTargetFromEntityLeadgenVideoCards();
-          } catch (_0x4ab28f) {
-            console.warn("[Main] 剥离线索采集主页标记失败:", _0x4ab28f?.message || _0x4ab28f);
+          } catch (error) {
+            console.warn("[Main] 剥离线索采集主页标记失败:", error?.message || error);
           }
           if (!dbManager.isCollectedSplitMigrationDone?.()) {
-            const _0x4028e0 = dbManager.listVideoCardLeads() || [];
-            for (const _0x4efc80 of _0x4028e0) {
-              const _0x499490 = new Set(Array.isArray(_0x4efc80.collectedFields) ? _0x4efc80.collectedFields : []);
-              if (!_0x499490.has("author")) {
+            const local = dbManager.listVideoCardLeads() || [];
+            for (const item of local) {
+              const set = new Set(Array.isArray(item.collectedFields) ? item.collectedFields : []);
+              if (!set.has("author")) {
                 continue;
               }
-              _0x499490.delete("author");
-              _0x4efc80.authorProfileUrl = "";
-              _0x4efc80.userUrl = "";
-              _0x4efc80.collectedFields = _0x499490.size ? [..._0x499490] : ["video"];
-              const _0x304e41 = normalizeProcessedVideoKey(_0x4efc80.videoUrl || _0x4efc80.url || _0x4efc80.leadId || "");
-              if (_0x304e41) {
-                _0x19d7ee.push(_0x304e41);
+              set.delete("author");
+              item.authorProfileUrl = "";
+              item.userUrl = "";
+              item.collectedFields = set.size ? [...set] : ["video"];
+              const result = normalizeProcessedVideoKey(item.videoUrl || item.url || item.leadId || "");
+              if (result) {
+                list2.push(result);
               }
-              dbManager.upsertLead(_0x4efc80);
+              dbManager.upsertLead(item);
             }
           }
         }
-        _0x4d8519([...new Set(_0x36992c.filter(Boolean))], [...new Set(_0x19d7ee.filter(Boolean))]);
+        fn2([...new Set(list.filter(Boolean))], [...new Set(list2.filter(Boolean))]);
         return {
           success: true,
-          deleted: _0x5e8ed8,
-          type: _0x50a239
+          deleted: num,
+          type: value
         };
-      } catch (_0x19ae68) {
-        console.error("[Main] 清空采集库失败:", _0x19ae68);
+      } catch (error) {
+        console.error("[Main] 清空采集库失败:", error);
         return {
           success: false,
-          error: _0x19ae68?.message || String(_0x19ae68),
+          error: error?.message || String(error),
           deleted: 0
         };
       }
     });
-    ipcMain.handle("restore-leads-collected-split", async (_0x440e7e, _0x276049 = {}) => {
+    ipcMain.handle("restore-leads-collected-split", async (arg1, options = {}) => {
       try {
-        _0x43888e();
-        return dbManager.restoreLeadsCollectedSplitFromBackup(_0x276049?.backupPath || "");
-      } catch (_0x1e729c) {
+        ensureDatabaseInitialized();
+        return dbManager.restoreLeadsCollectedSplitFromBackup(options?.backupPath || "");
+      } catch (error) {
         return {
           success: false,
-          error: _0x1e729c?.message || String(_0x1e729c)
+          error: error?.message || String(error)
         };
       }
     });
   }
   return {
-    registerIpc: _0x3f7662,
-    broadcastForgetProcessedVideos: _0x4d3e79
+    registerIpc: registerIpc,
+    broadcastForgetProcessedVideos: broadcastForgetProcessedVideos
   };
 }
 module.exports = {
