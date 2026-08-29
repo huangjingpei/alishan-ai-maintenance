@@ -11,9 +11,9 @@ let cachedDeviceId = null;
 const BLOB_PREFIX = "ssv1:";
 function getAppVersion() {
   try {
-    const _0x35ee2b = app.isPackaged ? path.join(app.getAppPath(), "package.json") : path.join(__dirname, "..", "package.json");
-    return JSON.parse(fs.readFileSync(_0x35ee2b, "utf8")).version;
-  } catch (_0x534dc0) {
+    const value = app.isPackaged ? path.join(app.getAppPath(), "package.json") : path.join(__dirname, "..", "package.json");
+    return JSON.parse(fs.readFileSync(value, "utf8")).version;
+  } catch (error) {
     return app.getVersion();
   }
 }
@@ -23,132 +23,132 @@ function getDeviceIdFilePath() {
 function getDeviceIdSealPath() {
   return path.join(app.getPath("userData"), "device_id.ms");
 }
-function isEphemeralFallbackId(_0x1b1d1f) {
-  return /^fallback_id_\d+$/.test(_0x1b1d1f);
+function isEphemeralFallbackId(arg1) {
+  return /^fallback_id_\d+$/.test(arg1);
 }
-function isValidDeviceId(_0x50b85d) {
-  if (!_0x50b85d || typeof _0x50b85d !== "string") {
+function isValidDeviceId(arg1) {
+  if (!arg1 || typeof arg1 !== "string") {
     return false;
   }
-  const _0xfd254 = _0x50b85d.trim();
-  if (_0xfd254.length < 16 || _0xfd254.length > 128) {
+  const result = arg1.trim();
+  if (result.length < 16 || result.length > 128) {
     return false;
   }
-  if (isEphemeralFallbackId(_0xfd254)) {
+  if (isEphemeralFallbackId(result)) {
     return false;
   }
-  return /^[a-f0-9]+$/i.test(_0xfd254);
+  return /^[a-f0-9]+$/i.test(result);
 }
-function isEncryptedBlob(_0x3a1bb5) {
-  return typeof _0x3a1bb5 === "string" && _0x3a1bb5.startsWith(BLOB_PREFIX);
+function isEncryptedBlob(arg1) {
+  return typeof arg1 === "string" && arg1.startsWith(BLOB_PREFIX);
 }
 function encryptionAvailable() {
   try {
     const {
-      safeStorage: _0x1611f3
+      safeStorage: safeStorage
     } = require("electron");
     if (typeof app.isReady === "function" && !app.isReady()) {
       return false;
     }
-    return !!_0x1611f3 && typeof _0x1611f3.isEncryptionAvailable === "function" && !!_0x1611f3.isEncryptionAvailable();
-  } catch (_0x37f7b3) {
+    return !!safeStorage && typeof safeStorage.isEncryptionAvailable === "function" && !!safeStorage.isEncryptionAvailable();
+  } catch (error) {
     return false;
   }
 }
-function encodeBlob(_0x6b12af) {
+function encodeBlob(arg1) {
   const {
-    safeStorage: _0x1f0ebc
+    safeStorage: safeStorage
   } = require("electron");
-  const _0x1563a5 = _0x1f0ebc.encryptString(String(_0x6b12af));
-  return BLOB_PREFIX + Buffer.from(_0x1563a5).toString("base64");
+  const result = safeStorage.encryptString(String(arg1));
+  return BLOB_PREFIX + Buffer.from(result).toString("base64");
 }
-function decodeBlob(_0x4894f0) {
+function decodeBlob(arg1) {
   const {
-    safeStorage: _0x1f6422
+    safeStorage: safeStorage
   } = require("electron");
-  const _0x327d50 = String(_0x4894f0).slice(BLOB_PREFIX.length);
-  const _0x5e6420 = Buffer.from(_0x327d50, "base64");
-  return _0x1f6422.decryptString(_0x5e6420);
+  const result = String(arg1).slice(BLOB_PREFIX.length);
+  const result2 = Buffer.from(result, "base64");
+  return safeStorage.decryptString(result2);
 }
 function computeHardwareDeviceId() {
-  const _0x504cf2 = machineIdSync();
-  const _0x5c4a7d = require("os");
-  const _0x4b8638 = _0x5c4a7d.cpus()[0]?.model || "unknown_cpu";
-  const _0x5aa993 = _0x5c4a7d.totalmem().toString();
-  return crypto.createHash("sha256").update(_0x504cf2 + _0x4b8638 + _0x5aa993).digest("hex");
+  const result = machineIdSync();
+  const os = require("os");
+  const local = os.cpus()[0]?.model || "unknown_cpu";
+  const result2 = os.totalmem().toString();
+  return crypto.createHash("sha256").update(result + local + result2).digest("hex");
 }
-function computeMachineSeal(_0x3136a7) {
-  return crypto.createHash("sha256").update(machineIdSync() + "\n" + _0x3136a7).digest("hex");
+function computeMachineSeal(arg1) {
+  return crypto.createHash("sha256").update(machineIdSync() + "\n" + arg1).digest("hex");
 }
 function readSealFile() {
   try {
-    const _0x4f2835 = getDeviceIdSealPath();
-    if (!fs.existsSync(_0x4f2835)) {
+    const result = getDeviceIdSealPath();
+    if (!fs.existsSync(result)) {
       return null;
     }
-    const _0x1595b2 = fs.readFileSync(_0x4f2835, "utf8").trim();
-    if (/^[a-f0-9]{64}$/i.test(_0x1595b2)) {
-      return _0x1595b2.toLowerCase();
+    const result2 = fs.readFileSync(result, "utf8").trim();
+    if (/^[a-f0-9]{64}$/i.test(result2)) {
+      return result2.toLowerCase();
     } else {
       return null;
     }
-  } catch (_0x284776) {
+  } catch (error) {
     return null;
   }
 }
-function writeSealFile(_0x63583) {
+function writeSealFile(arg1) {
   try {
-    const _0x4fad6c = app.getPath("userData");
-    fs.mkdirSync(_0x4fad6c, {
+    const result = app.getPath("userData");
+    fs.mkdirSync(result, {
       recursive: true
     });
-    const _0x178e08 = getDeviceIdSealPath();
-    const _0x2f63aa = _0x178e08 + "." + process.pid + ".tmp";
-    fs.writeFileSync(_0x2f63aa, computeMachineSeal(_0x63583), "utf8");
-    fs.renameSync(_0x2f63aa, _0x178e08);
-  } catch (_0x309895) {
-    console.warn("[DeviceID] seal persist failed:", _0x309895.message);
+    const result2 = getDeviceIdSealPath();
+    const value = result2 + "." + process.pid + ".tmp";
+    fs.writeFileSync(value, computeMachineSeal(arg1), "utf8");
+    fs.renameSync(value, result2);
+  } catch (error) {
+    console.warn("[DeviceID] seal persist failed:", error.message);
   }
 }
-function atomicWriteFile(_0x74c127, _0x980d40) {
-  const _0x1974ed = path.dirname(_0x74c127);
-  fs.mkdirSync(_0x1974ed, {
+function atomicWriteFile(arg1, arg2) {
+  const result = path.dirname(arg1);
+  fs.mkdirSync(result, {
     recursive: true
   });
-  const _0x43fbe7 = _0x74c127 + "." + process.pid + ".tmp";
-  fs.writeFileSync(_0x43fbe7, _0x980d40, "utf8");
-  fs.renameSync(_0x43fbe7, _0x74c127);
+  const value = arg1 + "." + process.pid + ".tmp";
+  fs.writeFileSync(value, arg2, "utf8");
+  fs.renameSync(value, arg1);
 }
 function readPersistedDeviceIdRaw() {
   try {
-    const _0x58e586 = getDeviceIdFilePath();
-    if (!fs.existsSync(_0x58e586)) {
+    const result = getDeviceIdFilePath();
+    if (!fs.existsSync(result)) {
       return {
         id: null,
         encrypted: false
       };
     }
-    const _0x7f71b5 = fs.readFileSync(_0x58e586, "utf8").trim();
-    if (!_0x7f71b5) {
+    const result2 = fs.readFileSync(result, "utf8").trim();
+    if (!result2) {
       return {
         id: null,
         encrypted: false
       };
     }
-    if (isEncryptedBlob(_0x7f71b5)) {
+    if (isEncryptedBlob(result2)) {
       if (!encryptionAvailable()) {
         return {
           id: null,
           encrypted: true,
           pendingDecrypt: true,
-          blob: _0x7f71b5
+          blob: result2
         };
       }
       try {
-        const _0x53e03b = decodeBlob(_0x7f71b5).trim();
-        if (isValidDeviceId(_0x53e03b)) {
+        const result = decodeBlob(result2).trim();
+        if (isValidDeviceId(result)) {
           return {
-            id: _0x53e03b,
+            id: result,
             encrypted: true
           };
         } else {
@@ -157,8 +157,8 @@ function readPersistedDeviceIdRaw() {
             encrypted: true
           };
         }
-      } catch (_0x1f02ab) {
-        console.warn("[DeviceID] decrypt failed (possible cross-machine copy):", _0x1f02ab.message);
+      } catch (error) {
+        console.warn("[DeviceID] decrypt failed (possible cross-machine copy):", error.message);
         return {
           id: null,
           encrypted: true,
@@ -166,9 +166,9 @@ function readPersistedDeviceIdRaw() {
         };
       }
     }
-    if (isValidDeviceId(_0x7f71b5)) {
+    if (isValidDeviceId(result2)) {
       return {
-        id: _0x7f71b5,
+        id: result2,
         encrypted: false
       };
     } else {
@@ -177,59 +177,59 @@ function readPersistedDeviceIdRaw() {
         encrypted: false
       };
     }
-  } catch (_0x183823) {
+  } catch (error) {
     return {
       id: null,
       encrypted: false
     };
   }
 }
-function writePersistedDeviceId(_0x290308) {
+function writePersistedDeviceId(arg1) {
   try {
-    const _0x225906 = getDeviceIdFilePath();
-    const _0x1ce15f = encryptionAvailable() ? encodeBlob(_0x290308) : _0x290308;
-    atomicWriteFile(_0x225906, _0x1ce15f);
-  } catch (_0x4600f7) {
-    console.warn("[DeviceID] persist failed:", _0x4600f7.message);
+    const result = getDeviceIdFilePath();
+    const value = encryptionAvailable() ? encodeBlob(arg1) : arg1;
+    atomicWriteFile(result, value);
+  } catch (error) {
+    console.warn("[DeviceID] persist failed:", error.message);
   }
 }
-function bindOrRejectDeviceId(_0x1e0e70) {
-  if (!isValidDeviceId(_0x1e0e70)) {
+function bindOrRejectDeviceId(arg1) {
+  if (!isValidDeviceId(arg1)) {
     return null;
   }
-  const _0x35c33d = computeMachineSeal(_0x1e0e70);
-  const _0x282140 = readSealFile();
-  if (_0x282140) {
-    if (_0x282140 !== _0x35c33d) {
+  const result = computeMachineSeal(arg1);
+  const result2 = readSealFile();
+  if (result2) {
+    if (result2 !== result) {
       console.warn("[DeviceID] machine seal mismatch — rejecting copied device_id");
       return null;
     }
-    return _0x1e0e70;
+    return arg1;
   }
-  writeSealFile(_0x1e0e70);
-  return _0x1e0e70;
+  writeSealFile(arg1);
+  return arg1;
 }
 function clearDeviceIdArtifacts() {
-  for (const _0x392d42 of [getDeviceIdFilePath(), getDeviceIdSealPath()]) {
+  for (const item of [getDeviceIdFilePath(), getDeviceIdSealPath()]) {
     try {
-      if (fs.existsSync(_0x392d42)) {
-        fs.unlinkSync(_0x392d42);
+      if (fs.existsSync(item)) {
+        fs.unlinkSync(item);
       }
-    } catch (_0x4ce1af) {}
+    } catch (error) {}
   }
 }
 function createAndPersistDeviceId() {
   try {
-    const _0x23896c = computeHardwareDeviceId();
-    writePersistedDeviceId(_0x23896c);
-    writeSealFile(_0x23896c);
-    return _0x23896c;
-  } catch (_0x3edc48) {
-    console.warn("[DeviceID] hardware id failed, using stable local id:", _0x3edc48 && _0x3edc48.message);
-    const _0x59f921 = crypto.randomBytes(32).toString("hex");
-    writePersistedDeviceId(_0x59f921);
-    writeSealFile(_0x59f921);
-    return _0x59f921;
+    const result = computeHardwareDeviceId();
+    writePersistedDeviceId(result);
+    writeSealFile(result);
+    return result;
+  } catch (error) {
+    console.warn("[DeviceID] hardware id failed, using stable local id:", error && error.message);
+    const result = crypto.randomBytes(32).toString("hex");
+    writePersistedDeviceId(result);
+    writeSealFile(result);
+    return result;
   }
 }
 function getRobustDeviceID() {
@@ -237,32 +237,32 @@ function getRobustDeviceID() {
     return cachedDeviceId;
   }
   const {
-    id: _0x532ba5,
-    pendingDecrypt: _0x444f8d,
-    decryptFailed: _0x407069
+    id: id,
+    pendingDecrypt: pendingDecrypt,
+    decryptFailed: decryptFailed
   } = readPersistedDeviceIdRaw();
-  if (_0x407069) {
+  if (decryptFailed) {
     clearDeviceIdArtifacts();
   }
-  if (_0x444f8d) {
+  if (pendingDecrypt) {
     try {
-      const _0x38b716 = computeHardwareDeviceId();
-      if (isValidDeviceId(_0x38b716)) {
-        return _0x38b716;
+      const result = computeHardwareDeviceId();
+      if (isValidDeviceId(result)) {
+        return result;
       }
-    } catch (_0x450836) {}
+    } catch (error) {}
   }
-  if (_0x532ba5) {
-    const _0x3fe3e4 = bindOrRejectDeviceId(_0x532ba5);
-    if (_0x3fe3e4) {
-      cachedDeviceId = _0x3fe3e4;
+  if (id) {
+    const result = bindOrRejectDeviceId(id);
+    if (result) {
+      cachedDeviceId = result;
       if (encryptionAvailable()) {
         try {
-          const _0x1deca8 = fs.readFileSync(getDeviceIdFilePath(), "utf8").trim();
-          if (!isEncryptedBlob(_0x1deca8)) {
-            writePersistedDeviceId(_0x3fe3e4);
+          const result2 = fs.readFileSync(getDeviceIdFilePath(), "utf8").trim();
+          if (!isEncryptedBlob(result2)) {
+            writePersistedDeviceId(result);
           }
-        } catch (_0x1613e7) {}
+        } catch (error) {}
       }
       return cachedDeviceId;
     }
@@ -273,13 +273,13 @@ function getRobustDeviceID() {
 }
 function migrateDeviceIdEncryption() {
   try {
-    const _0x169294 = getRobustDeviceID();
-    if (!isValidDeviceId(_0x169294)) {
+    const result = getRobustDeviceID();
+    if (!isValidDeviceId(result)) {
       return;
     }
     if (!readSealFile()) {
-      writeSealFile(_0x169294);
-    } else if (readSealFile() !== computeMachineSeal(_0x169294)) {
+      writeSealFile(result);
+    } else if (readSealFile() !== computeMachineSeal(result)) {
       console.warn("[DeviceID] migrate: seal mismatch, rotating device_id");
       cachedDeviceId = null;
       clearDeviceIdArtifacts();
@@ -287,34 +287,34 @@ function migrateDeviceIdEncryption() {
       return;
     }
     if (encryptionAvailable()) {
-      const _0x8c4b0 = getDeviceIdFilePath();
-      let _0x5df282 = true;
+      const result2 = getDeviceIdFilePath();
+      let flag = true;
       try {
-        if (fs.existsSync(_0x8c4b0)) {
-          const _0xa6e67a = fs.readFileSync(_0x8c4b0, "utf8").trim();
-          if (isEncryptedBlob(_0xa6e67a)) {
+        if (fs.existsSync(result2)) {
+          const result3 = fs.readFileSync(result2, "utf8").trim();
+          if (isEncryptedBlob(result3)) {
             try {
-              _0x5df282 = decodeBlob(_0xa6e67a).trim() !== _0x169294;
-            } catch (_0x3b9182) {
-              _0x5df282 = true;
+              flag = decodeBlob(result3).trim() !== result;
+            } catch (error) {
+              flag = true;
             }
           }
         }
-      } catch (_0x134223) {}
-      if (_0x5df282) {
-        writePersistedDeviceId(_0x169294);
+      } catch (error) {}
+      if (flag) {
+        writePersistedDeviceId(result);
       }
     }
-  } catch (_0x13b921) {
-    console.warn("[DeviceID] migrate failed:", _0x13b921 && _0x13b921.message);
+  } catch (error) {
+    console.warn("[DeviceID] migrate failed:", error && error.message);
   }
 }
-function formatTime(_0x2b193d) {
-  if (!_0x2b193d) {
+function formatTime(arg1) {
+  if (!arg1) {
     return "-";
   }
-  const _0x335762 = new Date(_0x2b193d);
-  return _0x335762.getFullYear() + "-" + (_0x335762.getMonth() + 1).toString().padStart(2, "0") + "-" + _0x335762.getDate().toString().padStart(2, "0") + " " + _0x335762.getHours().toString().padStart(2, "0") + ":" + _0x335762.getMinutes().toString().padStart(2, "0") + ":" + _0x335762.getSeconds().toString().padStart(2, "0");
+  const date = new Date(arg1);
+  return date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0") + " " + date.getHours().toString().padStart(2, "0") + ":" + date.getMinutes().toString().padStart(2, "0") + ":" + date.getSeconds().toString().padStart(2, "0");
 }
 module.exports = {
   getAppVersion: getAppVersion,
