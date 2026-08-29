@@ -31,150 +31,150 @@ const CHAT_NOTIFICATION_SUMMARIES_KEY = "message_center_unread_summaries_v1";
 const CHAT_NOTIFICATION_RUNTIME_GUARD = "message-notification-monitor";
 const CHAT_OBSERVER_DEBOUNCE_MS = 200;
 const CHAT_SAFETY_SCAN_INTERVAL_MS = 45000;
-function createMessageCenter(_0xee7ec1 = {}) {
-  const _0x1a779a = _0xee7ec1.store;
-  const _0x226cd2 = _0xee7ec1.axios;
-  const _0x9d234 = () => typeof _0xee7ec1.getMainWindow === "function" ? _0xee7ec1.getMainWindow() : null;
-  const _0x39d4b6 = () => typeof _0xee7ec1.getIsCurrentUserFree === "function" ? !!_0xee7ec1.getIsCurrentUserFree() : false;
-  const _0x37e6fc = () => typeof _0xee7ec1.getAutomationUserAgent === "function" ? _0xee7ec1.getAutomationUserAgent() : undefined;
-  const _0x182364 = () => typeof _0xee7ec1.getAppProductName === "function" ? _0xee7ec1.getAppProductName() : "获客雷达";
-  const _0x1d0d75 = Number(_0xee7ec1.maxKeepaliveAccounts) > 0 ? Number(_0xee7ec1.maxKeepaliveAccounts) : 10;
-  const _0x15c218 = _0xee7ec1.chatViewsMap || new Map();
-  const _0x5cb20c = _0xee7ec1.chatMonitorWindowsMap || new Map();
-  let _0x404838 = false;
-  let _0x1acd82 = null;
-  let _0x27bbf2 = 0;
-  let _0x2218de = normalizeChatNotificationConfig(_0x1a779a.get(CHAT_NOTIFICATION_CONFIG_KEY, {}));
-  let _0x366146 = _0x1a779a.get(CHAT_NOTIFICATION_STATES_KEY, {}) || {};
-  let _0x4324ac = _0x1a779a.get(CHAT_NOTIFICATION_SUMMARIES_KEY, {}) || {};
-  let _0x27d19d = null;
-  let _0x3e47c6 = false;
-  let _0x46a1cb = 0;
-  let _0x2bfa83 = null;
-  let _0x41caaf = false;
-  const _0xf07603 = new Map();
-  const _0x3cc9a7 = new Map();
-  const _0x257f8e = new Map();
-  const _0x11256e = new Map();
-  const _0x156cd5 = new Map();
-  function _0x2794bf(_0x44450d = {}) {
-    const _0x4fd5da = _0x9d234();
-    if (!_0x4fd5da || _0x4fd5da.isDestroyed() || _0x4fd5da.webContents.isDestroyed()) {
+function createMessageCenter(options = {}) {
+  const value = options.store;
+  const value2 = options.axios;
+  const local = () => typeof options.getMainWindow === "function" ? options.getMainWindow() : null;
+  const local2 = () => typeof options.getIsCurrentUserFree === "function" ? !!options.getIsCurrentUserFree() : false;
+  const local3 = () => typeof options.getAutomationUserAgent === "function" ? options.getAutomationUserAgent() : undefined;
+  const local4 = () => typeof options.getAppProductName === "function" ? options.getAppProductName() : "获客雷达";
+  const value3 = Number(options.maxKeepaliveAccounts) > 0 ? Number(options.maxKeepaliveAccounts) : 10;
+  const local5 = options.chatViewsMap || new Map();
+  const local6 = options.chatMonitorWindowsMap || new Map();
+  let flag = false;
+  let local7 = null;
+  let num = 0;
+  let result = normalizeChatNotificationConfig(value.get(CHAT_NOTIFICATION_CONFIG_KEY, {}));
+  let local8 = value.get(CHAT_NOTIFICATION_STATES_KEY, {}) || {};
+  let local9 = value.get(CHAT_NOTIFICATION_SUMMARIES_KEY, {}) || {};
+  let local10 = null;
+  let flag2 = false;
+  let num2 = 0;
+  let local11 = null;
+  let flag3 = false;
+  const map = new Map();
+  const map2 = new Map();
+  const map3 = new Map();
+  const map4 = new Map();
+  const map5 = new Map();
+  function fn(options = {}) {
+    const result = local();
+    if (!result || result.isDestroyed() || result.webContents.isDestroyed()) {
       return;
     }
     try {
-      _0x4fd5da.webContents.send("chat-view-status", {
+      result.webContents.send("chat-view-status", {
         at: Date.now(),
-        ..._0x44450d
+        ...options
       });
-    } catch (_0xce4c83) {}
+    } catch (error) {}
   }
-  function _0xf1c98e() {
-    const _0x1ed2c0 = _0x1a779a.get("account_pool", []);
-    return (Array.isArray(_0x1ed2c0) ? _0x1ed2c0 : []).filter(_0x793cb9 => _0x793cb9 && (!_0x793cb9.platform || _0x793cb9.platform === "douyin"));
+  function fn2() {
+    const result = value.get("account_pool", []);
+    return (Array.isArray(result) ? result : []).filter(arg1 => arg1 && (!arg1.platform || arg1.platform === "douyin"));
   }
-  function _0x482253(_0x4fa962) {
-    return _0xf1c98e().find(_0x256c84 => String(_0x256c84.id) === String(_0x4fa962)) || null;
+  function fn3(arg1) {
+    return fn2().find(arg12 => String(arg12.id) === String(arg1)) || null;
   }
-  function _0x431f4d() {
-    return !_0x39d4b6() && !!_0x2218de.enabled;
+  function isBackgroundChatMonitorEnabled() {
+    return !local2() && !!result.enabled;
   }
-  function _0xc78b4d() {
-    return _0x431f4d() && isChatWebhookPushConfigured(_0x2218de);
+  function fn5() {
+    return isBackgroundChatMonitorEnabled() && isChatWebhookPushConfigured(result);
   }
-  function _0xbd58af() {
-    if (_0x39d4b6()) {
+  function shouldRunChatMessageMonitor() {
+    if (local2()) {
       return false;
     }
-    return !!_0x41caaf || _0x431f4d();
+    return !!flag3 || isBackgroundChatMonitorEnabled();
   }
-  function _0xa90a56() {
-    const _0x54a6b4 = _0xf1c98e().filter(_0x511dcd => _0x511dcd.status === "online");
-    const _0x2274e7 = _0x1acd82?.accountId ? String(_0x1acd82.accountId) : "";
-    const _0x33941f = [];
-    if (_0x2274e7) {
-      const _0x2e480a = _0x54a6b4.find(_0x70f27e => String(_0x70f27e.id) === _0x2274e7);
-      if (_0x2e480a) {
-        _0x33941f.push(_0x2e480a);
+  function fn7() {
+    const result = fn2().filter(arg1 => arg1.status === "online");
+    const value = local7?.accountId ? String(local7.accountId) : "";
+    const list = [];
+    if (value) {
+      const result2 = result.find(arg1 => String(arg1.id) === value);
+      if (result2) {
+        list.push(result2);
       }
     }
-    for (const _0x9a30d0 of _0x54a6b4) {
-      if (String(_0x9a30d0.id) === _0x2274e7) {
+    for (const item of result) {
+      if (String(item.id) === value) {
         continue;
       }
-      _0x33941f.push(_0x9a30d0);
-      if (_0x33941f.length >= _0x1d0d75) {
+      list.push(item);
+      if (list.length >= value3) {
         break;
       }
     }
-    return _0x33941f.slice(0, _0x1d0d75);
+    return list.slice(0, value3);
   }
-  function _0x33f720() {
-    const _0x425535 = {};
-    let _0x48ce96 = 0;
-    Object.entries(_0x4324ac || {}).forEach(([_0x1b1f1f, _0x319f5f]) => {
-      const _0x15bfb7 = Math.max(0, Math.min(9999, Number(_0x319f5f?.unreadCount || 0)));
-      _0x425535[_0x1b1f1f] = {
-        accountId: _0x1b1f1f,
-        unreadCount: _0x15bfb7,
-        lastSender: String(_0x319f5f?.lastSender || "").slice(0, 120),
-        lastContent: String(_0x319f5f?.lastContent || "").slice(0, 500),
-        lastScanAt: Number(_0x319f5f?.lastScanAt || 0),
-        source: String(_0x319f5f?.source || ""),
-        error: String(_0x319f5f?.error || "")
+  function getChatUnreadStatePayload() {
+    const obj = {};
+    let num = 0;
+    Object.entries(local9 || {}).forEach(([arg1, arg12]) => {
+      const result = Math.max(0, Math.min(9999, Number(arg12?.unreadCount || 0)));
+      obj[arg1] = {
+        accountId: arg1,
+        unreadCount: result,
+        lastSender: String(arg12?.lastSender || "").slice(0, 120),
+        lastContent: String(arg12?.lastContent || "").slice(0, 500),
+        lastScanAt: Number(arg12?.lastScanAt || 0),
+        source: String(arg12?.source || ""),
+        error: String(arg12?.error || "")
       };
-      _0x48ce96 += _0x15bfb7;
+      num += result;
     });
     return {
-      totalUnread: Math.min(9999, _0x48ce96),
-      accounts: _0x425535,
+      totalUnread: Math.min(9999, num),
+      accounts: obj,
       monitor: {
-        enabled: !!_0x2218de.enabled,
-        webhookEnabled: _0xc78b4d(),
-        webhookType: String(_0x2218de.webhookType || "feishu"),
-        messageCenterActive: !!_0x41caaf,
-        running: !!_0x3e47c6,
+        enabled: !!result.enabled,
+        webhookEnabled: fn5(),
+        webhookType: String(result.webhookType || "feishu"),
+        messageCenterActive: !!flag3,
+        running: !!flag2,
         mode: "event",
-        keepaliveMaxAccounts: _0x1d0d75,
+        keepaliveMaxAccounts: value3,
         safetyScanIntervalSeconds: Math.round(CHAT_SAFETY_SCAN_INTERVAL_MS / 1000),
-        keepaliveCount: _0x5cb20c.size,
-        lastRun: _0x2bfa83
+        keepaliveCount: local6.size,
+        lastRun: local11
       }
     };
   }
-  function _0x563f20() {
-    const _0x49359b = _0x9d234();
-    if (!_0x49359b || _0x49359b.isDestroyed() || _0x49359b.webContents.isDestroyed()) {
+  function fn9() {
+    const result = local();
+    if (!result || result.isDestroyed() || result.webContents.isDestroyed()) {
       return;
     }
     try {
-      _0x49359b.webContents.send("chat-unread-state", _0x33f720());
-    } catch (_0x35657e) {}
+      result.webContents.send("chat-unread-state", getChatUnreadStatePayload());
+    } catch (error) {}
   }
-  function _0xadf724() {
-    _0x1a779a.set(CHAT_NOTIFICATION_STATES_KEY, _0x366146 || {});
-    _0x1a779a.set(CHAT_NOTIFICATION_SUMMARIES_KEY, _0x4324ac || {});
+  function fn10() {
+    value.set(CHAT_NOTIFICATION_STATES_KEY, local8 || {});
+    value.set(CHAT_NOTIFICATION_SUMMARIES_KEY, local9 || {});
   }
-  function _0x5ea2ef(_0x2fa299, _0x56e426, _0x1686b9 = "") {
-    const _0x2e78a3 = _0x4324ac[_0x2fa299] || {};
-    _0x4324ac = {
-      ..._0x4324ac,
-      [_0x2fa299]: {
-        ..._0x2e78a3,
-        accountId: _0x2fa299,
-        source: _0x1686b9,
-        error: String(_0x56e426 || "消息列表暂不可读").slice(0, 300),
+  function fn11(arg1, arg2, text = "") {
+    const local = local9[arg1] || {};
+    local9 = {
+      ...local9,
+      [arg1]: {
+        ...local,
+        accountId: arg1,
+        source: text,
+        error: String(arg2 || "消息列表暂不可读").slice(0, 300),
         lastScanAt: Date.now()
       }
     };
-    _0xadf724();
-    _0x563f20();
+    fn10();
+    fn9();
   }
-  async function _0x152623(_0x1d2818, _0x21fa74 = _0x2218de, {
+  async function fn12(arg1, arg2 = result, {
     force = false
   } = {}) {
-    const _0x4d2928 = normalizeChatNotificationConfig(_0x21fa74);
-    if (!force && !_0x4d2928.enabled || !isChatWebhookPushConfigured(_0x4d2928)) {
+    const result2 = normalizeChatNotificationConfig(arg2);
+    if (!force && !result2.enabled || !isChatWebhookPushConfigured(result2)) {
       return {
         success: false,
         skipped: true,
@@ -182,336 +182,336 @@ function createMessageCenter(_0xee7ec1 = {}) {
       };
     }
     try {
-      const _0x2a955c = await sendChatMessageWebhookRequest({
-        axios: _0x226cd2,
+      const result = await sendChatMessageWebhookRequest({
+        axios: value2,
         config: {
-          ..._0x4d2928,
+          ...result2,
           enabled: true
         },
-        event: _0x1d2818,
+        event: arg1,
         timeout: 10000,
         force: true
       });
-      const _0x5a6031 = !!_0x2a955c.success;
-      const _0x48c405 = {
-        success: _0x5a6031,
-        message: _0x2a955c.message || (_0x5a6031 ? "推送成功" : "机器人返回失败状态"),
-        accountId: _0x1d2818.accountId,
-        sender: _0x1d2818.sender,
+      const flag = !!result.success;
+      const obj = {
+        success: flag,
+        message: result.message || (flag ? "推送成功" : "机器人返回失败状态"),
+        accountId: arg1.accountId,
+        sender: arg1.sender,
         at: Date.now()
       };
-      const _0x3ba190 = _0x9d234();
-      if (_0x3ba190 && !_0x3ba190.isDestroyed()) {
-        _0x3ba190.webContents.send("chat-webhook-result", _0x48c405);
+      const result3 = local();
+      if (result3 && !result3.isDestroyed()) {
+        result3.webContents.send("chat-webhook-result", obj);
       }
-      return _0x48c405;
-    } catch (_0x34c92a) {
-      const _0x1a645e = {
+      return obj;
+    } catch (error) {
+      const obj = {
         success: false,
-        message: _0x34c92a.message || "Webhook 推送失败",
-        accountId: _0x1d2818.accountId,
-        sender: _0x1d2818.sender,
+        message: error.message || "Webhook 推送失败",
+        accountId: arg1.accountId,
+        sender: arg1.sender,
         at: Date.now()
       };
-      console.warn("[ChatNotify] Webhook 推送失败 account=" + _0x1d2818.accountId + ": " + _0x1a645e.message);
-      const _0x252b49 = _0x9d234();
-      if (_0x252b49 && !_0x252b49.isDestroyed()) {
-        _0x252b49.webContents.send("chat-webhook-result", _0x1a645e);
+      console.warn("[ChatNotify] Webhook 推送失败 account=" + arg1.accountId + ": " + obj.message);
+      const result = local();
+      if (result && !result.isDestroyed()) {
+        result.webContents.send("chat-webhook-result", obj);
       }
-      return _0x1a645e;
+      return obj;
     }
   }
-  async function _0x115110(_0x35e3db, _0x209cb5, _0x43c060) {
-    const _0x318d13 = String(_0x35e3db?.id || "");
-    const _0x1b40c3 = String(_0x209cb5.content || "").trim().slice(0, 200);
-    const _0x77294d = [_0x318d13, _0x1b40c3].join("|");
-    if (_0x77294d !== "|" && _0x3cc9a7.has(_0x77294d)) {
-      console.log("[ChatNotify] 跳过重复推送 account=" + _0x318d13 + " content=" + _0x1b40c3.slice(0, 40));
+  async function fn13(arg1, arg2, arg3) {
+    const result2 = String(arg1?.id || "");
+    const result3 = String(arg2.content || "").trim().slice(0, 200);
+    const result4 = [result2, result3].join("|");
+    if (result4 !== "|" && map2.has(result4)) {
+      console.log("[ChatNotify] 跳过重复推送 account=" + result2 + " content=" + result3.slice(0, 40));
       return {
         skipped: true,
         reason: "duplicate"
       };
     }
-    if (_0x77294d !== "|") {
-      _0x3cc9a7.set(_0x77294d, Date.now());
-      if (_0x3cc9a7.size > 2000) {
-        const _0x16a4fb = Date.now() - 21600000;
-        for (const [_0xef2e4, _0x2d08c0] of _0x3cc9a7.entries()) {
-          if (_0x2d08c0 < _0x16a4fb) {
-            _0x3cc9a7.delete(_0xef2e4);
+    if (result4 !== "|") {
+      map2.set(result4, Date.now());
+      if (map2.size > 2000) {
+        const value = Date.now() - 21600000;
+        for (const [local, local2] of map2.entries()) {
+          if (local2 < value) {
+            map2.delete(local);
           }
         }
       }
     }
-    const _0xd0771f = Math.max(0, Number(_0x366146[_0x318d13]?.unreadCount || 0));
-    const _0x536fe1 = {
-      accountId: _0x318d13,
-      productName: _0x182364(),
-      receiverNickname: _0x35e3db?.nickname || "",
-      receiverRemark: _0x35e3db?.name || "",
-      receiverDouyinId: _0x35e3db?.douyinId || "",
-      sender: _0x209cb5.sender,
-      content: _0x209cb5.content,
-      unreadCount: _0x209cb5.unreadCount,
-      conversationUnreadCount: _0x209cb5.unreadCount,
-      accountUnreadCount: _0xd0771f,
-      conversationKey: _0x209cb5.conversationKey,
-      fingerprint: _0x209cb5.fingerprint,
-      detectedAt: _0x209cb5.detectedAt || Date.now(),
-      source: _0x43c060
+    const result5 = Math.max(0, Number(local8[result2]?.unreadCount || 0));
+    const obj = {
+      accountId: result2,
+      productName: local4(),
+      receiverNickname: arg1?.nickname || "",
+      receiverRemark: arg1?.name || "",
+      receiverDouyinId: arg1?.douyinId || "",
+      sender: arg2.sender,
+      content: arg2.content,
+      unreadCount: arg2.unreadCount,
+      conversationUnreadCount: arg2.unreadCount,
+      accountUnreadCount: result5,
+      conversationKey: arg2.conversationKey,
+      fingerprint: arg2.fingerprint,
+      detectedAt: arg2.detectedAt || Date.now(),
+      source: arg3
     };
-    const _0x1a2a89 = _0x9d234();
-    if (_0x1a2a89 && !_0x1a2a89.isDestroyed()) {
-      _0x1a2a89.webContents.send("chat-new-message", _0x536fe1);
+    const result6 = local();
+    if (result6 && !result6.isDestroyed()) {
+      result6.webContents.send("chat-new-message", obj);
     }
-    if (_0x2218de.enabled && isChatWebhookPushConfigured(_0x2218de)) {
-      await _0x152623(_0x536fe1, _0x2218de);
+    if (result.enabled && isChatWebhookPushConfigured(result)) {
+      await fn12(obj, result);
     }
     return {
       skipped: false
     };
   }
-  async function _0x3cd207(_0xb1d9b7, _0x3eba20, {
+  async function fn14(arg1, arg2, {
     source = "active"
   } = {}) {
-    if (!_0xb1d9b7 || _0xb1d9b7.isDestroyed?.() || !_0x3eba20?.id) {
+    if (!arg1 || arg1.isDestroyed?.() || !arg2?.id) {
       return {
         success: false,
         message: "消息页面不可用"
       };
     }
-    const _0x214683 = String(_0x3eba20.id);
-    if (_0xf07603.has(_0x214683)) {
-      return _0xf07603.get(_0x214683);
+    const result = String(arg2.id);
+    if (map.has(result)) {
+      return map.get(result);
     }
-    const _0x247e0d = (async () => {
-      let _0x550763;
+    const result2 = (async () => {
+      let local;
       try {
-        _0x550763 = await _0xb1d9b7.executeJavaScript(getChatConversationSnapshotScript(), true);
-      } catch (_0x5ec3fb) {
-        _0x5ea2ef(_0x214683, _0x5ec3fb.message || "读取消息列表失败", source);
+        local = await arg1.executeJavaScript(getChatConversationSnapshotScript(), true);
+      } catch (error) {
+        fn11(result, error.message || "读取消息列表失败", source);
         return {
           success: false,
-          message: _0x5ec3fb.message || "读取消息列表失败"
+          message: error.message || "读取消息列表失败"
         };
       }
-      if (!_0x550763?.success || !Array.isArray(_0x550763.conversations)) {
-        const _0x50ac17 = _0x550763?.error || (_0x550763?.diagnostics?.readyState !== "complete" ? "消息页面仍在加载" : "暂未识别到会话列表");
-        _0x5ea2ef(_0x214683, _0x50ac17, source);
+      if (!local?.success || !Array.isArray(local.conversations)) {
+        const local2 = local?.error || (local?.diagnostics?.readyState !== "complete" ? "消息页面仍在加载" : "暂未识别到会话列表");
+        fn11(result, local2, source);
         return {
           success: false,
-          message: _0x50ac17,
-          diagnostics: _0x550763?.diagnostics || null
+          message: local2,
+          diagnostics: local?.diagnostics || null
         };
       }
-      const _0x822a70 = _0x366146[_0x214683] || {};
-      const _0x4f4567 = reconcileConversationSnapshot(_0x822a70, _0x550763.conversations, Date.now());
-      _0x366146 = {
-        ..._0x366146,
-        [_0x214683]: _0x4f4567.state
+      const local2 = local8[result] || {};
+      const result2 = reconcileConversationSnapshot(local2, local.conversations, Date.now());
+      local8 = {
+        ...local8,
+        [result]: result2.state
       };
-      _0x4324ac = {
-        ..._0x4324ac,
-        [_0x214683]: {
-          accountId: _0x214683,
-          unreadCount: _0x4f4567.state.unreadCount,
-          lastSender: _0x4f4567.state.lastSender,
-          lastContent: _0x4f4567.state.lastContent,
-          lastScanAt: _0x4f4567.state.lastScanAt,
+      local9 = {
+        ...local9,
+        [result]: {
+          accountId: result,
+          unreadCount: result2.state.unreadCount,
+          lastSender: result2.state.lastSender,
+          lastContent: result2.state.lastContent,
+          lastScanAt: result2.state.lastScanAt,
           source: source,
           error: ""
         }
       };
-      _0xadf724();
-      _0x563f20();
-      for (const _0x398140 of _0x4f4567.events) {
-        await _0x115110(_0x3eba20, _0x398140, source);
+      fn10();
+      fn9();
+      for (const item of result2.events) {
+        await fn13(arg2, item, source);
       }
       return {
         success: true,
-        eventCount: _0x4f4567.events.length,
-        unreadCount: _0x4f4567.state.unreadCount,
-        conversationCount: _0x4f4567.state.conversationCount,
-        diagnostics: _0x550763.diagnostics || null
+        eventCount: result2.events.length,
+        unreadCount: result2.state.unreadCount,
+        conversationCount: result2.state.conversationCount,
+        diagnostics: local.diagnostics || null
       };
     })().finally(() => {
-      _0xf07603.delete(_0x214683);
+      map.delete(result);
     });
-    _0xf07603.set(_0x214683, _0x247e0d);
-    return _0x247e0d;
+    map.set(result, result2);
+    return result2;
   }
-  function _0x4790af(_0x44b3f9) {
-    const _0x421bf5 = String(_0x44b3f9 || "");
-    if (!_0x421bf5) {
+  function fn15(arg1) {
+    const result = String(arg1 || "");
+    if (!result) {
       return null;
     }
-    if (_0x1acd82?.accountId === _0x421bf5 && !_0x1acd82.view?.webContents?.isDestroyed?.()) {
-      return _0x1acd82.view.webContents;
+    if (local7?.accountId === result && !local7.view?.webContents?.isDestroyed?.()) {
+      return local7.view.webContents;
     }
-    const _0x15a8a2 = "douyin_" + _0x421bf5 + ":message-monitor";
-    const _0x28ccdb = _0x5cb20c.get(_0x15a8a2);
-    if (_0x28ccdb && !_0x28ccdb.isDestroyed() && !_0x28ccdb.webContents.isDestroyed()) {
-      return _0x28ccdb.webContents;
+    const value = "douyin_" + result + ":message-monitor";
+    const result2 = local6.get(value);
+    if (result2 && !result2.isDestroyed() && !result2.webContents.isDestroyed()) {
+      return result2.webContents;
     }
     return null;
   }
-  function _0x4a4e9f(_0x5bee93) {
-    const _0x2bb0b3 = String(_0x5bee93 || "");
-    if (!_0x2bb0b3 || !_0xbd58af()) {
+  function fn16(arg1) {
+    const result = String(arg1 || "");
+    if (!result || !shouldRunChatMessageMonitor()) {
       return;
     }
-    const _0x158183 = _0x257f8e.get(_0x2bb0b3);
-    if (_0x158183) {
-      clearTimeout(_0x158183);
+    const result2 = map3.get(result);
+    if (result2) {
+      clearTimeout(result2);
     }
-    const _0x523d5e = setTimeout(() => {
-      _0x257f8e.delete(_0x2bb0b3);
-      const _0x3791e6 = _0x482253(_0x2bb0b3);
-      const _0x43054b = _0x4790af(_0x2bb0b3);
-      if (!_0x3791e6 || !_0x43054b) {
+    const result3 = setTimeout(() => {
+      map3.delete(result);
+      const result2 = fn3(result);
+      const result3 = fn15(result);
+      if (!result2 || !result3) {
         return;
       }
-      const _0x14ba34 = _0x1acd82?.accountId === _0x2bb0b3 ? "active" : "observer";
-      _0x3cd207(_0x43054b, _0x3791e6, {
-        source: _0x14ba34
+      const value = local7?.accountId === result ? "active" : "observer";
+      fn14(result3, result2, {
+        source: value
       }).catch(() => {});
     }, CHAT_OBSERVER_DEBOUNCE_MS);
-    _0x523d5e.unref?.();
-    _0x257f8e.set(_0x2bb0b3, _0x523d5e);
+    result3.unref?.();
+    map3.set(result, result3);
   }
-  async function _0x2f2332(_0x3d8475, _0x1e7308) {
-    if (!_0x3d8475 || _0x3d8475.isDestroyed?.() || !_0x1e7308) {
+  async function fn17(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed?.() || !arg2) {
       return {
         success: false
       };
     }
-    const _0x2160ce = String(_0x1e7308);
-    const _0x114c80 = _0x3d8475.id;
-    let _0x1ff0b9 = _0x11256e.get(_0x114c80);
-    if (!_0x1ff0b9) {
-      const _0x2c588f = (_0x484658, _0x20c6cb, _0x393f62) => {
-        const _0x4c4f27 = _0x11256e.get(_0x114c80);
-        if (!_0x4c4f27) {
+    const result = String(arg2);
+    const value = arg1.id;
+    let result2 = map4.get(value);
+    if (!result2) {
+      const local = (arg1, arg2, arg3) => {
+        const result = map4.get(value);
+        if (!result) {
           return;
         }
-        if (String(_0x393f62 || "").includes(CHAT_LIST_CHANGED_TOKEN)) {
-          _0x4a4e9f(_0x4c4f27.accountId);
+        if (String(arg3 || "").includes(CHAT_LIST_CHANGED_TOKEN)) {
+          fn16(result.accountId);
         }
       };
-      _0x3d8475.on("console-message", _0x2c588f);
-      _0x1ff0b9 = {
-        accountId: _0x2160ce,
-        handler: _0x2c588f
+      arg1.on("console-message", local);
+      result2 = {
+        accountId: result,
+        handler: local
       };
-      _0x11256e.set(_0x114c80, _0x1ff0b9);
-      _0x3d8475.once("destroyed", () => {
-        _0x11256e.delete(_0x114c80);
+      map4.set(value, result2);
+      arg1.once("destroyed", () => {
+        map4.delete(value);
       });
     } else {
-      _0x1ff0b9.accountId = _0x2160ce;
+      result2.accountId = result;
     }
     try {
-      await _0x3d8475.executeJavaScript(getChatMonitorVisibilityKeepaliveScript(), true);
-      const _0x59478c = await _0x3d8475.executeJavaScript(getChatListObserverInstallScript(CHAT_LIST_CHANGED_TOKEN), true);
-      return _0x59478c || {
+      await arg1.executeJavaScript(getChatMonitorVisibilityKeepaliveScript(), true);
+      const result = await arg1.executeJavaScript(getChatListObserverInstallScript(CHAT_LIST_CHANGED_TOKEN), true);
+      return result || {
         success: true
       };
-    } catch (_0x32f342) {
+    } catch (error) {
       return {
         success: false,
-        message: _0x32f342.message || "安装列表观察者失败"
+        message: error.message || "安装列表观察者失败"
       };
     }
   }
-  function _0x2b0e80(_0x5b9a19, _0x2766e9) {
-    if (!_0x5b9a19 || _0x5b9a19.isDestroyed?.() || _0x5b9a19.__radarChatMonitorLifecycle) {
+  function fn18(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed?.() || arg1.__radarChatMonitorLifecycle) {
       return;
     }
-    _0x5b9a19.__radarChatMonitorLifecycle = true;
-    const _0xb25f8f = () => {
-      if (_0x5b9a19.isDestroyed()) {
+    arg1.__radarChatMonitorLifecycle = true;
+    const local = () => {
+      if (arg1.isDestroyed()) {
         return;
       }
-      _0x2f2332(_0x5b9a19, _0x2766e9).catch(() => {});
+      fn17(arg1, arg2).catch(() => {});
     };
-    _0x5b9a19.on("did-finish-load", _0xb25f8f);
-    _0x5b9a19.on("dom-ready", _0xb25f8f);
+    arg1.on("did-finish-load", local);
+    arg1.on("dom-ready", local);
   }
-  function _0x4e0764(_0x35afc3) {
-    if (!_0x35afc3 || _0x1acd82 !== _0x35afc3 || _0x35afc3.view?.webContents?.isDestroyed?.()) {
+  function fn19(arg1) {
+    if (!arg1 || local7 !== arg1 || arg1.view?.webContents?.isDestroyed?.()) {
       return;
     }
-    const _0x188490 = _0x482253(_0x35afc3.accountId) || {
-      id: _0x35afc3.accountId,
-      name: _0x35afc3.name || ""
+    const local = fn3(arg1.accountId) || {
+      id: arg1.accountId,
+      name: arg1.name || ""
     };
-    const _0x53087c = _0x35afc3.view.webContents;
-    _0x2b0e80(_0x53087c, _0x35afc3.accountId);
-    _0x2f2332(_0x53087c, _0x35afc3.accountId).catch(() => {});
-    const _0x2859c8 = setTimeout(() => {
-      if (_0x1acd82 !== _0x35afc3 || _0x53087c.isDestroyed()) {
+    const value = arg1.view.webContents;
+    fn18(value, arg1.accountId);
+    fn17(value, arg1.accountId).catch(() => {});
+    const result = setTimeout(() => {
+      if (local7 !== arg1 || value.isDestroyed()) {
         return;
       }
-      _0x3cd207(_0x53087c, _0x188490, {
+      fn14(value, local, {
         source: "active"
       }).catch(() => {});
     }, 800);
-    _0x2859c8.unref?.();
+    result.unref?.();
   }
-  function _0x4a11a5(_0x2c8c74, _0x59b03a) {
-    if (_0x5cb20c.get(_0x2c8c74) === _0x59b03a) {
-      _0x5cb20c.delete(_0x2c8c74);
+  function fn20(arg1, arg2) {
+    if (local6.get(arg1) === arg2) {
+      local6.delete(arg1);
     }
-    if (!_0x59b03a || _0x59b03a.isDestroyed()) {
+    if (!arg2 || arg2.isDestroyed()) {
       return;
     }
     try {
-      _0x59b03a.destroy();
-    } catch (_0x4f829c) {}
+      arg2.destroy();
+    } catch (error) {}
   }
-  async function _0x54a0c7(_0x4a0ea8, _0x57110e = _0x46a1cb) {
-    if (!_0x4a0ea8?.id || _0x57110e !== _0x46a1cb || app.isQuitting) {
+  async function fn21(arg1, arg2 = num2) {
+    if (!arg1?.id || arg2 !== num2 || app.isQuitting) {
       return {
         success: false,
         skipped: true
       };
     }
-    if (!_0xbd58af()) {
+    if (!shouldRunChatMessageMonitor()) {
       return {
         success: false,
         skipped: true
       };
     }
-    const _0x1b2d3e = String(_0x4a0ea8.id);
-    if (_0x1acd82?.accountId === _0x1b2d3e && !_0x1acd82.view?.webContents?.isDestroyed?.()) {
-      const _0x1fabb1 = "douyin_" + _0x1b2d3e + ":message-monitor";
-      const _0x562bd6 = _0x5cb20c.get(_0x1fabb1);
-      if (_0x562bd6) {
-        _0x4a11a5(_0x1fabb1, _0x562bd6);
+    const result = String(arg1.id);
+    if (local7?.accountId === result && !local7.view?.webContents?.isDestroyed?.()) {
+      const value = "douyin_" + result + ":message-monitor";
+      const result2 = local6.get(value);
+      if (result2) {
+        fn20(value, result2);
       }
-      _0x2b0e80(_0x1acd82.view.webContents, _0x1b2d3e);
-      await _0x2f2332(_0x1acd82.view.webContents, _0x1b2d3e);
-      return _0x3cd207(_0x1acd82.view.webContents, _0x4a0ea8, {
+      fn18(local7.view.webContents, result);
+      await fn17(local7.view.webContents, result);
+      return fn14(local7.view.webContents, arg1, {
         source: "active"
       });
     }
-    if (_0x156cd5.has(_0x1b2d3e)) {
-      return _0x156cd5.get(_0x1b2d3e);
+    if (map5.has(result)) {
+      return map5.get(result);
     }
-    const _0x4657fd = (async () => {
-      const _0x5d4623 = "douyin_" + _0x1b2d3e + ":message-monitor";
-      let _0x4376b3 = _0x5cb20c.get(_0x5d4623);
-      if (_0x4376b3 && !_0x4376b3.isDestroyed() && !_0x4376b3.webContents.isDestroyed()) {
-        _0x2b0e80(_0x4376b3.webContents, _0x1b2d3e);
-        await _0x2f2332(_0x4376b3.webContents, _0x1b2d3e);
-        return _0x3cd207(_0x4376b3.webContents, _0x4a0ea8, {
+    const result2 = (async () => {
+      const value = "douyin_" + result + ":message-monitor";
+      let result2 = local6.get(value);
+      if (result2 && !result2.isDestroyed() && !result2.webContents.isDestroyed()) {
+        fn18(result2.webContents, result);
+        await fn17(result2.webContents, result);
+        return fn14(result2.webContents, arg1, {
           source: "keepalive"
         });
       }
-      if (_0x4376b3) {
-        _0x4a11a5(_0x5d4623, _0x4376b3);
+      if (result2) {
+        fn20(value, result2);
       }
-      _0x4376b3 = new BrowserWindow({
+      result2 = new BrowserWindow({
         width: 900,
         height: 720,
         show: false,
@@ -521,586 +521,586 @@ function createMessageCenter(_0xee7ec1 = {}) {
           nodeIntegration: false,
           contextIsolation: true,
           sandbox: true,
-          partition: "persist:automation:douyin_" + _0x1b2d3e,
+          partition: "persist:automation:douyin_" + result,
           backgroundThrottling: false,
           spellcheck: false
         }
       });
-      _0x5cb20c.set(_0x5d4623, _0x4376b3);
-      _0xee7ec1.applyPackagedWindowMenuPolicy?.(_0x4376b3);
-      attachProtocolGuard(_0x4376b3.webContents, _0x5d4623);
-      _0xee7ec1.configureAutomationSession?.(_0x4376b3.webContents.session, _0x5d4623);
-      _0x4376b3.webContents.setUserAgent(_0x37e6fc());
+      local6.set(value, result2);
+      options.applyPackagedWindowMenuPolicy?.(result2);
+      attachProtocolGuard(result2.webContents, value);
+      options.configureAutomationSession?.(result2.webContents.session, value);
+      result2.webContents.setUserAgent(local3());
       try {
-        _0x4376b3.webContents.setAudioMuted(true);
-      } catch (_0xfc6784) {}
+        result2.webContents.setAudioMuted(true);
+      } catch (error) {}
       try {
-        _0x4376b3.webContents.setBackgroundThrottling?.(false);
-      } catch (_0x30737e) {}
-      _0x2b0e80(_0x4376b3.webContents, _0x1b2d3e);
+        result2.webContents.setBackgroundThrottling?.(false);
+      } catch (error) {}
+      fn18(result2.webContents, result);
       try {
-        await _0xee7ec1.bindAutomationViewProxy?.({
-          proxy: _0x4a0ea8.proxy
-        }, _0x5d4623, _0x4376b3.webContents.session);
-        if (_0x57110e !== _0x46a1cb || app.isQuitting || _0x4376b3.isDestroyed()) {
-          _0x4a11a5(_0x5d4623, _0x4376b3);
+        await options.bindAutomationViewProxy?.({
+          proxy: arg1.proxy
+        }, value, result2.webContents.session);
+        if (arg2 !== num2 || app.isQuitting || result2.isDestroyed()) {
+          fn20(value, result2);
           return {
             success: false,
             skipped: true
           };
         }
-        if (_0x1acd82?.accountId === _0x1b2d3e && !_0x1acd82.view?.webContents?.isDestroyed?.()) {
-          _0x4a11a5(_0x5d4623, _0x4376b3);
-          return _0x54a0c7(_0x4a0ea8, _0x57110e);
+        if (local7?.accountId === result && !local7.view?.webContents?.isDestroyed?.()) {
+          fn20(value, result2);
+          return fn21(arg1, arg2);
         }
-        await _0x4376b3.loadURL(DOUYIN_CHAT_URL);
-        let _0x4a6185 = {
+        await result2.loadURL(DOUYIN_CHAT_URL);
+        let obj = {
           success: false,
           message: "消息列表尚未渲染"
         };
-        for (let _0x48a99f = 0; _0x48a99f < 10; _0x48a99f += 1) {
-          if (_0x57110e !== _0x46a1cb || _0x4376b3.isDestroyed() || app.isQuitting) {
-            _0x4a11a5(_0x5d4623, _0x4376b3);
+        for (let num = 0; num < 10; num += 1) {
+          if (arg2 !== num2 || result2.isDestroyed() || app.isQuitting) {
+            fn20(value, result2);
             return {
               success: false,
               skipped: true
             };
           }
-          await new Promise(_0xae1b89 => setTimeout(_0xae1b89, _0x48a99f === 0 ? 1200 : 800));
-          await _0x2f2332(_0x4376b3.webContents, _0x1b2d3e);
-          _0x4a6185 = await _0x3cd207(_0x4376b3.webContents, _0x4a0ea8, {
+          await new Promise(arg1 => setTimeout(arg1, num === 0 ? 1200 : 800));
+          await fn17(result2.webContents, result);
+          obj = await fn14(result2.webContents, arg1, {
             source: "keepalive"
           });
-          if (_0x4a6185.success) {
-            return _0x4a6185;
+          if (obj.success) {
+            return obj;
           }
         }
-        return _0x4a6185;
-      } catch (_0x6c72ba) {
-        _0x5ea2ef(_0x1b2d3e, _0x6c72ba.message || "后台消息监听失败", "keepalive");
-        _0x4a11a5(_0x5d4623, _0x4376b3);
+        return obj;
+      } catch (error) {
+        fn11(result, error.message || "后台消息监听失败", "keepalive");
+        fn20(value, result2);
         return {
           success: false,
-          message: _0x6c72ba.message || "后台消息监听失败"
+          message: error.message || "后台消息监听失败"
         };
       }
     })().finally(() => {
-      _0x156cd5.delete(_0x1b2d3e);
+      map5.delete(result);
     });
-    _0x156cd5.set(_0x1b2d3e, _0x4657fd);
-    return _0x4657fd;
+    map5.set(result, result2);
+    return result2;
   }
-  function _0x53e7c0(_0xa344f4 = CHAT_SAFETY_SCAN_INTERVAL_MS) {
-    if (_0x27d19d) {
-      clearTimeout(_0x27d19d);
+  function fn22(arg1 = CHAT_SAFETY_SCAN_INTERVAL_MS) {
+    if (local10) {
+      clearTimeout(local10);
     }
-    _0x27d19d = null;
-    if (!_0xbd58af()) {
+    local10 = null;
+    if (!shouldRunChatMessageMonitor()) {
       return;
     }
-    const _0x3d4d3f = _0x46a1cb;
-    _0x27d19d = setTimeout(() => {
-      _0x27d19d = null;
-      _0x31f7e2(_0x3d4d3f).catch(_0x4032e8 => {
-        console.warn("[ChatNotify] 兜底扫描异常: " + _0x4032e8.message);
+    const local = num2;
+    local10 = setTimeout(() => {
+      local10 = null;
+      fn23(local).catch(arg1 => {
+        console.warn("[ChatNotify] 兜底扫描异常: " + arg1.message);
       });
-    }, Math.max(0, Number(_0xa344f4 || 0)));
-    _0x27d19d.unref?.();
+    }, Math.max(0, Number(arg1 || 0)));
+    local10.unref?.();
   }
-  async function _0x31f7e2(_0x1a6c56 = _0x46a1cb) {
-    if (_0x3e47c6 || _0x1a6c56 !== _0x46a1cb) {
+  async function fn23(arg1 = num2) {
+    if (flag2 || arg1 !== num2) {
       return;
     }
-    if (!_0xbd58af()) {
+    if (!shouldRunChatMessageMonitor()) {
       return;
     }
-    _0x3e47c6 = true;
-    _0x563f20();
+    flag2 = true;
+    fn9();
     try {
-      const _0x5b58bf = _0xa90a56();
-      for (const _0x126d92 of _0x5b58bf) {
-        if (_0x1a6c56 !== _0x46a1cb || app.isQuitting) {
+      const result = fn7();
+      for (const item of result) {
+        if (arg1 !== num2 || app.isQuitting) {
           break;
         }
-        if (!_0xbd58af()) {
+        if (!shouldRunChatMessageMonitor()) {
           break;
         }
-        const _0x43888b = _0x4790af(_0x126d92.id);
-        if (_0x43888b) {
-          const _0x5eb55b = _0x1acd82?.accountId === String(_0x126d92.id) ? "active" : "safety";
-          await _0x2f2332(_0x43888b, _0x126d92.id);
-          await _0x3cd207(_0x43888b, _0x126d92, {
-            source: _0x5eb55b
+        const result = fn15(item.id);
+        if (result) {
+          const value = local7?.accountId === String(item.id) ? "active" : "safety";
+          await fn17(result, item.id);
+          await fn14(result, item, {
+            source: value
           });
         } else {
-          await _0x54a0c7(_0x126d92, _0x1a6c56);
+          await fn21(item, arg1);
         }
-        await new Promise(_0x458f62 => setTimeout(_0x458f62, 200));
+        await new Promise(arg1 => setTimeout(arg1, 200));
       }
-      _0x2bfa83 = {
+      local11 = {
         at: Date.now(),
-        accountCount: _0x5b58bf.length,
-        messageCenterActive: !!_0x41caaf,
-        webhookEnabled: _0xc78b4d(),
+        accountCount: result.length,
+        messageCenterActive: !!flag3,
+        webhookEnabled: fn5(),
         mode: "safety"
       };
     } finally {
-      _0x3e47c6 = false;
-      _0x563f20();
-      if (_0x1a6c56 === _0x46a1cb && _0xbd58af()) {
-        _0x53e7c0(CHAT_SAFETY_SCAN_INTERVAL_MS);
+      flag2 = false;
+      fn9();
+      if (arg1 === num2 && shouldRunChatMessageMonitor()) {
+        fn22(CHAT_SAFETY_SCAN_INTERVAL_MS);
       }
     }
   }
-  async function _0x38d200(_0x2332c0 = _0x46a1cb) {
-    if (_0x2332c0 !== _0x46a1cb || !_0xbd58af()) {
+  async function syncChatMonitorKeepalives(arg1 = num2) {
+    if (arg1 !== num2 || !shouldRunChatMessageMonitor()) {
       return;
     }
-    const _0x21ce27 = _0xa90a56();
-    const _0x3b16f8 = new Set(_0x21ce27.map(_0x4b5fdb => String(_0x4b5fdb.id)));
-    for (const [_0xe0ca7f, _0x894fea] of [..._0x5cb20c.entries()]) {
-      const _0x1f43fd = String(_0xe0ca7f).match(/^douyin_(.+):message-monitor$/);
-      const _0x531978 = _0x1f43fd?.[1] || "";
-      if (!_0x3b16f8.has(_0x531978)) {
-        _0x4a11a5(_0xe0ca7f, _0x894fea);
+    const result = fn7();
+    const set = new Set(result.map(arg1 => String(arg1.id)));
+    for (const [local, local2] of [...local6.entries()]) {
+      const result = String(local).match(/^douyin_(.+):message-monitor$/);
+      const local3 = result?.[1] || "";
+      if (!set.has(local3)) {
+        fn20(local, local2);
       }
     }
-    for (const _0x1561fe of _0x21ce27) {
-      if (_0x2332c0 !== _0x46a1cb || app.isQuitting) {
+    for (const item of result) {
+      if (arg1 !== num2 || app.isQuitting) {
         break;
       }
-      if (!_0xbd58af()) {
+      if (!shouldRunChatMessageMonitor()) {
         break;
       }
-      await _0x54a0c7(_0x1561fe, _0x2332c0);
-      await new Promise(_0x3122a6 => setTimeout(_0x3122a6, 300));
+      await fn21(item, arg1);
+      await new Promise(arg1 => setTimeout(arg1, 300));
     }
-    _0x2bfa83 = {
+    local11 = {
       at: Date.now(),
-      accountCount: _0x21ce27.length,
-      messageCenterActive: !!_0x41caaf,
-      webhookEnabled: _0xc78b4d(),
+      accountCount: result.length,
+      messageCenterActive: !!flag3,
+      webhookEnabled: fn5(),
       mode: "keepalive-sync"
     };
-    _0x563f20();
+    fn9();
   }
-  function _0x569639(_0x4974e7 = "disabled") {
-    _0x46a1cb += 1;
-    if (_0x27d19d) {
-      clearTimeout(_0x27d19d);
+  function stopChatNotificationMonitor(text = "disabled") {
+    num2 += 1;
+    if (local10) {
+      clearTimeout(local10);
     }
-    _0x27d19d = null;
-    _0x3e47c6 = false;
-    for (const _0x378f2c of _0x257f8e.values()) {
-      clearTimeout(_0x378f2c);
+    local10 = null;
+    flag2 = false;
+    for (const item of map3.values()) {
+      clearTimeout(item);
     }
-    _0x257f8e.clear();
-    for (const [_0x1db50d, _0xf34917] of [..._0x5cb20c.entries()]) {
-      _0x4a11a5(_0x1db50d, _0xf34917);
+    map3.clear();
+    for (const [local, local2] of [...local6.entries()]) {
+      fn20(local, local2);
     }
     releaseTaskRuntimeGuard(CHAT_NOTIFICATION_RUNTIME_GUARD);
-    if (_0x4974e7 !== "app-quit") {
-      _0x563f20();
+    if (text !== "app-quit") {
+      fn9();
     }
   }
-  function _0x57ffe4({
+  function syncChatNotificationMonitor({
     immediate = false
   } = {}) {
-    _0x569639("config-change");
-    if (!_0xbd58af()) {
+    stopChatNotificationMonitor("config-change");
+    if (!shouldRunChatMessageMonitor()) {
       return;
     }
-    const _0x8097a6 = _0x46a1cb;
+    const local = num2;
     acquireTaskRuntimeGuard(CHAT_NOTIFICATION_RUNTIME_GUARD, {
       type: "message-notification-monitor",
       mode: "event",
       safetyScanIntervalMs: CHAT_SAFETY_SCAN_INTERVAL_MS,
-      keepaliveMaxAccounts: _0x1d0d75,
-      messageCenterActive: !!_0x41caaf,
-      webhookEnabled: _0xc78b4d()
+      keepaliveMaxAccounts: value3,
+      messageCenterActive: !!flag3,
+      webhookEnabled: fn5()
     });
-    const _0x48fff3 = immediate ? 400 : 1200;
-    const _0x7c8672 = setTimeout(() => {
-      _0x38d200(_0x8097a6).catch(_0x2a243b => {
-        console.warn("[ChatNotify] 常驻监听同步失败: " + _0x2a243b.message);
+    const value = immediate ? 400 : 1200;
+    const result = setTimeout(() => {
+      syncChatMonitorKeepalives(local).catch(arg1 => {
+        console.warn("[ChatNotify] 常驻监听同步失败: " + arg1.message);
       }).finally(() => {
-        if (_0x8097a6 === _0x46a1cb && _0xbd58af()) {
-          _0x53e7c0(CHAT_SAFETY_SCAN_INTERVAL_MS);
+        if (local === num2 && shouldRunChatMessageMonitor()) {
+          fn22(CHAT_SAFETY_SCAN_INTERVAL_MS);
         }
       });
-    }, _0x48fff3);
-    _0x7c8672.unref?.();
-    _0x563f20();
+    }, value);
+    result.unref?.();
+    fn9();
   }
-  function _0x73b453(_0x535eb9) {
-    const _0x41b6eb = Math.round(Number(_0x535eb9?.x));
-    const _0x286cc6 = Math.round(Number(_0x535eb9?.y));
-    const _0x2b6b39 = Math.round(Number(_0x535eb9?.width));
-    const _0x54396f = Math.round(Number(_0x535eb9?.height));
-    if (![_0x41b6eb, _0x286cc6, _0x2b6b39, _0x54396f].every(Number.isFinite)) {
+  function fn27(arg1) {
+    const result = Math.round(Number(arg1?.x));
+    const result2 = Math.round(Number(arg1?.y));
+    const result3 = Math.round(Number(arg1?.width));
+    const result4 = Math.round(Number(arg1?.height));
+    if (![result, result2, result3, result4].every(Number.isFinite)) {
       return null;
     }
-    if (_0x2b6b39 < 120 || _0x54396f < 120) {
+    if (result3 < 120 || result4 < 120) {
       return null;
     }
     return {
-      x: Math.max(0, _0x41b6eb),
-      y: Math.max(0, _0x286cc6),
-      width: Math.max(120, _0x2b6b39),
-      height: Math.max(120, _0x54396f)
+      x: Math.max(0, result),
+      y: Math.max(0, result2),
+      width: Math.max(120, result3),
+      height: Math.max(120, result4)
     };
   }
-  function _0x405854(_0xd3ac23, _0x2efaf0) {
-    const _0x57ac13 = _0x73b453(_0x2efaf0);
-    if (!_0xd3ac23 || _0xd3ac23.webContents?.isDestroyed?.() || !_0x57ac13) {
+  function fn28(arg1, arg2) {
+    const result = fn27(arg2);
+    if (!arg1 || arg1.webContents?.isDestroyed?.() || !result) {
       return false;
     }
     try {
-      _0xd3ac23.setBounds(_0x57ac13);
+      arg1.setBounds(result);
       return true;
-    } catch (_0x2a65c7) {
-      console.warn("[Chat] 更新消息视图坐标失败: " + _0x2a65c7.message);
+    } catch (error) {
+      console.warn("[Chat] 更新消息视图坐标失败: " + error.message);
       return false;
     }
   }
-  function _0x3073f8(_0x3864f6) {
-    if (!_0x3864f6 || _0x3864f6.isDestroyed?.()) {
+  function fn29(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
     try {
-      _0x3864f6.insertCSS("\n                [class*=\"chat-list\"], [class*=\"ChatList\"],\n                [class*=\"message-list\"], [class*=\"MessageList\"],\n                [class*=\"message\"], [class*=\"Message\"],\n                [class*=\"bubble\"], [class*=\"Bubble\"],\n                [class*=\"item\"], [class*=\"Item\"],\n                [class*=\"scroll\"], [class*=\"Scroll\"] {\n                    transform-style: preserve-3d !important;\n                    backface-visibility: hidden !important;\n                    will-change: transform !important;\n                }\n            ").catch(() => {});
-    } catch (_0x3fdac4) {}
+      arg1.insertCSS("\n                [class*=\"chat-list\"], [class*=\"ChatList\"],\n                [class*=\"message-list\"], [class*=\"MessageList\"],\n                [class*=\"message\"], [class*=\"Message\"],\n                [class*=\"bubble\"], [class*=\"Bubble\"],\n                [class*=\"item\"], [class*=\"Item\"],\n                [class*=\"scroll\"], [class*=\"Scroll\"] {\n                    transform-style: preserve-3d !important;\n                    backface-visibility: hidden !important;\n                    will-change: transform !important;\n                }\n            ").catch(() => {});
+    } catch (error) {}
   }
-  function _0x58c6da(_0x37b26b, _0x5765be = null) {
-    if (!_0x37b26b?.webContents || _0x37b26b.webContents.isDestroyed?.()) {
+  function fn30(arg1, arg2 = null) {
+    if (!arg1?.webContents || arg1.webContents.isDestroyed?.()) {
       return;
     }
-    const _0x4eea7e = _0x37b26b.webContents;
-    _0x3073f8(_0x4eea7e);
+    const value = arg1.webContents;
+    fn29(value);
     try {
-      _0x4eea7e.setZoomFactor(1);
-    } catch (_0x5253fd) {}
-    const _0x216a58 = _0x73b453(_0x5765be || _0x37b26b.getBounds?.());
-    if (_0x216a58) {
-      _0x405854(_0x37b26b, {
-        ..._0x216a58,
-        width: Math.max(120, _0x216a58.width - 1)
+      value.setZoomFactor(1);
+    } catch (error) {}
+    const result = fn27(arg2 || arg1.getBounds?.());
+    if (result) {
+      fn28(arg1, {
+        ...result,
+        width: Math.max(120, result.width - 1)
       });
       setTimeout(() => {
-        if (_0x4eea7e.isDestroyed?.()) {
+        if (value.isDestroyed?.()) {
           return;
         }
-        _0x405854(_0x37b26b, _0x216a58);
+        fn28(arg1, result);
         try {
-          _0x4eea7e.setZoomFactor(1.0001);
-        } catch (_0x4193f2) {}
+          value.setZoomFactor(1.0001);
+        } catch (error) {}
         setTimeout(() => {
-          if (_0x4eea7e.isDestroyed?.()) {
+          if (value.isDestroyed?.()) {
             return;
           }
           try {
-            _0x4eea7e.setZoomFactor(1);
-          } catch (_0x54dba8) {}
-          _0xee7ec1.notifyAutomationViewportChanged?.(_0x4eea7e, {
+            value.setZoomFactor(1);
+          } catch (error) {}
+          options.notifyAutomationViewportChanged?.(value, {
             force: true
           });
-          _0x4eea7e.executeJavaScript("\n                        (() => {\n                            try {\n                                const styleId = '__radar_chat_transform_fix__';\n                                if (!document.getElementById(styleId)) {\n                                    const style = document.createElement('style');\n                                    style.id = styleId;\n                                    style.textContent = `\n                                        [class*=\"chat-list\"], [class*=\"ChatList\"],\n                                        [class*=\"message-list\"], [class*=\"MessageList\"],\n                                        [class*=\"message\"], [class*=\"Message\"],\n                                        [class*=\"bubble\"], [class*=\"Bubble\"],\n                                        [class*=\"item\"], [class*=\"Item\"],\n                                        [class*=\"scroll\"], [class*=\"Scroll\"] {\n                                            transform-style: preserve-3d !important;\n                                            backface-visibility: hidden !important;\n                                            will-change: transform !important;\n                                        }\n                                    `;\n                                    (document.head || document.documentElement).appendChild(style);\n                                }\n                                const nodes = Array.from(document.querySelectorAll('[class*=\"message\"], [class*=\"Message\"], [class*=\"scroll\"], [class*=\"Scroll\"]'));\n                                for (const node of nodes) {\n                                    if (node.scrollHeight > node.clientHeight + 40) {\n                                        node.scrollTop = node.scrollHeight;\n                                    }\n                                }\n                                window.dispatchEvent(new Event('resize'));\n                            } catch (_) {}\n                            return true;\n                        })()\n                    ", true).catch(() => {});
+          value.executeJavaScript("\n                        (() => {\n                            try {\n                                const styleId = '__radar_chat_transform_fix__';\n                                if (!document.getElementById(styleId)) {\n                                    const style = document.createElement('style');\n                                    style.id = styleId;\n                                    style.textContent = `\n                                        [class*=\"chat-list\"], [class*=\"ChatList\"],\n                                        [class*=\"message-list\"], [class*=\"MessageList\"],\n                                        [class*=\"message\"], [class*=\"Message\"],\n                                        [class*=\"bubble\"], [class*=\"Bubble\"],\n                                        [class*=\"item\"], [class*=\"Item\"],\n                                        [class*=\"scroll\"], [class*=\"Scroll\"] {\n                                            transform-style: preserve-3d !important;\n                                            backface-visibility: hidden !important;\n                                            will-change: transform !important;\n                                        }\n                                    `;\n                                    (document.head || document.documentElement).appendChild(style);\n                                }\n                                const nodes = Array.from(document.querySelectorAll('[class*=\"message\"], [class*=\"Message\"], [class*=\"scroll\"], [class*=\"Scroll\"]'));\n                                for (const node of nodes) {\n                                    if (node.scrollHeight > node.clientHeight + 40) {\n                                        node.scrollTop = node.scrollHeight;\n                                    }\n                                }\n                                window.dispatchEvent(new Event('resize'));\n                            } catch (_) {}\n                            return true;\n                        })()\n                    ", true).catch(() => {});
         }, 60);
       }, 60);
       return;
     }
-    _0xee7ec1.notifyAutomationViewportChanged?.(_0x4eea7e, {
+    options.notifyAutomationViewportChanged?.(value, {
       force: true
     });
   }
-  function _0x1d2615() {
-    if (typeof _0xee7ec1.hideAutomationViews === "function") {
-      _0xee7ec1.hideAutomationViews();
+  function fn31() {
+    if (typeof options.hideAutomationViews === "function") {
+      options.hideAutomationViews();
       return;
     }
-    const _0x3a8557 = _0xee7ec1.detachAutomationViewFromWindow;
-    if (typeof _0x3a8557 !== "function") {
+    const value = options.detachAutomationViewFromWindow;
+    if (typeof value !== "function") {
       return;
     }
-    const _0x4851d9 = _0xee7ec1.getPlatformViews?.() || new Map();
-    const _0x3b1afc = _0xee7ec1.getInteractionViewsMap?.() || new Map();
-    _0x4851d9.forEach((_0xbdf5c3, _0x539a2b) => {
-      _0x3a8557(_0x539a2b, _0xbdf5c3);
-      const _0x193a1c = _0x3b1afc.get(_0x539a2b);
-      if (_0x193a1c) {
-        _0x3a8557(_0x539a2b, _0x193a1c);
+    const local = options.getPlatformViews?.() || new Map();
+    const local2 = options.getInteractionViewsMap?.() || new Map();
+    local.forEach((arg1, arg2) => {
+      value(arg2, arg1);
+      const result = local2.get(arg2);
+      if (result) {
+        value(arg2, result);
       }
     });
   }
-  function _0x46457d(_0x6f5d08 = "closed", {
+  function destroyActiveChatView(text = "closed", {
     notify = true
   } = {}) {
-    _0x27bbf2 += 1;
-    const _0xab7a4e = _0x1acd82;
-    if (!_0xab7a4e) {
+    num += 1;
+    const local = local7;
+    if (!local) {
       return false;
     }
-    _0x1acd82 = null;
-    _0x15c218.delete(_0xab7a4e.viewKey);
-    if (_0xab7a4e.readyProbeTimer) {
-      clearTimeout(_0xab7a4e.readyProbeTimer);
-      _0xab7a4e.readyProbeTimer = null;
+    local7 = null;
+    local5.delete(local.viewKey);
+    if (local.readyProbeTimer) {
+      clearTimeout(local.readyProbeTimer);
+      local.readyProbeTimer = null;
     }
-    if (_0xab7a4e.messageScanTimer) {
-      clearInterval(_0xab7a4e.messageScanTimer);
-      _0xab7a4e.messageScanTimer = null;
+    if (local.messageScanTimer) {
+      clearInterval(local.messageScanTimer);
+      local.messageScanTimer = null;
     }
-    _0xee7ec1.destroyAutomationBrowserView(_0xab7a4e.view, _0xab7a4e.viewKey, "chat");
+    options.destroyAutomationBrowserView(local.view, local.viewKey, "chat");
     if (notify) {
-      _0x2794bf({
+      fn({
         status: "closed",
-        viewKey: _0xab7a4e.viewKey,
-        accountId: _0xab7a4e.accountId,
-        reason: _0x6f5d08
+        viewKey: local.viewKey,
+        accountId: local.accountId,
+        reason: text
       });
     }
-    console.log("[Chat] 消息视图已关闭: " + _0xab7a4e.viewKey + " (" + _0x6f5d08 + ")");
-    if (_0xbd58af() && _0xab7a4e.accountId) {
-      const _0x1b33e3 = _0x482253(_0xab7a4e.accountId);
-      if (_0x1b33e3?.status === "online") {
-        _0x54a0c7(_0x1b33e3).catch(_0x250dfd => {
-          console.warn("[ChatNotify] 关闭消息页后重建监听失败: " + _0x250dfd.message);
+    console.log("[Chat] 消息视图已关闭: " + local.viewKey + " (" + text + ")");
+    if (shouldRunChatMessageMonitor() && local.accountId) {
+      const result = fn3(local.accountId);
+      if (result?.status === "online") {
+        fn21(result).catch(arg1 => {
+          console.warn("[ChatNotify] 关闭消息页后重建监听失败: " + arg1.message);
         });
       }
     }
     return true;
   }
-  function _0x5ec290(_0x16723a) {
-    const _0x3af5db = _0x1acd82;
-    const _0x523bab = _0x9d234();
-    if (!_0x3af5db?.view || _0x3af5db.view.webContents?.isDestroyed?.()) {
+  function setActiveChatViewAttached(arg1) {
+    const local2 = local7;
+    const result = local();
+    if (!local2?.view || local2.view.webContents?.isDestroyed?.()) {
       return false;
     }
-    if (!_0x523bab || _0x523bab.isDestroyed()) {
+    if (!result || result.isDestroyed()) {
       return false;
     }
-    const _0x29f9df = _0x523bab.getBrowserViews().includes(_0x3af5db.view);
-    if (_0x16723a) {
-      if (!_0x29f9df) {
+    const result2 = result.getBrowserViews().includes(local2.view);
+    if (arg1) {
+      if (!result2) {
         try {
-          _0x523bab.addBrowserView(_0x3af5db.view);
-        } catch (_0x25c815) {
-          console.warn("[Chat] 重新挂载消息视图失败: " + _0x25c815.message);
+          result.addBrowserView(local2.view);
+        } catch (error) {
+          console.warn("[Chat] 重新挂载消息视图失败: " + error.message);
           return false;
         }
-        if (_0x3af5db.bounds) {
-          _0x405854(_0x3af5db.view, _0x3af5db.bounds);
+        if (local2.bounds) {
+          fn28(local2.view, local2.bounds);
         }
-        _0xee7ec1.safeSetTopBrowserView(_0x3af5db.view, {
-          context: "chat-reattach:" + _0x3af5db.viewKey
+        options.safeSetTopBrowserView(local2.view, {
+          context: "chat-reattach:" + local2.viewKey
         });
       }
-      _0x3af5db.detachedForOverlay = false;
+      local2.detachedForOverlay = false;
       return true;
     }
-    if (_0x29f9df) {
+    if (result2) {
       try {
-        _0x523bab.removeBrowserView(_0x3af5db.view);
-      } catch (_0x5f41e0) {
-        console.warn("[Chat] 临时摘除消息视图失败: " + _0x5f41e0.message);
+        result.removeBrowserView(local2.view);
+      } catch (error) {
+        console.warn("[Chat] 临时摘除消息视图失败: " + error.message);
         return false;
       }
     }
-    _0x3af5db.detachedForOverlay = true;
+    local2.detachedForOverlay = true;
     return true;
   }
-  async function _0x2e13d9({
-    accountId: _0x1c9216,
+  async function openChatView({
+    accountId: accountId,
     name = "",
     proxy = null,
     bounds = null
   } = {}) {
-    const _0x44e850 = _0x9d234();
+    const result = local();
     try {
-      _0xee7ec1.destroyConflictingView?.("chat-opened", {
+      options.destroyConflictingView?.("chat-opened", {
         notify: true
       });
-    } catch (_0x4f7a13) {}
-    const _0x5e39b5 = String(_0x1c9216 || "").trim();
-    if (!_0x5e39b5) {
+    } catch (error) {}
+    const result2 = String(accountId || "").trim();
+    if (!result2) {
       return {
         success: false,
         message: "缺少抖音账号信息"
       };
     }
-    if (!_0x44e850 || _0x44e850.isDestroyed()) {
+    if (!result || result.isDestroyed()) {
       return {
         success: false,
         message: "主窗口不可用"
       };
     }
-    const _0x162735 = "douyin_" + _0x5e39b5;
-    const _0x1e3d39 = _0x73b453(bounds);
-    if (!_0x1e3d39) {
+    const value = "douyin_" + result2;
+    const result3 = fn27(bounds);
+    if (!result3) {
       return {
         success: false,
         message: "消息窗口尺寸无效"
       };
     }
-    const _0x3ef709 = _0x1acd82;
-    if (_0x3ef709?.viewKey === _0x162735 && !_0x3ef709.view?.webContents?.isDestroyed?.()) {
-      _0x1d2615();
-      _0x3ef709.bounds = _0x1e3d39;
-      _0x405854(_0x3ef709.view, _0x1e3d39);
-      if (!_0x44e850.getBrowserViews().includes(_0x3ef709.view)) {
-        _0x44e850.addBrowserView(_0x3ef709.view);
+    const local2 = local7;
+    if (local2?.viewKey === value && !local2.view?.webContents?.isDestroyed?.()) {
+      fn31();
+      local2.bounds = result3;
+      fn28(local2.view, result3);
+      if (!result.getBrowserViews().includes(local2.view)) {
+        result.addBrowserView(local2.view);
       }
-      _0xee7ec1.safeSetTopBrowserView(_0x3ef709.view, {
-        context: "chat-reopen:" + _0x162735
+      options.safeSetTopBrowserView(local2.view, {
+        context: "chat-reopen:" + value
       });
       try {
-        _0x3ef709.view.webContents.setUserAgent(_0x37e6fc());
-      } catch (_0x479b7a) {}
-      _0x2794bf({
-        status: _0x3ef709.status || "ready",
-        viewKey: _0x162735,
-        accountId: _0x5e39b5,
-        url: _0x3ef709.view.webContents.getURL()
+        local2.view.webContents.setUserAgent(local3());
+      } catch (error) {}
+      fn({
+        status: local2.status || "ready",
+        viewKey: value,
+        accountId: result2,
+        url: local2.view.webContents.getURL()
       });
-      _0x4e0764(_0x3ef709);
-      _0x58c6da(_0x3ef709.view, _0x1e3d39);
+      fn19(local2);
+      fn30(local2.view, result3);
       return {
         success: true,
         reused: true,
-        viewKey: _0x162735
+        viewKey: value
       };
     }
-    _0x46457d("account-switch", {
+    destroyActiveChatView("account-switch", {
       notify: false
     });
-    const _0x2f5c22 = ++_0x27bbf2;
-    const _0x52862b = new BrowserView({
+    const local4 = ++num;
+    const browserView = new BrowserView({
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
         sandbox: true,
-        partition: "persist:automation:" + _0x162735,
+        partition: "persist:automation:" + value,
         backgroundThrottling: true,
         spellcheck: true
       }
     });
-    const _0x19b881 = {
-      view: _0x52862b,
-      viewKey: _0x162735,
-      accountId: _0x5e39b5,
+    const obj = {
+      view: browserView,
+      viewKey: value,
+      accountId: result2,
       name: String(name || ""),
       status: "loading",
-      generation: _0x2f5c22,
-      bounds: _0x1e3d39
+      generation: local4,
+      bounds: result3
     };
-    _0x1acd82 = _0x19b881;
-    _0x15c218.set(_0x162735, _0x52862b);
-    _0x52862b.setBackgroundColor("#171923");
-    _0x52862b.webContents.setUserAgent(_0x37e6fc());
-    attachProtocolGuard(_0x52862b.webContents, _0x162735 + ":chat");
-    _0xee7ec1.configureAutomationSession?.(_0x52862b.webContents.session, _0x162735);
-    const _0x19058a = () => _0x1acd82 === _0x19b881 && _0x19b881.generation === _0x2f5c22 && !_0x52862b.webContents.isDestroyed();
-    const _0xe922fc = (_0x483b06, _0x44495e = {}) => {
-      if (!_0x19058a()) {
+    local7 = obj;
+    local5.set(value, browserView);
+    browserView.setBackgroundColor("#171923");
+    browserView.webContents.setUserAgent(local3());
+    attachProtocolGuard(browserView.webContents, value + ":chat");
+    options.configureAutomationSession?.(browserView.webContents.session, value);
+    const local8 = () => local7 === obj && obj.generation === local4 && !browserView.webContents.isDestroyed();
+    const local9 = (arg1, options = {}) => {
+      if (!local8()) {
         return;
       }
-      _0x19b881.status = _0x483b06;
-      _0x2794bf({
-        status: _0x483b06,
-        viewKey: _0x162735,
-        accountId: _0x5e39b5,
-        ..._0x44495e
+      obj.status = arg1;
+      fn({
+        status: arg1,
+        viewKey: value,
+        accountId: result2,
+        ...options
       });
     };
-    const _0x435b58 = () => {
-      if (!_0x19058a()) {
+    const local10 = () => {
+      if (!local8()) {
         return;
       }
-      const _0x14a6f0 = _0x52862b.webContents.getURL();
-      if (!/^https:\/\/(?:www\.)?douyin\.com\//i.test(_0x14a6f0)) {
+      const result = browserView.webContents.getURL();
+      if (!/^https:\/\/(?:www\.)?douyin\.com\//i.test(result)) {
         return;
       }
-      _0xe922fc("ready", {
-        url: _0x14a6f0
+      local9("ready", {
+        url: result
       });
-      _0x4e0764(_0x19b881);
-      _0x58c6da(_0x52862b, _0x19b881.bounds);
-      const _0x113501 = "douyin_" + _0x5e39b5 + ":message-monitor";
-      const _0x30a262 = _0x5cb20c.get(_0x113501);
-      if (_0x30a262) {
-        _0x4a11a5(_0x113501, _0x30a262);
+      fn19(obj);
+      fn30(browserView, obj.bounds);
+      const value = "douyin_" + result2 + ":message-monitor";
+      const result3 = local6.get(value);
+      if (result3) {
+        fn20(value, result3);
       }
     };
-    const _0x1d831b = () => {
-      if (_0x19b881.readyProbeTimer) {
-        clearTimeout(_0x19b881.readyProbeTimer);
+    const local11 = () => {
+      if (obj.readyProbeTimer) {
+        clearTimeout(obj.readyProbeTimer);
       }
-      _0x19b881.readyProbeTimer = setTimeout(async () => {
-        _0x19b881.readyProbeTimer = null;
-        if (!_0x19058a() || _0x19b881.status !== "loading") {
+      obj.readyProbeTimer = setTimeout(async () => {
+        obj.readyProbeTimer = null;
+        if (!local8() || obj.status !== "loading") {
           return;
         }
         try {
-          const _0x5662ce = await _0x52862b.webContents.executeJavaScript("document.readyState", true);
-          if (_0x5662ce === "interactive" || _0x5662ce === "complete") {
-            _0x435b58();
+          const result = await browserView.webContents.executeJavaScript("document.readyState", true);
+          if (result === "interactive" || result === "complete") {
+            local10();
           }
-        } catch (_0x3a0027) {}
+        } catch (error) {}
       }, 3000);
     };
-    _0x52862b.webContents.on("did-start-loading", () => {
-      _0xe922fc("loading");
-      _0x1d831b();
+    browserView.webContents.on("did-start-loading", () => {
+      local9("loading");
+      local11();
     });
-    _0x52862b.webContents.on("dom-ready", _0x1d831b);
+    browserView.webContents.on("dom-ready", local11);
     try {
-      _0x52862b.webContents.setMaxListeners?.(20);
-    } catch (_0x9e1ce8) {}
-    _0x52862b.webContents.removeAllListeners("did-stop-loading");
-    _0x52862b.webContents.on("did-stop-loading", _0x435b58);
-    _0x52862b.webContents.on("did-finish-load", _0x435b58);
-    _0x52862b.webContents.on("did-navigate", (_0x2767f6, _0x454906) => {
-      _0xe922fc(_0x19b881.status || "loading", {
-        url: _0x454906
+      browserView.webContents.setMaxListeners?.(20);
+    } catch (error) {}
+    browserView.webContents.removeAllListeners("did-stop-loading");
+    browserView.webContents.on("did-stop-loading", local10);
+    browserView.webContents.on("did-finish-load", local10);
+    browserView.webContents.on("did-navigate", (arg1, arg2) => {
+      local9(obj.status || "loading", {
+        url: arg2
       });
     });
-    _0x52862b.webContents.on("did-navigate-in-page", (_0x2996fc, _0x724af5) => {
-      _0xe922fc(_0x19b881.status || "ready", {
-        url: _0x724af5
+    browserView.webContents.on("did-navigate-in-page", (arg1, arg2) => {
+      local9(obj.status || "ready", {
+        url: arg2
       });
     });
-    _0x52862b.webContents.on("did-fail-load", (_0x4ab995, _0x5abd24, _0x57d9b6, _0x221e86, _0x3f319c) => {
-      if (!_0x3f319c || _0x5abd24 === -3) {
+    browserView.webContents.on("did-fail-load", (arg1, arg2, arg3, arg4, arg5) => {
+      if (!arg5 || arg2 === -3) {
         return;
       }
-      _0xe922fc("error", {
-        url: _0x221e86,
-        message: _0x57d9b6 || "页面加载失败 (" + _0x5abd24 + ")"
+      local9("error", {
+        url: arg4,
+        message: arg3 || "页面加载失败 (" + arg2 + ")"
       });
     });
-    _0x52862b.webContents.on("render-process-gone", (_0x20bd93, _0x20bb26 = {}) => {
-      _0xe922fc("error", {
-        message: "消息页面异常退出：" + (_0x20bb26.reason || "unknown")
+    browserView.webContents.on("render-process-gone", (arg1, options = {}) => {
+      local9("error", {
+        message: "消息页面异常退出：" + (options.reason || "unknown")
       });
     });
-    _0x52862b.webContents.on("unresponsive", () => {
-      _0xe922fc("error", {
+    browserView.webContents.on("unresponsive", () => {
+      local9("error", {
         message: "消息页面暂时无响应，可点击刷新重试"
       });
     });
-    _0x1d2615();
-    _0x405854(_0x52862b, _0x1e3d39);
-    _0x44e850.addBrowserView(_0x52862b);
-    _0xee7ec1.safeSetTopBrowserView(_0x52862b, {
-      context: "chat-open:" + _0x162735
+    fn31();
+    fn28(browserView, result3);
+    result.addBrowserView(browserView);
+    options.safeSetTopBrowserView(browserView, {
+      context: "chat-open:" + value
     });
-    _0xe922fc("loading", {
+    local9("loading", {
       url: DOUYIN_CHAT_URL
     });
-    await _0xee7ec1.bindAutomationViewProxy?.({
+    await options.bindAutomationViewProxy?.({
       proxy: proxy
-    }, _0x162735, _0x52862b.webContents.session);
-    if (!_0x19058a()) {
+    }, value, browserView.webContents.session);
+    if (!local8()) {
       return {
         success: false,
         superseded: true,
@@ -1108,8 +1108,8 @@ function createMessageCenter(_0xee7ec1 = {}) {
       };
     }
     try {
-      await _0x52862b.webContents.loadURL(DOUYIN_CHAT_URL);
-      if (!_0x19058a()) {
+      await browserView.webContents.loadURL(DOUYIN_CHAT_URL);
+      if (!local8()) {
         return {
           success: false,
           superseded: true,
@@ -1119,186 +1119,186 @@ function createMessageCenter(_0xee7ec1 = {}) {
       return {
         success: true,
         reused: false,
-        viewKey: _0x162735,
-        url: _0x52862b.webContents.getURL()
+        viewKey: value,
+        url: browserView.webContents.getURL()
       };
-    } catch (_0x4812cd) {
-      if (!_0x19058a()) {
+    } catch (error) {
+      if (!local8()) {
         return {
           success: false,
           superseded: true,
           message: "账号已切换"
         };
       }
-      _0xe922fc("error", {
-        message: _0x4812cd.message || "消息页面加载失败"
+      local9("error", {
+        message: error.message || "消息页面加载失败"
       });
       return {
         success: false,
-        viewKey: _0x162735,
-        message: _0x4812cd.message || "消息页面加载失败"
+        viewKey: value,
+        message: error.message || "消息页面加载失败"
       };
     }
   }
-  function _0xaa7c24() {
-    const _0x2a1043 = _0x1acd82;
-    const _0x4d3231 = _0x9d234();
-    if (!_0x2a1043 || _0x2a1043.view?.webContents?.isDestroyed?.()) {
+  function getChatViewState() {
+    const local2 = local7;
+    const result = local();
+    if (!local2 || local2.view?.webContents?.isDestroyed?.()) {
       return {
         active: false,
         count: 0
       };
     }
-    const _0x37ef46 = !!_0x4d3231 && !_0x4d3231.isDestroyed() && !!_0x4d3231.getBrowserViews().includes(_0x2a1043.view);
+    const local3 = !!result && !result.isDestroyed() && !!result.getBrowserViews().includes(local2.view);
     return {
       active: true,
-      count: _0x15c218.size,
-      viewKey: _0x2a1043.viewKey,
-      accountId: _0x2a1043.accountId,
-      status: _0x2a1043.status,
-      url: _0x2a1043.view.webContents.getURL(),
-      attached: _0x37ef46,
-      bounds: _0x2a1043.view.getBounds()
+      count: local5.size,
+      viewKey: local2.viewKey,
+      accountId: local2.accountId,
+      status: local2.status,
+      url: local2.view.webContents.getURL(),
+      attached: local3,
+      bounds: local2.view.getBounds()
     };
   }
-  async function _0x1dcff5({
-    viewKey: _0x836cc3
+  async function fn36({
+    viewKey: viewKey
   } = {}) {
-    const _0x2f8a5f = _0x1acd82;
-    if (!_0x2f8a5f || _0x2f8a5f.view?.webContents?.isDestroyed?.()) {
+    const local = local7;
+    if (!local || local.view?.webContents?.isDestroyed?.()) {
       return {
         success: false,
         message: "消息窗口尚未打开"
       };
     }
-    if (_0x836cc3 && _0x2f8a5f.viewKey !== _0x836cc3) {
+    if (viewKey && local.viewKey !== viewKey) {
       return {
         success: false,
         message: "当前账号已切换"
       };
     }
-    _0x2f8a5f.status = "loading";
-    _0x2794bf({
+    local.status = "loading";
+    fn({
       status: "loading",
-      viewKey: _0x2f8a5f.viewKey,
-      accountId: _0x2f8a5f.accountId
+      viewKey: local.viewKey,
+      accountId: local.accountId
     });
     try {
-      await _0x2f8a5f.view.webContents.reload();
+      await local.view.webContents.reload();
       return {
         success: true
       };
-    } catch (_0xed4bca) {
+    } catch (error) {
       return {
         success: false,
-        message: _0xed4bca.message || "刷新失败"
+        message: error.message || "刷新失败"
       };
     }
   }
-  function _0x5c5954({
-    viewKey: _0x55f0fb,
-    bounds: _0x5bc159
+  function fn37({
+    viewKey: viewKey,
+    bounds: bounds
   } = {}) {
-    const _0x1ee8b1 = _0x1acd82;
-    if (!_0x1ee8b1 || _0x55f0fb && _0x1ee8b1.viewKey !== _0x55f0fb) {
+    const local = local7;
+    if (!local || viewKey && local.viewKey !== viewKey) {
       return;
     }
-    const _0x2b9e68 = _0x73b453(_0x5bc159);
-    if (!_0x2b9e68) {
+    const result = fn27(bounds);
+    if (!result) {
       return;
     }
-    _0x1ee8b1.bounds = _0x2b9e68;
-    if (_0x1ee8b1.detachedForOverlay) {
+    local.bounds = result;
+    if (local.detachedForOverlay) {
       return;
     }
-    _0x405854(_0x1ee8b1.view, _0x2b9e68);
+    fn28(local.view, result);
   }
-  async function _0x55da95(_0x42b044) {
-    const _0xdc830f = !!_0x42b044;
-    if (_0xdc830f && !_0xee7ec1.ensureMessageCenterAccess?.()) {
-      _0x41caaf = false;
-      _0x57ffe4({
+  async function fn38(arg1) {
+    const flag = !!arg1;
+    if (flag && !options.ensureMessageCenterAccess?.()) {
+      flag3 = false;
+      syncChatNotificationMonitor({
         immediate: false
       });
       return {
         success: false,
         active: false,
         message: MESSAGE_CENTER_FREE_BLOCK_MSG,
-        state: _0x33f720()
+        state: getChatUnreadStatePayload()
       };
     }
-    if (_0x41caaf === _0xdc830f) {
+    if (flag3 === flag) {
       return {
         success: true,
-        active: _0xdc830f,
+        active: flag,
         unchanged: true,
-        state: _0x33f720()
+        state: getChatUnreadStatePayload()
       };
     }
-    _0x41caaf = _0xdc830f;
-    console.log("[ChatNotify] 消息聚合会话 " + (_0xdc830f ? "已打开" : "已关闭") + "，多账号监听=" + _0xbd58af());
-    _0x57ffe4({
-      immediate: _0xdc830f || _0x431f4d()
+    flag3 = flag;
+    console.log("[ChatNotify] 消息聚合会话 " + (flag ? "已打开" : "已关闭") + "，多账号监听=" + shouldRunChatMessageMonitor());
+    syncChatNotificationMonitor({
+      immediate: flag || isBackgroundChatMonitorEnabled()
     });
     return {
       success: true,
-      active: _0xdc830f,
-      state: _0x33f720()
+      active: flag,
+      state: getChatUnreadStatePayload()
     };
   }
-  async function _0x488ad1(_0x1d37b4 = {}) {
-    const _0x1820b2 = normalizeChatNotificationConfig(_0x1d37b4);
-    if (_0x1820b2.enabled && !_0xee7ec1.ensureMessageCenterAccess?.()) {
+  async function fn39(options2 = {}) {
+    const result2 = normalizeChatNotificationConfig(options2);
+    if (result2.enabled && !options.ensureMessageCenterAccess?.()) {
       return {
         success: false,
         message: MESSAGE_CENTER_FREE_BLOCK_MSG
       };
     }
-    if (_0x1820b2.enabled && _0x1820b2.webhookType !== "none" && !isHttpWebhookUrl(_0x1820b2.webhookUrl)) {
+    if (result2.enabled && result2.webhookType !== "none" && !isHttpWebhookUrl(result2.webhookUrl)) {
       return {
         success: false,
         message: "请填写有效的飞书或钉钉 Webhook 地址，或选择「不推送」"
       };
     }
-    _0x2218de = _0x1820b2;
-    _0x1a779a.set(CHAT_NOTIFICATION_CONFIG_KEY, _0x1820b2);
-    _0x57ffe4({
-      immediate: _0xbd58af()
+    result = result2;
+    value.set(CHAT_NOTIFICATION_CONFIG_KEY, result2);
+    syncChatNotificationMonitor({
+      immediate: shouldRunChatMessageMonitor()
     });
     return {
       success: true,
       config: {
-        ..._0x1820b2
+        ...result2
       },
-      state: _0x33f720()
+      state: getChatUnreadStatePayload()
     };
   }
-  async function _0x16cb3b(_0x33f2d1 = {}) {
-    if (!_0xee7ec1.ensureMessageCenterAccess?.()) {
+  async function fn40(options2 = {}) {
+    if (!options.ensureMessageCenterAccess?.()) {
       return {
         success: false,
         message: MESSAGE_CENTER_FREE_BLOCK_MSG
       };
     }
-    const _0x2b01fd = normalizeChatNotificationConfig({
-      ..._0x33f2d1,
+    const result = normalizeChatNotificationConfig({
+      ...options2,
       enabled: true
     });
-    if (_0x2b01fd.webhookType === "none") {
+    if (result.webhookType === "none") {
       return {
         success: false,
         message: "当前为「不推送」，无需测试 Webhook"
       };
     }
-    if (!isHttpWebhookUrl(_0x2b01fd.webhookUrl)) {
+    if (!isHttpWebhookUrl(result.webhookUrl)) {
       return {
         success: false,
         message: "请先填写有效的 Webhook 地址"
       };
     }
-    return _0x152623({
+    return fn12({
       accountId: "test-account",
-      productName: _0x182364(),
+      productName: local4(),
       receiverNickname: "接收账号昵称（测试）",
       receiverRemark: "账号备注名（测试）",
       sender: "发送消息的账号（测试）",
@@ -1308,159 +1308,159 @@ function createMessageCenter(_0xee7ec1 = {}) {
       conversationUnreadCount: 2,
       accountUnreadCount: 5,
       detectedAt: Date.now()
-    }, _0x2b01fd, {
+    }, result, {
       force: true
     });
   }
-  function _0x154f76() {
-    if (!_0x39d4b6()) {
+  function stopMessageCenterIfNeeded() {
+    if (!local2()) {
       return;
     }
-    let _0x79e046 = false;
-    if (_0x41caaf) {
-      _0x41caaf = false;
-      _0x79e046 = true;
+    let flag = false;
+    if (flag3) {
+      flag3 = false;
+      flag = true;
     }
-    if (_0x2218de?.enabled) {
-      _0x2218de = {
-        ..._0x2218de,
+    if (result?.enabled) {
+      result = {
+        ...result,
         enabled: false
       };
       try {
-        _0x1a779a.set(CHAT_NOTIFICATION_CONFIG_KEY, _0x2218de);
-      } catch (_0x2c6af0) {}
-      _0x79e046 = true;
+        value.set(CHAT_NOTIFICATION_CONFIG_KEY, result);
+      } catch (error) {}
+      flag = true;
     }
-    if (_0x1acd82) {
-      _0x46457d("auth-downgraded");
-      _0x79e046 = true;
+    if (local7) {
+      destroyActiveChatView("auth-downgraded");
+      flag = true;
     }
-    if (_0xee7ec1.destroyConflictingView?.("auth-downgraded")) {
-      _0x79e046 = true;
+    if (options.destroyConflictingView?.("auth-downgraded")) {
+      flag = true;
     }
-    if (_0x79e046) {
+    if (flag) {
       console.log("[Auth-Shield] 授权降级，已关闭消息聚合与后台提醒");
-      _0x57ffe4({
+      syncChatNotificationMonitor({
         immediate: false
       });
-      const _0x2088ba = _0x9d234();
-      if (_0x2088ba && !_0x2088ba.isDestroyed()) {
+      const result2 = local();
+      if (result2 && !result2.isDestroyed()) {
         try {
-          _0x2088ba.webContents.send("chat-notification-config", {
-            ..._0x2218de
+          result2.webContents.send("chat-notification-config", {
+            ...result
           });
-          _0x2088ba.webContents.send("chat-unread-state", _0x33f720());
-        } catch (_0x5beebb) {}
+          result2.webContents.send("chat-unread-state", getChatUnreadStatePayload());
+        } catch (error) {}
       }
     }
   }
-  function _0x10cda8() {
-    _0x41caaf = false;
-    _0x569639("app-quit");
-    _0x46457d("app-quit");
+  function handleAppQuit() {
+    flag3 = false;
+    stopChatNotificationMonitor("app-quit");
+    destroyActiveChatView("app-quit");
   }
-  function _0x50cc96() {
-    const _0x2388ac = _0x1acd82;
-    if (!_0x2388ac?.bounds || !_0x2388ac?.view) {
+  function realignActiveChatViewBoundsAfterAutomationClose() {
+    const local2 = local7;
+    if (!local2?.bounds || !local2?.view) {
       return;
     }
     setTimeout(() => {
-      if (_0x1acd82 !== _0x2388ac) {
+      if (local7 !== local2) {
         return;
       }
-      if (_0x2388ac.view.webContents?.isDestroyed?.()) {
+      if (local2.view.webContents?.isDestroyed?.()) {
         return;
       }
-      const _0x1299d1 = _0x9d234();
-      _0x405854(_0x2388ac.view, _0x2388ac.bounds);
-      const _0x104ce2 = _0x2388ac.view.getBounds();
-      const _0x2641d4 = _0x2388ac.bounds;
-      const _0x1f8518 = ["x", "y", "width", "height"].some(_0x5a0894 => _0x104ce2[_0x5a0894] !== _0x2641d4[_0x5a0894]);
-      if (_0x1f8518 && _0x1299d1 && !_0x1299d1.isDestroyed()) {
-        console.warn("[Chat] 检测到原生坐标漂移，重新挂载并校准: " + _0x2388ac.viewKey + (" actual=" + JSON.stringify(_0x104ce2) + " expected=" + JSON.stringify(_0x2641d4)));
+      const result = local();
+      fn28(local2.view, local2.bounds);
+      const result2 = local2.view.getBounds();
+      const value = local2.bounds;
+      const result3 = ["x", "y", "width", "height"].some(arg1 => result2[arg1] !== value[arg1]);
+      if (result3 && result && !result.isDestroyed()) {
+        console.warn("[Chat] 检测到原生坐标漂移，重新挂载并校准: " + local2.viewKey + (" actual=" + JSON.stringify(result2) + " expected=" + JSON.stringify(value)));
         try {
-          if (_0x1299d1.getBrowserViews().includes(_0x2388ac.view)) {
-            _0x1299d1.removeBrowserView(_0x2388ac.view);
+          if (result.getBrowserViews().includes(local2.view)) {
+            result.removeBrowserView(local2.view);
           }
-          _0x1299d1.addBrowserView(_0x2388ac.view);
-        } catch (_0x497d3f) {
-          console.warn("[Chat] 重新挂载消息视图失败: " + _0x497d3f.message);
+          result.addBrowserView(local2.view);
+        } catch (error) {
+          console.warn("[Chat] 重新挂载消息视图失败: " + error.message);
         }
-        _0x405854(_0x2388ac.view, _0x2641d4);
+        fn28(local2.view, value);
       }
-      _0xee7ec1.safeSetTopBrowserView?.(_0x2388ac.view, {
-        context: "chat-realign:" + _0x2388ac.viewKey
+      options.safeSetTopBrowserView?.(local2.view, {
+        context: "chat-realign:" + local2.viewKey
       });
     }, 50);
   }
-  function _0x115914() {
-    if (_0x404838) {
+  function registerIpc() {
+    if (flag) {
       return;
     }
-    _0x404838 = true;
-    ipcMain.handle("open-chat-view", async (_0x191e09, _0x216376 = {}) => {
-      if (!_0xee7ec1.ensureMessageCenterAccess?.()) {
+    flag = true;
+    ipcMain.handle("open-chat-view", async (arg1, options2 = {}) => {
+      if (!options.ensureMessageCenterAccess?.()) {
         return {
           success: false,
           message: MESSAGE_CENTER_FREE_BLOCK_MSG
         };
       }
       try {
-        return await _0x2e13d9(_0x216376);
-      } catch (_0x226ce4) {
-        console.error("[Chat] 打开消息视图失败:", _0x226ce4);
+        return await openChatView(options2);
+      } catch (error) {
+        console.error("[Chat] 打开消息视图失败:", error);
         return {
           success: false,
-          message: _0x226ce4.message || "打开消息视图失败"
+          message: error.message || "打开消息视图失败"
         };
       }
     });
-    ipcMain.on("update-chat-view-bounds", (_0xd5b971, _0xae211e = {}) => {
-      _0x5c5954(_0xae211e);
+    ipcMain.on("update-chat-view-bounds", (arg1, options = {}) => {
+      fn37(options);
     });
-    ipcMain.on("set-chat-view-attached", (_0x1fe2b9, {
+    ipcMain.on("set-chat-view-attached", (arg1, {
       attached = true
     } = {}) => {
-      _0x5ec290(!!attached);
+      setActiveChatViewAttached(!!attached);
     });
-    ipcMain.handle("reload-chat-view", async (_0x4242b2, _0x39f3ee = {}) => _0x1dcff5(_0x39f3ee));
-    ipcMain.on("destroy-chat-view", (_0xf87a25, {
+    ipcMain.handle("reload-chat-view", async (arg1, options = {}) => fn36(options));
+    ipcMain.on("destroy-chat-view", (arg1, {
       reason = "renderer-closed"
     } = {}) => {
-      _0x46457d(reason);
+      destroyActiveChatView(reason);
     });
-    ipcMain.handle("set-message-center-session", async (_0x3a0e30, {
-      active: _0x23f5fe
-    } = {}) => _0x55da95(_0x23f5fe));
-    ipcMain.handle("get-chat-view-state", () => _0xaa7c24());
+    ipcMain.handle("set-message-center-session", async (arg1, {
+      active: active
+    } = {}) => fn38(active));
+    ipcMain.handle("get-chat-view-state", () => getChatViewState());
     ipcMain.handle("get-chat-notification-config", () => ({
-      ..._0x2218de
+      ...result
     }));
-    ipcMain.handle("save-chat-notification-config", async (_0x5dd4cc, _0x8da5b5 = {}) => _0x488ad1(_0x8da5b5));
-    ipcMain.handle("get-chat-unread-state", () => _0x33f720());
-    ipcMain.handle("test-chat-message-webhook", async (_0x1be432, _0x157aa6 = {}) => _0x16cb3b(_0x157aa6));
+    ipcMain.handle("save-chat-notification-config", async (arg1, options = {}) => fn39(options));
+    ipcMain.handle("get-chat-unread-state", () => getChatUnreadStatePayload());
+    ipcMain.handle("test-chat-message-webhook", async (arg1, options = {}) => fn40(options));
   }
   return {
     DOUYIN_CHAT_URL: DOUYIN_CHAT_URL,
     MESSAGE_CENTER_FREE_BLOCK_MSG: MESSAGE_CENTER_FREE_BLOCK_MSG,
-    chatViewsMap: _0x15c218,
-    chatMonitorWindowsMap: _0x5cb20c,
-    registerIpc: _0x115914,
-    stopMessageCenterIfNeeded: _0x154f76,
-    syncChatNotificationMonitor: _0x57ffe4,
-    shouldRunChatMessageMonitor: _0xbd58af,
-    syncChatMonitorKeepalives: _0x38d200,
-    isBackgroundChatMonitorEnabled: _0x431f4d,
-    getChatNotificationMonitorGeneration: () => _0x46a1cb,
-    openChatView: _0x2e13d9,
-    destroyActiveChatView: _0x46457d,
-    stopChatNotificationMonitor: _0x569639,
-    handleAppQuit: _0x10cda8,
-    realignActiveChatViewBoundsAfterAutomationClose: _0x50cc96,
-    setActiveChatViewAttached: _0x5ec290,
-    getChatViewState: _0xaa7c24,
-    getChatUnreadStatePayload: _0x33f720,
-    getActiveChatViewState: () => _0x1acd82
+    chatViewsMap: local5,
+    chatMonitorWindowsMap: local6,
+    registerIpc: registerIpc,
+    stopMessageCenterIfNeeded: stopMessageCenterIfNeeded,
+    syncChatNotificationMonitor: syncChatNotificationMonitor,
+    shouldRunChatMessageMonitor: shouldRunChatMessageMonitor,
+    syncChatMonitorKeepalives: syncChatMonitorKeepalives,
+    isBackgroundChatMonitorEnabled: isBackgroundChatMonitorEnabled,
+    getChatNotificationMonitorGeneration: () => num2,
+    openChatView: openChatView,
+    destroyActiveChatView: destroyActiveChatView,
+    stopChatNotificationMonitor: stopChatNotificationMonitor,
+    handleAppQuit: handleAppQuit,
+    realignActiveChatViewBoundsAfterAutomationClose: realignActiveChatViewBoundsAfterAutomationClose,
+    setActiveChatViewAttached: setActiveChatViewAttached,
+    getChatViewState: getChatViewState,
+    getChatUnreadStatePayload: getChatUnreadStatePayload,
+    getActiveChatViewState: () => local7
   };
 }
 module.exports = {
