@@ -8,136 +8,136 @@ const {
 const {
   calculateRecommendedConcurrentAccounts
 } = require("../shared/systemPerformance");
-function registerSystemPerformanceIpc(_0x54727f) {
+function registerSystemPerformanceIpc(arg1) {
   const {
-    store: _0x46e8dc,
-    appVersion: _0x1ac002,
-    deviceId: _0x166642,
-    maxPlatformAccounts: _0x511dc8,
-    getMainWindow: _0x2fd704,
-    getAutomationWindow: _0x34629b,
-    getPlatformViews: _0x34dd83,
-    getInteractionViewsMap: _0x57f0aa,
-    getChatViewsMap: _0x42054f,
-    getChatMonitorWindowsMap: _0x305bb4,
-    getCreatorViewsMap: _0x2307a2,
-    getActiveManualWindows: _0x865ceb,
-    getBackgroundAutomationHostViews: _0x225da9
-  } = _0x54727f;
-  const _0x26898a = () => typeof _0x166642 === "function" ? _0x166642() : _0x166642;
+    store: store,
+    appVersion: appVersion,
+    deviceId: deviceId,
+    maxPlatformAccounts: maxPlatformAccounts,
+    getMainWindow: getMainWindow,
+    getAutomationWindow: getAutomationWindow,
+    getPlatformViews: getPlatformViews,
+    getInteractionViewsMap: getInteractionViewsMap,
+    getChatViewsMap: getChatViewsMap,
+    getChatMonitorWindowsMap: getChatMonitorWindowsMap,
+    getCreatorViewsMap: getCreatorViewsMap,
+    getActiveManualWindows: getActiveManualWindows,
+    getBackgroundAutomationHostViews: getBackgroundAutomationHostViews
+  } = arg1;
+  const local = () => typeof deviceId === "function" ? deviceId() : deviceId;
   ipcMain.handle("get-version-info", () => {
     return {
-      appVersion: _0x1ac002,
-      extVersion: _0x46e8dc.get("local_ext_version", "原始版本"),
+      appVersion: appVersion,
+      extVersion: store.get("local_ext_version", "原始版本"),
       isDevEdition: !app.isPackaged,
-      deviceId: _0x26898a()
+      deviceId: local()
     };
   });
-  function _0x2f1986(_0x4d3b1d) {
-    if (!_0x4d3b1d || _0x4d3b1d.isDestroyed?.()) {
+  function fn(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return null;
     }
     try {
-      if (typeof _0x4d3b1d.getOSProcessId === "function") {
-        const _0x5a7025 = _0x4d3b1d.getOSProcessId();
-        if (_0x5a7025 > 0) {
-          return _0x5a7025;
+      if (typeof arg1.getOSProcessId === "function") {
+        const result = arg1.getOSProcessId();
+        if (result > 0) {
+          return result;
         } else {
           return null;
         }
       }
-      if (typeof _0x4d3b1d.getProcessId === "function") {
-        const _0x1c3516 = _0x4d3b1d.getProcessId();
-        if (_0x1c3516 > 0) {
-          return _0x1c3516;
+      if (typeof arg1.getProcessId === "function") {
+        const result = arg1.getProcessId();
+        if (result > 0) {
+          return result;
         } else {
           return null;
         }
       }
-    } catch (_0x5b8bb7) {}
+    } catch (error) {}
     return null;
   }
-  function _0x2ba25e() {
-    const _0x2aa7a2 = new Map();
-    const _0x1ca275 = (_0x39d3f7, _0xfc5c82, _0x23c197) => {
-      const _0x226801 = _0x2f1986(_0x39d3f7);
-      if (!_0x226801) {
+  function fn2() {
+    const map = new Map();
+    const local = (arg1, arg2, arg3) => {
+      const result = fn(arg1);
+      if (!result) {
         return;
       }
-      _0x2aa7a2.set(_0x226801, {
-        category: _0xfc5c82,
-        label: _0x23c197
+      map.set(result, {
+        category: arg2,
+        label: arg3
       });
     };
-    const _0x1f0858 = _0x2fd704();
-    const _0x24c766 = _0x34629b();
-    _0x1ca275(_0x1f0858?.webContents, "ui", "主界面");
-    if (_0x24c766 && !_0x24c766.isDestroyed?.()) {
-      _0x1ca275(_0x24c766.webContents, "ui", "独立实况窗口");
+    const result = getMainWindow();
+    const result2 = getAutomationWindow();
+    local(result?.webContents, "ui", "主界面");
+    if (result2 && !result2.isDestroyed?.()) {
+      local(result2.webContents, "ui", "独立实况窗口");
     }
-    _0x34dd83().forEach((_0x5f33d6, _0x40bde0) => {
-      _0x1ca275(_0x5f33d6?.webContents, "automation", _0x40bde0);
+    getPlatformViews().forEach((arg1, arg2) => {
+      local(arg1?.webContents, "automation", arg2);
     });
-    _0x57f0aa().forEach((_0x2f7a52, _0xea4381) => {
-      _0x1ca275(_0x2f7a52?.webContents, "interaction", _0xea4381 + ":互动页");
+    getInteractionViewsMap().forEach((arg1, arg2) => {
+      local(arg1?.webContents, "interaction", arg2 + ":互动页");
     });
-    _0x42054f().forEach((_0x66ca8, _0x3fe2b8) => {
-      _0x1ca275(_0x66ca8?.webContents, "chat", _0x3fe2b8 + ":消息页");
+    getChatViewsMap().forEach((arg1, arg2) => {
+      local(arg1?.webContents, "chat", arg2 + ":消息页");
     });
-    _0x305bb4().forEach((_0x5eac9b, _0x7920e0) => {
-      _0x1ca275(_0x5eac9b?.webContents, "chat", _0x7920e0 + ":消息后台检查");
+    getChatMonitorWindowsMap().forEach((arg1, arg2) => {
+      local(arg1?.webContents, "chat", arg2 + ":消息后台检查");
     });
-    _0x2307a2().forEach((_0x3a9eaa, _0x2db241) => {
-      _0x1ca275(_0x3a9eaa?.webContents, "creator", _0x2db241 + ":创作页");
+    getCreatorViewsMap().forEach((arg1, arg2) => {
+      local(arg1?.webContents, "creator", arg2 + ":创作页");
     });
-    _0x865ceb().forEach((_0x558e51, _0x1bc384) => {
-      _0x1ca275(_0x558e51?.webContents, "manual", _0x1bc384 + ":手动窗口");
+    getActiveManualWindows().forEach((arg1, arg2) => {
+      local(arg1?.webContents, "manual", arg2 + ":手动窗口");
     });
-    return _0x2aa7a2;
+    return map;
   }
   ipcMain.handle("get-system-performance", async () => {
-    const _0x1d1a9b = os.totalmem();
-    const _0x14f8a4 = os.freemem();
-    const _0x4efb45 = _0x1d1a9b - _0x14f8a4;
-    const _0x5c96f6 = Math.round(_0x4efb45 / _0x1d1a9b * 100);
-    const _0x27132c = os.cpus();
-    const _0x5d3a49 = _0x27132c.length > 0 ? _0x27132c[0].model.trim() : "未知 CPU";
-    const _0x2b9339 = _0x27132c.length;
-    const _0x5a2d86 = () => {
-      const _0x46d709 = os.cpus();
-      return new Promise(_0x5c720b => {
+    const result = os.totalmem();
+    const result2 = os.freemem();
+    const value = result - result2;
+    const result3 = Math.round(value / result * 100);
+    const result4 = os.cpus();
+    const value2 = result4.length > 0 ? result4[0].model.trim() : "未知 CPU";
+    const value3 = result4.length;
+    const local = () => {
+      const result = os.cpus();
+      return new Promise(arg1 => {
         setTimeout(() => {
-          const _0x2a538f = os.cpus();
-          let _0x169f0a = 0;
-          let _0x471357 = 0;
-          for (let _0x48942c = 0; _0x48942c < _0x46d709.length; _0x48942c++) {
-            const _0x4c8236 = _0x46d709[_0x48942c];
-            const _0x5e3d71 = _0x2a538f[_0x48942c];
-            const _0x3586ed = Object.values(_0x4c8236.times).reduce((_0x4c4001, _0x411a1f) => _0x4c4001 + _0x411a1f, 0);
-            const _0xb2c428 = Object.values(_0x5e3d71.times).reduce((_0x523f38, _0x2d8232) => _0x523f38 + _0x2d8232, 0);
-            _0x169f0a += _0xb2c428 - _0x3586ed;
-            _0x471357 += _0x5e3d71.times.idle - _0x4c8236.times.idle;
+          const result2 = os.cpus();
+          let num = 0;
+          let num2 = 0;
+          for (let num3 = 0; num3 < result.length; num3++) {
+            const value = result[num3];
+            const value2 = result2[num3];
+            const result3 = Object.values(value.times).reduce((arg1, arg2) => arg1 + arg2, 0);
+            const result4 = Object.values(value2.times).reduce((arg1, arg2) => arg1 + arg2, 0);
+            num += result4 - result3;
+            num2 += value2.times.idle - value.times.idle;
           }
-          const _0x2ed8d6 = _0x169f0a === 0 ? 0 : 1 - _0x471357 / _0x169f0a;
-          _0x5c720b(Math.round(_0x2ed8d6 * 100));
+          const value = num === 0 ? 0 : 1 - num2 / num;
+          arg1(Math.round(value * 100));
         }, 200);
       });
     };
-    const _0xcb5618 = await _0x5a2d86();
-    const _0x5cc70b = os.loadavg();
-    const _0x371ddf = _0x5cc70b.map(_0x4a41bb => _0x4a41bb.toFixed(2)).join(" / ");
-    let _0x27d8eb = 0;
-    let _0x1c05c9 = 0;
-    let _0x236b22 = 0;
-    let _0x537fd8 = 0;
-    const _0x4fee26 = {
+    const result5 = await local();
+    const result6 = os.loadavg();
+    const result7 = result6.map(arg1 => arg1.toFixed(2)).join(" / ");
+    let num = 0;
+    let num2 = 0;
+    let num3 = 0;
+    let num4 = 0;
+    const obj = {
       browser: 0,
       renderer: 0,
       gpu: 0,
       utility: 0,
       other: 0
     };
-    const _0x309f90 = {
+    const obj2 = {
       ui: 0,
       automation: 0,
       interaction: 0,
@@ -145,132 +145,132 @@ function registerSystemPerformanceIpc(_0x54727f) {
       manual: 0,
       other: 0
     };
-    const _0x48e134 = [];
-    let _0x58c37b = 0;
+    const list = [];
+    let num5 = 0;
     try {
-      const _0x522456 = app.getAppMetrics();
-      const _0x1259d4 = _0x2ba25e();
-      _0x236b22 = _0x522456.length;
-      for (const _0x75a943 of _0x522456) {
-        const _0x33de39 = _0x75a943.memory && _0x75a943.memory.workingSetSize ? Math.round(_0x75a943.memory.workingSetSize / 1024) : 0;
-        if (_0x75a943.memory && _0x75a943.memory.workingSetSize) {
-          _0x27d8eb += _0x75a943.memory.workingSetSize;
+      const result = app.getAppMetrics();
+      const result2 = fn2();
+      num3 = result.length;
+      for (const item of result) {
+        const value = item.memory && item.memory.workingSetSize ? Math.round(item.memory.workingSetSize / 1024) : 0;
+        if (item.memory && item.memory.workingSetSize) {
+          num += item.memory.workingSetSize;
         }
-        if (_0x33de39 > 0) {
-          if (_0x75a943.type === "Browser") {
-            _0x4fee26.browser += _0x33de39;
-          } else if (_0x75a943.type === "Tab" || _0x75a943.type === "Renderer") {
-            _0x4fee26.renderer += _0x33de39;
-            _0x58c37b = Math.max(_0x58c37b, _0x33de39);
-            const _0x52dae3 = _0x1259d4.get(_0x75a943.pid) || {
+        if (value > 0) {
+          if (item.type === "Browser") {
+            obj.browser += value;
+          } else if (item.type === "Tab" || item.type === "Renderer") {
+            obj.renderer += value;
+            num5 = Math.max(num5, value);
+            const local = result2.get(item.pid) || {
               category: "other",
-              label: _0x75a943.type || "未归属页面"
+              label: item.type || "未归属页面"
             };
-            const _0x226b6c = _0x309f90[_0x52dae3.category] === undefined ? "other" : _0x52dae3.category;
-            _0x309f90[_0x226b6c] += _0x33de39;
-            _0x48e134.push({
-              pid: _0x75a943.pid || 0,
-              category: _0x226b6c,
-              label: _0x52dae3.label,
-              memoryMb: _0x33de39
+            const value2 = obj2[local.category] === undefined ? "other" : local.category;
+            obj2[value2] += value;
+            list.push({
+              pid: item.pid || 0,
+              category: value2,
+              label: local.label,
+              memoryMb: value
             });
-          } else if (_0x75a943.type === "GPU") {
-            _0x4fee26.gpu += _0x33de39;
-          } else if (_0x75a943.type === "Utility") {
-            _0x4fee26.utility += _0x33de39;
+          } else if (item.type === "GPU") {
+            obj.gpu += value;
+          } else if (item.type === "Utility") {
+            obj.utility += value;
           } else {
-            _0x4fee26.other += _0x33de39;
+            obj.other += value;
           }
         }
-        if (_0x75a943.cpu && typeof _0x75a943.cpu.percentCPUUsage === "number") {
-          _0x1c05c9 += _0x75a943.cpu.percentCPUUsage;
+        if (item.cpu && typeof item.cpu.percentCPUUsage === "number") {
+          num2 += item.cpu.percentCPUUsage;
         }
-        if (_0x75a943.type === "Tab" || _0x75a943.type === "Renderer") {
-          _0x537fd8 += 1;
+        if (item.type === "Tab" || item.type === "Renderer") {
+          num4 += 1;
         }
       }
-    } catch (_0xbc2020) {
-      console.error("[Perf] 获取 App 性能指标失败:", _0xbc2020.message);
+    } catch (error) {
+      console.error("[Perf] 获取 App 性能指标失败:", error.message);
     }
-    const _0x373612 = Math.round(_0x27d8eb / 1024);
-    _0x48e134.sort((_0x264ab, _0x1c573e) => _0x1c573e.memoryMb - _0x264ab.memoryMb);
-    const _0xbbbfce = Math.min(100, Math.round(_0x1c05c9 / (_0x2b9339 || 1)));
+    const result8 = Math.round(num / 1024);
+    list.sort((arg1, arg2) => arg2.memoryMb - arg1.memoryMb);
+    const result9 = Math.min(100, Math.round(num2 / (value3 || 1)));
     const {
-      recommendedConcurrentAccounts: _0x2d832d,
-      performanceTier: _0x42ea9e
+      recommendedConcurrentAccounts: recommendedConcurrentAccounts,
+      performanceTier: performanceTier
     } = calculateRecommendedConcurrentAccounts({
-      totalMemBytes: _0x1d1a9b,
-      cpuCores: _0x2b9339,
-      maxAccounts: _0x511dc8
+      totalMemBytes: result,
+      cpuCores: value3,
+      maxAccounts: maxPlatformAccounts
     });
-    const _0x42bac3 = _0x2fd704();
-    const _0x2be58e = _0x42bac3 && !_0x42bac3.isDestroyed() ? _0x42bac3.getBrowserViews().length : 0;
-    const _0x25a684 = _0x2be58e + _0x225da9().length;
-    const _0x460e5c = os.uptime();
-    const _0x1fe9e2 = Math.floor(_0x460e5c / 3600);
-    const _0x15b240 = Math.floor(_0x460e5c % 3600 / 60);
-    let _0x2d27c3 = _0x15b240 + "分钟";
-    if (_0x1fe9e2 > 0) {
-      _0x2d27c3 = _0x1fe9e2 + "小时 " + _0x15b240 + "分钟";
+    const result10 = getMainWindow();
+    const value4 = result10 && !result10.isDestroyed() ? result10.getBrowserViews().length : 0;
+    const value5 = value4 + getBackgroundAutomationHostViews().length;
+    const result11 = os.uptime();
+    const result12 = Math.floor(result11 / 3600);
+    const result13 = Math.floor(result11 % 3600 / 60);
+    let value6 = result13 + "分钟";
+    if (result12 > 0) {
+      value6 = result12 + "小时 " + result13 + "分钟";
     }
-    const _0x2960ba = _0x34dd83();
-    const _0x117e63 = _0x57f0aa();
-    const _0x1bb489 = _0x42054f();
-    const _0x325471 = _0x305bb4();
-    const _0x315498 = _0x2307a2();
-    const _0x36cf90 = _0x865ceb();
+    const result14 = getPlatformViews();
+    const result15 = getInteractionViewsMap();
+    const result16 = getChatViewsMap();
+    const result17 = getChatMonitorWindowsMap();
+    const result18 = getCreatorViewsMap();
+    const result19 = getActiveManualWindows();
     return {
       success: true,
-      cpuUsage: _0xcb5618,
-      cpuModel: _0x5d3a49,
-      cpuCores: _0x2b9339,
-      memUsagePercent: _0x5c96f6,
-      totalMemGB: (_0x1d1a9b / 1024 / 1024 / 1024).toFixed(1),
-      usedMemGB: (_0x4efb45 / 1024 / 1024 / 1024).toFixed(1),
-      loadAvg: _0x371ddf,
-      appCpuUsage: _0xbbbfce,
-      appMemory: _0x373612,
-      appMemoryBreakdown: _0x4fee26,
-      appRendererMemoryBreakdown: _0x309f90,
-      rendererProcessDetails: _0x48e134.slice(0, 8),
-      largestRendererMemoryMb: _0x58c37b,
-      appProcessCount: _0x236b22,
-      appRendererProcessCount: _0x537fd8,
-      automationViewCount: _0x2960ba.size,
-      interactionViewCount: _0x117e63.size,
-      chatViewCount: _0x1bb489.size + _0x325471.size,
-      chatMonitorViewCount: _0x325471.size,
-      creatorViewCount: _0x315498.size,
-      manualWindowCount: _0x36cf90.size,
-      attachedViewCount: _0x25a684,
-      recommendedConcurrentAccounts: _0x2d832d,
-      performanceTier: _0x42ea9e,
-      uptime: _0x2d27c3
+      cpuUsage: result5,
+      cpuModel: value2,
+      cpuCores: value3,
+      memUsagePercent: result3,
+      totalMemGB: (result / 1024 / 1024 / 1024).toFixed(1),
+      usedMemGB: (value / 1024 / 1024 / 1024).toFixed(1),
+      loadAvg: result7,
+      appCpuUsage: result9,
+      appMemory: result8,
+      appMemoryBreakdown: obj,
+      appRendererMemoryBreakdown: obj2,
+      rendererProcessDetails: list.slice(0, 8),
+      largestRendererMemoryMb: num5,
+      appProcessCount: num3,
+      appRendererProcessCount: num4,
+      automationViewCount: result14.size,
+      interactionViewCount: result15.size,
+      chatViewCount: result16.size + result17.size,
+      chatMonitorViewCount: result17.size,
+      creatorViewCount: result18.size,
+      manualWindowCount: result19.size,
+      attachedViewCount: value5,
+      recommendedConcurrentAccounts: recommendedConcurrentAccounts,
+      performanceTier: performanceTier,
+      uptime: value6
     };
   });
   ipcMain.handle("get-recommended-concurrent-accounts", () => {
     try {
-      const _0x28d111 = 4;
-      const _0x57c715 = calculateRecommendedConcurrentAccounts({
+      const num = 4;
+      const result = calculateRecommendedConcurrentAccounts({
         totalMemBytes: os.totalmem(),
         cpuCores: os.cpus().length,
-        maxAccounts: Math.min(_0x28d111, _0x511dc8)
+        maxAccounts: Math.min(num, maxPlatformAccounts)
       });
       return {
         success: true,
-        recommended: Math.min(_0x28d111, _0x57c715.recommendedConcurrentAccounts),
-        cpuCores: _0x57c715.cpuCores,
-        totalMemGB: _0x57c715.totalMemGB,
-        performanceTier: _0x57c715.performanceTier
+        recommended: Math.min(num, result.recommendedConcurrentAccounts),
+        cpuCores: result.cpuCores,
+        totalMemGB: result.totalMemGB,
+        performanceTier: result.performanceTier
       };
-    } catch (_0xb1b115) {
-      console.error("[Main] get-recommended-concurrent-accounts failed:", _0xb1b115?.message || _0xb1b115);
+    } catch (error) {
+      console.error("[Main] get-recommended-concurrent-accounts failed:", error?.message || error);
       return {
         success: false,
         recommended: 1,
         cpuCores: 0,
         totalMemGB: 0,
-        reason: _0xb1b115?.message || String(_0xb1b115)
+        reason: error?.message || String(error)
       };
     }
   });
