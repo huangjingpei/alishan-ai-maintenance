@@ -1,5 +1,5 @@
-function compactGroupText(_0x3a79e6) {
-  return String(_0x3a79e6 || "").replace(/[\u200b-\u200f\u202a-\u202e\u2060-\u206f]/g, "").replace(/\s+/g, " ").trim();
+function compactGroupText(arg1) {
+  return String(arg1 || "").replace(/[\u200b-\u200f\u202a-\u202e\u2060-\u206f]/g, "").replace(/\s+/g, " ").trim();
 }
 const STRONG_GROUP_NAME_RE = /群聊|群消息|粉丝群|交流群|互助群|客户群|学员群|官方群|内部群|社群|售后群|资源群|同城群|本地群|宝妈群|创业群/;
 const SOFT_GROUP_NAME_RE = /群/;
@@ -7,72 +7,72 @@ const PAREN_MEMBER_RE = /[（(]\s*(?:[2-9]|[1-9]\d{1,2})\s*[）)]/;
 const MEMBER_HINT_RE = /共\s*\d+\s*人|\d+\s*人|[（(]\s*(?:[2-9]|[1-9]\d{1,2})\s*[）)]/;
 const GROUP_ATTR_RE = /群聊|群消息|group(?:[_\s-]?chat|[_\s-]?conversation)|chatType["']?\s*[:=]\s*["']?group|conversationType["']?\s*[:=]\s*["']?group/i;
 const OPEN_HEADER_STRONG_RE = /群聊|群成员|群公告|群管理|邀请入群|邀请进群|添加群成员|群设置/;
-function looksLikeDouyinGroupChatName(_0xec0849) {
-  const _0x427bab = compactGroupText(_0xec0849);
-  if (!_0x427bab) {
+function looksLikeDouyinGroupChatName(arg1) {
+  const result = compactGroupText(arg1);
+  if (!result) {
     return {
       isGroup: false,
       reason: ""
     };
   }
-  if (STRONG_GROUP_NAME_RE.test(_0x427bab)) {
+  if (STRONG_GROUP_NAME_RE.test(result)) {
     return {
       isGroup: true,
       reason: "name_strong"
     };
   }
-  if (/的群$/.test(_0x427bab) || /^.{1,24}群$/.test(_0x427bab) && !/个人|自己/.test(_0x427bab)) {
+  if (/的群$/.test(result) || /^.{1,24}群$/.test(result) && !/个人|自己/.test(result)) {
     return {
       isGroup: true,
       reason: "name_suffix_群"
     };
   }
-  if (SOFT_GROUP_NAME_RE.test(_0x427bab) && MEMBER_HINT_RE.test(_0x427bab)) {
+  if (SOFT_GROUP_NAME_RE.test(result) && MEMBER_HINT_RE.test(result)) {
     return {
       isGroup: true,
       reason: "name_群+人数"
     };
   }
-  if (_0x427bab.length <= 48 && PAREN_MEMBER_RE.test(_0x427bab)) {
+  if (result.length <= 48 && PAREN_MEMBER_RE.test(result)) {
     return {
       isGroup: true,
       reason: "name_paren_count"
     };
   }
-  const _0x1a834e = looksLikeMultiMemberGroupTitle(_0x427bab);
-  if (_0x1a834e.isGroup) {
-    return _0x1a834e;
+  const result2 = looksLikeMultiMemberGroupTitle(result);
+  if (result2.isGroup) {
+    return result2;
   }
   return {
     isGroup: false,
     reason: ""
   };
 }
-function looksLikeMultiMemberGroupTitle(_0x1ad74b) {
-  const _0x23f158 = compactGroupText(_0x1ad74b).replace(/^@+/, "");
-  if (!_0x23f158 || _0x23f158.length > 64) {
+function looksLikeMultiMemberGroupTitle(arg1) {
+  const result = compactGroupText(arg1).replace(/^@+/, "");
+  if (!result || result.length > 64) {
     return {
       isGroup: false,
       reason: ""
     };
   }
-  const _0x12bdf7 = _0xacc3e1 => _0xacc3e1.length >= 1 && _0xacc3e1.length <= 20;
-  const _0x1bd3d8 = _0x23f158.split(/\s*,\s*/).map(_0x5b49cb => _0x5b49cb.trim()).filter(Boolean);
-  if (_0x1bd3d8.length >= 2 && _0x1bd3d8.every(_0x12bdf7)) {
+  const local = arg1 => arg1.length >= 1 && arg1.length <= 20;
+  const result2 = result.split(/\s*,\s*/).map(arg1 => arg1.trim()).filter(Boolean);
+  if (result2.length >= 2 && result2.every(local)) {
     return {
       isGroup: true,
       reason: "name_multi_member"
     };
   }
-  const _0x31d5a3 = _0x23f158.split(/\s*、\s*/).map(_0x46e420 => _0x46e420.trim()).filter(Boolean);
-  if (_0x31d5a3.length >= 2 && _0x31d5a3.every(_0x12bdf7)) {
+  const result3 = result.split(/\s*、\s*/).map(arg1 => arg1.trim()).filter(Boolean);
+  if (result3.length >= 2 && result3.every(local)) {
     return {
       isGroup: true,
       reason: "name_multi_member"
     };
   }
-  const _0x45ca46 = _0x23f158.split(/\s*，\s*/).map(_0x29256c => _0x29256c.trim()).filter(Boolean);
-  if (_0x45ca46.length >= 3 && _0x45ca46.every(_0x12bdf7)) {
+  const result4 = result.split(/\s*，\s*/).map(arg1 => arg1.trim()).filter(Boolean);
+  if (result4.length >= 3 && result4.every(local)) {
     return {
       isGroup: true,
       reason: "name_multi_member"
@@ -83,58 +83,58 @@ function looksLikeMultiMemberGroupTitle(_0x1ad74b) {
     reason: ""
   };
 }
-function detectDouyinDmIsGroupChat(_0x5aa1cc = {}) {
-  const _0xa8d4f = compactGroupText(_0x5aa1cc.name);
-  const _0x5a1b2b = compactGroupText(_0x5aa1cc.rowText);
-  const _0x25c0d6 = compactGroupText(_0x5aa1cc.attrBlob);
-  const _0x56a93d = Math.max(0, Number(_0x5aa1cc.avatarCount) || 0);
-  const _0x2fa69b = !!_0x5aa1cc.hasExplicitGroupNode;
-  const _0x5d04b6 = !!_0x5aa1cc.hasUserLink;
-  if (_0x2fa69b) {
+function detectDouyinDmIsGroupChat(options = {}) {
+  const result = compactGroupText(options.name);
+  const result2 = compactGroupText(options.rowText);
+  const result3 = compactGroupText(options.attrBlob);
+  const result4 = Math.max(0, Number(options.avatarCount) || 0);
+  const flag = !!options.hasExplicitGroupNode;
+  const flag2 = !!options.hasUserLink;
+  if (flag) {
     return {
       isGroup: true,
       reason: "dom_explicit"
     };
   }
-  if (GROUP_ATTR_RE.test(_0x25c0d6)) {
+  if (GROUP_ATTR_RE.test(result3)) {
     return {
       isGroup: true,
       reason: "attr_text"
     };
   }
-  const _0x7721e6 = looksLikeDouyinGroupChatName(_0xa8d4f);
-  if (_0x7721e6.isGroup) {
-    return _0x7721e6;
+  const result5 = looksLikeDouyinGroupChatName(result);
+  if (result5.isGroup) {
+    return result5;
   }
-  let _0x1b907d = 0;
-  const _0x4ca879 = [];
-  if (SOFT_GROUP_NAME_RE.test(_0xa8d4f)) {
-    _0x1b907d += 2;
-    _0x4ca879.push("name_has_群");
+  let num = 0;
+  const list = [];
+  if (SOFT_GROUP_NAME_RE.test(result)) {
+    num += 2;
+    list.push("name_has_群");
   }
-  if (MEMBER_HINT_RE.test(_0xa8d4f)) {
-    _0x1b907d += 3;
-    _0x4ca879.push("member_hint");
+  if (MEMBER_HINT_RE.test(result)) {
+    num += 3;
+    list.push("member_hint");
   }
-  if (_0x56a93d >= 3) {
-    _0x1b907d += 4;
-    _0x4ca879.push("avatars>=3");
-  } else if (_0x56a93d >= 2) {
-    _0x1b907d += 2;
-    _0x4ca879.push("avatars>=2");
+  if (result4 >= 3) {
+    num += 4;
+    list.push("avatars>=3");
+  } else if (result4 >= 2) {
+    num += 2;
+    list.push("avatars>=2");
   }
-  if (!_0x5d04b6 && _0x1b907d >= 2) {
-    _0x1b907d += 1;
-    _0x4ca879.push("no_user_link");
+  if (!flag2 && num >= 2) {
+    num += 1;
+    list.push("no_user_link");
   }
-  if (/GroupAvatar|group-avatar|groupAvatar|GroupChat|groupChat|ImGroup|im-group|conversation-group|AvatarList|avatarList|多人头像/i.test(_0x25c0d6)) {
-    _0x1b907d += 3;
-    _0x4ca879.push("class_hint");
+  if (/GroupAvatar|group-avatar|groupAvatar|GroupChat|groupChat|ImGroup|im-group|conversation-group|AvatarList|avatarList|多人头像/i.test(result3)) {
+    num += 3;
+    list.push("class_hint");
   }
-  if (_0x1b907d >= 3) {
+  if (num >= 3) {
     return {
       isGroup: true,
-      reason: "score_" + _0x1b907d + ":" + _0x4ca879.join("+")
+      reason: "score_" + num + ":" + list.join("+")
     };
   }
   return {
@@ -142,39 +142,39 @@ function detectDouyinDmIsGroupChat(_0x5aa1cc = {}) {
     reason: ""
   };
 }
-function looksLikeOpenDouyinGroupChatHeader(_0xdbc99 = "", _0x134a04 = "") {
-  const _0x2953aa = compactGroupText(_0xdbc99).slice(0, 64);
-  if (!_0x2953aa) {
+function looksLikeOpenDouyinGroupChatHeader(text = "", text2 = "") {
+  const result = compactGroupText(text).slice(0, 64);
+  if (!result) {
     return {
       isGroup: false,
       reason: ""
     };
   }
-  const _0x545538 = compactGroupText(_0x134a04).replace(/^@+/, "").toLowerCase();
-  const _0x30f3ab = _0x2953aa.toLowerCase();
-  const _0x23ad4f = !_0x545538 || _0x30f3ab.includes(_0x545538) || _0x545538.includes(_0x30f3ab.slice(0, Math.min(_0x545538.length, _0x30f3ab.length)));
-  if (OPEN_HEADER_STRONG_RE.test(_0x2953aa)) {
-    if (_0x2953aa.length <= 64) {
+  const result2 = compactGroupText(text2).replace(/^@+/, "").toLowerCase();
+  const result3 = result.toLowerCase();
+  const local = !result2 || result3.includes(result2) || result2.includes(result3.slice(0, Math.min(result2.length, result3.length)));
+  if (OPEN_HEADER_STRONG_RE.test(result)) {
+    if (result.length <= 64) {
       return {
         isGroup: true,
         reason: "open_header"
       };
     }
   }
-  if (!_0x23ad4f) {
+  if (!local) {
     return {
       isGroup: false,
       reason: "header_mismatch"
     };
   }
-  const _0x1ed3ab = looksLikeDouyinGroupChatName(_0x2953aa);
-  if (_0x1ed3ab.isGroup) {
+  const result4 = looksLikeDouyinGroupChatName(result);
+  if (result4.isGroup) {
     return {
       isGroup: true,
-      reason: "open_" + _0x1ed3ab.reason
+      reason: "open_" + result4.reason
     };
   }
-  if (MEMBER_HINT_RE.test(_0x2953aa)) {
+  if (MEMBER_HINT_RE.test(result)) {
     return {
       isGroup: true,
       reason: "open_member_hint"
