@@ -3,370 +3,370 @@
 const {
   ipcMain
 } = require("electron");
-function createRadarAi(_0x2f1830) {
+function createRadarAi(arg1) {
   const {
-    store: _0x1be971,
-    getApiBase: _0x1adc8f,
-    getMainWindow: _0x3e1dbc,
-    getActiveSettings: _0x3a5358,
-    getPlatformViews: _0x3f9800,
-    getViewSettingsMap: _0x36be9c,
-    getInteractionViewsMap: _0x304e35,
-    radarDeviceHeaders: _0x334501,
-    getRobustDeviceID: _0x3302ce,
-    autoLogin: _0x1a1f66,
-    resolveActiveBatchRunId: _0xeedebf,
-    appendBatchFollowLog: _0xd4e1ae,
-    generateMonitorPersonaContent: _0x422ceb
-  } = _0x2f1830;
-  const _0x4622a4 = _0x2f1830.axios || require("axios");
-  function _0x356676(_0x57377a, _0x5b80f1 = 100) {
-    const _0x434f5f = String(_0x57377a || "").trim();
-    if (!_0x434f5f) {
+    store: store,
+    getApiBase: getApiBase,
+    getMainWindow: getMainWindow,
+    getActiveSettings: getActiveSettings,
+    getPlatformViews: getPlatformViews,
+    getViewSettingsMap: getViewSettingsMap,
+    getInteractionViewsMap: getInteractionViewsMap,
+    radarDeviceHeaders: radarDeviceHeaders,
+    getRobustDeviceID: getRobustDeviceID,
+    autoLogin: autoLogin,
+    resolveActiveBatchRunId: resolveActiveBatchRunId,
+    appendBatchFollowLog: appendBatchFollowLog,
+    generateMonitorPersonaContent: generateMonitorPersonaContent
+  } = arg1;
+  const local = arg1.axios || require("axios");
+  function clipAutomationTraceText(arg1, num = 100) {
+    const result = String(arg1 || "").trim();
+    if (!result) {
       return "";
     }
-    if (_0x434f5f.length > _0x5b80f1) {
-      return _0x434f5f.slice(0, _0x5b80f1) + "…";
+    if (result.length > num) {
+      return result.slice(0, num) + "…";
     } else {
-      return _0x434f5f;
+      return result;
     }
   }
-  function _0xedc75f(_0x538922) {
-    if (!_0x538922) {
+  function isFatalAiAuthError(arg1) {
+    if (!arg1) {
       return false;
     }
-    const _0x4237ca = String(_0x538922);
-    return _0x4237ca.includes("额度已用完") || _0x4237ca.includes("已用完") || _0x4237ca.includes("卡密已过期") || _0x4237ca.includes("授权码无效") || _0x4237ca.includes("设备已被封") || _0x4237ca.includes("余额不足") || _0x4237ca.includes("未授权");
+    const result = String(arg1);
+    return result.includes("额度已用完") || result.includes("已用完") || result.includes("卡密已过期") || result.includes("授权码无效") || result.includes("设备已被封") || result.includes("余额不足") || result.includes("未授权");
   }
-  let _0x558a88 = 0;
-  function _0x4a4f97() {
-    return _0x558a88;
+  let num = 0;
+  function captureAutomationAiInvokeGeneration() {
+    return num;
   }
-  function _0x458822() {
-    _0x558a88 += 1;
+  function cancelAutomationAiRetry() {
+    num += 1;
   }
-  function _0xf88fe0(_0x1e9d0e) {
-    return _0x1e9d0e !== _0x558a88;
+  function isAutomationAiInvokeCancelled(arg1) {
+    return arg1 !== num;
   }
-  async function _0x22e0ca(_0x14ede5, _0x51f18e) {
-    const _0x31ff14 = 400;
-    let _0x277f2b = _0x14ede5;
-    while (_0x277f2b > 0) {
-      if (_0xf88fe0(_0x51f18e)) {
+  async function sleepWithAutomationAiCancel(arg1, arg2) {
+    const num = 400;
+    let local = arg1;
+    while (local > 0) {
+      if (isAutomationAiInvokeCancelled(arg2)) {
         return false;
       }
-      const _0xe8ae59 = Math.min(_0x31ff14, _0x277f2b);
-      await new Promise(_0xcbcaf5 => setTimeout(_0xcbcaf5, _0xe8ae59));
-      _0x277f2b -= _0xe8ae59;
+      const result = Math.min(num, local);
+      await new Promise(arg1 => setTimeout(arg1, result));
+      local -= result;
     }
-    return !_0xf88fe0(_0x51f18e);
+    return !isAutomationAiInvokeCancelled(arg2);
   }
-  function _0x356f2e(_0xbe49a3, _0xc04667, _0x249fec = {}) {
-    const _0x56b6af = String(_0xbe49a3 || "").trim();
-    if (!_0x56b6af) {
+  function pushAutomationTrace(arg1, arg2, options = {}) {
+    const result = String(arg1 || "").trim();
+    if (!result) {
       return;
     }
-    const _0x56dc68 = _0x3a5358();
-    const _0x3e5dfc = _0xc04667 || _0x56dc68?.accountId || "default";
-    const _0x3b75d0 = _0xeedebf(_0x249fec.viewKey, _0x249fec.runId ?? _0x249fec.batchRunId);
-    if (_0x3b75d0 != null && _0x249fec.persist !== false) {
-      _0xd4e1ae(_0x3b75d0, {
-        message: _0x56b6af,
-        level: _0x249fec.level || "normal",
-        accountId: _0x3e5dfc,
-        accountName: _0x249fec.accountName || "",
-        viewKey: _0x249fec.viewKey || "",
-        leadId: _0x249fec.leadId || "",
-        leadName: _0x249fec.leadName || "",
-        phase: _0x249fec.phase || "trace"
+    const result2 = getActiveSettings();
+    const local = arg2 || result2?.accountId || "default";
+    const result3 = resolveActiveBatchRunId(options.viewKey, options.runId ?? options.batchRunId);
+    if (result3 != null && options.persist !== false) {
+      appendBatchFollowLog(result3, {
+        message: result,
+        level: options.level || "normal",
+        accountId: local,
+        accountName: options.accountName || "",
+        viewKey: options.viewKey || "",
+        leadId: options.leadId || "",
+        leadName: options.leadName || "",
+        phase: options.phase || "trace"
       });
     }
-    const _0x30e0f0 = _0x3e1dbc();
-    if (!_0x30e0f0 || _0x30e0f0.isDestroyed()) {
+    const result4 = getMainWindow();
+    if (!result4 || result4.isDestroyed()) {
       return;
     }
-    _0x30e0f0.webContents.send("automation-data", {
+    result4.webContents.send("automation-data", {
       type: "trace-log",
       payload: {
-        accountId: _0x3e5dfc,
-        message: _0x56b6af,
-        level: _0x249fec.level || "normal",
-        runId: _0x3b75d0 ?? undefined,
-        batchRunId: _0x3b75d0 ?? undefined
+        accountId: local,
+        message: result,
+        level: options.level || "normal",
+        runId: result3 ?? undefined,
+        batchRunId: result3 ?? undefined
       }
     });
   }
-  function _0x4e0893(_0x38ba20, _0x4ed60e = {}) {
-    if (_0x4ed60e?.accountId) {
-      return _0x4ed60e.accountId;
+  function resolveTraceAccountIdFromIpc(arg1, options = {}) {
+    if (options?.accountId) {
+      return options.accountId;
     }
-    const _0x59075b = _0x38ba20?.sender;
-    if (_0x59075b && !_0x59075b.isDestroyed?.()) {
-      const _0x2b0497 = _0x3f9800();
-      const _0x34879a = _0x36be9c();
-      const _0x466323 = _0x304e35();
-      for (const [_0x5d36c5, _0x16f00a] of _0x2b0497.entries()) {
-        if (_0x16f00a?.webContents === _0x59075b) {
-          const _0xe059d2 = _0x34879a.get(_0x5d36c5);
-          if (_0xe059d2?.accountId) {
-            return _0xe059d2.accountId;
+    const local = arg1?.sender;
+    if (local && !local.isDestroyed?.()) {
+      const result = getPlatformViews();
+      const result2 = getViewSettingsMap();
+      const result3 = getInteractionViewsMap();
+      for (const [local2, local3] of result.entries()) {
+        if (local3?.webContents === local) {
+          const result = result2.get(local2);
+          if (result?.accountId) {
+            return result.accountId;
           }
-          const _0xbd383b = _0x5d36c5.split("_");
-          if (_0xbd383b.length > 1) {
-            return _0xbd383b.slice(1).join("_");
+          const result3 = local2.split("_");
+          if (result3.length > 1) {
+            return result3.slice(1).join("_");
           }
         }
       }
-      for (const [_0xad4194, _0x3c58d7] of _0x466323.entries()) {
-        if (_0x3c58d7?.webContents === _0x59075b) {
-          const _0x5ddea7 = _0x34879a.get(_0xad4194);
-          if (_0x5ddea7?.accountId) {
-            return _0x5ddea7.accountId;
+      for (const [local2, local3] of result3.entries()) {
+        if (local3?.webContents === local) {
+          const result = result2.get(local2);
+          if (result?.accountId) {
+            return result.accountId;
           }
-          const _0x17e81f = _0xad4194.split("_");
-          if (_0x17e81f.length > 1) {
-            return _0x17e81f.slice(1).join("_");
+          const result3 = local2.split("_");
+          if (result3.length > 1) {
+            return result3.slice(1).join("_");
           }
         }
       }
     }
-    return _0x3a5358()?.accountId || "default";
+    return getActiveSettings()?.accountId || "default";
   }
-  function _0x110cbd(_0xfb580f = {}, _0x18e187 = {}) {
-    const _0x2af83f = String(_0xfb580f?.aiPrompt || "").trim();
-    if (_0x2af83f) {
-      return _0x2af83f;
+  function buildRuntimeAiIntent(options = {}, options2 = {}) {
+    const result = String(options?.aiPrompt || "").trim();
+    if (result) {
+      return result;
     }
-    const _0x585e81 = _0xfb580f?.aiRole || _0x18e187.aiRole || "专业获客评论互动顾问";
-    const _0x526d9f = _0xfb580f?.aiGoal || _0xfb580f?.aiPurpose || _0x18e187.aiGoal || "识别更匹配业务人设的潜在客户并进行自然互动";
-    const _0x350bd4 = _0xfb580f?.aiStyle || _0x18e187.aiStyle || "真诚、克制、精准、合规";
-    return "身份: " + _0x585e81 + "; 目的: " + _0x526d9f + "; 要求: " + _0x350bd4;
+    const local = options?.aiRole || options2.aiRole || "专业获客评论互动顾问";
+    const local2 = options?.aiGoal || options?.aiPurpose || options2.aiGoal || "识别更匹配业务人设的潜在客户并进行自然互动";
+    const local3 = options?.aiStyle || options2.aiStyle || "真诚、克制、精准、合规";
+    return "身份: " + local + "; 目的: " + local2 + "; 要求: " + local3;
   }
-  async function _0x2c7911(_0x3a6609, _0x2f12cd, _0x4b6d4d = 60000) {
-    const _0x4ede35 = _0x3302ce();
-    let _0x595f6b = _0x1be971.get("auth_token");
+  async function postRadarAiJson(arg1, arg2, num = 60000) {
+    const result = getRobustDeviceID();
+    let result2 = store.get("auth_token");
     try {
-      return await _0x4622a4.post(_0x3a6609, _0x2f12cd, {
-        headers: _0x334501(_0x595f6b, _0x4ede35),
-        timeout: _0x4b6d4d
+      return await local.post(arg1, arg2, {
+        headers: radarDeviceHeaders(result2, result),
+        timeout: num
       });
-    } catch (_0x2647db) {
-      if (_0x2647db.response?.status === 401) {
-        await _0x1a1f66();
-        _0x595f6b = _0x1be971.get("auth_token");
-        return await _0x4622a4.post(_0x3a6609, _0x2f12cd, {
-          headers: _0x334501(_0x595f6b, _0x4ede35),
-          timeout: _0x4b6d4d
+    } catch (error) {
+      if (error.response?.status === 401) {
+        await autoLogin();
+        result2 = store.get("auth_token");
+        return await local.post(arg1, arg2, {
+          headers: radarDeviceHeaders(result2, result),
+          timeout: num
         });
       }
-      throw _0x2647db;
+      throw error;
     }
   }
-  function _0xcc853e(_0x307d23, _0x57bacc = "AI 判断完成") {
-    const _0x4937ee = _0x307d23?.data?.data;
-    if (_0x307d23?.data?.code === 200 && _0x4937ee) {
+  function parseRadarMatchResponse(arg1, text = "AI 判断完成") {
+    const local = arg1?.data?.data;
+    if (arg1?.data?.code === 200 && local) {
       return {
         success: true,
-        pass: _0x4937ee.pass !== false,
-        score: Number(_0x4937ee.score || 0),
-        reason: _0x4937ee.reason || _0x57bacc,
-        mainPostComment: String(_0x4937ee.main_post_comment || _0x4937ee.mainPostComment || "").trim()
+        pass: local.pass !== false,
+        score: Number(local.score || 0),
+        reason: local.reason || text,
+        mainPostComment: String(local.main_post_comment || local.mainPostComment || "").trim()
       };
     }
     return {
       success: false,
       pass: false,
       score: 0,
-      reason: _0x307d23?.data?.msg || "后端未返回有效判断，未放行",
+      reason: arg1?.data?.msg || "后端未返回有效判断，未放行",
       mainPostComment: ""
     };
   }
-  function _0x5e5bb7(_0x342c36) {
+  function handleAiResponse(arg1) {
     try {
-      if (_0x342c36.data.code === 200 && _0x342c36.data.data) {
-        const _0x14bb1c = Array.isArray(_0x342c36.data.data) ? _0x342c36.data.data : [_0x342c36.data.data];
-        const _0x30c84d = _0x14bb1c.map(_0x40848a => {
-          let _0x2b0585 = "ignore";
-          if (_0x40848a.should_like && _0x40848a.should_reply) {
-            _0x2b0585 = "both";
-          } else if (_0x40848a.should_like) {
-            _0x2b0585 = "like";
-          } else if (_0x40848a.should_reply) {
-            _0x2b0585 = "reply";
+      if (arg1.data.code === 200 && arg1.data.data) {
+        const value = Array.isArray(arg1.data.data) ? arg1.data.data : [arg1.data.data];
+        const result = value.map(arg1 => {
+          let text = "ignore";
+          if (arg1.should_like && arg1.should_reply) {
+            text = "both";
+          } else if (arg1.should_like) {
+            text = "like";
+          } else if (arg1.should_reply) {
+            text = "reply";
           }
           return {
-            decision: _0x2b0585,
-            replyContent: _0x40848a.reply_content,
-            aiThought: _0x40848a.thought
+            decision: text,
+            replyContent: arg1.reply_content,
+            aiThought: arg1.thought
           };
         });
-        console.log("[AI-Analyze] 批量映射成功 (动作互斥已生效)，最终决策量: " + _0x30c84d.length);
+        console.log("[AI-Analyze] 批量映射成功 (动作互斥已生效)，最终决策量: " + result.length);
         console.log("[AI-Analyze] -----------------------------------------");
         return {
           success: true,
-          data: _0x30c84d
+          data: result
         };
       }
       return {
         success: false,
-        msg: _0x342c36.data.msg || "后端分析返回异常"
+        msg: arg1.data.msg || "后端分析返回异常"
       };
-    } catch (_0x5d22f9) {
-      console.error("[AI-Analyze] 批量调用结果解析失败: " + _0x5d22f9.message);
+    } catch (error) {
+      console.error("[AI-Analyze] 批量调用结果解析失败: " + error.message);
       return {
         success: false,
-        msg: _0x5d22f9.message
+        msg: error.message
       };
     }
   }
-  function _0x759ee6() {
-    ipcMain.handle("ai-intelligent-analyze-batch", async (_0x4b836c, _0x59fb4e) => {
-      const _0x37c88b = _0x1adc8f();
+  function registerIpc() {
+    ipcMain.handle("ai-intelligent-analyze-batch", async (arg1, arg2) => {
+      const result = getApiBase();
       const {
-        leads: _0x2148a5,
-        config: _0x3fb22a,
+        leads: leads,
+        config: config,
         generationMode = ""
-      } = _0x59fb4e;
-      if (!_0x2148a5 || _0x2148a5.length === 0) {
+      } = arg2;
+      if (!leads || leads.length === 0) {
         return {
           success: true,
           data: []
         };
       }
-      const _0x1135c5 = _0x4e0893(_0x4b836c, _0x59fb4e);
-      const _0x587dfe = Date.now();
-      const _0x283e4a = generationMode === "keyword_reply_only";
-      const _0x1e31fb = _0x283e4a ? "关键词匹配回复生成" : "评论分析";
-      _0x356f2e("🌐 后端 AI：提交 " + _0x2148a5.length + " 条" + _0x1e31fb + "…", _0x1135c5);
-      let _0x191b0c = _0x3fb22a.aiPrompt;
-      if (!_0x191b0c) {
-        _0x191b0c = "身份: " + (_0x3fb22a.aiRole || "专业营销人员") + "; 目的: " + (_0x3fb22a.aiGoal || "寻找有真实服务/产品需求的潜在客户") + "; 要求: " + (_0x3fb22a.aiStyle || "专业、精准、严谨");
+      const result2 = resolveTraceAccountIdFromIpc(arg1, arg2);
+      const result3 = Date.now();
+      const value = generationMode === "keyword_reply_only";
+      const value2 = value ? "关键词匹配回复生成" : "评论分析";
+      pushAutomationTrace("🌐 后端 AI：提交 " + leads.length + " 条" + value2 + "…", result2);
+      let value3 = config.aiPrompt;
+      if (!value3) {
+        value3 = "身份: " + (config.aiRole || "专业营销人员") + "; 目的: " + (config.aiGoal || "寻找有真实服务/产品需求的潜在客户") + "; 要求: " + (config.aiStyle || "专业、精准、严谨");
       }
-      const _0x24d443 = _0x2148a5[0].title;
-      const _0x4c9811 = _0x3a5358();
-      const _0x252f07 = _0x4c9811?.keywords || "未知关键字";
-      const _0x1c77db = _0x4c9811?.nickname || _0x4c9811?.name || _0x2148a5[0]?.accountName || "未知账号";
+      const value4 = leads[0].title;
+      const result4 = getActiveSettings();
+      const local2 = result4?.keywords || "未知关键字";
+      const local3 = result4?.nickname || result4?.name || leads[0]?.accountName || "未知账号";
       console.log("[AI-Analyze] -----------------------------------------");
-      console.log("[AI-Analyze] 发起批量" + _0x1e31fb + " (" + _0x2148a5.length + " 条" + (_0x283e4a ? ", mode=keyword_reply_only" : "") + ")");
-      const _0x932ce4 = async _0x358d26 => {
-        const _0x8eabf9 = _0x3302ce();
-        const _0x27213e = _0x2148a5.map(_0x1ac1bd => ({
-          videoTitle: _0x1ac1bd.title,
-          nickname: _0x1ac1bd.nickname,
-          videoUrl: _0x1ac1bd.url,
-          content: _0x1ac1bd.content,
-          commentTime: _0x1ac1bd.timeText,
-          userUrl: _0x1ac1bd.userUrl,
+      console.log("[AI-Analyze] 发起批量" + value2 + " (" + leads.length + " 条" + (value ? ", mode=keyword_reply_only" : "") + ")");
+      const local4 = async arg1 => {
+        const result2 = getRobustDeviceID();
+        const result3 = leads.map(arg1 => ({
+          videoTitle: arg1.title,
+          nickname: arg1.nickname,
+          videoUrl: arg1.url,
+          content: arg1.content,
+          commentTime: arg1.timeText,
+          userUrl: arg1.userUrl,
           videoAuthor: "",
-          accountName: _0x1ac1bd.accountName || _0x1c77db,
-          signature: _0x1ac1bd.signature || "",
-          chatHistory: _0x1ac1bd.chatHistory || "",
-          contact: _0x1ac1bd.contact || "",
-          douyinId: _0x1ac1bd.douyinId || "",
-          location: _0x1ac1bd.location || _0x1ac1bd.ipLocation || "",
-          gender: _0x1ac1bd.gender || "",
-          worksCount: _0x1ac1bd.worksCount !== null && _0x1ac1bd.worksCount !== undefined && Number.isFinite(Number(_0x1ac1bd.worksCount)) && Number(_0x1ac1bd.worksCount) >= 0 ? Number(_0x1ac1bd.worksCount) : null
+          accountName: arg1.accountName || local3,
+          signature: arg1.signature || "",
+          chatHistory: arg1.chatHistory || "",
+          contact: arg1.contact || "",
+          douyinId: arg1.douyinId || "",
+          location: arg1.location || arg1.ipLocation || "",
+          gender: arg1.gender || "",
+          worksCount: arg1.worksCount !== null && arg1.worksCount !== undefined && Number.isFinite(Number(arg1.worksCount)) && Number(arg1.worksCount) >= 0 ? Number(arg1.worksCount) : null
         }));
-        return await _0x4622a4.post(_0x37c88b + "/radar/ai/v2/comment-decision", {
-          intent: _0x191b0c,
-          video_title: _0x24d443,
-          keywords: _0x252f07,
-          accountName: _0x1c77db,
-          leads: _0x27213e,
+        return await local.post(result + "/radar/ai/v2/comment-decision", {
+          intent: value3,
+          video_title: value4,
+          keywords: local2,
+          accountName: local3,
+          leads: result3,
           ...(generationMode ? {
             generationMode: generationMode
           } : {})
         }, {
-          headers: _0x334501(_0x358d26, _0x8eabf9),
+          headers: radarDeviceHeaders(arg1, result2),
           timeout: 300000
         });
       };
-      const _0x61278f = 10000;
-      let _0xf796d = 0;
-      const _0x2bed00 = _0x4a4f97();
+      const num = 10000;
+      let num2 = 0;
+      const result5 = captureAutomationAiInvokeGeneration();
       while (true) {
-        if (_0xf88fe0(_0x2bed00)) {
+        if (isAutomationAiInvokeCancelled(result5)) {
           console.log("[AI-Analyze] 任务已停止，终止分析重试");
-          _0x356f2e("🌐 后端 AI：任务已停止，终止分析重试", _0x1135c5);
+          pushAutomationTrace("🌐 后端 AI：任务已停止，终止分析重试", result2);
           return {
             success: false,
             msg: "AI 分析已取消（任务已停止）",
             cancelled: true
           };
         }
-        _0xf796d += 1;
+        num2 += 1;
         try {
-          let _0x1c965b = _0x1be971.get("auth_token");
-          let _0x19b07f;
+          let result = store.get("auth_token");
+          let local;
           try {
-            _0x19b07f = await _0x932ce4(_0x1c965b);
-          } catch (_0x5eccf6) {
-            if (_0x5eccf6.response?.status === 401) {
+            local = await local4(result);
+          } catch (error) {
+            if (error.response?.status === 401) {
               console.log("[AI-Analyze] Token 过期，正在自动刷新...");
-              await _0x1a1f66();
-              _0x1c965b = _0x1be971.get("auth_token");
-              _0x19b07f = await _0x932ce4(_0x1c965b);
+              await autoLogin();
+              result = store.get("auth_token");
+              local = await local4(result);
             } else {
-              throw _0x5eccf6;
+              throw error;
             }
           }
-          const _0x1cc87e = _0x5e5bb7(_0x19b07f);
-          if (_0x1cc87e.success) {
-            const _0x386492 = ((Date.now() - _0x587dfe) / 1000).toFixed(1);
-            _0x356f2e("🌐 后端 AI：" + _0x1e31fb + "完成（" + _0x2148a5.length + " 条，耗时 " + _0x386492 + "s）", _0x1135c5);
-            const _0x2fc17c = _0x3e1dbc();
-            if (_0x2fc17c) {
-              _0x2fc17c.webContents.send("ai-quota-updated");
-              if (_0xf796d > 1) {
-                _0x2fc17c.webContents.send("ai-retry-status", {
+          const result4 = handleAiResponse(local);
+          if (result4.success) {
+            const result = ((Date.now() - result3) / 1000).toFixed(1);
+            pushAutomationTrace("🌐 后端 AI：" + value2 + "完成（" + leads.length + " 条，耗时 " + result + "s）", result2);
+            const result5 = getMainWindow();
+            if (result5) {
+              result5.webContents.send("ai-quota-updated");
+              if (num2 > 1) {
+                result5.webContents.send("ai-retry-status", {
                   status: "success"
                 });
               }
             }
-            return _0x1cc87e;
+            return result4;
           }
-          throw new Error(_0x1cc87e.msg || "后端分析异常");
-        } catch (_0x5ddab0) {
-          const _0xa2af67 = _0x5ddab0.response?.data?.msg || _0x5ddab0.message;
-          console.error("[AI-Analyze] 第 " + _0xf796d + " 次尝试失败:", _0xa2af67);
-          _0x356f2e("🌐 后端 AI：第 " + _0xf796d + " 次失败：" + _0x356676(_0xa2af67), _0x1135c5);
-          if (_0xedc75f(_0xa2af67)) {
+          throw new Error(result4.msg || "后端分析异常");
+        } catch (error) {
+          const local = error.response?.data?.msg || error.message;
+          console.error("[AI-Analyze] 第 " + num2 + " 次尝试失败:", local);
+          pushAutomationTrace("🌐 后端 AI：第 " + num2 + " 次失败：" + clipAutomationTraceText(local), result2);
+          if (isFatalAiAuthError(local)) {
             console.warn("[AI-Analyze] 监测到致命授权/额度错误，终止重试");
-            const _0x13ddf4 = _0x3e1dbc();
-            if (_0x13ddf4) {
-              _0x13ddf4.webContents.send("ai-quota-updated");
-              _0x13ddf4.webContents.send("ai-retry-status", {
+            const result = getMainWindow();
+            if (result) {
+              result.webContents.send("ai-quota-updated");
+              result.webContents.send("ai-retry-status", {
                 status: "failed",
-                count: _0xf796d,
-                msg: _0xa2af67
+                count: num2,
+                msg: local
               });
             }
-            _0x356f2e("🌐 后端 AI：分析终止（" + _0x356676(_0xa2af67) + "）", _0x1135c5);
+            pushAutomationTrace("🌐 后端 AI：分析终止（" + clipAutomationTraceText(local) + "）", result2);
             return {
               success: false,
-              msg: "AI 分析失败: " + _0xa2af67
+              msg: "AI 分析失败: " + local
             };
           }
-          const _0x45318a = _0x3e1dbc();
-          if (_0x45318a) {
-            _0x45318a.webContents.send("ai-retry-status", {
+          const result = getMainWindow();
+          if (result) {
+            result.webContents.send("ai-retry-status", {
               status: "retrying",
-              count: _0xf796d,
-              msg: _0xa2af67
+              count: num2,
+              msg: local
             });
           }
-          if (_0xf88fe0(_0x2bed00)) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止分析重试", _0x1135c5);
+          if (isAutomationAiInvokeCancelled(result5)) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止分析重试", result2);
             return {
               success: false,
               msg: "AI 分析已取消（任务已停止）",
               cancelled: true
             };
           }
-          _0x356f2e("⏱ 后端 AI：" + _0x61278f / 1000 + " 秒后重试（第 " + _0xf796d + " 次失败）…", _0x1135c5);
-          const _0x3136e2 = await _0x22e0ca(_0x61278f, _0x2bed00);
-          if (!_0x3136e2) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止分析重试", _0x1135c5);
+          pushAutomationTrace("⏱ 后端 AI：" + num / 1000 + " 秒后重试（第 " + num2 + " 次失败）…", result2);
+          const result3 = await sleepWithAutomationAiCancel(num, result5);
+          if (!result3) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止分析重试", result2);
             return {
               success: false,
               msg: "AI 分析已取消（任务已停止）",
@@ -376,8 +376,8 @@ function createRadarAi(_0x2f1830) {
         }
       }
     });
-    ipcMain.handle("ai-match-video-context", async (_0x2946fe, _0x2b4cc3) => {
-      const _0x2b3e2f = _0x1adc8f();
+    ipcMain.handle("ai-match-video-context", async (arg1, arg2) => {
+      const result = getApiBase();
       const {
         videoTitle = "",
         comments = [],
@@ -386,45 +386,45 @@ function createRadarAi(_0x2f1830) {
         config = {},
         matchScene = "leadgen_persona",
         withMainPost = false
-      } = _0x2b4cc3 || {};
-      const _0x461c2d = _0x4e0893(_0x2946fe, _0x2b4cc3);
-      const _0x47770a = String(videoTitle || "").trim() || "未知视频";
-      const _0x137c35 = Array.isArray(comments) ? comments.map(_0x12a005 => String(_0x12a005 || "").trim()).filter(Boolean).slice(0, 10) : [];
-      const _0x3e7b94 = !!withMainPost && matchScene === "leadgen_persona";
-      let _0x425048;
+      } = arg2 || {};
+      const result2 = resolveTraceAccountIdFromIpc(arg1, arg2);
+      const local = String(videoTitle || "").trim() || "未知视频";
+      const value = Array.isArray(comments) ? comments.map(arg1 => String(arg1 || "").trim()).filter(Boolean).slice(0, 10) : [];
+      const local2 = !!withMainPost && matchScene === "leadgen_persona";
+      let local3;
       if (matchScene !== "leadgen_persona" && config.aiStyle && config.aiStyle.trim()) {
-        _0x425048 = "身份: 抖音获客视频预筛专家; 目的: 筛选符合特征的视频: " + config.aiStyle + "; 要求: 精准、谨慎、只拦截明显不匹配的视频";
+        local3 = "身份: 抖音获客视频预筛专家; 目的: 筛选符合特征的视频: " + config.aiStyle + "; 要求: 精准、谨慎、只拦截明显不匹配的视频";
       } else {
-        _0x425048 = _0x110cbd(config, {
+        local3 = buildRuntimeAiIntent(config, {
           aiRole: "抖音获客视频预筛专家",
           aiGoal: "判断视频评论区是否聚集了与智能体人设匹配的目标人群",
           aiStyle: "精准、谨慎、只拦截明显不匹配内容"
         });
       }
-      let _0x1428d6 = "";
-      if (_0x3e7b94) {
+      let text = "";
+      if (local2) {
         if (config.videoPrompt) {
-          _0x1428d6 = config.videoPrompt;
+          text = config.videoPrompt;
         } else if (config.videoGoal || config.videoStyle) {
-          const _0x3076ad = config.videoGoal || config.aiGoal || "生成高质量、自然且安全的主贴评论";
-          const _0x5cfcea = config.videoStyle || config.aiStyle || "简洁、真诚、有互动感";
-          _0x1428d6 = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + _0x3076ad + "; 风格: " + _0x5cfcea;
+          const local = config.videoGoal || config.aiGoal || "生成高质量、自然且安全的主贴评论";
+          const local2 = config.videoStyle || config.aiStyle || "简洁、真诚、有互动感";
+          text = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + local + "; 风格: " + local2;
         } else {
-          _0x1428d6 = config.aiPrompt || _0x110cbd(config, {
+          text = config.aiPrompt || buildRuntimeAiIntent(config, {
             aiRole: "短视频评论互动专家",
             aiGoal: "生成高质量、自然且安全的主贴评论",
             aiStyle: "简洁、真诚、有互动感"
           });
         }
       }
-      const _0x4d3497 = 10000;
-      let _0xf5654e = 0;
-      const _0x2c7ced = _0x4a4f97();
-      const _0x1988b1 = _0x3e7b94 ? 180000 : 90000;
+      const num = 10000;
+      let num2 = 0;
+      const result3 = captureAutomationAiInvokeGeneration();
+      const value2 = local2 ? 180000 : 90000;
       while (true) {
-        if (_0xf88fe0(_0x2c7ced)) {
+        if (isAutomationAiInvokeCancelled(result3)) {
           console.log("[AI-VideoMatch] 任务已停止，终止预筛分析重试");
-          _0x356f2e("🌐 后端 AI：任务已停止，终止预筛分析重试", _0x461c2d);
+          pushAutomationTrace("🌐 后端 AI：任务已停止，终止预筛分析重试", result2);
           return {
             success: false,
             pass: false,
@@ -433,72 +433,72 @@ function createRadarAi(_0x2f1830) {
             mainPostComment: ""
           };
         }
-        _0xf5654e += 1;
+        num2 += 1;
         try {
-          const _0x5fd6c7 = _0x3e7b94 ? "视频预筛+主评" : "视频预筛";
-          _0x356f2e("🌐 后端 AI：" + _0x5fd6c7 + "中…", _0x461c2d);
-          const _0x49ebe5 = async _0x4563cb => {
-            const _0x5b3019 = _0x3302ce();
-            return await _0x2c7911(_0x2b3e2f + "/radar/ai/v2/video-match", {
-              intent: _0x425048,
-              video_title: _0x47770a,
+          const value3 = local2 ? "视频预筛+主评" : "视频预筛";
+          pushAutomationTrace("🌐 后端 AI：" + value3 + "中…", result2);
+          const local4 = async arg1 => {
+            const result2 = getRobustDeviceID();
+            return await postRadarAiJson(result + "/radar/ai/v2/video-match", {
+              intent: local3,
+              video_title: local,
               author_nickname: String(authorNickname || "").trim(),
-              keywords: String(keywords || _0x3a5358()?.keywords || "").trim(),
-              top_comments: _0x137c35,
-              with_main_post: _0x3e7b94,
-              main_post_intent: _0x1428d6
-            }, _0x1988b1);
+              keywords: String(keywords || getActiveSettings()?.keywords || "").trim(),
+              top_comments: value,
+              with_main_post: local2,
+              main_post_intent: text
+            }, value2);
           };
-          let _0x41dc22 = _0x1be971.get("auth_token");
-          let _0x49ef80;
+          let result3 = store.get("auth_token");
+          let local5;
           try {
-            _0x49ef80 = await _0x49ebe5(_0x41dc22);
-          } catch (_0x3d4c90) {
-            if (_0x3d4c90.response?.status === 401) {
+            local5 = await local4(result3);
+          } catch (error) {
+            if (error.response?.status === 401) {
               console.log("[AI-VideoMatch] Token 过期，正在自动刷新...");
-              await _0x1a1f66();
-              _0x41dc22 = _0x1be971.get("auth_token");
-              _0x49ef80 = await _0x49ebe5(_0x41dc22);
+              await autoLogin();
+              result3 = store.get("auth_token");
+              local5 = await local4(result3);
             } else {
-              throw _0x3d4c90;
+              throw error;
             }
           }
-          const _0x203f08 = _0xcc853e(_0x49ef80, "视频预筛完成");
-          if (_0x203f08.success) {
-            if (_0x203f08.pass) {
-              const _0x3ec506 = _0x3e7b94 ? _0x203f08.mainPostComment ? "，已生成主评" : "，主评待补生成" : "";
-              _0x356f2e("🌐 后端 AI：视频预筛通过" + _0x3ec506, _0x461c2d);
+          const result4 = parseRadarMatchResponse(local5, "视频预筛完成");
+          if (result4.success) {
+            if (result4.pass) {
+              const value = local2 ? result4.mainPostComment ? "，已生成主评" : "，主评待补生成" : "";
+              pushAutomationTrace("🌐 后端 AI：视频预筛通过" + value, result2);
             } else {
-              _0x356f2e("🌐 后端 AI：视频预筛不匹配，已跳过", _0x461c2d);
+              pushAutomationTrace("🌐 后端 AI：视频预筛不匹配，已跳过", result2);
             }
-            const _0x50d159 = _0x3e1dbc();
-            if (_0x50d159) {
-              _0x50d159.webContents.send("ai-quota-updated");
+            const result = getMainWindow();
+            if (result) {
+              result.webContents.send("ai-quota-updated");
             }
-            return _0x203f08;
+            return result4;
           }
-          throw new Error(_0x203f08.reason || "后端预筛返回失败");
-        } catch (_0x402a17) {
-          const _0x3b6911 = _0x402a17.response?.data?.msg || _0x402a17.message || "视频预筛异常";
-          console.error("[AI-VideoMatch] 第 " + _0xf5654e + " 次预筛失败:", _0x3b6911);
-          _0x356f2e("🌐 后端 AI：视频预筛第 " + _0xf5654e + " 次失败：" + _0x356676(_0x3b6911, 48), _0x461c2d);
-          if (_0xedc75f(_0x3b6911)) {
+          throw new Error(result4.reason || "后端预筛返回失败");
+        } catch (error) {
+          const local = error.response?.data?.msg || error.message || "视频预筛异常";
+          console.error("[AI-VideoMatch] 第 " + num2 + " 次预筛失败:", local);
+          pushAutomationTrace("🌐 后端 AI：视频预筛第 " + num2 + " 次失败：" + clipAutomationTraceText(local, 48), result2);
+          if (isFatalAiAuthError(local)) {
             console.warn("[AI-VideoMatch] 监测到致命授权/额度错误，终止预筛并返回不匹配");
-            const _0x5769bf = _0x3e1dbc();
-            if (_0x5769bf) {
-              _0x5769bf.webContents.send("ai-quota-updated");
+            const result = getMainWindow();
+            if (result) {
+              result.webContents.send("ai-quota-updated");
             }
-            _0x356f2e("🌐 后端 AI：预筛终止（" + _0x356676(_0x3b6911) + "），视频不予放行", _0x461c2d);
+            pushAutomationTrace("🌐 后端 AI：预筛终止（" + clipAutomationTraceText(local) + "），视频不予放行", result2);
             return {
               success: false,
               pass: false,
               score: 0,
-              reason: _0x3b6911,
+              reason: local,
               mainPostComment: ""
             };
           }
-          if (_0xf88fe0(_0x2c7ced)) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止预筛分析重试", _0x461c2d);
+          if (isAutomationAiInvokeCancelled(result3)) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止预筛分析重试", result2);
             return {
               success: false,
               pass: false,
@@ -507,10 +507,10 @@ function createRadarAi(_0x2f1830) {
               mainPostComment: ""
             };
           }
-          _0x356f2e("⏱ 后端 AI：" + _0x4d3497 / 1000 + " 秒后重试预筛（第 " + _0xf5654e + " 次失败）…", _0x461c2d);
-          const _0x1f8f68 = await _0x22e0ca(_0x4d3497, _0x2c7ced);
-          if (!_0x1f8f68) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止预筛分析重试", _0x461c2d);
+          pushAutomationTrace("⏱ 后端 AI：" + num / 1000 + " 秒后重试预筛（第 " + num2 + " 次失败）…", result2);
+          const result = await sleepWithAutomationAiCancel(num, result3);
+          if (!result) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止预筛分析重试", result2);
             return {
               success: false,
               pass: false,
@@ -522,27 +522,27 @@ function createRadarAi(_0x2f1830) {
         }
       }
     });
-    ipcMain.handle("ai-match-lead-profile", async (_0x507897, _0x2de2e0) => {
+    ipcMain.handle("ai-match-lead-profile", async (arg1, arg2) => {
       const {
         lead = {},
         videoTitle = "",
         config = {}
-      } = _0x2de2e0 || {};
-      const _0x3375b4 = _0x4e0893(_0x507897, _0x2de2e0) || lead?.accountId || "default";
-      const _0x3b4f1f = String(videoTitle || lead?.title || lead?.videoTitle || "").trim() || "未知视频";
-      const _0x5dce33 = lead?.worksCount !== null && lead?.worksCount !== undefined && Number.isFinite(Number(lead.worksCount)) && Number(lead.worksCount) >= 0 ? Number(lead.worksCount) : null;
-      const _0x512429 = _0x110cbd(config, {
+      } = arg2 || {};
+      const local = resolveTraceAccountIdFromIpc(arg1, arg2) || lead?.accountId || "default";
+      const local2 = String(videoTitle || lead?.title || lead?.videoTitle || "").trim() || "未知视频";
+      const value = lead?.worksCount !== null && lead?.worksCount !== undefined && Number.isFinite(Number(lead.worksCount)) && Number(lead.worksCount) >= 0 ? Number(lead.worksCount) : null;
+      const result = buildRuntimeAiIntent(config, {
         aiRole: "抖音获客用户画像判断专家",
         aiGoal: "判断评论者是否符合当前智能体的目标客户画像",
         aiStyle: "精准、克制、只拦截明显不匹配用户"
       });
-      const _0x51dbf7 = 10000;
-      let _0x1fc956 = 0;
-      const _0xc78b3e = _0x4a4f97();
+      const num = 10000;
+      let num2 = 0;
+      const result2 = captureAutomationAiInvokeGeneration();
       while (true) {
-        if (_0xf88fe0(_0xc78b3e)) {
+        if (isAutomationAiInvokeCancelled(result2)) {
           console.log("[AI-LeadMatch] 任务已停止，终止用户画像分析重试");
-          _0x356f2e("🌐 后端 AI：任务已停止，终止用户画像分析重试", _0x3375b4);
+          pushAutomationTrace("🌐 后端 AI：任务已停止，终止用户画像分析重试", local);
           return {
             success: false,
             pass: false,
@@ -550,78 +550,78 @@ function createRadarAi(_0x2f1830) {
             reason: "画像判断取消（任务已停止）"
           };
         }
-        _0x1fc956 += 1;
+        num2 += 1;
         try {
-          _0x356f2e("🌐 后端 AI：画像判断 @" + _0x356676(lead?.nickname || "未知用户", 24) + " [第 " + _0x1fc956 + " 次尝试]…", _0x3375b4);
-          const _0x3ccc88 = async _0x472bbe => {
-            const _0x55d236 = _0x3302ce();
-            const _0x3048e5 = _0x3a5358();
-            return await _0x2c7911(_0x1adc8f() + "/radar/ai/lead-match", {
-              intent: _0x512429,
-              video_title: _0x3b4f1f,
+          pushAutomationTrace("🌐 后端 AI：画像判断 @" + clipAutomationTraceText(lead?.nickname || "未知用户", 24) + " [第 " + num2 + " 次尝试]…", local);
+          const local3 = async arg1 => {
+            const result2 = getRobustDeviceID();
+            const result3 = getActiveSettings();
+            return await postRadarAiJson(getApiBase() + "/radar/ai/lead-match", {
+              intent: result,
+              video_title: local2,
               lead: {
-                videoTitle: _0x3b4f1f,
+                videoTitle: local2,
                 nickname: String(lead?.nickname || "").trim(),
                 videoUrl: String(lead?.videoUrl || lead?.url || "").trim(),
                 content: String(lead?.content || "").trim(),
                 commentTime: String(lead?.commentTime || lead?.timeText || "").trim(),
                 userUrl: String(lead?.userUrl || "").trim(),
                 videoAuthor: String(lead?.videoAuthor || "").trim(),
-                accountName: String(lead?.accountName || _0x3048e5?.nickname || _0x3048e5?.name || "未知账号").trim(),
+                accountName: String(lead?.accountName || result3?.nickname || result3?.name || "未知账号").trim(),
                 signature: String(lead?.signature || "").trim(),
                 contact: String(lead?.contact || "").trim(),
                 douyinId: String(lead?.douyinId || "").trim(),
                 location: String(lead?.location || lead?.ipLocation || "").trim(),
                 gender: String(lead?.gender || "").trim(),
-                worksCount: _0x5dce33
+                worksCount: value
               }
             }, 90000);
           };
-          let _0x3f298f = _0x1be971.get("auth_token");
-          let _0x157bab;
+          let result2 = store.get("auth_token");
+          let local4;
           try {
-            _0x157bab = await _0x3ccc88(_0x3f298f);
-          } catch (_0x590414) {
-            if (_0x590414.response?.status === 401) {
+            local4 = await local3(result2);
+          } catch (error) {
+            if (error.response?.status === 401) {
               console.log("[AI-LeadMatch] Token 过期，正在自动刷新...");
-              await _0x1a1f66();
-              _0x3f298f = _0x1be971.get("auth_token");
-              _0x157bab = await _0x3ccc88(_0x3f298f);
+              await autoLogin();
+              result2 = store.get("auth_token");
+              local4 = await local3(result2);
             } else {
-              throw _0x590414;
+              throw error;
             }
           }
-          const _0x33dc26 = _0xcc853e(_0x157bab, "画像判断完成");
-          if (_0x33dc26.success) {
-            const _0x1fb3ea = _0x33dc26.pass ? "通过" : "跳过";
-            _0x356f2e("🌐 后端 AI：画像判断" + _0x1fb3ea + "（" + _0x33dc26.score + "分，" + _0x356676(_0x33dc26.reason, 48) + "）", _0x3375b4);
-            const _0x58e513 = _0x3e1dbc();
-            if (_0x58e513) {
-              _0x58e513.webContents.send("ai-quota-updated");
+          const result3 = parseRadarMatchResponse(local4, "画像判断完成");
+          if (result3.success) {
+            const value = result3.pass ? "通过" : "跳过";
+            pushAutomationTrace("🌐 后端 AI：画像判断" + value + "（" + result3.score + "分，" + clipAutomationTraceText(result3.reason, 48) + "）", local);
+            const result = getMainWindow();
+            if (result) {
+              result.webContents.send("ai-quota-updated");
             }
-            return _0x33dc26;
+            return result3;
           }
-          throw new Error(_0x33dc26.reason || "后端画像判断返回失败");
-        } catch (_0x534450) {
-          const _0x1eb255 = _0x534450.response?.data?.msg || _0x534450.message || "画像判断异常";
-          console.error("[AI-LeadMatch] 第 " + _0x1fc956 + " 次画像判断失败:", _0x1eb255);
-          _0x356f2e("🌐 后端 AI：画像判断第 " + _0x1fc956 + " 次失败：" + _0x356676(_0x1eb255, 48), _0x3375b4);
-          if (_0xedc75f(_0x1eb255)) {
+          throw new Error(result3.reason || "后端画像判断返回失败");
+        } catch (error) {
+          const local2 = error.response?.data?.msg || error.message || "画像判断异常";
+          console.error("[AI-LeadMatch] 第 " + num2 + " 次画像判断失败:", local2);
+          pushAutomationTrace("🌐 后端 AI：画像判断第 " + num2 + " 次失败：" + clipAutomationTraceText(local2, 48), local);
+          if (isFatalAiAuthError(local2)) {
             console.warn("[AI-LeadMatch] 监测到致命授权/额度错误，终止画像判断并返回不匹配");
-            const _0x3cf210 = _0x3e1dbc();
-            if (_0x3cf210) {
-              _0x3cf210.webContents.send("ai-quota-updated");
+            const result = getMainWindow();
+            if (result) {
+              result.webContents.send("ai-quota-updated");
             }
-            _0x356f2e("🌐 后端 AI：画像判断终止（" + _0x356676(_0x1eb255) + "），用户不予通过", _0x3375b4);
+            pushAutomationTrace("🌐 后端 AI：画像判断终止（" + clipAutomationTraceText(local2) + "），用户不予通过", local);
             return {
               success: false,
               pass: false,
               score: 0,
-              reason: _0x1eb255
+              reason: local2
             };
           }
-          if (_0xf88fe0(_0xc78b3e)) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止用户画像分析重试", _0x3375b4);
+          if (isAutomationAiInvokeCancelled(result2)) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止用户画像分析重试", local);
             return {
               success: false,
               pass: false,
@@ -629,10 +629,10 @@ function createRadarAi(_0x2f1830) {
               reason: "画像判断取消（任务已停止）"
             };
           }
-          _0x356f2e("⏱ 后端 AI：" + _0x51dbf7 / 1000 + " 秒后重试画像判断（第 " + _0x1fc956 + " 次失败）…", _0x3375b4);
-          const _0x3f6f39 = await _0x22e0ca(_0x51dbf7, _0xc78b3e);
-          if (!_0x3f6f39) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止用户画像分析重试", _0x3375b4);
+          pushAutomationTrace("⏱ 后端 AI：" + num / 1000 + " 秒后重试画像判断（第 " + num2 + " 次失败）…", local);
+          const result = await sleepWithAutomationAiCancel(num, result2);
+          if (!result) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止用户画像分析重试", local);
             return {
               success: false,
               pass: false,
@@ -643,7 +643,7 @@ function createRadarAi(_0x2f1830) {
         }
       }
     });
-    ipcMain.handle("ai-generate-fresh-dm-reply", async (_0x45baf7, _0x165bd) => {
+    ipcMain.handle("ai-generate-fresh-dm-reply", async (arg1, arg2) => {
       const {
         config = {},
         accountId = "",
@@ -653,8 +653,8 @@ function createRadarAi(_0x2f1830) {
         chatHistory = "",
         text = "",
         forDm = true
-      } = _0x165bd || {};
-      return _0x422ceb(config, accountId, account, {
+      } = arg2 || {};
+      return generateMonitorPersonaContent(config, accountId, account, {
         title: "自热互动通知",
         url: ""
       }, {
@@ -667,153 +667,153 @@ function createRadarAi(_0x2f1830) {
         aiScene: "self_warmup"
       });
     });
-    ipcMain.handle("ai-generate-video-comment", async (_0x163b80, _0x35157f) => {
-      const _0x48e746 = _0x1adc8f();
+    ipcMain.handle("ai-generate-video-comment", async (arg1, arg2) => {
+      const result = getApiBase();
       const {
-        videoTitle: _0x3e1de8,
+        videoTitle: videoTitle,
         comments = [],
         config = {},
         generationMode = "main_post_comment"
-      } = _0x35157f || {};
-      const _0x242a63 = _0x4e0893(_0x163b80, _0x35157f);
-      const _0x218036 = (_0x3e1de8 || "").trim() || "未知视频";
-      const _0x47d4d9 = generationMode === "profile_first_comment" ? "profile_first_comment" : "main_post_comment";
-      const _0x499eae = _0x47d4d9 === "profile_first_comment" ? "首作品评论" : "视频主评";
-      const _0x4fe621 = Date.now();
-      const _0x3e9c3d = Array.isArray(comments) ? comments.filter(Boolean).slice(0, 8) : [];
-      let _0x2e1420 = "";
-      if (_0x47d4d9 === "profile_first_comment") {
+      } = arg2 || {};
+      const result2 = resolveTraceAccountIdFromIpc(arg1, arg2);
+      const local2 = (videoTitle || "").trim() || "未知视频";
+      const value = generationMode === "profile_first_comment" ? "profile_first_comment" : "main_post_comment";
+      const value2 = value === "profile_first_comment" ? "首作品评论" : "视频主评";
+      const result3 = Date.now();
+      const value3 = Array.isArray(comments) ? comments.filter(Boolean).slice(0, 8) : [];
+      let text = "";
+      if (value === "profile_first_comment") {
         if (config.firstPostPrompt) {
-          _0x2e1420 = config.firstPostPrompt;
+          text = config.firstPostPrompt;
         } else if (config.firstPostGoal || config.firstPostStyle) {
-          const _0x5b0f87 = config.firstPostGoal || config.aiGoal || "生成高质量、自然且安全的首贴评论";
-          const _0x406195 = config.firstPostStyle || config.aiStyle || "简洁、真诚、有互动感";
-          _0x2e1420 = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + _0x5b0f87 + "; 风格: " + _0x406195;
+          const local = config.firstPostGoal || config.aiGoal || "生成高质量、自然且安全的首贴评论";
+          const local2 = config.firstPostStyle || config.aiStyle || "简洁、真诚、有互动感";
+          text = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + local + "; 风格: " + local2;
         } else {
-          _0x2e1420 = config.aiPrompt;
-          if (!_0x2e1420) {
-            _0x2e1420 = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + (config.aiGoal || "生成高质量、自然且安全的首贴评论") + "; 风格: " + (config.aiStyle || "简洁、真诚、有互动感");
+          text = config.aiPrompt;
+          if (!text) {
+            text = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + (config.aiGoal || "生成高质量、自然且安全的首贴评论") + "; 风格: " + (config.aiStyle || "简洁、真诚、有互动感");
           }
         }
       } else if (config.videoPrompt) {
-        _0x2e1420 = config.videoPrompt;
+        text = config.videoPrompt;
       } else if (config.videoGoal || config.videoStyle) {
-        const _0x5ab73a = config.videoGoal || config.aiGoal || "生成高质量、自然且安全的主贴评论";
-        const _0x207e78 = config.videoStyle || config.aiStyle || "简洁、真诚、有互动感";
-        _0x2e1420 = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + _0x5ab73a + "; 风格: " + _0x207e78;
+        const local = config.videoGoal || config.aiGoal || "生成高质量、自然且安全的主贴评论";
+        const local2 = config.videoStyle || config.aiStyle || "简洁、真诚、有互动感";
+        text = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + local + "; 风格: " + local2;
       } else {
-        _0x2e1420 = config.aiPrompt;
-        if (!_0x2e1420) {
-          _0x2e1420 = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + (config.aiGoal || "生成高质量、自然且安全的主贴评论") + "; 风格: " + (config.aiStyle || "简洁、真诚、有互动感");
+        text = config.aiPrompt;
+        if (!text) {
+          text = "身份: " + (config.aiRole || "短视频评论互动专家") + "; 目的: " + (config.aiGoal || "生成高质量、自然且安全的主贴评论") + "; 风格: " + (config.aiStyle || "简洁、真诚、有互动感");
         }
       }
-      const _0x4f5925 = [{
-        videoTitle: _0x218036,
+      const list = [{
+        videoTitle: local2,
         nickname: "主贴评论生成",
         videoUrl: "",
-        content: _0x3e9c3d.length ? "评论区样本：" + _0x3e9c3d.join(" | ") : "评论区样本为空，请根据视频标题生成自然评论。",
+        content: value3.length ? "评论区样本：" + value3.join(" | ") : "评论区样本为空，请根据视频标题生成自然评论。",
         commentTime: "",
         userUrl: "",
         videoAuthor: "",
         accountName: "ai-video-comment"
       }];
-      const _0x83e235 = async _0x5599a8 => {
-        const _0x3354d0 = _0x3302ce();
-        const _0x13cef7 = _0x3a5358();
-        return await _0x4622a4.post(_0x48e746 + "/radar/ai/v2/comment-decision", {
-          intent: _0x2e1420,
-          video_title: _0x218036,
-          keywords: _0x13cef7?.keywords || "",
-          accountName: _0x13cef7?.nickname || _0x13cef7?.name || "未知账号",
-          generationMode: _0x47d4d9,
-          leads: _0x4f5925
+      const local3 = async arg1 => {
+        const result2 = getRobustDeviceID();
+        const result3 = getActiveSettings();
+        return await local.post(result + "/radar/ai/v2/comment-decision", {
+          intent: text,
+          video_title: local2,
+          keywords: result3?.keywords || "",
+          accountName: result3?.nickname || result3?.name || "未知账号",
+          generationMode: value,
+          leads: list
         }, {
-          headers: _0x334501(_0x5599a8, _0x3354d0),
+          headers: radarDeviceHeaders(arg1, result2),
           timeout: 120000
         });
       };
-      const _0x300b0f = 10000;
-      const _0x2c71c1 = _0x4a4f97();
-      _0x356f2e("🌐 后端 AI：正在生成" + _0x499eae + "…", _0x242a63);
+      const num = 10000;
+      const result4 = captureAutomationAiInvokeGeneration();
+      pushAutomationTrace("🌐 后端 AI：正在生成" + value2 + "…", result2);
       try {
-        let _0x2e23e0 = _0x1be971.get("auth_token");
-        let _0x3c7009 = 0;
-        let _0x25b72b = "";
+        let result = store.get("auth_token");
+        let num2 = 0;
+        let text = "";
         while (true) {
-          if (_0xf88fe0(_0x2c71c1)) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止视频主评重试", _0x242a63);
+          if (isAutomationAiInvokeCancelled(result4)) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止视频主评重试", result2);
             return {
               success: false,
               msg: "AI 生成已取消（任务已停止）",
               cancelled: true
             };
           }
-          _0x3c7009 += 1;
+          num2 += 1;
           try {
-            if (_0xf88fe0(_0x2c71c1)) {
-              _0x356f2e("🌐 后端 AI：任务已停止，取消本次视频主评请求", _0x242a63);
+            if (isAutomationAiInvokeCancelled(result4)) {
+              pushAutomationTrace("🌐 后端 AI：任务已停止，取消本次视频主评请求", result2);
               return {
                 success: false,
                 msg: "AI 生成已取消（任务已停止）",
                 cancelled: true
               };
             }
-            let _0x5cccfa;
+            let local;
             try {
-              _0x5cccfa = await _0x83e235(_0x2e23e0);
-            } catch (_0x49c634) {
-              if (_0x49c634.response?.status === 401) {
-                await _0x1a1f66();
-                _0x2e23e0 = _0x1be971.get("auth_token");
-                _0x5cccfa = await _0x83e235(_0x2e23e0);
+              local = await local3(result);
+            } catch (error) {
+              if (error.response?.status === 401) {
+                await autoLogin();
+                result = store.get("auth_token");
+                local = await local3(result);
               } else {
-                throw _0x49c634;
+                throw error;
               }
             }
-            const _0x15c23b = _0x5e5bb7(_0x5cccfa);
-            const _0x19412d = _0x15c23b?.data?.[0];
-            const _0x1fb974 = (_0x19412d?.replyContent || "").trim();
-            if (_0x15c23b.success && _0x1fb974) {
-              const _0x196d73 = ((Date.now() - _0x4fe621) / 1000).toFixed(1);
-              _0x356f2e("🌐 后端 AI：" + _0x499eae + "生成成功（" + _0x196d73 + " 秒）", _0x242a63);
-              const _0x5019bc = _0x3e1dbc();
-              if (_0x5019bc) {
-                _0x5019bc.webContents.send("ai-quota-updated");
+            const result5 = handleAiResponse(local);
+            const local2 = result5?.data?.[0];
+            const result6 = (local2?.replyContent || "").trim();
+            if (result5.success && result6) {
+              const result = ((Date.now() - result3) / 1000).toFixed(1);
+              pushAutomationTrace("🌐 后端 AI：" + value2 + "生成成功（" + result + " 秒）", result2);
+              const result4 = getMainWindow();
+              if (result4) {
+                result4.webContents.send("ai-quota-updated");
               }
-              if (_0x3c7009 > 1) {
-                console.log("[AI主贴评论] 第 " + _0x3c7009 + " 次尝试成功");
+              if (num2 > 1) {
+                console.log("[AI主贴评论] 第 " + num2 + " 次尝试成功");
               }
               return {
                 success: true,
-                content: _0x1fb974,
-                thought: _0x19412d.aiThought || ""
+                content: result6,
+                thought: local2.aiThought || ""
               };
             }
-            _0x25b72b = _0x15c23b?.msg || "AI 未生成可用评论";
-            console.warn("[AI主贴评论] 第 " + _0x3c7009 + " 次返回不可用结果: " + _0x25b72b);
-          } catch (_0x235fca) {
-            _0x25b72b = _0x235fca.response?.data?.msg || _0x235fca.message || "AI 生成失败";
-            console.warn("[AI主贴评论] 第 " + _0x3c7009 + " 次请求失败: " + _0x25b72b);
+            text = result5?.msg || "AI 未生成可用评论";
+            console.warn("[AI主贴评论] 第 " + num2 + " 次返回不可用结果: " + text);
+          } catch (error) {
+            text = error.response?.data?.msg || error.message || "AI 生成失败";
+            console.warn("[AI主贴评论] 第 " + num2 + " 次请求失败: " + text);
           }
-          if (_0xedc75f(_0x25b72b)) {
-            _0x356f2e("🌐 后端 AI：视频主评终止（" + _0x356676(_0x25b72b) + "）", _0x242a63);
+          if (isFatalAiAuthError(text)) {
+            pushAutomationTrace("🌐 后端 AI：视频主评终止（" + clipAutomationTraceText(text) + "）", result2);
             return {
               success: false,
-              msg: _0x25b72b
+              msg: text
             };
           }
-          if (_0xf88fe0(_0x2c71c1)) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止视频主评重试", _0x242a63);
+          if (isAutomationAiInvokeCancelled(result4)) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止视频主评重试", result2);
             return {
               success: false,
               msg: "AI 生成已取消（任务已停止）",
               cancelled: true
             };
           }
-          _0x356f2e("⏱ 后端 AI：视频主评第 " + _0x3c7009 + " 次未成功（" + _0x356676(_0x25b72b) + "），" + _0x300b0f / 1000 + " 秒后重试…", _0x242a63);
-          const _0x34bf20 = await _0x22e0ca(_0x300b0f, _0x2c71c1);
-          if (!_0x34bf20) {
-            _0x356f2e("🌐 后端 AI：任务已停止，终止视频主评重试", _0x242a63);
+          pushAutomationTrace("⏱ 后端 AI：视频主评第 " + num2 + " 次未成功（" + clipAutomationTraceText(text) + "），" + num / 1000 + " 秒后重试…", result2);
+          const result5 = await sleepWithAutomationAiCancel(num, result4);
+          if (!result5) {
+            pushAutomationTrace("🌐 后端 AI：任务已停止，终止视频主评重试", result2);
             return {
               success: false,
               msg: "AI 生成已取消（任务已停止）",
@@ -821,30 +821,30 @@ function createRadarAi(_0x2f1830) {
             };
           }
         }
-      } catch (_0x583f8c) {
-        const _0x4523d4 = _0x583f8c.response?.data?.msg || _0x583f8c.message || "AI 生成失败";
-        _0x356f2e("🌐 后端 AI：视频主评异常：" + _0x356676(_0x4523d4), _0x242a63);
+      } catch (error) {
+        const local = error.response?.data?.msg || error.message || "AI 生成失败";
+        pushAutomationTrace("🌐 后端 AI：视频主评异常：" + clipAutomationTraceText(local), result2);
         return {
           success: false,
-          msg: _0x4523d4
+          msg: local
         };
       }
     });
   }
   return {
-    registerIpc: _0x759ee6,
-    pushAutomationTrace: _0x356f2e,
-    postRadarAiJson: _0x2c7911,
-    clipAutomationTraceText: _0x356676,
-    isFatalAiAuthError: _0xedc75f,
-    parseRadarMatchResponse: _0xcc853e,
-    handleAiResponse: _0x5e5bb7,
-    buildRuntimeAiIntent: _0x110cbd,
-    resolveTraceAccountIdFromIpc: _0x4e0893,
-    captureAutomationAiInvokeGeneration: _0x4a4f97,
-    cancelAutomationAiRetry: _0x458822,
-    isAutomationAiInvokeCancelled: _0xf88fe0,
-    sleepWithAutomationAiCancel: _0x22e0ca
+    registerIpc: registerIpc,
+    pushAutomationTrace: pushAutomationTrace,
+    postRadarAiJson: postRadarAiJson,
+    clipAutomationTraceText: clipAutomationTraceText,
+    isFatalAiAuthError: isFatalAiAuthError,
+    parseRadarMatchResponse: parseRadarMatchResponse,
+    handleAiResponse: handleAiResponse,
+    buildRuntimeAiIntent: buildRuntimeAiIntent,
+    resolveTraceAccountIdFromIpc: resolveTraceAccountIdFromIpc,
+    captureAutomationAiInvokeGeneration: captureAutomationAiInvokeGeneration,
+    cancelAutomationAiRetry: cancelAutomationAiRetry,
+    isAutomationAiInvokeCancelled: isAutomationAiInvokeCancelled,
+    sleepWithAutomationAiCancel: sleepWithAutomationAiCancel
   };
 }
 module.exports = {
