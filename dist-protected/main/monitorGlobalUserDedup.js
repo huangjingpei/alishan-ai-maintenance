@@ -5,102 +5,102 @@ const {
 } = require("./monitorCommentFilter");
 const STORE_KEY = "monitor_global_user_sec_uids";
 const MAX_KEYS = 20000;
-function loadGlobalKeySet(_0x2bf086) {
-  const _0x487636 = new Set();
-  if (!_0x2bf086 || typeof _0x2bf086.get !== "function") {
-    return _0x487636;
+function loadGlobalKeySet(arg1) {
+  const set = new Set();
+  if (!arg1 || typeof arg1.get !== "function") {
+    return set;
   }
-  const _0x1be74a = _0x2bf086.get(STORE_KEY, []);
-  if (!Array.isArray(_0x1be74a)) {
-    return _0x487636;
+  const result = arg1.get(STORE_KEY, []);
+  if (!Array.isArray(result)) {
+    return set;
   }
-  for (const _0x4a8e15 of _0x1be74a) {
-    const _0x201e7c = String(_0x4a8e15 || "").trim();
-    if (_0x201e7c && _0x201e7c.length >= 15 && !_0x201e7c.startsWith("nick:")) {
-      _0x487636.add(_0x201e7c);
+  for (const item of result) {
+    const result = String(item || "").trim();
+    if (result && result.length >= 15 && !result.startsWith("nick:")) {
+      set.add(result);
     }
   }
-  return _0x487636;
+  return set;
 }
-function saveGlobalKeySet(_0x5d32b0, _0x161c7e) {
-  if (!_0x5d32b0 || typeof _0x5d32b0.set !== "function") {
+function saveGlobalKeySet(arg1, arg2) {
+  if (!arg1 || typeof arg1.set !== "function") {
     return;
   }
-  const _0x3c9573 = [...(_0x161c7e || [])].filter(Boolean).slice(-MAX_KEYS);
-  _0x5d32b0.set(STORE_KEY, _0x3c9573);
+  const result = [...(arg2 || [])].filter(Boolean).slice(-MAX_KEYS);
+  arg1.set(STORE_KEY, result);
 }
-function leadExistsInPool(_0x1c5493) {
-  if (!_0x1c5493) {
+function leadExistsInPool(arg1) {
+  if (!arg1) {
     return false;
   }
   try {
-    const _0x4414dd = require("./dbManager");
-    if (!_0x4414dd.isLeadsRuntimeReady?.()) {
+    const dbManager = require("./dbManager");
+    if (!dbManager.isLeadsRuntimeReady?.()) {
       return false;
     }
-    const _0x14731c = _0x4414dd.getLeadById?.(_0x1c5493) || _0x4414dd.getLeadByUserKey?.(_0x1c5493);
-    return !!_0x14731c;
-  } catch (_0x2b0ce5) {
+    const local = dbManager.getLeadById?.(arg1) || dbManager.getLeadByUserKey?.(arg1);
+    return !!local;
+  } catch (error) {
     return false;
   }
 }
-function claimGlobalMonitorUser(_0x1b5e92, _0x2558c9 = {}) {
-  const _0x20d7b1 = buildMonitorUserDedupKey(_0x2558c9);
-  if (!_0x20d7b1) {
+function claimGlobalMonitorUser(arg1, options = {}) {
+  const result = buildMonitorUserDedupKey(options);
+  if (!result) {
     return {
       claimed: true,
       key: "",
       reason: "no_sec_uid"
     };
   }
-  const _0x259fbe = loadGlobalKeySet(_0x1b5e92);
-  if (_0x259fbe.has(_0x20d7b1)) {
+  const result2 = loadGlobalKeySet(arg1);
+  if (result2.has(result)) {
     return {
       claimed: false,
-      key: _0x20d7b1,
+      key: result,
       reason: "global_seen"
     };
   }
-  if (leadExistsInPool(_0x20d7b1)) {
-    _0x259fbe.add(_0x20d7b1);
-    saveGlobalKeySet(_0x1b5e92, _0x259fbe);
+  if (leadExistsInPool(result)) {
+    result2.add(result);
+    saveGlobalKeySet(arg1, result2);
     return {
       claimed: false,
-      key: _0x20d7b1,
+      key: result,
       reason: "lead_pool"
     };
   }
-  _0x259fbe.add(_0x20d7b1);
-  saveGlobalKeySet(_0x1b5e92, _0x259fbe);
+  result2.add(result);
+  saveGlobalKeySet(arg1, result2);
   return {
     claimed: true,
-    key: _0x20d7b1,
+    key: result,
     reason: "claimed"
   };
 }
-function rememberGlobalMonitorUser(_0xc684c0, _0x4dd8cc = {}) {
-  const _0x40d091 = buildMonitorUserDedupKey(_0x4dd8cc);
-  if (!_0x40d091 || !_0xc684c0) {
+function rememberGlobalMonitorUser(arg1, options = {}) {
+  const result = buildMonitorUserDedupKey(options);
+  if (!result || !arg1) {
     return "";
   }
-  const _0x5e3e7f = loadGlobalKeySet(_0xc684c0);
-  if (_0x5e3e7f.has(_0x40d091)) {
-    return _0x40d091;
+  const result2 = loadGlobalKeySet(arg1);
+  if (result2.has(result)) {
+    return result;
   }
-  _0x5e3e7f.add(_0x40d091);
-  saveGlobalKeySet(_0xc684c0, _0x5e3e7f);
-  return _0x40d091;
+  result2.add(result);
+  saveGlobalKeySet(arg1, result2);
+  return result;
 }
-function isGlobalKnownMonitorUser(_0x554a8f, _0x402c89 = {}) {
-  const _0x401a52 = buildMonitorUserDedupKey(_0x402c89);
-  if (!_0x401a52) {
+function isGlobalKnownMonitorUser(arg1, options = {}) {
+  const result = buildMonitorUserDedupKey(options);
+  if (!result) {
     return false;
   }
-  const _0x6b9b1b = loadGlobalKeySet(_0x554a8f);
-  if (_0x6b9b1b.has(_0x401a52)) {
+  const result2 = loadGlobalKeySet(arg1);
+  if (result2.has(result)) {
     return true;
   }
-  return leadExistsInPool(_0x401a52);
+  return leadExistsInPool(result);
 }
 module.exports = {
   STORE_KEY: STORE_KEY,
