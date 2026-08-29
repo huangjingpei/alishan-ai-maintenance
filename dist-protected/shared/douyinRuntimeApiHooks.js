@@ -6,38 +6,38 @@ const DEFAULT_ENTITY_RELATION = String.raw`follower/list|following/list|/user/fo
 const DEFAULT_ENTITY_LIVE = String.raw`/webcast/(im/fetch|room/reflow/info|chat)`;
 const DEFAULT_ENTITY_USER_SEARCH = String.raw`/aweme/v1/web/discover/search|search_channel=aweme_user|aweme_user_web`;
 const DEFAULT_SCRAPE_INTERESTING = String.raw`/aweme/v1/web/(?:general/search|discover/search|search/item|search/single|search/|aweme/detail|detail/|aweme/favorite|aweme/post|aweme/listcollection|tab/feed|module/feed|recommend/item|nearby/feed)|/web/api/v2/aweme/like|/search/item|/search/single|aweme_general_search|aweme_video_web`;
-function sanitizeRegexSource(_0x522b59) {
-  const _0x53a7fc = typeof _0x522b59 === "string" ? _0x522b59.trim() : "";
-  if (!_0x53a7fc || _0x53a7fc.length < 3 || _0x53a7fc.length > 4000) {
+function sanitizeRegexSource(arg1) {
+  const value = typeof arg1 === "string" ? arg1.trim() : "";
+  if (!value || value.length < 3 || value.length > 4000) {
     return "";
   }
   try {
-    new RegExp(_0x53a7fc, "i");
-    return _0x53a7fc;
-  } catch (_0x1a5974) {
+    new RegExp(value, "i");
+    return value;
+  } catch (error) {
     return "";
   }
 }
-function pickHook(_0x120877, _0x20b27a, _0x513ca6) {
-  return sanitizeRegexSource(_0x120877?.[_0x20b27a]) || _0x513ca6;
+function pickHook(arg1, arg2, arg3) {
+  return sanitizeRegexSource(arg1?.[arg2]) || arg3;
 }
-function resolveEntityApiHooks(_0x41a6ac) {
+function resolveEntityApiHooks(arg1) {
   return {
-    interesting: pickHook(_0x41a6ac, "interesting", DEFAULT_ENTITY_INTERESTING),
-    userish: pickHook(_0x41a6ac, "userish", DEFAULT_ENTITY_USERISH),
-    relation: pickHook(_0x41a6ac, "relation", DEFAULT_ENTITY_RELATION),
-    live: pickHook(_0x41a6ac, "live", DEFAULT_ENTITY_LIVE),
-    userSearch: pickHook(_0x41a6ac, "userSearch", DEFAULT_ENTITY_USER_SEARCH)
+    interesting: pickHook(arg1, "interesting", DEFAULT_ENTITY_INTERESTING),
+    userish: pickHook(arg1, "userish", DEFAULT_ENTITY_USERISH),
+    relation: pickHook(arg1, "relation", DEFAULT_ENTITY_RELATION),
+    live: pickHook(arg1, "live", DEFAULT_ENTITY_LIVE),
+    userSearch: pickHook(arg1, "userSearch", DEFAULT_ENTITY_USER_SEARCH)
   };
 }
-function resolveScrapeApiHooks(_0xe989e2) {
+function resolveScrapeApiHooks(arg1) {
   return {
-    scrapeInteresting: pickHook(_0xe989e2, "scrapeInteresting", DEFAULT_SCRAPE_INTERESTING)
+    scrapeInteresting: pickHook(arg1, "scrapeInteresting", DEFAULT_SCRAPE_INTERESTING)
   };
 }
-function toJsRegexLiteral(_0x17dbfd, _0x689914 = "i") {
-  const _0xf69441 = String(_0x17dbfd).replace(/\\/g, "\\\\").replace(/\//g, "\\/");
-  return "/" + _0xf69441 + "/" + _0x689914;
+function toJsRegexLiteral(arg1, text = "i") {
+  const result = String(arg1).replace(/\\/g, "\\\\").replace(/\//g, "\\/");
+  return "/" + result + "/" + text;
 }
 module.exports = {
   DEFAULT_ENTITY_INTERESTING: DEFAULT_ENTITY_INTERESTING,
