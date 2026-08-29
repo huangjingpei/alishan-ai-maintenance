@@ -3,18 +3,18 @@
 const DEFAULT_BUTTON_COOLDOWN_MS = 3200;
 const DEFAULT_SETTLE_RETRY_MIN_WAIT_MS = 5000;
 const DEFAULT_SETTLE_RETRY_EVERY_ROUNDS = 10;
-function createFeedSwitchGuard(_0x2cec80 = {}) {
-  const _0x535b3e = Number(_0x2cec80.buttonCooldownMs) > 0 ? Number(_0x2cec80.buttonCooldownMs) : DEFAULT_BUTTON_COOLDOWN_MS;
-  const _0x13108a = Number(_0x2cec80.settleRetryMinWaitMs) > 0 ? Number(_0x2cec80.settleRetryMinWaitMs) : DEFAULT_SETTLE_RETRY_MIN_WAIT_MS;
-  const _0x19a751 = Number(_0x2cec80.settleRetryEveryRounds) > 0 ? Number(_0x2cec80.settleRetryEveryRounds) : DEFAULT_SETTLE_RETRY_EVERY_ROUNDS;
-  let _0x8ed8f9 = 0;
-  let _0x4fed09 = false;
+function createFeedSwitchGuard(options = {}) {
+  const value = Number(options.buttonCooldownMs) > 0 ? Number(options.buttonCooldownMs) : DEFAULT_BUTTON_COOLDOWN_MS;
+  const value2 = Number(options.settleRetryMinWaitMs) > 0 ? Number(options.settleRetryMinWaitMs) : DEFAULT_SETTLE_RETRY_MIN_WAIT_MS;
+  const value3 = Number(options.settleRetryEveryRounds) > 0 ? Number(options.settleRetryEveryRounds) : DEFAULT_SETTLE_RETRY_EVERY_ROUNDS;
+  let num = 0;
+  let flag = false;
   return {
     noteAttempt({
       byButton = false
     } = {}) {
-      _0x8ed8f9 = Date.now();
-      _0x4fed09 = !!byButton;
+      num = Date.now();
+      flag = !!byButton;
     },
     shouldSkipButtonClick({
       force = false
@@ -22,10 +22,10 @@ function createFeedSwitchGuard(_0x2cec80 = {}) {
       if (force) {
         return false;
       }
-      if (!_0x4fed09 || !_0x8ed8f9) {
+      if (!flag || !num) {
         return false;
       }
-      return Date.now() - _0x8ed8f9 < _0x535b3e;
+      return Date.now() - num < value;
     },
     shouldRetrySettleSwitch({
       waitStart = 0,
@@ -38,21 +38,21 @@ function createFeedSwitchGuard(_0x2cec80 = {}) {
       if (!(Number(round) > 0)) {
         return false;
       }
-      const _0x4d6cb2 = Number(waitStart) || 0;
-      if (!_0x4d6cb2 || Date.now() - _0x4d6cb2 < _0x13108a) {
+      const local = Number(waitStart) || 0;
+      if (!local || Date.now() - local < value2) {
         return false;
       }
-      return Number(round) % _0x19a751 === 0;
+      return Number(round) % value3 === 0;
     },
     getLastAttemptAgeMs() {
-      if (!_0x8ed8f9) {
+      if (!num) {
         return Infinity;
       }
-      return Date.now() - _0x8ed8f9;
+      return Date.now() - num;
     },
     reset() {
-      _0x8ed8f9 = 0;
-      _0x4fed09 = false;
+      num = 0;
+      flag = false;
     }
   };
 }
