@@ -1,263 +1,263 @@
 'use strict';
 
-function hasOwn(_0x5d2985, _0x5dbf2b) {
-  return !!_0x5d2985 && Object.prototype.hasOwnProperty.call(_0x5d2985, _0x5dbf2b);
+function hasOwn(arg1, arg2) {
+  return !!arg1 && Object.prototype.hasOwnProperty.call(arg1, arg2);
 }
-function resolveAttachmentFlags(_0x22016b = {}, _0x202110 = false) {
-  let _0x6d065d = hasOwn(_0x22016b, "enableImage") ? _0x22016b.enableImage === true : _0x22016b.attachment === "image" || _0x22016b.attachment === "both";
-  let _0xce78af = hasOwn(_0x22016b, "enableExpression") ? _0x22016b.enableExpression === true : _0x22016b.attachment === "expression" || _0x22016b.attachment === "both";
-  if (_0x202110 && _0x6d065d && _0xce78af) {
-    if (_0x22016b.attachment === "expression") {
-      _0x6d065d = false;
+function resolveAttachmentFlags(options = {}, flag = false) {
+  let value = hasOwn(options, "enableImage") ? options.enableImage === true : options.attachment === "image" || options.attachment === "both";
+  let value2 = hasOwn(options, "enableExpression") ? options.enableExpression === true : options.attachment === "expression" || options.attachment === "both";
+  if (flag && value && value2) {
+    if (options.attachment === "expression") {
+      value = false;
     } else {
-      _0xce78af = false;
+      value2 = false;
     }
   }
-  const _0x4e96aa = _0x6d065d && _0xce78af ? "both" : _0x6d065d ? "image" : _0xce78af ? "expression" : "none";
+  const value3 = value && value2 ? "both" : value ? "image" : value2 ? "expression" : "none";
   return {
-    enableImage: _0x6d065d,
-    enableExpression: _0xce78af,
-    attachment: _0x4e96aa
+    enableImage: value,
+    enableExpression: value2,
+    attachment: value3
   };
 }
-function createSelfWarmupTemplateItem(_0x2205aa = {}, _0x52fd7c = {}) {
-  const _0x30a82e = _0x52fd7c.exclusive === true;
-  const _0x119639 = resolveAttachmentFlags(_0x2205aa, _0x30a82e);
-  const _0x556926 = Array.isArray(_0x2205aa.imagePaths) ? _0x2205aa.imagePaths.filter(_0x5c274b => typeof _0x5c274b === "string" && _0x5c274b.trim()).map(_0x4da22d => _0x4da22d.trim()) : [];
-  let _0xb3a714 = Number(_0x2205aa.expressionCount);
-  if (!Number.isFinite(_0xb3a714)) {
-    _0xb3a714 = 3;
+function createSelfWarmupTemplateItem(options = {}, options2 = {}) {
+  const value = options2.exclusive === true;
+  const result = resolveAttachmentFlags(options, value);
+  const value2 = Array.isArray(options.imagePaths) ? options.imagePaths.filter(arg1 => typeof arg1 === "string" && arg1.trim()).map(arg1 => arg1.trim()) : [];
+  let result2 = Number(options.expressionCount);
+  if (!Number.isFinite(result2)) {
+    result2 = 3;
   }
-  _0xb3a714 = Math.max(1, Math.min(8, Math.floor(_0xb3a714)));
+  result2 = Math.max(1, Math.min(8, Math.floor(result2)));
   return {
-    id: String(_0x2205aa.id || "tpl_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8)),
-    text: String(_0x2205aa.text || ""),
-    enableImage: _0x119639.enableImage,
-    enableExpression: _0x119639.enableExpression,
-    attachment: _0x119639.attachment,
-    imagePaths: _0x556926,
-    expressionCount: _0xb3a714
+    id: String(options.id || "tpl_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8)),
+    text: String(options.text || ""),
+    enableImage: result.enableImage,
+    enableExpression: result.enableExpression,
+    attachment: result.attachment,
+    imagePaths: value2,
+    expressionCount: result2
   };
 }
-function splitTemplateLines(_0x340fe8) {
-  return String(_0x340fe8 ?? "").split("\n");
+function splitTemplateLines(arg1) {
+  return String(arg1 ?? "").split("\n");
 }
-function itemHasAttachment(_0x3677c2) {
-  if (!_0x3677c2) {
+function itemHasAttachment(arg1) {
+  if (!arg1) {
     return false;
   }
-  if (_0x3677c2.enableExpression === true || _0x3677c2.attachment === "expression" || _0x3677c2.attachment === "both") {
+  if (arg1.enableExpression === true || arg1.attachment === "expression" || arg1.attachment === "both") {
     return true;
   }
-  if (_0x3677c2.enableImage === true || _0x3677c2.attachment === "image" || _0x3677c2.attachment === "both") {
-    return Array.isArray(_0x3677c2.imagePaths) && _0x3677c2.imagePaths.some(_0x185969 => String(_0x185969 || "").trim());
+  if (arg1.enableImage === true || arg1.attachment === "image" || arg1.attachment === "both") {
+    return Array.isArray(arg1.imagePaths) && arg1.imagePaths.some(arg1 => String(arg1 || "").trim());
   }
   return false;
 }
-function normalizeSelfWarmupTemplateItems(_0x360188, _0x5a4684 = "", _0x100ae0 = {}, _0x1653ef = {}) {
-  const _0x321211 = _0x1653ef.exclusive === true;
-  if (Array.isArray(_0x360188) && _0x360188.length) {
-    return _0x360188.map(_0x46249f => createSelfWarmupTemplateItem(_0x46249f, {
-      exclusive: _0x321211
+function normalizeSelfWarmupTemplateItems(arg1, text = "", options = {}, options2 = {}) {
+  const value = options2.exclusive === true;
+  if (Array.isArray(arg1) && arg1.length) {
+    return arg1.map(arg1 => createSelfWarmupTemplateItem(arg1, {
+      exclusive: value
     }));
   }
-  const _0x4fe8c0 = splitTemplateLines(_0x5a4684);
-  const _0x2db941 = _0x4fe8c0.length ? _0x4fe8c0 : [""];
-  const _0x5a5616 = _0x100ae0.enableCommentExpression === true ? "expression" : _0x100ae0.enableCommentImage === true ? "image" : "none";
-  const _0x181b8f = Array.isArray(_0x100ae0.commentImagePaths) ? _0x100ae0.commentImagePaths : [];
-  return _0x2db941.map(_0x1af850 => createSelfWarmupTemplateItem({
-    text: _0x1af850,
-    attachment: _0x5a5616,
-    imagePaths: _0x181b8f,
-    expressionCount: _0x100ae0.commentExpressionCount
+  const result = splitTemplateLines(text);
+  const value2 = result.length ? result : [""];
+  const value3 = options.enableCommentExpression === true ? "expression" : options.enableCommentImage === true ? "image" : "none";
+  const value4 = Array.isArray(options.commentImagePaths) ? options.commentImagePaths : [];
+  return value2.map(arg1 => createSelfWarmupTemplateItem({
+    text: arg1,
+    attachment: value3,
+    imagePaths: value4,
+    expressionCount: options.commentExpressionCount
   }));
 }
-function joinSelfWarmupTemplateTexts(_0x5b1794) {
-  return (Array.isArray(_0x5b1794) ? _0x5b1794 : []).map(_0x45f30a => String(_0x45f30a?.text || "")).join("\n");
+function joinSelfWarmupTemplateTexts(arg1) {
+  return (Array.isArray(arg1) ? arg1 : []).map(arg1 => String(arg1?.text || "")).join("\n");
 }
-function pickSelfWarmupTemplateItem(_0x14974c, _0x2618c3 = 0) {
-  const _0x2e2900 = Array.isArray(_0x14974c) && _0x14974c.length ? _0x14974c : [createSelfWarmupTemplateItem()];
-  const _0x1f6d32 = (Math.max(0, Number(_0x2618c3) || 0) % _0x2e2900.length + _0x2e2900.length) % _0x2e2900.length;
-  return _0x2e2900[_0x1f6d32];
+function pickSelfWarmupTemplateItem(arg1, num = 0) {
+  const value = Array.isArray(arg1) && arg1.length ? arg1 : [createSelfWarmupTemplateItem()];
+  const value2 = (Math.max(0, Number(num) || 0) % value.length + value.length) % value.length;
+  return value[value2];
 }
-function applySelfWarmupTemplateText(_0x3debec, _0xbff819 = {}, _0x201f73 = "") {
-  const _0x332464 = String(_0x3debec || _0x201f73 || "").trim();
-  if (!_0x332464) {
+function applySelfWarmupTemplateText(arg1, options = {}, text = "") {
+  const result = String(arg1 || text || "").trim();
+  if (!result) {
     return "";
   }
-  return _0x332464.replace(/\{nickname\}/g, _0xbff819.nickname || "朋友").replace(/\{content\}/g, _0xbff819.text || "");
+  return result.replace(/\{nickname\}/g, options.nickname || "朋友").replace(/\{content\}/g, options.text || "");
 }
-function collapseTemplateItems(_0x4245c9 = [], _0x5e213e = "", _0x440a08 = {}, _0x5db409 = {}) {
-  const _0x150024 = _0x5db409.exclusive === true;
-  const _0x190f45 = normalizeSelfWarmupTemplateItems(_0x4245c9, _0x5e213e, _0x440a08, {
-    exclusive: _0x150024
+function collapseTemplateItems(list = [], text = "", options = {}, options2 = {}) {
+  const value = options2.exclusive === true;
+  const result = normalizeSelfWarmupTemplateItems(list, text, options, {
+    exclusive: value
   });
-  if (_0x190f45.length <= 1) {
-    if (_0x190f45.length) {
-      return _0x190f45;
+  if (result.length <= 1) {
+    if (result.length) {
+      return result;
     } else {
       return [createSelfWarmupTemplateItem({}, {
-        exclusive: _0x150024
+        exclusive: value
       })];
     }
   }
-  const _0x44f5f4 = [];
-  const _0x19c46d = [];
-  _0x190f45.forEach(_0xce1615 => {
-    String(_0xce1615.text || "").split("\n").forEach(_0x2aefec => {
-      const _0x40d476 = _0x2aefec.trim();
-      if (_0x40d476) {
-        _0x44f5f4.push(_0x40d476);
+  const list2 = [];
+  const list3 = [];
+  result.forEach(arg1 => {
+    String(arg1.text || "").split("\n").forEach(arg1 => {
+      const result = arg1.trim();
+      if (result) {
+        list2.push(result);
       }
     });
-    (_0xce1615.imagePaths || []).forEach(_0x5d634a => {
-      if (typeof _0x5d634a === "string" && _0x5d634a.trim() && !_0x19c46d.includes(_0x5d634a.trim())) {
-        _0x19c46d.push(_0x5d634a.trim());
+    (arg1.imagePaths || []).forEach(arg1 => {
+      if (typeof arg1 === "string" && arg1.trim() && !list3.includes(arg1.trim())) {
+        list3.push(arg1.trim());
       }
     });
   });
-  const _0x4ddce8 = _0x190f45.find(itemHasAttachment) || _0x190f45[0];
+  const local = result.find(itemHasAttachment) || result[0];
   return [createSelfWarmupTemplateItem({
-    ..._0x4ddce8,
-    text: _0x44f5f4.join("\n"),
-    imagePaths: _0x19c46d
+    ...local,
+    text: list2.join("\n"),
+    imagePaths: list3
   }, {
-    exclusive: _0x150024
+    exclusive: value
   })];
 }
-function collapseCommentTemplateItems(_0x2fe701 = [], _0x3179c8 = "", _0x200201 = {}) {
-  return collapseTemplateItems(_0x2fe701, _0x3179c8, _0x200201, {
+function collapseCommentTemplateItems(list = [], text = "", options = {}) {
+  return collapseTemplateItems(list, text, options, {
     exclusive: true
   });
 }
-function collapseDmTemplateItems(_0x49bdda = [], _0x34d091 = "") {
-  return collapseTemplateItems(_0x49bdda, _0x34d091, {}, {
+function collapseDmTemplateItems(list = [], text = "") {
+  return collapseTemplateItems(list, text, {}, {
     exclusive: false
   });
 }
-function collectTemplateTextLines(_0x16b2f6 = [], _0x52952c = {}, _0x13a0fe = "") {
-  const _0x4c982e = [];
-  for (const _0x55da07 of Array.isArray(_0x16b2f6) ? _0x16b2f6 : []) {
-    const _0x545edb = String(_0x55da07?.text || "").split("\n").map(_0x2004a4 => _0x2004a4.trim()).filter(Boolean);
-    _0x545edb.forEach(_0x2c1a44 => {
-      const _0x2932a5 = applySelfWarmupTemplateText(_0x2c1a44, _0x52952c);
-      if (_0x2932a5) {
-        _0x4c982e.push(_0x2932a5);
+function collectTemplateTextLines(list = [], options = {}, text2 = "") {
+  const list2 = [];
+  for (const item of Array.isArray(list) ? list : []) {
+    const result = String(item?.text || "").split("\n").map(arg1 => arg1.trim()).filter(Boolean);
+    result.forEach(arg1 => {
+      const result = applySelfWarmupTemplateText(arg1, options);
+      if (result) {
+        list2.push(result);
       }
     });
   }
-  if (!_0x4c982e.length && _0x13a0fe) {
-    const _0x32c914 = applySelfWarmupTemplateText(_0x13a0fe, _0x52952c);
-    if (_0x32c914) {
-      _0x4c982e.push(_0x32c914);
+  if (!list2.length && text2) {
+    const result = applySelfWarmupTemplateText(text2, options);
+    if (result) {
+      list2.push(result);
     }
   }
-  return _0x4c982e;
+  return list2;
 }
-function expandTemplateItemsForRotation(_0x37093f = [], _0x4809bf = {}) {
-  const _0x63e906 = _0x4809bf.exclusive === true;
-  const _0x1df2d8 = Array.isArray(_0x37093f) ? _0x37093f : [];
-  const _0x9c518e = [];
-  for (const _0x491c49 of _0x1df2d8) {
-    const _0x6c244b = String(_0x491c49?.text || "").split("\n").map(_0x198efa => _0x198efa.trim()).filter(Boolean);
-    if (_0x6c244b.length > 1) {
-      _0x6c244b.forEach(_0x513210 => {
-        _0x9c518e.push(createSelfWarmupTemplateItem({
-          ..._0x491c49,
-          id: (_0x491c49.id || "tpl") + "_" + _0x513210.slice(0, 12),
-          text: _0x513210
+function expandTemplateItemsForRotation(list = [], options = {}) {
+  const value = options.exclusive === true;
+  const value2 = Array.isArray(list) ? list : [];
+  const list2 = [];
+  for (const item of value2) {
+    const result = String(item?.text || "").split("\n").map(arg1 => arg1.trim()).filter(Boolean);
+    if (result.length > 1) {
+      result.forEach(arg1 => {
+        list2.push(createSelfWarmupTemplateItem({
+          ...item,
+          id: (item.id || "tpl") + "_" + arg1.slice(0, 12),
+          text: arg1
         }, {
-          exclusive: _0x63e906
+          exclusive: value
         }));
       });
       continue;
     }
-    _0x9c518e.push(_0x491c49);
+    list2.push(item);
   }
-  if (_0x9c518e.length) {
-    return _0x9c518e;
+  if (list2.length) {
+    return list2;
   } else {
-    return _0x1df2d8;
+    return value2;
   }
 }
-function resolveSelfWarmupContentMode(_0x21e5d1 = {}, _0x2231f0 = false) {
-  const _0x62f1f2 = _0x2231f0 ? _0x21e5d1.dmSuggestionMode : _0x21e5d1.commentSuggestionMode;
-  if (_0x62f1f2 === "ai" || _0x62f1f2 === "template") {
-    return _0x62f1f2;
+function resolveSelfWarmupContentMode(options = {}, flag = false) {
+  const value = flag ? options.dmSuggestionMode : options.commentSuggestionMode;
+  if (value === "ai" || value === "template") {
+    return value;
   }
-  if (_0x21e5d1.suggestionMode === "ai") {
+  if (options.suggestionMode === "ai") {
     return "ai";
   } else {
     return "template";
   }
 }
-function resolveSelfWarmupTemplatePayload(_0x2262b6 = {}, _0x1961cd = {}, _0x953c59 = {}) {
-  const _0x579bca = _0x953c59.isDm === true;
-  const _0x1c8310 = {
-    enableCommentImage: _0x2262b6.enableCommentImage,
-    enableCommentExpression: _0x2262b6.enableCommentExpression,
-    commentImagePaths: _0x2262b6.commentImagePaths,
-    commentExpressionCount: _0x2262b6.commentExpressionCount
+function resolveSelfWarmupTemplatePayload(options = {}, options2 = {}, options3 = {}) {
+  const value = options3.isDm === true;
+  const obj = {
+    enableCommentImage: options.enableCommentImage,
+    enableCommentExpression: options.enableCommentExpression,
+    commentImagePaths: options.commentImagePaths,
+    commentExpressionCount: options.commentExpressionCount
   };
-  const _0x28b976 = _0x579bca ? collapseDmTemplateItems(_0x2262b6.dmTemplateItems, _0x2262b6.dmTemplate) : collapseCommentTemplateItems(_0x2262b6.replyTemplateItems, _0x2262b6.replyTemplate, _0x1c8310);
-  const _0x177ea0 = String(_0x953c59.fallback || "");
-  const _0x3d6ca8 = expandTemplateItemsForRotation(_0x28b976, {
-    exclusive: !_0x579bca
+  const value2 = value ? collapseDmTemplateItems(options.dmTemplateItems, options.dmTemplate) : collapseCommentTemplateItems(options.replyTemplateItems, options.replyTemplate, obj);
+  const result = String(options3.fallback || "");
+  const result2 = expandTemplateItemsForRotation(value2, {
+    exclusive: !value
   });
-  const _0x4e0fa1 = Math.max(0, Number(_0x953c59.roundIndex) || 0);
-  const _0x548da9 = pickSelfWarmupTemplateItem(_0x3d6ca8, _0x4e0fa1);
-  const _0x15997d = applySelfWarmupTemplateText(_0x548da9?.text, _0x1961cd, _0x177ea0);
+  const result3 = Math.max(0, Number(options3.roundIndex) || 0);
+  const result4 = pickSelfWarmupTemplateItem(result2, result3);
+  const result5 = applySelfWarmupTemplateText(result4?.text, options2, result);
   return {
-    items: _0x3d6ca8,
-    item: _0x548da9,
-    text: _0x15997d,
-    texts: _0x15997d ? [_0x15997d] : [],
-    extras: _0x579bca ? {
-      enableCommentImage: !!_0x548da9.enableImage || _0x548da9.attachment === "image" || _0x548da9.attachment === "both",
-      commentImagePaths: _0x548da9.imagePaths || [],
-      enableCommentExpression: !!_0x548da9.enableExpression || _0x548da9.attachment === "expression" || _0x548da9.attachment === "both",
-      commentExpressionCount: _0x548da9.expressionCount || 3
+    items: result2,
+    item: result4,
+    text: result5,
+    texts: result5 ? [result5] : [],
+    extras: value ? {
+      enableCommentImage: !!result4.enableImage || result4.attachment === "image" || result4.attachment === "both",
+      commentImagePaths: result4.imagePaths || [],
+      enableCommentExpression: !!result4.enableExpression || result4.attachment === "expression" || result4.attachment === "both",
+      commentExpressionCount: result4.expressionCount || 3
     } : {
-      enableCommentImage: !!_0x548da9.enableImage || _0x548da9.attachment === "image",
-      commentImagePaths: _0x548da9.imagePaths || [],
-      enableCommentExpression: !_0x548da9.enableImage && _0x548da9.attachment !== "image" && (!!_0x548da9.enableExpression || _0x548da9.attachment === "expression"),
-      commentExpressionCount: _0x548da9.expressionCount || 3
+      enableCommentImage: !!result4.enableImage || result4.attachment === "image",
+      commentImagePaths: result4.imagePaths || [],
+      enableCommentExpression: !result4.enableImage && result4.attachment !== "image" && (!!result4.enableExpression || result4.attachment === "expression"),
+      commentExpressionCount: result4.expressionCount || 3
     }
   };
 }
-function syncLegacyCommentExtrasFromItems(_0x583bf3 = {}, _0x525a23 = []) {
-  const _0x268aff = Array.isArray(_0x525a23) ? _0x525a23 : [];
-  if (!_0x268aff.length) {
-    return _0x583bf3;
+function syncLegacyCommentExtrasFromItems(options = {}, list = []) {
+  const value = Array.isArray(list) ? list : [];
+  if (!value.length) {
+    return options;
   }
-  const _0x29106d = _0x268aff.find(itemHasAttachment);
-  if (!_0x29106d) {
-    _0x583bf3.enableCommentImage = false;
-    _0x583bf3.enableCommentExpression = false;
-    return _0x583bf3;
+  const result = value.find(itemHasAttachment);
+  if (!result) {
+    options.enableCommentImage = false;
+    options.enableCommentExpression = false;
+    return options;
   }
-  const _0x4ed6cc = !!_0x29106d.enableImage || _0x29106d.attachment === "image";
-  const _0x4e3359 = !_0x4ed6cc && (!!_0x29106d.enableExpression || _0x29106d.attachment === "expression");
-  _0x583bf3.enableCommentImage = _0x4ed6cc;
-  _0x583bf3.enableCommentExpression = _0x4e3359;
-  if (_0x4ed6cc) {
-    _0x583bf3.commentImagePaths = [...(_0x29106d.imagePaths || [])];
+  const local = !!result.enableImage || result.attachment === "image";
+  const local2 = !local && (!!result.enableExpression || result.attachment === "expression");
+  options.enableCommentImage = local;
+  options.enableCommentExpression = local2;
+  if (local) {
+    options.commentImagePaths = [...(result.imagePaths || [])];
   }
-  if (_0x4e3359) {
-    _0x583bf3.commentExpressionCount = _0x29106d.expressionCount;
+  if (local2) {
+    options.commentExpressionCount = result.expressionCount;
   }
-  return _0x583bf3;
+  return options;
 }
-function commentItemsHaveAttachment(_0x562abc = {}) {
-  const _0x3ebfca = normalizeSelfWarmupTemplateItems(_0x562abc.replyTemplateItems, _0x562abc.replyTemplate, {
-    enableCommentImage: _0x562abc.enableCommentImage,
-    enableCommentExpression: _0x562abc.enableCommentExpression,
-    commentImagePaths: _0x562abc.commentImagePaths,
-    commentExpressionCount: _0x562abc.commentExpressionCount
+function commentItemsHaveAttachment(options = {}) {
+  const result = normalizeSelfWarmupTemplateItems(options.replyTemplateItems, options.replyTemplate, {
+    enableCommentImage: options.enableCommentImage,
+    enableCommentExpression: options.enableCommentExpression,
+    commentImagePaths: options.commentImagePaths,
+    commentExpressionCount: options.commentExpressionCount
   }, {
     exclusive: true
   });
-  return _0x3ebfca.some(itemHasAttachment);
+  return result.some(itemHasAttachment);
 }
 module.exports = {
   createSelfWarmupTemplateItem: createSelfWarmupTemplateItem,
