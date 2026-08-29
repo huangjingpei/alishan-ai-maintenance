@@ -1,69 +1,69 @@
 function createAutomationPaintGuard({
-  getMainWindow: _0x60368c,
-  getVisibleViews: _0x4607f9,
-  getPlatformViews: _0x17005a,
-  shouldAttachAutomationView: _0x575ee9,
-  isValidAutomationBounds: _0x1a93d8,
-  nudgeAutomationViewRepaint: _0x1e9e83,
-  nudgeHostCompositor: _0x5e8177,
+  getMainWindow: getMainWindow,
+  getVisibleViews: getVisibleViews,
+  getPlatformViews: getPlatformViews,
+  shouldAttachAutomationView: shouldAttachAutomationView,
+  isValidAutomationBounds: isValidAutomationBounds,
+  nudgeAutomationViewRepaint: nudgeAutomationViewRepaint,
+  nudgeHostCompositor: nudgeHostCompositor,
   intervalMs = 10000
 } = {}) {
-  let _0x401a5f = null;
-  function _0x23ea7e() {
-    const _0x5fe6a8 = _0x60368c?.();
-    if (!_0x5fe6a8 || _0x5fe6a8.isDestroyed()) {
+  let local = null;
+  function tick() {
+    const local = getMainWindow?.();
+    if (!local || local.isDestroyed()) {
       return;
     }
-    const _0x57894c = _0x4607f9?.() || _0x17005a?.();
-    if (!_0x57894c) {
+    const local2 = getVisibleViews?.() || getPlatformViews?.();
+    if (!local2) {
       return;
     }
-    let _0x4c4057 = 0;
-    for (const [_0x386089, _0x5c98e2] of _0x57894c.entries()) {
-      if (!_0x575ee9?.(_0x386089)) {
+    let num = 0;
+    for (const [local3, local4] of local2.entries()) {
+      if (!shouldAttachAutomationView?.(local3)) {
         continue;
       }
-      if (!_0x5c98e2?.webContents || _0x5c98e2.webContents.isDestroyed()) {
+      if (!local4?.webContents || local4.webContents.isDestroyed()) {
         continue;
       }
-      if (!_0x5fe6a8.getBrowserViews().includes(_0x5c98e2)) {
+      if (!local.getBrowserViews().includes(local4)) {
         continue;
       }
-      const _0x567e4a = _0x5c98e2.getBounds?.();
-      if (!_0x1a93d8?.(_0x567e4a)) {
+      const local2 = local4.getBounds?.();
+      if (!isValidAutomationBounds?.(local2)) {
         continue;
       }
-      const _0x298769 = _0x5c98e2.webContents.getURL?.() || "";
-      if (!_0x298769 || _0x298769 === "about:blank") {
+      const local5 = local4.webContents.getURL?.() || "";
+      if (!local5 || local5 === "about:blank") {
         continue;
       }
-      _0x1e9e83?.(_0x5c98e2.webContents, _0x5c98e2);
-      _0x4c4057 += 1;
+      nudgeAutomationViewRepaint?.(local4.webContents, local4);
+      num += 1;
     }
-    if (_0x4c4057 > 0) {
-      _0x5e8177?.(_0x5fe6a8.webContents);
+    if (num > 0) {
+      nudgeHostCompositor?.(local.webContents);
     }
   }
-  function _0x24e90f() {
-    if (_0x401a5f) {
+  function start() {
+    if (local) {
       return;
     }
-    _0x401a5f = setInterval(_0x23ea7e, intervalMs);
-    if (typeof _0x401a5f.unref === "function") {
-      _0x401a5f.unref();
+    local = setInterval(tick, intervalMs);
+    if (typeof local.unref === "function") {
+      local.unref();
     }
   }
-  function _0x53f448() {
-    if (!_0x401a5f) {
+  function stop() {
+    if (!local) {
       return;
     }
-    clearInterval(_0x401a5f);
-    _0x401a5f = null;
+    clearInterval(local);
+    local = null;
   }
   return {
-    start: _0x24e90f,
-    stop: _0x53f448,
-    tick: _0x23ea7e
+    start: start,
+    stop: stop,
+    tick: tick
   };
 }
 module.exports = {
