@@ -4,334 +4,334 @@ const {
 const CREATOR_UPLOAD_URL = "https://creator.douyin.com/creator-micro/content/upload?enter_from=dou_web";
 const CREATOR_URL_READY_RE = /^https:\/\/(?:www\.)?creator\.douyin\.com\//i;
 const FREE_BLOCK_MSG = "当前未激活专业版，试用期间或升级专业版后可使用创作聚合";
-function normalizeViewBounds(_0x239864) {
-  const _0xa9ead7 = Math.round(Number(_0x239864?.x));
-  const _0x582d8b = Math.round(Number(_0x239864?.y));
-  const _0x4ac480 = Math.round(Number(_0x239864?.width));
-  const _0x51da1b = Math.round(Number(_0x239864?.height));
-  if (![_0xa9ead7, _0x582d8b, _0x4ac480, _0x51da1b].every(Number.isFinite)) {
+function normalizeViewBounds(arg1) {
+  const result = Math.round(Number(arg1?.x));
+  const result2 = Math.round(Number(arg1?.y));
+  const result3 = Math.round(Number(arg1?.width));
+  const result4 = Math.round(Number(arg1?.height));
+  if (![result, result2, result3, result4].every(Number.isFinite)) {
     return null;
   }
-  if (_0x4ac480 < 120 || _0x51da1b < 120) {
+  if (result3 < 120 || result4 < 120) {
     return null;
   }
   return {
-    x: Math.max(0, _0xa9ead7),
-    y: Math.max(0, _0x582d8b),
-    width: Math.max(120, _0x4ac480),
-    height: Math.max(120, _0x51da1b)
+    x: Math.max(0, result),
+    y: Math.max(0, result2),
+    width: Math.max(120, result3),
+    height: Math.max(120, result4)
   };
 }
-function createCreatorAggregateApi(_0x186a14) {
-  const _0x581ae2 = _0x186a14.viewsMap || new Map();
-  let _0x36042f = null;
-  let _0x2b0f42 = 0;
-  let _0x40bc9d = false;
-  function _0xfb15f0(_0x434585 = {}) {
-    const _0x1c5cff = _0x186a14.getMainWindow?.();
-    if (!_0x1c5cff || _0x1c5cff.isDestroyed() || _0x1c5cff.webContents.isDestroyed()) {
+function createCreatorAggregateApi(arg1) {
+  const local = arg1.viewsMap || new Map();
+  let local2 = null;
+  let num = 0;
+  let flag = false;
+  function fn(options = {}) {
+    const local = arg1.getMainWindow?.();
+    if (!local || local.isDestroyed() || local.webContents.isDestroyed()) {
       return;
     }
     try {
-      _0x1c5cff.webContents.send("creator-view-status", {
+      local.webContents.send("creator-view-status", {
         at: Date.now(),
-        ..._0x434585
+        ...options
       });
-    } catch (_0x367d9a) {}
+    } catch (error) {}
   }
-  function _0x2eff1b(_0x6fcadc, _0x1de105) {
-    const _0x24dcef = normalizeViewBounds(_0x1de105);
-    if (!_0x6fcadc || _0x6fcadc.webContents?.isDestroyed?.() || !_0x24dcef) {
+  function fn2(arg1, arg2) {
+    const result = normalizeViewBounds(arg2);
+    if (!arg1 || arg1.webContents?.isDestroyed?.() || !result) {
       return false;
     }
     try {
-      _0x6fcadc.setBounds(_0x24dcef);
+      arg1.setBounds(result);
       return true;
-    } catch (_0x5273aa) {
-      console.warn("[CreatorAggregate] 更新视图坐标失败: " + _0x5273aa.message);
+    } catch (error) {
+      console.warn("[CreatorAggregate] 更新视图坐标失败: " + error.message);
       return false;
     }
   }
-  function _0x361aea(_0x1f5c8b) {
-    if (_0x1f5c8b === "light") {
+  function fn3(arg1) {
+    if (arg1 === "light") {
       return "light";
     } else {
       return "dark";
     }
   }
-  function _0x1118e7(_0x27c38a, _0x30de9b) {
-    if (!_0x27c38a || _0x27c38a.webContents?.isDestroyed?.()) {
+  function fn4(arg1, arg2) {
+    if (!arg1 || arg1.webContents?.isDestroyed?.()) {
       return false;
     }
-    const _0x2c30bf = _0x361aea(_0x30de9b);
+    const result = fn3(arg2);
     try {
-      _0x27c38a.setBackgroundColor(_0x2c30bf === "light" ? "#ffffff" : "#171923");
-      _0x27c38a.webContents.executeJavaScript("document.documentElement.style.colorScheme = " + JSON.stringify(_0x2c30bf), true).catch(() => {});
+      arg1.setBackgroundColor(result === "light" ? "#ffffff" : "#171923");
+      arg1.webContents.executeJavaScript("document.documentElement.style.colorScheme = " + JSON.stringify(result), true).catch(() => {});
       return true;
-    } catch (_0x490958) {
+    } catch (error) {
       return false;
     }
   }
-  function _0x1b894e(_0x164d3b) {
-    const _0x444792 = _0x36042f;
-    const _0x40c62e = _0x186a14.getMainWindow?.();
-    if (!_0x444792?.view || _0x444792.view.webContents?.isDestroyed?.()) {
+  function setAttached(arg12) {
+    const local = local2;
+    const local3 = arg1.getMainWindow?.();
+    if (!local?.view || local.view.webContents?.isDestroyed?.()) {
       return false;
     }
-    if (!_0x40c62e || _0x40c62e.isDestroyed()) {
+    if (!local3 || local3.isDestroyed()) {
       return false;
     }
-    const _0x334dbe = _0x40c62e.getBrowserViews().includes(_0x444792.view);
-    if (_0x164d3b) {
-      if (!_0x334dbe) {
+    const result = local3.getBrowserViews().includes(local.view);
+    if (arg12) {
+      if (!result) {
         try {
-          _0x40c62e.addBrowserView(_0x444792.view);
-        } catch (_0x339fc1) {
-          console.warn("[CreatorAggregate] 重新挂载失败: " + _0x339fc1.message);
+          local3.addBrowserView(local.view);
+        } catch (error) {
+          console.warn("[CreatorAggregate] 重新挂载失败: " + error.message);
           return false;
         }
-        if (_0x444792.bounds) {
-          _0x2eff1b(_0x444792.view, _0x444792.bounds);
+        if (local.bounds) {
+          fn2(local.view, local.bounds);
         }
-        _0x186a14.safeSetTopBrowserView(_0x444792.view, {
-          context: "creator-reattach:" + _0x444792.viewKey
+        arg1.safeSetTopBrowserView(local.view, {
+          context: "creator-reattach:" + local.viewKey
         });
       }
-      _0x444792.detachedForOverlay = false;
+      local.detachedForOverlay = false;
       return true;
     }
-    if (_0x334dbe) {
+    if (result) {
       try {
-        _0x40c62e.removeBrowserView(_0x444792.view);
-      } catch (_0x2fc737) {
-        console.warn("[CreatorAggregate] 临时摘除失败: " + _0x2fc737.message);
+        local3.removeBrowserView(local.view);
+      } catch (error) {
+        console.warn("[CreatorAggregate] 临时摘除失败: " + error.message);
         return false;
       }
     }
-    _0x444792.detachedForOverlay = true;
+    local.detachedForOverlay = true;
     return true;
   }
-  function _0x1a04b8(_0x3cc336 = "closed", {
+  function destroyActive(text = "closed", {
     notify = true
   } = {}) {
-    _0x2b0f42 += 1;
-    const _0x5c666f = _0x36042f;
-    if (!_0x5c666f) {
+    num += 1;
+    const local3 = local2;
+    if (!local3) {
       return false;
     }
-    _0x36042f = null;
-    _0x581ae2.delete(_0x5c666f.viewKey);
-    if (_0x5c666f.readyProbeTimer) {
-      clearTimeout(_0x5c666f.readyProbeTimer);
-      _0x5c666f.readyProbeTimer = null;
+    local2 = null;
+    local.delete(local3.viewKey);
+    if (local3.readyProbeTimer) {
+      clearTimeout(local3.readyProbeTimer);
+      local3.readyProbeTimer = null;
     }
-    _0x186a14.destroyAutomationBrowserView(_0x5c666f.view, _0x5c666f.viewKey, "creator");
+    arg1.destroyAutomationBrowserView(local3.view, local3.viewKey, "creator");
     if (notify) {
-      _0xfb15f0({
+      fn({
         status: "closed",
-        viewKey: _0x5c666f.viewKey,
-        accountId: _0x5c666f.accountId,
-        reason: _0x3cc336
+        viewKey: local3.viewKey,
+        accountId: local3.accountId,
+        reason: text
       });
     }
-    console.log("[CreatorAggregate] 视图已关闭: " + _0x5c666f.viewKey + " (" + _0x3cc336 + ")");
+    console.log("[CreatorAggregate] 视图已关闭: " + local3.viewKey + " (" + text + ")");
     return true;
   }
-  async function _0x292f56({
-    accountId: _0x10bc94,
+  async function openView({
+    accountId: accountId,
     name = "",
     proxy = null,
     theme = "dark",
     bounds = null
   } = {}) {
-    if (typeof _0x186a14.ensureAccess === "function" && !_0x186a14.ensureAccess()) {
+    if (typeof arg1.ensureAccess === "function" && !arg1.ensureAccess()) {
       return {
         success: false,
         message: FREE_BLOCK_MSG
       };
     }
-    const _0x5b1986 = String(_0x10bc94 || "").trim();
-    if (!_0x5b1986) {
+    const result = String(accountId || "").trim();
+    if (!result) {
       return {
         success: false,
         message: "缺少抖音账号信息"
       };
     }
-    const _0x5ee1ca = _0x186a14.getMainWindow?.();
-    if (!_0x5ee1ca || _0x5ee1ca.isDestroyed()) {
+    const local3 = arg1.getMainWindow?.();
+    if (!local3 || local3.isDestroyed()) {
       return {
         success: false,
         message: "主窗口不可用"
       };
     }
-    const _0x296234 = "douyin_" + _0x5b1986;
-    const _0x274f32 = normalizeViewBounds(bounds);
-    if (!_0x274f32) {
+    const value = "douyin_" + result;
+    const result2 = normalizeViewBounds(bounds);
+    if (!result2) {
       return {
         success: false,
         message: "创作窗口尺寸无效"
       };
     }
     try {
-      _0x186a14.destroyConflictingView?.("creator-opened", {
+      arg1.destroyConflictingView?.("creator-opened", {
         notify: true
       });
-    } catch (_0x4a11cc) {}
-    const _0x2226d6 = _0x36042f;
-    if (_0x2226d6?.viewKey === _0x296234 && !_0x2226d6.view?.webContents?.isDestroyed?.()) {
-      _0x186a14.hideAutomationViews?.();
-      _0x2226d6.bounds = _0x274f32;
-      _0x2eff1b(_0x2226d6.view, _0x274f32);
-      if (!_0x5ee1ca.getBrowserViews().includes(_0x2226d6.view)) {
-        _0x5ee1ca.addBrowserView(_0x2226d6.view);
+    } catch (error) {}
+    const local4 = local2;
+    if (local4?.viewKey === value && !local4.view?.webContents?.isDestroyed?.()) {
+      arg1.hideAutomationViews?.();
+      local4.bounds = result2;
+      fn2(local4.view, result2);
+      if (!local3.getBrowserViews().includes(local4.view)) {
+        local3.addBrowserView(local4.view);
       }
-      _0x186a14.safeSetTopBrowserView(_0x2226d6.view, {
-        context: "creator-reopen:" + _0x296234
+      arg1.safeSetTopBrowserView(local4.view, {
+        context: "creator-reopen:" + value
       });
       try {
-        _0x2226d6.view.webContents.setUserAgent(_0x186a14.getAutomationUserAgent());
-      } catch (_0xb9055) {}
-      _0x1118e7(_0x2226d6.view, theme);
-      _0xfb15f0({
-        status: _0x2226d6.status || "ready",
-        viewKey: _0x296234,
-        accountId: _0x5b1986,
-        url: _0x2226d6.view.webContents.getURL()
+        local4.view.webContents.setUserAgent(arg1.getAutomationUserAgent());
+      } catch (error) {}
+      fn4(local4.view, theme);
+      fn({
+        status: local4.status || "ready",
+        viewKey: value,
+        accountId: result,
+        url: local4.view.webContents.getURL()
       });
       return {
         success: true,
         reused: true,
-        viewKey: _0x296234
+        viewKey: value
       };
     }
-    _0x1a04b8("account-switch", {
+    destroyActive("account-switch", {
       notify: false
     });
-    const _0x28e349 = ++_0x2b0f42;
-    const _0x458cab = new _0x186a14.BrowserView({
+    const local5 = ++num;
+    const local6 = new arg1.BrowserView({
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
         sandbox: true,
-        partition: "persist:automation:" + _0x296234,
+        partition: "persist:automation:" + value,
         backgroundThrottling: true,
         spellcheck: true
       }
     });
-    const _0x282647 = {
-      view: _0x458cab,
-      viewKey: _0x296234,
-      accountId: _0x5b1986,
+    const obj = {
+      view: local6,
+      viewKey: value,
+      accountId: result,
       name: String(name || ""),
       status: "loading",
-      generation: _0x28e349,
-      bounds: _0x274f32,
-      theme: _0x361aea(theme)
+      generation: local5,
+      bounds: result2,
+      theme: fn3(theme)
     };
-    _0x36042f = _0x282647;
-    _0x581ae2.set(_0x296234, _0x458cab);
-    _0x1118e7(_0x458cab, _0x282647.theme);
-    _0x458cab.webContents.setUserAgent(_0x186a14.getAutomationUserAgent());
-    _0x186a14.attachProtocolGuard(_0x458cab.webContents, _0x296234 + ":creator");
-    _0x186a14.configureAutomationSession(_0x458cab.webContents.session, _0x296234);
-    const _0x2f0f1f = () => _0x36042f === _0x282647 && _0x282647.generation === _0x28e349 && !_0x458cab.webContents.isDestroyed();
-    const _0x1b712e = (_0x231078, _0x26ebb4 = {}) => {
-      if (!_0x2f0f1f()) {
+    local2 = obj;
+    local.set(value, local6);
+    fn4(local6, obj.theme);
+    local6.webContents.setUserAgent(arg1.getAutomationUserAgent());
+    arg1.attachProtocolGuard(local6.webContents, value + ":creator");
+    arg1.configureAutomationSession(local6.webContents.session, value);
+    const local7 = () => local2 === obj && obj.generation === local5 && !local6.webContents.isDestroyed();
+    const local8 = (arg1, options = {}) => {
+      if (!local7()) {
         return;
       }
-      _0x282647.status = _0x231078;
-      _0xfb15f0({
-        status: _0x231078,
-        viewKey: _0x296234,
-        accountId: _0x5b1986,
-        ..._0x26ebb4
+      obj.status = arg1;
+      fn({
+        status: arg1,
+        viewKey: value,
+        accountId: result,
+        ...options
       });
     };
-    const _0x56d16f = () => {
-      if (!_0x2f0f1f()) {
+    const local9 = () => {
+      if (!local7()) {
         return;
       }
-      const _0xaa0d87 = _0x458cab.webContents.getURL();
-      if (!CREATOR_URL_READY_RE.test(_0xaa0d87)) {
+      const result = local6.webContents.getURL();
+      if (!CREATOR_URL_READY_RE.test(result)) {
         return;
       }
-      _0x1b712e("ready", {
-        url: _0xaa0d87
+      local8("ready", {
+        url: result
       });
     };
-    const _0x2c70b4 = () => {
-      if (_0x282647.readyProbeTimer) {
-        clearTimeout(_0x282647.readyProbeTimer);
+    const local10 = () => {
+      if (obj.readyProbeTimer) {
+        clearTimeout(obj.readyProbeTimer);
       }
-      _0x282647.readyProbeTimer = setTimeout(async () => {
-        _0x282647.readyProbeTimer = null;
-        if (!_0x2f0f1f() || _0x282647.status !== "loading") {
+      obj.readyProbeTimer = setTimeout(async () => {
+        obj.readyProbeTimer = null;
+        if (!local7() || obj.status !== "loading") {
           return;
         }
         try {
-          const _0x4b2762 = await _0x458cab.webContents.executeJavaScript("document.readyState", true);
-          if (_0x4b2762 === "interactive" || _0x4b2762 === "complete") {
-            _0x56d16f();
+          const result = await local6.webContents.executeJavaScript("document.readyState", true);
+          if (result === "interactive" || result === "complete") {
+            local9();
           }
-        } catch (_0x3cf1a8) {}
+        } catch (error) {}
       }, 3000);
     };
-    _0x458cab.webContents.on("did-start-loading", () => {
-      _0x1b712e("loading");
-      _0x2c70b4();
+    local6.webContents.on("did-start-loading", () => {
+      local8("loading");
+      local10();
     });
-    _0x458cab.webContents.on("dom-ready", () => {
-      _0x1118e7(_0x458cab, _0x282647.theme);
-      _0x2c70b4();
+    local6.webContents.on("dom-ready", () => {
+      fn4(local6, obj.theme);
+      local10();
     });
     try {
-      _0x458cab.webContents.setMaxListeners?.(20);
-    } catch (_0x16b687) {}
-    _0x458cab.webContents.removeAllListeners("did-stop-loading");
-    _0x458cab.webContents.on("did-stop-loading", _0x56d16f);
-    _0x458cab.webContents.on("did-finish-load", _0x56d16f);
-    _0x458cab.webContents.on("did-navigate", (_0x185a93, _0x37bdd7) => {
-      _0x1b712e(_0x282647.status || "loading", {
-        url: _0x37bdd7
+      local6.webContents.setMaxListeners?.(20);
+    } catch (error) {}
+    local6.webContents.removeAllListeners("did-stop-loading");
+    local6.webContents.on("did-stop-loading", local9);
+    local6.webContents.on("did-finish-load", local9);
+    local6.webContents.on("did-navigate", (arg1, arg2) => {
+      local8(obj.status || "loading", {
+        url: arg2
       });
     });
-    _0x458cab.webContents.on("did-navigate-in-page", (_0x1a0e86, _0x363b43) => {
-      _0x1b712e(_0x282647.status || "ready", {
-        url: _0x363b43
+    local6.webContents.on("did-navigate-in-page", (arg1, arg2) => {
+      local8(obj.status || "ready", {
+        url: arg2
       });
     });
-    _0x458cab.webContents.on("did-fail-load", (_0x33b879, _0x23c213, _0x2d1c87, _0x88bf61, _0x433bc7) => {
-      if (!_0x433bc7 || _0x23c213 === -3) {
+    local6.webContents.on("did-fail-load", (arg1, arg2, arg3, arg4, arg5) => {
+      if (!arg5 || arg2 === -3) {
         return;
       }
-      _0x1b712e("error", {
-        url: _0x88bf61,
-        message: _0x2d1c87 || "页面加载失败 (" + _0x23c213 + ")"
+      local8("error", {
+        url: arg4,
+        message: arg3 || "页面加载失败 (" + arg2 + ")"
       });
     });
-    _0x458cab.webContents.on("render-process-gone", (_0x300f32, _0x4dedf9 = {}) => {
-      _0x1b712e("error", {
-        message: "创作页面异常退出：" + (_0x4dedf9.reason || "unknown")
+    local6.webContents.on("render-process-gone", (arg1, options = {}) => {
+      local8("error", {
+        message: "创作页面异常退出：" + (options.reason || "unknown")
       });
     });
-    _0x458cab.webContents.on("unresponsive", () => {
-      _0x1b712e("error", {
+    local6.webContents.on("unresponsive", () => {
+      local8("error", {
         message: "创作页面暂时无响应，可点击刷新重试"
       });
     });
-    _0x186a14.hideAutomationViews?.();
-    _0x2eff1b(_0x458cab, _0x274f32);
-    _0x5ee1ca.addBrowserView(_0x458cab);
-    _0x186a14.safeSetTopBrowserView(_0x458cab, {
-      context: "creator-open:" + _0x296234
+    arg1.hideAutomationViews?.();
+    fn2(local6, result2);
+    local3.addBrowserView(local6);
+    arg1.safeSetTopBrowserView(local6, {
+      context: "creator-open:" + value
     });
-    _0x1b712e("loading", {
+    local8("loading", {
       url: CREATOR_UPLOAD_URL
     });
-    await _0x186a14.bindAutomationViewProxy({
+    await arg1.bindAutomationViewProxy({
       proxy: proxy
-    }, _0x296234, _0x458cab.webContents.session);
-    if (!_0x2f0f1f()) {
+    }, value, local6.webContents.session);
+    if (!local7()) {
       return {
         success: false,
         superseded: true,
@@ -339,8 +339,8 @@ function createCreatorAggregateApi(_0x186a14) {
       };
     }
     try {
-      await _0x458cab.webContents.loadURL(CREATOR_UPLOAD_URL);
-      if (!_0x2f0f1f()) {
+      await local6.webContents.loadURL(CREATOR_UPLOAD_URL);
+      if (!local7()) {
         return {
           success: false,
           superseded: true,
@@ -350,155 +350,155 @@ function createCreatorAggregateApi(_0x186a14) {
       return {
         success: true,
         reused: false,
-        viewKey: _0x296234,
-        url: _0x458cab.webContents.getURL()
+        viewKey: value,
+        url: local6.webContents.getURL()
       };
-    } catch (_0x793259) {
-      if (!_0x2f0f1f()) {
+    } catch (error) {
+      if (!local7()) {
         return {
           success: false,
           superseded: true,
           message: "账号已切换"
         };
       }
-      _0x1b712e("error", {
-        message: _0x793259.message || "创作页面加载失败"
+      local8("error", {
+        message: error.message || "创作页面加载失败"
       });
       return {
         success: false,
-        viewKey: _0x296234,
-        message: _0x793259.message || "创作页面加载失败"
+        viewKey: value,
+        message: error.message || "创作页面加载失败"
       };
     }
   }
-  async function _0x5ef7e3({
-    viewKey: _0x58f497
+  async function fn8({
+    viewKey: viewKey
   } = {}) {
-    const _0x333fe5 = _0x36042f;
-    if (!_0x333fe5 || _0x333fe5.view?.webContents?.isDestroyed?.()) {
+    const local = local2;
+    if (!local || local.view?.webContents?.isDestroyed?.()) {
       return {
         success: false,
         message: "创作窗口尚未打开"
       };
     }
-    if (_0x58f497 && _0x333fe5.viewKey !== _0x58f497) {
+    if (viewKey && local.viewKey !== viewKey) {
       return {
         success: false,
         message: "当前账号已切换"
       };
     }
-    _0x333fe5.status = "loading";
-    _0xfb15f0({
+    local.status = "loading";
+    fn({
       status: "loading",
-      viewKey: _0x333fe5.viewKey,
-      accountId: _0x333fe5.accountId
+      viewKey: local.viewKey,
+      accountId: local.accountId
     });
     try {
-      await _0x333fe5.view.webContents.reload();
+      await local.view.webContents.reload();
       return {
         success: true
       };
-    } catch (_0x38e82d) {
+    } catch (error) {
       return {
         success: false,
-        message: _0x38e82d.message || "刷新失败"
+        message: error.message || "刷新失败"
       };
     }
   }
-  function _0xa4d474({
-    viewKey: _0x28d5cc,
-    bounds: _0x3f3784
+  function fn9({
+    viewKey: viewKey,
+    bounds: bounds
   } = {}) {
-    const _0x497b55 = _0x36042f;
-    if (!_0x497b55 || _0x28d5cc && _0x497b55.viewKey !== _0x28d5cc) {
+    const local = local2;
+    if (!local || viewKey && local.viewKey !== viewKey) {
       return;
     }
-    const _0x75b983 = normalizeViewBounds(_0x3f3784);
-    if (!_0x75b983) {
+    const result = normalizeViewBounds(bounds);
+    if (!result) {
       return;
     }
-    _0x497b55.bounds = _0x75b983;
-    if (_0x497b55.detachedForOverlay) {
+    local.bounds = result;
+    if (local.detachedForOverlay) {
       return;
     }
-    _0x2eff1b(_0x497b55.view, _0x75b983);
+    fn2(local.view, result);
   }
-  function _0x3d5119(_0x4b0ce9) {
-    const _0x5c8b7b = _0x36042f;
-    if (!_0x5c8b7b || _0x5c8b7b.view?.webContents?.isDestroyed?.()) {
+  function setTheme(arg1) {
+    const local = local2;
+    if (!local || local.view?.webContents?.isDestroyed?.()) {
       return false;
     }
-    _0x5c8b7b.theme = _0x361aea(_0x4b0ce9);
-    return _0x1118e7(_0x5c8b7b.view, _0x5c8b7b.theme);
+    local.theme = fn3(arg1);
+    return fn4(local.view, local.theme);
   }
-  function _0xeb9a97() {
-    const _0xdf7c07 = _0x36042f;
-    const _0x10d14f = _0x186a14.getMainWindow?.();
-    if (!_0xdf7c07 || _0xdf7c07.view?.webContents?.isDestroyed?.()) {
+  function getState() {
+    const local3 = local2;
+    const local4 = arg1.getMainWindow?.();
+    if (!local3 || local3.view?.webContents?.isDestroyed?.()) {
       return {
         active: false,
         count: 0
       };
     }
-    const _0x1fe1a5 = !!_0x10d14f && !_0x10d14f.isDestroyed() && !!_0x10d14f.getBrowserViews().includes(_0xdf7c07.view);
+    const local5 = !!local4 && !local4.isDestroyed() && !!local4.getBrowserViews().includes(local3.view);
     return {
       active: true,
-      count: _0x581ae2.size,
-      viewKey: _0xdf7c07.viewKey,
-      accountId: _0xdf7c07.accountId,
-      status: _0xdf7c07.status,
-      url: _0xdf7c07.view.webContents.getURL(),
-      attached: _0x1fe1a5
+      count: local.size,
+      viewKey: local3.viewKey,
+      accountId: local3.accountId,
+      status: local3.status,
+      url: local3.view.webContents.getURL(),
+      attached: local5
     };
   }
-  function _0xb1a2b9() {
-    if (_0x40bc9d) {
+  function registerIpc() {
+    if (flag) {
       return;
     }
-    _0x40bc9d = true;
-    ipcMain.handle("open-creator-view", async (_0x39de3b, _0x12c7d3 = {}) => {
+    flag = true;
+    ipcMain.handle("open-creator-view", async (arg1, options = {}) => {
       try {
-        return await _0x292f56(_0x12c7d3);
-      } catch (_0x2fd6d7) {
-        console.error("[CreatorAggregate] 打开失败:", _0x2fd6d7);
+        return await openView(options);
+      } catch (error) {
+        console.error("[CreatorAggregate] 打开失败:", error);
         return {
           success: false,
-          message: _0x2fd6d7.message || "打开创作视图失败"
+          message: error.message || "打开创作视图失败"
         };
       }
     });
-    ipcMain.on("update-creator-view-bounds", (_0x55af19, _0x1a4ae7 = {}) => {
-      _0xa4d474(_0x1a4ae7);
+    ipcMain.on("update-creator-view-bounds", (arg1, options = {}) => {
+      fn9(options);
     });
-    ipcMain.on("set-creator-view-attached", (_0x43cd31, {
+    ipcMain.on("set-creator-view-attached", (arg1, {
       attached = true
     } = {}) => {
-      _0x1b894e(!!attached);
+      setAttached(!!attached);
     });
-    ipcMain.on("set-creator-view-theme", (_0x1d3ff1, {
+    ipcMain.on("set-creator-view-theme", (arg1, {
       theme = "dark"
     } = {}) => {
-      _0x3d5119(theme);
+      setTheme(theme);
     });
-    ipcMain.handle("reload-creator-view", async (_0x5baa5c, _0x3ed1ef = {}) => _0x5ef7e3(_0x3ed1ef));
-    ipcMain.on("destroy-creator-view", (_0x558358, {
+    ipcMain.handle("reload-creator-view", async (arg1, options = {}) => fn8(options));
+    ipcMain.on("destroy-creator-view", (arg1, {
       reason = "renderer-closed"
     } = {}) => {
-      _0x1a04b8(reason);
+      destroyActive(reason);
     });
-    ipcMain.handle("get-creator-view-state", () => _0xeb9a97());
+    ipcMain.handle("get-creator-view-state", () => getState());
   }
   return {
     CREATOR_UPLOAD_URL: CREATOR_UPLOAD_URL,
     FREE_BLOCK_MSG: FREE_BLOCK_MSG,
-    creatorViewsMap: _0x581ae2,
-    registerIpc: _0xb1a2b9,
-    openView: _0x292f56,
-    destroyActive: _0x1a04b8,
-    setAttached: _0x1b894e,
-    setTheme: _0x3d5119,
-    getState: _0xeb9a97,
-    getActiveState: () => _0x36042f
+    creatorViewsMap: local,
+    registerIpc: registerIpc,
+    openView: openView,
+    destroyActive: destroyActive,
+    setAttached: setAttached,
+    setTheme: setTheme,
+    getState: getState,
+    getActiveState: () => local2
   };
 }
 module.exports = {
