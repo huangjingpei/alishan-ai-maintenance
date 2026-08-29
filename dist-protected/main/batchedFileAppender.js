@@ -5,98 +5,98 @@ function createBatchedFileAppender({
   flushIntervalMs = 250,
   onError = null
 } = {}) {
-  let _0x3c2469 = [];
-  let _0x19759e = null;
-  let _0x2a8078 = false;
-  function _0x434c05(_0x23d924) {
+  let list = [];
+  let local = null;
+  let flag = false;
+  function fn(arg1) {
     if (typeof onError !== "function") {
       return;
     }
     try {
-      onError(_0x23d924);
-    } catch (_0x533d22) {}
+      onError(arg1);
+    } catch (error) {}
   }
-  function _0x1fe001() {
-    const _0x2d74b7 = _0x3c2469;
-    _0x3c2469 = [];
-    const _0x2f2493 = new Map();
-    for (const _0x48c4c9 of _0x2d74b7) {
-      _0x2f2493.set(_0x48c4c9.filePath, (_0x2f2493.get(_0x48c4c9.filePath) || "") + _0x48c4c9.content);
+  function fn2() {
+    const local = list;
+    list = [];
+    const map = new Map();
+    for (const item of local) {
+      map.set(item.filePath, (map.get(item.filePath) || "") + item.content);
     }
-    return _0x2f2493;
+    return map;
   }
-  function _0x13cdbd(_0x552b6d = flushIntervalMs) {
-    _0x19759e = setTimeout(_0x2e778a, Math.max(0, _0x552b6d));
-    if (typeof _0x19759e.unref === "function") {
-      _0x19759e.unref();
+  function fn3(arg1 = flushIntervalMs) {
+    local = setTimeout(fn4, Math.max(0, arg1));
+    if (typeof local.unref === "function") {
+      local.unref();
     }
   }
-  function _0x2e778a() {
-    if (_0x2a8078 || _0x3c2469.length === 0) {
+  function fn4() {
+    if (flag || list.length === 0) {
       return;
     }
-    if (_0x19759e) {
-      clearTimeout(_0x19759e);
-      _0x19759e = null;
+    if (local) {
+      clearTimeout(local);
+      local = null;
     }
-    const _0x1ad6ca = _0x1fe001();
-    _0x2a8078 = true;
-    let _0x17c01e = _0x1ad6ca.size;
-    const _0x4aa779 = () => {
-      _0x17c01e -= 1;
-      if (_0x17c01e > 0) {
+    const result = fn2();
+    flag = true;
+    let value = result.size;
+    const local2 = () => {
+      value -= 1;
+      if (value > 0) {
         return;
       }
-      _0x2a8078 = false;
-      if (_0x3c2469.length > 0 && !_0x19759e) {
-        _0x13cdbd();
+      flag = false;
+      if (list.length > 0 && !local) {
+        fn3();
       }
     };
-    for (const [_0x3b6d79, _0x4a7624] of _0x1ad6ca.entries()) {
-      fs.appendFile(_0x3b6d79, _0x4a7624, "utf8", _0x2bdcb3 => {
-        if (_0x2bdcb3) {
-          _0x434c05(_0x2bdcb3);
+    for (const [local, local3] of result.entries()) {
+      fs.appendFile(local, local3, "utf8", arg1 => {
+        if (arg1) {
+          fn(arg1);
         }
-        _0x4aa779();
+        local2();
       });
     }
   }
-  function _0x1eff10(_0x5622bb, _0x25efb1, {
+  function append(arg1, arg2, {
     urgent = false
   } = {}) {
-    _0x3c2469.push({
-      filePath: _0x5622bb,
-      content: _0x25efb1
+    list.push({
+      filePath: arg1,
+      content: arg2
     });
-    if (_0x2a8078) {
+    if (flag) {
       return;
     }
-    if (_0x19759e) {
+    if (local) {
       if (!urgent) {
         return;
       }
-      clearTimeout(_0x19759e);
+      clearTimeout(local);
     }
-    _0x13cdbd(urgent ? 0 : flushIntervalMs);
+    fn3(urgent ? 0 : flushIntervalMs);
   }
-  function _0x278af8() {
-    if (_0x19759e) {
-      clearTimeout(_0x19759e);
-      _0x19759e = null;
+  function flushPendingSync() {
+    if (local) {
+      clearTimeout(local);
+      local = null;
     }
-    if (_0x3c2469.length === 0) {
+    if (list.length === 0) {
       return;
     }
-    const _0x30efec = _0x1fe001();
-    for (const [_0x3be936, _0x4326e9] of _0x30efec.entries()) {
+    const result = fn2();
+    for (const [local, local2] of result.entries()) {
       try {
-        fs.appendFileSync(_0x3be936, _0x4326e9, "utf8");
-      } catch (_0x35eec3) {}
+        fs.appendFileSync(local, local2, "utf8");
+      } catch (error) {}
     }
   }
   return {
-    append: _0x1eff10,
-    flushPendingSync: _0x278af8
+    append: append,
+    flushPendingSync: flushPendingSync
   };
 }
 module.exports = {
