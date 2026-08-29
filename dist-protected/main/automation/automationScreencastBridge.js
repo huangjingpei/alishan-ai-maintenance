@@ -5,51 +5,51 @@ class AutomationScreencastBridge {
   constructor() {
     this.cardBindings = new Map();
   }
-  syncViewBounds(_0x25b80a, _0x12e8a5, _0x1de86d) {
-    if (!_0x25b80a || !_0x12e8a5) {
+  syncViewBounds(arg1, arg2, arg3) {
+    if (!arg1 || !arg2) {
       return false;
     }
-    const _0x59938d = automationWindowManager.getAccountWindow(_0x25b80a);
-    if (!_0x59938d) {
+    const result = automationWindowManager.getAccountWindow(arg1);
+    if (!result) {
       return false;
     }
     const {
-      x: _0x41b684,
-      y: _0x4106b2,
-      width: _0x1d5971,
-      height: _0x4194dc
-    } = _0x12e8a5;
-    this.cardBindings.set(_0x25b80a, {
-      parentWindow: _0x1de86d,
+      x: x,
+      y: y,
+      width: width,
+      height: height
+    } = arg2;
+    this.cardBindings.set(arg1, {
+      parentWindow: arg3,
       rect: {
-        x: _0x41b684,
-        y: _0x4106b2,
-        width: _0x1d5971,
-        height: _0x4194dc
+        x: x,
+        y: y,
+        width: width,
+        height: height
       }
     });
     try {
-      if (_0x1d5971 > 0 && _0x4194dc > 0) {
-        if (_0x59938d.isDestroyed()) {
+      if (width > 0 && height > 0) {
+        if (result.isDestroyed()) {
           return false;
         }
-        _0x59938d.setContentSize(Math.max(1200, Math.round(_0x1d5971)), Math.max(800, Math.round(_0x4194dc)));
+        result.setContentSize(Math.max(1200, Math.round(width)), Math.max(800, Math.round(height)));
       }
       return true;
-    } catch (_0xbd6448) {
-      console.warn("[ScreencastBridge] 视口大小同步异常 (" + _0x25b80a + "):", _0xbd6448.message || _0xbd6448);
+    } catch (error) {
+      console.warn("[ScreencastBridge] 视口大小同步异常 (" + arg1 + "):", error.message || error);
       return false;
     }
   }
-  unbindView(_0x1144b1) {
-    this.cardBindings.delete(_0x1144b1);
-    const _0x40afa5 = automationWindowManager.getAccountWindow(_0x1144b1);
-    if (_0x40afa5 && !_0x40afa5.isDestroyed()) {
+  unbindView(arg1) {
+    this.cardBindings.delete(arg1);
+    const result = automationWindowManager.getAccountWindow(arg1);
+    if (result && !result.isDestroyed()) {
       try {
-        if (_0x40afa5.isVisible()) {
-          _0x40afa5.hide();
+        if (result.isVisible()) {
+          result.hide();
         }
-      } catch (_0x295aa6) {}
+      } catch (error) {}
     }
   }
   clearAll() {
