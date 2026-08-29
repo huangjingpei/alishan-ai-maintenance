@@ -1,7 +1,7 @@
 'use strict';
 
-function compactDmResultText(_0x4c8d8c) {
-  return String(_0x4c8d8c || "").replace(/[\u200b-\u200f\u202a-\u202e\u2060-\u206f]/g, "").replace(/\s+/g, " ").trim();
+function compactDmResultText(arg1) {
+  return String(arg1 || "").replace(/[\u200b-\u200f\u202a-\u202e\u2060-\u206f]/g, "").replace(/\s+/g, " ").trim();
 }
 const DM_PLATFORM_HINT_RULES = [{
   code: "mutual_follow_only",
@@ -39,41 +39,41 @@ const DM_PLATFORM_HINT_RULES = [{
   pattern: /(?:发送失败|私信失败|无法发送|暂不支持私信|对方设置了)/,
   text: "平台阻止了本次私信发送"
 }];
-function classifyDouyinDmPlatformHint(_0xc108b0 = "") {
-  const _0xfb86fd = compactDmResultText(_0xc108b0);
-  if (!_0xfb86fd) {
+function classifyDouyinDmPlatformHint(text = "") {
+  const result = compactDmResultText(text);
+  if (!result) {
     return null;
   }
-  for (const _0x3ef99b of DM_PLATFORM_HINT_RULES) {
-    const _0x507f89 = _0xfb86fd.match(_0x3ef99b.pattern);
-    if (!_0x507f89) {
+  for (const item of DM_PLATFORM_HINT_RULES) {
+    const result2 = result.match(item.pattern);
+    if (!result2) {
       continue;
     }
     return {
-      code: _0x3ef99b.code,
-      type: _0x3ef99b.type,
-      text: _0x3ef99b.text,
-      raw: compactDmResultText(_0x507f89[0]).slice(0, 160)
+      code: item.code,
+      type: item.type,
+      text: item.text,
+      raw: compactDmResultText(result2[0]).slice(0, 160)
     };
   }
   return null;
 }
-function resolveDouyinDmSendResult(_0x391a4c = {}) {
-  const _0x18f6dc = _0x391a4c.platformHint && typeof _0x391a4c.platformHint === "object" ? _0x391a4c.platformHint : classifyDouyinDmPlatformHint(_0x391a4c.platformHint || "");
-  const _0x271946 = compactDmResultText(_0x391a4c.inputText || "");
-  if (_0x18f6dc) {
-    const _0x1689db = _0x18f6dc.type === "privacy_settings";
+function resolveDouyinDmSendResult(options = {}) {
+  const value = options.platformHint && typeof options.platformHint === "object" ? options.platformHint : classifyDouyinDmPlatformHint(options.platformHint || "");
+  const result = compactDmResultText(options.inputText || "");
+  if (value) {
+    const value2 = value.type === "privacy_settings";
     return {
       ok: false,
-      status: _0x1689db ? "blocked" : "failed",
-      blocked: _0x1689db,
-      blockType: _0x18f6dc.type || "platform_block",
-      errorCode: _0x18f6dc.code || "platform_block",
-      reason: _0x18f6dc.text || _0x18f6dc.raw || "平台阻止了本次私信发送",
-      platformHint: _0x18f6dc
+      status: value2 ? "blocked" : "failed",
+      blocked: value2,
+      blockType: value.type || "platform_block",
+      errorCode: value.code || "platform_block",
+      reason: value.text || value.raw || "平台阻止了本次私信发送",
+      platformHint: value
     };
   }
-  if (_0x391a4c.failureMarkerFound) {
+  if (options.failureMarkerFound) {
     return {
       ok: false,
       status: "failed",
@@ -81,10 +81,10 @@ function resolveDouyinDmSendResult(_0x391a4c = {}) {
       blockType: "send_failed",
       errorCode: "bubble_send_failed",
       reason: "消息气泡显示红色失败标记，私信未发送成功",
-      failureMarker: _0x391a4c.failureMarker || null
+      failureMarker: options.failureMarker || null
     };
   }
-  if (_0x391a4c.bubbleFound) {
+  if (options.bubbleFound) {
     return {
       ok: true,
       status: "sent",
@@ -93,7 +93,7 @@ function resolveDouyinDmSendResult(_0x391a4c = {}) {
       errorCode: "",
       reason: "",
       verified: true,
-      snippet: compactDmResultText(_0x391a4c.snippet || "")
+      snippet: compactDmResultText(options.snippet || "")
     };
   }
   return {
@@ -101,9 +101,9 @@ function resolveDouyinDmSendResult(_0x391a4c = {}) {
     status: "pending",
     blocked: false,
     blockType: "",
-    errorCode: _0x271946 ? "input_not_cleared" : "bubble_pending",
-    reason: _0x271946 ? "输入框仍有内容，等待发送结果" : "等待消息气泡或平台提示",
-    inputCleared: !_0x271946
+    errorCode: result ? "input_not_cleared" : "bubble_pending",
+    reason: result ? "输入框仍有内容，等待发送结果" : "等待消息气泡或平台提示",
+    inputCleared: !result
   };
 }
 module.exports = {
