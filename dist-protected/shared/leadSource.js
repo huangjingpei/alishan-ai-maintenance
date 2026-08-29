@@ -59,9 +59,9 @@ const LEAD_ORIGIN_OPTIONS = Object.freeze([{
   value: "legacy",
   label: "其他/旧数据"
 }]);
-const LEAD_ORIGIN_LABELS = Object.freeze(LEAD_ORIGIN_OPTIONS.reduce((_0x40062b, _0x36fcc4) => {
-  _0x40062b[_0x36fcc4.value] = _0x36fcc4.label;
-  return _0x40062b;
+const LEAD_ORIGIN_LABELS = Object.freeze(LEAD_ORIGIN_OPTIONS.reduce((arg1, arg2) => {
+  arg1[arg2.value] = arg2.label;
+  return arg1;
 }, {}));
 const ENTITY_ENTRY_LABELS = Object.freeze({
   entity_blogger: "线索采集：搜索博主",
@@ -77,163 +77,163 @@ const ENTITY_ENTRY_LABELS = Object.freeze({
   entity_video_specific: "线索采集：指定视频",
   entity_author_profile: "线索采集：指定博主"
 });
-function looksLikeMonitorName(_0x5aaa67) {
-  const _0x2da397 = String(_0x5aaa67 || "").trim();
-  if (!_0x2da397) {
+function looksLikeMonitorName(arg1) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return false;
   }
-  return _0x2da397.startsWith("监控") || _0x2da397.includes("监控:") || _0x2da397.includes("监控：");
+  return result.startsWith("监控") || result.includes("监控:") || result.includes("监控：");
 }
-function looksLikeEntityName(_0x4c2fb2) {
-  const _0x5bba41 = String(_0x4c2fb2 || "").trim();
-  if (!_0x5bba41) {
+function looksLikeEntityName(arg1) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return "";
   }
-  if (_0x5bba41.includes("搜索博主") || _0x5bba41.includes("实体获客：博主") || _0x5bba41.includes("线索采集：搜索博主")) {
+  if (result.includes("搜索博主") || result.includes("实体获客：博主") || result.includes("线索采集：搜索博主")) {
     return "entity_blogger";
   }
-  if (_0x5bba41.includes("搜索用户") || _0x5bba41.includes("实体获客：用户") || _0x5bba41.includes("线索采集：搜索用户")) {
+  if (result.includes("搜索用户") || result.includes("实体获客：用户") || result.includes("线索采集：搜索用户")) {
     return "entity_user";
   }
-  if (_0x5bba41.includes("直播间") || _0x5bba41.includes("实体获客：直播间") || _0x5bba41.includes("线索采集：直播间")) {
+  if (result.includes("直播间") || result.includes("实体获客：直播间") || result.includes("线索采集：直播间")) {
     return "entity_live";
   }
-  if (_0x5bba41.includes("评论区") || _0x5bba41.includes("实体获客：评论区") || _0x5bba41.includes("线索采集：评论区潜客")) {
+  if (result.includes("评论区") || result.includes("实体获客：评论区") || result.includes("线索采集：评论区潜客")) {
     return "entity_comment";
   }
-  if (_0x5bba41.includes("视频作品") || _0x5bba41.includes("实体获客：视频作品") || _0x5bba41.includes("线索采集：视频作品链接")) {
+  if (result.includes("视频作品") || result.includes("实体获客：视频作品") || result.includes("线索采集：视频作品链接")) {
     return "entity_video";
   }
-  if (_0x5bba41.includes("关注列表") || _0x5bba41.includes("实体获客：关注列表") || _0x5bba41.includes("线索采集：关注列表")) {
+  if (result.includes("关注列表") || result.includes("实体获客：关注列表") || result.includes("线索采集：关注列表")) {
     return "entity_following";
   }
-  if (_0x5bba41.includes("相互关注") || _0x5bba41.includes("实体获客：相互关注") || _0x5bba41.includes("线索采集：相互关注")) {
+  if (result.includes("相互关注") || result.includes("实体获客：相互关注") || result.includes("线索采集：相互关注")) {
     return "entity_mutual";
   }
-  if (_0x5bba41.includes("指定博主") || _0x5bba41.includes("线索采集：指定博主")) {
+  if (result.includes("指定博主") || result.includes("线索采集：指定博主")) {
     return "entity_author_profile";
   }
   return "";
 }
-function resolveLeadOrigin(_0x1d9cc1 = {}) {
-  const _0x223149 = String(_0x1d9cc1.entrySource || "").trim();
-  if (ENTITY_ENTRY_SOURCES[_0x223149]) {
-    return _0x223149;
+function resolveLeadOrigin(options = {}) {
+  const result = String(options.entrySource || "").trim();
+  if (ENTITY_ENTRY_SOURCES[result]) {
+    return result;
   }
-  if (_0x223149 === "monitor") {
+  if (result === "monitor") {
     return "monitor";
   }
-  if (LEADGEN_ENTRY_SOURCES.has(_0x223149)) {
+  if (LEADGEN_ENTRY_SOURCES.has(result)) {
     return "leadgen";
   }
-  const _0x179feb = String(_0x1d9cc1.taskId || "");
-  if (_0x179feb.startsWith("monitor_")) {
+  const result2 = String(options.taskId || "");
+  if (result2.startsWith("monitor_")) {
     return "monitor";
   }
-  if (_0x179feb.startsWith("entity_")) {
-    const _0x3cc846 = looksLikeEntityName(_0x1d9cc1.entryLabel || _0x1d9cc1.taskName);
-    if (_0x3cc846) {
-      return _0x3cc846;
+  if (result2.startsWith("entity_")) {
+    const result = looksLikeEntityName(options.entryLabel || options.taskName);
+    if (result) {
+      return result;
     }
     return "entity_blogger";
   }
-  const _0x4019d7 = looksLikeEntityName(_0x1d9cc1.entryLabel || _0x1d9cc1.taskName);
-  if (_0x4019d7) {
-    return _0x4019d7;
+  const result3 = looksLikeEntityName(options.entryLabel || options.taskName);
+  if (result3) {
+    return result3;
   }
-  if (looksLikeMonitorName(_0x1d9cc1.entryLabel) || looksLikeMonitorName(_0x1d9cc1.taskName)) {
+  if (looksLikeMonitorName(options.entryLabel) || looksLikeMonitorName(options.taskName)) {
     return "monitor";
   }
-  if (_0x1d9cc1.searchKeyword) {
+  if (options.searchKeyword) {
     return "leadgen";
   }
-  if (_0x1d9cc1.taskName || _0x1d9cc1.entryLabel || _0x223149) {
+  if (options.taskName || options.entryLabel || result) {
     return "leadgen";
   }
   return "legacy";
 }
-function formatLeadOriginLabel(_0x5016b1 = {}) {
-  const _0x51e2ca = resolveLeadOrigin(_0x5016b1);
-  if (_0x51e2ca === "monitor") {
-    return _0x5016b1.entryLabel || (_0x5016b1.taskName ? "监控: " + _0x5016b1.taskName : "监控任务");
+function formatLeadOriginLabel(options = {}) {
+  const result = resolveLeadOrigin(options);
+  if (result === "monitor") {
+    return options.entryLabel || (options.taskName ? "监控: " + options.taskName : "监控任务");
   }
-  if (_0x51e2ca.startsWith("entity_")) {
-    return ENTITY_ENTRY_LABELS[_0x51e2ca] || LEAD_ORIGIN_LABELS[_0x51e2ca] || "线索采集";
+  if (result.startsWith("entity_")) {
+    return ENTITY_ENTRY_LABELS[result] || LEAD_ORIGIN_LABELS[result] || "线索采集";
   }
-  if (_0x51e2ca === "leadgen") {
+  if (result === "leadgen") {
     return "获客任务";
   }
-  return _0x5016b1.entryLabel || _0x5016b1.taskName || LEAD_ORIGIN_LABELS.legacy;
+  return options.entryLabel || options.taskName || LEAD_ORIGIN_LABELS.legacy;
 }
-function getEntityEntryMeta(_0x3832ec) {
-  const _0x4cd5f5 = String(_0x3832ec || "").trim();
-  if (_0x4cd5f5 === "blogger" || _0x4cd5f5 === "entity_blogger") {
+function getEntityEntryMeta(arg1) {
+  const result = String(arg1 || "").trim();
+  if (result === "blogger" || result === "entity_blogger") {
     return {
       entrySource: "entity_blogger",
       entryLabel: ENTITY_ENTRY_LABELS.entity_blogger
     };
   }
-  if (_0x4cd5f5 === "user" || _0x4cd5f5 === "entity_user") {
+  if (result === "user" || result === "entity_user") {
     return {
       entrySource: "entity_user",
       entryLabel: ENTITY_ENTRY_LABELS.entity_user
     };
   }
-  if (_0x4cd5f5 === "mutual" || _0x4cd5f5 === "entity_mutual") {
+  if (result === "mutual" || result === "entity_mutual") {
     return {
       entrySource: "entity_mutual",
       entryLabel: ENTITY_ENTRY_LABELS.entity_mutual
     };
   }
-  if (_0x4cd5f5 === "following" || _0x4cd5f5 === "entity_following") {
+  if (result === "following" || result === "entity_following") {
     return {
       entrySource: "entity_following",
       entryLabel: ENTITY_ENTRY_LABELS.entity_following
     };
   }
-  if (_0x4cd5f5 === "live" || _0x4cd5f5 === "entity_live") {
+  if (result === "live" || result === "entity_live") {
     return {
       entrySource: "entity_live",
       entryLabel: ENTITY_ENTRY_LABELS.entity_live
     };
   }
-  if (_0x4cd5f5 === "comment" || _0x4cd5f5 === "entity_comment") {
+  if (result === "comment" || result === "entity_comment") {
     return {
       entrySource: "entity_comment",
       entryLabel: ENTITY_ENTRY_LABELS.entity_comment
     };
   }
-  if (_0x4cd5f5 === "video" || _0x4cd5f5 === "entity_video") {
+  if (result === "video" || result === "entity_video") {
     return {
       entrySource: "entity_video",
       entryLabel: ENTITY_ENTRY_LABELS.entity_video
     };
   }
-  if (_0x4cd5f5 === "video_search" || _0x4cd5f5 === "entity_video_search") {
+  if (result === "video_search" || result === "entity_video_search") {
     return {
       entrySource: "entity_video_search",
       entryLabel: ENTITY_ENTRY_LABELS.entity_video_search
     };
   }
-  if (_0x4cd5f5 === "video_recommend" || _0x4cd5f5 === "entity_video_recommend") {
+  if (result === "video_recommend" || result === "entity_video_recommend") {
     return {
       entrySource: "entity_video_recommend",
       entryLabel: ENTITY_ENTRY_LABELS.entity_video_recommend
     };
   }
-  if (_0x4cd5f5 === "video_like" || _0x4cd5f5 === "entity_video_like") {
+  if (result === "video_like" || result === "entity_video_like") {
     return {
       entrySource: "entity_video_like",
       entryLabel: ENTITY_ENTRY_LABELS.entity_video_like
     };
   }
-  if (_0x4cd5f5 === "video_specific" || _0x4cd5f5 === "entity_video_specific") {
+  if (result === "video_specific" || result === "entity_video_specific") {
     return {
       entrySource: "entity_video_specific",
       entryLabel: ENTITY_ENTRY_LABELS.entity_video_specific
     };
   }
-  if (_0x4cd5f5 === "author_profile" || _0x4cd5f5 === "entity_author_profile") {
+  if (result === "author_profile" || result === "entity_author_profile") {
     return {
       entrySource: "entity_author_profile",
       entryLabel: ENTITY_ENTRY_LABELS.entity_author_profile
