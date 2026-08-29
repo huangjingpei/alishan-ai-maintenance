@@ -8,311 +8,311 @@ function isPlaintextLocalDevelopmentConfigAllowed() {
   return process.env.HUOKE_LOCAL_DEV === "1" && !app.isPackaged;
 }
 function createRuntimeConfigService({
-  store: _0xd45b22,
-  axios: _0x407342,
-  apiBase: _0x433d4a,
-  getApiBase: _0x24e07b,
-  productSlug: _0x208941,
-  productToken: _0x3cec48,
-  jwtSecret: _0x197af3,
-  getDeviceId: _0x431f0d,
-  getBroadcastTargets: _0x23613e,
-  onStatusChange: _0x3f10d1
+  store: store,
+  axios: axios,
+  apiBase: apiBase,
+  getApiBase: getApiBase,
+  productSlug: productSlug,
+  productToken: productToken,
+  jwtSecret: jwtSecret,
+  getDeviceId: getDeviceId,
+  getBroadcastTargets: getBroadcastTargets,
+  onStatusChange: onStatusChange
 }) {
-  const _0x2c7b06 = () => {
-    if (typeof _0x24e07b === "function") {
-      const _0x105800 = _0x24e07b();
-      if (_0x105800) {
-        return String(_0x105800).replace(/\/+$/, "");
+  const local = () => {
+    if (typeof getApiBase === "function") {
+      const result = getApiBase();
+      if (result) {
+        return String(result).replace(/\/+$/, "");
       }
     }
-    return String(_0x433d4a || "").replace(/\/+$/, "");
+    return String(apiBase || "").replace(/\/+$/, "");
   };
-  let _0x39d423 = null;
-  let _0x1edfd8 = null;
-  let _0x574918 = null;
-  let _0x645960 = 0;
-  let _0x42b703 = false;
-  let _0x21ff7b = null;
+  let local2 = null;
+  let local3 = null;
+  let local4 = null;
+  let num = 0;
+  let flag = false;
+  let local5 = null;
   try {
-    if (_0xd45b22?.delete) {
-      _0xd45b22.delete("runtime_config_enc");
-    } else if (_0xd45b22?.set) {
-      _0xd45b22.set("runtime_config_enc", undefined);
+    if (store?.delete) {
+      store.delete("runtime_config_enc");
+    } else if (store?.set) {
+      store.set("runtime_config_enc", undefined);
     }
-  } catch (_0x33ac5c) {}
-  function _0x4fa760(_0x45382a) {
-    return new Promise(_0xd51645 => setTimeout(_0xd51645, _0x45382a));
+  } catch (error) {}
+  function fn(arg1) {
+    return new Promise(arg12 => setTimeout(arg12, arg1));
   }
-  function _0x5ec726(_0x5558dc) {
-    const _0x3744bd = "radar-runtime-v1|" + _0x5558dc + "|" + _0x208941 + "|" + (_0x197af3 || "");
-    return crypto.createHash("sha256").update(_0x3744bd).digest();
+  function fn2(arg1) {
+    const value = "radar-runtime-v1|" + arg1 + "|" + productSlug + "|" + (jwtSecret || "");
+    return crypto.createHash("sha256").update(value).digest();
   }
-  function _0x589ff4(_0xfb299a) {
-    const _0x394e45 = "radar-runtime-v2|" + _0xfb299a + "|" + _0x208941 + "|" + (_0x3cec48 || "");
-    return crypto.createHash("sha256").update(_0x394e45).digest();
+  function fn3(arg1) {
+    const value = "radar-runtime-v2|" + arg1 + "|" + productSlug + "|" + (productToken || "");
+    return crypto.createHash("sha256").update(value).digest();
   }
-  function _0x2c448a(_0x2a78ca, _0x39f81a) {
-    if (!_0x39f81a?.iv || !_0x39f81a?.tag || !_0x39f81a?.enc) {
+  function fn4(arg1, arg2) {
+    if (!arg2?.iv || !arg2?.tag || !arg2?.enc) {
       throw new Error("incomplete cipher payload");
     }
-    const _0x4d2e44 = Buffer.from(_0x39f81a.iv, "base64");
-    const _0x2c21a1 = Buffer.from(_0x39f81a.tag, "base64");
-    const _0x1b225a = Buffer.from(_0x39f81a.enc, "base64");
-    const _0x12c718 = crypto.createDecipheriv("aes-256-gcm", _0x2a78ca, _0x4d2e44);
-    _0x12c718.setAuthTag(_0x2c21a1);
-    const _0x407f3e = Buffer.concat([_0x12c718.update(_0x1b225a), _0x12c718.final()]);
-    return JSON.parse(_0x407f3e.toString("utf8"));
+    const result = Buffer.from(arg2.iv, "base64");
+    const result2 = Buffer.from(arg2.tag, "base64");
+    const result3 = Buffer.from(arg2.enc, "base64");
+    const result4 = crypto.createDecipheriv("aes-256-gcm", arg1, result);
+    result4.setAuthTag(result2);
+    const result5 = Buffer.concat([result4.update(result3), result4.final()]);
+    return JSON.parse(result5.toString("utf8"));
   }
-  function _0x34c428(_0x181b2e, _0x4cf807) {
-    const _0x4e3f5b = [];
-    const _0x4030c1 = _0x4cf807?.v2 && typeof _0x4cf807.v2 === "object" ? _0x4cf807.v2 : null;
-    if (_0x4030c1?.enc && _0x3cec48) {
+  function fn5(arg1, arg2) {
+    const list = [];
+    const value = arg2?.v2 && typeof arg2.v2 === "object" ? arg2.v2 : null;
+    if (value?.enc && productToken) {
       try {
-        return _0x2c448a(_0x589ff4(_0x181b2e), _0x4030c1);
-      } catch (_0x3fcb06) {
-        _0x4e3f5b.push("v2:" + _0x3fcb06.message);
+        return fn4(fn3(arg1), value);
+      } catch (error) {
+        list.push("v2:" + error.message);
       }
     }
-    if (_0x4cf807?.enc && _0x197af3) {
+    if (arg2?.enc && jwtSecret) {
       try {
-        return _0x2c448a(_0x5ec726(_0x181b2e), _0x4cf807);
-      } catch (_0x450cd0) {
-        _0x4e3f5b.push("v1:" + _0x450cd0.message);
+        return fn4(fn2(arg1), arg2);
+      } catch (error) {
+        list.push("v1:" + error.message);
       }
     }
-    if (_0x4cf807?.enc && Number(_0x4cf807.keyVer) === 2 && _0x3cec48) {
+    if (arg2?.enc && Number(arg2.keyVer) === 2 && productToken) {
       try {
-        return _0x2c448a(_0x589ff4(_0x181b2e), _0x4cf807);
-      } catch (_0x2d08fe) {
-        _0x4e3f5b.push("v2-top:" + _0x2d08fe.message);
+        return fn4(fn3(arg1), arg2);
+      } catch (error) {
+        list.push("v2-top:" + error.message);
       }
     }
-    throw new Error("decrypt failed (" + (_0x4e3f5b.join("; ") || "no key") + ")");
+    throw new Error("decrypt failed (" + (list.join("; ") || "no key") + ")");
   }
-  function _0x30725d(_0xad72eb) {
-    if (!_0xad72eb || typeof _0xad72eb !== "object") {
+  function isConfigComplete(arg1) {
+    if (!arg1 || typeof arg1 !== "object") {
       return false;
     }
-    const _0x3cc149 = _0xad72eb.commentV2 || {};
-    const _0x1f965f = typeof _0x3cc149.commentInput === "string" && _0x3cc149.commentInput.trim() && typeof _0x3cc149.openCommentBtns === "string" && _0x3cc149.openCommentBtns.trim();
-    const _0x31a7ba = Boolean(_0xad72eb.selectors?.["douyin.com"]?.commentPanel) || typeof _0x3cc149.commentPanel === "string" && _0x3cc149.commentPanel.trim();
-    const _0x23a927 = ["emojiPanel", "emojiTrigger", "emojiStickerItems", "emojiItemCandidates", "emojiStickerClickableRoot", "emojiStickerInteractiveRoot", "emojiStickerSourcePattern", "emojiTextSourcePattern", "emojiTextTokenPattern", "emojiComposerPayload", "emojiTabContainerCandidates", "emojiTabTextCandidates", "emojiTabDebugCandidates", "emojiTabPositivePattern", "emojiTabRejectPattern", "emojiPanelRejectSelector", "commentFloatingChrome", "commentComposerChrome", "commentStickerImageSelector", "commentStickerAltPattern", "commentAvatarImagePattern"];
-    const _0x1aa878 = _0x23a927.every(_0x4ddb86 => typeof _0x3cc149[_0x4ddb86] === "string" && _0x3cc149[_0x4ddb86].trim()) && ["emojiStickerMinImageSide", "emojiStickerMinFillRatio", "emojiTabProbeTimeoutMs"].every(_0x3a74a7 => Number.isFinite(Number(_0x3cc149[_0x3a74a7])) && Number(_0x3cc149[_0x3a74a7]) > 0);
-    const _0x54b407 = _0xad72eb.dmV2 || {};
-    const _0x135e6e = ["profileFollowBtn", "profileMessageBtn", "profileName", "dmInput", "dmSendBtn", "dmSendPrimary", "dmExplicitSendSvg", "dmDialog", "dmInputHint", "dmSendSvgCandidates", "dmSendClickableRoot", "dmSendTextCandidates", "conversationItem", "conversationTitle", "conversationPreview", "conversationUnread", "conversationAvatar", "conversationAvatarRoot", "dmBlockActiveRoots", "dmBlockNodeCandidates", "dmBlockGlobalHints", "dmMessageItems", "dmHistoryMessageItems", "dmMessageContainer", "dmFailureCandidates", "dmFailureIconInner", "groupRowHints", "groupAvatarImages", "conversationHeader"];
-    const _0x2fa7e4 = _0x135e6e.every(_0x1a88f2 => typeof _0x54b407[_0x1a88f2] === "string" && _0x54b407[_0x1a88f2].trim()) && ["strangerFolderTexts", "sendExactTexts", "sendSvgHints"].every(_0x4c8b7e => Array.isArray(_0x54b407[_0x4c8b7e]) && _0x54b407[_0x4c8b7e].length > 0);
-    const _0x3631a2 = _0xad72eb.gated || {};
-    const _0x3de73a = ["profileReadyPattern", "actionButtonCandidates", "actionClickableRoot", "profilePositiveContextPattern", "profileRejectContextPattern", "profileRejectOverlaySelector", "profileRejectNoticeSelector"];
-    const _0x4786f6 = _0x3de73a.every(_0x3e85d4 => typeof _0x3631a2[_0x3e85d4] === "string" && _0x3631a2[_0x3e85d4].trim()) && ["profileFollow", "profileMessage", "dmSend"].every(_0x3d45e0 => Array.isArray(_0x3631a2[_0x3d45e0]?.exactTexts) && _0x3631a2[_0x3d45e0].exactTexts.length > 0);
-    return _0x1f965f && _0x31a7ba && _0x1aa878 && _0x2fa7e4 && _0x4786f6;
+    const local = arg1.commentV2 || {};
+    const local2 = typeof local.commentInput === "string" && local.commentInput.trim() && typeof local.openCommentBtns === "string" && local.openCommentBtns.trim();
+    const local3 = Boolean(arg1.selectors?.["douyin.com"]?.commentPanel) || typeof local.commentPanel === "string" && local.commentPanel.trim();
+    const list = ["emojiPanel", "emojiTrigger", "emojiStickerItems", "emojiItemCandidates", "emojiStickerClickableRoot", "emojiStickerInteractiveRoot", "emojiStickerSourcePattern", "emojiTextSourcePattern", "emojiTextTokenPattern", "emojiComposerPayload", "emojiTabContainerCandidates", "emojiTabTextCandidates", "emojiTabDebugCandidates", "emojiTabPositivePattern", "emojiTabRejectPattern", "emojiPanelRejectSelector", "commentFloatingChrome", "commentComposerChrome", "commentStickerImageSelector", "commentStickerAltPattern", "commentAvatarImagePattern"];
+    const local4 = list.every(arg1 => typeof local[arg1] === "string" && local[arg1].trim()) && ["emojiStickerMinImageSide", "emojiStickerMinFillRatio", "emojiTabProbeTimeoutMs"].every(arg1 => Number.isFinite(Number(local[arg1])) && Number(local[arg1]) > 0);
+    const local5 = arg1.dmV2 || {};
+    const list2 = ["profileFollowBtn", "profileMessageBtn", "profileName", "dmInput", "dmSendBtn", "dmSendPrimary", "dmExplicitSendSvg", "dmDialog", "dmInputHint", "dmSendSvgCandidates", "dmSendClickableRoot", "dmSendTextCandidates", "conversationItem", "conversationTitle", "conversationPreview", "conversationUnread", "conversationAvatar", "conversationAvatarRoot", "dmBlockActiveRoots", "dmBlockNodeCandidates", "dmBlockGlobalHints", "dmMessageItems", "dmHistoryMessageItems", "dmMessageContainer", "dmFailureCandidates", "dmFailureIconInner", "groupRowHints", "groupAvatarImages", "conversationHeader"];
+    const local6 = list2.every(arg1 => typeof local5[arg1] === "string" && local5[arg1].trim()) && ["strangerFolderTexts", "sendExactTexts", "sendSvgHints"].every(arg1 => Array.isArray(local5[arg1]) && local5[arg1].length > 0);
+    const local7 = arg1.gated || {};
+    const list3 = ["profileReadyPattern", "actionButtonCandidates", "actionClickableRoot", "profilePositiveContextPattern", "profileRejectContextPattern", "profileRejectOverlaySelector", "profileRejectNoticeSelector"];
+    const local8 = list3.every(arg1 => typeof local7[arg1] === "string" && local7[arg1].trim()) && ["profileFollow", "profileMessage", "dmSend"].every(arg1 => Array.isArray(local7[arg1]?.exactTexts) && local7[arg1].exactTexts.length > 0);
+    return local2 && local3 && local4 && local6 && local8;
   }
-  function _0x2615bd(_0x5ed514, _0x3e3542) {
-    _0x39d423 = _0x5ed514;
-    _0x42b703 = true;
-    if (_0x3e3542) {
-      _0x574918 = _0x3e3542;
+  function fn7(arg1, arg2) {
+    local2 = arg1;
+    flag = true;
+    if (arg2) {
+      local4 = arg2;
     }
-    return _0x39d423;
+    return local2;
   }
-  function _0x3a4bde() {
-    return _0x39d423;
+  function getPlain() {
+    return local2;
   }
-  function _0x10ad40() {
-    return Boolean(_0x42b703 && _0x39d423 && _0x30725d(_0x39d423));
+  function isReady() {
+    return Boolean(flag && local2 && isConfigComplete(local2));
   }
-  function _0x30a402() {
-    const _0x116296 = _0xd45b22.get("auth_token");
+  function getStatus() {
+    const result = store.get("auth_token");
     return {
-      ready: _0x10ad40(),
-      fetching: Boolean(_0x21ff7b),
-      hasToken: Boolean(_0x116296),
-      hasConfig: Boolean(_0x39d423),
-      version: String(_0x39d423?.version || ""),
-      fetchedAt: Number(_0x645960 || 0)
+      ready: isReady(),
+      fetching: Boolean(local5),
+      hasToken: Boolean(result),
+      hasConfig: Boolean(local2),
+      version: String(local2?.version || ""),
+      fetchedAt: Number(num || 0)
     };
   }
-  function _0x22eec6(_0x32761f = {}) {
-    if (typeof _0x3f10d1 !== "function") {
+  function fn11(options = {}) {
+    if (typeof onStatusChange !== "function") {
       return;
     }
     try {
-      _0x3f10d1({
-        ..._0x30a402(),
-        ..._0x32761f
+      onStatusChange({
+        ...getStatus(),
+        ...options
       });
-    } catch (_0x253b41) {
-      console.warn("[RuntimeConfig] onStatusChange failed:", _0x253b41.message);
+    } catch (error) {
+      console.warn("[RuntimeConfig] onStatusChange failed:", error.message);
     }
   }
-  function _0xe6474d(_0x188098) {
-    if (!_0x39d423 || !_0x188098 || _0x188098.isDestroyed?.()) {
+  function pushToWebContents(arg1) {
+    if (!local2 || !arg1 || arg1.isDestroyed?.()) {
       return;
     }
     try {
-      _0x188098.send("apply-runtime-config", _0x39d423);
-    } catch (_0x224060) {
-      console.warn("[RuntimeConfig] push failed:", _0x224060.message);
+      arg1.send("apply-runtime-config", local2);
+    } catch (error) {
+      console.warn("[RuntimeConfig] push failed:", error.message);
     }
   }
-  function _0x3e321a() {
-    if (!_0x39d423 || typeof _0x23613e !== "function") {
+  function broadcast() {
+    if (!local2 || typeof getBroadcastTargets !== "function") {
       return;
     }
-    let _0x1b4951 = [];
+    let list = [];
     try {
-      _0x1b4951 = _0x23613e() || [];
-    } catch (_0x39b735) {
+      list = getBroadcastTargets() || [];
+    } catch (error) {
       return;
     }
-    for (const _0x319d05 of _0x1b4951) {
-      _0xe6474d(_0x319d05);
+    for (const item of list) {
+      pushToWebContents(item);
     }
   }
-  async function _0x17fc26(_0x5140be, {
+  async function fn14(arg1, {
     force = false
   } = {}) {
-    const _0x42320f = {
-      Authorization: "Bearer " + _0x5140be,
-      "X-Device-ID": _0x431f0d(),
-      "X-Product-Slug": _0x208941,
+    const obj = {
+      Authorization: "Bearer " + arg1,
+      "X-Device-ID": getDeviceId(),
+      "X-Product-Slug": productSlug,
       "Cache-Control": "no-cache, no-store",
       Pragma: "no-cache"
     };
-    if (!force && _0x1edfd8 && _0x39d423) {
-      _0x42320f["If-None-Match"] = "\"" + _0x1edfd8 + "\"";
+    if (!force && local3 && local2) {
+      obj["If-None-Match"] = "\"" + local3 + "\"";
     }
-    const _0x31f7f9 = force ? "?refresh=" + Date.now() : "";
-    const _0x106ade = await _0x407342.get(_0x2c7b06() + "/radar/runtime-config" + _0x31f7f9, {
-      headers: _0x42320f,
+    const value = force ? "?refresh=" + Date.now() : "";
+    const result = await axios.get(local() + "/radar/runtime-config" + value, {
+      headers: obj,
       timeout: 8000,
-      validateStatus: _0x40502d => _0x40502d === 200 || _0x40502d === 304
+      validateStatus: arg1 => arg1 === 200 || arg1 === 304
     });
-    if (_0x106ade.status === 304) {
-      if (!_0x39d423 || !_0x30725d(_0x39d423)) {
-        _0x1edfd8 = null;
+    if (result.status === 304) {
+      if (!local2 || !isConfigComplete(local2)) {
+        local3 = null;
         throw new Error("304 but in-memory config missing");
       }
-      _0x645960 = Date.now();
-      _0x2615bd(_0x39d423, _0x5140be);
-      _0x3e321a();
-      return _0x39d423;
+      num = Date.now();
+      fn7(local2, arg1);
+      broadcast();
+      return local2;
     }
-    const _0x1b346e = _0x106ade.data?.data || _0x106ade.data;
-    const _0x4a9a74 = isPlaintextLocalDevelopmentConfigAllowed() && _0x1b346e?.plain && typeof _0x1b346e.plain === "object" ? _0x1b346e.plain : null;
-    if (!_0x4a9a74 && !_0x1b346e?.enc) {
+    const local4 = result.data?.data || result.data;
+    const value2 = isPlaintextLocalDevelopmentConfigAllowed() && local4?.plain && typeof local4.plain === "object" ? local4.plain : null;
+    if (!value2 && !local4?.enc) {
       throw new Error("response missing ciphertext");
     }
-    const _0x2b3e1b = _0x4a9a74 || _0x34c428(_0x5140be, _0x1b346e);
-    if (!_0x30725d(_0x2b3e1b)) {
-      throw new Error("runtime config incomplete version=" + (_0x2b3e1b?.version || "-"));
+    const local5 = value2 || fn5(arg1, local4);
+    if (!isConfigComplete(local5)) {
+      throw new Error("runtime config incomplete version=" + (local5?.version || "-"));
     }
-    _0x1edfd8 = _0x1b346e.etag || _0x2b3e1b?.version || null;
-    _0x645960 = Date.now();
-    _0x2615bd(_0x2b3e1b, _0x5140be);
-    console.log("[RuntimeConfig] 已拉取" + (_0x4a9a74 ? "本地开发明文配置" : "并解密（仅内存）") + " version=" + (_0x39d423?.version || "-") + (" etag=" + (_0x1edfd8 || "-") + " force=" + force));
-    _0x3e321a();
-    return _0x39d423;
+    local3 = local4.etag || local5?.version || null;
+    num = Date.now();
+    fn7(local5, arg1);
+    console.log("[RuntimeConfig] 已拉取" + (value2 ? "本地开发明文配置" : "并解密（仅内存）") + " version=" + (local2?.version || "-") + (" etag=" + (local3 || "-") + " force=" + force));
+    broadcast();
+    return local2;
   }
-  async function _0x2153a9({
+  async function ensureFetched({
     force = false
   } = {}) {
-    if (_0x10ad40() && !force) {
-      return _0x39d423;
+    if (isReady() && !force) {
+      return local2;
     }
-    const _0x20788d = _0xd45b22.get("auth_token");
-    if (!_0x20788d) {
+    const result = store.get("auth_token");
+    if (!result) {
       console.log("[RuntimeConfig] 无 auth_token，跳过拉取（未授权成功）");
-      _0x22eec6({
+      fn11({
         ready: false,
         hasToken: false
       });
       return null;
     }
-    if (_0x21ff7b) {
-      return _0x21ff7b;
+    if (local5) {
+      return local5;
     }
-    _0x22eec6({
+    fn11({
       fetching: true
     });
-    _0x21ff7b = (async () => {
-      let _0x2648f7 = null;
-      for (let _0x23c1a = 1; _0x23c1a <= FETCH_MAX_ATTEMPTS; _0x23c1a++) {
+    local5 = (async () => {
+      let local = null;
+      for (let num = 1; num <= FETCH_MAX_ATTEMPTS; num++) {
         try {
-          const _0xeeccef = await _0x17fc26(_0x20788d, {
+          const result2 = await fn14(result, {
             force: force
           });
-          if (_0xeeccef && _0x30725d(_0xeeccef)) {
-            _0x22eec6({
+          if (result2 && isConfigComplete(result2)) {
+            fn11({
               ready: true,
               fetching: false
             });
-            return _0xeeccef;
+            return result2;
           }
-          _0x2648f7 = new Error("runtime config incomplete");
-          console.warn("[RuntimeConfig] 配置不完整 attempt=" + _0x23c1a + "/" + FETCH_MAX_ATTEMPTS);
-        } catch (_0x4e6654) {
-          _0x2648f7 = _0x4e6654;
-          const _0x1dc3af = _0x4e6654.response?.status;
-          console.warn("[RuntimeConfig] 拉取失败 attempt=" + _0x23c1a + "/" + FETCH_MAX_ATTEMPTS + (" status=" + (_0x1dc3af || "-") + " " + _0x4e6654.message));
+          local = new Error("runtime config incomplete");
+          console.warn("[RuntimeConfig] 配置不完整 attempt=" + num + "/" + FETCH_MAX_ATTEMPTS);
+        } catch (error) {
+          local = error;
+          const local2 = error.response?.status;
+          console.warn("[RuntimeConfig] 拉取失败 attempt=" + num + "/" + FETCH_MAX_ATTEMPTS + (" status=" + (local2 || "-") + " " + error.message));
         }
-        if (_0x23c1a < FETCH_MAX_ATTEMPTS) {
-          const _0x395b92 = FETCH_RETRY_DELAYS_MS[_0x23c1a - 1] || 1600;
-          await _0x4fa760(_0x395b92);
+        if (num < FETCH_MAX_ATTEMPTS) {
+          const local = FETCH_RETRY_DELAYS_MS[num - 1] || 1600;
+          await fn(local);
         }
       }
-      if (_0x39d423 && _0x30725d(_0x39d423)) {
+      if (local2 && isConfigComplete(local2)) {
         console.warn("[RuntimeConfig] 本轮拉取失败，继续使用本进程内存中的完整配置");
-        _0x42b703 = true;
-        _0x22eec6({
+        flag = true;
+        fn11({
           ready: true,
           fetching: false
         });
-        return _0x39d423;
+        return local2;
       }
-      console.warn("[RuntimeConfig] 配置拉取失败，等待下次使用功能时再试" + ("" + (_0x2648f7?.message ? " detail=" + _0x2648f7.message : "")));
-      _0x22eec6({
+      console.warn("[RuntimeConfig] 配置拉取失败，等待下次使用功能时再试" + ("" + (local?.message ? " detail=" + local.message : "")));
+      fn11({
         ready: false,
         fetching: false
       });
       return null;
     })().finally(() => {
-      _0x21ff7b = null;
-      _0x22eec6();
+      local5 = null;
+      fn11();
     });
-    return _0x21ff7b;
+    return local5;
   }
-  function _0x40e483(_0x108c24 = "") {
-    const _0x245166 = _0xd45b22.get("auth_token");
-    if (!_0x245166) {
-      console.log("[RuntimeConfig] skip background fetch (" + _0x108c24 + "): 未授权成功");
+  function ensureFetchedInBackground(text = "") {
+    const result = store.get("auth_token");
+    if (!result) {
+      console.log("[RuntimeConfig] skip background fetch (" + text + "): 未授权成功");
       return;
     }
-    if (_0x10ad40()) {
+    if (isReady()) {
       return;
     }
-    _0x2153a9().catch(_0x2b4706 => {
-      console.warn("[RuntimeConfig] background fetch (" + _0x108c24 + "):", _0x2b4706.message);
+    ensureFetched().catch(arg1 => {
+      console.warn("[RuntimeConfig] background fetch (" + text + "):", arg1.message);
     });
   }
-  function _0xad20de(_0x2ffb33) {
-    if (!_0x2ffb33 || _0x2ffb33.isDestroyed?.()) {
+  function ensureAndPushToWebContents(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
-    _0x2153a9().then(() => _0xe6474d(_0x2ffb33)).catch(_0x5c0fc0 => {
-      console.warn("[RuntimeConfig] ensureAndPush failed:", _0x5c0fc0.message);
+    ensureFetched().then(() => pushToWebContents(arg1)).catch(arg1 => {
+      console.warn("[RuntimeConfig] ensureAndPush failed:", arg1.message);
     });
   }
   return {
-    ensureFetched: _0x2153a9,
-    ensureFetchedInBackground: _0x40e483,
-    ensureAndPushToWebContents: _0xad20de,
-    getPlain: _0x3a4bde,
-    isReady: _0x10ad40,
-    isConfigComplete: _0x30725d,
-    getStatus: _0x30a402,
-    broadcast: _0x3e321a,
-    pushToWebContents: _0xe6474d
+    ensureFetched: ensureFetched,
+    ensureFetchedInBackground: ensureFetchedInBackground,
+    ensureAndPushToWebContents: ensureAndPushToWebContents,
+    getPlain: getPlain,
+    isReady: isReady,
+    isConfigComplete: isConfigComplete,
+    getStatus: getStatus,
+    broadcast: broadcast,
+    pushToWebContents: pushToWebContents
   };
 }
 module.exports = {
