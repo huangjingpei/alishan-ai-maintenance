@@ -7,32 +7,32 @@ const {
 const {
   automationScreencastBridge
 } = require("./automationScreencastBridge");
-function setupAutomationIpcRouter(_0xab7a7 = {}) {
+function setupAutomationIpcRouter(options = {}) {
   const {
-    configureSession: _0x23ab16
-  } = _0xab7a7;
-  function _0x5e81ff(_0x34826b) {
-    if (!_0x34826b) {
+    configureSession: configureSession
+  } = options;
+  function fn(arg1) {
+    if (!arg1) {
       return "";
     }
-    for (const _0x46d216 of automationWindowManager.getActiveViewKeys()) {
-      const _0x1661ce = automationWindowManager.getAccountWindow(_0x46d216);
-      if (_0x1661ce && _0x1661ce.webContents === _0x34826b) {
-        return _0x46d216;
+    for (const item of automationWindowManager.getActiveViewKeys()) {
+      const result = automationWindowManager.getAccountWindow(item);
+      if (result && result.webContents === arg1) {
+        return item;
       }
     }
     return "";
   }
   try {
     ipcMain.removeHandler("ensure-background-automation-layout");
-  } catch (_0x2e2bab) {}
-  ipcMain.handle("ensure-background-automation-layout", async (_0x9d8445, {
-    viewKey: _0x313b91,
+  } catch (error) {}
+  ipcMain.handle("ensure-background-automation-layout", async (arg1, {
+    viewKey: viewKey,
     claimInteractionSlot = false,
     requireComposerSurface = false
   } = {}) => {
-    const _0x5bea8d = _0x313b91 || _0x5e81ff(_0x9d8445.sender);
-    if (!_0x5bea8d) {
+    const local = viewKey || fn(arg1.sender);
+    if (!local) {
       return {
         ok: false,
         attached: false,
@@ -40,15 +40,15 @@ function setupAutomationIpcRouter(_0xab7a7 = {}) {
       };
     }
     try {
-      const _0x2a8ed6 = automationWindowManager.getOrCreateAccountWindow(_0x5bea8d, {}, _0x23ab16);
-      if (!_0x2a8ed6 || _0x2a8ed6.isDestroyed()) {
+      const result = automationWindowManager.getOrCreateAccountWindow(local, {}, configureSession);
+      if (!result || result.isDestroyed()) {
         return {
           ok: false,
           attached: false,
           reason: "window_create_failed"
         };
       }
-      automationWindowManager.focusAccountWindow(_0x5bea8d);
+      automationWindowManager.focusAccountWindow(local);
       return {
         ok: true,
         attached: true,
@@ -59,37 +59,37 @@ function setupAutomationIpcRouter(_0xab7a7 = {}) {
         interactionSlotAcquired: true,
         interactionSlotWaitedMs: 0
       };
-    } catch (_0x4727cd) {
-      console.warn("[IpcRouter] 准备独立后台布局异常 (" + _0x5bea8d + "):", _0x4727cd.message || _0x4727cd);
+    } catch (error) {
+      console.warn("[IpcRouter] 准备独立后台布局异常 (" + local + "):", error.message || error);
       return {
         ok: false,
         attached: false,
-        reason: _0x4727cd.message || "ensure_failed"
+        reason: error.message || "ensure_failed"
       };
     }
   });
-  ipcMain.on("focus-automation-view", (_0x5cd4ae, _0x4ed156) => {
-    let _0x2d82eb = "";
-    if (typeof _0x4ed156 === "string") {
-      _0x2d82eb = _0x4ed156;
-    } else if (_0x4ed156 && typeof _0x4ed156 === "object") {
-      _0x2d82eb = _0x4ed156.viewKey || _0x4ed156.key;
+  ipcMain.on("focus-automation-view", (arg1, arg2) => {
+    let text = "";
+    if (typeof arg2 === "string") {
+      text = arg2;
+    } else if (arg2 && typeof arg2 === "object") {
+      text = arg2.viewKey || arg2.key;
     }
-    if (!_0x2d82eb) {
-      _0x2d82eb = _0x5e81ff(_0x5cd4ae.sender);
+    if (!text) {
+      text = fn(arg1.sender);
     }
-    if (_0x2d82eb) {
-      automationWindowManager.focusAccountWindow(_0x2d82eb);
+    if (text) {
+      automationWindowManager.focusAccountWindow(text);
     }
   });
   try {
     ipcMain.removeHandler("release-background-automation-layout");
-  } catch (_0x5ed62e) {}
-  ipcMain.handle("release-background-automation-layout", async (_0x4cc24e, {
-    viewKey: _0x31a1ac,
+  } catch (error) {}
+  ipcMain.handle("release-background-automation-layout", async (arg1, {
+    viewKey: viewKey,
     preferReacquireMs = 0
   } = {}) => {
-    const _0x353ac2 = _0x31a1ac || _0x5e81ff(_0x4cc24e.sender);
+    const local = viewKey || fn(arg1.sender);
     return {
       ok: true,
       released: true,
@@ -97,35 +97,35 @@ function setupAutomationIpcRouter(_0xab7a7 = {}) {
       interactionSlotReserved: false
     };
   });
-  ipcMain.on("release-automation-view", (_0x4ce53a, _0x41824f) => {
-    let _0x3369ae = "";
-    let _0x51ab16 = "user_closed";
-    if (typeof _0x41824f === "string") {
-      _0x3369ae = _0x41824f;
-    } else if (_0x41824f && typeof _0x41824f === "object") {
-      _0x3369ae = _0x41824f.viewKey || _0x41824f.key;
-      _0x51ab16 = _0x41824f.reason || _0x51ab16;
+  ipcMain.on("release-automation-view", (arg1, arg2) => {
+    let text = "";
+    let text2 = "user_closed";
+    if (typeof arg2 === "string") {
+      text = arg2;
+    } else if (arg2 && typeof arg2 === "object") {
+      text = arg2.viewKey || arg2.key;
+      text2 = arg2.reason || text2;
     }
-    if (_0x3369ae) {
-      const _0x3aa194 = new Set(["user_closed", "close_idle_card", "close_card", "destroy", "account_removed", "dismiss_card"]);
-      if (_0x3aa194.has(_0x51ab16)) {
-        automationScreencastBridge.unbindView(_0x3369ae);
-        automationWindowManager.destroyAccountWindow(_0x3369ae, _0x51ab16);
+    if (text) {
+      const set = new Set(["user_closed", "close_idle_card", "close_card", "destroy", "account_removed", "dismiss_card"]);
+      if (set.has(text2)) {
+        automationScreencastBridge.unbindView(text);
+        automationWindowManager.destroyAccountWindow(text, text2);
       } else {
-        automationScreencastBridge.unbindView(_0x3369ae);
+        automationScreencastBridge.unbindView(text);
       }
     }
   });
-  ipcMain.on("sync-automation-view-bounds", (_0x37d9b8, _0x4193f7) => {
-    if (!_0x4193f7 || typeof _0x4193f7 !== "object") {
+  ipcMain.on("sync-automation-view-bounds", (arg1, arg2) => {
+    if (!arg2 || typeof arg2 !== "object") {
       return;
     }
     const {
-      viewKey: _0x41a7e7,
-      bounds: _0x48a01d
-    } = _0x4193f7;
-    if (_0x41a7e7 && _0x48a01d) {
-      automationScreencastBridge.syncViewBounds(_0x41a7e7, _0x48a01d, _0x37d9b8.sender.getOwnerBrowserWindow());
+      viewKey: viewKey,
+      bounds: bounds
+    } = arg2;
+    if (viewKey && bounds) {
+      automationScreencastBridge.syncViewBounds(viewKey, bounds, arg1.sender.getOwnerBrowserWindow());
     }
   });
 }
