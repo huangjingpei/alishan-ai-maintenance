@@ -6,99 +6,99 @@ const SEEN_PREFIX = "self_warmup_seen_";
 const ROUNDS_PREFIX = "self_warmup_user_rounds_";
 const PENDING_PREFIX = "self_warmup_pending_";
 const BASELINES_PREFIX = "self_warmup_baselines_";
-function getSeenKeys(_0x32d75f, _0x4e1905) {
-  const _0x38cbbe = _0x32d75f.get("" + SEEN_PREFIX + _0x4e1905, []);
-  if (Array.isArray(_0x38cbbe)) {
-    return _0x38cbbe;
+function getSeenKeys(arg1, arg2) {
+  const result = arg1.get("" + SEEN_PREFIX + arg2, []);
+  if (Array.isArray(result)) {
+    return result;
   } else {
     return [];
   }
 }
-function saveSeenKeys(_0xd9fa9f, _0x534275, _0x568697) {
-  _0xd9fa9f.set("" + SEEN_PREFIX + _0x534275, [...new Set(_0x568697.filter(Boolean))].slice(-5000));
+function saveSeenKeys(arg1, arg2, arg3) {
+  arg1.set("" + SEEN_PREFIX + arg2, [...new Set(arg3.filter(Boolean))].slice(-5000));
 }
-function getPendingEvents(_0x2adf6c, _0xd57c55) {
-  const _0xf1c5a = _0x2adf6c.get("" + PENDING_PREFIX + _0xd57c55, []);
-  if (Array.isArray(_0xf1c5a)) {
-    return _0xf1c5a.filter(_0xa812ad => _0xa812ad && typeof _0xa812ad === "object");
+function getPendingEvents(arg1, arg2) {
+  const result = arg1.get("" + PENDING_PREFIX + arg2, []);
+  if (Array.isArray(result)) {
+    return result.filter(arg1 => arg1 && typeof arg1 === "object");
   } else {
     return [];
   }
 }
-function savePendingEvents(_0x7410c5, _0x470701, _0x461345 = []) {
-  const _0x43281f = [];
-  const _0x46c29c = new Set();
-  for (const _0x276cc1 of Array.isArray(_0x461345) ? _0x461345 : []) {
-    if (!_0x276cc1 || typeof _0x276cc1 !== "object") {
+function savePendingEvents(arg1, arg2, list = []) {
+  const list2 = [];
+  const set = new Set();
+  for (const item of Array.isArray(list) ? list : []) {
+    if (!item || typeof item !== "object") {
       continue;
     }
-    const _0x14b6db = buildSelfWarmupEventSeenKey(_0x276cc1);
-    if (!_0x14b6db || _0x46c29c.has(_0x14b6db)) {
+    const result = buildSelfWarmupEventSeenKey(item);
+    if (!result || set.has(result)) {
       continue;
     }
-    _0x46c29c.add(_0x14b6db);
-    _0x43281f.push(_0x276cc1);
+    set.add(result);
+    list2.push(item);
   }
-  _0x7410c5.set("" + PENDING_PREFIX + _0x470701, _0x43281f.slice(-500));
+  arg1.set("" + PENDING_PREFIX + arg2, list2.slice(-500));
 }
-function clearTaskEventCache(_0x288467, _0x134fea) {
-  if (!_0x134fea) {
+function clearTaskEventCache(arg1, arg2) {
+  if (!arg2) {
     return;
   }
-  _0x288467.delete("" + SEEN_PREFIX + _0x134fea);
-  _0x288467.delete("" + ROUNDS_PREFIX + _0x134fea);
-  _0x288467.delete("" + PENDING_PREFIX + _0x134fea);
-  _0x288467.delete("" + BASELINES_PREFIX + _0x134fea);
+  arg1.delete("" + SEEN_PREFIX + arg2);
+  arg1.delete("" + ROUNDS_PREFIX + arg2);
+  arg1.delete("" + PENDING_PREFIX + arg2);
+  arg1.delete("" + BASELINES_PREFIX + arg2);
 }
-function clearUserReplyRounds(_0x3d1497, _0x57febf) {
-  if (!_0x57febf) {
+function clearUserReplyRounds(arg1, arg2) {
+  if (!arg2) {
     return false;
   }
-  _0x3d1497.delete("" + ROUNDS_PREFIX + _0x57febf);
+  arg1.delete("" + ROUNDS_PREFIX + arg2);
   return true;
 }
-function removeEventsFromCache(_0x293587, _0x33594f, _0x107a8e = []) {
-  if (!_0x33594f || !_0x107a8e.length) {
+function removeEventsFromCache(arg1, arg2, list = []) {
+  if (!arg2 || !list.length) {
     return;
   }
-  const _0x4d3bb4 = new Set(_0x107a8e.map(_0x5c8ac2 => buildSelfWarmupEventSeenKey(_0x5c8ac2)));
-  const _0x27b0f4 = getSeenKeys(_0x293587, _0x33594f).filter(_0x484d35 => !_0x4d3bb4.has(_0x484d35));
-  saveSeenKeys(_0x293587, _0x33594f, _0x27b0f4);
-  const _0x40c92a = getPendingEvents(_0x293587, _0x33594f).filter(_0x48dd0d => !_0x4d3bb4.has(buildSelfWarmupEventSeenKey(_0x48dd0d)));
-  savePendingEvents(_0x293587, _0x33594f, _0x40c92a);
-  const _0x1175a1 = "" + ROUNDS_PREFIX + _0x33594f;
-  const _0x13fd04 = {
-    ...(_0x293587.get(_0x1175a1, {}) || {})
+  const set = new Set(list.map(arg1 => buildSelfWarmupEventSeenKey(arg1)));
+  const result = getSeenKeys(arg1, arg2).filter(arg1 => !set.has(arg1));
+  saveSeenKeys(arg1, arg2, result);
+  const result2 = getPendingEvents(arg1, arg2).filter(arg1 => !set.has(buildSelfWarmupEventSeenKey(arg1)));
+  savePendingEvents(arg1, arg2, result2);
+  const value = "" + ROUNDS_PREFIX + arg2;
+  const obj = {
+    ...(arg1.get(value, {}) || {})
   };
-  let _0x1ab025 = false;
-  for (const _0x35d520 of _0x107a8e) {
-    const _0x4ded56 = normalizeName(_0x35d520.nickname);
-    const _0x3989f6 = String(_0x35d520.accountId || "");
-    const _0x23dea9 = _0x3989f6 + "|" + _0x4ded56;
-    const _0x37ce54 = [_0x4ded56, _0x23dea9, _0x23dea9 + "|comment", _0x23dea9 + "|dm"];
+  let flag = false;
+  for (const item of list) {
+    const result = normalizeName(item.nickname);
+    const result2 = String(item.accountId || "");
+    const value = result2 + "|" + result;
+    const list = [result, value, value + "|comment", value + "|dm"];
     try {
       const {
-        extractUserKeyFromUrl: _0x45c897
+        extractUserKeyFromUrl: extractUserKeyFromUrl
       } = require("../shared/leadUserKey");
-      const _0x8eb552 = _0x45c897(_0x35d520.userUrl || "");
-      if (_0x8eb552) {
-        _0x37ce54.push(_0x3989f6 + "|uid:" + _0x8eb552 + "|comment", _0x3989f6 + "|uid:" + _0x8eb552 + "|dm");
+      const result = extractUserKeyFromUrl(item.userUrl || "");
+      if (result) {
+        list.push(result2 + "|uid:" + result + "|comment", result2 + "|uid:" + result + "|dm");
       }
-    } catch (_0x497b3c) {}
-    for (const _0x255906 of _0x37ce54) {
-      if (_0x255906 && Object.prototype.hasOwnProperty.call(_0x13fd04, _0x255906)) {
-        delete _0x13fd04[_0x255906];
-        _0x1ab025 = true;
+    } catch (error) {}
+    for (const item of list) {
+      if (item && Object.prototype.hasOwnProperty.call(obj, item)) {
+        delete obj[item];
+        flag = true;
       }
     }
   }
-  if (_0x1ab025) {
-    _0x293587.set(_0x1175a1, _0x13fd04);
+  if (flag) {
+    arg1.set(value, obj);
   }
 }
-function clearTaskEventCacheForTasks(_0x78bed6, _0x3f359b = []) {
-  const _0xd28686 = Array.isArray(_0x3f359b) ? _0x3f359b : [_0x3f359b];
-  _0xd28686.forEach(_0x36634d => clearTaskEventCache(_0x78bed6, _0x36634d));
+function clearTaskEventCacheForTasks(arg1, list = []) {
+  const value = Array.isArray(list) ? list : [list];
+  value.forEach(arg12 => clearTaskEventCache(arg1, arg12));
 }
 module.exports = {
   getSeenKeys: getSeenKeys,
