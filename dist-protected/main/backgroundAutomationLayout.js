@@ -26,798 +26,798 @@ const MAIN_WINDOW_COMPOSITOR_NUDGE_COOLDOWN_MS = 500;
 const AUTOMATION_VIEWPORT_REFRESH_MIN_INTERVAL_MS = 50;
 const VISIBLE_AUTOMATION_REPAINT_DELAYS_MS = [50, 250, 700];
 const BOUNDS_SYNC_MIN_INTERVAL_MS = 40;
-function createBackgroundAutomationLayout(_0x39eb05) {
+function createBackgroundAutomationLayout(arg1) {
   const {
-    getMainWindow: _0x577aff,
-    getPlatformViews: _0x1beec,
-    getInteractionViewsMap: _0x4ae3ed,
-    getInteractionLocksMap: _0x1c23ef,
-    getViewSettingsMap: _0x15482d,
-    getBoundsStateByViewKey: _0x2f9f4c,
-    getVisibleAutomationRepaintTimers: _0x11a774,
-    getBackgroundDetachedViewKeys: _0x2f80d7,
-    getBackgroundLayoutHoldViewKeys: _0x207c8c,
-    getBackgroundOriginalZoomFactors: _0x25bc09,
-    getBackgroundInteractionWaiters: _0x87d265,
-    getPendingAutomationWebContentsClose: _0x32ee21,
-    getAutomationViewsVisible: _0x44bb32,
-    setAutomationViewsVisible: _0x3b0ff6,
-    getVisibleAutomationViewKeys: _0x23460b,
-    setVisibleAutomationViewKeys: _0x2ec272,
-    getMainWindowBackgrounded: _0xa80493,
-    setMainWindowBackgrounded: _0x24fbd1,
-    getMainWindowBackgroundReason: _0x4ef0c6,
-    setMainWindowBackgroundReason: _0x32f1a8,
-    getBackgroundAutomationHostWindow: _0x1750bc,
-    setBackgroundAutomationHostWindow: _0x15d7a9,
-    getBackgroundAutomationHostDestroyTimer: _0xc58d82,
-    setBackgroundAutomationHostDestroyTimer: _0x5c7f1c,
-    getBackgroundInteractionSlot: _0x22db08,
-    setBackgroundInteractionSlot: _0x5cb6ec,
-    getBackgroundHostInternalActivateUntil: _0x2dd610,
-    setBackgroundHostInternalActivateUntil: _0x306a39,
-    getBackgroundHostInternalActivatePending: _0x8a6c1a,
-    setBackgroundHostInternalActivatePending: _0x123e53,
-    getBackgroundHostRelatedEventUntil: _0x3e6b29,
-    setBackgroundHostRelatedEventUntil: _0x166d2f,
-    getAutomationWindow: _0xc6e123,
-    setAutomationWindow: _0x553bd1,
-    getActivePlatform: _0x29c090,
-    isBatchViewRuntimeActive: _0x5f0b30,
-    isMonitorTaskViewRunning: _0x74d7e2,
-    applyPackagedWindowMenuPolicy: _0x2fbb55,
-    appendDiagnosticsLog: _0x1e7df3,
-    requestAutomationLayoutRefresh: _0x8c2ce,
-    recoverMainAutomationView: _0x48c31a,
-    store: _0x313703,
-    backgroundLivePreviewAutoCloseMs: _0x502fd8
-  } = _0x39eb05;
-  const _0x3af5bb = new Map();
-  const _0x5c5640 = new Map();
-  function _0x45ba52(_0x204b1e) {
-    const _0x556acb = Number(_0x3af5bb.get(_0x204b1e) || 0) + 1;
-    _0x3af5bb.set(_0x204b1e, _0x556acb);
-    return _0x556acb;
+    getMainWindow: getMainWindow,
+    getPlatformViews: getPlatformViews,
+    getInteractionViewsMap: getInteractionViewsMap,
+    getInteractionLocksMap: getInteractionLocksMap,
+    getViewSettingsMap: getViewSettingsMap,
+    getBoundsStateByViewKey: getBoundsStateByViewKey,
+    getVisibleAutomationRepaintTimers: getVisibleAutomationRepaintTimers,
+    getBackgroundDetachedViewKeys: getBackgroundDetachedViewKeys,
+    getBackgroundLayoutHoldViewKeys: getBackgroundLayoutHoldViewKeys,
+    getBackgroundOriginalZoomFactors: getBackgroundOriginalZoomFactors,
+    getBackgroundInteractionWaiters: getBackgroundInteractionWaiters,
+    getPendingAutomationWebContentsClose: getPendingAutomationWebContentsClose,
+    getAutomationViewsVisible: getAutomationViewsVisible,
+    setAutomationViewsVisible: setAutomationViewsVisible,
+    getVisibleAutomationViewKeys: getVisibleAutomationViewKeys,
+    setVisibleAutomationViewKeys: setVisibleAutomationViewKeys,
+    getMainWindowBackgrounded: getMainWindowBackgrounded,
+    setMainWindowBackgrounded: setMainWindowBackgrounded,
+    getMainWindowBackgroundReason: getMainWindowBackgroundReason,
+    setMainWindowBackgroundReason: setMainWindowBackgroundReason,
+    getBackgroundAutomationHostWindow: getBackgroundAutomationHostWindow,
+    setBackgroundAutomationHostWindow: setBackgroundAutomationHostWindow,
+    getBackgroundAutomationHostDestroyTimer: getBackgroundAutomationHostDestroyTimer,
+    setBackgroundAutomationHostDestroyTimer: setBackgroundAutomationHostDestroyTimer,
+    getBackgroundInteractionSlot: getBackgroundInteractionSlot,
+    setBackgroundInteractionSlot: setBackgroundInteractionSlot,
+    getBackgroundHostInternalActivateUntil: getBackgroundHostInternalActivateUntil,
+    setBackgroundHostInternalActivateUntil: setBackgroundHostInternalActivateUntil,
+    getBackgroundHostInternalActivatePending: getBackgroundHostInternalActivatePending,
+    setBackgroundHostInternalActivatePending: setBackgroundHostInternalActivatePending,
+    getBackgroundHostRelatedEventUntil: getBackgroundHostRelatedEventUntil,
+    setBackgroundHostRelatedEventUntil: setBackgroundHostRelatedEventUntil,
+    getAutomationWindow: getAutomationWindow,
+    setAutomationWindow: setAutomationWindow,
+    getActivePlatform: getActivePlatform,
+    isBatchViewRuntimeActive: isBatchViewRuntimeActive,
+    isMonitorTaskViewRunning: isMonitorTaskViewRunning,
+    applyPackagedWindowMenuPolicy: applyPackagedWindowMenuPolicy,
+    appendDiagnosticsLog: appendDiagnosticsLog,
+    requestAutomationLayoutRefresh: requestAutomationLayoutRefresh,
+    recoverMainAutomationView: recoverMainAutomationView,
+    store: store,
+    backgroundLivePreviewAutoCloseMs: backgroundLivePreviewAutoCloseMs
+  } = arg1;
+  const map = new Map();
+  const map2 = new Map();
+  function fn(arg1) {
+    const value = Number(map.get(arg1) || 0) + 1;
+    map.set(arg1, value);
+    return value;
   }
-  const _0x340b3b = new WeakMap();
-  let _0x4bdadd = 0;
-  function _0x3c586b(_0xabdbb3, _0x963ae9 = 1) {
-    const _0x2dbff3 = Number(_0xabdbb3);
-    if (!Number.isFinite(_0x2dbff3) || _0x2dbff3 <= 0) {
-      return _0x963ae9;
+  const weakMap = new WeakMap();
+  let num = 0;
+  function fn2(arg1, num = 1) {
+    const result = Number(arg1);
+    if (!Number.isFinite(result) || result <= 0) {
+      return num;
     }
-    return Math.max(MIN_INTERACTIVE_AUTOMATION_ZOOM_FACTOR, _0x2dbff3);
+    return Math.max(MIN_INTERACTIVE_AUTOMATION_ZOOM_FACTOR, result);
   }
-  function _0x3659a6(_0x2d154a) {
-    const _0x182eca = _0x4ae3ed();
-    for (const [_0x432846, _0x39d7b8] of _0x182eca.entries()) {
-      if (_0x39d7b8.webContents === _0x2d154a) {
-        return _0x432846;
+  function inferInteractionViewKey(arg1) {
+    const result = getInteractionViewsMap();
+    for (const [local, local2] of result.entries()) {
+      if (local2.webContents === arg1) {
+        return local;
       }
     }
     return null;
   }
-  function _0x1ea899(_0x50af9d) {
-    const _0x2aa41d = _0x1beec();
-    for (const [_0x1b6b36, _0x28e536] of _0x2aa41d.entries()) {
-      if (_0x28e536.webContents === _0x50af9d) {
-        return _0x1b6b36;
+  function inferAutomationViewKey(arg1) {
+    const result = getPlatformViews();
+    for (const [local, local2] of result.entries()) {
+      if (local2.webContents === arg1) {
+        return local;
       }
     }
-    return _0x3659a6(_0x50af9d);
+    return inferInteractionViewKey(arg1);
   }
-  function _0x41d29e() {
-    const _0x160b35 = _0x577aff();
-    if (!_0x160b35 || _0x160b35.isDestroyed() || _0x160b35.webContents.isDestroyed()) {
+  function applyMainWindowRuntimePerformancePolicy() {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed() || result.webContents.isDestroyed()) {
       return;
     }
     try {
-      _0x160b35.webContents.setBackgroundThrottling(false);
-    } catch (_0x39a4df) {}
+      result.webContents.setBackgroundThrottling(false);
+    } catch (error) {}
     try {
-      _0x160b35.webContents.setFrameRate(_0xa80493() ? 30 : 60);
-    } catch (_0x7fc7cd) {}
+      result.webContents.setFrameRate(getMainWindowBackgrounded() ? 30 : 60);
+    } catch (error) {}
     try {
-      _0x160b35.webContents.setImageAnimationPolicy(_0xa80493() ? "noAnimation" : "animate");
-    } catch (_0x5069c7) {}
+      result.webContents.setImageAnimationPolicy(getMainWindowBackgrounded() ? "noAnimation" : "animate");
+    } catch (error) {}
   }
-  function _0x47f22d(_0x56d52a = "") {
-    const _0x8a0a66 = _0x577aff();
-    if (!_0x8a0a66 || _0x8a0a66.isDestroyed() || _0x8a0a66.webContents.isDestroyed()) {
+  function wakeMainWindowUiSurface(text = "") {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed() || result.webContents.isDestroyed()) {
       return;
     }
-    if (!_0x8a0a66.isVisible() || _0x8a0a66.isMinimized()) {
+    if (!result.isVisible() || result.isMinimized()) {
       return;
     }
     try {
-      _0x8a0a66.webContents.invalidate();
-    } catch (_0x10ad05) {}
-    _0x178fdf(_0x56d52a || "ui-wake");
-    [120, 400].forEach(_0x1f0603 => {
-      const _0x2e9620 = setTimeout(() => {
-        const _0x7de4fb = _0x577aff();
-        if (!_0x7de4fb || _0x7de4fb.isDestroyed() || _0x7de4fb.webContents.isDestroyed()) {
+      result.webContents.invalidate();
+    } catch (error) {}
+    nudgeMainWindowCompositor(text || "ui-wake");
+    [120, 400].forEach(arg1 => {
+      const result = setTimeout(() => {
+        const result = getMainWindow();
+        if (!result || result.isDestroyed() || result.webContents.isDestroyed()) {
           return;
         }
-        if (!_0x7de4fb.isVisible() || _0x7de4fb.isMinimized()) {
+        if (!result.isVisible() || result.isMinimized()) {
           return;
         }
         try {
-          _0x7de4fb.webContents.invalidate();
-        } catch (_0x9744a9) {}
-      }, _0x1f0603);
-      if (typeof _0x2e9620.unref === "function") {
-        _0x2e9620.unref();
+          result.webContents.invalidate();
+        } catch (error) {}
+      }, arg1);
+      if (typeof result.unref === "function") {
+        result.unref();
       }
     });
   }
-  function _0x183795(_0x15d2f3 = "") {
-    const _0xfdc541 = _0x577aff();
-    if (!_0xfdc541 || _0xfdc541.isDestroyed() || _0xfdc541.webContents.isDestroyed()) {
+  function restoreMainWindowUiFocus(text = "") {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed() || result.webContents.isDestroyed()) {
       return;
     }
-    if (!_0xfdc541.isVisible() || _0xfdc541.isMinimized()) {
+    if (!result.isVisible() || result.isMinimized()) {
       return;
     }
     try {
-      if (!_0xfdc541.isFocused()) {
-        _0xfdc541.focus();
+      if (!result.isFocused()) {
+        result.focus();
       }
-    } catch (_0x45c873) {}
+    } catch (error) {}
     try {
-      _0xfdc541.webContents.focus();
-    } catch (_0x8c1604) {}
-    _0x47f22d(_0x15d2f3 || "restore-ui-focus");
+      result.webContents.focus();
+    } catch (error) {}
+    wakeMainWindowUiSurface(text || "restore-ui-focus");
   }
-  function _0x42c39b(_0x37116d, {
+  function focusAutomationWebContentsSafely(arg1, {
     force = false
   } = {}) {
-    if (!_0x37116d || _0x37116d.isDestroyed?.()) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return false;
     }
-    const _0x4bad29 = _0x14baa6();
-    const _0xb3596f = _0x4bad29.some(_0x3f8c28 => _0x3f8c28?.webContents === _0x37116d);
-    if (_0xb3596f) {
+    const result = getBackgroundAutomationHostViews();
+    const result2 = result.some(arg12 => arg12?.webContents === arg1);
+    if (result2) {
       try {
-        _0x37116d.executeJavaScript("(() => { try { document.body && document.body.focus(); } catch (_) {} return true; })()", true).catch(() => {});
-      } catch (_0x2cea17) {}
-      const _0x1330a3 = _0x1750bc();
-      if (_0x1330a3 && !_0x1330a3.isDestroyed()) {
-        _0x30ec8d(_0x1330a3, "safe-focus-skip");
+        arg1.executeJavaScript("(() => { try { document.body && document.body.focus(); } catch (_) {} return true; })()", true).catch(() => {});
+      } catch (error) {}
+      const result = getBackgroundAutomationHostWindow();
+      if (result && !result.isDestroyed()) {
+        parkBackgroundAutomationHostWindow(result, "safe-focus-skip");
         try {
-          if (_0x1330a3.isFocused()) {
-            _0x1330a3.blur();
+          if (result.isFocused()) {
+            result.blur();
           }
-        } catch (_0x104e92) {}
-        _0x240208(_0x1330a3, "safe-focus-skip");
+        } catch (error) {}
+        scheduleBackgroundAutomationHostRepark(result, "safe-focus-skip");
       }
-      const _0x3db1e0 = _0x577aff();
-      if (_0x3db1e0 && !_0x3db1e0.isDestroyed() && _0x3db1e0.isVisible() && !_0x3db1e0.isMinimized()) {
-        setImmediate(() => _0x183795("after-host-safe-focus"));
+      const result2 = getMainWindow();
+      if (result2 && !result2.isDestroyed() && result2.isVisible() && !result2.isMinimized()) {
+        setImmediate(() => restoreMainWindowUiFocus("after-host-safe-focus"));
       }
       return false;
     }
-    const _0x241f73 = !_0x44bb32();
-    if (_0x241f73 && !force) {
+    const flag = !getAutomationViewsVisible();
+    if (flag && !force) {
       try {
-        _0x37116d.executeJavaScript("(() => { try { document.body && document.body.focus(); } catch (_) {} return true; })()", true).catch(() => {});
-      } catch (_0x5bd6eb) {}
-      setImmediate(() => _0x183795("after-offscreen-safe-focus"));
+        arg1.executeJavaScript("(() => { try { document.body && document.body.focus(); } catch (_) {} return true; })()", true).catch(() => {});
+      } catch (error) {}
+      setImmediate(() => restoreMainWindowUiFocus("after-offscreen-safe-focus"));
       return false;
     }
-    const _0x1ff134 = _0x577aff();
-    if (!force && _0x1ff134 && !_0x1ff134.isDestroyed() && !_0x1ff134.isFocused()) {
+    const result3 = getMainWindow();
+    if (!force && result3 && !result3.isDestroyed() && !result3.isFocused()) {
       return false;
     }
     try {
-      _0x37116d.focus();
+      arg1.focus();
       return true;
-    } catch (_0x108d0f) {
+    } catch (error) {
       return false;
     }
   }
-  function _0x672d4f(_0x28b32a = "foreground") {
-    const _0x3237f8 = _0x577aff();
-    if (!_0x44bb32() || !_0x3237f8 || _0x3237f8.isDestroyed() || !_0x3237f8.isVisible() || _0x3237f8.isMinimized()) {
+  function restoreRequestedAutomationViewsToMainWindow(text = "foreground") {
+    const result = getMainWindow();
+    if (!getAutomationViewsVisible() || !result || result.isDestroyed() || !result.isVisible() || result.isMinimized()) {
       return 0;
     }
-    const _0x1b2f26 = _0x1beec();
-    const _0x3d22ab = _0x4ae3ed();
-    const _0x2642f1 = _0x1c23ef();
-    const _0x4bcf16 = _0x2f9f4c();
-    const _0x1e1e9a = _0x207c8c();
-    const _0x1f7d16 = _0x23460b();
-    let _0x24c96c = 0;
-    for (const [_0x482ed6, _0x5ae2ac] of _0x1b2f26.entries()) {
-      if (_0x1f7d16 && !_0x1f7d16.has(_0x482ed6)) {
+    const result2 = getPlatformViews();
+    const result3 = getInteractionViewsMap();
+    const result4 = getInteractionLocksMap();
+    const result5 = getBoundsStateByViewKey();
+    const result6 = getBackgroundLayoutHoldViewKeys();
+    const result7 = getVisibleAutomationViewKeys();
+    let num = 0;
+    for (const [local, local2] of result2.entries()) {
+      if (result7 && !result7.has(local)) {
         continue;
       }
-      if (_0x447cc2(_0x482ed6)) {
-        if (_0x1d881e(_0x482ed6)) {
-          const _0x309064 = _0x258d66(_0x482ed6, "foreground-locked-restore:" + _0x28b32a);
-          if (_0x309064.restored) {
-            _0x24c96c += 1;
+      if (isAutomationExecutionViewportLocked(local)) {
+        if (shouldAttachAutomationView(local)) {
+          const result = restoreVisibleInteractionStack(local, "foreground-locked-restore:" + text);
+          if (result.restored) {
+            num += 1;
           }
           continue;
         }
-        const _0x584a21 = _0x2642f1.has(_0x482ed6) ? _0x3d22ab.get(_0x482ed6) : null;
-        if (_0x584a21 && !_0x584a21.webContents?.isDestroyed?.()) {
-          _0x13dd57(_0x482ed6, _0x584a21, {
+        const value = result4.has(local) ? result3.get(local) : null;
+        if (value && !value.webContents?.isDestroyed?.()) {
+          attachAutomationViewToBackgroundHost(local, value, {
             active: true
           });
-          _0x1e1e9a.add(_0x482ed6);
-        } else if (_0x5ae2ac && !_0x5ae2ac.webContents?.isDestroyed?.()) {
-          _0x13dd57(_0x482ed6, _0x5ae2ac, {
+          result6.add(local);
+        } else if (local2 && !local2.webContents?.isDestroyed?.()) {
+          attachAutomationViewToBackgroundHost(local, local2, {
             active: true
           });
-          _0x1e1e9a.add(_0x482ed6);
+          result6.add(local);
         }
-        if (_0x584a21 && _0x3f44d5(_0x482ed6, _0x5ae2ac)) {
-          _0x24c96c += 1;
+        if (value && restoreAutomationPreviewAfterExecution(local, local2)) {
+          num += 1;
         }
         continue;
       }
-      const _0x13f1ff = _0x2642f1.get(_0x482ed6);
-      const _0x112b84 = _0x13f1ff ? _0x3d22ab.get(_0x482ed6) : null;
-      const _0xda3a2d = _0x112b84 || _0x5ae2ac;
-      if (!_0xda3a2d?.webContents || _0xda3a2d.webContents.isDestroyed()) {
+      const result2 = result4.get(local);
+      const value = result2 ? result3.get(local) : null;
+      const local3 = value || local2;
+      if (!local3?.webContents || local3.webContents.isDestroyed()) {
         continue;
       }
-      const _0x146fe4 = _0x4bcf16.get(_0x482ed6);
-      const _0x14c215 = _0x13f1ff?.bounds || _0x146fe4?.bounds;
-      if (!_0x133324(_0x14c215)) {
+      const result8 = result5.get(local);
+      const local4 = result2?.bounds || result8?.bounds;
+      if (!isValidAutomationBounds(local4)) {
         continue;
       }
-      _0x2758e1(_0xda3a2d);
-      _0x2b41c7(_0xda3a2d.webContents);
+      removeAutomationViewFromBackgroundHost(local3);
+      restoreForegroundAutomationRendering(local3.webContents);
       try {
-        _0xda3a2d.setBounds({
-          ..._0x14c215
+        local3.setBounds({
+          ...local4
         });
-      } catch (_0x5bcf1c) {}
-      const _0x5e089f = Number(_0x13f1ff?.zoomFactor || _0x146fe4?.zoomFactor || 0);
-      if (_0x5e089f > 0) {
+      } catch (error) {}
+      const result9 = Number(result2?.zoomFactor || result8?.zoomFactor || 0);
+      if (result9 > 0) {
         try {
-          _0xda3a2d.webContents.setZoomFactor(_0x5e089f);
-        } catch (_0x1828dd) {}
+          local3.webContents.setZoomFactor(result9);
+        } catch (error) {}
       }
-      if (!_0x3237f8.getBrowserViews().includes(_0xda3a2d)) {
-        _0x3237f8.addBrowserView(_0xda3a2d);
+      if (!result.getBrowserViews().includes(local3)) {
+        result.addBrowserView(local3);
       }
-      _0x4dbb08(_0xda3a2d, {
-        context: "foreground-restore:" + _0x482ed6
+      safeSetTopBrowserView(local3, {
+        context: "foreground-restore:" + local
       });
-      if (Number(_0x5e089f) > 0 && Number(_0x5e089f) < 0.98) {
-        _0x7cfdcc(_0xda3a2d.webContents);
+      if (Number(result9) > 0 && Number(result9) < 0.98) {
+        schedulePreviewViewportResizeAfterZoom(local3.webContents);
       } else {
-        _0x3ab56c(_0xda3a2d.webContents, {
+        notifyAutomationViewportChanged(local3.webContents, {
           force: true
         });
       }
-      _0x3cfc9d(_0xda3a2d.webContents, _0xda3a2d);
-      if (!_0x112b84) {
-        _0x581888(_0x482ed6);
+      nudgeAutomationViewRepaint(local3.webContents, local3);
+      if (!value) {
+        clearBackgroundAutomationState(local);
       }
-      _0x24c96c += 1;
+      num += 1;
     }
-    _0x2a2d51();
-    if (_0x24c96c > 0) {
-      console.log("[Main] 前台实况视图已主动恢复: " + _0x24c96c + " 个 (" + _0x28b32a + ")");
+    maybeDestroyBackgroundAutomationHostWindow();
+    if (num > 0) {
+      console.log("[Main] 前台实况视图已主动恢复: " + num + " 个 (" + text + ")");
     }
-    return _0x24c96c;
+    return num;
   }
-  function _0x2b0142(_0x1a91e9 = "background-timeout") {
-    if (!_0x44bb32()) {
+  function closeAutomationLivePreviewForBackground(text = "background-timeout") {
+    if (!getAutomationViewsVisible()) {
       return false;
     }
-    _0x3b0ff6(false);
-    _0x2ec272(null);
-    const _0x70f773 = _0x11a774();
-    _0x70f773.forEach(_0x4185a3 => clearTimeout(_0x4185a3));
-    _0x70f773.clear();
-    const _0x407e59 = _0x1beec();
-    const _0x54ead9 = _0x4ae3ed();
-    _0x407e59.forEach((_0x47ffea, _0x2b655c) => {
-      _0x3c5ea4(_0x2b655c, _0x47ffea);
-      const _0x378aec = _0x54ead9.get(_0x2b655c);
-      if (_0x378aec) {
-        _0x3c5ea4(_0x2b655c, _0x378aec);
+    setAutomationViewsVisible(false);
+    setVisibleAutomationViewKeys(null);
+    const result = getVisibleAutomationRepaintTimers();
+    result.forEach(arg1 => clearTimeout(arg1));
+    result.clear();
+    const result2 = getPlatformViews();
+    const result3 = getInteractionViewsMap();
+    result2.forEach((arg1, arg2) => {
+      detachAutomationViewFromWindow(arg2, arg1);
+      const result = result3.get(arg2);
+      if (result) {
+        detachAutomationViewFromWindow(arg2, result);
       }
     });
-    _0x2a2d51();
-    const _0x214c18 = {
-      reason: _0x1a91e9,
-      delayMs: _0x502fd8
+    maybeDestroyBackgroundAutomationHostWindow();
+    const obj = {
+      reason: text,
+      delayMs: backgroundLivePreviewAutoCloseMs
     };
-    _0x1e7df3("PERF", "live preview auto closed in background", _0x214c18);
-    const _0x5767a2 = _0x577aff();
-    if (_0x5767a2 && !_0x5767a2.isDestroyed() && !_0x5767a2.webContents.isDestroyed()) {
+    appendDiagnosticsLog("PERF", "live preview auto closed in background", obj);
+    const result4 = getMainWindow();
+    if (result4 && !result4.isDestroyed() && !result4.webContents.isDestroyed()) {
       try {
-        _0x5767a2.webContents.send("automation-live-preview-auto-closed", _0x214c18);
-      } catch (_0x4a4b2a) {}
+        result4.webContents.send("automation-live-preview-auto-closed", obj);
+      } catch (error) {}
     }
-    console.log("[Perf] 软件后台超过 " + _0x502fd8 / 1000 + "s，已自动关闭实况画面 (" + _0x1a91e9 + ")");
+    console.log("[Perf] 软件后台超过 " + backgroundLivePreviewAutoCloseMs / 1000 + "s，已自动关闭实况画面 (" + text + ")");
     return true;
   }
-  function _0x39a114(_0x2e7d34, _0x503c6c = "") {
-    const _0x4e236a = _0xa80493();
-    _0x24fbd1(!!_0x2e7d34);
-    if (_0xa80493()) {
-      _0x32f1a8(_0x503c6c || _0x4ef0c6() || "unknown");
+  function setMainWindowBackgroundState(arg1, text = "") {
+    const result = getMainWindowBackgrounded();
+    setMainWindowBackgrounded(!!arg1);
+    if (getMainWindowBackgrounded()) {
+      setMainWindowBackgroundReason(text || getMainWindowBackgroundReason() || "unknown");
     } else {
-      _0x32f1a8("");
+      setMainWindowBackgroundReason("");
     }
-    const _0x32e711 = _0x577aff();
-    if (!_0x32e711 || _0x32e711.isDestroyed() || _0x32e711.webContents.isDestroyed()) {
+    const result2 = getMainWindow();
+    if (!result2 || result2.isDestroyed() || result2.webContents.isDestroyed()) {
       return;
     }
-    _0x41d29e();
-    if (_0xa80493() === _0x4e236a) {
+    applyMainWindowRuntimePerformancePolicy();
+    if (getMainWindowBackgrounded() === result) {
       return;
     }
-    const _0x1170d7 = _0x11a774();
-    const _0x6b1da4 = _0x1beec();
-    const _0x398e49 = _0x4ae3ed();
-    if (_0xa80493()) {
-      _0x1170d7.forEach(_0x347e41 => clearTimeout(_0x347e41));
-      _0x1170d7.clear();
-      _0x6b1da4.forEach((_0x4ed46a, _0x51fa27) => {
-        _0x3c5ea4(_0x51fa27, _0x4ed46a);
-        const _0x2b7c18 = _0x398e49.get(_0x51fa27);
-        if (_0x2b7c18) {
-          _0x3c5ea4(_0x51fa27, _0x2b7c18);
+    const result3 = getVisibleAutomationRepaintTimers();
+    const result4 = getPlatformViews();
+    const result5 = getInteractionViewsMap();
+    if (getMainWindowBackgrounded()) {
+      result3.forEach(arg1 => clearTimeout(arg1));
+      result3.clear();
+      result4.forEach((arg1, arg2) => {
+        detachAutomationViewFromWindow(arg2, arg1);
+        const result = result5.get(arg2);
+        if (result) {
+          detachAutomationViewFromWindow(arg2, result);
         }
       });
-      console.log("[Main] 主窗口进入后台模式 (" + (_0x503c6c || "unknown") + ")，任务视图已迁移至低功耗宿主");
+      console.log("[Main] 主窗口进入后台模式 (" + (text || "unknown") + ")，任务视图已迁移至低功耗宿主");
       return;
     }
-    if (!_0x44bb32()) {
-      const _0x500961 = _0x1c23ef();
-      const _0xa99115 = _0x2f80d7();
-      _0x6b1da4.forEach((_0x1f1e36, _0x5ab64c) => {
-        if (!_0x516db6(_0x5ab64c)) {
+    if (!getAutomationViewsVisible()) {
+      const result = getInteractionLocksMap();
+      const result2 = getBackgroundDetachedViewKeys();
+      result4.forEach((arg1, arg2) => {
+        if (!shouldKeepAutomationViewAttached(arg2)) {
           return;
         }
-        const _0x263aea = _0x500961.has(_0x5ab64c) ? _0x398e49.get(_0x5ab64c) || _0x1f1e36 : _0x1f1e36;
-        _0xa99115.add(_0x5ab64c);
-        _0x3d800c(_0x5ab64c, _0x263aea);
+        const value = result.has(arg2) ? result5.get(arg2) || arg1 : arg1;
+        result2.add(arg2);
+        parkAutomationViewInMainWindow(arg2, value);
       });
     }
-    _0x672d4f(_0x503c6c || "foreground");
-    _0x8c2ce();
-    _0x28debd("main-window-" + (_0x503c6c || "foreground"));
-    const _0x413ffb = setTimeout(() => {
-      _0x672d4f((_0x503c6c || "foreground") + "-confirm");
-      _0x40e977("");
+    restoreRequestedAutomationViewsToMainWindow(text || "foreground");
+    requestAutomationLayoutRefresh();
+    scheduleVisibleAutomationViewsRepaint("main-window-" + (text || "foreground"));
+    const result6 = setTimeout(() => {
+      restoreRequestedAutomationViewsToMainWindow((text || "foreground") + "-confirm");
+      wakeForegroundAutomationSurfaces("");
     }, 120);
-    if (typeof _0x413ffb.unref === "function") {
-      _0x413ffb.unref();
+    if (typeof result6.unref === "function") {
+      result6.unref();
     }
   }
-  function _0x1d881e(_0x118d83) {
-    const _0x408962 = _0x577aff();
-    if (_0xa80493() || !_0x408962 || _0x408962.isDestroyed()) {
+  function shouldAttachAutomationView(arg1) {
+    const result = getMainWindow();
+    if (getMainWindowBackgrounded() || !result || result.isDestroyed()) {
       return false;
     }
-    if (!_0x408962.isVisible() || _0x408962.isMinimized()) {
+    if (!result.isVisible() || result.isMinimized()) {
       return false;
     }
-    const _0x5b187 = _0x23460b();
-    return _0x44bb32() && (!_0x5b187 || _0x5b187.has(_0x118d83));
+    const result2 = getVisibleAutomationViewKeys();
+    return getAutomationViewsVisible() && (!result2 || result2.has(arg1));
   }
-  function _0x45f3d6(_0xe81eb1) {
-    const _0x32555c = Math.max(_0xe81eb1?.width || 800, 100);
-    const _0x3af7f4 = Math.max(_0xe81eb1?.height || 600, 100);
+  function buildOffscreenAutomationBounds(arg1) {
+    const result = Math.max(arg1?.width || 800, 100);
+    const result2 = Math.max(arg1?.height || 600, 100);
     return {
       x: -5000,
       y: -5000,
-      width: _0x32555c,
-      height: _0x3af7f4
+      width: result,
+      height: result2
     };
   }
-  function _0xe82ffb(_0x4f289f, _0x2d4995 = "release") {
-    if (!_0x4f289f || _0x22db08() !== _0x4f289f) {
+  function clearBackgroundInteractionSlot(arg1, text = "release") {
+    if (!arg1 || getBackgroundInteractionSlot() !== arg1) {
       return false;
     }
-    if (_0x4f289f.timer) {
-      clearTimeout(_0x4f289f.timer);
+    if (arg1.timer) {
+      clearTimeout(arg1.timer);
     }
-    if (_0x4f289f.affinityReleaseTimer) {
-      clearTimeout(_0x4f289f.affinityReleaseTimer);
+    if (arg1.affinityReleaseTimer) {
+      clearTimeout(arg1.affinityReleaseTimer);
     }
-    if (_0x4f289f.webContents && _0x4f289f.destroyedListener) {
+    if (arg1.webContents && arg1.destroyedListener) {
       try {
-        _0x4f289f.webContents.removeListener("destroyed", _0x4f289f.destroyedListener);
-      } catch (_0x3ac698) {}
+        arg1.webContents.removeListener("destroyed", arg1.destroyedListener);
+      } catch (error) {}
     }
-    _0x5cb6ec(null);
-    console.log("[Main] 后台互动执行权已释放: " + _0x4f289f.viewKey + " (" + _0x2d4995 + ")");
-    _0x309d79();
+    setBackgroundInteractionSlot(null);
+    console.log("[Main] 后台互动执行权已释放: " + arg1.viewKey + " (" + text + ")");
+    grantNextBackgroundInteractionSlot();
     return true;
   }
-  function _0x309d79() {
-    if (_0x22db08()) {
+  function grantNextBackgroundInteractionSlot() {
+    if (getBackgroundInteractionSlot()) {
       return;
     }
-    const _0x251115 = _0x87d265();
-    while (_0x251115.length > 0) {
-      const _0x31b000 = _0x251115.shift();
-      const _0x4bf31b = _0x31b000.webContents;
-      if (!_0x4bf31b || _0x4bf31b.isDestroyed?.()) {
-        _0x31b000.resolve({
+    const result = getBackgroundInteractionWaiters();
+    while (result.length > 0) {
+      const result2 = result.shift();
+      const value = result2.webContents;
+      if (!value || value.isDestroyed?.()) {
+        result2.resolve({
           acquired: false,
           reason: "sender_destroyed"
         });
         continue;
       }
-      const _0x3740aa = {
-        viewKey: _0x31b000.viewKey,
-        webContents: _0x4bf31b,
-        webContentsId: _0x4bf31b.id,
+      const obj = {
+        viewKey: result2.viewKey,
+        webContents: value,
+        webContentsId: value.id,
         acquiredAt: Date.now(),
         timer: null,
         destroyedListener: null
       };
-      _0x3740aa.destroyedListener = () => _0xe82ffb(_0x3740aa, "sender_destroyed");
+      obj.destroyedListener = () => clearBackgroundInteractionSlot(obj, "sender_destroyed");
       try {
-        _0x4bf31b.once("destroyed", _0x3740aa.destroyedListener);
-      } catch (_0x2b5e34) {}
-      _0x3740aa.timer = setTimeout(() => {
-        console.warn("[Main] 后台互动执行权超时释放: " + _0x3740aa.viewKey);
-        _0xe82ffb(_0x3740aa, "lease_timeout");
+        value.once("destroyed", obj.destroyedListener);
+      } catch (error) {}
+      obj.timer = setTimeout(() => {
+        console.warn("[Main] 后台互动执行权超时释放: " + obj.viewKey);
+        clearBackgroundInteractionSlot(obj, "lease_timeout");
       }, BACKGROUND_INTERACTION_SLOT_LEASE_MS);
-      if (typeof _0x3740aa.timer.unref === "function") {
-        _0x3740aa.timer.unref();
+      if (typeof obj.timer.unref === "function") {
+        obj.timer.unref();
       }
-      _0x5cb6ec(_0x3740aa);
-      console.log("[Main] 后台互动执行权已授予: " + _0x3740aa.viewKey + " wait=" + (Date.now() - _0x31b000.queuedAt) + "ms");
-      _0x31b000.resolve({
+      setBackgroundInteractionSlot(obj);
+      console.log("[Main] 后台互动执行权已授予: " + obj.viewKey + " wait=" + (Date.now() - result2.queuedAt) + "ms");
+      result2.resolve({
         acquired: true,
-        waitedMs: Date.now() - _0x31b000.queuedAt
+        waitedMs: Date.now() - result2.queuedAt
       });
       return;
     }
   }
-  function _0x53e695(_0x124c3d, _0x285e72) {
-    if (!_0x124c3d || !_0x285e72 || _0x285e72.isDestroyed?.()) {
+  function acquireBackgroundInteractionSlot(arg1, arg2) {
+    if (!arg1 || !arg2 || arg2.isDestroyed?.()) {
       return Promise.resolve({
         acquired: false,
         reason: "invalid_sender"
       });
     }
-    const _0xe5a418 = _0x22db08();
-    if (_0xe5a418 && _0xe5a418.viewKey === _0x124c3d && _0xe5a418.webContentsId === _0x285e72.id) {
-      if (_0xe5a418.affinityReleaseTimer) {
-        clearTimeout(_0xe5a418.affinityReleaseTimer);
-        _0xe5a418.affinityReleaseTimer = null;
+    const result = getBackgroundInteractionSlot();
+    if (result && result.viewKey === arg1 && result.webContentsId === arg2.id) {
+      if (result.affinityReleaseTimer) {
+        clearTimeout(result.affinityReleaseTimer);
+        result.affinityReleaseTimer = null;
       }
-      _0xe5a418.affinityHolding = false;
+      result.affinityHolding = false;
       return Promise.resolve({
         acquired: true,
         reused: true,
         waitedMs: 0
       });
     }
-    if (_0xe5a418 && _0xe5a418.affinityHolding && _0xe5a418.viewKey !== _0x124c3d) {
-      console.log("[Main] 发现其它账号 " + _0x124c3d + " 申请执行权，抢占清理上个账号的 affinity 保留锁: " + _0xe5a418.viewKey);
-      _0xe82ffb(_0xe5a418, "preempt_for_next_account");
+    if (result && result.affinityHolding && result.viewKey !== arg1) {
+      console.log("[Main] 发现其它账号 " + arg1 + " 申请执行权，抢占清理上个账号的 affinity 保留锁: " + result.viewKey);
+      clearBackgroundInteractionSlot(result, "preempt_for_next_account");
     }
-    return new Promise(_0x18171d => {
-      _0x87d265().push({
-        viewKey: _0x124c3d,
-        webContents: _0x285e72,
+    return new Promise(arg12 => {
+      getBackgroundInteractionWaiters().push({
+        viewKey: arg1,
+        webContents: arg2,
         queuedAt: Date.now(),
-        resolve: _0x18171d
+        resolve: arg12
       });
-      _0x309d79();
+      grantNextBackgroundInteractionSlot();
     });
   }
-  function _0xe06977(_0x35a8c4, _0x51639a, _0x5c9b02 = "release", {
+  function releaseBackgroundInteractionSlot(arg1, arg2, text = "release", {
     preferReacquireMs = 0
   } = {}) {
-    const _0x5cf8d5 = _0x22db08();
-    if (!_0x5cf8d5) {
+    const result = getBackgroundInteractionSlot();
+    if (!result) {
       return {
         released: false,
         reason: "no_owner"
       };
     }
-    if (_0x5cf8d5.viewKey !== _0x35a8c4 || _0x5cf8d5.webContentsId !== _0x51639a?.id) {
+    if (result.viewKey !== arg1 || result.webContentsId !== arg2?.id) {
       return {
         released: false,
         reason: "not_owner"
       };
     }
-    const _0x551aee = _0x87d265().length > 0;
-    const _0x26c76e = _0x551aee ? 0 : Math.max(0, Math.min(15000, Number(preferReacquireMs) || 0));
-    if (_0x26c76e > 0) {
-      if (_0x5cf8d5.affinityReleaseTimer) {
-        clearTimeout(_0x5cf8d5.affinityReleaseTimer);
+    const value = getBackgroundInteractionWaiters().length > 0;
+    const value2 = value ? 0 : Math.max(0, Math.min(15000, Number(preferReacquireMs) || 0));
+    if (value2 > 0) {
+      if (result.affinityReleaseTimer) {
+        clearTimeout(result.affinityReleaseTimer);
       }
-      _0x5cf8d5.affinityHolding = true;
-      _0x5cf8d5.affinityReleaseTimer = setTimeout(() => {
-        _0x5cf8d5.affinityReleaseTimer = null;
-        _0x5cf8d5.affinityHolding = false;
-        _0x71829(_0x35a8c4);
-        _0xe82ffb(_0x5cf8d5, "affinity_timeout");
-      }, _0x26c76e);
-      _0x5cf8d5.affinityReleaseTimer.unref?.();
-      console.log("[Main] 为同一用户后续动作保留互动执行权: " + _0x35a8c4 + " " + _0x26c76e + "ms");
+      result.affinityHolding = true;
+      result.affinityReleaseTimer = setTimeout(() => {
+        result.affinityReleaseTimer = null;
+        result.affinityHolding = false;
+        releaseBackgroundAutomationLayout(arg1);
+        clearBackgroundInteractionSlot(result, "affinity_timeout");
+      }, value2);
+      result.affinityReleaseTimer.unref?.();
+      console.log("[Main] 为同一用户后续动作保留互动执行权: " + arg1 + " " + value2 + "ms");
       return {
         released: false,
         reserved: true,
-        preferReacquireMs: _0x26c76e
+        preferReacquireMs: value2
       };
     }
     return {
-      released: _0xe82ffb(_0x5cf8d5, _0x5c9b02)
+      released: clearBackgroundInteractionSlot(result, text)
     };
   }
-  function _0x28ad37(_0x362cbc, _0x304fe3 = "view_stopped") {
-    if (!_0x362cbc) {
+  function cancelBackgroundInteractionForView(arg1, text = "view_stopped") {
+    if (!arg1) {
       return;
     }
-    const _0x439ed3 = _0x87d265();
-    for (let _0x3334cb = _0x439ed3.length - 1; _0x3334cb >= 0; _0x3334cb--) {
-      const _0x319493 = _0x439ed3[_0x3334cb];
-      if (_0x319493.viewKey !== _0x362cbc) {
+    const result = getBackgroundInteractionWaiters();
+    for (let value = result.length - 1; value >= 0; value--) {
+      const value2 = result[value];
+      if (value2.viewKey !== arg1) {
         continue;
       }
-      _0x439ed3.splice(_0x3334cb, 1);
+      result.splice(value, 1);
       try {
-        _0x319493.resolve({
+        value2.resolve({
           acquired: false,
-          reason: _0x304fe3
+          reason: text
         });
-      } catch (_0x5a9af8) {}
+      } catch (error) {}
     }
-    const _0x4efe37 = _0x22db08();
-    if (_0x4efe37?.viewKey === _0x362cbc) {
-      _0xe82ffb(_0x4efe37, _0x304fe3);
+    const result2 = getBackgroundInteractionSlot();
+    if (result2?.viewKey === arg1) {
+      clearBackgroundInteractionSlot(result2, text);
     }
   }
-  function _0x14baa6() {
-    const _0x380aa1 = _0x1750bc();
-    if (!_0x380aa1 || _0x380aa1.isDestroyed()) {
+  function getBackgroundAutomationHostViews() {
+    const result = getBackgroundAutomationHostWindow();
+    if (!result || result.isDestroyed()) {
       return [];
     }
     try {
-      return _0x380aa1.getBrowserViews();
-    } catch (_0x2754d7) {
+      return result.getBrowserViews();
+    } catch (error) {
       return [];
     }
   }
-  function _0x1e5f3a() {
-    let _0x75fdda = 0;
-    let _0x41e865 = 0;
+  function getBackgroundAutomationHostOffscreenBounds() {
+    let num = 0;
+    let num2 = 0;
     try {
-      const _0x7e8368 = screen.getAllDisplays();
-      if (_0x7e8368.length > 0) {
-        _0x75fdda = Math.min(..._0x7e8368.map(_0x1b6b0e => Number(_0x1b6b0e.bounds?.x) || 0));
-        const _0x297b09 = screen.getPrimaryDisplay();
-        _0x41e865 = Number(_0x297b09?.workArea?.y ?? _0x297b09?.bounds?.y) || 0;
+      const result = screen.getAllDisplays();
+      if (result.length > 0) {
+        num = Math.min(...result.map(arg1 => Number(arg1.bounds?.x) || 0));
+        const result2 = screen.getPrimaryDisplay();
+        num2 = Number(result2?.workArea?.y ?? result2?.bounds?.y) || 0;
       }
-    } catch (_0x270186) {}
+    } catch (error) {}
     return {
-      x: _0x75fdda - COMPACT_BACKGROUND_AUTOMATION_WIDTH - 4096,
-      y: _0x41e865,
+      x: num - COMPACT_BACKGROUND_AUTOMATION_WIDTH - 4096,
+      y: num2,
       width: COMPACT_BACKGROUND_AUTOMATION_WIDTH,
       height: COMPACT_BACKGROUND_AUTOMATION_HEIGHT
     };
   }
-  function _0x3c839d() {
-    const _0x5e4191 = _0x1e5f3a();
+  function getBackgroundAutomationComposerSurfaceBounds() {
+    const result = getBackgroundAutomationHostOffscreenBounds();
     if (process.platform !== "win32") {
-      return _0x5e4191;
+      return result;
     }
-    let _0x4fd351 = 0;
+    let num = 0;
     try {
-      const _0x3b46e5 = screen.getAllDisplays();
-      if (_0x3b46e5.length > 0) {
-        _0x4fd351 = Math.min(..._0x3b46e5.map(_0x2c4b0c => Number(_0x2c4b0c.bounds?.x) || 0));
+      const result = screen.getAllDisplays();
+      if (result.length > 0) {
+        num = Math.min(...result.map(arg1 => Number(arg1.bounds?.x) || 0));
       }
-    } catch (_0x256127) {}
+    } catch (error) {}
     return {
-      ..._0x5e4191,
-      x: _0x4fd351 - COMPACT_BACKGROUND_AUTOMATION_WIDTH + 1
+      ...result,
+      x: num - COMPACT_BACKGROUND_AUTOMATION_WIDTH + 1
     };
   }
-  function _0x24cc79(_0x38f72b, _0x1b1760) {
+  function activateBackgroundAutomationComposerSurface(arg1, arg2) {
     if (process.platform !== "win32") {
       return false;
     }
-    const _0x54e89e = _0x1750bc();
-    if (!_0x54e89e || _0x54e89e.isDestroyed()) {
+    const result = getBackgroundAutomationHostWindow();
+    if (!result || result.isDestroyed()) {
       return false;
     }
-    _0x54e89e.__radarComposerSurfaceViewKey = _0x38f72b;
+    result.__radarComposerSurfaceViewKey = arg1;
     try {
-      _0x54e89e.setBounds(_0x3c839d(), false);
-      _0x54e89e.setSkipTaskbar(true);
+      result.setBounds(getBackgroundAutomationComposerSurfaceBounds(), false);
+      result.setSkipTaskbar(true);
       try {
-        _0x54e89e.webContents.invalidate();
-      } catch (_0x214e14) {}
+        result.webContents.invalidate();
+      } catch (error) {}
       try {
-        _0x1b1760?.invalidate?.();
-      } catch (_0x18fea0) {}
+        arg2?.invalidate?.();
+      } catch (error) {}
       return true;
-    } catch (_0x515609) {
-      _0x54e89e.__radarComposerSurfaceViewKey = null;
-      console.warn("[Main] 评论编辑器激活面创建失败 " + (_0x38f72b || "?") + ": " + _0x515609.message);
+    } catch (error) {
+      result.__radarComposerSurfaceViewKey = null;
+      console.warn("[Main] 评论编辑器激活面创建失败 " + (arg1 || "?") + ": " + error.message);
       return false;
     }
   }
-  async function _0x1cb43a(_0x34e948) {
-    if (process.platform !== "win32" || !_0x34e948 || _0x34e948.isDestroyed?.()) {
+  async function emulateBackgroundAutomationPageFocus(arg1) {
+    if (process.platform !== "win32" || !arg1 || arg1.isDestroyed?.()) {
       return {
         enabled: false,
         reason: process.platform === "win32" ? "web_contents_unavailable" : "not_windows"
       };
     }
-    const _0x4eba9b = _0x34e948.debugger;
-    let _0xa69439 = false;
+    const value = arg1.debugger;
+    let flag = false;
     try {
-      if (!_0x4eba9b.isAttached()) {
-        _0x4eba9b.attach("1.3");
-        _0xa69439 = true;
+      if (!value.isAttached()) {
+        value.attach("1.3");
+        flag = true;
       }
-      await _0x4eba9b.sendCommand("Emulation.setFocusEmulationEnabled", {
+      await value.sendCommand("Emulation.setFocusEmulationEnabled", {
         enabled: true
       });
       try {
-        await _0x4eba9b.sendCommand("Page.bringToFront");
-      } catch (_0x22f543) {}
+        await value.sendCommand("Page.bringToFront");
+      } catch (error) {}
       return {
         enabled: true
       };
-    } catch (_0xb888fb) {
-      console.warn("[Main] Windows 后台页面焦点仿真失败: " + _0xb888fb.message);
+    } catch (error) {
+      console.warn("[Main] Windows 后台页面焦点仿真失败: " + error.message);
       return {
         enabled: false,
-        reason: _0xb888fb.message || "focus_emulation_failed"
+        reason: error.message || "focus_emulation_failed"
       };
     } finally {
-      if (_0xa69439 && _0x4eba9b.isAttached()) {
+      if (flag && value.isAttached()) {
         try {
-          _0x4eba9b.detach();
-        } catch (_0x576f2d) {}
+          value.detach();
+        } catch (error) {}
       }
     }
   }
-  function _0x2a259c(_0x5520cf) {
-    const _0x13e890 = _0x1750bc();
-    if (!_0x13e890 || _0x13e890.isDestroyed()) {
+  function releaseBackgroundAutomationComposerSurface(arg1) {
+    const result = getBackgroundAutomationHostWindow();
+    if (!result || result.isDestroyed()) {
       return false;
     }
-    if (_0x13e890.__radarComposerSurfaceViewKey && _0x13e890.__radarComposerSurfaceViewKey !== _0x5520cf) {
+    if (result.__radarComposerSurfaceViewKey && result.__radarComposerSurfaceViewKey !== arg1) {
       return false;
     }
-    if (!_0x13e890.__radarComposerSurfaceViewKey) {
+    if (!result.__radarComposerSurfaceViewKey) {
       return false;
     }
-    _0x13e890.__radarComposerSurfaceViewKey = null;
-    _0x30ec8d(_0x13e890, "composer-release");
+    result.__radarComposerSurfaceViewKey = null;
+    parkBackgroundAutomationHostWindow(result, "composer-release");
     return true;
   }
-  function _0x30ec8d(_0x4017f3, _0x1651ae = "park") {
-    if (!_0x4017f3 || _0x4017f3.isDestroyed() || _0x4017f3.__radarBackgroundHostParking) {
+  function parkBackgroundAutomationHostWindow(arg1, text = "park") {
+    if (!arg1 || arg1.isDestroyed() || arg1.__radarBackgroundHostParking) {
       return false;
     }
-    if (_0x4017f3.__radarComposerSurfaceViewKey && _0x1651ae !== "composer-release") {
+    if (arg1.__radarComposerSurfaceViewKey && text !== "composer-release") {
       return false;
     }
-    _0x4017f3.__radarBackgroundHostParking = true;
+    arg1.__radarBackgroundHostParking = true;
     try {
-      const _0x3b3956 = _0x1e5f3a();
-      const _0x465c76 = _0x4017f3.getBounds();
-      const _0x27d212 = _0x465c76.x !== _0x3b3956.x || _0x465c76.y !== _0x3b3956.y || _0x465c76.width !== _0x3b3956.width || _0x465c76.height !== _0x3b3956.height;
-      if (_0x27d212) {
-        _0x4017f3.setBounds(_0x3b3956, false);
+      const result = getBackgroundAutomationHostOffscreenBounds();
+      const result2 = arg1.getBounds();
+      const local = result2.x !== result.x || result2.y !== result.y || result2.width !== result.width || result2.height !== result.height;
+      if (local) {
+        arg1.setBounds(result, false);
       }
       try {
-        _0x4017f3.setSkipTaskbar(true);
-      } catch (_0x396894) {}
+        arg1.setSkipTaskbar(true);
+      } catch (error) {}
       return true;
-    } catch (_0x22f254) {
-      console.warn("[Main] 后台自动化宿主屏外校正失败(" + _0x1651ae + "): " + _0x22f254.message);
+    } catch (error) {
+      console.warn("[Main] 后台自动化宿主屏外校正失败(" + text + "): " + error.message);
       return false;
     } finally {
-      _0x4017f3.__radarBackgroundHostParking = false;
+      arg1.__radarBackgroundHostParking = false;
     }
   }
-  function _0x240208(_0x51146a, _0x589c1b = "repark") {
-    if (!_0x51146a || _0x51146a.isDestroyed()) {
+  function scheduleBackgroundAutomationHostRepark(arg1, text = "repark") {
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
-    if (_0x51146a.__radarBackgroundHostReparkTimer) {
-      clearTimeout(_0x51146a.__radarBackgroundHostReparkTimer);
+    if (arg1.__radarBackgroundHostReparkTimer) {
+      clearTimeout(arg1.__radarBackgroundHostReparkTimer);
     }
-    _0x51146a.__radarBackgroundHostReparkTimer = setTimeout(() => {
-      _0x51146a.__radarBackgroundHostReparkTimer = null;
-      _0x30ec8d(_0x51146a, _0x589c1b);
+    arg1.__radarBackgroundHostReparkTimer = setTimeout(() => {
+      arg1.__radarBackgroundHostReparkTimer = null;
+      parkBackgroundAutomationHostWindow(arg1, text);
     }, 0);
-    _0x51146a.__radarBackgroundHostReparkTimer.unref?.();
+    arg1.__radarBackgroundHostReparkTimer.unref?.();
   }
-  function _0x4e5878() {
-    _0x123e53(false);
-    _0x306a39(0);
-    _0x166d2f(0);
+  function clearBackgroundHostInternalActivation() {
+    setBackgroundHostInternalActivatePending(false);
+    setBackgroundHostInternalActivateUntil(0);
+    setBackgroundHostRelatedEventUntil(0);
   }
-  function _0x202bf0(_0x30af0a = BACKGROUND_HOST_FOCUS_ACTIVATE_GUARD_MS) {
-    if (process.platform !== "darwin" || !_0xa80493()) {
+  function armBackgroundHostInternalActivation(arg1 = BACKGROUND_HOST_FOCUS_ACTIVATE_GUARD_MS) {
+    if (process.platform !== "darwin" || !getMainWindowBackgrounded()) {
       return;
     }
-    _0x123e53(true);
-    _0x306a39(Date.now() + Math.max(100, Number(_0x30af0a) || 0));
-    _0x166d2f(0);
+    setBackgroundHostInternalActivatePending(true);
+    setBackgroundHostInternalActivateUntil(Date.now() + Math.max(100, Number(arg1) || 0));
+    setBackgroundHostRelatedEventUntil(0);
   }
-  function _0x2f1cde(_0x22d62c) {
-    if (!_0x22d62c || _0x22d62c.isDestroyed()) {
+  function showBackgroundAutomationHostInactive(arg1) {
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
-    _0x30ec8d(_0x22d62c, "before-show");
-    if (!_0x22d62c.isVisible()) {
-      _0x202bf0(BACKGROUND_HOST_SHOW_ACTIVATE_GUARD_MS);
+    parkBackgroundAutomationHostWindow(arg1, "before-show");
+    if (!arg1.isVisible()) {
+      armBackgroundHostInternalActivation(BACKGROUND_HOST_SHOW_ACTIVATE_GUARD_MS);
       try {
-        _0x22d62c.showInactive();
-      } catch (_0xff0b29) {}
+        arg1.showInactive();
+      } catch (error) {}
     }
-    _0x30ec8d(_0x22d62c, "after-show");
-    _0x240208(_0x22d62c, "after-show-confirm");
+    parkBackgroundAutomationHostWindow(arg1, "after-show");
+    scheduleBackgroundAutomationHostRepark(arg1, "after-show-confirm");
   }
-  function _0x26478d() {
-    const _0x50e7be = Date.now();
-    const _0x612c73 = _0x577aff();
-    const _0x1eaf60 = _0x1750bc();
-    const _0x2f18bd = process.platform === "darwin" && !!_0xa80493() && !!_0x612c73 && !_0x612c73.isDestroyed() && !!_0x1eaf60 && !_0x1eaf60.isDestroyed();
-    if (!_0x2f18bd) {
-      _0x4e5878();
+  function consumeBackgroundHostInternalActivation() {
+    const result = Date.now();
+    const result2 = getMainWindow();
+    const result3 = getBackgroundAutomationHostWindow();
+    const local = process.platform === "darwin" && !!getMainWindowBackgrounded() && !!result2 && !result2.isDestroyed() && !!result3 && !result3.isDestroyed();
+    if (!local) {
+      clearBackgroundHostInternalActivation();
       return false;
     }
-    if (_0x8a6c1a() && _0x50e7be <= _0x2dd610()) {
-      _0x123e53(false);
-      _0x306a39(0);
-      _0x166d2f(_0x50e7be + BACKGROUND_HOST_RELATED_EVENT_GRACE_MS);
+    if (getBackgroundHostInternalActivatePending() && result <= getBackgroundHostInternalActivateUntil()) {
+      setBackgroundHostInternalActivatePending(false);
+      setBackgroundHostInternalActivateUntil(0);
+      setBackgroundHostRelatedEventUntil(result + BACKGROUND_HOST_RELATED_EVENT_GRACE_MS);
       return true;
     }
-    if (_0x50e7be <= _0x3e6b29()) {
+    if (result <= getBackgroundHostRelatedEventUntil()) {
       return true;
     }
-    _0x4e5878();
+    clearBackgroundHostInternalActivation();
     return false;
   }
-  function _0x587405(_0x5fd327) {
-    if (!_0x26478d()) {
+  function suppressMainWindowEventFromBackgroundHost(arg1) {
+    if (!consumeBackgroundHostInternalActivation()) {
       return false;
     }
-    const _0x49006b = _0x4ef0c6();
-    console.log("[Main] 已忽略后台自动化宿主触发的主窗口 " + _0x5fd327);
+    const result = getMainWindowBackgroundReason();
+    console.log("[Main] 已忽略后台自动化宿主触发的主窗口 " + arg1);
     setImmediate(() => {
-      const _0x187a7c = _0x577aff();
-      if (!_0x187a7c || _0x187a7c.isDestroyed() || !_0xa80493()) {
+      const result2 = getMainWindow();
+      if (!result2 || result2.isDestroyed() || !getMainWindowBackgrounded()) {
         return;
       }
       try {
-        if (_0x49006b === "minimize") {
-          if (!_0x187a7c.isMinimized()) {
-            _0x187a7c.minimize();
+        if (result === "minimize") {
+          if (!result2.isMinimized()) {
+            result2.minimize();
           }
-        } else if (_0x187a7c.isVisible()) {
-          _0x187a7c.hide();
+        } else if (result2.isVisible()) {
+          result2.hide();
         }
-      } catch (_0x16320f) {}
+      } catch (error) {}
     });
     return true;
   }
-  function _0x315f90() {
-    const _0x4c8644 = _0x1750bc();
-    if (_0x4c8644 && !_0x4c8644.isDestroyed()) {
-      _0x2f1cde(_0x4c8644);
-      return _0x4c8644;
+  function ensureBackgroundAutomationHostWindow() {
+    const result = getBackgroundAutomationHostWindow();
+    if (result && !result.isDestroyed()) {
+      showBackgroundAutomationHostInactive(result);
+      return result;
     }
-    const _0x1aefec = _0x1e5f3a();
-    const _0x513da7 = new BrowserWindow({
-      ..._0x1aefec,
+    const result2 = getBackgroundAutomationHostOffscreenBounds();
+    const browserWindow = new BrowserWindow({
+      ...result2,
       show: false,
       frame: false,
       title: "",
@@ -838,321 +838,321 @@ function createBackgroundAutomationLayout(_0x39eb05) {
         backgroundThrottling: false
       }
     });
-    _0x15d7a9(_0x513da7);
-    _0x2fbb55(_0x513da7);
+    setBackgroundAutomationHostWindow(browserWindow);
+    applyPackagedWindowMenuPolicy(browserWindow);
     if (process.platform === "darwin") {
       try {
-        _0x513da7.setHiddenInMissionControl(true);
-      } catch (_0x25ca4e) {}
+        browserWindow.setHiddenInMissionControl(true);
+      } catch (error) {}
       try {
-        _0x513da7.setWindowButtonVisibility(false);
-      } catch (_0x51b839) {}
+        browserWindow.setWindowButtonVisibility(false);
+      } catch (error) {}
     }
-    _0x30ec8d(_0x513da7, "created");
+    parkBackgroundAutomationHostWindow(browserWindow, "created");
     try {
-      _0x513da7.setIgnoreMouseEvents(true);
-    } catch (_0x47b297) {}
+      browserWindow.setIgnoreMouseEvents(true);
+    } catch (error) {}
     try {
-      _0x513da7.webContents.setAudioMuted(true);
-    } catch (_0xc1e8b9) {}
-    const _0x5a8d09 = () => {
-      if (!_0x513da7.isDestroyed()) {
-        _0x2f1cde(_0x513da7);
+      browserWindow.webContents.setAudioMuted(true);
+    } catch (error) {}
+    const local = () => {
+      if (!browserWindow.isDestroyed()) {
+        showBackgroundAutomationHostInactive(browserWindow);
       }
     };
-    _0x513da7.once("ready-to-show", _0x5a8d09);
-    _0x513da7.webContents.once("did-finish-load", _0x5a8d09);
-    const _0x10c7df = () => {
-      _0x240208(_0x513da7, "display-topology-changed");
+    browserWindow.once("ready-to-show", local);
+    browserWindow.webContents.once("did-finish-load", local);
+    const local2 = () => {
+      scheduleBackgroundAutomationHostRepark(browserWindow, "display-topology-changed");
     };
     try {
-      screen.on("display-added", _0x10c7df);
-      screen.on("display-removed", _0x10c7df);
-      screen.on("display-metrics-changed", _0x10c7df);
-    } catch (_0x4324c2) {}
-    _0x513da7.on("show", () => {
-      if (_0x513da7.isDestroyed()) {
+      screen.on("display-added", local2);
+      screen.on("display-removed", local2);
+      screen.on("display-metrics-changed", local2);
+    } catch (error) {}
+    browserWindow.on("show", () => {
+      if (browserWindow.isDestroyed()) {
         return;
       }
-      _0x30ec8d(_0x513da7, "show-event");
-      _0x240208(_0x513da7, "show-event-confirm");
+      parkBackgroundAutomationHostWindow(browserWindow, "show-event");
+      scheduleBackgroundAutomationHostRepark(browserWindow, "show-event-confirm");
     });
-    _0x513da7.on("move", () => {
-      if (!_0x513da7.__radarBackgroundHostParking) {
-        _0x240208(_0x513da7, "move-event");
+    browserWindow.on("move", () => {
+      if (!browserWindow.__radarBackgroundHostParking) {
+        scheduleBackgroundAutomationHostRepark(browserWindow, "move-event");
       }
     });
-    _0x513da7.on("focus", () => {
-      _0x240208(_0x513da7, "focus-event");
+    browserWindow.on("focus", () => {
+      scheduleBackgroundAutomationHostRepark(browserWindow, "focus-event");
       setImmediate(() => {
-        if (_0x513da7.isDestroyed()) {
+        if (browserWindow.isDestroyed()) {
           return;
         }
-        _0x30ec8d(_0x513da7, "focus-repark");
+        parkBackgroundAutomationHostWindow(browserWindow, "focus-repark");
         try {
-          if (_0x513da7.isFocused()) {
-            _0x513da7.blur();
+          if (browserWindow.isFocused()) {
+            browserWindow.blur();
           }
-        } catch (_0x214f55) {}
-        const _0x4f1abb = _0x577aff();
-        if (_0x4f1abb && !_0x4f1abb.isDestroyed() && _0x4f1abb.isVisible() && !_0x4f1abb.isMinimized()) {
-          _0x183795("host-focus-repark");
+        } catch (error) {}
+        const result = getMainWindow();
+        if (result && !result.isDestroyed() && result.isVisible() && !result.isMinimized()) {
+          restoreMainWindowUiFocus("host-focus-repark");
         }
       });
     });
-    _0x513da7.on("closed", () => {
-      if (_0x513da7.__radarBackgroundHostReparkTimer) {
-        clearTimeout(_0x513da7.__radarBackgroundHostReparkTimer);
-        _0x513da7.__radarBackgroundHostReparkTimer = null;
+    browserWindow.on("closed", () => {
+      if (browserWindow.__radarBackgroundHostReparkTimer) {
+        clearTimeout(browserWindow.__radarBackgroundHostReparkTimer);
+        browserWindow.__radarBackgroundHostReparkTimer = null;
       }
       try {
-        screen.removeListener("display-added", _0x10c7df);
-        screen.removeListener("display-removed", _0x10c7df);
-        screen.removeListener("display-metrics-changed", _0x10c7df);
-      } catch (_0x213bd3) {}
-      if (_0x1750bc() === _0x513da7) {
-        _0x15d7a9(null);
+        screen.removeListener("display-added", local2);
+        screen.removeListener("display-removed", local2);
+        screen.removeListener("display-metrics-changed", local2);
+      } catch (error) {}
+      if (getBackgroundAutomationHostWindow() === browserWindow) {
+        setBackgroundAutomationHostWindow(null);
       }
-      const _0x544495 = _0x577aff();
-      if (_0x544495 && !_0x544495.isDestroyed() && _0x544495.isVisible()) {
-        _0x183795("background-host-closed");
+      const result = getMainWindow();
+      if (result && !result.isDestroyed() && result.isVisible()) {
+        restoreMainWindowUiFocus("background-host-closed");
       }
     });
-    _0x513da7.loadURL("about:blank").catch(() => {});
-    setTimeout(_0x5a8d09, 250);
+    browserWindow.loadURL("about:blank").catch(() => {});
+    setTimeout(local, 250);
     console.log("[Main] 已创建低功耗后台自动化宿主窗口");
-    return _0x513da7;
+    return browserWindow;
   }
-  function _0x29d855(_0x20e0cf, _0x4d0183) {
-    if (!_0x20e0cf || _0x20e0cf.isDestroyed() || !_0x4d0183) {
+  function removeAutomationViewFromWindow(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed() || !arg2) {
       return;
     }
     try {
-      if (_0x20e0cf.getBrowserViews().includes(_0x4d0183)) {
-        _0x20e0cf.removeBrowserView(_0x4d0183);
+      if (arg1.getBrowserViews().includes(arg2)) {
+        arg1.removeBrowserView(arg2);
       }
-    } catch (_0x27beb8) {}
+    } catch (error) {}
   }
-  function _0x2758e1(_0x6d369) {
-    _0x29d855(_0x1750bc(), _0x6d369);
+  function removeAutomationViewFromBackgroundHost(arg1) {
+    removeAutomationViewFromWindow(getBackgroundAutomationHostWindow(), arg1);
   }
-  function _0x2a2d51() {
-    const _0x270a5e = _0x1750bc();
-    if (!_0x270a5e || _0x270a5e.isDestroyed()) {
+  function maybeDestroyBackgroundAutomationHostWindow() {
+    const result = getBackgroundAutomationHostWindow();
+    if (!result || result.isDestroyed()) {
       return;
     }
-    if (_0x14baa6().length > 0) {
+    if (getBackgroundAutomationHostViews().length > 0) {
       return;
     }
-    if (_0xc58d82()) {
+    if (getBackgroundAutomationHostDestroyTimer()) {
       return;
     }
-    const _0x3a5117 = process.platform === "darwin" ? 800 : 100;
-    const _0x4288ed = setTimeout(() => {
-      _0x5c7f1c(null);
-      if (_0x1750bc() !== _0x270a5e || _0x270a5e.isDestroyed()) {
+    const value = process.platform === "darwin" ? 800 : 100;
+    const result2 = setTimeout(() => {
+      setBackgroundAutomationHostDestroyTimer(null);
+      if (getBackgroundAutomationHostWindow() !== result || result.isDestroyed()) {
         return;
       }
-      if (_0x14baa6().length > 0) {
+      if (getBackgroundAutomationHostViews().length > 0) {
         return;
       }
-      if (_0x32ee21().size > 0) {
-        _0x2a2d51();
+      if (getPendingAutomationWebContentsClose().size > 0) {
+        maybeDestroyBackgroundAutomationHostWindow();
         return;
       }
-      _0x15d7a9(null);
+      setBackgroundAutomationHostWindow(null);
       try {
-        _0x270a5e.destroy();
-      } catch (_0x1922bf) {}
+        result.destroy();
+      } catch (error) {}
       console.log("[Main] 后台自动化宿主已安全释放");
-    }, _0x3a5117);
-    _0x5c7f1c(_0x4288ed);
-    if (typeof _0x4288ed.unref === "function") {
-      _0x4288ed.unref();
+    }, value);
+    setBackgroundAutomationHostDestroyTimer(result2);
+    if (typeof result2.unref === "function") {
+      result2.unref();
     }
   }
-  function _0x516db6(_0x5ef395) {
-    if (_0x1c23ef().has(_0x5ef395)) {
+  function shouldKeepAutomationViewAttached(arg1) {
+    if (getInteractionLocksMap().has(arg1)) {
       return true;
     }
-    if (_0x5f0b30(_0x5ef395)) {
+    if (isBatchViewRuntimeActive(arg1)) {
       return true;
     }
-    if (_0x74d7e2(_0x5ef395)) {
+    if (isMonitorTaskViewRunning(arg1)) {
       return true;
     }
-    const _0x3e2c49 = _0x15482d().get(_0x5ef395);
-    return !!_0x3e2c49 && !!_0x3e2c49.taskId;
+    const result = getViewSettingsMap().get(arg1);
+    return !!result && !!result.taskId;
   }
-  function _0x7cfdcc(_0x975624) {
-    if (!_0x975624 || _0x975624.isDestroyed?.()) {
+  function schedulePreviewViewportResizeAfterZoom(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
-    _0x975624.executeJavaScript("\n            (() => {\n                window.__radarAutomationViewportChangedAt = Date.now();\n                return true;\n            })()\n        ", true).catch(() => {});
-    [60, 200].forEach(_0x297c89 => {
-      const _0x3e78c3 = setTimeout(() => {
-        if (_0x975624.isDestroyed?.()) {
+    arg1.executeJavaScript("\n            (() => {\n                window.__radarAutomationViewportChangedAt = Date.now();\n                return true;\n            })()\n        ", true).catch(() => {});
+    [60, 200].forEach(arg12 => {
+      const result = setTimeout(() => {
+        if (arg1.isDestroyed?.()) {
           return;
         }
-        _0x3ab56c(_0x975624, {
+        notifyAutomationViewportChanged(arg1, {
           force: true
         });
-      }, _0x297c89);
-      if (typeof _0x3e78c3.unref === "function") {
-        _0x3e78c3.unref();
+      }, arg12);
+      if (typeof result.unref === "function") {
+        result.unref();
       }
     });
   }
-  function _0xd854f2(_0x391bcf) {
-    return _0x2f80d7().has(_0x391bcf) || _0x207c8c().has(_0x391bcf);
+  function isBackgroundAutomationHidden(arg1) {
+    return getBackgroundDetachedViewKeys().has(arg1) || getBackgroundLayoutHoldViewKeys().has(arg1);
   }
-  function _0x581888(_0x16a0fb) {
-    _0x2f80d7().delete(_0x16a0fb);
-    _0x207c8c().delete(_0x16a0fb);
-    _0x5c5640.delete(_0x16a0fb);
+  function clearBackgroundAutomationState(arg1) {
+    getBackgroundDetachedViewKeys().delete(arg1);
+    getBackgroundLayoutHoldViewKeys().delete(arg1);
+    map2.delete(arg1);
   }
-  function _0x447cc2(_0x170e1d) {
-    return !!_0x170e1d && (_0x207c8c().has(_0x170e1d) || _0x1c23ef().has(_0x170e1d));
+  function isAutomationExecutionViewportLocked(arg1) {
+    return !!arg1 && (getBackgroundLayoutHoldViewKeys().has(arg1) || getInteractionLocksMap().has(arg1));
   }
-  function _0x2f07f4(_0x1a0776, _0x4699aa, _0x4a3a95) {
-    if (!_0x1a0776 || !_0x133324(_0x4699aa)) {
+  function cacheAutomationPreviewBounds(arg1, arg2, arg3) {
+    if (!arg1 || !isValidAutomationBounds(arg2)) {
       return;
     }
-    const _0x2b09a0 = _0x2f9f4c();
-    const _0x9eb733 = Number(_0x4a3a95);
-    const _0x30e17e = _0x9eb733 > 0 ? _0x3c586b(_0x9eb733) : 0;
-    _0x2b09a0.set(_0x1a0776, {
+    const result = getBoundsStateByViewKey();
+    const result2 = Number(arg3);
+    const value = result2 > 0 ? fn2(result2) : 0;
+    result.set(arg1, {
       bounds: {
-        ..._0x4699aa
+        ...arg2
       },
       pendingBounds: {
-        ..._0x4699aa
+        ...arg2
       },
-      zoomFactor: _0x30e17e > 0 ? _0x30e17e : _0x2b09a0.get(_0x1a0776)?.zoomFactor || 0,
+      zoomFactor: value > 0 ? value : result.get(arg1)?.zoomFactor || 0,
       at: Date.now()
     });
-    const _0x5d0642 = _0x1c23ef().get(_0x1a0776);
-    if (_0x5d0642) {
-      _0x5d0642.previewBounds = {
-        ..._0x4699aa
+    const result3 = getInteractionLocksMap().get(arg1);
+    if (result3) {
+      result3.previewBounds = {
+        ...arg2
       };
-      if (_0x30e17e > 0) {
-        _0x5d0642.previewZoomFactor = _0x30e17e;
+      if (value > 0) {
+        result3.previewZoomFactor = value;
       }
     }
   }
-  function _0x4af95c(_0x37503d, _0x11525c = null) {
-    const _0x438de2 = _0x2f9f4c().get(_0x37503d);
-    const _0x49ae04 = _0x133324(_0x11525c?.previewBounds) ? _0x11525c.previewBounds : _0x133324(_0x438de2?.bounds) ? _0x438de2.bounds : _0x11525c?.bounds;
-    const _0x4ccd31 = Number(_0x11525c?.previewZoomFactor || _0x438de2?.zoomFactor || _0x11525c?.zoomFactor || 1);
-    const _0x3837de = _0x133324(_0x49ae04) ? Math.max(MIN_INTERACTIVE_AUTOMATION_ZOOM_FACTOR, Math.min(1, Number(_0x49ae04.width) / VISIBLE_AUTOMATION_LOGICAL_WIDTH, Number(_0x49ae04.height) / VISIBLE_AUTOMATION_LOGICAL_HEIGHT)) : 1;
-    const _0x5bbf2f = _0x4ccd31 > 0 ? Math.min(_0x4ccd31, _0x3837de) : _0x3837de;
+  function fn56(arg1, arg2 = null) {
+    const result = getBoundsStateByViewKey().get(arg1);
+    const value = isValidAutomationBounds(arg2?.previewBounds) ? arg2.previewBounds : isValidAutomationBounds(result?.bounds) ? result.bounds : arg2?.bounds;
+    const result2 = Number(arg2?.previewZoomFactor || result?.zoomFactor || arg2?.zoomFactor || 1);
+    const value2 = isValidAutomationBounds(value) ? Math.max(MIN_INTERACTIVE_AUTOMATION_ZOOM_FACTOR, Math.min(1, Number(value.width) / VISIBLE_AUTOMATION_LOGICAL_WIDTH, Number(value.height) / VISIBLE_AUTOMATION_LOGICAL_HEIGHT)) : 1;
+    const value3 = result2 > 0 ? Math.min(result2, value2) : value2;
     return {
-      bounds: _0x133324(_0x49ae04) ? {
-        ..._0x49ae04
+      bounds: isValidAutomationBounds(value) ? {
+        ...value
       } : null,
-      zoomFactor: _0x5bbf2f > 0 ? _0x5bbf2f : 1
+      zoomFactor: value3 > 0 ? value3 : 1
     };
   }
-  function _0x3f44d5(_0x1854f2, _0x10c519) {
-    if (!_0x1854f2 || !_0x10c519 || _0x10c519.webContents?.isDestroyed?.()) {
+  function restoreAutomationPreviewAfterExecution(arg1, arg2) {
+    if (!arg1 || !arg2 || arg2.webContents?.isDestroyed?.()) {
       return false;
     }
-    const _0x3d089d = _0x577aff();
-    if (!_0x1d881e(_0x1854f2) || !_0x3d089d || _0x3d089d.isDestroyed()) {
+    const result = getMainWindow();
+    if (!shouldAttachAutomationView(arg1) || !result || result.isDestroyed()) {
       return false;
     }
-    const _0xb1273b = _0x2f9f4c().get(_0x1854f2);
-    if (!_0x133324(_0xb1273b?.bounds)) {
+    const result2 = getBoundsStateByViewKey().get(arg1);
+    if (!isValidAutomationBounds(result2?.bounds)) {
       return false;
     }
-    _0x2758e1(_0x10c519);
-    _0x2b41c7(_0x10c519.webContents);
-    _0x10c519.setBounds({
-      ..._0xb1273b.bounds
+    removeAutomationViewFromBackgroundHost(arg2);
+    restoreForegroundAutomationRendering(arg2.webContents);
+    arg2.setBounds({
+      ...result2.bounds
     });
-    if (Number(_0xb1273b.zoomFactor) > 0) {
+    if (Number(result2.zoomFactor) > 0) {
       try {
-        _0x10c519.webContents.setZoomFactor(Number(_0xb1273b.zoomFactor));
-      } catch (_0x50ee9a) {}
+        arg2.webContents.setZoomFactor(Number(result2.zoomFactor));
+      } catch (error) {}
     }
-    if (!_0x3d089d.getBrowserViews().includes(_0x10c519)) {
-      _0x3d089d.addBrowserView(_0x10c519);
+    if (!result.getBrowserViews().includes(arg2)) {
+      result.addBrowserView(arg2);
     }
-    if (!_0x1c23ef().has(_0x1854f2)) {
-      _0x4dbb08(_0x10c519, {
-        context: "restore-preview-after-execution:" + _0x1854f2
+    if (!getInteractionLocksMap().has(arg1)) {
+      safeSetTopBrowserView(arg2, {
+        context: "restore-preview-after-execution:" + arg1
       });
     }
-    _0x3cfc9d(_0x10c519.webContents, _0x10c519);
+    nudgeAutomationViewRepaint(arg2.webContents, arg2);
     return true;
   }
-  function _0x5073d1(_0x18bd37, {
+  function applyBackgroundAutomationOptimizations(arg1, {
     active = false
   } = {}) {
-    if (!_0x18bd37 || _0x18bd37.isDestroyed?.()) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
-    const _0x3f0f70 = _0x1ea899(_0x18bd37);
-    if (_0x3f0f70 && _0x1d881e(_0x3f0f70) && !_0x447cc2(_0x3f0f70)) {
-      _0x2b41c7(_0x18bd37);
+    const result = inferAutomationViewKey(arg1);
+    if (result && shouldAttachAutomationView(result) && !isAutomationExecutionViewportLocked(result)) {
+      restoreForegroundAutomationRendering(arg1);
       return;
     }
     try {
-      _0x18bd37.setAudioMuted(true);
-    } catch (_0x17c249) {}
+      arg1.setAudioMuted(true);
+    } catch (error) {}
     try {
-      _0x18bd37.setBackgroundThrottling(false);
-    } catch (_0x55ca65) {}
+      arg1.setBackgroundThrottling(false);
+    } catch (error) {}
     try {
-      _0x18bd37.setImageAnimationPolicy("animate");
-    } catch (_0x565a78) {}
+      arg1.setImageAnimationPolicy("animate");
+    } catch (error) {}
     try {
-      _0x18bd37.setFrameRate(active ? BACKGROUND_AUTOMATION_FRAME_RATE_ACTIVE : BACKGROUND_AUTOMATION_FRAME_RATE_IDLE);
-    } catch (_0x23ff68) {}
+      arg1.setFrameRate(active ? BACKGROUND_AUTOMATION_FRAME_RATE_ACTIVE : BACKGROUND_AUTOMATION_FRAME_RATE_IDLE);
+    } catch (error) {}
   }
-  function _0x2b5976(_0x161f7c) {
-    if (!_0x161f7c || _0x161f7c.isDestroyed?.()) {
+  function applyBackgroundAutomationZoom(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
-    const _0x8515d = _0x25bc09();
+    const result = getBackgroundOriginalZoomFactors();
     try {
-      if (!_0x8515d.has(_0x161f7c)) {
-        const _0x24753a = _0x161f7c.getZoomFactor?.() || 1;
-        _0x8515d.set(_0x161f7c, _0x24753a);
+      if (!result.has(arg1)) {
+        const local = arg1.getZoomFactor?.() || 1;
+        result.set(arg1, local);
       }
-      if (Math.abs((_0x161f7c.getZoomFactor?.() || 1) - 1) > 0.001) {
-        _0x161f7c.setZoomFactor(1);
+      if (Math.abs((arg1.getZoomFactor?.() || 1) - 1) > 0.001) {
+        arg1.setZoomFactor(1);
       }
-    } catch (_0x14d6fd) {}
+    } catch (error) {}
   }
-  function _0x2b41c7(_0x3ff68e) {
-    if (!_0x3ff68e || _0x3ff68e.isDestroyed?.()) {
+  function restoreForegroundAutomationRendering(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
     try {
-      _0x3ff68e.setAudioMuted(_0x313703.get("system_video_muted", true));
-    } catch (_0x29ccdc) {}
+      arg1.setAudioMuted(store.get("system_video_muted", true));
+    } catch (error) {}
     try {
-      _0x3ff68e.setBackgroundThrottling(false);
-    } catch (_0x403689) {}
+      arg1.setBackgroundThrottling(false);
+    } catch (error) {}
     try {
-      _0x3ff68e.setFrameRate(FOREGROUND_AUTOMATION_FRAME_RATE);
-    } catch (_0x1ba07c) {}
+      arg1.setFrameRate(FOREGROUND_AUTOMATION_FRAME_RATE);
+    } catch (error) {}
     try {
-      _0x3ff68e.setImageAnimationPolicy("animate");
-    } catch (_0x513cc1) {}
-    const _0x3e160d = _0x25bc09();
+      arg1.setImageAnimationPolicy("animate");
+    } catch (error) {}
+    const result = getBackgroundOriginalZoomFactors();
     try {
-      if (_0x3e160d.has(_0x3ff68e)) {
-        const _0x4e946d = _0x3e160d.get(_0x3ff68e) || 1;
-        _0x3e160d.delete(_0x3ff68e);
-        _0x3ff68e.setZoomFactor(_0x4e946d);
+      if (result.has(arg1)) {
+        const local = result.get(arg1) || 1;
+        result.delete(arg1);
+        arg1.setZoomFactor(local);
       }
-    } catch (_0x2f54e7) {}
-    restoreOccludedPageRendering(_0x3ff68e);
+    } catch (error) {}
+    restoreOccludedPageRendering(arg1);
   }
-  function _0x435e64(_0xf2efa9) {
+  function buildCompactBackgroundAutomationBounds(arg1) {
     return {
       x: 0,
       y: 0,
@@ -1160,254 +1160,254 @@ function createBackgroundAutomationLayout(_0x39eb05) {
       height: COMPACT_BACKGROUND_AUTOMATION_HEIGHT
     };
   }
-  function _0x381b80() {
+  function canParkAutomationViewInMainWindow() {
     if (process.platform === "win32") {
       return false;
     }
-    const _0x224dcd = _0x577aff();
-    return Boolean(_0x224dcd && !_0x224dcd.isDestroyed() && _0x224dcd.isVisible() && !_0x224dcd.isMinimized());
+    const result = getMainWindow();
+    return Boolean(result && !result.isDestroyed() && result.isVisible() && !result.isMinimized());
   }
-  function _0x3d800c(_0x3f4003, _0x34ba6d) {
-    if (!_0x34ba6d || _0x34ba6d.webContents?.isDestroyed?.() || !_0x381b80()) {
+  function parkAutomationViewInMainWindow(arg1, arg2) {
+    if (!arg2 || arg2.webContents?.isDestroyed?.() || !canParkAutomationViewInMainWindow()) {
       return false;
     }
-    if (_0x1d881e(_0x3f4003)) {
+    if (shouldAttachAutomationView(arg1)) {
       return false;
     }
-    _0x2758e1(_0x34ba6d);
-    _0x5073d1(_0x34ba6d.webContents, {
-      active: _0x207c8c().has(_0x3f4003) || _0x1c23ef().has(_0x3f4003)
+    removeAutomationViewFromBackgroundHost(arg2);
+    applyBackgroundAutomationOptimizations(arg2.webContents, {
+      active: getBackgroundLayoutHoldViewKeys().has(arg1) || getInteractionLocksMap().has(arg1)
     });
-    _0x2b5976(_0x34ba6d.webContents);
-    const _0x5c2b8d = _0x577aff();
-    if (!_0x5c2b8d.getBrowserViews().includes(_0x34ba6d)) {
-      _0x5c2b8d.addBrowserView(_0x34ba6d);
+    applyBackgroundAutomationZoom(arg2.webContents);
+    const result = getMainWindow();
+    if (!result.getBrowserViews().includes(arg2)) {
+      result.addBrowserView(arg2);
     }
-    _0x34ba6d.setBounds({
+    arg2.setBounds({
       x: -5000,
       y: -5000,
       width: COMPACT_BACKGROUND_AUTOMATION_WIDTH,
       height: COMPACT_BACKGROUND_AUTOMATION_HEIGHT
     });
     try {
-      _0x34ba6d.webContents.invalidate?.();
-    } catch (_0x7fe421) {}
-    _0x2a2d51();
-    console.log("[Main] 实况视图已在主窗口内离屏保留: " + _0x3f4003);
+      arg2.webContents.invalidate?.();
+    } catch (error) {}
+    maybeDestroyBackgroundAutomationHostWindow();
+    console.log("[Main] 实况视图已在主窗口内离屏保留: " + arg1);
     return true;
   }
-  function _0x13dd57(_0x1e826c, _0x27cb37, {
+  function attachAutomationViewToBackgroundHost(arg1, arg2, {
     active = false,
     force = false
   } = {}) {
-    if (!_0x27cb37 || _0x27cb37.webContents?.isDestroyed?.()) {
+    if (!arg2 || arg2.webContents?.isDestroyed?.()) {
       return;
     }
-    if (!force && _0x1d881e(_0x1e826c)) {
-      console.log("[Main] 跳过后台托管（画面已打开）: " + _0x1e826c);
+    if (!force && shouldAttachAutomationView(arg1)) {
+      console.log("[Main] 跳过后台托管（画面已打开）: " + arg1);
       return null;
     }
-    const _0x189f67 = _0x577aff();
-    if (_0x3d800c(_0x1e826c, _0x27cb37)) {
-      return _0x189f67;
+    const result = getMainWindow();
+    if (parkAutomationViewInMainWindow(arg1, arg2)) {
+      return result;
     }
-    _0x5073d1(_0x27cb37.webContents, {
+    applyBackgroundAutomationOptimizations(arg2.webContents, {
       active: active
     });
-    _0x2b5976(_0x27cb37.webContents);
-    _0x29d855(_0x189f67, _0x27cb37);
-    const _0x5b9828 = _0x315f90();
-    _0x27cb37.setBounds(_0x435e64(_0x1e826c));
-    if (!_0x5b9828.getBrowserViews().includes(_0x27cb37)) {
-      _0x5b9828.addBrowserView(_0x27cb37);
+    applyBackgroundAutomationZoom(arg2.webContents);
+    removeAutomationViewFromWindow(result, arg2);
+    const result2 = ensureBackgroundAutomationHostWindow();
+    arg2.setBounds(buildCompactBackgroundAutomationBounds(arg1));
+    if (!result2.getBrowserViews().includes(arg2)) {
+      result2.addBrowserView(arg2);
     }
-    if (!_0x27cb37.webContents.__radarBackgroundLowPowerHookAttached) {
-      _0x27cb37.webContents.__radarBackgroundLowPowerHookAttached = true;
-      _0x27cb37.webContents.on("dom-ready", () => {
-        if (!_0x14baa6().includes(_0x27cb37)) {
+    if (!arg2.webContents.__radarBackgroundLowPowerHookAttached) {
+      arg2.webContents.__radarBackgroundLowPowerHookAttached = true;
+      arg2.webContents.on("dom-ready", () => {
+        if (!getBackgroundAutomationHostViews().includes(arg2)) {
           return;
         }
-        _0x5073d1(_0x27cb37.webContents, {
-          active: _0x207c8c().has(_0x1e826c) || _0x1c23ef().has(_0x1e826c)
+        applyBackgroundAutomationOptimizations(arg2.webContents, {
+          active: getBackgroundLayoutHoldViewKeys().has(arg1) || getInteractionLocksMap().has(arg1)
         });
       });
     }
     if (active) {
-      const _0x3ec314 = _0x22db08();
-      const _0x1a2e30 = !!_0x3ec314 && (_0x3ec314.viewKey !== _0x1e826c || _0x3ec314.webContentsId !== _0x27cb37.webContents.id);
-      if (!_0x1a2e30) {
+      const result = getBackgroundInteractionSlot();
+      const local = !!result && (result.viewKey !== arg1 || result.webContentsId !== arg2.webContents.id);
+      if (!local) {
         try {
-          _0x5b9828.setTopBrowserView(_0x27cb37);
-        } catch (_0xf60102) {}
-        _0x202bf0();
-        _0x42c39b(_0x27cb37.webContents);
-        _0x30ec8d(_0x5b9828, "after-active-attach");
+          result2.setTopBrowserView(arg2);
+        } catch (error) {}
+        armBackgroundHostInternalActivation();
+        focusAutomationWebContentsSafely(arg2.webContents);
+        parkBackgroundAutomationHostWindow(result2, "after-active-attach");
         try {
-          if (_0x5b9828.isFocused()) {
-            _0x5b9828.blur();
+          if (result2.isFocused()) {
+            result2.blur();
           }
-        } catch (_0x529fe0) {}
-        _0x240208(_0x5b9828, "after-active-attach");
+        } catch (error) {}
+        scheduleBackgroundAutomationHostRepark(result2, "after-active-attach");
       }
     }
-    return _0x5b9828;
+    return result2;
   }
-  function _0x2288d4(_0x53a6a5, _0x5850cf = "preview-spectator") {
-    if (!_0x53a6a5 || !_0x1d881e(_0x53a6a5)) {
+  function attachLivePreviewSpectatorIfPossible(arg1, text = "preview-spectator") {
+    if (!arg1 || !shouldAttachAutomationView(arg1)) {
       return false;
     }
-    const _0x20c7d6 = _0x1beec().get(_0x53a6a5);
-    if (!_0x20c7d6 || _0x20c7d6.webContents?.isDestroyed?.()) {
+    const result = getPlatformViews().get(arg1);
+    if (!result || result.webContents?.isDestroyed?.()) {
       return false;
     }
-    if (_0x1c23ef().has(_0x53a6a5)) {
-      const _0x1ffe16 = _0x258d66(_0x53a6a5, _0x5850cf);
-      if (_0x1ffe16.restored) {
-        _0x3cfc9d(_0x20c7d6.webContents, _0x20c7d6);
+    if (getInteractionLocksMap().has(arg1)) {
+      const result2 = restoreVisibleInteractionStack(arg1, text);
+      if (result2.restored) {
+        nudgeAutomationViewRepaint(result.webContents, result);
         return true;
       }
       return false;
     }
-    if (_0x3f44d5(_0x53a6a5, _0x20c7d6)) {
+    if (restoreAutomationPreviewAfterExecution(arg1, result)) {
       return true;
     }
-    console.warn("[Main] 打开画面暂无有效卡片尺寸，等待 bounds 同步: " + _0x53a6a5 + " (" + _0x5850cf + ")");
+    console.warn("[Main] 打开画面暂无有效卡片尺寸，等待 bounds 同步: " + arg1 + " (" + text + ")");
     return false;
   }
-  function _0x164b9e(_0x432757, _0x1d9b40) {
-    if (!_0x1d9b40 || _0x1d9b40.webContents?.isDestroyed?.()) {
+  function enterBackgroundDetachedMode(arg1, arg2) {
+    if (!arg2 || arg2.webContents?.isDestroyed?.()) {
       return;
     }
-    _0x207c8c().delete(_0x432757);
-    _0x2f80d7().add(_0x432757);
-    _0x13dd57(_0x432757, _0x1d9b40, {
+    getBackgroundLayoutHoldViewKeys().delete(arg1);
+    getBackgroundDetachedViewKeys().add(arg1);
+    attachAutomationViewToBackgroundHost(arg1, arg2, {
       active: false
     });
-    console.log("[Main] 任务进入低功耗后台宿主: " + _0x432757);
+    console.log("[Main] 任务进入低功耗后台宿主: " + arg1);
   }
-  async function _0x3407da(_0x3638c1, {
+  async function ensureBackgroundAutomationLayout(arg1, {
     claimInteractionSlot = false,
     requesterWebContents = null,
     requireComposerSurface = false
   } = {}) {
-    if (!_0x3638c1) {
+    if (!arg1) {
       return {
         ok: false,
         reason: "no_view_key"
       };
     }
-    const _0x4267e3 = _0x1beec().get(_0x3638c1);
-    if (!_0x4267e3) {
+    const result = getPlatformViews().get(arg1);
+    if (!result) {
       return {
         ok: false,
         reason: "no_view"
       };
     }
-    if (!_0x3af5bb.has(_0x3638c1)) {
-      _0x3af5bb.set(_0x3638c1, 1);
+    if (!map.has(arg1)) {
+      map.set(arg1, 1);
     }
-    const _0x515b8e = _0x3af5bb.get(_0x3638c1);
-    const _0x375f32 = String(_0x15482d().get(_0x3638c1)?.taskId || "");
-    const _0x2dc69d = String(_0x1c23ef().get(_0x3638c1)?.interactionId || "");
-    const _0x35b918 = !!_0x5f0b30?.(_0x3638c1);
-    const _0x477d6e = !!_0x74d7e2?.(_0x3638c1);
-    const _0x3d9d7c = () => _0x3af5bb.get(_0x3638c1) === _0x515b8e && _0x1beec().get(_0x3638c1) === _0x4267e3 && !_0x4267e3.webContents?.isDestroyed?.() && String(_0x15482d().get(_0x3638c1)?.taskId || "") === _0x375f32 && String(_0x1c23ef().get(_0x3638c1)?.interactionId || "") === _0x2dc69d && (!_0x35b918 || !!_0x5f0b30?.(_0x3638c1)) && (!_0x477d6e || !!_0x74d7e2?.(_0x3638c1)) && (_0x1d881e(_0x3638c1) || _0x516db6(_0x3638c1));
-    if (_0x1d881e(_0x3638c1) && !claimInteractionSlot) {
-      const _0xd09188 = _0x577aff();
+    const result2 = map.get(arg1);
+    const result3 = String(getViewSettingsMap().get(arg1)?.taskId || "");
+    const result4 = String(getInteractionLocksMap().get(arg1)?.interactionId || "");
+    const flag = !!isBatchViewRuntimeActive?.(arg1);
+    const flag2 = !!isMonitorTaskViewRunning?.(arg1);
+    const local = () => map.get(arg1) === result2 && getPlatformViews().get(arg1) === result && !result.webContents?.isDestroyed?.() && String(getViewSettingsMap().get(arg1)?.taskId || "") === result3 && String(getInteractionLocksMap().get(arg1)?.interactionId || "") === result4 && (!flag || !!isBatchViewRuntimeActive?.(arg1)) && (!flag2 || !!isMonitorTaskViewRunning?.(arg1)) && (shouldAttachAutomationView(arg1) || shouldKeepAutomationViewAttached(arg1));
+    if (shouldAttachAutomationView(arg1) && !claimInteractionSlot) {
+      const result2 = getMainWindow();
       return {
         ok: true,
-        attached: !!_0xd09188 && !_0xd09188.isDestroyed() && !!_0xd09188.getBrowserViews().includes(_0x4267e3),
+        attached: !!result2 && !result2.isDestroyed() && !!result2.getBrowserViews().includes(result),
         visible: true
       };
     }
-    if (!_0x1d881e(_0x3638c1) && !_0x516db6(_0x3638c1)) {
+    if (!shouldAttachAutomationView(arg1) && !shouldKeepAutomationViewAttached(arg1)) {
       return {
         ok: true,
         attached: false,
         reason: "no_active_task"
       };
     }
-    let _0x5cf0de = false;
-    let _0x1219d9 = 0;
+    let flag3 = false;
+    let num = 0;
     if (claimInteractionSlot) {
-      const _0x2db0ef = await _0x53e695(_0x3638c1, requesterWebContents || _0x4267e3.webContents);
-      if (!_0x2db0ef?.acquired) {
+      const result2 = await acquireBackgroundInteractionSlot(arg1, requesterWebContents || result.webContents);
+      if (!result2?.acquired) {
         return {
           ok: false,
           attached: false,
-          reason: _0x2db0ef?.reason || "interaction_slot_failed"
+          reason: result2?.reason || "interaction_slot_failed"
         };
       }
-      if (!_0x3d9d7c()) {
-        _0xe06977(_0x3638c1, requesterWebContents || _0x4267e3.webContents, "stale_layout_generation");
+      if (!local()) {
+        releaseBackgroundInteractionSlot(arg1, requesterWebContents || result.webContents, "stale_layout_generation");
         return {
           ok: false,
           attached: false,
           reason: "stale_layout_generation"
         };
       }
-      _0x5cf0de = true;
-      _0x1219d9 = Number(_0x2db0ef.waitedMs || 0);
-      if (_0x1d881e(_0x3638c1) && !_0x1c23ef().has(_0x3638c1)) {
-        _0x2758e1(_0x4267e3);
-        const _0x43a1c2 = _0x577aff();
-        if (_0x43a1c2 && !_0x43a1c2.isDestroyed() && !_0x43a1c2.getBrowserViews().includes(_0x4267e3)) {
-          _0x43a1c2.addBrowserView(_0x4267e3);
+      flag3 = true;
+      num = Number(result2.waitedMs || 0);
+      if (shouldAttachAutomationView(arg1) && !getInteractionLocksMap().has(arg1)) {
+        removeAutomationViewFromBackgroundHost(result);
+        const result2 = getMainWindow();
+        if (result2 && !result2.isDestroyed() && !result2.getBrowserViews().includes(result)) {
+          result2.addBrowserView(result);
         }
-        _0x2b41c7(_0x4267e3.webContents);
-        _0x4dbb08(_0x4267e3, {
-          context: "ensure-visible-main-interaction:" + _0x3638c1
+        restoreForegroundAutomationRendering(result.webContents);
+        safeSetTopBrowserView(result, {
+          context: "ensure-visible-main-interaction:" + arg1
         });
-        _0x42c39b(_0x4267e3.webContents);
+        focusAutomationWebContentsSafely(result.webContents);
         return {
           ok: true,
           attached: true,
           visible: true,
-          interactionSlotAcquired: _0x5cf0de,
-          interactionSlotWaitedMs: _0x1219d9
+          interactionSlotAcquired: flag3,
+          interactionSlotWaitedMs: num
         };
       }
     }
-    if (_0x1c23ef().has(_0x3638c1)) {
-      const _0x2fd7aa = _0x1c23ef().get(_0x3638c1);
-      const _0x20e14b = _0x4ae3ed().get(_0x3638c1);
-      if (_0x20e14b && !_0x20e14b.webContents.isDestroyed()) {
-        if (_0x119099(_0x3638c1) && _0x133324(_0x2fd7aa?.bounds)) {
-          const _0xe8ccdd = _0x258d66(_0x3638c1, "ensure-visible-subview-interaction:" + _0x3638c1);
-          if (_0xe8ccdd.interactionVisible) {
-            _0x42c39b(_0x20e14b.webContents, {
+    if (getInteractionLocksMap().has(arg1)) {
+      const result2 = getInteractionLocksMap().get(arg1);
+      const result3 = getInteractionViewsMap().get(arg1);
+      if (result3 && !result3.webContents.isDestroyed()) {
+        if (shouldShowInteractionView(arg1) && isValidAutomationBounds(result2?.bounds)) {
+          const result = restoreVisibleInteractionStack(arg1, "ensure-visible-subview-interaction:" + arg1);
+          if (result.interactionVisible) {
+            focusAutomationWebContentsSafely(result3.webContents, {
               force: true
             });
           }
-          _0x207c8c().add(_0x3638c1);
+          getBackgroundLayoutHoldViewKeys().add(arg1);
           return {
             ok: true,
             attached: true,
             visible: true,
-            interaction: _0xe8ccdd.interactionVisible,
-            warming: !_0xe8ccdd.interactionVisible,
-            interactionSlotAcquired: _0x5cf0de,
-            interactionSlotWaitedMs: _0x1219d9
+            interaction: result.interactionVisible,
+            warming: !result.interactionVisible,
+            interactionSlotAcquired: flag3,
+            interactionSlotWaitedMs: num
           };
         }
-        _0x13dd57(_0x3638c1, _0x20e14b, {
+        attachAutomationViewToBackgroundHost(arg1, result3, {
           active: true
         });
-        const _0x33b907 = requireComposerSurface && _0x24cc79(_0x3638c1, _0x20e14b.webContents);
-        const _0x34d01e = requireComposerSurface ? await _0x1cb43a(_0x20e14b.webContents) : {
+        const local2 = requireComposerSurface && activateBackgroundAutomationComposerSurface(arg1, result3.webContents);
+        const value = requireComposerSurface ? await emulateBackgroundAutomationPageFocus(result3.webContents) : {
           enabled: false
         };
         if (requireComposerSurface) {
-          _0x20e14b.setBounds(_0x435e64(_0x3638c1));
-          _0x3ab56c(_0x20e14b.webContents, {
+          result3.setBounds(buildCompactBackgroundAutomationBounds(arg1));
+          notifyAutomationViewportChanged(result3.webContents, {
             force: true
           });
-          _0x3cfc9d(_0x20e14b.webContents, _0x20e14b);
-          const _0x43f02e = _0x1219d9 >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420);
-          await new Promise(_0x3bff77 => setTimeout(_0x3bff77, _0x43f02e));
-          if (!_0x3d9d7c()) {
-            if (_0x5cf0de) {
-              _0xe06977(_0x3638c1, requesterWebContents || _0x4267e3.webContents, "stale_layout_generation");
+          nudgeAutomationViewRepaint(result3.webContents, result3);
+          const value = num >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420);
+          await new Promise(arg1 => setTimeout(arg1, value));
+          if (!local()) {
+            if (flag3) {
+              releaseBackgroundInteractionSlot(arg1, requesterWebContents || result.webContents, "stale_layout_generation");
             }
             return {
               ok: false,
@@ -1416,33 +1416,33 @@ function createBackgroundAutomationLayout(_0x39eb05) {
             };
           }
         }
-        _0x2f80d7().delete(_0x3638c1);
-        _0x207c8c().add(_0x3638c1);
+        getBackgroundDetachedViewKeys().delete(arg1);
+        getBackgroundLayoutHoldViewKeys().add(arg1);
         return {
           ok: true,
           attached: true,
           interaction: true,
           stableViewport: true,
-          composerSurface: !!_0x33b907,
-          focusEmulated: !!_0x34d01e.enabled,
-          surfaceWarmupMs: requireComposerSurface ? _0x1219d9 >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420) : 0,
-          nativeWindowFocused: !!_0x1750bc()?.isFocused?.(),
-          webContentsFocused: !!_0x20e14b.webContents?.isFocused?.(),
-          interactionSlotAcquired: _0x5cf0de,
-          interactionSlotWaitedMs: _0x1219d9
+          composerSurface: !!local2,
+          focusEmulated: !!value.enabled,
+          surfaceWarmupMs: requireComposerSurface ? num >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420) : 0,
+          nativeWindowFocused: !!getBackgroundAutomationHostWindow()?.isFocused?.(),
+          webContentsFocused: !!result3.webContents?.isFocused?.(),
+          interactionSlotAcquired: flag3,
+          interactionSlotWaitedMs: num
         };
       }
     }
-    if (_0x381b80()) {
-      const _0xd99975 = _0x1c23ef().has(_0x3638c1) ? _0x4ae3ed().get(_0x3638c1) || _0x4267e3 : _0x4267e3;
-      _0x2f80d7().delete(_0x3638c1);
-      _0x207c8c().add(_0x3638c1);
-      _0x3d800c(_0x3638c1, _0xd99975);
-      _0x3cfc9d(_0xd99975.webContents, _0xd99975);
-      await new Promise(_0x2d6d64 => setTimeout(_0x2d6d64, BACKGROUND_LAYOUT_WARMUP_MS));
-      if (!_0x3d9d7c()) {
-        if (_0x5cf0de) {
-          _0xe06977(_0x3638c1, requesterWebContents || _0x4267e3.webContents, "stale_layout_generation");
+    if (canParkAutomationViewInMainWindow()) {
+      const value = getInteractionLocksMap().has(arg1) ? getInteractionViewsMap().get(arg1) || result : result;
+      getBackgroundDetachedViewKeys().delete(arg1);
+      getBackgroundLayoutHoldViewKeys().add(arg1);
+      parkAutomationViewInMainWindow(arg1, value);
+      nudgeAutomationViewRepaint(value.webContents, value);
+      await new Promise(arg1 => setTimeout(arg1, BACKGROUND_LAYOUT_WARMUP_MS));
+      if (!local()) {
+        if (flag3) {
+          releaseBackgroundInteractionSlot(arg1, requesterWebContents || result.webContents, "stale_layout_generation");
         }
         return {
           ok: false,
@@ -1454,30 +1454,30 @@ function createBackgroundAutomationLayout(_0x39eb05) {
         ok: true,
         attached: true,
         parkedInMainWindow: true,
-        interactionSlotAcquired: _0x5cf0de,
-        interactionSlotWaitedMs: _0x1219d9
+        interactionSlotAcquired: flag3,
+        interactionSlotWaitedMs: num
       };
     }
-    const _0x1f0360 = _0x315f90();
-    if (_0x207c8c().has(_0x3638c1) && _0x1f0360.getBrowserViews().includes(_0x4267e3)) {
-      _0x13dd57(_0x3638c1, _0x4267e3, {
+    const result5 = ensureBackgroundAutomationHostWindow();
+    if (getBackgroundLayoutHoldViewKeys().has(arg1) && result5.getBrowserViews().includes(result)) {
+      attachAutomationViewToBackgroundHost(arg1, result, {
         active: true
       });
-      const _0x526b28 = requireComposerSurface && _0x24cc79(_0x3638c1, _0x4267e3.webContents);
-      const _0x82dfa5 = requireComposerSurface ? await _0x1cb43a(_0x4267e3.webContents) : {
+      const local2 = requireComposerSurface && activateBackgroundAutomationComposerSurface(arg1, result.webContents);
+      const value = requireComposerSurface ? await emulateBackgroundAutomationPageFocus(result.webContents) : {
         enabled: false
       };
       if (requireComposerSurface) {
-        _0x4267e3.setBounds(_0x435e64(_0x3638c1));
-        _0x3ab56c(_0x4267e3.webContents, {
+        result.setBounds(buildCompactBackgroundAutomationBounds(arg1));
+        notifyAutomationViewportChanged(result.webContents, {
           force: true
         });
-        _0x3cfc9d(_0x4267e3.webContents, _0x4267e3);
-        const _0x3e9144 = _0x1219d9 >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420);
-        await new Promise(_0x2c823d => setTimeout(_0x2c823d, _0x3e9144));
-        if (!_0x3d9d7c()) {
-          if (_0x5cf0de) {
-            _0xe06977(_0x3638c1, requesterWebContents || _0x4267e3.webContents, "stale_layout_generation");
+        nudgeAutomationViewRepaint(result.webContents, result);
+        const value = num >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420);
+        await new Promise(arg1 => setTimeout(arg1, value));
+        if (!local()) {
+          if (flag3) {
+            releaseBackgroundInteractionSlot(arg1, requesterWebContents || result.webContents, "stale_layout_generation");
           }
           return {
             ok: false,
@@ -1490,30 +1490,30 @@ function createBackgroundAutomationLayout(_0x39eb05) {
         ok: true,
         attached: true,
         reused: true,
-        composerSurface: !!_0x526b28,
-        focusEmulated: !!_0x82dfa5.enabled,
-        surfaceWarmupMs: requireComposerSurface ? _0x1219d9 >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420) : 0,
-        nativeWindowFocused: !!_0x1750bc()?.isFocused?.(),
-        webContentsFocused: !!_0x4267e3.webContents?.isFocused?.(),
-        interactionSlotAcquired: _0x5cf0de,
-        interactionSlotWaitedMs: _0x1219d9
+        composerSurface: !!local2,
+        focusEmulated: !!value.enabled,
+        surfaceWarmupMs: requireComposerSurface ? num >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420) : 0,
+        nativeWindowFocused: !!getBackgroundAutomationHostWindow()?.isFocused?.(),
+        webContentsFocused: !!result.webContents?.isFocused?.(),
+        interactionSlotAcquired: flag3,
+        interactionSlotWaitedMs: num
       };
     }
-    _0x13dd57(_0x3638c1, _0x4267e3, {
+    attachAutomationViewToBackgroundHost(arg1, result, {
       active: true
     });
-    const _0x4d6ca2 = requireComposerSurface && _0x24cc79(_0x3638c1, _0x4267e3.webContents);
-    const _0x8493f = requireComposerSurface ? await _0x1cb43a(_0x4267e3.webContents) : {
+    const local2 = requireComposerSurface && activateBackgroundAutomationComposerSurface(arg1, result.webContents);
+    const value = requireComposerSurface ? await emulateBackgroundAutomationPageFocus(result.webContents) : {
       enabled: false
     };
-    _0x2f80d7().delete(_0x3638c1);
-    _0x207c8c().add(_0x3638c1);
-    _0x3cfc9d(_0x4267e3.webContents, _0x4267e3);
-    const _0x1d4467 = requireComposerSurface && _0x1219d9 >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : requireComposerSurface ? Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420) : BACKGROUND_LAYOUT_WARMUP_MS;
-    await new Promise(_0xa32aac => setTimeout(_0xa32aac, _0x1d4467));
-    if (!_0x3d9d7c()) {
-      if (_0x5cf0de) {
-        _0xe06977(_0x3638c1, requesterWebContents || _0x4267e3.webContents, "stale_layout_generation");
+    getBackgroundDetachedViewKeys().delete(arg1);
+    getBackgroundLayoutHoldViewKeys().add(arg1);
+    nudgeAutomationViewRepaint(result.webContents, result);
+    const value2 = requireComposerSurface && num >= 500 ? BACKGROUND_INTERACTION_RESUME_WARMUP_MS : requireComposerSurface ? Math.max(BACKGROUND_LAYOUT_WARMUP_MS, 420) : BACKGROUND_LAYOUT_WARMUP_MS;
+    await new Promise(arg1 => setTimeout(arg1, value2));
+    if (!local()) {
+      if (flag3) {
+        releaseBackgroundInteractionSlot(arg1, requesterWebContents || result.webContents, "stale_layout_generation");
       }
       return {
         ok: false,
@@ -1524,52 +1524,52 @@ function createBackgroundAutomationLayout(_0x39eb05) {
     return {
       ok: true,
       attached: true,
-      composerSurface: !!_0x4d6ca2,
-      focusEmulated: !!_0x8493f.enabled,
-      surfaceWarmupMs: _0x1d4467,
-      nativeWindowFocused: !!_0x1750bc()?.isFocused?.(),
-      webContentsFocused: !!_0x4267e3.webContents?.isFocused?.(),
-      interactionSlotAcquired: _0x5cf0de,
-      interactionSlotWaitedMs: _0x1219d9
+      composerSurface: !!local2,
+      focusEmulated: !!value.enabled,
+      surfaceWarmupMs: value2,
+      nativeWindowFocused: !!getBackgroundAutomationHostWindow()?.isFocused?.(),
+      webContentsFocused: !!result.webContents?.isFocused?.(),
+      interactionSlotAcquired: flag3,
+      interactionSlotWaitedMs: num
     };
   }
-  function _0x71829(_0x4f8b09) {
-    if (!_0x4f8b09) {
+  function releaseBackgroundAutomationLayout(arg1) {
+    if (!arg1) {
       return {
         ok: false,
         reason: "no_view_key"
       };
     }
-    _0x45ba52(_0x4f8b09);
-    _0x2a259c(_0x4f8b09);
-    const _0x4f53e7 = _0x207c8c();
-    if (!_0x4f53e7.has(_0x4f8b09)) {
+    fn(arg1);
+    releaseBackgroundAutomationComposerSurface(arg1);
+    const result = getBackgroundLayoutHoldViewKeys();
+    if (!result.has(arg1)) {
       return {
         ok: true,
         skipped: true
       };
     }
-    const _0xcda86 = _0x1beec().get(_0x4f8b09);
-    _0x4f53e7.delete(_0x4f8b09);
-    if (_0x1c23ef().has(_0x4f8b09)) {
-      const _0x1f6694 = _0x1c23ef().get(_0x4f8b09);
-      const _0x105fc4 = _0x4ae3ed().get(_0x4f8b09);
-      let _0x387008 = false;
-      if (_0x105fc4 && !_0x105fc4.webContents?.isDestroyed?.()) {
-        if (_0x119099(_0x4f8b09) && _0x133324(_0x1f6694?.bounds)) {
-          const _0x48cef4 = _0x258d66(_0x4f8b09, "release-visible-subview-interaction:" + _0x4f8b09);
-          _0x387008 = _0x48cef4.interactionVisible;
+    const result2 = getPlatformViews().get(arg1);
+    result.delete(arg1);
+    if (getInteractionLocksMap().has(arg1)) {
+      const result3 = getInteractionLocksMap().get(arg1);
+      const result4 = getInteractionViewsMap().get(arg1);
+      let flag = false;
+      if (result4 && !result4.webContents?.isDestroyed?.()) {
+        if (shouldShowInteractionView(arg1) && isValidAutomationBounds(result3?.bounds)) {
+          const result = restoreVisibleInteractionStack(arg1, "release-visible-subview-interaction:" + arg1);
+          flag = result.interactionVisible;
         } else {
-          _0x13dd57(_0x4f8b09, _0x105fc4, {
+          attachAutomationViewToBackgroundHost(arg1, result4, {
             active: true
           });
         }
-        _0x4f53e7.add(_0x4f8b09);
+        result.add(arg1);
       }
-      if (_0xcda86 && !_0x387008) {
-        _0x3f44d5(_0x4f8b09, _0xcda86);
+      if (result2 && !flag) {
+        restoreAutomationPreviewAfterExecution(arg1, result2);
       }
-      if (_0x387008) {
+      if (flag) {
         return {
           ok: true,
           visible: true,
@@ -1583,10 +1583,10 @@ function createBackgroundAutomationLayout(_0x39eb05) {
         };
       }
     }
-    if (_0x1d881e(_0x4f8b09)) {
-      if (_0xcda86) {
-        if (!_0x3f44d5(_0x4f8b09, _0xcda86)) {
-          _0x2b41c7(_0xcda86.webContents);
+    if (shouldAttachAutomationView(arg1)) {
+      if (result2) {
+        if (!restoreAutomationPreviewAfterExecution(arg1, result2)) {
+          restoreForegroundAutomationRendering(result2.webContents);
         }
       }
       return {
@@ -1594,907 +1594,907 @@ function createBackgroundAutomationLayout(_0x39eb05) {
         visible: true
       };
     }
-    if (_0xcda86 && _0x516db6(_0x4f8b09)) {
-      _0x164b9e(_0x4f8b09, _0xcda86);
+    if (result2 && shouldKeepAutomationViewAttached(arg1)) {
+      enterBackgroundDetachedMode(arg1, result2);
     }
     return {
       ok: true
     };
   }
-  async function _0x946527(_0x5040c7, {
+  async function acquireEntityExecutionViewportLease(arg1, {
     taskGeneration = 0,
     runtimeTaskId = ""
   } = {}) {
-    const _0x36148e = String(_0x5040c7 || "");
-    if (!_0x36148e.startsWith("entity_")) {
+    const result = String(arg1 || "");
+    if (!result.startsWith("entity_")) {
       return {
         ok: false,
         reason: "not_entity_view"
       };
     }
-    const _0x1cd479 = _0x1beec().get(_0x36148e);
-    if (!_0x1cd479 || _0x1cd479.webContents?.isDestroyed?.()) {
+    const result2 = getPlatformViews().get(result);
+    if (!result2 || result2.webContents?.isDestroyed?.()) {
       return {
         ok: false,
         reason: "view_unavailable"
       };
     }
-    const _0xadda0d = {
+    const obj = {
       taskGeneration: Number(taskGeneration) || 0,
       runtimeTaskId: String(runtimeTaskId || ""),
       acquiredAt: Date.now()
     };
-    _0x5c5640.set(_0x36148e, _0xadda0d);
-    _0x207c8c().add(_0x36148e);
-    let _0x543c77;
-    if (_0x1d881e(_0x36148e)) {
-      const _0x17fcfe = _0x2f9f4c().get(_0x36148e);
-      _0x2758e1(_0x1cd479);
-      _0x2b41c7(_0x1cd479.webContents);
-      const _0x137f38 = _0x577aff();
-      if (_0x137f38 && !_0x137f38.isDestroyed() && !_0x137f38.getBrowserViews().includes(_0x1cd479)) {
-        _0x137f38.addBrowserView(_0x1cd479);
+    map2.set(result, obj);
+    getBackgroundLayoutHoldViewKeys().add(result);
+    let local;
+    if (shouldAttachAutomationView(result)) {
+      const result3 = getBoundsStateByViewKey().get(result);
+      removeAutomationViewFromBackgroundHost(result2);
+      restoreForegroundAutomationRendering(result2.webContents);
+      const result4 = getMainWindow();
+      if (result4 && !result4.isDestroyed() && !result4.getBrowserViews().includes(result2)) {
+        result4.addBrowserView(result2);
       }
-      if (_0x133324(_0x17fcfe?.bounds)) {
-        _0x1cd479.setBounds({
-          ..._0x17fcfe.bounds
+      if (isValidAutomationBounds(result3?.bounds)) {
+        result2.setBounds({
+          ...result3.bounds
         });
       }
-      if (Number(_0x17fcfe?.zoomFactor) > 0) {
+      if (Number(result3?.zoomFactor) > 0) {
         try {
-          _0x1cd479.webContents.setZoomFactor(Number(_0x17fcfe.zoomFactor));
-        } catch (_0x5ce1c3) {}
+          result2.webContents.setZoomFactor(Number(result3.zoomFactor));
+        } catch (error) {}
       }
-      _0x4dbb08(_0x1cd479, {
-        context: "entity-execution-lease:" + _0x36148e
+      safeSetTopBrowserView(result2, {
+        context: "entity-execution-lease:" + result
       });
-      _0x543c77 = {
+      local = {
         ok: true,
         attached: true,
         visible: true
       };
     } else {
-      _0x543c77 = await _0x3407da(_0x36148e, {
+      local = await ensureBackgroundAutomationLayout(result, {
         claimInteractionSlot: false
       });
     }
-    const _0x287b85 = _0x5c5640.get(_0x36148e);
-    if (_0x287b85 !== _0xadda0d || _0x543c77 && _0x543c77.ok === false || _0x1beec().get(_0x36148e) !== _0x1cd479 || _0x1cd479.webContents?.isDestroyed?.()) {
-      if (_0x287b85 === _0xadda0d) {
-        _0x5c5640.delete(_0x36148e);
-        _0x207c8c().delete(_0x36148e);
+    const result3 = map2.get(result);
+    if (result3 !== obj || local && local.ok === false || getPlatformViews().get(result) !== result2 || result2.webContents?.isDestroyed?.()) {
+      if (result3 === obj) {
+        map2.delete(result);
+        getBackgroundLayoutHoldViewKeys().delete(result);
       }
       return {
         ok: false,
-        reason: _0x543c77?.reason || "stale_entity_execution_lease"
+        reason: local?.reason || "stale_entity_execution_lease"
       };
     }
     return {
       ok: true,
-      taskGeneration: _0xadda0d.taskGeneration,
-      layout: _0x543c77 || null
+      taskGeneration: obj.taskGeneration,
+      layout: local || null
     };
   }
-  function _0x2d0735(_0x34209f, {
+  function releaseEntityExecutionViewportLease(arg1, {
     taskGeneration = null
   } = {}) {
-    const _0x16e785 = String(_0x34209f || "");
-    if (!_0x16e785.startsWith("entity_")) {
+    const result = String(arg1 || "");
+    if (!result.startsWith("entity_")) {
       return {
         ok: false,
         reason: "not_entity_view"
       };
     }
-    const _0x5e55f7 = _0x5c5640.get(_0x16e785);
-    if (!_0x5e55f7) {
+    const result2 = map2.get(result);
+    if (!result2) {
       return {
         ok: true,
         skipped: true
       };
     }
-    if (taskGeneration != null && Number(taskGeneration) !== Number(_0x5e55f7.taskGeneration)) {
+    if (taskGeneration != null && Number(taskGeneration) !== Number(result2.taskGeneration)) {
       return {
         ok: false,
         reason: "stale_entity_execution_lease_release"
       };
     }
-    _0x5c5640.delete(_0x16e785);
-    return _0x71829(_0x16e785);
+    map2.delete(result);
+    return releaseBackgroundAutomationLayout(result);
   }
-  function _0xe0055d(_0x48f358) {
-    return _0x5c5640.has(String(_0x48f358 || ""));
+  function hasEntityExecutionViewportLease(arg1) {
+    return map2.has(String(arg1 || ""));
   }
-  function _0x3c5ea4(_0xc6d429, _0x592fcb) {
-    if (!_0x592fcb) {
+  function detachAutomationViewFromWindow(arg1, arg2) {
+    if (!arg2) {
       return;
     }
-    const _0x44da82 = _0x577aff();
-    if (_0x4ae3ed().get(_0xc6d429) === _0x592fcb && !_0x1c23ef().has(_0xc6d429)) {
-      _0x29d855(_0x44da82, _0x592fcb);
-      _0x2758e1(_0x592fcb);
-      _0x2a2d51();
+    const result = getMainWindow();
+    if (getInteractionViewsMap().get(arg1) === arg2 && !getInteractionLocksMap().has(arg1)) {
+      removeAutomationViewFromWindow(result, arg2);
+      removeAutomationViewFromBackgroundHost(arg2);
+      maybeDestroyBackgroundAutomationHostWindow();
       return;
     }
-    if (_0x207c8c().has(_0xc6d429)) {
-      if (_0x516db6(_0xc6d429)) {
-        if (_0x3d800c(_0xc6d429, _0x592fcb)) {
+    if (getBackgroundLayoutHoldViewKeys().has(arg1)) {
+      if (shouldKeepAutomationViewAttached(arg1)) {
+        if (parkAutomationViewInMainWindow(arg1, arg2)) {
           return;
         }
-        _0x13dd57(_0xc6d429, _0x592fcb, {
+        attachAutomationViewToBackgroundHost(arg1, arg2, {
           active: true
         });
       }
       return;
     }
-    if (_0x516db6(_0xc6d429)) {
-      if (_0x381b80()) {
-        _0x2f80d7().add(_0xc6d429);
-        _0x3d800c(_0xc6d429, _0x592fcb);
+    if (shouldKeepAutomationViewAttached(arg1)) {
+      if (canParkAutomationViewInMainWindow()) {
+        getBackgroundDetachedViewKeys().add(arg1);
+        parkAutomationViewInMainWindow(arg1, arg2);
         return;
       }
-      _0x164b9e(_0xc6d429, _0x592fcb);
+      enterBackgroundDetachedMode(arg1, arg2);
       return;
     }
-    _0x581888(_0xc6d429);
-    _0x29d855(_0x44da82, _0x592fcb);
-    _0x2758e1(_0x592fcb);
-    _0x2a2d51();
+    clearBackgroundAutomationState(arg1);
+    removeAutomationViewFromWindow(result, arg2);
+    removeAutomationViewFromBackgroundHost(arg2);
+    maybeDestroyBackgroundAutomationHostWindow();
   }
-  function _0x119099(_0x5178c3) {
-    return _0x1d881e(_0x5178c3);
+  function shouldShowInteractionView(arg1) {
+    return shouldAttachAutomationView(arg1);
   }
-  function _0x258d66(_0x1a51f6, _0x1c10ab = "visible-interaction-stack") {
-    const _0x459546 = _0x1c23ef().get(_0x1a51f6);
-    const _0x569bdf = _0x1beec().get(_0x1a51f6);
-    const _0x49fcac = _0x4ae3ed().get(_0x1a51f6);
-    const _0xeb5a58 = _0x577aff();
-    if (!_0x459546 || !_0x569bdf || _0x569bdf.webContents?.isDestroyed?.() || !_0x1d881e(_0x1a51f6) || !_0xeb5a58 || _0xeb5a58.isDestroyed()) {
+  function restoreVisibleInteractionStack(arg1, text = "visible-interaction-stack") {
+    const result = getInteractionLocksMap().get(arg1);
+    const result2 = getPlatformViews().get(arg1);
+    const result3 = getInteractionViewsMap().get(arg1);
+    const result4 = getMainWindow();
+    if (!result || !result2 || result2.webContents?.isDestroyed?.() || !shouldAttachAutomationView(arg1) || !result4 || result4.isDestroyed()) {
       return {
         restored: false,
         interactionVisible: false,
         interactionStaged: false
       };
     }
-    const _0x349bfa = _0x2f9f4c().get(_0x1a51f6);
-    const _0x40627a = _0x4af95c(_0x1a51f6, _0x459546);
-    const _0x18358d = _0x40627a.bounds;
-    if (!_0x133324(_0x18358d)) {
+    const result5 = getBoundsStateByViewKey().get(arg1);
+    const result6 = fn56(arg1, result);
+    const value = result6.bounds;
+    if (!isValidAutomationBounds(value)) {
       return {
         restored: false,
         interactionVisible: false,
         interactionStaged: false
       };
     }
-    _0x2758e1(_0x569bdf);
-    _0x2b41c7(_0x569bdf.webContents);
-    if (!_0xeb5a58.getBrowserViews().includes(_0x569bdf)) {
-      _0xeb5a58.addBrowserView(_0x569bdf);
+    removeAutomationViewFromBackgroundHost(result2);
+    restoreForegroundAutomationRendering(result2.webContents);
+    if (!result4.getBrowserViews().includes(result2)) {
+      result4.addBrowserView(result2);
     }
-    _0x569bdf.setBounds({
-      ..._0x18358d
+    result2.setBounds({
+      ...value
     });
-    if (Number(_0x349bfa?.zoomFactor) > 0) {
+    if (Number(result5?.zoomFactor) > 0) {
       try {
-        _0x569bdf.webContents.setZoomFactor(Number(_0x349bfa.zoomFactor));
-      } catch (_0x316d2e) {}
+        result2.webContents.setZoomFactor(Number(result5.zoomFactor));
+      } catch (error) {}
     }
-    let _0x2a4799 = false;
-    let _0x2f2557 = false;
-    if (_0x49fcac && !_0x49fcac.webContents?.isDestroyed?.()) {
-      _0x2758e1(_0x49fcac);
-      _0x2b41c7(_0x49fcac.webContents);
-      if (_0x40627a.zoomFactor > 0) {
+    let flag = false;
+    let flag2 = false;
+    if (result3 && !result3.webContents?.isDestroyed?.()) {
+      removeAutomationViewFromBackgroundHost(result3);
+      restoreForegroundAutomationRendering(result3.webContents);
+      if (result6.zoomFactor > 0) {
         try {
-          _0x49fcac.webContents.setZoomFactor(_0x40627a.zoomFactor);
-        } catch (_0x36710a) {}
+          result3.webContents.setZoomFactor(result6.zoomFactor);
+        } catch (error) {}
       }
-      _0x49fcac.setBounds({
-        ..._0x18358d
+      result3.setBounds({
+        ...value
       });
-      if (!_0xeb5a58.getBrowserViews().includes(_0x49fcac)) {
-        _0xeb5a58.addBrowserView(_0x49fcac);
+      if (!result4.getBrowserViews().includes(result3)) {
+        result4.addBrowserView(result3);
       }
-      const _0x16a361 = _0x40627a.zoomFactor;
-      if (_0x16a361 > 0 && _0x16a361 < 0.98) {
-        _0x7cfdcc(_0x49fcac.webContents);
+      const value2 = result6.zoomFactor;
+      if (value2 > 0 && value2 < 0.98) {
+        schedulePreviewViewportResizeAfterZoom(result3.webContents);
       } else {
-        _0x3ab56c(_0x49fcac.webContents, {
+        notifyAutomationViewportChanged(result3.webContents, {
           force: true
         });
       }
-      _0x3cfc9d(_0x49fcac.webContents, _0x49fcac);
-      _0x2f2557 = true;
+      nudgeAutomationViewRepaint(result3.webContents, result3);
+      flag2 = true;
     }
-    if (_0x459546.visibleSwapReady && _0x2f2557) {
-      _0x4dbb08(_0x49fcac, {
-        context: _0x1c10ab + ":interaction-top"
+    if (result.visibleSwapReady && flag2) {
+      safeSetTopBrowserView(result3, {
+        context: text + ":interaction-top"
       });
-      _0x2a4799 = true;
+      flag = true;
     } else {
-      _0x4dbb08(_0x569bdf, {
-        context: _0x1c10ab + ":main-cover"
+      safeSetTopBrowserView(result2, {
+        context: text + ":main-cover"
       });
     }
-    _0x2f80d7().delete(_0x1a51f6);
+    getBackgroundDetachedViewKeys().delete(arg1);
     return {
       restored: true,
-      interactionVisible: _0x2a4799,
-      interactionStaged: _0x2f2557
+      interactionVisible: flag,
+      interactionStaged: flag2
     };
   }
-  function _0x4dbb08(_0x200a72, {
+  function safeSetTopBrowserView(arg1, {
     attachIfMissing = false,
     context = ""
   } = {}) {
-    const _0x29b2ba = _0x577aff();
-    if (!_0x29b2ba || _0x29b2ba.isDestroyed() || !_0x200a72) {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed() || !arg1) {
       return false;
     }
     try {
-      const _0x3b6e48 = _0x29b2ba.getBrowserViews().includes(_0x200a72);
-      if (!_0x3b6e48 && attachIfMissing) {
-        _0x29b2ba.addBrowserView(_0x200a72);
-      } else if (!_0x3b6e48) {
+      const result2 = result.getBrowserViews().includes(arg1);
+      if (!result2 && attachIfMissing) {
+        result.addBrowserView(arg1);
+      } else if (!result2) {
         return false;
       }
-      _0x29b2ba.setTopBrowserView(_0x200a72);
+      result.setTopBrowserView(arg1);
       return true;
-    } catch (_0x3dc66f) {
-      console.warn("[Main] setTopBrowserView 已忽略(" + (context || "unknown") + "): " + _0x3dc66f.message);
+    } catch (error) {
+      console.warn("[Main] setTopBrowserView 已忽略(" + (context || "unknown") + "): " + error.message);
       return false;
     }
   }
-  function _0x419085(_0x111302) {
-    let _0x5b1e52 = 0;
-    for (const _0x18cdeb of _0x1beec().keys()) {
-      if (_0x18cdeb === _0x111302 || _0x18cdeb.startsWith(_0x111302 + "_")) {
-        _0x5b1e52++;
+  function countPlatformAutomationViews(arg1) {
+    let num = 0;
+    for (const item of getPlatformViews().keys()) {
+      if (item === arg1 || item.startsWith(arg1 + "_")) {
+        num++;
       }
     }
-    return _0x5b1e52;
+    return num;
   }
-  function _0x778b4f(_0x3097ca) {
-    const _0x5455d4 = _0x1beec().get(_0x3097ca);
-    const _0x339256 = _0x577aff();
-    if (!_0x5455d4 || !_0x339256 || _0x339256.isDestroyed()) {
+  function attachMainAutomationView(arg1) {
+    const result = getPlatformViews().get(arg1);
+    const result2 = getMainWindow();
+    if (!result || !result2 || result2.isDestroyed()) {
       return;
     }
-    if (_0x447cc2(_0x3097ca)) {
-      if (_0x1d881e(_0x3097ca)) {
-        _0x258d66(_0x3097ca, "attach-main-locked:" + _0x3097ca);
+    if (isAutomationExecutionViewportLocked(arg1)) {
+      if (shouldAttachAutomationView(arg1)) {
+        restoreVisibleInteractionStack(arg1, "attach-main-locked:" + arg1);
         return;
       }
-      const _0x214520 = _0x1c23ef().has(_0x3097ca) ? _0x4ae3ed().get(_0x3097ca) : null;
-      if (_0x214520 && !_0x214520.webContents?.isDestroyed?.()) {
-        _0x13dd57(_0x3097ca, _0x214520, {
+      const value = getInteractionLocksMap().has(arg1) ? getInteractionViewsMap().get(arg1) : null;
+      if (value && !value.webContents?.isDestroyed?.()) {
+        attachAutomationViewToBackgroundHost(arg1, value, {
           active: true
         });
-        _0x207c8c().add(_0x3097ca);
-        _0x3f44d5(_0x3097ca, _0x5455d4);
+        getBackgroundLayoutHoldViewKeys().add(arg1);
+        restoreAutomationPreviewAfterExecution(arg1, result);
       } else {
-        _0x13dd57(_0x3097ca, _0x5455d4, {
+        attachAutomationViewToBackgroundHost(arg1, result, {
           active: true
         });
-        _0x207c8c().add(_0x3097ca);
+        getBackgroundLayoutHoldViewKeys().add(arg1);
       }
       return;
     }
-    if (_0x1d881e(_0x3097ca)) {
-      _0x2758e1(_0x5455d4);
-      _0x2b41c7(_0x5455d4.webContents);
-      const _0x4c20be = _0x2f9f4c().get(_0x3097ca);
-      if (_0x133324(_0x4c20be?.bounds)) {
-        _0x5455d4.setBounds({
-          ..._0x4c20be.bounds
+    if (shouldAttachAutomationView(arg1)) {
+      removeAutomationViewFromBackgroundHost(result);
+      restoreForegroundAutomationRendering(result.webContents);
+      const result3 = getBoundsStateByViewKey().get(arg1);
+      if (isValidAutomationBounds(result3?.bounds)) {
+        result.setBounds({
+          ...result3.bounds
         });
       }
-      if (Number(_0x4c20be?.zoomFactor) > 0) {
+      if (Number(result3?.zoomFactor) > 0) {
         try {
-          _0x5455d4.webContents.setZoomFactor(Number(_0x4c20be.zoomFactor));
-        } catch (_0x4d30ea) {}
+          result.webContents.setZoomFactor(Number(result3.zoomFactor));
+        } catch (error) {}
       }
-      if (!_0x339256.getBrowserViews().includes(_0x5455d4)) {
-        _0x339256.addBrowserView(_0x5455d4);
+      if (!result2.getBrowserViews().includes(result)) {
+        result2.addBrowserView(result);
       }
-      _0x4dbb08(_0x5455d4, {
-        context: "attachMainAutomationView:" + _0x3097ca
+      safeSetTopBrowserView(result, {
+        context: "attachMainAutomationView:" + arg1
       });
     } else {
-      _0x3c5ea4(_0x3097ca, _0x5455d4);
+      detachAutomationViewFromWindow(arg1, result);
     }
   }
-  function _0x133324(_0x2632ba) {
-    return Boolean(_0x2632ba && _0x2632ba.width > 50 && _0x2632ba.height > 50 && _0x2632ba.x > -1000 && _0x2632ba.y > -1000);
+  function isValidAutomationBounds(arg1) {
+    return Boolean(arg1 && arg1.width > 50 && arg1.height > 50 && arg1.x > -1000 && arg1.y > -1000);
   }
-  function _0x4a9fef(_0x138dfa, _0x11ed6c, _0x299d61 = null, _0x327bae = null) {
-    const _0x454a99 = _0x1d881e(_0x138dfa);
-    const _0xc87c96 = _0x2f9f4c();
-    const _0x1427fd = [_0x11ed6c?.getBounds?.(), _0x327bae?.previewBounds, _0x327bae?.bounds, _0x299d61?.getBounds?.(), _0xc87c96.get(_0x138dfa)?.bounds, _0xc87c96.get(_0x138dfa + ":interaction")?.bounds];
-    if (_0x454a99) {
-      for (const _0x56e174 of _0x1427fd) {
-        if (_0x133324(_0x56e174)) {
+  function resolveInteractionViewportBounds(arg1, arg2, arg3 = null, arg4 = null) {
+    const result = shouldAttachAutomationView(arg1);
+    const result2 = getBoundsStateByViewKey();
+    const list = [arg2?.getBounds?.(), arg4?.previewBounds, arg4?.bounds, arg3?.getBounds?.(), result2.get(arg1)?.bounds, result2.get(arg1 + ":interaction")?.bounds];
+    if (result) {
+      for (const item of list) {
+        if (isValidAutomationBounds(item)) {
           return {
-            ..._0x56e174
+            ...item
           };
         }
       }
     } else {
-      for (const _0x1fe51d of _0x1427fd) {
-        if (_0x133324(_0x1fe51d) && Number(_0x1fe51d.x) < -100 && Number(_0x1fe51d.y) < -100) {
+      for (const item of list) {
+        if (isValidAutomationBounds(item) && Number(item.x) < -100 && Number(item.y) < -100) {
           return {
             x: 0,
             y: 0,
-            width: Math.max(Number(_0x1fe51d.width) || 0, COMPACT_BACKGROUND_AUTOMATION_WIDTH),
-            height: Math.max(Number(_0x1fe51d.height) || 0, COMPACT_BACKGROUND_AUTOMATION_HEIGHT)
+            width: Math.max(Number(item.width) || 0, COMPACT_BACKGROUND_AUTOMATION_WIDTH),
+            height: Math.max(Number(item.height) || 0, COMPACT_BACKGROUND_AUTOMATION_HEIGHT)
           };
         }
-        if (_0x1fe51d && Number(_0x1fe51d.width) > 50 && Number(_0x1fe51d.height) > 50) {
+        if (item && Number(item.width) > 50 && Number(item.height) > 50) {
           return {
             x: 0,
             y: 0,
-            width: Math.max(Number(_0x1fe51d.width) || 0, COMPACT_BACKGROUND_AUTOMATION_WIDTH),
-            height: Math.max(Number(_0x1fe51d.height) || 0, COMPACT_BACKGROUND_AUTOMATION_HEIGHT)
+            width: Math.max(Number(item.width) || 0, COMPACT_BACKGROUND_AUTOMATION_WIDTH),
+            height: Math.max(Number(item.height) || 0, COMPACT_BACKGROUND_AUTOMATION_HEIGHT)
           };
         }
       }
-      return _0x435e64(_0x138dfa);
+      return buildCompactBackgroundAutomationBounds(arg1);
     }
-    for (const _0x414615 of _0x1427fd) {
-      if (_0x414615 && Number(_0x414615.width) > 50 && Number(_0x414615.height) > 50) {
-        const _0x52a21c = {
+    for (const item of list) {
+      if (item && Number(item.width) > 50 && Number(item.height) > 50) {
+        const obj = {
           x: 0,
           y: 0,
-          width: Math.max(Number(_0x414615.width) || 0, COMPACT_BACKGROUND_AUTOMATION_WIDTH),
-          height: Math.max(Number(_0x414615.height) || 0, COMPACT_BACKGROUND_AUTOMATION_HEIGHT)
+          width: Math.max(Number(item.width) || 0, COMPACT_BACKGROUND_AUTOMATION_WIDTH),
+          height: Math.max(Number(item.height) || 0, COMPACT_BACKGROUND_AUTOMATION_HEIGHT)
         };
-        console.warn("[Main] [" + _0x138dfa + "] 实况坐标不完整，复用尺寸兜底 " + _0x52a21c.width + "x" + _0x52a21c.height);
-        return _0x52a21c;
+        console.warn("[Main] [" + arg1 + "] 实况坐标不完整，复用尺寸兜底 " + obj.width + "x" + obj.height);
+        return obj;
       }
     }
-    const _0x6464e5 = _0x435e64(_0x138dfa);
-    console.warn("[Main] [" + _0x138dfa + "] 无坐标缓存（多见于批量开始前未打开画面），使用默认后台视口 " + _0x6464e5.width + "x" + _0x6464e5.height);
-    return _0x6464e5;
+    const result3 = buildCompactBackgroundAutomationBounds(arg1);
+    console.warn("[Main] [" + arg1 + "] 无坐标缓存（多见于批量开始前未打开画面），使用默认后台视口 " + result3.width + "x" + result3.height);
+    return result3;
   }
-  function _0x7326b4(_0x5d1533) {
-    const _0x2e426a = _0x1beec().get(_0x5d1533);
-    if (!_0x2e426a) {
+  function ensureMainViewVisibleForBatch(arg1) {
+    const result = getPlatformViews().get(arg1);
+    if (!result) {
       return null;
     }
-    const _0x56e0ce = _0x4ae3ed().get(_0x5d1533);
-    const _0x2e4519 = _0x577aff();
-    if (_0x2e4519 && !_0x2e4519.isDestroyed()) {
-      const _0x2e6d40 = _0x56e0ce && _0x2e4519.getBrowserViews().includes(_0x56e0ce);
-      const _0x39a9b1 = _0x2e4519.getBrowserViews().includes(_0x2e426a);
-      if (_0x2e6d40 || !_0x39a9b1) {
-        console.log("[Batch] 恢复主自动化视图置顶: " + _0x5d1533 + " (interactionOnTop=" + _0x2e6d40 + ")");
-        _0x48c31a(_0x5d1533);
-      } else if (_0x1d881e(_0x5d1533)) {
-        _0x4dbb08(_0x2e426a, {
-          context: "ensureMainViewVisibleForBatch:" + _0x5d1533
+    const result2 = getInteractionViewsMap().get(arg1);
+    const result3 = getMainWindow();
+    if (result3 && !result3.isDestroyed()) {
+      const local = result2 && result3.getBrowserViews().includes(result2);
+      const result4 = result3.getBrowserViews().includes(result);
+      if (local || !result4) {
+        console.log("[Batch] 恢复主自动化视图置顶: " + arg1 + " (interactionOnTop=" + local + ")");
+        recoverMainAutomationView(arg1);
+      } else if (shouldAttachAutomationView(arg1)) {
+        safeSetTopBrowserView(result, {
+          context: "ensureMainViewVisibleForBatch:" + arg1
         });
       }
     }
-    return _0x2e426a;
+    return result;
   }
-  function _0x21d66b(_0x3f3d3a) {
+  function shouldNudgeAutomationViewGeometry(arg1) {
     if (process.platform !== "darwin") {
       return true;
     }
-    const _0x397147 = _0x3f3d3a?.getBounds?.();
-    if (!_0x397147) {
+    const local = arg1?.getBounds?.();
+    if (!local) {
       return true;
     }
-    return !(_0x397147.x > -1000) || !(_0x397147.y > -1000);
+    return !(local.x > -1000) || !(local.y > -1000);
   }
-  function _0x3cfc9d(_0x2ce81a, _0x751c59 = null) {
-    if (!_0x2ce81a || _0x2ce81a.isDestroyed()) {
+  function nudgeAutomationViewRepaint(arg1, arg2 = null) {
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
     try {
-      _0x2ce81a.invalidate();
-      const _0x5112c5 = _0x2ce81a.getZoomFactor?.() || 1;
-      if (_0x5112c5 > 0) {
-        _0x2ce81a.setZoomFactor(_0x5112c5 + 0.0001);
+      arg1.invalidate();
+      const local = arg1.getZoomFactor?.() || 1;
+      if (local > 0) {
+        arg1.setZoomFactor(local + 0.0001);
         setImmediate(() => {
-          if (!_0x2ce81a.isDestroyed()) {
-            _0x2ce81a.setZoomFactor(_0x5112c5);
-            _0x2ce81a.invalidate();
+          if (!arg1.isDestroyed()) {
+            arg1.setZoomFactor(local);
+            arg1.invalidate();
           }
         });
       }
-      if (_0x21d66b(_0x751c59)) {
-        if (_0x751c59 && typeof _0x751c59.getBounds === "function" && typeof _0x751c59.setBounds === "function") {
-          const _0x455266 = _0x751c59.getBounds();
-          if (_0x455266 && _0x455266.width > 52 && _0x455266.height > 52 && _0x455266.x > -1000 && _0x455266.y > -1000) {
-            _0x751c59.setBounds({
-              ..._0x455266,
-              width: _0x455266.width - 1
+      if (shouldNudgeAutomationViewGeometry(arg2)) {
+        if (arg2 && typeof arg2.getBounds === "function" && typeof arg2.setBounds === "function") {
+          const result = arg2.getBounds();
+          if (result && result.width > 52 && result.height > 52 && result.x > -1000 && result.y > -1000) {
+            arg2.setBounds({
+              ...result,
+              width: result.width - 1
             });
             setImmediate(() => {
-              if (!_0x751c59.webContents?.isDestroyed?.()) {
-                _0x751c59.setBounds(_0x455266);
-                _0x2ce81a.invalidate();
+              if (!arg2.webContents?.isDestroyed?.()) {
+                arg2.setBounds(result);
+                arg1.invalidate();
               }
             });
           }
         }
       } else {
-        _0x3ab56c(_0x2ce81a, {
+        notifyAutomationViewportChanged(arg1, {
           force: true
         });
       }
-    } catch (_0x1aac4f) {}
+    } catch (error) {}
   }
-  function _0xbb49c8(_0x441044) {
-    if (!_0x441044 || _0x441044.isDestroyed?.()) {
+  function invalidateAutomationViewRepaint(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return false;
     }
     try {
-      _0x441044.invalidate();
+      arg1.invalidate();
       return true;
-    } catch (_0x1723ec) {
+    } catch (error) {
       return false;
     }
   }
-  function _0x3ab56c(_0x43402a, {
+  function notifyAutomationViewportChanged(arg1, {
     force = false
   } = {}) {
-    if (!_0x43402a || _0x43402a.isDestroyed?.()) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return;
     }
-    let _0x5b7d13 = _0x340b3b.get(_0x43402a);
-    if (!_0x5b7d13) {
-      _0x5b7d13 = {
+    let result = weakMap.get(arg1);
+    if (!result) {
+      result = {
         lastAt: 0,
         timer: null
       };
-      _0x340b3b.set(_0x43402a, _0x5b7d13);
+      weakMap.set(arg1, result);
     }
-    const _0x370722 = () => {
-      _0x5b7d13.timer = null;
-      _0x5b7d13.lastAt = Date.now();
-      if (_0x43402a.isDestroyed?.()) {
+    const local = () => {
+      result.timer = null;
+      result.lastAt = Date.now();
+      if (arg1.isDestroyed?.()) {
         return;
       }
-      _0x43402a.executeJavaScript("\n                (() => {\n                    window.__radarAutomationViewportChangedAt = Date.now();\n                    requestAnimationFrame(() => {\n                        window.dispatchEvent(new Event('resize'));\n                        try { window.visualViewport?.dispatchEvent(new Event('resize')); } catch (_) {}\n                    });\n                    return true;\n                })()\n            ", true).catch(() => {});
+      arg1.executeJavaScript("\n                (() => {\n                    window.__radarAutomationViewportChangedAt = Date.now();\n                    requestAnimationFrame(() => {\n                        window.dispatchEvent(new Event('resize'));\n                        try { window.visualViewport?.dispatchEvent(new Event('resize')); } catch (_) {}\n                    });\n                    return true;\n                })()\n            ", true).catch(() => {});
     };
-    const _0x5e006e = Date.now() - _0x5b7d13.lastAt;
-    if (force || _0x5e006e >= AUTOMATION_VIEWPORT_REFRESH_MIN_INTERVAL_MS) {
-      if (_0x5b7d13.timer) {
-        clearTimeout(_0x5b7d13.timer);
+    const value = Date.now() - result.lastAt;
+    if (force || value >= AUTOMATION_VIEWPORT_REFRESH_MIN_INTERVAL_MS) {
+      if (result.timer) {
+        clearTimeout(result.timer);
       }
-      _0x370722();
+      local();
       return;
     }
-    if (_0x5b7d13.timer) {
+    if (result.timer) {
       return;
     }
-    _0x5b7d13.timer = setTimeout(_0x370722, AUTOMATION_VIEWPORT_REFRESH_MIN_INTERVAL_MS - _0x5e006e);
-    if (typeof _0x5b7d13.timer.unref === "function") {
-      _0x5b7d13.timer.unref();
+    result.timer = setTimeout(local, AUTOMATION_VIEWPORT_REFRESH_MIN_INTERVAL_MS - value);
+    if (typeof result.timer.unref === "function") {
+      result.timer.unref();
     }
   }
-  function _0x178fdf(_0x963a2b = "") {
-    const _0x863abb = _0x577aff();
-    if (!_0x863abb || _0x863abb.isDestroyed()) {
+  function nudgeMainWindowCompositor(text = "") {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed()) {
       return;
     }
-    const _0x1f1b93 = Date.now();
-    if (_0x1f1b93 - _0x4bdadd < MAIN_WINDOW_COMPOSITOR_NUDGE_COOLDOWN_MS) {
+    const result2 = Date.now();
+    if (result2 - num < MAIN_WINDOW_COMPOSITOR_NUDGE_COOLDOWN_MS) {
       return;
     }
-    _0x4bdadd = _0x1f1b93;
+    num = result2;
     try {
-      _0x863abb.webContents?.invalidate?.();
-    } catch (_0x3d8537) {}
+      result.webContents?.invalidate?.();
+    } catch (error) {}
     if (process.platform === "darwin") {
       return;
     }
     try {
-      if (_0x863abb.isMinimized?.() || _0x863abb.isMaximized?.() || _0x863abb.isFullScreen?.()) {
+      if (result.isMinimized?.() || result.isMaximized?.() || result.isFullScreen?.()) {
         return;
       }
-      const _0x4d6c79 = _0x863abb.getBounds();
-      if (!_0x4d6c79 || _0x4d6c79.width < 400 || _0x4d6c79.height < 300) {
+      const result2 = result.getBounds();
+      if (!result2 || result2.width < 400 || result2.height < 300) {
         return;
       }
-      _0x863abb.setBounds({
-        ..._0x4d6c79,
-        width: _0x4d6c79.width - 1
+      result.setBounds({
+        ...result2,
+        width: result2.width - 1
       }, false);
       setImmediate(() => {
         try {
-          const _0xea4e7b = _0x577aff();
-          if (!_0xea4e7b || _0xea4e7b.isDestroyed()) {
+          const result = getMainWindow();
+          if (!result || result.isDestroyed()) {
             return;
           }
-          _0xea4e7b.setBounds(_0x4d6c79, false);
-          _0xea4e7b.webContents?.invalidate?.();
-        } catch (_0x37b4bb) {}
+          result.setBounds(result2, false);
+          result.webContents?.invalidate?.();
+        } catch (error) {}
       });
-    } catch (_0x8944b8) {
-      console.warn("[Main] 主窗口合成层唤醒已忽略(" + (_0x963a2b || "unknown") + "): " + _0x8944b8.message);
+    } catch (error) {
+      console.warn("[Main] 主窗口合成层唤醒已忽略(" + (text || "unknown") + "): " + error.message);
     }
   }
-  function _0x33f3af(_0x575ff8 = "", {
+  function nudgeVisibleAutomationViews(text = "", {
     skipCompositor = false,
     heavy = false
   } = {}) {
-    const _0x2fcf3d = _0x577aff();
-    if (!_0x2fcf3d || _0x2fcf3d.isDestroyed()) {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed()) {
       return false;
     }
-    const _0xf9b1 = _0x1beec();
-    const _0x3d18c4 = _0x1c23ef();
-    const _0x1353cf = _0x4ae3ed();
-    let _0x4d0d8 = false;
-    for (const [_0x21b5d6, _0x475a69] of _0xf9b1.entries()) {
-      if (!_0x1d881e(_0x21b5d6)) {
+    const result2 = getPlatformViews();
+    const result3 = getInteractionLocksMap();
+    const result4 = getInteractionViewsMap();
+    let flag = false;
+    for (const [local, local2] of result2.entries()) {
+      if (!shouldAttachAutomationView(local)) {
         continue;
       }
-      if (_0x447cc2(_0x21b5d6)) {
-        if (!_0x475a69?.webContents || _0x475a69.webContents.isDestroyed()) {
+      if (isAutomationExecutionViewportLocked(local)) {
+        if (!local2?.webContents || local2.webContents.isDestroyed()) {
           continue;
         }
-        if (!_0x2fcf3d.getBrowserViews().includes(_0x475a69) || _0x14baa6().includes(_0x475a69) || !_0x133324(_0x475a69.getBounds?.())) {
-          _0x4d0d8 = true;
+        if (!result.getBrowserViews().includes(local2) || getBackgroundAutomationHostViews().includes(local2) || !isValidAutomationBounds(local2.getBounds?.())) {
+          flag = true;
           break;
         }
         continue;
       }
-      const _0x266b28 = _0x3d18c4.has(_0x21b5d6) ? _0x1353cf.get(_0x21b5d6) || _0x475a69 : _0x475a69;
-      if (!_0x266b28?.webContents || _0x266b28.webContents.isDestroyed()) {
+      const value = result3.has(local) ? result4.get(local) || local2 : local2;
+      if (!value?.webContents || value.webContents.isDestroyed()) {
         continue;
       }
-      if (!_0x2fcf3d.getBrowserViews().includes(_0x266b28) || _0x14baa6().includes(_0x266b28)) {
-        _0x4d0d8 = true;
+      if (!result.getBrowserViews().includes(value) || getBackgroundAutomationHostViews().includes(value)) {
+        flag = true;
         break;
       }
     }
-    if (_0x4d0d8) {
-      _0x672d4f("paint-audit:" + (_0x575ff8 || "unknown"));
+    if (flag) {
+      restoreRequestedAutomationViewsToMainWindow("paint-audit:" + (text || "unknown"));
     }
-    let _0x39775c = false;
-    for (const [_0x24977f, _0x4ad85f] of _0xf9b1.entries()) {
-      if (!_0x1d881e(_0x24977f)) {
+    let flag2 = false;
+    for (const [local, local2] of result2.entries()) {
+      if (!shouldAttachAutomationView(local)) {
         continue;
       }
-      const _0x20f61f = _0x447cc2(_0x24977f) ? [_0x4ad85f] : _0x3d18c4.has(_0x24977f) ? [_0x1353cf.get(_0x24977f) || _0x4ad85f] : [_0x4ad85f];
-      for (const _0x44d0c2 of _0x20f61f) {
-        if (!_0x44d0c2?.webContents || _0x44d0c2.webContents.isDestroyed()) {
+      const value = isAutomationExecutionViewportLocked(local) ? [local2] : result3.has(local) ? [result4.get(local) || local2] : [local2];
+      for (const item of value) {
+        if (!item?.webContents || item.webContents.isDestroyed()) {
           continue;
         }
-        if (!_0x2fcf3d.getBrowserViews().includes(_0x44d0c2)) {
+        if (!result.getBrowserViews().includes(item)) {
           continue;
         }
-        if (!_0x133324(_0x44d0c2.getBounds?.())) {
+        if (!isValidAutomationBounds(item.getBounds?.())) {
           continue;
         }
         if (heavy) {
-          _0x3cfc9d(_0x44d0c2.webContents, _0x44d0c2);
-          _0x39775c = true;
-        } else if (_0xbb49c8(_0x44d0c2.webContents)) {
-          _0x39775c = true;
+          nudgeAutomationViewRepaint(item.webContents, item);
+          flag2 = true;
+        } else if (invalidateAutomationViewRepaint(item.webContents)) {
+          flag2 = true;
         }
       }
     }
-    if (_0x39775c && !skipCompositor) {
-      _0x178fdf(_0x575ff8);
+    if (flag2 && !skipCompositor) {
+      nudgeMainWindowCompositor(text);
     }
-    return _0x39775c;
+    return flag2;
   }
-  function _0x28debd(_0x274b5f = "", {
+  function scheduleVisibleAutomationViewsRepaint(text = "", {
     skipCompositor = false
   } = {}) {
-    const _0x1fae6d = _0x11a774();
-    _0x1fae6d.forEach(_0x4c4ee0 => clearTimeout(_0x4c4ee0));
-    _0x1fae6d.clear();
-    VISIBLE_AUTOMATION_REPAINT_DELAYS_MS.forEach((_0x7bbffc, _0x5d4d70) => {
-      const _0x55edfa = setTimeout(() => {
-        _0x1fae6d.delete(_0x55edfa);
-        _0x33f3af(_0x274b5f, {
-          heavy: _0x5d4d70 === 0,
-          skipCompositor: skipCompositor || _0x5d4d70 > 0
+    const result = getVisibleAutomationRepaintTimers();
+    result.forEach(arg1 => clearTimeout(arg1));
+    result.clear();
+    VISIBLE_AUTOMATION_REPAINT_DELAYS_MS.forEach((arg1, arg2) => {
+      const result2 = setTimeout(() => {
+        result.delete(result2);
+        nudgeVisibleAutomationViews(text, {
+          heavy: arg2 === 0,
+          skipCompositor: skipCompositor || arg2 > 0
         });
-      }, _0x7bbffc);
-      if (typeof _0x55edfa.unref === "function") {
-        _0x55edfa.unref();
+      }, arg1);
+      if (typeof result2.unref === "function") {
+        result2.unref();
       }
-      _0x1fae6d.add(_0x55edfa);
+      result.add(result2);
     });
   }
-  function _0x40e977(_0x1ff8b5 = "") {
-    const _0x46d240 = _0x577aff();
-    if (!_0x46d240 || _0x46d240.isDestroyed()) {
+  function wakeForegroundAutomationSurfaces(text = "") {
+    const result = getMainWindow();
+    if (!result || result.isDestroyed()) {
       return;
     }
-    const _0x28219b = _0x1beec();
-    const _0x65f625 = _0x1c23ef();
-    const _0x32c246 = _0x4ae3ed();
-    const _0x5399e4 = _0x2f9f4c();
-    const _0x434a11 = ({
+    const result2 = getPlatformViews();
+    const result3 = getInteractionLocksMap();
+    const result4 = getInteractionViewsMap();
+    const result5 = getBoundsStateByViewKey();
+    const local = ({
       focus = false
     } = {}) => {
-      let _0xbcb70e = null;
-      for (const [_0x2722fe, _0x30497e] of _0x28219b.entries()) {
-        if (!_0x1d881e(_0x2722fe)) {
+      let local = null;
+      for (const [local2, local3] of result2.entries()) {
+        if (!shouldAttachAutomationView(local2)) {
           continue;
         }
-        if (_0x447cc2(_0x2722fe)) {
-          const _0x427b97 = _0x30497e;
-          if (!_0x427b97?.webContents || _0x427b97.webContents.isDestroyed()) {
+        if (isAutomationExecutionViewportLocked(local2)) {
+          const local = local3;
+          if (!local?.webContents || local.webContents.isDestroyed()) {
             continue;
           }
-          if (!_0x46d240.getBrowserViews().includes(_0x427b97) || _0x14baa6().includes(_0x427b97) || !_0x133324(_0x427b97.getBounds?.())) {
-            _0x2288d4(_0x2722fe, "wake-locked-missing");
+          if (!result.getBrowserViews().includes(local) || getBackgroundAutomationHostViews().includes(local) || !isValidAutomationBounds(local.getBounds?.())) {
+            attachLivePreviewSpectatorIfPossible(local2, "wake-locked-missing");
           }
-          if (!_0x46d240.getBrowserViews().includes(_0x427b97)) {
+          if (!result.getBrowserViews().includes(local)) {
             continue;
           }
-          const _0x189337 = _0x5399e4.get(_0x2722fe);
-          if (_0x133324(_0x189337?.bounds)) {
+          const result2 = result5.get(local2);
+          if (isValidAutomationBounds(result2?.bounds)) {
             try {
-              _0x427b97.setBounds({
-                ..._0x189337.bounds
+              local.setBounds({
+                ...result2.bounds
               });
-            } catch (_0x306d98) {}
+            } catch (error) {}
           }
-          if (Number(_0x189337?.zoomFactor) > 0) {
+          if (Number(result2?.zoomFactor) > 0) {
             try {
-              _0x427b97.webContents.setZoomFactor(Number(_0x189337.zoomFactor));
-            } catch (_0x98ed9) {}
+              local.webContents.setZoomFactor(Number(result2.zoomFactor));
+            } catch (error) {}
           }
           try {
-            _0x427b97.webContents.invalidate();
-          } catch (_0x2cbb0f) {}
-          _0x3cfc9d(_0x427b97.webContents, _0x427b97);
+            local.webContents.invalidate();
+          } catch (error) {}
+          nudgeAutomationViewRepaint(local.webContents, local);
           continue;
         }
-        const _0x4bdd52 = _0x65f625.has(_0x2722fe) ? _0x32c246.get(_0x2722fe) || _0x30497e : _0x30497e;
-        if (!_0x4bdd52?.webContents || _0x4bdd52.webContents.isDestroyed()) {
+        const value = result3.has(local2) ? result4.get(local2) || local3 : local3;
+        if (!value?.webContents || value.webContents.isDestroyed()) {
           continue;
         }
-        if (!_0x46d240.getBrowserViews().includes(_0x4bdd52)) {
+        if (!result.getBrowserViews().includes(value)) {
           continue;
         }
-        const _0x373dc3 = _0x5399e4.get(_0x2722fe);
-        if (_0x133324(_0x373dc3?.bounds)) {
+        const result2 = result5.get(local2);
+        if (isValidAutomationBounds(result2?.bounds)) {
           try {
-            _0x4bdd52.setBounds({
-              ..._0x373dc3.bounds
+            value.setBounds({
+              ...result2.bounds
             });
-          } catch (_0x7f37dd) {}
+          } catch (error) {}
         }
-        if (Number(_0x373dc3?.zoomFactor) > 0) {
+        if (Number(result2?.zoomFactor) > 0) {
           try {
-            _0x4bdd52.webContents.setZoomFactor(Number(_0x373dc3.zoomFactor));
-          } catch (_0x27f7c5) {}
+            value.webContents.setZoomFactor(Number(result2.zoomFactor));
+          } catch (error) {}
         }
         try {
-          _0x4bdd52.webContents.invalidate();
-        } catch (_0x2c7695) {}
-        const _0x26cac6 = focus && _0x2722fe === _0x1ff8b5;
-        const _0x3b15cd = Number(_0x373dc3?.zoomFactor || 0);
-        if (_0x3b15cd > 0 && _0x3b15cd < 0.98) {
-          _0x7cfdcc(_0x4bdd52.webContents);
+          value.webContents.invalidate();
+        } catch (error) {}
+        const local4 = focus && local2 === text;
+        const result6 = Number(result2?.zoomFactor || 0);
+        if (result6 > 0 && result6 < 0.98) {
+          schedulePreviewViewportResizeAfterZoom(value.webContents);
         } else {
-          _0x4bdd52.webContents.executeJavaScript("\n                    (() => {\n                        requestAnimationFrame(() => {\n                            window.dispatchEvent(new Event('resize'));\n                            " + (_0x26cac6 ? "window.dispatchEvent(new Event('focus'));" : "") + "\n                        });\n                        return true;\n                    })()\n                ", true).catch(() => {});
+          value.webContents.executeJavaScript("\n                    (() => {\n                        requestAnimationFrame(() => {\n                            window.dispatchEvent(new Event('resize'));\n                            " + (local4 ? "window.dispatchEvent(new Event('focus'));" : "") + "\n                        });\n                        return true;\n                    })()\n                ", true).catch(() => {});
         }
-        if (_0x26cac6) {
-          _0xbcb70e = _0x4bdd52;
+        if (local4) {
+          local = value;
         }
       }
-      if (focus && _0xbcb70e && _0x46d240.isFocused?.()) {
-        _0x4dbb08(_0xbcb70e, {
-          context: "wake-foreground:" + _0x1ff8b5
+      if (focus && local && result.isFocused?.()) {
+        safeSetTopBrowserView(local, {
+          context: "wake-foreground:" + text
         });
         try {
-          _0xbcb70e.webContents.focus();
-        } catch (_0x1a3e7d) {}
+          local.webContents.focus();
+        } catch (error) {}
       }
       try {
-        _0x46d240.webContents.invalidate();
-      } catch (_0x5337ea) {}
+        result.webContents.invalidate();
+      } catch (error) {}
     };
     try {
-      if (_0x46d240.isFocused?.()) {
-        _0x46d240.webContents.invalidate();
+      if (result.isFocused?.()) {
+        result.webContents.invalidate();
       } else {
-        _0x46d240.focus();
+        result.focus();
       }
-    } catch (_0xb3bded) {}
-    _0x434a11({
+    } catch (error) {}
+    local({
       focus: true
     });
-    const _0x56c384 = [80, 300, 700];
-    _0x56c384.forEach((_0x24367a, _0x18ab86) => {
-      const _0x4da3a4 = setTimeout(() => _0x434a11({
-        focus: _0x18ab86 === 0
-      }), _0x24367a);
-      if (typeof _0x4da3a4.unref === "function") {
-        _0x4da3a4.unref();
+    const list = [80, 300, 700];
+    list.forEach((arg1, arg2) => {
+      const result = setTimeout(() => local({
+        focus: arg2 === 0
+      }), arg1);
+      if (typeof result.unref === "function") {
+        result.unref();
       }
     });
   }
-  function _0x723ea8(_0x3f6e7f, _0x165800) {
-    return Boolean(_0x3f6e7f && _0x165800 && Math.abs(_0x3f6e7f.x - _0x165800.x) <= 1 && Math.abs(_0x3f6e7f.y - _0x165800.y) <= 1 && Math.abs(_0x3f6e7f.width - _0x165800.width) <= 1 && Math.abs(_0x3f6e7f.height - _0x165800.height) <= 1);
+  function areBoundsClose(arg1, arg2) {
+    return Boolean(arg1 && arg2 && Math.abs(arg1.x - arg2.x) <= 1 && Math.abs(arg1.y - arg2.y) <= 1 && Math.abs(arg1.width - arg2.width) <= 1 && Math.abs(arg1.height - arg2.height) <= 1);
   }
-  function _0x39757e(_0x2723cc, _0x59fec7, _0x221ed1) {
-    const _0x56dd3f = Date.now();
-    const _0x2b4249 = _0x2f9f4c();
-    const _0xd4cfcb = _0x2b4249.get(_0x2723cc);
-    if (_0xd4cfcb && _0x723ea8(_0xd4cfcb.bounds, _0x59fec7) && Math.abs((_0xd4cfcb.zoomFactor || 0) - (_0x221ed1 || 0)) < 0.001) {
+  function shouldApplyBoundsUpdate(arg1, arg2, arg3) {
+    const result = Date.now();
+    const result2 = getBoundsStateByViewKey();
+    const result3 = result2.get(arg1);
+    if (result3 && areBoundsClose(result3.bounds, arg2) && Math.abs((result3.zoomFactor || 0) - (arg3 || 0)) < 0.001) {
       return false;
     }
-    if (_0xd4cfcb && _0x56dd3f - _0xd4cfcb.at < BOUNDS_SYNC_MIN_INTERVAL_MS && Math.abs((_0xd4cfcb.zoomFactor || 0) - (_0x221ed1 || 0)) < 0.001 && _0x723ea8(_0xd4cfcb.pendingBounds || _0xd4cfcb.bounds, _0x59fec7)) {
+    if (result3 && result - result3.at < BOUNDS_SYNC_MIN_INTERVAL_MS && Math.abs((result3.zoomFactor || 0) - (arg3 || 0)) < 0.001 && areBoundsClose(result3.pendingBounds || result3.bounds, arg2)) {
       return false;
     }
-    _0x2b4249.set(_0x2723cc, {
+    result2.set(arg1, {
       bounds: {
-        ..._0x59fec7
+        ...arg2
       },
       pendingBounds: {
-        ..._0x59fec7
+        ...arg2
       },
-      zoomFactor: _0x221ed1,
-      at: _0x56dd3f
+      zoomFactor: arg3,
+      at: result
     });
     return true;
   }
-  function _0x328c05() {
-    ipcMain.on("update-automation-bounds", (_0x24cde6, _0x295ed9) => {
-      const _0x14ea2d = _0xc6e123();
-      if (typeof _0x14ea2d !== "undefined" && _0x14ea2d) {
+  function registerIpc() {
+    ipcMain.on("update-automation-bounds", (arg1, arg2) => {
+      const result = getAutomationWindow();
+      if (typeof result !== "undefined" && result) {
         return;
       }
       const {
-        bounds: _0x4ee365,
-        zoomFactor: _0x1f0973,
+        bounds: bounds,
+        zoomFactor: zoomFactor,
         viewKey = "douyin_default",
         light = false,
         force = false
-      } = _0x295ed9;
-      const _0x1af960 = Number(_0x1f0973) > 0 ? _0x3c586b(_0x1f0973) : _0x1f0973;
-      const _0x324034 = _0x1beec();
-      const _0x2897c9 = _0x324034.get(viewKey);
-      if (_0x2897c9) {
-        const _0x191bf0 = _0x1c23ef();
-        const _0x4c9db3 = _0x4ae3ed();
-        const _0x475134 = _0x207c8c();
-        const _0x55c75e = _0x577aff();
-        const _0x1e34ee = _0x191bf0.get(viewKey);
-        const _0x40c2eb = _0x4c9db3.get(viewKey);
-        const _0x59a9e5 = !_0x133324(_0x2897c9.getBounds());
-        const _0xb7431d = _0x40c2eb?.webContents?.getURL?.() || "";
-        const _0x4e6145 = _0x1e34ee ? Date.now() - (_0x1e34ee.startedAt || 0) : 0;
-        const _0xa20cf8 = _0x1e34ee && _0x59a9e5 && _0x4e6145 > 200000 && (!_0xb7431d || _0xb7431d === "about:blank");
-        if (_0x1e34ee && !_0xa20cf8) {
-          if (_0x133324(_0x4ee365)) {
-            _0x2f07f4(viewKey, _0x4ee365, _0x1af960);
-            _0x2f07f4(viewKey + ":interaction", _0x4ee365, _0x1af960);
-            if (_0x1d881e(viewKey)) {
-              const _0x691e32 = _0x258d66(viewKey, "update-bounds-locked-preview");
-              if (!_0x691e32.restored) {
-                _0x2288d4(viewKey, "update-bounds-locked-preview");
+      } = arg2;
+      const value = Number(zoomFactor) > 0 ? fn2(zoomFactor) : zoomFactor;
+      const result2 = getPlatformViews();
+      const result3 = result2.get(viewKey);
+      if (result3) {
+        const result = getInteractionLocksMap();
+        const result4 = getInteractionViewsMap();
+        const result5 = getBackgroundLayoutHoldViewKeys();
+        const result6 = getMainWindow();
+        const result7 = result.get(viewKey);
+        const result8 = result4.get(viewKey);
+        const flag = !isValidAutomationBounds(result3.getBounds());
+        const local = result8?.webContents?.getURL?.() || "";
+        const value2 = result7 ? Date.now() - (result7.startedAt || 0) : 0;
+        const local2 = result7 && flag && value2 > 200000 && (!local || local === "about:blank");
+        if (result7 && !local2) {
+          if (isValidAutomationBounds(bounds)) {
+            cacheAutomationPreviewBounds(viewKey, bounds, value);
+            cacheAutomationPreviewBounds(viewKey + ":interaction", bounds, value);
+            if (shouldAttachAutomationView(viewKey)) {
+              const result = restoreVisibleInteractionStack(viewKey, "update-bounds-locked-preview");
+              if (!result.restored) {
+                attachLivePreviewSpectatorIfPossible(viewKey, "update-bounds-locked-preview");
               } else {
-                const _0x393169 = _0x324034.get(viewKey);
-                if (_0x393169?.webContents && !_0x393169.webContents.isDestroyed()) {
-                  _0x3cfc9d(_0x393169.webContents, _0x393169);
+                const result = result2.get(viewKey);
+                if (result?.webContents && !result.webContents.isDestroyed()) {
+                  nudgeAutomationViewRepaint(result.webContents, result);
                 }
               }
-            } else if (_0x40c2eb && !_0x119099(viewKey)) {
-              _0x13dd57(viewKey, _0x40c2eb, {
+            } else if (result8 && !shouldShowInteractionView(viewKey)) {
+              attachAutomationViewToBackgroundHost(viewKey, result8, {
                 active: true,
                 force: true
               });
-              _0x475134.add(viewKey);
+              result5.add(viewKey);
             }
           }
           return;
         }
-        if ((_0x59a9e5 || _0xa20cf8) && !_0xd854f2(viewKey)) {
-          console.warn("[Main] 检测到主视图不可见" + (_0xa20cf8 ? "（僵死子视图锁）" : "") + "，强制恢复");
-          _0x48c31a(viewKey, _0x4ee365);
+        if ((flag || local2) && !isBackgroundAutomationHidden(viewKey)) {
+          console.warn("[Main] 检测到主视图不可见" + (local2 ? "（僵死子视图锁）" : "") + "，强制恢复");
+          recoverMainAutomationView(viewKey, bounds);
         }
-        if (_0x133324(_0x4ee365)) {
-          if (_0x191bf0.has(viewKey)) {
-            _0x2f07f4(viewKey, _0x4ee365, _0x1af960);
+        if (isValidAutomationBounds(bounds)) {
+          if (result.has(viewKey)) {
+            cacheAutomationPreviewBounds(viewKey, bounds, value);
             return;
           }
-          if (_0x1d881e(viewKey) && _0x475134.has(viewKey) && (!_0x55c75e?.getBrowserViews?.().includes(_0x2897c9) || _0x14baa6().includes(_0x2897c9) || !_0x133324(_0x2897c9.getBounds?.()))) {
-            _0x2f07f4(viewKey, _0x4ee365, _0x1af960);
-            if (_0x2288d4(viewKey, "update-bounds-layout-hold")) {
+          if (shouldAttachAutomationView(viewKey) && result5.has(viewKey) && (!result6?.getBrowserViews?.().includes(result3) || getBackgroundAutomationHostViews().includes(result3) || !isValidAutomationBounds(result3.getBounds?.()))) {
+            cacheAutomationPreviewBounds(viewKey, bounds, value);
+            if (attachLivePreviewSpectatorIfPossible(viewKey, "update-bounds-layout-hold")) {
               return;
             }
           }
-          if (!_0x1d881e(viewKey) && _0x516db6(viewKey)) {
-            _0x39757e(viewKey, _0x4ee365, _0x1af960);
-            _0x13dd57(viewKey, _0x2897c9, {
-              active: _0x475134.has(viewKey)
+          if (!shouldAttachAutomationView(viewKey) && shouldKeepAutomationViewAttached(viewKey)) {
+            shouldApplyBoundsUpdate(viewKey, bounds, value);
+            attachAutomationViewToBackgroundHost(viewKey, result3, {
+              active: result5.has(viewKey)
             });
             return;
           }
-          const _0x4e3117 = !_0x133324(_0x2897c9.getBounds());
-          const _0x41f0eb = _0x55c75e && !_0x55c75e.isDestroyed() ? _0x55c75e.getBrowserViews().includes(_0x2897c9) : false;
-          const _0x337696 = _0xd854f2(viewKey) || _0x14baa6().includes(_0x2897c9);
-          const _0x43e848 = _0x39757e(viewKey, _0x4ee365, _0x1af960);
-          if (!_0x59a9e5 && !_0xa20cf8 && !_0x43e848 && _0x41f0eb && !_0x337696) {
+          const flag2 = !isValidAutomationBounds(result3.getBounds());
+          const value2 = result6 && !result6.isDestroyed() ? result6.getBrowserViews().includes(result3) : false;
+          const local = isBackgroundAutomationHidden(viewKey) || getBackgroundAutomationHostViews().includes(result3);
+          const result2 = shouldApplyBoundsUpdate(viewKey, bounds, value);
+          if (!flag && !local2 && !result2 && value2 && !local) {
             return;
           }
-          const _0x1ba30b = _0x1d881e(viewKey) && _0x55c75e && !_0x55c75e.isDestroyed();
-          if (_0x1ba30b) {
-            if (_0x337696) {
-              _0x2758e1(_0x2897c9);
+          const local3 = shouldAttachAutomationView(viewKey) && result6 && !result6.isDestroyed();
+          if (local3) {
+            if (local) {
+              removeAutomationViewFromBackgroundHost(result3);
             }
-            _0x2b41c7(_0x2897c9.webContents);
+            restoreForegroundAutomationRendering(result3.webContents);
           }
-          _0x2897c9.setBounds(_0x4ee365);
-          if (_0x1af960) {
-            _0x2897c9.webContents.setZoomFactor(_0x1af960);
+          result3.setBounds(bounds);
+          if (value) {
+            result3.webContents.setZoomFactor(value);
           }
-          if (_0x1ba30b) {
-            if (!_0x41f0eb) {
-              _0x55c75e.addBrowserView(_0x2897c9);
+          if (local3) {
+            if (!value2) {
+              result6.addBrowserView(result3);
             }
-            if (!_0x191bf0.has(viewKey)) {
-              _0x4dbb08(_0x2897c9, {
+            if (!result.has(viewKey)) {
+              safeSetTopBrowserView(result3, {
                 context: "update-automation-bounds:" + viewKey
               });
             }
-            _0x581888(viewKey);
-            _0x2a2d51();
-            if (Number(_0x1af960) > 0 && Number(_0x1af960) < 0.98) {
-              _0x7cfdcc(_0x2897c9.webContents);
+            clearBackgroundAutomationState(viewKey);
+            maybeDestroyBackgroundAutomationHostWindow();
+            if (Number(value) > 0 && Number(value) < 0.98) {
+              schedulePreviewViewportResizeAfterZoom(result3.webContents);
             } else {
-              _0x3ab56c(_0x2897c9.webContents, {
-                force: force || !_0x41f0eb || _0x4e3117 || _0x337696
+              notifyAutomationViewportChanged(result3.webContents, {
+                force: force || !value2 || flag2 || local
               });
             }
           }
-          if (!light || force || !_0x41f0eb || _0x4e3117 || _0x337696) {
-            _0x3cfc9d(_0x2897c9.webContents, _0x2897c9);
-            _0x28debd("update-automation-bounds:" + viewKey, {
-              skipCompositor: light && !force && !_0x4e3117
+          if (!light || force || !value2 || flag2 || local) {
+            nudgeAutomationViewRepaint(result3.webContents, result3);
+            scheduleVisibleAutomationViewsRepaint("update-automation-bounds:" + viewKey, {
+              skipCompositor: light && !force && !flag2
             });
           } else {
             try {
-              _0x2897c9.webContents.invalidate?.();
-            } catch (_0x200a1c) {}
+              result3.webContents.invalidate?.();
+            } catch (error) {}
           }
         } else {
-          console.warn("[Main] 无效的边界值: " + viewKey + ", bounds:", _0x4ee365);
+          console.warn("[Main] 无效的边界值: " + viewKey + ", bounds:", bounds);
         }
       } else {
-        console.warn("[Main] 找不到对应的视图: " + viewKey + ", 当前池大小: " + _0x324034.size);
+        console.warn("[Main] 找不到对应的视图: " + viewKey + ", 当前池大小: " + result2.size);
       }
     });
-    ipcMain.on("toggle-automation-detach", (_0x574264, _0x3d68c6) => {
-      const _0x33009d = _0x1beec();
-      const _0x2bb4dd = _0x29c090();
-      const _0x1bf6d3 = _0x33009d.get(_0x2bb4dd);
-      if (!_0x1bf6d3) {
+    ipcMain.on("toggle-automation-detach", (arg1, arg2) => {
+      const result = getPlatformViews();
+      const result2 = getActivePlatform();
+      const result3 = result.get(result2);
+      if (!result3) {
         return;
       }
       try {
-        if (_0x3d68c6) {
-          const _0x4c160a = _0xc6e123();
-          if (_0x4c160a && !_0x4c160a.isDestroyed()) {
-            _0x4c160a.focus();
+        if (arg2) {
+          const result4 = getAutomationWindow();
+          if (result4 && !result4.isDestroyed()) {
+            result4.focus();
             return;
           }
-          const _0x1a6abc = _0x577aff();
-          _0x33009d.forEach((_0x12112a, _0x4ad1ac) => {
-            _0x29d855(_0x1a6abc, _0x12112a);
-            if (_0x12112a === _0x1bf6d3) {
-              _0x2758e1(_0x12112a);
+          const result5 = getMainWindow();
+          result.forEach((arg1, arg2) => {
+            removeAutomationViewFromWindow(result5, arg1);
+            if (arg1 === result3) {
+              removeAutomationViewFromBackgroundHost(arg1);
             } else {
-              _0x3c5ea4(_0x4ad1ac, _0x12112a);
+              detachAutomationViewFromWindow(arg2, arg1);
             }
           });
-          const _0x164c99 = new BrowserWindow({
+          const browserWindow = new BrowserWindow({
             width: 1000,
             height: 800,
-            title: "采集引擎 - " + _0x2bb4dd,
+            title: "采集引擎 - " + result2,
             autoHideMenuBar: true,
             backgroundColor: "#000000",
             webPreferences: {
@@ -2502,134 +2502,134 @@ function createBackgroundAutomationLayout(_0x39eb05) {
               contextIsolation: true
             }
           });
-          _0x553bd1(_0x164c99);
-          _0x2fbb55(_0x164c99);
-          _0x164c99.setBrowserView(_0x1bf6d3);
-          _0x1bf6d3.setBounds({
+          setAutomationWindow(browserWindow);
+          applyPackagedWindowMenuPolicy(browserWindow);
+          browserWindow.setBrowserView(result3);
+          result3.setBounds({
             x: 0,
             y: 0,
             width: 1000,
             height: 800
           });
-          _0x164c99.on("resize", () => {
-            const _0x1a2a74 = _0xc6e123();
-            if (_0x1a2a74 && !_0x1a2a74.isDestroyed()) {
-              const _0xcca035 = _0x1a2a74.getContentBounds();
-              _0x1bf6d3.setBounds({
+          browserWindow.on("resize", () => {
+            const result = getAutomationWindow();
+            if (result && !result.isDestroyed()) {
+              const result2 = result.getContentBounds();
+              result3.setBounds({
                 x: 0,
                 y: 0,
-                width: _0xcca035.width,
-                height: _0xcca035.height
+                width: result2.width,
+                height: result2.height
               });
             }
           });
-          _0x164c99.on("close", () => {
-            const _0x592047 = _0xc6e123();
-            if (_0x592047 && !_0x592047.isDestroyed()) {
-              _0x592047.setBrowserView(null);
+          browserWindow.on("close", () => {
+            const result = getAutomationWindow();
+            if (result && !result.isDestroyed()) {
+              result.setBrowserView(null);
             }
           });
-          _0x164c99.on("closed", () => {
-            _0x553bd1(null);
+          browserWindow.on("closed", () => {
+            setAutomationWindow(null);
             setTimeout(() => {
-              const _0x177cd9 = _0x577aff();
-              if (_0x177cd9 && !_0x177cd9.isDestroyed()) {
-                _0x33009d.forEach(_0xb8d0e8 => _0x177cd9.addBrowserView(_0xb8d0e8));
-                _0x177cd9.webContents.send("automation-attached");
+              const result2 = getMainWindow();
+              if (result2 && !result2.isDestroyed()) {
+                result.forEach(arg1 => result2.addBrowserView(arg1));
+                result2.webContents.send("automation-attached");
               }
             }, 300);
           });
-          _0x574264.reply("automation-detached");
+          arg1.reply("automation-detached");
         } else {
-          const _0x376d60 = _0xc6e123();
-          const _0x375c8a = _0x577aff();
-          if (_0x376d60 && !_0x376d60.isDestroyed()) {
-            _0x376d60.close();
-          } else if (_0x375c8a) {
-            _0x33009d.forEach(_0x3fd336 => _0x375c8a.addBrowserView(_0x3fd336));
-            _0x375c8a.webContents.send("automation-attached");
+          const result2 = getAutomationWindow();
+          const result3 = getMainWindow();
+          if (result2 && !result2.isDestroyed()) {
+            result2.close();
+          } else if (result3) {
+            result.forEach(arg1 => result3.addBrowserView(arg1));
+            result3.webContents.send("automation-attached");
           }
         }
-      } catch (_0x392921) {
-        console.error("[Main] 切换自动化窗口模式失败:", _0x392921);
+      } catch (error) {
+        console.error("[Main] 切换自动化窗口模式失败:", error);
       }
     });
   }
   return {
-    inferInteractionViewKey: _0x3659a6,
-    inferAutomationViewKey: _0x1ea899,
-    applyMainWindowRuntimePerformancePolicy: _0x41d29e,
-    wakeMainWindowUiSurface: _0x47f22d,
-    restoreMainWindowUiFocus: _0x183795,
-    focusAutomationWebContentsSafely: _0x42c39b,
-    restoreRequestedAutomationViewsToMainWindow: _0x672d4f,
-    closeAutomationLivePreviewForBackground: _0x2b0142,
-    setMainWindowBackgroundState: _0x39a114,
-    shouldAttachAutomationView: _0x1d881e,
-    buildOffscreenAutomationBounds: _0x45f3d6,
-    clearBackgroundInteractionSlot: _0xe82ffb,
-    grantNextBackgroundInteractionSlot: _0x309d79,
-    acquireBackgroundInteractionSlot: _0x53e695,
-    releaseBackgroundInteractionSlot: _0xe06977,
-    cancelBackgroundInteractionForView: _0x28ad37,
-    getBackgroundAutomationHostViews: _0x14baa6,
-    getBackgroundAutomationHostOffscreenBounds: _0x1e5f3a,
-    getBackgroundAutomationComposerSurfaceBounds: _0x3c839d,
-    activateBackgroundAutomationComposerSurface: _0x24cc79,
-    emulateBackgroundAutomationPageFocus: _0x1cb43a,
-    releaseBackgroundAutomationComposerSurface: _0x2a259c,
-    parkBackgroundAutomationHostWindow: _0x30ec8d,
-    scheduleBackgroundAutomationHostRepark: _0x240208,
-    clearBackgroundHostInternalActivation: _0x4e5878,
-    armBackgroundHostInternalActivation: _0x202bf0,
-    showBackgroundAutomationHostInactive: _0x2f1cde,
-    consumeBackgroundHostInternalActivation: _0x26478d,
-    suppressMainWindowEventFromBackgroundHost: _0x587405,
-    ensureBackgroundAutomationHostWindow: _0x315f90,
-    removeAutomationViewFromWindow: _0x29d855,
-    removeAutomationViewFromBackgroundHost: _0x2758e1,
-    maybeDestroyBackgroundAutomationHostWindow: _0x2a2d51,
-    shouldKeepAutomationViewAttached: _0x516db6,
-    schedulePreviewViewportResizeAfterZoom: _0x7cfdcc,
-    isBackgroundAutomationHidden: _0xd854f2,
-    clearBackgroundAutomationState: _0x581888,
-    isAutomationExecutionViewportLocked: _0x447cc2,
-    cacheAutomationPreviewBounds: _0x2f07f4,
-    restoreAutomationPreviewAfterExecution: _0x3f44d5,
-    applyBackgroundAutomationOptimizations: _0x5073d1,
-    applyBackgroundAutomationZoom: _0x2b5976,
-    restoreForegroundAutomationRendering: _0x2b41c7,
-    buildCompactBackgroundAutomationBounds: _0x435e64,
-    canParkAutomationViewInMainWindow: _0x381b80,
-    parkAutomationViewInMainWindow: _0x3d800c,
-    attachAutomationViewToBackgroundHost: _0x13dd57,
-    attachLivePreviewSpectatorIfPossible: _0x2288d4,
-    enterBackgroundDetachedMode: _0x164b9e,
-    ensureBackgroundAutomationLayout: _0x3407da,
-    releaseBackgroundAutomationLayout: _0x71829,
-    acquireEntityExecutionViewportLease: _0x946527,
-    releaseEntityExecutionViewportLease: _0x2d0735,
-    hasEntityExecutionViewportLease: _0xe0055d,
-    detachAutomationViewFromWindow: _0x3c5ea4,
-    shouldShowInteractionView: _0x119099,
-    restoreVisibleInteractionStack: _0x258d66,
-    safeSetTopBrowserView: _0x4dbb08,
-    countPlatformAutomationViews: _0x419085,
-    attachMainAutomationView: _0x778b4f,
-    isValidAutomationBounds: _0x133324,
-    resolveInteractionViewportBounds: _0x4a9fef,
-    ensureMainViewVisibleForBatch: _0x7326b4,
-    shouldNudgeAutomationViewGeometry: _0x21d66b,
-    nudgeAutomationViewRepaint: _0x3cfc9d,
-    invalidateAutomationViewRepaint: _0xbb49c8,
-    notifyAutomationViewportChanged: _0x3ab56c,
-    nudgeMainWindowCompositor: _0x178fdf,
-    nudgeVisibleAutomationViews: _0x33f3af,
-    scheduleVisibleAutomationViewsRepaint: _0x28debd,
-    wakeForegroundAutomationSurfaces: _0x40e977,
-    areBoundsClose: _0x723ea8,
-    shouldApplyBoundsUpdate: _0x39757e,
-    registerIpc: _0x328c05
+    inferInteractionViewKey: inferInteractionViewKey,
+    inferAutomationViewKey: inferAutomationViewKey,
+    applyMainWindowRuntimePerformancePolicy: applyMainWindowRuntimePerformancePolicy,
+    wakeMainWindowUiSurface: wakeMainWindowUiSurface,
+    restoreMainWindowUiFocus: restoreMainWindowUiFocus,
+    focusAutomationWebContentsSafely: focusAutomationWebContentsSafely,
+    restoreRequestedAutomationViewsToMainWindow: restoreRequestedAutomationViewsToMainWindow,
+    closeAutomationLivePreviewForBackground: closeAutomationLivePreviewForBackground,
+    setMainWindowBackgroundState: setMainWindowBackgroundState,
+    shouldAttachAutomationView: shouldAttachAutomationView,
+    buildOffscreenAutomationBounds: buildOffscreenAutomationBounds,
+    clearBackgroundInteractionSlot: clearBackgroundInteractionSlot,
+    grantNextBackgroundInteractionSlot: grantNextBackgroundInteractionSlot,
+    acquireBackgroundInteractionSlot: acquireBackgroundInteractionSlot,
+    releaseBackgroundInteractionSlot: releaseBackgroundInteractionSlot,
+    cancelBackgroundInteractionForView: cancelBackgroundInteractionForView,
+    getBackgroundAutomationHostViews: getBackgroundAutomationHostViews,
+    getBackgroundAutomationHostOffscreenBounds: getBackgroundAutomationHostOffscreenBounds,
+    getBackgroundAutomationComposerSurfaceBounds: getBackgroundAutomationComposerSurfaceBounds,
+    activateBackgroundAutomationComposerSurface: activateBackgroundAutomationComposerSurface,
+    emulateBackgroundAutomationPageFocus: emulateBackgroundAutomationPageFocus,
+    releaseBackgroundAutomationComposerSurface: releaseBackgroundAutomationComposerSurface,
+    parkBackgroundAutomationHostWindow: parkBackgroundAutomationHostWindow,
+    scheduleBackgroundAutomationHostRepark: scheduleBackgroundAutomationHostRepark,
+    clearBackgroundHostInternalActivation: clearBackgroundHostInternalActivation,
+    armBackgroundHostInternalActivation: armBackgroundHostInternalActivation,
+    showBackgroundAutomationHostInactive: showBackgroundAutomationHostInactive,
+    consumeBackgroundHostInternalActivation: consumeBackgroundHostInternalActivation,
+    suppressMainWindowEventFromBackgroundHost: suppressMainWindowEventFromBackgroundHost,
+    ensureBackgroundAutomationHostWindow: ensureBackgroundAutomationHostWindow,
+    removeAutomationViewFromWindow: removeAutomationViewFromWindow,
+    removeAutomationViewFromBackgroundHost: removeAutomationViewFromBackgroundHost,
+    maybeDestroyBackgroundAutomationHostWindow: maybeDestroyBackgroundAutomationHostWindow,
+    shouldKeepAutomationViewAttached: shouldKeepAutomationViewAttached,
+    schedulePreviewViewportResizeAfterZoom: schedulePreviewViewportResizeAfterZoom,
+    isBackgroundAutomationHidden: isBackgroundAutomationHidden,
+    clearBackgroundAutomationState: clearBackgroundAutomationState,
+    isAutomationExecutionViewportLocked: isAutomationExecutionViewportLocked,
+    cacheAutomationPreviewBounds: cacheAutomationPreviewBounds,
+    restoreAutomationPreviewAfterExecution: restoreAutomationPreviewAfterExecution,
+    applyBackgroundAutomationOptimizations: applyBackgroundAutomationOptimizations,
+    applyBackgroundAutomationZoom: applyBackgroundAutomationZoom,
+    restoreForegroundAutomationRendering: restoreForegroundAutomationRendering,
+    buildCompactBackgroundAutomationBounds: buildCompactBackgroundAutomationBounds,
+    canParkAutomationViewInMainWindow: canParkAutomationViewInMainWindow,
+    parkAutomationViewInMainWindow: parkAutomationViewInMainWindow,
+    attachAutomationViewToBackgroundHost: attachAutomationViewToBackgroundHost,
+    attachLivePreviewSpectatorIfPossible: attachLivePreviewSpectatorIfPossible,
+    enterBackgroundDetachedMode: enterBackgroundDetachedMode,
+    ensureBackgroundAutomationLayout: ensureBackgroundAutomationLayout,
+    releaseBackgroundAutomationLayout: releaseBackgroundAutomationLayout,
+    acquireEntityExecutionViewportLease: acquireEntityExecutionViewportLease,
+    releaseEntityExecutionViewportLease: releaseEntityExecutionViewportLease,
+    hasEntityExecutionViewportLease: hasEntityExecutionViewportLease,
+    detachAutomationViewFromWindow: detachAutomationViewFromWindow,
+    shouldShowInteractionView: shouldShowInteractionView,
+    restoreVisibleInteractionStack: restoreVisibleInteractionStack,
+    safeSetTopBrowserView: safeSetTopBrowserView,
+    countPlatformAutomationViews: countPlatformAutomationViews,
+    attachMainAutomationView: attachMainAutomationView,
+    isValidAutomationBounds: isValidAutomationBounds,
+    resolveInteractionViewportBounds: resolveInteractionViewportBounds,
+    ensureMainViewVisibleForBatch: ensureMainViewVisibleForBatch,
+    shouldNudgeAutomationViewGeometry: shouldNudgeAutomationViewGeometry,
+    nudgeAutomationViewRepaint: nudgeAutomationViewRepaint,
+    invalidateAutomationViewRepaint: invalidateAutomationViewRepaint,
+    notifyAutomationViewportChanged: notifyAutomationViewportChanged,
+    nudgeMainWindowCompositor: nudgeMainWindowCompositor,
+    nudgeVisibleAutomationViews: nudgeVisibleAutomationViews,
+    scheduleVisibleAutomationViewsRepaint: scheduleVisibleAutomationViewsRepaint,
+    wakeForegroundAutomationSurfaces: wakeForegroundAutomationSurfaces,
+    areBoundsClose: areBoundsClose,
+    shouldApplyBoundsUpdate: shouldApplyBoundsUpdate,
+    registerIpc: registerIpc
   };
 }
 module.exports = {
