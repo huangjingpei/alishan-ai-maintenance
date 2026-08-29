@@ -1,383 +1,383 @@
 const OFFSCREEN_X = -20000;
 const OFFSCREEN_Y = -20000;
-function readSafeSize(_0x362caa, _0x1b2672 = 1280, _0x33f032 = 800) {
+function readSafeSize(arg1, num = 1280, num2 = 800) {
   try {
-    const _0x496690 = _0x362caa.getBounds();
+    const result = arg1.getBounds();
     return {
-      width: Math.max(1000, _0x496690.width || _0x1b2672),
-      height: Math.max(720, _0x496690.height || _0x33f032)
+      width: Math.max(1000, result.width || num),
+      height: Math.max(720, result.height || num2)
     };
-  } catch (_0x221423) {
+  } catch (error) {
     return {
-      width: _0x1b2672,
-      height: _0x33f032
+      width: num,
+      height: num2
     };
   }
 }
-function isOnscreenBounds(_0x595152 = {}) {
-  const _0x890cd = Number(_0x595152.x);
-  const _0x26cbf6 = Number(_0x595152.y);
-  if (!Number.isFinite(_0x890cd) || !Number.isFinite(_0x26cbf6)) {
+function isOnscreenBounds(options = {}) {
+  const result = Number(options.x);
+  const result2 = Number(options.y);
+  if (!Number.isFinite(result) || !Number.isFinite(result2)) {
     return true;
   }
-  return _0x890cd > -800 || _0x26cbf6 > -800;
+  return result > -800 || result2 > -800;
 }
-function detachAutomationParent(_0xf8a95a) {
-  if (!_0xf8a95a || _0xf8a95a.isDestroyed()) {
+function detachAutomationParent(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
   try {
-    if (typeof _0xf8a95a.getParentWindow === "function" && _0xf8a95a.getParentWindow()) {
-      _0xf8a95a.setParentWindow(null);
+    if (typeof arg1.getParentWindow === "function" && arg1.getParentWindow()) {
+      arg1.setParentWindow(null);
     }
-  } catch (_0x1e2fc9) {}
+  } catch (error) {}
 }
-function pinWindowOffscreen(_0x166f89, {
-  width: _0x1b5fc6,
-  height: _0x6b92da
+function pinWindowOffscreen(arg1, {
+  width: width,
+  height: height
 } = {}) {
-  if (!_0x166f89 || _0x166f89.isDestroyed()) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
   try {
-    const _0x498b72 = _0x1b5fc6 && _0x6b92da ? {
-      width: _0x1b5fc6,
-      height: _0x6b92da
-    } : readSafeSize(_0x166f89);
+    const value = width && height ? {
+      width: width,
+      height: height
+    } : readSafeSize(arg1);
     try {
-      _0x166f89.setOpacity(0);
-    } catch (_0x4c59a9) {}
+      arg1.setOpacity(0);
+    } catch (error) {}
     try {
-      _0x166f89.setSkipTaskbar(true);
-    } catch (_0x1f3c8b) {}
-    _0x166f89.setBounds({
+      arg1.setSkipTaskbar(true);
+    } catch (error) {}
+    arg1.setBounds({
       x: OFFSCREEN_X,
       y: OFFSCREEN_Y,
-      width: _0x498b72.width,
-      height: _0x498b72.height
+      width: value.width,
+      height: value.height
     });
-  } catch (_0x1efaa9) {}
+  } catch (error) {}
 }
-function reassertOffscreenKeepAliveSurface(_0x613941) {
-  if (!_0x613941 || _0x613941.isDestroyed()) {
+function reassertOffscreenKeepAliveSurface(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
-  if (_0x613941.__radarAllowVisibleMonitor) {
+  if (arg1.__radarAllowVisibleMonitor) {
     return;
   }
-  if (_0x613941.__radarKeepAliveAsserting) {
+  if (arg1.__radarKeepAliveAsserting) {
     return;
   }
-  _0x613941.__radarKeepAliveAsserting = true;
+  arg1.__radarKeepAliveAsserting = true;
   try {
-    detachAutomationParent(_0x613941);
+    detachAutomationParent(arg1);
     try {
-      _0x613941.setFocusable(false);
-    } catch (_0x384f19) {}
+      arg1.setFocusable(false);
+    } catch (error) {}
     try {
-      _0x613941.setSkipTaskbar(true);
-    } catch (_0x3f5061) {}
-    pinWindowOffscreen(_0x613941);
+      arg1.setSkipTaskbar(true);
+    } catch (error) {}
+    pinWindowOffscreen(arg1);
     try {
-      _0x613941.blur();
-    } catch (_0x18f801) {}
-  } catch (_0x3de88f) {} finally {
-    _0x613941.__radarKeepAliveAsserting = false;
+      arg1.blur();
+    } catch (error) {}
+  } catch (error) {} finally {
+    arg1.__radarKeepAliveAsserting = false;
   }
 }
-function keepOffscreenWindowAlive(_0x32d55f) {
-  if (!_0x32d55f || _0x32d55f.isDestroyed()) {
+function keepOffscreenWindowAlive(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
-  if (_0x32d55f.__radarAllowVisibleMonitor) {
+  if (arg1.__radarAllowVisibleMonitor) {
     return;
   }
-  if (_0x32d55f.__radarKeepAliveAsserting) {
+  if (arg1.__radarKeepAliveAsserting) {
     return;
   }
-  _0x32d55f.__radarKeepAliveAsserting = true;
+  arg1.__radarKeepAliveAsserting = true;
   try {
     const {
-      width: _0x33c527,
-      height: _0x57a23d
-    } = readSafeSize(_0x32d55f);
-    detachAutomationParent(_0x32d55f);
+      width: width,
+      height: height
+    } = readSafeSize(arg1);
+    detachAutomationParent(arg1);
     try {
-      _0x32d55f.setFocusable(false);
-      _0x32d55f.setSkipTaskbar(true);
+      arg1.setFocusable(false);
+      arg1.setSkipTaskbar(true);
       try {
-        _0x32d55f.webContents?.setBackgroundThrottling?.(false);
-      } catch (_0x1277eb) {}
-      pinWindowOffscreen(_0x32d55f, {
-        width: _0x33c527,
-        height: _0x57a23d
+        arg1.webContents?.setBackgroundThrottling?.(false);
+      } catch (error) {}
+      pinWindowOffscreen(arg1, {
+        width: width,
+        height: height
       });
-      if (!_0x32d55f.isVisible()) {
-        if (typeof _0x32d55f.showInactive === "function") {
-          _0x32d55f.showInactive();
+      if (!arg1.isVisible()) {
+        if (typeof arg1.showInactive === "function") {
+          arg1.showInactive();
         } else {
-          _0x32d55f.show();
+          arg1.show();
         }
       }
-      pinWindowOffscreen(_0x32d55f, {
-        width: _0x33c527,
-        height: _0x57a23d
+      pinWindowOffscreen(arg1, {
+        width: width,
+        height: height
       });
       try {
-        _0x32d55f.blur();
-      } catch (_0x244145) {}
-    } catch (_0x4a2a39) {}
+        arg1.blur();
+      } catch (error) {}
+    } catch (error) {}
   } finally {
-    _0x32d55f.__radarKeepAliveAsserting = false;
+    arg1.__radarKeepAliveAsserting = false;
   }
 }
-function enableOffscreenKeepAliveWindow(_0x5db52a) {
-  if (!_0x5db52a || _0x5db52a.isDestroyed()) {
+function enableOffscreenKeepAliveWindow(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
-  _0x5db52a.__radarPreferOffscreenKeepAlive = true;
-  _0x5db52a.__radarUseOffscreenKeepAlive = true;
-  _0x5db52a.__radarInteractionPrimed = true;
-  keepOffscreenWindowAlive(_0x5db52a);
+  arg1.__radarPreferOffscreenKeepAlive = true;
+  arg1.__radarUseOffscreenKeepAlive = true;
+  arg1.__radarInteractionPrimed = true;
+  keepOffscreenWindowAlive(arg1);
 }
-function applyHiddenAutomationWindowPolicy(_0x33ad32, {
+function applyHiddenAutomationWindowPolicy(arg1, {
   parent = null
 } = {}) {
-  if (!_0x33ad32 || _0x33ad32.isDestroyed()) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
-  if (parent && !parent.isDestroyed() && !_0x33ad32.__radarPreferOffscreenKeepAlive) {
+  if (parent && !parent.isDestroyed() && !arg1.__radarPreferOffscreenKeepAlive) {
     try {
-      _0x33ad32.setParentWindow(parent);
-    } catch (_0x47707d) {}
+      arg1.setParentWindow(parent);
+    } catch (error) {}
   }
   try {
-    _0x33ad32.setFocusable(false);
-    _0x33ad32.setSkipTaskbar(true);
-    _0x33ad32.setMenuBarVisibility(false);
-  } catch (_0x18bdf9) {}
+    arg1.setFocusable(false);
+    arg1.setSkipTaskbar(true);
+    arg1.setMenuBarVisibility(false);
+  } catch (error) {}
   if (process.platform === "darwin") {
     try {
-      _0x33ad32.setWindowButtonVisibility(false);
-      _0x33ad32.setVisibleOnAllWorkspaces(false);
-    } catch (_0x262619) {}
+      arg1.setWindowButtonVisibility(false);
+      arg1.setVisibleOnAllWorkspaces(false);
+    } catch (error) {}
   }
-  const _0x34af4e = () => {
-    if (!_0x33ad32 || _0x33ad32.isDestroyed()) {
+  const local = () => {
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
-    if (_0x33ad32.__radarAllowVisibleMonitor) {
+    if (arg1.__radarAllowVisibleMonitor) {
       return;
     }
-    if (_0x33ad32.__radarUseOffscreenKeepAlive || _0x33ad32.__radarInteractionPrimed) {
-      reassertOffscreenKeepAliveSurface(_0x33ad32);
+    if (arg1.__radarUseOffscreenKeepAlive || arg1.__radarInteractionPrimed) {
+      reassertOffscreenKeepAliveSurface(arg1);
       return;
     }
-    ensureHiddenWindowStaysHidden(_0x33ad32);
+    ensureHiddenWindowStaysHidden(arg1);
   };
-  _0x33ad32.on("show", _0x34af4e);
-  _0x33ad32.on("restore", _0x34af4e);
-  _0x33ad32.on("moved", () => {
-    if (!_0x33ad32 || _0x33ad32.isDestroyed() || _0x33ad32.__radarAllowVisibleMonitor) {
+  arg1.on("show", local);
+  arg1.on("restore", local);
+  arg1.on("moved", () => {
+    if (!arg1 || arg1.isDestroyed() || arg1.__radarAllowVisibleMonitor) {
       return;
     }
     try {
-      if (isOnscreenBounds(_0x33ad32.getBounds())) {
-        reassertOffscreenKeepAliveSurface(_0x33ad32);
+      if (isOnscreenBounds(arg1.getBounds())) {
+        reassertOffscreenKeepAliveSurface(arg1);
       }
-    } catch (_0x250f54) {}
+    } catch (error) {}
   });
-  _0x33ad32.on("focus", () => {
-    if (_0x33ad32.__radarAllowVisibleMonitor) {
+  arg1.on("focus", () => {
+    if (arg1.__radarAllowVisibleMonitor) {
       return;
     }
-    if (!_0x33ad32.isDestroyed()) {
+    if (!arg1.isDestroyed()) {
       try {
-        _0x33ad32.blur();
-      } catch (_0x28efac) {}
-      if (_0x33ad32.__radarUseOffscreenKeepAlive || _0x33ad32.__radarInteractionPrimed) {
-        reassertOffscreenKeepAliveSurface(_0x33ad32);
+        arg1.blur();
+      } catch (error) {}
+      if (arg1.__radarUseOffscreenKeepAlive || arg1.__radarInteractionPrimed) {
+        reassertOffscreenKeepAliveSurface(arg1);
         return;
       }
       try {
-        const _0x4dce54 = _0x33ad32.getParentWindow?.() || parent;
-        if (_0x4dce54 && !_0x4dce54.isDestroyed() && _0x4dce54.isFocused()) {
-          _0x4dce54.focus();
+        const local = arg1.getParentWindow?.() || parent;
+        if (local && !local.isDestroyed() && local.isFocused()) {
+          local.focus();
         }
-      } catch (_0x464e63) {}
+      } catch (error) {}
     }
   });
 }
-function primeHiddenWindowForInteraction(_0x36c297) {
-  if (!_0x36c297 || _0x36c297.isDestroyed()) {
+function primeHiddenWindowForInteraction(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return () => {};
   }
-  if (_0x36c297.__radarAllowVisibleMonitor) {
+  if (arg1.__radarAllowVisibleMonitor) {
     try {
-      _0x36c297.webContents?.focus?.();
-    } catch (_0x24af15) {}
+      arg1.webContents?.focus?.();
+    } catch (error) {}
     return () => {};
   }
-  const _0x63a509 = !!_0x36c297.__radarPreferOffscreenKeepAlive;
+  const flag = !!arg1.__radarPreferOffscreenKeepAlive;
   const {
-    width: _0x267a4e,
-    height: _0xe8b275
-  } = readSafeSize(_0x36c297, 1020, 800);
-  _0x36c297.__radarInteractionPrimed = true;
-  if (_0x63a509) {
-    _0x36c297.__radarUseOffscreenKeepAlive = true;
+    width: width,
+    height: height
+  } = readSafeSize(arg1, 1020, 800);
+  arg1.__radarInteractionPrimed = true;
+  if (flag) {
+    arg1.__radarUseOffscreenKeepAlive = true;
   }
   try {
-    detachAutomationParent(_0x36c297);
-    _0x36c297.setFocusable(true);
-    _0x36c297.setSkipTaskbar(true);
-    pinWindowOffscreen(_0x36c297, {
-      width: _0x267a4e,
-      height: _0xe8b275
+    detachAutomationParent(arg1);
+    arg1.setFocusable(true);
+    arg1.setSkipTaskbar(true);
+    pinWindowOffscreen(arg1, {
+      width: width,
+      height: height
     });
     try {
-      _0x36c297.webContents?.setBackgroundThrottling?.(false);
-    } catch (_0x28306d) {}
+      arg1.webContents?.setBackgroundThrottling?.(false);
+    } catch (error) {}
     try {
-      _0x36c297.webContents?.setFrameRate?.(30);
-    } catch (_0x59f856) {}
-    if (!_0x36c297.isVisible()) {
-      if (typeof _0x36c297.showInactive === "function") {
-        _0x36c297.showInactive();
+      arg1.webContents?.setFrameRate?.(30);
+    } catch (error) {}
+    if (!arg1.isVisible()) {
+      if (typeof arg1.showInactive === "function") {
+        arg1.showInactive();
       } else {
-        _0x36c297.show();
+        arg1.show();
       }
-      pinWindowOffscreen(_0x36c297, {
-        width: _0x267a4e,
-        height: _0xe8b275
+      pinWindowOffscreen(arg1, {
+        width: width,
+        height: height
       });
     }
-    if (!_0x63a509) {
+    if (!flag) {
       try {
-        _0x36c297.webContents?.focus?.();
-      } catch (_0x35c8bd) {}
+        arg1.webContents?.focus?.();
+      } catch (error) {}
     }
-  } catch (_0x55e167) {}
+  } catch (error) {}
   return () => {
-    if (!_0x36c297 || _0x36c297.isDestroyed()) {
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
-    if (_0x63a509 || _0x36c297.__radarPreferOffscreenKeepAlive) {
-      enableOffscreenKeepAliveWindow(_0x36c297);
+    if (flag || arg1.__radarPreferOffscreenKeepAlive) {
+      enableOffscreenKeepAliveWindow(arg1);
       return;
     }
-    _0x36c297.__radarInteractionPrimed = false;
-    if (_0x36c297.__radarAllowVisibleMonitor) {
+    arg1.__radarInteractionPrimed = false;
+    if (arg1.__radarAllowVisibleMonitor) {
       return;
     }
     try {
-      _0x36c297.setFocusable(false);
-      _0x36c297.setSkipTaskbar(true);
-      ensureHiddenWindowStaysHidden(_0x36c297);
-    } catch (_0x58d40e) {}
+      arg1.setFocusable(false);
+      arg1.setSkipTaskbar(true);
+      ensureHiddenWindowStaysHidden(arg1);
+    } catch (error) {}
   };
 }
-function ensureHiddenWindowStaysHidden(_0x4a113c) {
-  if (!_0x4a113c || _0x4a113c.isDestroyed()) {
+function ensureHiddenWindowStaysHidden(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return;
   }
-  if (_0x4a113c.__radarAllowVisibleMonitor) {
+  if (arg1.__radarAllowVisibleMonitor) {
     return;
   }
-  if (_0x4a113c.__radarUseOffscreenKeepAlive || _0x4a113c.__radarPreferOffscreenKeepAlive) {
-    _0x4a113c.__radarUseOffscreenKeepAlive = true;
-    keepOffscreenWindowAlive(_0x4a113c);
+  if (arg1.__radarUseOffscreenKeepAlive || arg1.__radarPreferOffscreenKeepAlive) {
+    arg1.__radarUseOffscreenKeepAlive = true;
+    keepOffscreenWindowAlive(arg1);
     return;
   }
   try {
     try {
-      _0x4a113c.setOpacity(0);
-    } catch (_0x4cd585) {}
-    if (_0x4a113c.isVisible() && !_0x4a113c.__radarInteractionPrimed) {
+      arg1.setOpacity(0);
+    } catch (error) {}
+    if (arg1.isVisible() && !arg1.__radarInteractionPrimed) {
       try {
-        _0x4a113c.hide();
-      } catch (_0x3a12fa) {}
+        arg1.hide();
+      } catch (error) {}
     }
     const {
-      width: _0x42efeb,
-      height: _0x4a5516
-    } = readSafeSize(_0x4a113c);
-    _0x4a113c.setBounds({
+      width: width,
+      height: height
+    } = readSafeSize(arg1);
+    arg1.setBounds({
       x: OFFSCREEN_X,
       y: OFFSCREEN_Y,
-      width: _0x42efeb,
-      height: _0x4a5516
+      width: width,
+      height: height
     });
-  } catch (_0xb9cb23) {}
+  } catch (error) {}
 }
-function showHiddenAutomationWindow(_0x4c1a9b, {
+function showHiddenAutomationWindow(arg1, {
   title = "",
   width = 1120,
   height = 820
 } = {}) {
-  if (!_0x4c1a9b || _0x4c1a9b.isDestroyed()) {
+  if (!arg1 || arg1.isDestroyed()) {
     return false;
   }
   try {
-    _0x4c1a9b.__radarAllowVisibleMonitor = true;
-    _0x4c1a9b.__radarInteractionPrimed = false;
-    _0x4c1a9b.__radarUseOffscreenKeepAlive = false;
-    detachAutomationParent(_0x4c1a9b);
+    arg1.__radarAllowVisibleMonitor = true;
+    arg1.__radarInteractionPrimed = false;
+    arg1.__radarUseOffscreenKeepAlive = false;
+    detachAutomationParent(arg1);
     if (title) {
-      _0x4c1a9b.setTitle(title);
+      arg1.setTitle(title);
     }
-    _0x4c1a9b.setOpacity(1);
-    _0x4c1a9b.setFocusable(true);
-    _0x4c1a9b.setSkipTaskbar(false);
-    _0x4c1a9b.setBounds({
-      ..._0x4c1a9b.getBounds(),
+    arg1.setOpacity(1);
+    arg1.setFocusable(true);
+    arg1.setSkipTaskbar(false);
+    arg1.setBounds({
+      ...arg1.getBounds(),
       width: width,
       height: height
     });
-    _0x4c1a9b.center();
+    arg1.center();
     if (process.platform === "darwin") {
       try {
-        _0x4c1a9b.setWindowButtonVisibility(true);
-      } catch (_0x55b8dc) {}
+        arg1.setWindowButtonVisibility(true);
+      } catch (error) {}
     }
-    _0x4c1a9b.show();
-    _0x4c1a9b.focus();
+    arg1.show();
+    arg1.focus();
     return true;
-  } catch (_0x2c8563) {
+  } catch (error) {
     return false;
   }
 }
-function hideVisibleAutomationWindow(_0x3d8a9f) {
-  if (!_0x3d8a9f || _0x3d8a9f.isDestroyed()) {
+function hideVisibleAutomationWindow(arg1) {
+  if (!arg1 || arg1.isDestroyed()) {
     return false;
   }
   try {
-    _0x3d8a9f.__radarAllowVisibleMonitor = false;
-    _0x3d8a9f.__radarInteractionPrimed = false;
+    arg1.__radarAllowVisibleMonitor = false;
+    arg1.__radarInteractionPrimed = false;
     if (process.platform === "darwin") {
       try {
-        _0x3d8a9f.setWindowButtonVisibility(false);
-      } catch (_0x42a77e) {}
+        arg1.setWindowButtonVisibility(false);
+      } catch (error) {}
     }
-    _0x3d8a9f.setFocusable(false);
-    _0x3d8a9f.setSkipTaskbar(true);
-    if (_0x3d8a9f.__radarPreferOffscreenKeepAlive) {
-      enableOffscreenKeepAliveWindow(_0x3d8a9f);
+    arg1.setFocusable(false);
+    arg1.setSkipTaskbar(true);
+    if (arg1.__radarPreferOffscreenKeepAlive) {
+      enableOffscreenKeepAliveWindow(arg1);
       return true;
     }
     try {
       const {
-        BrowserWindow: _0x4a7778
+        BrowserWindow: browserWindow
       } = require("electron");
-      const _0x347ad6 = _0x4a7778.getAllWindows();
-      const _0x2d40ca = _0x347ad6.find(_0x16da13 => _0x16da13 !== _0x3d8a9f && !_0x16da13.isDestroyed() && _0x16da13.webContents && !_0x16da13.webContents.getURL().includes("douyin.com"));
-      if (_0x2d40ca) {
-        _0x3d8a9f.setParentWindow(_0x2d40ca);
+      const result = browserWindow.getAllWindows();
+      const result2 = result.find(arg12 => arg12 !== arg1 && !arg12.isDestroyed() && arg12.webContents && !arg12.webContents.getURL().includes("douyin.com"));
+      if (result2) {
+        arg1.setParentWindow(result2);
       }
-    } catch (_0xd47eec) {}
-    ensureHiddenWindowStaysHidden(_0x3d8a9f);
+    } catch (error) {}
+    ensureHiddenWindowStaysHidden(arg1);
     return true;
-  } catch (_0x3d6293) {
+  } catch (error) {
     return false;
   }
 }
