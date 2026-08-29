@@ -7,294 +7,294 @@ const DEFAULT_MAX_CACHE_AGE_MS = 604800000;
 const DEFAULT_CHECK_INTERVAL_MS = 86400000;
 const DEFAULT_IDLE_CHECK_DELAY_MS = 15000;
 function createAutomationSessionCacheManager({
-  sessionApi: _0x467486,
-  getAllWebContents: _0x54bd61,
-  store: _0x49d21d,
+  sessionApi: sessionApi,
+  getAllWebContents: getAllWebContents,
+  store: store,
   appendDiagnosticsLog = () => {},
   maxCacheBytes = DEFAULT_MAX_CACHE_BYTES,
   maxCacheAgeMs = DEFAULT_MAX_CACHE_AGE_MS,
   checkIntervalMs = DEFAULT_CHECK_INTERVAL_MS,
   idleCheckDelayMs = DEFAULT_IDLE_CHECK_DELAY_MS
 } = {}) {
-  const _0x4b6eda = new Map();
-  const _0x58aeeb = new Map();
-  const _0x27a74b = new Map();
-  function _0x4c8711() {
-    const _0x5bd823 = _0x49d21d?.get?.(KNOWN_PARTITIONS_KEY, []);
-    return [...new Set((Array.isArray(_0x5bd823) ? _0x5bd823 : []).map(String).filter(Boolean))];
+  const map = new Map();
+  const map2 = new Map();
+  const map3 = new Map();
+  function readKnownPartitions() {
+    const local = store?.get?.(KNOWN_PARTITIONS_KEY, []);
+    return [...new Set((Array.isArray(local) ? local : []).map(String).filter(Boolean))];
   }
-  function _0x2b3a18(_0x2f8111) {
-    const _0x35687e = _0x4c8711();
-    if (_0x35687e.includes(_0x2f8111)) {
+  function fn2(arg1) {
+    const result = readKnownPartitions();
+    if (result.includes(arg1)) {
       return;
     }
-    _0x35687e.push(_0x2f8111);
-    _0x49d21d?.set?.(KNOWN_PARTITIONS_KEY, _0x35687e.slice(-100));
+    result.push(arg1);
+    store?.set?.(KNOWN_PARTITIONS_KEY, result.slice(-100));
   }
-  function _0xe8f59c() {
-    const _0x1ff983 = _0x49d21d?.get?.(CACHE_STATE_KEY, {});
-    if (_0x1ff983 && typeof _0x1ff983 === "object") {
-      return _0x1ff983;
+  function fn3() {
+    const local = store?.get?.(CACHE_STATE_KEY, {});
+    if (local && typeof local === "object") {
+      return local;
     } else {
       return {};
     }
   }
-  function _0x471f02(_0x47a994, _0x8866ce) {
-    const _0x24f80c = _0xe8f59c();
-    _0x24f80c[_0x47a994] = {
-      ...(_0x24f80c[_0x47a994] || {}),
-      ..._0x8866ce
+  function fn4(arg1, arg2) {
+    const result = fn3();
+    result[arg1] = {
+      ...(result[arg1] || {}),
+      ...arg2
     };
-    _0x49d21d?.set?.(CACHE_STATE_KEY, _0x24f80c);
+    store?.set?.(CACHE_STATE_KEY, result);
   }
-  function _0x4d7dc2(_0x386390, _0x598487 = null) {
-    const _0x33e7c8 = String(_0x386390 || "").trim();
-    if (!_0x33e7c8) {
+  function register(arg1, arg2 = null) {
+    const result = String(arg1 || "").trim();
+    if (!result) {
       return "";
     }
-    const _0x1494c2 = _0x33e7c8.startsWith("persist:automation:") ? _0x33e7c8 : "persist:automation:" + _0x33e7c8;
-    if (_0x598487) {
-      _0x4b6eda.set(_0x1494c2, _0x598487);
+    const value = result.startsWith("persist:automation:") ? result : "persist:automation:" + result;
+    if (arg2) {
+      map.set(value, arg2);
     }
-    _0x2b3a18(_0x1494c2);
-    const _0x4a7c9b = _0xe8f59c();
-    if (!_0x4a7c9b[_0x1494c2]?.firstSeenAt) {
-      _0x471f02(_0x1494c2, {
+    fn2(value);
+    const result2 = fn3();
+    if (!result2[value]?.firstSeenAt) {
+      fn4(value, {
         firstSeenAt: Date.now()
       });
     }
-    return _0x1494c2;
+    return value;
   }
-  function _0x2b7ba0(_0x5bc5e9) {
-    if (_0x4b6eda.has(_0x5bc5e9)) {
-      return _0x4b6eda.get(_0x5bc5e9);
+  function fn6(arg1) {
+    if (map.has(arg1)) {
+      return map.get(arg1);
     }
-    const _0x1623a4 = _0x467486?.fromPartition?.(_0x5bc5e9) || null;
-    if (_0x1623a4) {
-      _0x4b6eda.set(_0x5bc5e9, _0x1623a4);
+    const local = sessionApi?.fromPartition?.(arg1) || null;
+    if (local) {
+      map.set(arg1, local);
     }
-    return _0x1623a4;
+    return local;
   }
-  function _0x4db06f(_0x448ea8) {
-    if (!_0x448ea8) {
+  function isSessionIdle(arg1) {
+    if (!arg1) {
       return true;
     }
-    const _0x59f2b6 = typeof _0x54bd61 === "function" ? _0x54bd61() : [];
-    return !(Array.isArray(_0x59f2b6) ? _0x59f2b6 : []).some(_0x5a1346 => {
+    const value = typeof getAllWebContents === "function" ? getAllWebContents() : [];
+    return !(Array.isArray(value) ? value : []).some(arg12 => {
       try {
-        return _0x5a1346 && !_0x5a1346.isDestroyed?.() && _0x5a1346.session === _0x448ea8;
-      } catch (_0x103b77) {
+        return arg12 && !arg12.isDestroyed?.() && arg12.session === arg1;
+      } catch (error) {
         return false;
       }
     });
   }
-  async function _0x8e8dae(_0x3438db, _0x237687, _0xc7f285) {
-    await _0x237687.clearCache();
+  async function fn8(arg1, arg2, arg3) {
+    await arg2.clearCache();
     try {
-      await _0x237687.closeAllConnections?.();
-    } catch (_0x5546d6) {}
-    const _0x196a94 = Date.now();
-    _0x471f02(_0x3438db, {
-      lastCheckedAt: _0x196a94,
-      lastClearedAt: _0x196a94,
+      await arg2.closeAllConnections?.();
+    } catch (error) {}
+    const result = Date.now();
+    fn4(arg1, {
+      lastCheckedAt: result,
+      lastClearedAt: result,
       lastCacheBytes: 0
     });
     appendDiagnosticsLog("CACHE", "automation session cache cleared", {
-      partition: _0x3438db,
-      reason: _0xc7f285
+      partition: arg1,
+      reason: arg3
     });
     return {
-      partition: _0x3438db,
+      partition: arg1,
       cleared: true,
-      reason: _0xc7f285
+      reason: arg3
     };
   }
-  async function _0x480e3c(_0x17fb92, {
+  async function maybeClear(arg1, {
     force = false,
     allowActive = false,
     reason = "idle-policy"
   } = {}) {
-    const _0x314c19 = _0x4d7dc2(_0x17fb92);
-    if (!_0x314c19) {
+    const result = register(arg1);
+    if (!result) {
       return {
         partition: "",
         cleared: false,
         reason: "invalid_partition"
       };
     }
-    if (_0x27a74b.has(_0x314c19)) {
-      return _0x27a74b.get(_0x314c19);
+    if (map3.has(result)) {
+      return map3.get(result);
     }
-    const _0x4c8ccb = (async () => {
-      const _0x4b76c1 = _0x2b7ba0(_0x314c19);
-      if (!_0x4b76c1) {
+    const result2 = (async () => {
+      const result2 = fn6(result);
+      if (!result2) {
         return {
-          partition: _0x314c19,
+          partition: result,
           cleared: false,
           reason: "session_unavailable"
         };
       }
-      if (!allowActive && !_0x4db06f(_0x4b76c1)) {
+      if (!allowActive && !isSessionIdle(result2)) {
         return {
-          partition: _0x314c19,
+          partition: result,
           cleared: false,
           reason: "session_active"
         };
       }
-      const _0x49f84b = Date.now();
-      const _0x4dd4bf = _0xe8f59c()[_0x314c19] || {};
-      if (!force && _0x4dd4bf.lastCheckedAt && _0x49f84b - _0x4dd4bf.lastCheckedAt < checkIntervalMs) {
+      const result3 = Date.now();
+      const local = fn3()[result] || {};
+      if (!force && local.lastCheckedAt && result3 - local.lastCheckedAt < checkIntervalMs) {
         return {
-          partition: _0x314c19,
+          partition: result,
           cleared: false,
           reason: "check_throttled"
         };
       }
-      let _0xcb7f17 = 0;
+      let num = 0;
       try {
-        _0xcb7f17 = Number(await _0x4b76c1.getCacheSize?.()) || 0;
-      } catch (_0x4092b8) {
-        _0x471f02(_0x314c19, {
-          lastCheckedAt: _0x49f84b
+        num = Number(await result2.getCacheSize?.()) || 0;
+      } catch (error) {
+        fn4(result, {
+          lastCheckedAt: result3
         });
         return {
-          partition: _0x314c19,
+          partition: result,
           cleared: false,
           reason: "cache_size_failed",
-          error: _0x4092b8?.message || String(_0x4092b8)
+          error: error?.message || String(error)
         };
       }
-      _0x471f02(_0x314c19, {
-        lastCheckedAt: _0x49f84b,
-        lastCacheBytes: _0xcb7f17
+      fn4(result, {
+        lastCheckedAt: result3,
+        lastCacheBytes: num
       });
-      const _0x36f8b1 = _0x4dd4bf.lastClearedAt || _0x4dd4bf.firstSeenAt || _0x49f84b;
-      const _0x223d25 = _0x49f84b - _0x36f8b1 >= maxCacheAgeMs;
-      if (!force && _0xcb7f17 < maxCacheBytes && !_0x223d25) {
+      const local2 = local.lastClearedAt || local.firstSeenAt || result3;
+      const value = result3 - local2 >= maxCacheAgeMs;
+      if (!force && num < maxCacheBytes && !value) {
         return {
-          partition: _0x314c19,
+          partition: result,
           cleared: false,
           reason: "below_threshold",
-          cacheBytes: _0xcb7f17
+          cacheBytes: num
         };
       }
-      return _0x8e8dae(_0x314c19, _0x4b76c1, force ? reason : _0x223d25 ? "age_limit" : "size_limit");
+      return fn8(result, result2, force ? reason : value ? "age_limit" : "size_limit");
     })().finally(() => {
-      _0x27a74b.delete(_0x314c19);
+      map3.delete(result);
     });
-    _0x27a74b.set(_0x314c19, _0x4c8ccb);
-    return _0x4c8ccb;
+    map3.set(result, result2);
+    return result2;
   }
-  function _0x3a4b6c(_0x55639c) {
-    const _0x414274 = _0x4d7dc2(_0x55639c);
-    if (!_0x414274) {
+  function scheduleIdleCheck(arg1) {
+    const result = register(arg1);
+    if (!result) {
       return;
     }
-    const _0x58438f = _0x58aeeb.get(_0x414274);
-    if (_0x58438f) {
-      clearTimeout(_0x58438f);
+    const result2 = map2.get(result);
+    if (result2) {
+      clearTimeout(result2);
     }
-    const _0x44eea4 = setTimeout(() => {
-      _0x58aeeb.delete(_0x414274);
-      _0x480e3c(_0x414274, {
+    const result3 = setTimeout(() => {
+      map2.delete(result);
+      maybeClear(result, {
         reason: "view-destroyed-idle"
-      }).catch(_0x3bad51 => {
+      }).catch(arg1 => {
         appendDiagnosticsLog("WARN", "automation session cache cleanup failed", {
-          partition: _0x414274,
-          error: _0x3bad51?.message || String(_0x3bad51)
+          partition: result,
+          error: arg1?.message || String(arg1)
         });
       });
     }, idleCheckDelayMs);
-    if (typeof _0x44eea4.unref === "function") {
-      _0x44eea4.unref();
+    if (typeof result3.unref === "function") {
+      result3.unref();
     }
-    _0x58aeeb.set(_0x414274, _0x44eea4);
+    map2.set(result, result3);
   }
-  async function _0x28edb2({
+  async function clearKnownCaches({
     includeDefault = true
   } = {}) {
-    const _0x314bc3 = _0x4c8711();
-    const _0x2e47bd = [];
-    if (includeDefault && _0x467486?.defaultSession) {
-      _0x2e47bd.push({
+    const result = readKnownPartitions();
+    const list = [];
+    if (includeDefault && sessionApi?.defaultSession) {
+      list.push({
         partition: "default",
-        sessionObject: _0x467486.defaultSession
+        sessionObject: sessionApi.defaultSession
       });
     }
-    _0x314bc3.forEach(_0xa15f71 => {
-      const _0x1f9f9e = _0x2b7ba0(_0xa15f71);
-      if (_0x1f9f9e) {
-        _0x2e47bd.push({
-          partition: _0xa15f71,
-          sessionObject: _0x1f9f9e
+    result.forEach(arg1 => {
+      const result = fn6(arg1);
+      if (result) {
+        list.push({
+          partition: arg1,
+          sessionObject: result
         });
       }
     });
-    const _0x4c0c4d = [];
-    for (const _0x1b4b01 of _0x2e47bd) {
+    const list2 = [];
+    for (const item of list) {
       try {
-        if (_0x1b4b01.partition === "default") {
-          await _0x1b4b01.sessionObject.clearCache();
+        if (item.partition === "default") {
+          await item.sessionObject.clearCache();
           try {
-            await _0x1b4b01.sessionObject.closeAllConnections?.();
-          } catch (_0x51dcf8) {}
-          _0x4c0c4d.push({
+            await item.sessionObject.closeAllConnections?.();
+          } catch (error) {}
+          list2.push({
             partition: "default",
             cleared: true,
             reason: "manual"
           });
         } else {
-          _0x4c0c4d.push(await _0x480e3c(_0x1b4b01.partition, {
+          list2.push(await maybeClear(item.partition, {
             force: true,
             allowActive: false,
             reason: "manual"
           }));
         }
-      } catch (_0x2bf500) {
-        _0x4c0c4d.push({
-          partition: _0x1b4b01.partition,
+      } catch (error) {
+        list2.push({
+          partition: item.partition,
           cleared: false,
-          reason: _0x2bf500?.message || String(_0x2bf500)
+          reason: error?.message || String(error)
         });
       }
     }
     return {
-      total: _0x4c0c4d.length,
-      cleared: _0x4c0c4d.filter(_0x568001 => _0x568001.cleared).length,
-      skipped: _0x4c0c4d.filter(_0x7ac2a4 => !_0x7ac2a4.cleared && _0x7ac2a4.reason === "session_active").length,
-      failed: _0x4c0c4d.filter(_0x3a5b38 => !_0x3a5b38.cleared && _0x3a5b38.reason !== "session_active").length,
-      results: _0x4c0c4d
+      total: list2.length,
+      cleared: list2.filter(arg1 => arg1.cleared).length,
+      skipped: list2.filter(arg1 => !arg1.cleared && arg1.reason === "session_active").length,
+      failed: list2.filter(arg1 => !arg1.cleared && arg1.reason !== "session_active").length,
+      results: list2
     };
   }
-  async function _0x535d71({
+  async function getKnownCacheSize({
     includeDefault = true
   } = {}) {
-    const _0x5644fe = [];
-    if (includeDefault && _0x467486?.defaultSession) {
-      _0x5644fe.push(_0x467486.defaultSession);
+    const list = [];
+    if (includeDefault && sessionApi?.defaultSession) {
+      list.push(sessionApi.defaultSession);
     }
-    _0x4c8711().forEach(_0x44bde1 => {
-      const _0x30330c = _0x2b7ba0(_0x44bde1);
-      if (_0x30330c && !_0x5644fe.includes(_0x30330c)) {
-        _0x5644fe.push(_0x30330c);
+    readKnownPartitions().forEach(arg1 => {
+      const result = fn6(arg1);
+      if (result && !list.includes(result)) {
+        list.push(result);
       }
     });
-    let _0x154441 = 0;
-    for (const _0x5ae101 of _0x5644fe) {
+    let num = 0;
+    for (const item of list) {
       try {
-        _0x154441 += Number(await _0x5ae101.getCacheSize?.()) || 0;
-      } catch (_0x383289) {}
+        num += Number(await item.getCacheSize?.()) || 0;
+      } catch (error) {}
     }
-    return _0x154441;
+    return num;
   }
   return {
-    register: _0x4d7dc2,
-    maybeClear: _0x480e3c,
-    scheduleIdleCheck: _0x3a4b6c,
-    clearKnownCaches: _0x28edb2,
-    getKnownCacheSize: _0x535d71,
-    isSessionIdle: _0x4db06f,
-    readKnownPartitions: _0x4c8711
+    register: register,
+    maybeClear: maybeClear,
+    scheduleIdleCheck: scheduleIdleCheck,
+    clearKnownCaches: clearKnownCaches,
+    getKnownCacheSize: getKnownCacheSize,
+    isSessionIdle: isSessionIdle,
+    readKnownPartitions: readKnownPartitions
   };
 }
 module.exports = {
