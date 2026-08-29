@@ -16,53 +16,53 @@ const GENDER_FILTER_OPTIONS = Object.freeze([{
   value: "female",
   label: "女"
 }]);
-const GENDER_FILTER_VALUES = new Set(GENDER_FILTER_OPTIONS.map(_0x4df9bb => _0x4df9bb.value));
-const GENDER_FILTER_LABELS = Object.freeze(Object.fromEntries(GENDER_FILTER_OPTIONS.map(_0x53b081 => [_0x53b081.value, _0x53b081.label])));
-function normalizeGenderFilter(_0x288edd, _0x450356 = "all") {
-  const _0x3858bf = String(_0x288edd || "").trim().toLowerCase();
-  if (GENDER_FILTER_VALUES.has(_0x3858bf)) {
-    return _0x3858bf;
+const GENDER_FILTER_VALUES = new Set(GENDER_FILTER_OPTIONS.map(arg1 => arg1.value));
+const GENDER_FILTER_LABELS = Object.freeze(Object.fromEntries(GENDER_FILTER_OPTIONS.map(arg1 => [arg1.value, arg1.label])));
+function normalizeGenderFilter(arg1, text = "all") {
+  const result = String(arg1 || "").trim().toLowerCase();
+  if (GENDER_FILTER_VALUES.has(result)) {
+    return result;
   }
-  const _0x16db09 = String(_0x450356 || "all").trim().toLowerCase();
-  if (GENDER_FILTER_VALUES.has(_0x16db09)) {
-    return _0x16db09;
+  const result2 = String(text || "all").trim().toLowerCase();
+  if (GENDER_FILTER_VALUES.has(result2)) {
+    return result2;
   } else {
     return "all";
   }
 }
-function normalizeObservedGender(_0x1ede30) {
-  const _0x5d1477 = String(_0x1ede30 ?? "").trim().toLowerCase().replace(/\s+/g, "");
-  if (/^(男|男性|男生|male|m|♂)$/.test(_0x5d1477)) {
+function normalizeObservedGender(arg1) {
+  const result = String(arg1 ?? "").trim().toLowerCase().replace(/\s+/g, "");
+  if (/^(男|男性|男生|male|m|♂)$/.test(result)) {
     return "male";
   }
-  if (/^(女|女性|女生|female|f|♀)$/.test(_0x5d1477)) {
+  if (/^(女|女性|女生|female|f|♀)$/.test(result)) {
     return "female";
   }
   return "unknown";
 }
-function getObservedGenderLabel(_0x1daf03) {
-  const _0x42e793 = normalizeObservedGender(_0x1daf03);
-  if (_0x42e793 === "male") {
+function getObservedGenderLabel(arg1) {
+  const result = normalizeObservedGender(arg1);
+  if (result === "male") {
     return "男";
   }
-  if (_0x42e793 === "female") {
+  if (result === "female") {
     return "女";
   }
   return "未知";
 }
-function evaluateGenderFilter(_0x437cf8, _0x2e452b) {
-  const _0x13cc67 = normalizeGenderFilter(_0x2e452b);
-  const _0x380501 = normalizeObservedGender(_0x437cf8);
-  const _0x51bf66 = _0x13cc67 === "all" || _0x13cc67 === _0x380501 || _0x13cc67 === "male_unknown" && (_0x380501 === "male" || _0x380501 === "unknown") || _0x13cc67 === "female_unknown" && (_0x380501 === "female" || _0x380501 === "unknown");
-  const _0x2013b3 = getObservedGenderLabel(_0x437cf8);
-  const _0x3d37cc = GENDER_FILTER_LABELS[_0x13cc67] || GENDER_FILTER_LABELS.all;
+function evaluateGenderFilter(arg1, arg2) {
+  const result = normalizeGenderFilter(arg2);
+  const result2 = normalizeObservedGender(arg1);
+  const local = result === "all" || result === result2 || result === "male_unknown" && (result2 === "male" || result2 === "unknown") || result === "female_unknown" && (result2 === "female" || result2 === "unknown");
+  const result3 = getObservedGenderLabel(arg1);
+  const local2 = GENDER_FILTER_LABELS[result] || GENDER_FILTER_LABELS.all;
   return {
-    pass: _0x51bf66,
-    filter: _0x13cc67,
-    filterLabel: _0x3d37cc,
-    observed: _0x380501,
-    observedLabel: _0x2013b3,
-    reason: _0x51bf66 ? "" : "性别不符（识别：" + _0x2013b3 + "，筛选：" + _0x3d37cc + "）"
+    pass: local,
+    filter: result,
+    filterLabel: local2,
+    observed: result2,
+    observedLabel: result3,
+    reason: local ? "" : "性别不符（识别：" + result3 + "，筛选：" + local2 + "）"
   };
 }
 module.exports = {
