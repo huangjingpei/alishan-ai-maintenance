@@ -2,208 +2,208 @@ const LEADGEN_SCHEDULES_KEY = "leadgen_schedules_v1";
 const MAX_LEADGEN_SCHEDULE_TIMEOUT_MS = 2147000000;
 const DUE_LEADGEN_SCHEDULE_RETRY_MS = 30000;
 const LEADGEN_SCHEDULE_RUNTIME_GUARD_TOKEN = "leadgen-schedule";
-function normalizeMode(_0x5d8579) {
-  if (_0x5d8579 === "restart") {
+function normalizeMode(arg1) {
+  if (arg1 === "restart") {
     return "restart";
   } else {
     return "resume";
   }
 }
-function getWakeAt(_0x4600b0) {
-  const _0x3840e5 = Number(_0x4600b0?.nextActionAt || _0x4600b0?.runAt || 0);
-  if (Number.isFinite(_0x3840e5) && _0x3840e5 > 0) {
-    return _0x3840e5;
+function getWakeAt(arg1) {
+  const result = Number(arg1?.nextActionAt || arg1?.runAt || 0);
+  if (Number.isFinite(result) && result > 0) {
+    return result;
   } else {
     return 0;
   }
 }
-function normalizeLeadgenScheduleEntryForMain(_0x78c9f8, _0x13c2c7 = Date.now()) {
-  if (Number.isFinite(Number(_0x78c9f8)) && Number(_0x78c9f8) > 0) {
-    const _0x15c1bd = Number(_0x78c9f8);
+function normalizeLeadgenScheduleEntryForMain(arg1, arg2 = Date.now()) {
+  if (Number.isFinite(Number(arg1)) && Number(arg1) > 0) {
+    const result = Number(arg1);
     return {
       type: "once",
-      runAt: _0x15c1bd,
+      runAt: result,
       mode: "resume",
-      createdAt: _0x13c2c7,
+      createdAt: arg2,
       retryCount: 0,
       nextAction: "start",
-      nextActionAt: _0x15c1bd
+      nextActionAt: result
     };
   }
-  if (!_0x78c9f8 || typeof _0x78c9f8 !== "object") {
+  if (!arg1 || typeof arg1 !== "object") {
     return null;
   }
-  const _0x55674f = _0x78c9f8.type === "daily" || !!_0x78c9f8.startHm && !!_0x78c9f8.endHm && !Number(_0x78c9f8.runAt);
-  if (_0x55674f) {
-    const _0x589441 = String(_0x78c9f8.startHm || "").trim();
-    const _0x3350ed = String(_0x78c9f8.endHm || "").trim();
-    if (!/^\d{1,2}:\d{2}$/.test(_0x589441) || !/^\d{1,2}:\d{2}$/.test(_0x3350ed)) {
+  const local = arg1.type === "daily" || !!arg1.startHm && !!arg1.endHm && !Number(arg1.runAt);
+  if (local) {
+    const result = String(arg1.startHm || "").trim();
+    const result2 = String(arg1.endHm || "").trim();
+    if (!/^\d{1,2}:\d{2}$/.test(result) || !/^\d{1,2}:\d{2}$/.test(result2)) {
       return null;
     }
-    if (_0x589441 === _0x3350ed) {
+    if (result === result2) {
       return null;
     }
-    let _0x369240 = _0x78c9f8.nextAction === "stop" ? "stop" : "start";
-    let _0x20b602 = Number(_0x78c9f8.nextActionAt || 0);
-    if (!Number.isFinite(_0x20b602) || _0x20b602 <= 0) {
-      _0x369240 = "start";
-      _0x20b602 = _0x13c2c7;
+    let value = arg1.nextAction === "stop" ? "stop" : "start";
+    let result3 = Number(arg1.nextActionAt || 0);
+    if (!Number.isFinite(result3) || result3 <= 0) {
+      value = "start";
+      result3 = arg2;
     }
     return {
       type: "daily",
-      startHm: _0x589441,
-      endHm: _0x3350ed,
+      startHm: result,
+      endHm: result2,
       mode: "restart",
-      enabled: _0x78c9f8.enabled !== false,
-      createdAt: Number(_0x78c9f8.createdAt) || _0x13c2c7,
-      retryCount: Math.max(0, Number(_0x78c9f8.retryCount) || 0),
-      activeWindowId: _0x78c9f8.activeWindowId || null,
-      nextAction: _0x369240,
-      nextActionAt: _0x20b602,
-      windowId: _0x78c9f8.windowId || null
+      enabled: arg1.enabled !== false,
+      createdAt: Number(arg1.createdAt) || arg2,
+      retryCount: Math.max(0, Number(arg1.retryCount) || 0),
+      activeWindowId: arg1.activeWindowId || null,
+      nextAction: value,
+      nextActionAt: result3,
+      windowId: arg1.windowId || null
     };
   }
-  const _0x4c838a = Number(_0x78c9f8.runAt || _0x78c9f8.targetTime || 0);
-  if (!Number.isFinite(_0x4c838a) || _0x4c838a <= 0) {
+  const result = Number(arg1.runAt || arg1.targetTime || 0);
+  if (!Number.isFinite(result) || result <= 0) {
     return null;
   }
   return {
     type: "once",
-    runAt: _0x4c838a,
-    mode: normalizeMode(_0x78c9f8.mode),
-    createdAt: Number(_0x78c9f8.createdAt) || _0x13c2c7,
-    retryCount: Math.max(0, Number(_0x78c9f8.retryCount) || 0),
+    runAt: result,
+    mode: normalizeMode(arg1.mode),
+    createdAt: Number(arg1.createdAt) || arg2,
+    retryCount: Math.max(0, Number(arg1.retryCount) || 0),
     nextAction: "start",
-    nextActionAt: _0x4c838a
+    nextActionAt: result
   };
 }
-function normalizeLeadgenSchedulesForMain(_0x1e7aa9, _0x19dd51 = Date.now()) {
-  if (_0x1e7aa9 == null) {
+function normalizeLeadgenSchedulesForMain(arg1, arg2 = Date.now()) {
+  if (arg1 == null) {
     return null;
   }
-  const _0x37b061 = {};
-  if (!_0x1e7aa9 || typeof _0x1e7aa9 !== "object") {
-    return _0x37b061;
+  const obj = {};
+  if (!arg1 || typeof arg1 !== "object") {
+    return obj;
   }
-  Object.entries(_0x1e7aa9).forEach(([_0x4772cb, _0x1dcc7c]) => {
-    const _0x4d9aa6 = normalizeLeadgenScheduleEntryForMain(_0x1dcc7c, _0x19dd51);
-    if (_0x4772cb && _0x4d9aa6) {
-      _0x37b061[_0x4772cb] = _0x4d9aa6;
+  Object.entries(arg1).forEach(([arg1, arg12]) => {
+    const result = normalizeLeadgenScheduleEntryForMain(arg12, arg2);
+    if (arg1 && result) {
+      obj[arg1] = result;
     }
   });
-  return _0x37b061;
+  return obj;
 }
 function createLeadgenScheduleService({
-  store: _0x1c7077,
-  getMainWindow: _0x530b06,
-  acquireTaskRuntimeGuard: _0x28ff4e,
-  releaseTaskRuntimeGuard: _0x4a2469
+  store: store,
+  getMainWindow: getMainWindow,
+  acquireTaskRuntimeGuard: acquireTaskRuntimeGuard,
+  releaseTaskRuntimeGuard: releaseTaskRuntimeGuard
 }) {
-  let _0x501266 = null;
-  function _0x390137() {
-    if (_0x501266) {
-      clearTimeout(_0x501266);
+  let local = null;
+  function clearLeadgenScheduleTimer() {
+    if (local) {
+      clearTimeout(local);
     }
-    _0x501266 = null;
+    local = null;
   }
-  function _0x49a734(_0x4999ff) {
-    const _0x28e9ea = Object.values(_0x4999ff || {}).map(_0x3125ea => ({
-      entry: _0x3125ea,
-      wakeAt: getWakeAt(_0x3125ea)
-    })).filter(_0x33b9ae => _0x33b9ae.wakeAt > 0).sort((_0xa50e19, _0x2ab0f1) => _0xa50e19.wakeAt - _0x2ab0f1.wakeAt);
-    if (_0x28e9ea.length === 0) {
-      _0x4a2469(LEADGEN_SCHEDULE_RUNTIME_GUARD_TOKEN);
+  function fn2(arg1) {
+    const result = Object.values(arg1 || {}).map(arg1 => ({
+      entry: arg1,
+      wakeAt: getWakeAt(arg1)
+    })).filter(arg1 => arg1.wakeAt > 0).sort((arg1, arg2) => arg1.wakeAt - arg2.wakeAt);
+    if (result.length === 0) {
+      releaseTaskRuntimeGuard(LEADGEN_SCHEDULE_RUNTIME_GUARD_TOKEN);
       return;
     }
-    _0x28ff4e(LEADGEN_SCHEDULE_RUNTIME_GUARD_TOKEN, {
+    acquireTaskRuntimeGuard(LEADGEN_SCHEDULE_RUNTIME_GUARD_TOKEN, {
       type: "leadgen-schedule",
-      count: _0x28e9ea.length,
-      nextRunAt: _0x28e9ea[0].wakeAt
+      count: result.length,
+      nextRunAt: result[0].wakeAt
     });
   }
-  function _0x2e56ea() {
-    return normalizeLeadgenSchedulesForMain(_0x1c7077.get(LEADGEN_SCHEDULES_KEY, null)) || {};
+  function fn3() {
+    return normalizeLeadgenSchedulesForMain(store.get(LEADGEN_SCHEDULES_KEY, null)) || {};
   }
-  function _0x926dfd(_0x52b9ad) {
-    _0x1c7077.set(LEADGEN_SCHEDULES_KEY, _0x52b9ad || {});
+  function fn4(arg1) {
+    store.set(LEADGEN_SCHEDULES_KEY, arg1 || {});
   }
-  function _0x5cd0a4() {
-    _0x390137();
-    const _0x4a8b85 = _0x2e56ea();
-    _0x49a734(_0x4a8b85);
-    const _0x51e907 = Date.now();
-    const _0x391994 = Object.entries(_0x4a8b85).map(([_0xb2edb2, _0x22ffdd]) => ({
-      taskId: _0xb2edb2,
-      entry: _0x22ffdd,
-      wakeAt: getWakeAt(_0x22ffdd)
-    })).filter(_0x58a940 => _0x58a940.wakeAt > 0 && _0x58a940.wakeAt <= _0x51e907).sort((_0x296531, _0x1bf260) => _0x296531.wakeAt - _0x1bf260.wakeAt);
-    if (_0x391994.length > 0) {
-      const _0x108cf0 = typeof _0x530b06 === "function" ? _0x530b06() : null;
-      if (_0x108cf0 && !_0x108cf0.isDestroyed()) {
-        _0x108cf0.webContents.send("leadgen-schedule-due", {
-          taskIds: _0x391994.map(_0xbd5d19 => _0xbd5d19.taskId),
-          actions: _0x391994.map(_0x30e28c => ({
-            taskId: _0x30e28c.taskId,
-            action: _0x30e28c.entry.nextAction || "start",
-            type: _0x30e28c.entry.type || "once"
+  function dispatchDueLeadgenSchedules() {
+    clearLeadgenScheduleTimer();
+    const result = fn3();
+    fn2(result);
+    const result2 = Date.now();
+    const result3 = Object.entries(result).map(([arg1, arg12]) => ({
+      taskId: arg1,
+      entry: arg12,
+      wakeAt: getWakeAt(arg12)
+    })).filter(arg1 => arg1.wakeAt > 0 && arg1.wakeAt <= result2).sort((arg1, arg2) => arg1.wakeAt - arg2.wakeAt);
+    if (result3.length > 0) {
+      const value = typeof getMainWindow === "function" ? getMainWindow() : null;
+      if (value && !value.isDestroyed()) {
+        value.webContents.send("leadgen-schedule-due", {
+          taskIds: result3.map(arg1 => arg1.taskId),
+          actions: result3.map(arg1 => ({
+            taskId: arg1.taskId,
+            action: arg1.entry.nextAction || "start",
+            type: arg1.entry.type || "once"
           }))
         });
       }
-      _0x501266 = setTimeout(_0x5cd0a4, DUE_LEADGEN_SCHEDULE_RETRY_MS);
+      local = setTimeout(dispatchDueLeadgenSchedules, DUE_LEADGEN_SCHEDULE_RETRY_MS);
       return;
     }
-    _0x3c15f0();
+    queueNextLeadgenSchedule();
   }
-  function _0x3c15f0() {
-    _0x390137();
-    const _0x23d00b = _0x2e56ea();
-    _0x49a734(_0x23d00b);
-    const _0x252ebb = Object.values(_0x23d00b).map(_0x259783 => getWakeAt(_0x259783)).filter(_0x159083 => _0x159083 > 0).sort((_0x2cba10, _0x4a48b9) => _0x2cba10 - _0x4a48b9)[0];
-    if (!_0x252ebb) {
+  function queueNextLeadgenSchedule() {
+    clearLeadgenScheduleTimer();
+    const result = fn3();
+    fn2(result);
+    const value = Object.values(result).map(arg1 => getWakeAt(arg1)).filter(arg1 => arg1 > 0).sort((arg1, arg2) => arg1 - arg2)[0];
+    if (!value) {
       return;
     }
-    const _0xa6b595 = Math.max(0, _0x252ebb - Date.now());
-    _0x501266 = setTimeout(_0x5cd0a4, Math.min(_0xa6b595, MAX_LEADGEN_SCHEDULE_TIMEOUT_MS));
+    const result2 = Math.max(0, value - Date.now());
+    local = setTimeout(dispatchDueLeadgenSchedules, Math.min(result2, MAX_LEADGEN_SCHEDULE_TIMEOUT_MS));
   }
-  function _0x40b234() {
-    const _0x5e924a = _0x2e56ea();
-    _0x3c15f0();
-    return _0x5e924a;
+  function getLeadgenSchedules() {
+    const result = fn3();
+    queueNextLeadgenSchedule();
+    return result;
   }
-  function _0x5647f4(_0x5d83d9) {
-    const _0x5e8d8e = normalizeLeadgenSchedulesForMain(_0x5d83d9) || {};
-    _0x926dfd(_0x5e8d8e);
-    _0x3c15f0();
+  function saveLeadgenSchedules(arg1) {
+    const local = normalizeLeadgenSchedulesForMain(arg1) || {};
+    fn4(local);
+    queueNextLeadgenSchedule();
     return true;
   }
-  function _0x29f14b(_0x2dff6d) {
-    const _0x360936 = (Array.isArray(_0x2dff6d) ? _0x2dff6d : [_0x2dff6d]).filter(Boolean).map(_0x123744 => String(_0x123744));
-    if (_0x360936.length === 0) {
+  function removeLeadgenSchedules(arg1) {
+    const result = (Array.isArray(arg1) ? arg1 : [arg1]).filter(Boolean).map(arg1 => String(arg1));
+    if (result.length === 0) {
       return false;
     }
-    const _0x2c82ce = _0x2e56ea();
-    let _0x1ef0b8 = false;
-    _0x360936.forEach(_0x3154f3 => {
-      if (Object.prototype.hasOwnProperty.call(_0x2c82ce, _0x3154f3)) {
-        delete _0x2c82ce[_0x3154f3];
-        _0x1ef0b8 = true;
+    const result2 = fn3();
+    let flag = false;
+    result.forEach(arg1 => {
+      if (Object.prototype.hasOwnProperty.call(result2, arg1)) {
+        delete result2[arg1];
+        flag = true;
       }
     });
-    if (_0x1ef0b8) {
-      _0x926dfd(_0x2c82ce);
+    if (flag) {
+      fn4(result2);
     }
-    _0x3c15f0();
-    return _0x1ef0b8;
+    queueNextLeadgenSchedule();
+    return flag;
   }
   return {
     LEADGEN_SCHEDULES_KEY: LEADGEN_SCHEDULES_KEY,
     normalizeLeadgenSchedulesForMain: normalizeLeadgenSchedulesForMain,
-    clearLeadgenScheduleTimer: _0x390137,
-    queueNextLeadgenSchedule: _0x3c15f0,
-    dispatchDueLeadgenSchedules: _0x5cd0a4,
-    getLeadgenSchedules: _0x40b234,
-    saveLeadgenSchedules: _0x5647f4,
-    removeLeadgenSchedules: _0x29f14b
+    clearLeadgenScheduleTimer: clearLeadgenScheduleTimer,
+    queueNextLeadgenSchedule: queueNextLeadgenSchedule,
+    dispatchDueLeadgenSchedules: dispatchDueLeadgenSchedules,
+    getLeadgenSchedules: getLeadgenSchedules,
+    saveLeadgenSchedules: saveLeadgenSchedules,
+    removeLeadgenSchedules: removeLeadgenSchedules
   };
 }
 module.exports = {
