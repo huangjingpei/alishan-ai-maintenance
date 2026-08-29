@@ -33,6 +33,18 @@ const OPTS = {
 
 function canonicalize(src) {
   const ast = parse(src, OPTS);
+  // 声明节点身份映射：binding.identifier 节点 -> binding。
+  // 必要性：重命名后若嵌套作用域存在同名绑定，声明 id 从自身路径 getBinding
+  // 会先命中嵌套绑定（如 function fn 内再声明 function fn），产生假阳性。
+  // 声明 id 不是运行时引用，必须解析到它自己所属的绑定。
+  const declNodeMap = new Map();
+  traverse(ast, {
+    Scopable(p) {
+      for (const binding of Object.values(p.scope.bindings)) {
+        if (binding.identifier) declNodeMap.set(binding.identifier, binding);
+      }
+    },
+  });
   const bindingIds = new Map();
   let seq = 0;
   traverse(ast, {
@@ -53,7 +65,7 @@ function canonicalize(src) {
         if (parent.isImportSpecifier() && node.imported === p.node) return;
         if (parent.isExportSpecifier() && node.exported === p.node) return;
       }
-      const binding = p.scope.getBinding(p.node.name);
+      const binding = declNodeMap.get(p.node) || p.scope.getBinding(p.node.name);
       if (!binding) return; // 未绑定标识符：保留原名
       let id = bindingIds.get(binding);
       if (!id) {

@@ -3,253 +3,253 @@
 const {
   getVideoEngageSelector
 } = require("./douyinVideoSideActions");
-function createCommentFeedNavigationController(_0x51d8eb = {}) {
+function createCommentFeedNavigationController(options = {}) {
   const {
-    PLATFORM_SELECTORS: _0x1a3fd0,
-    buildDouyinVideoShareUrl: _0x3f336a,
-    captureFeedVideoShareUrl: _0x15f856,
-    clearPendingLeadVideoUrl: _0x3b07e5,
-    clickCommentPanelLoadingPlaceholder: _0x5f3c7f,
-    extractSpecificVideoId: _0x5b0aef,
-    extractVideoIdFromHref: _0x48d604,
-    findCommentPanelRoot: _0x149b22,
-    findMainVideoCommentInput: _0x3d8e02,
-    getCommentItemLooseSelector: _0x5ecb3a,
-    getCommentItemSelector: _0x54606f,
-    getCommentPanelSelector: _0x181657,
-    getCommentTabPrefix: _0x243420,
-    getCommentV2String: _0x96e9a7,
-    getVideoEngagePack: _0x135993,
-    getDouyinFeedScope: _0x554dee,
-    getFeedSwitchGuard: _0x12c3a7,
-    getFeedVideoIdentity: _0x379016,
-    getMyNickname: _0x56991c,
-    getVideoAuthorNickname: _0x60283,
-    getVideoTitle: _0x251e6e,
-    handleGlobalAutomationPopupsAndSecurity: _0x51d744,
-    hasCommentRuntimeReady: _0x577931,
-    hasFeedLiveEnterHint: _0x57923c,
-    isDouyinFeedLiveStream: _0x2784ab,
-    isDouyinLiveStreamTitle: _0x5af672,
-    isDouyinVideoShareUrl: _0x46d6bb,
-    isDouyinVisibleLoadingPlaceholder: _0x47a09c,
-    isElementInFeedCenter: _0x191379,
-    isElementInViewportForAutomation: _0x3ca431,
-    isOnUserProfilePage: _0x5a8eba,
-    isProfileCommentUiVisible: _0x5852c7,
-    isVisibleElement: _0x5261d7,
-    mergeCommentSelectors: _0x7cba7b,
-    normalizeAuthorAccountName: _0x186b5d,
-    normalizeUrl: _0x510d83,
-    openFeedCommentDrawer: _0x1df147,
-    openProfileVideoCommentPanel: _0x3f7971,
-    parseDouyinCommentNode: _0x3d961d,
-    pauseVisibleDouyinVideos: _0x59b5e8,
-    pruneSearchCardOpenFailures: _0x201d1b,
-    queryCommentItemNodes: _0x4308ac,
-    randomDelay: _0x485121,
-    reportCurrentAction: _0x485cbc,
-    reportTraceLog: _0x4237de,
-    resolveCommentPanelRoot: _0x37c277,
-    resolveDouyinVideoDetailModal: _0x5ce888,
-    safeScrollTargetIntoView: _0x479ccd,
-    shouldAbort: _0x6ae554,
-    simulateHumanClick: _0x44e4a6,
-    simulateTrustedElementClick: _0x10f0d2,
-    simulateTrustedKey: _0x287fca,
-    sleep: _0x3f311d,
-    sleepWithinDeadline: _0x30d71f,
-    state: _0x357c41
-  } = _0x51d8eb;
-  function _0x2cf46e(_0x257eb7) {
-    const _0x21aad6 = String(_0x257eb7 || "").trim().replace(/,/g, "").replace(/\s+/g, "");
-    const _0xafb88e = _0x21aad6.match(/(\d+(?:\.\d+)?)(万|w|W|千|k|K)?/);
-    if (!_0xafb88e) {
+    PLATFORM_SELECTORS: platformSelectors,
+    buildDouyinVideoShareUrl: buildDouyinVideoShareUrl,
+    captureFeedVideoShareUrl: captureFeedVideoShareUrl,
+    clearPendingLeadVideoUrl: clearPendingLeadVideoUrl,
+    clickCommentPanelLoadingPlaceholder: clickCommentPanelLoadingPlaceholder,
+    extractSpecificVideoId: extractSpecificVideoId,
+    extractVideoIdFromHref: extractVideoIdFromHref,
+    findCommentPanelRoot: findCommentPanelRoot,
+    findMainVideoCommentInput: findMainVideoCommentInput,
+    getCommentItemLooseSelector: getCommentItemLooseSelector,
+    getCommentItemSelector: getCommentItemSelector,
+    getCommentPanelSelector: getCommentPanelSelector,
+    getCommentTabPrefix: getCommentTabPrefix,
+    getCommentV2String: getCommentV2String,
+    getVideoEngagePack: getVideoEngagePack,
+    getDouyinFeedScope: getDouyinFeedScope,
+    getFeedSwitchGuard: getFeedSwitchGuard,
+    getFeedVideoIdentity: getFeedVideoIdentity,
+    getMyNickname: getMyNickname,
+    getVideoAuthorNickname: getVideoAuthorNickname,
+    getVideoTitle: getVideoTitle,
+    handleGlobalAutomationPopupsAndSecurity: handleGlobalAutomationPopupsAndSecurity,
+    hasCommentRuntimeReady: hasCommentRuntimeReady,
+    hasFeedLiveEnterHint: hasFeedLiveEnterHint,
+    isDouyinFeedLiveStream: isDouyinFeedLiveStream,
+    isDouyinLiveStreamTitle: isDouyinLiveStreamTitle,
+    isDouyinVideoShareUrl: isDouyinVideoShareUrl,
+    isDouyinVisibleLoadingPlaceholder: isDouyinVisibleLoadingPlaceholder,
+    isElementInFeedCenter: isElementInFeedCenter,
+    isElementInViewportForAutomation: isElementInViewportForAutomation,
+    isOnUserProfilePage: isOnUserProfilePage,
+    isProfileCommentUiVisible: isProfileCommentUiVisible,
+    isVisibleElement: isVisibleElement,
+    mergeCommentSelectors: mergeCommentSelectors,
+    normalizeAuthorAccountName: normalizeAuthorAccountName,
+    normalizeUrl: normalizeUrl,
+    openFeedCommentDrawer: openFeedCommentDrawer,
+    openProfileVideoCommentPanel: openProfileVideoCommentPanel,
+    parseDouyinCommentNode: parseDouyinCommentNode,
+    pauseVisibleDouyinVideos: pauseVisibleDouyinVideos,
+    pruneSearchCardOpenFailures: pruneSearchCardOpenFailures,
+    queryCommentItemNodes: queryCommentItemNodes,
+    randomDelay: randomDelay,
+    reportCurrentAction: reportCurrentAction,
+    reportTraceLog: reportTraceLog,
+    resolveCommentPanelRoot: resolveCommentPanelRoot,
+    resolveDouyinVideoDetailModal: resolveDouyinVideoDetailModal,
+    safeScrollTargetIntoView: safeScrollTargetIntoView,
+    shouldAbort: shouldAbort,
+    simulateHumanClick: simulateHumanClick,
+    simulateTrustedElementClick: simulateTrustedElementClick,
+    simulateTrustedKey: simulateTrustedKey,
+    sleep: sleep,
+    sleepWithinDeadline: sleepWithinDeadline,
+    state: state
+  } = options;
+  function parseLocalizedCountText(arg1) {
+    const result = String(arg1 || "").trim().replace(/,/g, "").replace(/\s+/g, "");
+    const result2 = result.match(/(\d+(?:\.\d+)?)(万|w|W|千|k|K)?/);
+    if (!result2) {
       return null;
     }
-    let _0x494c23 = parseFloat(_0xafb88e[1]);
-    if (!Number.isFinite(_0x494c23)) {
+    let result3 = parseFloat(result2[1]);
+    if (!Number.isFinite(result3)) {
       return null;
     }
-    const _0x549308 = _0xafb88e[2];
-    if (_0x549308 === "万" || _0x549308 === "w" || _0x549308 === "W") {
-      _0x494c23 *= 10000;
+    const value = result2[2];
+    if (value === "万" || value === "w" || value === "W") {
+      result3 *= 10000;
     }
-    if (_0x549308 === "千" || _0x549308 === "k" || _0x549308 === "K") {
-      _0x494c23 *= 1000;
+    if (value === "千" || value === "k" || value === "K") {
+      result3 *= 1000;
     }
-    return Math.round(_0x494c23);
+    return Math.round(result3);
   }
-  function _0x383b31(_0x3f91d0) {
+  function getCommentsTotalCount(arg1) {
     try {
-      const _0x559424 = Array.from(_0x3f91d0.querySelectorAll("div, span, p")).filter(_0x5261d7);
-      for (const _0x1ea365 of _0x559424) {
-        if (_0x1ea365.children.length > 2) {
+      const result = Array.from(arg1.querySelectorAll("div, span, p")).filter(isVisibleElement);
+      for (const item of result) {
+        if (item.children.length > 2) {
           continue;
         }
-        const _0x1f03c9 = _0x1ea365.textContent ? _0x1ea365.textContent.trim() : "";
-        const _0x5aeb14 = "([\\d.,]+)\\s*([万wW千kK])?\\+?";
-        const _0x217ed9 = _0x1f03c9.match(new RegExp("(?:全部评论|评论)\\s*[\\(\\（]?\\s*" + _0x5aeb14 + "\\s*[\\)\\）]?|^" + _0x5aeb14 + "\\s*(?:条评论|个评论|评论)$"));
-        if (_0x217ed9) {
-          const _0x125c01 = _0x217ed9[1] ? "" + _0x217ed9[1] + (_0x217ed9[2] || "") : "" + _0x217ed9[3] + (_0x217ed9[4] || "");
-          const _0x3b8b48 = _0x2cf46e(_0x125c01);
-          if (_0x3b8b48 !== null) {
-            return _0x3b8b48;
+        const value = item.textContent ? item.textContent.trim() : "";
+        const text = "([\\d.,]+)\\s*([万wW千kK])?\\+?";
+        const result = value.match(new RegExp("(?:全部评论|评论)\\s*[\\(\\（]?\\s*" + text + "\\s*[\\)\\）]?|^" + text + "\\s*(?:条评论|个评论|评论)$"));
+        if (result) {
+          const value = result[1] ? "" + result[1] + (result[2] || "") : "" + result[3] + (result[4] || "");
+          const result2 = parseLocalizedCountText(value);
+          if (result2 !== null) {
+            return result2;
           }
         }
       }
-    } catch (_0x3e46a9) {
-      console.error("[Built-in-Debug] [获取总评论数异常]", _0x3e46a9);
+    } catch (error) {
+      console.error("[Built-in-Debug] [获取总评论数异常]", error);
     }
     return null;
   }
-  function _0x56787c(_0x1f8648 = document) {
+  function isCommentPanelEmptyHint(arg1 = document) {
     try {
-      const _0x299df0 = _0x37c277(_0x1f8648) || _0x1f8648 || document.body;
-      if (!_0x299df0) {
+      const local = resolveCommentPanelRoot(arg1) || arg1 || document.body;
+      if (!local) {
         return false;
       }
-      if (_0x4219bb(_0x299df0) > 0) {
+      if (getVisibleCommentNodeCount(local) > 0) {
         return false;
       }
-      if (_0x322721(_0x299df0)) {
+      if (isCommentPanelContentLoading(local)) {
         return false;
       }
-      const _0x511163 = String(_0x299df0.innerText || _0x299df0.textContent || "").replace(/\s+/g, " ").trim().slice(0, 1600);
-      if (!_0x511163) {
+      const result = String(local.innerText || local.textContent || "").replace(/\s+/g, " ").trim().slice(0, 1600);
+      if (!result) {
         return false;
       }
-      return /暂无评论|还没有人评论|还没有评论|暂无人评论|没有评论|快来抢沙发|期待你的第一条评论|留下你的第一条评论|成为第一个评论的人/.test(_0x511163);
-    } catch (_0x122eb5) {
+      return /暂无评论|还没有人评论|还没有评论|暂无人评论|没有评论|快来抢沙发|期待你的第一条评论|留下你的第一条评论|成为第一个评论的人/.test(result);
+    } catch (error) {
       return false;
     }
   }
-  function _0x295978(_0x7ea139, _0x97974e) {
-    const _0x17071e = Number(_0x97974e);
-    const _0x6aa2d7 = Number.isFinite(_0x17071e) && _0x17071e > 0 ? Math.floor(_0x17071e) : 0;
-    if (_0x56787c(_0x7ea139)) {
+  function resolveEffectiveCommentTotalCount(arg1, arg2) {
+    const result = Number(arg2);
+    const value = Number.isFinite(result) && result > 0 ? Math.floor(result) : 0;
+    if (isCommentPanelEmptyHint(arg1)) {
       return 0;
     }
-    return _0x6aa2d7;
+    return value;
   }
-  function _0x1b1fb7(_0x47fbc7 = document) {
-    const _0x4b8405 = {
+  function getVideoStats(arg1 = document) {
+    const obj = {
       likes: 0,
       comments: 0,
       collects: 0,
       shares: 0
     };
     try {
-      const _0x35f2cb = _0x47fbc7 || document;
-      const _0x2b33b7 = "[data-e2e=\"video-detail-container\"], [data-e2e=\"feed-active-video\"], .modal-video-container, [class*=\"SearchDetail\"], [data-e2e=\"video-player-container\"]";
-      const _0x38c280 = _0x35f2cb.matches?.(_0x2b33b7) ? _0x35f2cb : _0x35f2cb.querySelector?.(_0x2b33b7) || (_0x35f2cb === document ? document.body : _0x35f2cb);
-      const _0x1f3595 = _0x2cf477 => {
-        if (!_0x2cf477) {
+      const local = arg1 || document;
+      const text = "[data-e2e=\"video-detail-container\"], [data-e2e=\"feed-active-video\"], .modal-video-container, [class*=\"SearchDetail\"], [data-e2e=\"video-player-container\"]";
+      const value = local.matches?.(text) ? local : local.querySelector?.(text) || (local === document ? document.body : local);
+      const local2 = arg1 => {
+        if (!arg1) {
           return null;
         }
-        const _0x2bb87e = Array.from(_0x38c280.querySelectorAll(_0x2cf477));
-        return _0x2bb87e.find(_0x11c3ea => _0x5261d7(_0x11c3ea) && !_0x3aec57(_0x11c3ea));
+        const result = Array.from(value.querySelectorAll(arg1));
+        return result.find(arg1 => isVisibleElement(arg1) && !fn8(arg1));
       };
-      const _0x792bf8 = getVideoEngageSelector({
-        getVideoEngagePack: _0x135993
+      const result = getVideoEngageSelector({
+        getVideoEngagePack: getVideoEngagePack
       }, "likeSelectors");
-      const _0x4b5c6c = getVideoEngageSelector({
-        getVideoEngagePack: _0x135993
+      const result2 = getVideoEngageSelector({
+        getVideoEngagePack: getVideoEngagePack
       }, "collectSelectors");
-      const _0x32cf54 = getVideoEngageSelector({
-        getVideoEngagePack: _0x135993
+      const result3 = getVideoEngageSelector({
+        getVideoEngagePack: getVideoEngagePack
       }, "shareSelectors");
-      const _0x16ccb4 = _0x1f3595(_0x792bf8);
-      if (_0x16ccb4) {
-        _0x4b8405.likes = _0x38a96d(_0x16ccb4) || 0;
+      const result4 = local2(result);
+      if (result4) {
+        obj.likes = fn9(result4) || 0;
       }
-      let _0x91d4f9 = _0x383b31(_0x38c280);
-      if (_0x91d4f9 === null || _0x91d4f9 === 0) {
-        const _0x170335 = [_0x96e9a7("openCommentBtns"), _0x96e9a7("openCommentAria"), _0x96e9a7("videoPlayerComment") || "[data-e2e=\"video-player-comment\"]"].filter(Boolean).join(", ");
-        const _0x18da63 = _0x170335 ? _0x1f3595(_0x170335) : null;
-        if (_0x18da63) {
-          _0x91d4f9 = _0x38a96d(_0x18da63);
+      let result5 = getCommentsTotalCount(value);
+      if (result5 === null || result5 === 0) {
+        const result = [getCommentV2String("openCommentBtns"), getCommentV2String("openCommentAria"), getCommentV2String("videoPlayerComment") || "[data-e2e=\"video-player-comment\"]"].filter(Boolean).join(", ");
+        const value = result ? local2(result) : null;
+        if (value) {
+          result5 = fn9(value);
         }
       }
-      _0x4b8405.comments = _0x91d4f9 || 0;
-      const _0x41a371 = _0x1f3595(_0x4b5c6c);
-      if (_0x41a371) {
-        _0x4b8405.collects = _0x38a96d(_0x41a371) || 0;
+      obj.comments = result5 || 0;
+      const result6 = local2(result2);
+      if (result6) {
+        obj.collects = fn9(result6) || 0;
       }
-      const _0x3bdc09 = _0x1f3595(_0x32cf54);
-      if (_0x3bdc09) {
-        _0x4b8405.shares = _0x38a96d(_0x3bdc09) || 0;
+      const result7 = local2(result3);
+      if (result7) {
+        obj.shares = fn9(result7) || 0;
       }
-    } catch (_0x2037db) {
-      console.error("[Built-in-Debug] [获取视频数据统计异常]", _0x2037db);
+    } catch (error) {
+      console.error("[Built-in-Debug] [获取视频数据统计异常]", error);
     }
-    return _0x4b8405;
+    return obj;
   }
-  function _0x3aec57(_0x3350f6) {
-    if (!_0x3350f6) {
+  function fn8(arg1) {
+    if (!arg1) {
       return false;
     }
-    const _0x221c05 = "[data-e2e=\"comment-list\"], [class*=\"comment-list\"], [class*=\"CommentList\"], [data-e2e=\"comment-item\"], [class*=\"comment-item\"]";
-    return !!_0x3350f6.closest(_0x221c05);
+    const text = "[data-e2e=\"comment-list\"], [class*=\"comment-list\"], [class*=\"CommentList\"], [data-e2e=\"comment-item\"], [class*=\"comment-item\"]";
+    return !!arg1.closest(text);
   }
-  function _0x38a96d(_0x221803) {
-    if (!_0x221803) {
+  function fn9(arg1) {
+    if (!arg1) {
       return 0;
     }
-    let _0x5d242f = "";
+    let text = "";
     try {
-      const _0x73d9fc = _0x221803.querySelector("span, p");
-      if (_0x73d9fc && _0x5261d7(_0x73d9fc)) {
-        _0x5d242f = _0x73d9fc.innerText || _0x73d9fc.textContent || "";
+      const result = arg1.querySelector("span, p");
+      if (result && isVisibleElement(result)) {
+        text = result.innerText || result.textContent || "";
       }
-    } catch (_0xcfadeb) {}
-    if (!_0x5d242f || !/[\d]/.test(_0x5d242f)) {
-      _0x5d242f = _0x221803.innerText || _0x221803.textContent || "";
+    } catch (error) {}
+    if (!text || !/[\d]/.test(text)) {
+      text = arg1.innerText || arg1.textContent || "";
     }
-    if (!_0x5d242f || !/[\d]/.test(_0x5d242f)) {
-      const _0x4366c9 = _0x221803.closest("div[role=\"button\"]") || _0x221803.closest("button") || _0x221803.parentElement;
-      if (_0x4366c9) {
-        _0x5d242f = _0x4366c9.innerText || _0x4366c9.textContent || "";
+    if (!text || !/[\d]/.test(text)) {
+      const local = arg1.closest("div[role=\"button\"]") || arg1.closest("button") || arg1.parentElement;
+      if (local) {
+        text = local.innerText || local.textContent || "";
       }
     }
-    if (_0x5d242f) {
-      _0x5d242f = _0x5d242f.replace(/(点赞|赞|评论|收藏|分享|转发)/g, "").trim();
-      const _0x3f43e2 = _0x2cf46e(_0x5d242f);
-      if (_0x3f43e2 !== null) {
-        return _0x3f43e2;
+    if (text) {
+      text = text.replace(/(点赞|赞|评论|收藏|分享|转发)/g, "").trim();
+      const result = parseLocalizedCountText(text);
+      if (result !== null) {
+        return result;
       }
     }
     return 0;
   }
-  function _0x4219bb(_0xd327a8) {
+  function getVisibleCommentNodeCount(arg1) {
     try {
-      const _0xe5b052 = _0x37c277(_0xd327a8);
-      return _0x4308ac(_0xe5b052).filter(_0x5261d7).length;
-    } catch (_0x2bc8c5) {
+      const result = resolveCommentPanelRoot(arg1);
+      return queryCommentItemNodes(result).filter(isVisibleElement).length;
+    } catch (error) {
       return 0;
     }
   }
-  function _0x46c9b0(_0x3afd5d, _0xed194a = {}) {
-    const _0x467ec9 = Array.from(_0x3afd5d || []).filter(Boolean);
-    const _0x6780f4 = Math.max(0, Number(_0xed194a.keepHead) || 0);
-    const _0x200dbc = Math.max(8, Number(_0xed194a.keepTail) || 28);
-    const _0x51e517 = Math.max(_0x6780f4 + _0x200dbc + 12, Number(_0xed194a.trigger) || 70);
-    if (_0x467ec9.length <= _0x51e517) {
+  function fn10(arg1, options = {}) {
+    const result = Array.from(arg1 || []).filter(Boolean);
+    const result2 = Math.max(0, Number(options.keepHead) || 0);
+    const result3 = Math.max(8, Number(options.keepTail) || 28);
+    const result4 = Math.max(result2 + result3 + 12, Number(options.trigger) || 70);
+    if (result.length <= result4) {
       return 0;
     }
-    let _0x3200fa = 0;
-    const _0x17a0cf = Math.max(_0x6780f4, _0x467ec9.length - _0x200dbc);
-    for (let _0x19f5e8 = _0x6780f4; _0x19f5e8 < _0x17a0cf; _0x19f5e8 += 1) {
+    let num = 0;
+    const result5 = Math.max(result2, result.length - result3);
+    for (let local = result2; local < result5; local += 1) {
       try {
-        const _0x3f7db9 = _0x467ec9[_0x19f5e8];
-        _0x3f7db9?.parentNode?.removeChild?.(_0x3f7db9);
-        _0x3200fa += 1;
-      } catch (_0x474f19) {}
+        const value = result[local];
+        value?.parentNode?.removeChild?.(value);
+        num += 1;
+      } catch (error) {}
     }
-    return _0x3200fa;
+    return num;
   }
-  function _0x1f2751(_0x3724bb, _0x35ac0 = "leadgen") {
-    if (_0x35ac0 === "entity") {
+  function fn11(arg1, text = "leadgen") {
+    if (text === "entity") {
       return {
         keepHead: 1,
         keepTail: 22,
@@ -259,7 +259,7 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
         replyTrigger: 40
       };
     }
-    if (_0x35ac0 === "monitor") {
+    if (text === "monitor") {
       return {
         keepHead: 1,
         keepTail: 26,
@@ -269,7 +269,7 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
         replyTrigger: 60
       };
     }
-    if (_0x3724bb === "interaction") {
+    if (arg1 === "interaction") {
       return {
         keepHead: 1,
         keepTail: 34,
@@ -279,7 +279,7 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
         replyTrigger: 76
       };
     }
-    if (_0x3724bb === "scrape") {
+    if (arg1 === "scrape") {
       return {
         keepHead: 1,
         keepTail: 28,
@@ -291,180 +291,180 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
     }
     return null;
   }
-  function _0xd90a82(_0x148dd3, _0x3776ae = "leadgen") {
-    if (_0x3776ae === "monitor") {
+  function fn12(arg1, text = "leadgen") {
+    if (text === "monitor") {
       return false;
     }
-    if (_0x3776ae === "entity") {
+    if (text === "entity") {
       return true;
     }
-    return _0x148dd3 === "scrape" || _0x148dd3 === "interaction";
+    return arg1 === "scrape" || arg1 === "interaction";
   }
-  function _0x1d4842(_0x535ef8, _0x51021b = {}) {
-    const _0x35c65f = _0x51021b.context || "leadgen";
-    const _0x127484 = _0x51021b.taskMode ?? _0x357c41.currentTask?.taskMode;
-    if (!_0xd90a82(_0x127484, _0x35c65f)) {
+  function pruneStaleCommentDom(arg1, options = {}) {
+    const local = options.context || "leadgen";
+    const local2 = options.taskMode ?? state.currentTask?.taskMode;
+    if (!fn12(local2, local)) {
       return 0;
     }
-    const _0x3dacf8 = _0x51021b.profile || _0x1f2751(_0x127484, _0x35c65f);
-    if (!_0x3dacf8) {
+    const local3 = options.profile || fn11(local2, local);
+    if (!local3) {
       return 0;
     }
     try {
-      const _0x1cd9e1 = _0x54606f();
-      const _0x1177c9 = _0x5ecb3a();
-      const _0x3e15a7 = _0x5c29d8 => {
-        if (!_0x5c29d8) {
+      const result = getCommentItemSelector();
+      const result2 = getCommentItemLooseSelector();
+      const local4 = arg1 => {
+        if (!arg1) {
           return false;
         }
         try {
-          if (_0x1cd9e1 && _0x5c29d8.matches?.(_0x1cd9e1)) {
+          if (result && arg1.matches?.(result)) {
             return true;
           }
-          if (_0x1177c9 && _0x5c29d8.matches?.(_0x1177c9)) {
+          if (result2 && arg1.matches?.(result2)) {
             return true;
           }
-          if (_0x1cd9e1 && _0x5c29d8.querySelector?.(_0x1cd9e1)) {
+          if (result && arg1.querySelector?.(result)) {
             return true;
           }
-          if (_0x1177c9 && _0x5c29d8.querySelector?.(_0x1177c9)) {
+          if (result2 && arg1.querySelector?.(result2)) {
             return true;
           }
-        } catch (_0x6e4dee) {}
+        } catch (error) {}
         return false;
       };
-      const _0x54fbfe = _0x37c277(_0x535ef8) || _0x535ef8 || document.body;
-      if (!_0x54fbfe) {
+      const local5 = resolveCommentPanelRoot(arg1) || arg1 || document.body;
+      if (!local5) {
         return 0;
       }
-      let _0x11abd6 = 0;
-      const _0x200a55 = _0x54fbfe.matches?.(".comment-mainContent") ? _0x54fbfe : _0x54fbfe.querySelector?.(".comment-mainContent") || _0x54fbfe;
-      const _0x26c54d = Array.from(_0x200a55.children || []).filter(_0x3e15a7);
-      _0x11abd6 += _0x46c9b0(_0x26c54d, {
-        keepHead: _0x3dacf8.keepHead,
-        keepTail: _0x3dacf8.keepTail,
-        trigger: _0x3dacf8.topTrigger
+      let num = 0;
+      const value = local5.matches?.(".comment-mainContent") ? local5 : local5.querySelector?.(".comment-mainContent") || local5;
+      const result3 = Array.from(value.children || []).filter(local4);
+      num += fn10(result3, {
+        keepHead: local3.keepHead,
+        keepTail: local3.keepTail,
+        trigger: local3.topTrigger
       });
-      const _0x262745 = new Set();
-      _0x4308ac(_0x54fbfe).forEach(_0x276625 => {
-        const _0x571c0c = _0x276625.getAttribute?.("data-e2e") || "";
-        const _0x5beff2 = String(_0x276625.className || "");
-        if (_0x571c0c.includes("reply") || /reply-item|ReplyItem/i.test(_0x5beff2)) {
-          if (_0x276625.parentElement) {
-            _0x262745.add(_0x276625.parentElement);
+      const set = new Set();
+      queryCommentItemNodes(local5).forEach(arg1 => {
+        const local = arg1.getAttribute?.("data-e2e") || "";
+        const result = String(arg1.className || "");
+        if (local.includes("reply") || /reply-item|ReplyItem/i.test(result)) {
+          if (arg1.parentElement) {
+            set.add(arg1.parentElement);
           }
         }
       });
-      _0x262745.forEach(_0x3a8105 => {
-        const _0x3d3258 = Array.from(_0x3a8105.children || []).filter(_0x3e15a7);
-        _0x11abd6 += _0x46c9b0(_0x3d3258, {
-          keepHead: _0x3dacf8.replyKeepHead,
-          keepTail: _0x3dacf8.replyKeepTail,
-          trigger: _0x3dacf8.replyTrigger
+      set.forEach(arg1 => {
+        const result = Array.from(arg1.children || []).filter(local4);
+        num += fn10(result, {
+          keepHead: local3.replyKeepHead,
+          keepTail: local3.replyKeepTail,
+          trigger: local3.replyTrigger
         });
       });
-      if (_0x11abd6 > 0) {
-        const _0xfb9344 = _0x35c65f === "monitor" ? "监控" : _0x127484 === "interaction" ? "互动" : "采集";
-        console.log("[Built-in-Debug] [评论DOM瘦身/" + _0xfb9344 + "] 已移除 " + _0x11abd6 + " 个旧评论节点，保留尾部窗口");
+      if (num > 0) {
+        const value = local === "monitor" ? "监控" : local2 === "interaction" ? "互动" : "采集";
+        console.log("[Built-in-Debug] [评论DOM瘦身/" + value + "] 已移除 " + num + " 个旧评论节点，保留尾部窗口");
       }
-      return _0x11abd6;
-    } catch (_0x107356) {
-      console.warn("[Built-in-Debug] [评论DOM瘦身] 执行异常:", _0x107356.message || _0x107356);
+      return num;
+    } catch (error) {
+      console.warn("[Built-in-Debug] [评论DOM瘦身] 执行异常:", error.message || error);
       return 0;
     }
   }
-  const _0x5f3b62 = 60000;
-  let _0x25e702 = 0;
-  function _0x1a508c(_0x8d1cba = document.body, _0xcb34b2 = "periodic") {
-    let _0xb70bc5 = 0;
+  const num = 60000;
+  let num2 = 0;
+  function trimRuntimeMemory(arg1 = document.body, text = "periodic") {
+    let num = 0;
     try {
-      const _0x53cf3e = _0x1a3fd0["douyin.com"];
-      const _0x27105b = _0x357c41.currentTask?.taskMode || "interaction";
-      const _0x2427ac = {
+      const value = platformSelectors["douyin.com"];
+      const local = state.currentTask?.taskMode || "interaction";
+      const obj = {
         keepHead: 0,
-        keepTail: _0x27105b === "interaction" ? 20 : 18,
+        keepTail: local === "interaction" ? 20 : 18,
         replyKeepHead: 0,
-        replyKeepTail: _0x27105b === "interaction" ? 14 : 12,
-        topTrigger: _0x27105b === "interaction" ? 46 : 40,
-        replyTrigger: _0x27105b === "interaction" ? 34 : 30
+        replyKeepTail: local === "interaction" ? 14 : 12,
+        topTrigger: local === "interaction" ? 46 : 40,
+        replyTrigger: local === "interaction" ? 34 : 30
       };
-      const _0x516c00 = new Set([_0x8d1cba || document.body, document.body]);
+      const set = new Set([arg1 || document.body, document.body]);
       try {
-        document.querySelectorAll(_0x53cf3e.commentPanel).forEach(_0x308da7 => _0x516c00.add(_0x308da7));
-      } catch (_0x334a97) {}
-      _0x516c00.forEach(_0x57415f => {
-        _0xb70bc5 += _0x1d4842(_0x57415f, {
-          taskMode: _0x27105b,
-          profile: _0x2427ac
+        document.querySelectorAll(value.commentPanel).forEach(arg1 => set.add(arg1));
+      } catch (error) {}
+      set.forEach(arg1 => {
+        num += pruneStaleCommentDom(arg1, {
+          taskMode: local,
+          profile: obj
         });
       });
-    } catch (_0x33ac92) {
-      console.warn("[Built-in-Debug] [运行内存整理] 评论DOM清理异常:", _0x33ac92.message || _0x33ac92);
+    } catch (error) {
+      console.warn("[Built-in-Debug] [运行内存整理] 评论DOM清理异常:", error.message || error);
     }
     try {
-      _0x201d1b();
-    } catch (_0x24dab6) {}
+      pruneSearchCardOpenFailures();
+    } catch (error) {}
     try {
-      if (_0x357c41.currentTask?.taskMode !== "scrape") {
+      if (state.currentTask?.taskMode !== "scrape") {
         window._commentScrapeProgress = null;
       }
-    } catch (_0x250970) {}
-    if (_0xb70bc5 > 0) {
-      console.log("[Built-in-Debug] [运行内存整理] " + _0xcb34b2 + " 清理旧评论节点 " + _0xb70bc5 + " 个");
+    } catch (error) {}
+    if (num > 0) {
+      console.log("[Built-in-Debug] [运行内存整理] " + text + " 清理旧评论节点 " + num + " 个");
     }
-    return _0xb70bc5;
+    return num;
   }
-  function _0x8f6f16(_0x2b62cd = document.body, _0x2e8377 = "periodic", _0x589b59 = _0x5f3b62) {
-    const _0x425d73 = Date.now();
-    if (_0x425d73 - _0x25e702 < _0x589b59) {
+  function maybeTrimRuntimeMemory(arg1 = document.body, text = "periodic", arg3 = num) {
+    const result = Date.now();
+    if (result - num2 < arg3) {
       return 0;
     }
-    _0x25e702 = _0x425d73;
-    return _0x1a508c(_0x2b62cd, _0x2e8377);
+    num2 = result;
+    return trimRuntimeMemory(arg1, text);
   }
-  function _0x56964c(_0x1ac258, _0xab92c3, _0x2e2dfb = 4) {
-    if (!_0x1ac258) {
+  function fn16(arg1, arg2, num = 4) {
+    if (!arg1) {
       return false;
     }
-    const _0x27dd3b = _0x1ac258.getBoundingClientRect();
-    const _0x31c461 = !_0xab92c3 || _0xab92c3 === document.body || _0xab92c3 === document.documentElement ? {
+    const result = arg1.getBoundingClientRect();
+    const value = !arg2 || arg2 === document.body || arg2 === document.documentElement ? {
       top: 0,
       left: 0,
       right: window.innerWidth,
       bottom: window.innerHeight
-    } : _0xab92c3.getBoundingClientRect();
-    return _0x27dd3b.bottom > _0x31c461.top + _0x2e2dfb && _0x27dd3b.top < _0x31c461.bottom - _0x2e2dfb && _0x27dd3b.right > _0x31c461.left + _0x2e2dfb && _0x27dd3b.left < _0x31c461.right - _0x2e2dfb;
+    } : arg2.getBoundingClientRect();
+    return result.bottom > value.top + num && result.top < value.bottom - num && result.right > value.left + num && result.left < value.right - num;
   }
-  function _0x2d3248(_0x11891f) {
+  function getVisibleCommentViewportFingerprint(arg1) {
     try {
-      const _0x2e226c = _0x37c277(_0x11891f) || _0x11891f || document.body;
-      const _0xa0b955 = _0x388d89(_0x11891f);
-      const _0xd2fcb9 = _0x4308ac(_0x2e226c).filter(_0x5261d7);
-      const _0x3503cb = _0xa0b955 ? _0xd2fcb9.filter(_0x3638b6 => _0x56964c(_0x3638b6, _0xa0b955)) : [];
-      const _0xa38de0 = _0x3503cb.length ? _0x3503cb : _0xd2fcb9;
-      if (!_0xa38de0.length) {
+      const local = resolveCommentPanelRoot(arg1) || arg1 || document.body;
+      const result = findCommentScrollContainer(arg1);
+      const result2 = queryCommentItemNodes(local).filter(isVisibleElement);
+      const value = result ? result2.filter(arg1 => fn16(arg1, result)) : [];
+      const value2 = value.length ? value : result2;
+      if (!value2.length) {
         return "";
       }
-      const _0x1e8e72 = _0x4e3d8d => {
-        const _0x22930d = _0x3d961d(_0x4e3d8d, {
+      const local2 = arg1 => {
+        const result = parseDouyinCommentNode(arg1, {
           requireTime: false,
           skipAuthor: false
         });
-        if (!_0x22930d) {
-          return String(_0x4e3d8d.innerText || "").replace(/\s+/g, " ").trim().slice(0, 48);
+        if (!result) {
+          return String(arg1.innerText || "").replace(/\s+/g, " ").trim().slice(0, 48);
         }
-        return _0x22930d.nickname + "|" + String(_0x22930d.text || "").slice(0, 32);
+        return result.nickname + "|" + String(result.text || "").slice(0, 32);
       };
-      const _0x179345 = _0xa38de0.slice(0, 3).map(_0x1e8e72).join("||");
-      const _0x5a0ac4 = _0xa38de0.slice(-3).map(_0x1e8e72).join("||");
-      return _0xa38de0.length + "#" + _0x179345 + "#" + _0x5a0ac4;
-    } catch (_0x2077b4) {
+      const result3 = value2.slice(0, 3).map(local2).join("||");
+      const result4 = value2.slice(-3).map(local2).join("||");
+      return value2.length + "#" + result3 + "#" + result4;
+    } catch (error) {
       return "";
     }
   }
-  function _0x506676(_0x56c245) {
-    const _0x23661d = _0x388d89(_0x56c245);
-    if (!_0x23661d) {
+  function getCommentScrollMetrics(arg1) {
+    const result = findCommentScrollContainer(arg1);
+    if (!result) {
       return {
         container: null,
         scrollTop: 0,
@@ -475,310 +475,310 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
         nearBottom: true
       };
     }
-    const _0x5a1eb6 = Math.max(0, Number(_0x23661d.scrollTop) || 0);
-    const _0xdf518e = Math.max(0, Number(_0x23661d.scrollHeight) || 0);
-    const _0x119779 = Math.max(0, Number(_0x23661d.clientHeight) || 0);
-    const _0x709616 = Math.max(0, _0xdf518e - _0x119779);
-    const _0x489954 = Math.max(0, _0x709616 - _0x5a1eb6);
-    const _0x124983 = Math.max(80, Math.round(_0x119779 * 0.08));
+    const result2 = Math.max(0, Number(result.scrollTop) || 0);
+    const result3 = Math.max(0, Number(result.scrollHeight) || 0);
+    const result4 = Math.max(0, Number(result.clientHeight) || 0);
+    const result5 = Math.max(0, result3 - result4);
+    const result6 = Math.max(0, result5 - result2);
+    const result7 = Math.max(80, Math.round(result4 * 0.08));
     return {
-      container: _0x23661d,
-      scrollTop: _0x5a1eb6,
-      scrollHeight: _0xdf518e,
-      clientHeight: _0x119779,
-      remaining: _0x489954,
-      canScrollDown: _0x489954 > Math.max(24, Math.round(_0x119779 * 0.02)),
-      nearBottom: _0x489954 <= _0x124983
+      container: result,
+      scrollTop: result2,
+      scrollHeight: result3,
+      clientHeight: result4,
+      remaining: result6,
+      canScrollDown: result6 > Math.max(24, Math.round(result4 * 0.02)),
+      nearBottom: result6 <= result7
     };
   }
-  const _0x28929e = ["暂时没有更多评论", "暂无更多评论", "没有更多评论", "暂时没有更多了", "没有更多了", "已经到底了"];
-  function _0x5afb7b(_0x164b09) {
+  const list = ["暂时没有更多评论", "暂无更多评论", "没有更多评论", "暂时没有更多了", "没有更多了", "已经到底了"];
+  function getCommentEndHintText(arg1) {
     try {
-      const _0x1c5566 = _0x1a3fd0["douyin.com"];
-      const _0x62ea79 = _0x164b09 || document.body;
-      const _0x4214d2 = _0x62ea79?.querySelector?.(_0x1c5566.commentPanel) || _0x62ea79;
-      const _0x5e7ab3 = Array.from(new Set([_0x4214d2, _0x62ea79].filter(Boolean)));
-      for (const _0x2d1e2d of _0x5e7ab3) {
-        const _0x4fee9e = Array.from(_0x2d1e2d.querySelectorAll?.("div, span, p") || []);
-        for (const _0x1a5e68 of _0x4fee9e) {
-          if (!_0x5261d7(_0x1a5e68)) {
+      const value = platformSelectors["douyin.com"];
+      const local = arg1 || document.body;
+      const local2 = local?.querySelector?.(value.commentPanel) || local;
+      const result = Array.from(new Set([local2, local].filter(Boolean)));
+      for (const item of result) {
+        const result = Array.from(item.querySelectorAll?.("div, span, p") || []);
+        for (const item of result) {
+          if (!isVisibleElement(item)) {
             continue;
           }
-          if (_0x1a5e68.closest?.(_0x1c5566.commentItem)) {
+          if (item.closest?.(value.commentItem)) {
             continue;
           }
-          const _0x2f10d4 = String(_0x1a5e68.innerText || _0x1a5e68.textContent || "").replace(/\s+/g, "").trim();
-          if (!_0x2f10d4 || _0x2f10d4.length > 32) {
+          const result = String(item.innerText || item.textContent || "").replace(/\s+/g, "").trim();
+          if (!result || result.length > 32) {
             continue;
           }
-          if (_0x28929e.some(_0x2d44b7 => _0x2f10d4.includes(_0x2d44b7))) {
-            return String(_0x1a5e68.innerText || _0x1a5e68.textContent || "").replace(/\s+/g, " ").trim();
+          if (list.some(arg1 => result.includes(arg1))) {
+            return String(item.innerText || item.textContent || "").replace(/\s+/g, " ").trim();
           }
         }
       }
-    } catch (_0x1b289e) {}
+    } catch (error) {}
     return "";
   }
-  function _0x31c540(_0x18dd3a, _0x295363) {
-    const _0x38570a = 8;
-    if (!_0x18dd3a || _0x18dd3a <= 0) {
-      return _0x38570a;
+  function getScrapeNoNewDataTolerance(arg1, arg2) {
+    const num = 8;
+    if (!arg1 || arg1 <= 0) {
+      return num;
     }
-    const _0x53e1dc = _0x295363 / _0x18dd3a;
-    if (_0x53e1dc < 0.03) {
+    const value = arg2 / arg1;
+    if (value < 0.03) {
       return 25;
     }
-    if (_0x53e1dc < 0.08) {
+    if (value < 0.08) {
       return 18;
     }
-    if (_0x53e1dc < 0.15) {
+    if (value < 0.15) {
       return 14;
     }
-    if (_0x53e1dc < 0.3) {
+    if (value < 0.3) {
       return 11;
     }
-    return _0x38570a;
+    return num;
   }
-  function _0x31673e(_0x1a3cac, _0x401f5f) {
-    return _0x31c540(_0x1a3cac, _0x401f5f) + 8;
+  function getScrapeNoCompliantTolerance(arg1, arg2) {
+    return getScrapeNoNewDataTolerance(arg1, arg2) + 8;
   }
-  function _0x40e648(_0x59f5c1, _0x554b70, _0x3a4a4b) {
-    if (!_0x59f5c1 || _0x59f5c1 <= 0) {
+  function shouldContinueScrapeAfterDuplicateWindow(arg1, arg2, arg3) {
+    if (!arg1 || arg1 <= 0) {
       return false;
     }
-    const _0x4c5ecf = Math.max(0, Math.min(1, _0x554b70 / _0x59f5c1));
-    if (_0x4c5ecf >= 0.9) {
+    const result = Math.max(0, Math.min(1, arg2 / arg1));
+    if (result >= 0.9) {
       return false;
     }
-    const _0x534470 = _0x506676(_0x3a4a4b);
-    return _0x534470.canScrollDown;
+    const result2 = getCommentScrollMetrics(arg3);
+    return result2.canScrollDown;
   }
-  function _0x34cd40(_0x768f30, _0x34fc34, _0x54984c) {
-    if (!_0x768f30 || _0x768f30 <= 0) {
+  function shouldProbeIncompleteScrapeBoundary(arg1, arg2, arg3) {
+    if (!arg1 || arg1 <= 0) {
       return false;
     }
-    if (_0x54984c >= 3) {
+    if (arg3 >= 3) {
       return false;
     }
-    const _0x341280 = Math.max(0, Math.min(1, _0x34fc34 / _0x768f30));
-    return _0x341280 < 0.9;
+    const result = Math.max(0, Math.min(1, arg2 / arg1));
+    return result < 0.9;
   }
-  function _0x3deccb(_0x3d5743, _0x1b0ebc) {
-    if (!_0x3d5743 || !_0x1b0ebc) {
+  function fn25(arg1, arg2) {
+    if (!arg1 || !arg2) {
       return true;
     }
     try {
-      if (_0x3d5743 !== _0x1b0ebc && _0x3d5743.contains?.(_0x1b0ebc) && !_0x1b0ebc.contains?.(_0x3d5743)) {
+      if (arg1 !== arg2 && arg1.contains?.(arg2) && !arg2.contains?.(arg1)) {
         return true;
       }
-    } catch (_0xaeda7c) {}
-    const _0x4ae925 = (_0x3d5743.className || "") + " " + (_0x3d5743.getAttribute?.("data-e2e") || "") + " " + (_0x3d5743.id || "");
-    if (/swiper|Swiper|slide-list|SlideList|feed-scroll|FeedScroll|video-switch|player-container|xgplayer|slider-group/i.test(_0x4ae925)) {
+    } catch (error) {}
+    const value = (arg1.className || "") + " " + (arg1.getAttribute?.("data-e2e") || "") + " " + (arg1.id || "");
+    if (/swiper|Swiper|slide-list|SlideList|feed-scroll|FeedScroll|video-switch|player-container|xgplayer|slider-group/i.test(value)) {
       return true;
     }
     try {
-      const _0x353dfd = _0x3d5743.getBoundingClientRect();
-      if (_0x353dfd.width > window.innerWidth * 0.55 && _0x353dfd.height > window.innerHeight * 0.65) {
-        if (_0x3d5743 !== _0x1b0ebc && !_0x1b0ebc.contains(_0x3d5743)) {
+      const result = arg1.getBoundingClientRect();
+      if (result.width > window.innerWidth * 0.55 && result.height > window.innerHeight * 0.65) {
+        if (arg1 !== arg2 && !arg2.contains(arg1)) {
           return true;
         }
       }
-    } catch (_0x2891e3) {}
+    } catch (error) {}
     return false;
   }
-  function _0x388d89(_0x5ae50d) {
-    const _0xce4298 = _0x37c277(_0x5ae50d);
-    if (!_0xce4298) {
+  function findCommentScrollContainer(arg1) {
+    const result = resolveCommentPanelRoot(arg1);
+    if (!result) {
       return null;
     }
-    const _0x5bca1b = Array.from(_0xce4298.querySelectorAll("[scrollable=\"true\"], [class*=\"Scroll\"], [class*=\"scroll\"]")).filter(_0x119809 => {
-      if (!_0x5261d7(_0x119809)) {
+    const result2 = Array.from(result.querySelectorAll("[scrollable=\"true\"], [class*=\"Scroll\"], [class*=\"scroll\"]")).filter(arg1 => {
+      if (!isVisibleElement(arg1)) {
         return false;
       }
-      if (_0x3deccb(_0x119809, _0xce4298)) {
+      if (fn25(arg1, result)) {
         return false;
       }
-      const _0x5feb20 = _0x119809.scrollHeight || 0;
-      const _0x2737ab = _0x119809.clientHeight || 0;
-      return _0x5feb20 > _0x2737ab + 30;
-    }).sort((_0x4c32c9, _0xb43751) => _0xb43751.scrollHeight - _0xb43751.clientHeight - (_0x4c32c9.scrollHeight - _0x4c32c9.clientHeight));
-    if (_0x5bca1b.length) {
-      return _0x5bca1b[0];
+      const local = arg1.scrollHeight || 0;
+      const local2 = arg1.clientHeight || 0;
+      return local > local2 + 30;
+    }).sort((arg1, arg2) => arg2.scrollHeight - arg2.clientHeight - (arg1.scrollHeight - arg1.clientHeight));
+    if (result2.length) {
+      return result2[0];
     }
-    if (_0xce4298.scrollHeight > _0xce4298.clientHeight + 30) {
-      return _0xce4298;
+    if (result.scrollHeight > result.clientHeight + 30) {
+      return result;
     }
-    let _0x4d3ea0 = _0xce4298.parentElement;
-    while (_0x4d3ea0 && _0x4d3ea0 !== document.body) {
-      if (_0xce4298.contains(_0x4d3ea0) === false && _0x4d3ea0.contains?.(_0xce4298)) {
+    let value = result.parentElement;
+    while (value && value !== document.body) {
+      if (result.contains(value) === false && value.contains?.(result)) {
         break;
       }
-      if (_0x4d3ea0.scrollHeight > _0x4d3ea0.clientHeight + 30 && _0x5261d7(_0x4d3ea0) && !_0x3deccb(_0x4d3ea0, _0xce4298)) {
-        return _0x4d3ea0;
+      if (value.scrollHeight > value.clientHeight + 30 && isVisibleElement(value) && !fn25(value, result)) {
+        return value;
       }
-      _0x4d3ea0 = _0x4d3ea0.parentElement;
+      value = value.parentElement;
     }
     try {
-      const _0x541f00 = _0x4308ac(_0xce4298).find(_0x5261d7);
-      let _0x1f7bd8 = _0x541f00?.parentElement;
-      while (_0x1f7bd8 && _0x1f7bd8 !== document.body && _0xce4298.contains(_0x1f7bd8)) {
-        if (_0x1f7bd8.scrollHeight > _0x1f7bd8.clientHeight + 30 && _0x5261d7(_0x1f7bd8) && !_0x3deccb(_0x1f7bd8, _0xce4298)) {
-          return _0x1f7bd8;
+      const result2 = queryCommentItemNodes(result).find(isVisibleElement);
+      let local = result2?.parentElement;
+      while (local && local !== document.body && result.contains(local)) {
+        if (local.scrollHeight > local.clientHeight + 30 && isVisibleElement(local) && !fn25(local, result)) {
+          return local;
         }
-        _0x1f7bd8 = _0x1f7bd8.parentElement;
+        local = local.parentElement;
       }
-    } catch (_0x423ad1) {}
-    return _0xce4298;
+    } catch (error) {}
+    return result;
   }
-  async function _0x172781(_0x1fa679, _0x1ada0f, _0x5ca659, _0x55c885 = {}) {
-    const _0x5a0eb5 = _0x388d89(_0x1fa679);
-    if (!_0x5a0eb5) {
+  async function scrollCommentList(arg1, arg2, arg3, options = {}) {
+    const result = findCommentScrollContainer(arg1);
+    if (!result) {
       return false;
     }
-    const _0x56a556 = _0x5a0eb5.scrollTop;
-    const _0x1df110 = Math.max(120, Math.min(Math.abs(_0x1ada0f), 3200));
-    const _0x59ed07 = _0x1ada0f >= 0 ? 1 : -1;
-    const _0x3fdad9 = _0x55c885.bubbles === true || !_0x55c885.containWheel && !window.__radarEntityFeedSwipeLockInstalled;
+    const value = result.scrollTop;
+    const result2 = Math.max(120, Math.min(Math.abs(arg2), 3200));
+    const value2 = arg2 >= 0 ? 1 : -1;
+    const local = options.bubbles === true || !options.containWheel && !window.__radarEntityFeedSwipeLockInstalled;
     try {
-      _0x5a0eb5.scrollBy({
-        top: _0x59ed07 * _0x1df110,
-        behavior: _0x55c885.smooth ? "smooth" : "auto"
+      result.scrollBy({
+        top: value2 * result2,
+        behavior: options.smooth ? "smooth" : "auto"
       });
-    } catch (_0x23cc17) {
-      _0x5a0eb5.scrollTop += _0x59ed07 * _0x1df110;
+    } catch (error) {
+      result.scrollTop += value2 * result2;
     }
-    if (!_0x55c885.skipWheel) {
-      const _0x133f85 = _0x5a0eb5.getBoundingClientRect();
-      const _0x1bb27b = _0x133f85.left + _0x133f85.width / 2;
-      const _0x2c1430 = _0x133f85.top + Math.min(_0x133f85.height * 0.78, _0x133f85.height - 12);
-      const _0xcf6205 = new WheelEvent("wheel", {
-        deltaY: _0x59ed07 * _0x1df110,
+    if (!options.skipWheel) {
+      const result3 = result.getBoundingClientRect();
+      const value = result3.left + result3.width / 2;
+      const value3 = result3.top + Math.min(result3.height * 0.78, result3.height - 12);
+      const wheelEvent = new WheelEvent("wheel", {
+        deltaY: value2 * result2,
         deltaMode: 0,
-        clientX: _0x1bb27b,
-        clientY: _0x2c1430,
-        bubbles: _0x3fdad9,
+        clientX: value,
+        clientY: value3,
+        bubbles: local,
         cancelable: true
       });
-      _0x5a0eb5.dispatchEvent(_0xcf6205);
-      _0x5a0eb5.dispatchEvent(new WheelEvent("wheel", {
-        deltaY: _0x59ed07 * Math.round(_0x1df110 * 0.6),
+      result.dispatchEvent(wheelEvent);
+      result.dispatchEvent(new WheelEvent("wheel", {
+        deltaY: value2 * Math.round(result2 * 0.6),
         deltaMode: 0,
-        clientX: _0x1bb27b,
-        clientY: _0x2c1430,
-        bubbles: _0x3fdad9,
+        clientX: value,
+        clientY: value3,
+        bubbles: local,
         cancelable: true
       }));
     }
-    if (_0x55c885.delayMin !== 0) {
-      await _0x485121(_0x55c885.delayMin || 60, _0x55c885.delayMax || 180, _0x5ca659);
+    if (options.delayMin !== 0) {
+      await randomDelay(options.delayMin || 60, options.delayMax || 180, arg3);
     }
-    return Math.abs(_0x5a0eb5.scrollTop - _0x56a556) > 2;
+    return Math.abs(result.scrollTop - value) > 2;
   }
-  async function _0x6eb743(_0x29d597, _0x5089ce, _0x53bb03 = 1) {
-    const _0x1a025a = _0x388d89(_0x29d597);
-    if (!_0x1a025a) {
+  async function aggressiveCommentListScroll(arg1, arg2, num = 1) {
+    const result = findCommentScrollContainer(arg1);
+    if (!result) {
       return false;
     }
-    const _0x24982 = Math.min(Math.max(_0x53bb03, 1), 8);
-    let _0x2731a1 = false;
-    const _0x1d29d2 = window.__radarEntityFeedSwipeLockInstalled ? {
+    const result2 = Math.min(Math.max(num, 1), 8);
+    let flag = false;
+    const value = window.__radarEntityFeedSwipeLockInstalled ? {
       containWheel: true,
       bubbles: false
     } : {};
-    if (_0x24982 <= 2) {
-      _0x2731a1 = (await _0x172781(_0x29d597, 900, _0x5089ce, {
+    if (result2 <= 2) {
+      flag = (await scrollCommentList(arg1, 900, arg2, {
         delayMin: 80,
         delayMax: 160,
-        ..._0x1d29d2
-      })) || _0x2731a1;
-      _0x2731a1 = (await _0x172781(_0x29d597, 1200, _0x5089ce, {
+        ...value
+      })) || flag;
+      flag = (await scrollCommentList(arg1, 1200, arg2, {
         delayMin: 80,
         delayMax: 160,
-        ..._0x1d29d2
-      })) || _0x2731a1;
-    } else if (_0x24982 <= 5) {
-      await _0x172781(_0x29d597, -240, _0x5089ce, {
+        ...value
+      })) || flag;
+    } else if (result2 <= 5) {
+      await scrollCommentList(arg1, -240, arg2, {
         delayMin: 60,
         delayMax: 120,
-        ..._0x1d29d2
+        ...value
       });
-      _0x2731a1 = (await _0x172781(_0x29d597, 1800, _0x5089ce, {
+      flag = (await scrollCommentList(arg1, 1800, arg2, {
         delayMin: 100,
         delayMax: 200,
-        ..._0x1d29d2
-      })) || _0x2731a1;
-      _0x2731a1 = (await _0x172781(_0x29d597, 1400, _0x5089ce, {
+        ...value
+      })) || flag;
+      flag = (await scrollCommentList(arg1, 1400, arg2, {
         delayMin: 100,
         delayMax: 200,
-        ..._0x1d29d2
-      })) || _0x2731a1;
+        ...value
+      })) || flag;
     } else {
-      const _0x95dbf1 = Math.min(_0x1a025a.scrollHeight, _0x1a025a.scrollTop + _0x1a025a.clientHeight * (1.2 + _0x24982 * 0.08));
-      const _0x842103 = _0x1a025a.scrollTop;
-      _0x1a025a.scrollTop = _0x95dbf1;
-      await _0x172781(_0x29d597, 2200, _0x5089ce, {
+      const result3 = Math.min(result.scrollHeight, result.scrollTop + result.clientHeight * (1.2 + result2 * 0.08));
+      const value2 = result.scrollTop;
+      result.scrollTop = result3;
+      await scrollCommentList(arg1, 2200, arg2, {
         delayMin: 120,
         delayMax: 220,
-        ..._0x1d29d2
+        ...value
       });
-      _0x2731a1 = Math.abs(_0x1a025a.scrollTop - _0x842103) > 2;
-      if (!_0x2731a1) {
-        _0x1a025a.scrollTop = _0x1a025a.scrollHeight;
-        await _0x485121(300, 600, _0x5089ce);
-        _0x2731a1 = _0x1a025a.scrollTop > _0x842103;
+      flag = Math.abs(result.scrollTop - value2) > 2;
+      if (!flag) {
+        result.scrollTop = result.scrollHeight;
+        await randomDelay(300, 600, arg2);
+        flag = result.scrollTop > value2;
       }
     }
-    return _0x2731a1;
+    return flag;
   }
-  function _0x5ba095(_0x5a30de, _0x2cb11d = {}) {
+  function getExtendedReadyBudgetMs(arg1, options = {}) {
     const {
       progress = false,
-      hardCapMs = Math.min(Math.round(_0x5a30de * 2.5), Math.max(_0x5a30de + 4000, 20000))
-    } = _0x2cb11d;
+      hardCapMs = Math.min(Math.round(arg1 * 2.5), Math.max(arg1 + 4000, 20000))
+    } = options;
     if (!progress) {
-      return _0x5a30de;
+      return arg1;
     }
-    return Math.min(hardCapMs, Math.round(_0x5a30de * 1.85));
+    return Math.min(hardCapMs, Math.round(arg1 * 1.85));
   }
-  function _0x18ba59(_0x52e61e, _0x4ee6fa = {}) {
+  function getExtendedReadyRounds(arg1, options = {}) {
     const {
       progress = false,
-      hardCapRounds = Math.min(Math.ceil(_0x52e61e * 2), _0x52e61e + 10)
-    } = _0x4ee6fa;
+      hardCapRounds = Math.min(Math.ceil(arg1 * 2), arg1 + 10)
+    } = options;
     if (!progress) {
-      return _0x52e61e;
+      return arg1;
     }
-    return Math.min(hardCapRounds, Math.ceil(_0x52e61e * 1.7));
+    return Math.min(hardCapRounds, Math.ceil(arg1 * 1.7));
   }
-  function _0x21c0d7(_0xb8f9d9 = {}) {
+  function getAdaptiveCommentWaitRange(options = {}) {
     const {
       phase = "warmup",
       expectedTotalCount = 0,
       visibleCount = 0,
       emptyRounds = 0,
       scrollIndex = 0
-    } = _0xb8f9d9;
-    const _0x1ce925 = Number(expectedTotalCount) || 0;
-    const _0x182de7 = Number(visibleCount) || 0;
-    const _0x1f5ab3 = _0x1ce925 > 0;
-    let _0x2e08aa = 0;
-    if (_0x1f5ab3) {
-      if (_0x182de7 <= 0) {
-        _0x2e08aa += 2.5;
-      } else if (_0x182de7 < Math.min(_0x1ce925, 3)) {
-        _0x2e08aa += 1.5;
-      } else if (_0x182de7 < Math.min(_0x1ce925, 6)) {
-        _0x2e08aa += 0.75;
+    } = options;
+    const local = Number(expectedTotalCount) || 0;
+    const local2 = Number(visibleCount) || 0;
+    const value = local > 0;
+    let num = 0;
+    if (value) {
+      if (local2 <= 0) {
+        num += 2.5;
+      } else if (local2 < Math.min(local, 3)) {
+        num += 1.5;
+      } else if (local2 < Math.min(local, 6)) {
+        num += 0.75;
       }
     }
-    _0x2e08aa += Math.min(Math.max(Number(emptyRounds) || 0, 0), 5) * 0.65;
+    num += Math.min(Math.max(Number(emptyRounds) || 0, 0), 5) * 0.65;
     if (scrollIndex >= 4) {
-      _0x2e08aa += 0.5;
+      num += 0.5;
     }
-    if (_0x357c41.currentTask?.taskMode === "scrape") {
-      _0x2e08aa += 0.4;
+    if (state.currentTask?.taskMode === "scrape") {
+      num += 0.4;
     }
-    const _0x4165c3 = phase === "post-scroll" ? {
+    const value2 = phase === "post-scroll" ? {
       min: 1500,
       max: 3000,
       stepMin: 350,
@@ -793,456 +793,456 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
       capMin: 3200,
       capMax: 5600
     };
-    const _0x323379 = Math.round(Math.min(_0x4165c3.capMin, _0x4165c3.min + _0x2e08aa * _0x4165c3.stepMin));
-    const _0x1d39b9 = Math.round(Math.min(_0x4165c3.capMax, _0x4165c3.max + _0x2e08aa * _0x4165c3.stepMax));
-    return [_0x323379, Math.max(_0x323379 + 300, _0x1d39b9)];
+    const result = Math.round(Math.min(value2.capMin, value2.min + num * value2.stepMin));
+    const result2 = Math.round(Math.min(value2.capMax, value2.max + num * value2.stepMax));
+    return [result, Math.max(result + 300, result2)];
   }
-  async function _0x30a0fb(_0x540f15, _0x22a6cb, _0x302afd) {
-    if (!_0x302afd || _0x302afd <= 0) {
+  async function waitForCommentDomWarmup(arg1, arg2, arg3) {
+    if (!arg3 || arg3 <= 0) {
       return 0;
     }
-    if (_0x56787c(_0x540f15)) {
+    if (isCommentPanelEmptyHint(arg1)) {
       console.log("[Built-in-Debug] [评论预热] 面板显示暂无评论，按 0 条结束预热");
-      _0x485cbc("评论区显示暂无评论，按 0 条处理");
+      reportCurrentAction("评论区显示暂无评论，按 0 条处理");
       return 0;
     }
-    const _0x422b9e = Math.min(_0x302afd, _0x357c41.currentTask?.taskMode === "scrape" ? 10 : 6);
-    let _0x3d235f = _0x4219bb(_0x540f15);
-    let _0x34c8da = 0;
-    const _0x47d929 = 6;
-    let _0x457b08 = _0x47d929;
-    let _0xe4b655 = false;
-    let _0x35945d = 0;
-    for (let _0x26b676 = 0; _0x26b676 < _0x457b08; _0x26b676 += 1) {
-      if (_0x6ae554(_0x22a6cb)) {
-        return _0x3d235f;
+    const result = Math.min(arg3, state.currentTask?.taskMode === "scrape" ? 10 : 6);
+    let result2 = getVisibleCommentNodeCount(arg1);
+    let num = 0;
+    const num2 = 6;
+    let local = num2;
+    let flag = false;
+    let num3 = 0;
+    for (let num4 = 0; num4 < local; num4 += 1) {
+      if (shouldAbort(arg2)) {
+        return result2;
       }
-      if (_0x56787c(_0x540f15)) {
-        _0x35945d += 1;
-        if (_0x35945d >= 2 || _0x3d235f === 0) {
-          console.log("[Built-in-Debug] [评论预热] 确认暂无评论文案 (round=" + (_0x26b676 + 1) + ")，按 0 条结束");
-          _0x485cbc("评论区显示暂无评论，按 0 条处理");
+      if (isCommentPanelEmptyHint(arg1)) {
+        num3 += 1;
+        if (num3 >= 2 || result2 === 0) {
+          console.log("[Built-in-Debug] [评论预热] 确认暂无评论文案 (round=" + (num4 + 1) + ")，按 0 条结束");
+          reportCurrentAction("评论区显示暂无评论，按 0 条处理");
           return 0;
         }
       } else {
-        _0x35945d = 0;
+        num3 = 0;
       }
-      const _0x35364a = _0x4219bb(_0x540f15);
-      if (_0x35364a > _0x3d235f) {
-        _0x3d235f = _0x35364a;
-        _0x34c8da = 0;
-      } else if (_0x35364a > 0) {
-        _0x34c8da += 1;
+      const result3 = getVisibleCommentNodeCount(arg1);
+      if (result3 > result2) {
+        result2 = result3;
+        num = 0;
+      } else if (result3 > 0) {
+        num += 1;
       }
-      if (_0x3d235f >= _0x422b9e || _0x3d235f > 0 && _0x34c8da >= 2) {
-        return _0x3d235f;
+      if (result2 >= result || result2 > 0 && num >= 2) {
+        return result2;
       }
-      if (!_0xe4b655 && _0x3d235f > 0 && _0x3d235f < _0x422b9e && _0x26b676 >= _0x47d929 - 1) {
-        _0x457b08 = _0x18ba59(_0x47d929, {
+      if (!flag && result2 > 0 && result2 < result && num4 >= num2 - 1) {
+        local = getExtendedReadyRounds(num2, {
           progress: true,
           hardCapRounds: 10
         });
-        if (_0x457b08 > _0x47d929) {
-          _0xe4b655 = true;
-          console.log("[Built-in-Debug] [慢环境] 评论区 DOM 仍在渲染，延长预热 " + _0x47d929 + "→" + _0x457b08 + " 轮");
+        if (local > num2) {
+          flag = true;
+          console.log("[Built-in-Debug] [慢环境] 评论区 DOM 仍在渲染，延长预热 " + num2 + "→" + local + " 轮");
         }
       }
-      console.log("[Built-in-Debug] [慢设备保护] 评论区 DOM 渲染中: " + _0x3d235f + "/" + _0x302afd + "，继续等待 (" + (_0x26b676 + 1) + "/" + _0x457b08 + ")");
-      _0x485cbc("评论区加载中：已渲染 " + _0x3d235f + "/" + _0x302afd + " 条，稍等...");
-      const [_0x3ccfa8, _0x30b83b] = _0x21c0d7({
+      console.log("[Built-in-Debug] [慢设备保护] 评论区 DOM 渲染中: " + result2 + "/" + arg3 + "，继续等待 (" + (num4 + 1) + "/" + local + ")");
+      reportCurrentAction("评论区加载中：已渲染 " + result2 + "/" + arg3 + " 条，稍等...");
+      const [local2, local3] = getAdaptiveCommentWaitRange({
         phase: "warmup",
-        expectedTotalCount: _0x302afd,
-        visibleCount: _0x3d235f,
-        emptyRounds: _0x26b676
+        expectedTotalCount: arg3,
+        visibleCount: result2,
+        emptyRounds: num4
       });
-      await _0x485121(_0x3ccfa8, _0x30b83b, _0x22a6cb, "评论区加载");
+      await randomDelay(local2, local3, arg2, "评论区加载");
     }
-    if (_0x3d235f === 0 && _0x56787c(_0x540f15)) {
-      _0x485cbc("评论区显示暂无评论，按 0 条处理");
+    if (result2 === 0 && isCommentPanelEmptyHint(arg1)) {
+      reportCurrentAction("评论区显示暂无评论，按 0 条处理");
       return 0;
     }
-    return _0x3d235f;
+    return result2;
   }
-  function _0x645c7b(_0x269094, _0x4a2e08 = 8) {
+  function sampleVisibleCommentTexts(arg1, num = 8) {
     try {
-      const _0x251ba9 = _0x37c277(_0x269094) || _0x269094 || document.body;
-      const _0x44f497 = _0x4308ac(_0x251ba9);
-      const _0x4994f9 = _0x56991c();
-      const _0x3af4af = /(\d{1,2}-\d{1,2}|\d{4}-\d{1,2}-\d{1,2}|昨天|刚刚|\d+\s*(分钟|小时|天|周|月|年)前)/;
-      const _0x2c4eba = [];
-      const _0x439e27 = new Set();
-      for (const _0x36d235 of _0x44f497) {
-        if (_0x2c4eba.length >= _0x4a2e08) {
+      const local = resolveCommentPanelRoot(arg1) || arg1 || document.body;
+      const result = queryCommentItemNodes(local);
+      const result2 = getMyNickname();
+      const pattern = /(\d{1,2}-\d{1,2}|\d{4}-\d{1,2}-\d{1,2}|昨天|刚刚|\d+\s*(分钟|小时|天|周|月|年)前)/;
+      const list = [];
+      const set = new Set();
+      for (const item of result) {
+        if (list.length >= num) {
           break;
         }
-        const _0x44b803 = (_0x36d235.innerText || "").split("\n").map(_0xf6327b => _0xf6327b.trim()).filter(_0x2c8c09 => _0x2c8c09.length > 0);
-        if (_0x44b803.length < 2) {
+        const result = (item.innerText || "").split("\n").map(arg1 => arg1.trim()).filter(arg1 => arg1.length > 0);
+        if (result.length < 2) {
           continue;
         }
-        const _0xa166cd = _0x44b803[0];
-        if (_0x4994f9 && _0xa166cd === _0x4994f9) {
+        const value = result[0];
+        if (result2 && value === result2) {
           continue;
         }
-        if (_0x44b803.some(_0x49cf15 => _0x49cf15 === "作者")) {
+        if (result.some(arg1 => arg1 === "作者")) {
           continue;
         }
-        const _0x2a9d22 = _0x44b803.filter(_0x2a65e2 => _0x2a65e2 !== _0xa166cd && _0x2a65e2 !== "作者赞过" && !_0x2a65e2.includes("回复") && !_0x2a65e2.includes("展开") && !/^\d+$/.test(_0x2a65e2) && (!(_0x2a65e2.length <= 6) || !_0x3af4af.test(_0x2a65e2)));
-        let _0x526e04 = _0x2a9d22.length > 0 ? _0x2a9d22.sort((_0x248faa, _0x45fc40) => _0x45fc40.length - _0x248faa.length)[0] : "";
-        if (!_0x526e04) {
+        const result3 = result.filter(arg1 => arg1 !== value && arg1 !== "作者赞过" && !arg1.includes("回复") && !arg1.includes("展开") && !/^\d+$/.test(arg1) && (!(arg1.length <= 6) || !pattern.test(arg1)));
+        let value2 = result3.length > 0 ? result3.sort((arg1, arg2) => arg2.length - arg1.length)[0] : "";
+        if (!value2) {
           continue;
         }
-        if (_0x526e04.includes("@豆包") || _0x526e04.includes("@元宝") || _0x526e04.includes("@通义") || _0x526e04.includes("@文心")) {
+        if (value2.includes("@豆包") || value2.includes("@元宝") || value2.includes("@通义") || value2.includes("@文心")) {
           continue;
         }
-        if (_0x526e04.replace(/[.。·分享回复\s]/g, "").length < 2) {
+        if (value2.replace(/[.。·分享回复\s]/g, "").length < 2) {
           continue;
         }
-        const _0x46c100 = _0x526e04.slice(0, 120);
-        if (_0x439e27.has(_0x46c100)) {
+        const result4 = value2.slice(0, 120);
+        if (set.has(result4)) {
           continue;
         }
-        _0x439e27.add(_0x46c100);
-        _0x2c4eba.push(_0x46c100);
+        set.add(result4);
+        list.push(result4);
       }
-      return _0x2c4eba;
-    } catch (_0x2e0bd9) {
-      console.warn("[Built-in-Debug] [评论采样] 异常:", _0x2e0bd9.message || _0x2e0bd9);
+      return list;
+    } catch (error) {
+      console.warn("[Built-in-Debug] [评论采样] 异常:", error.message || error);
       return [];
     }
   }
-  function _0x322721(_0x4da6cc = document) {
+  function isCommentPanelContentLoading(arg1 = document) {
     try {
-      const _0x534143 = _0x37c277(_0x4da6cc);
-      const _0x4d6908 = [];
-      if (_0x534143) {
-        _0x4d6908.push(_0x534143);
+      const result = resolveCommentPanelRoot(arg1);
+      const list = [];
+      if (result) {
+        list.push(result);
       }
-      if (_0x4da6cc && _0x4da6cc !== _0x534143) {
-        _0x4d6908.push(_0x4da6cc);
+      if (arg1 && arg1 !== result) {
+        list.push(arg1);
       }
-      if (!_0x4d6908.length) {
-        _0x4d6908.push(document.body);
+      if (!list.length) {
+        list.push(document.body);
       }
-      for (const _0x6e317f of _0x4d6908) {
-        if (_0x47a09c(_0x6e317f, {
+      for (const item of list) {
+        if (isDouyinVisibleLoadingPlaceholder(item, {
           allowBodyFallback: false,
           maxScan: 400
         })) {
           return true;
         }
       }
-    } catch (_0x327e7a) {}
+    } catch (error) {}
     return false;
   }
-  function _0x3494d5(_0x381b72 = document) {
+  function fn33(arg1 = document) {
     try {
-      return !!_0x3d8e02(_0x381b72);
-    } catch (_0x2b07f1) {}
+      return !!findMainVideoCommentInput(arg1);
+    } catch (error) {}
     return false;
   }
-  async function _0x48d5bf(_0x701438, _0x3fe9e8, _0x492515 = {}) {
+  async function ensureCommentPanelOpen(arg1, arg2, options = {}) {
     try {
-      await _0x51d744(_0x3fe9e8);
-    } catch (_0x114084) {}
+      await handleGlobalAutomationPopupsAndSecurity(arg2);
+    } catch (error) {}
     const {
       profileVideo = false,
       forMainPost = false
-    } = _0x492515;
-    const _0x371810 = Number(_0x492515.deadlineAt || 0);
-    if (!profileVideo && !_0x5a8eba() && (_0x2784ab() || _0x57923c() || _0x5af672(_0x251e6e()))) {
+    } = options;
+    const result = Number(options.deadlineAt || 0);
+    if (!profileVideo && !isOnUserProfilePage() && (isDouyinFeedLiveStream() || hasFeedLiveEnterHint() || isDouyinLiveStreamTitle(getVideoTitle()))) {
       console.log("[Built-in-Debug] 直播间内容，跳过评论面板");
       return false;
     }
-    if (!_0x577931()) {
+    if (!hasCommentRuntimeReady()) {
       console.warn("[Built-in-Debug] [RuntimeConfig] commentV2 未就绪，跳过打开评论面板");
       return false;
     }
-    const _0x559490 = _0x181657();
-    if (!_0x559490) {
+    const result2 = getCommentPanelSelector();
+    if (!result2) {
       console.warn("[Built-in-Debug] [RuntimeConfig] commentPanel 选择器为空");
       return false;
     }
-    const _0x157ecf = _0x357c41.currentRunningSource === "recommend" || _0x357c41.currentRunningSource === "follow";
-    const _0x28dfeb = !profileVideo && !_0x5a8eba() && _0x157ecf && !!_0x554dee();
-    const _0x3224bf = _0x28dfeb ? document : _0x701438;
-    const _0x2c99c8 = _0x701438 === document.body ? [document] : [_0x701438, document];
-    let _0x1f9e06 = _0x149b22(_0x3224bf);
-    if (_0x1f9e06 && _0x5261d7(_0x1f9e06)) {
-      if (!forMainPost && _0x4308ac(_0x1f9e06).length > 0) {
+    const local = state.currentRunningSource === "recommend" || state.currentRunningSource === "follow";
+    const local2 = !profileVideo && !isOnUserProfilePage() && local && !!getDouyinFeedScope();
+    const value = local2 ? document : arg1;
+    const value2 = arg1 === document.body ? [document] : [arg1, document];
+    let result3 = findCommentPanelRoot(value);
+    if (result3 && isVisibleElement(result3)) {
+      if (!forMainPost && queryCommentItemNodes(result3).length > 0) {
         console.log("[Built-in-Debug] 评论面板及节点已在视口就绪，极速放行");
         return true;
       }
     }
-    if (!_0x1f9e06 || !_0x5261d7(_0x1f9e06)) {
-      if (_0x28dfeb) {
-        await _0x1df147(_0x3fe9e8, {
-          deadlineAt: _0x371810
+    if (!result3 || !isVisibleElement(result3)) {
+      if (local2) {
+        await openFeedCommentDrawer(arg2, {
+          deadlineAt: result
         });
-        _0x1f9e06 = _0x149b22(document);
-      } else if (profileVideo || _0x5a8eba()) {
-        await _0x3f7971(_0x3fe9e8, {
-          deadlineAt: _0x371810
+        result3 = findCommentPanelRoot(document);
+      } else if (profileVideo || isOnUserProfilePage()) {
+        await openProfileVideoCommentPanel(arg2, {
+          deadlineAt: result
         });
-        _0x1f9e06 = _0x149b22(document);
+        result3 = findCommentPanelRoot(document);
       }
     }
-    if ((profileVideo || _0x5a8eba()) && _0x5852c7()) {
-      if (!forMainPost || _0x3494d5(_0x701438 || document)) {
+    if ((profileVideo || isOnUserProfilePage()) && isProfileCommentUiVisible()) {
+      if (!forMainPost || fn33(arg1 || document)) {
         return true;
       }
       console.log("[Built-in-Debug] [主评] 评论区已展开但输入区未就绪，继续等待…");
     }
-    if (!_0x1f9e06 || !_0x5261d7(_0x1f9e06)) {
-      if (!_0x577931()) {
+    if (!result3 || !isVisibleElement(result3)) {
+      if (!hasCommentRuntimeReady()) {
         console.warn("[Built-in-Debug] [RuntimeConfig] commentV2 未就绪，无法展开评论列表");
         return false;
       }
       console.log("[Built-in-Debug] 评论列表未显示，尝试寻找“评论”页签/按钮以展开...");
-      const _0x1ec523 = _0x243420() || "评论";
-      let _0xed93f5 = null;
-      for (const _0x58ba5c of _0x2c99c8) {
-        _0xed93f5 = Array.from(_0x58ba5c.querySelectorAll("div, span")).find(_0x1213d4 => {
-          if (_0x1213d4.children.length > 2) {
+      const local = getCommentTabPrefix() || "评论";
+      let local2 = null;
+      for (const item of value2) {
+        local2 = Array.from(item.querySelectorAll("div, span")).find(arg1 => {
+          if (arg1.children.length > 2) {
             return false;
           }
-          const _0x43646b = _0x1213d4.textContent ? _0x1213d4.textContent.trim() : "";
-          return _0x43646b.startsWith(_0x1ec523) && _0x43646b.length < 15 && _0x5261d7(_0x1213d4);
+          const value = arg1.textContent ? arg1.textContent.trim() : "";
+          return value.startsWith(local) && value.length < 15 && isVisibleElement(arg1);
         });
-        if (_0xed93f5) {
+        if (local2) {
           break;
         }
       }
-      if (_0xed93f5) {
-        console.log("[Built-in-Debug] 找到页签按钮: \"" + _0xed93f5.textContent.trim() + "\"，执行切换点击");
-        await _0x44e4a6(_0xed93f5.closest("button, [role=\"button\"]") || _0xed93f5, _0x3fe9e8, {
-          deadlineAt: _0x371810
+      if (local2) {
+        console.log("[Built-in-Debug] 找到页签按钮: \"" + local2.textContent.trim() + "\"，执行切换点击");
+        await simulateHumanClick(local2.closest("button, [role=\"button\"]") || local2, arg2, {
+          deadlineAt: result
         });
-        await _0x30d71f(450, _0x371810);
-        _0x1f9e06 = _0x149b22(_0x701438);
+        await sleepWithinDeadline(450, result);
+        result3 = findCommentPanelRoot(arg1);
       }
-      if ((!_0x1f9e06 || !_0x5261d7(_0x1f9e06)) && !_0x3494d5(_0x701438 || document)) {
-        const _0x29aa39 = _0x7cba7b(_0x96e9a7("openCommentBtns"), _0x96e9a7("openCommentAria"), _0x96e9a7("feedCommentIcon"), _0x96e9a7("videoCommentIcon"), _0x96e9a7("videoPlayerComment"), "[data-e2e=\"feed-comment-icon\"]", "[data-e2e=\"video-comment-icon\"]", "[data-e2e=\"video-player-comment\"]");
-        let _0x24a9d1 = null;
-        for (const _0x121f5c of _0x2c99c8) {
-          const _0x300baa = _0x29aa39 ? Array.from(_0x121f5c.querySelectorAll(_0x29aa39)).filter(_0x11d9e3 => _0x5261d7(_0x11d9e3) && _0x3ca431(_0x11d9e3)) : [];
-          if (_0x300baa.length > 0) {
-            _0x24a9d1 = _0x300baa[_0x300baa.length - 1];
+      if ((!result3 || !isVisibleElement(result3)) && !fn33(arg1 || document)) {
+        const result2 = mergeCommentSelectors(getCommentV2String("openCommentBtns"), getCommentV2String("openCommentAria"), getCommentV2String("feedCommentIcon"), getCommentV2String("videoCommentIcon"), getCommentV2String("videoPlayerComment"), "[data-e2e=\"feed-comment-icon\"]", "[data-e2e=\"video-comment-icon\"]", "[data-e2e=\"video-player-comment\"]");
+        let local = null;
+        for (const item of value2) {
+          const value = result2 ? Array.from(item.querySelectorAll(result2)).filter(arg1 => isVisibleElement(arg1) && isElementInViewportForAutomation(arg1)) : [];
+          if (value.length > 0) {
+            local = value[value.length - 1];
             break;
           }
         }
-        if (_0x24a9d1) {
-          console.log("[Built-in-Debug] 找到评论图标 (" + _0x29aa39 + ")，执行点击展开");
-          await _0x44e4a6(_0x24a9d1.closest("button, [role=\"button\"]") || _0x24a9d1, _0x3fe9e8, {
-            deadlineAt: _0x371810
+        if (local) {
+          console.log("[Built-in-Debug] 找到评论图标 (" + result2 + ")，执行点击展开");
+          await simulateHumanClick(local.closest("button, [role=\"button\"]") || local, arg2, {
+            deadlineAt: result
           });
         }
       }
     }
-    const _0x635d7f = forMainPost ? profileVideo ? 5 : 6 : 10;
-    let _0xd14809 = _0x635d7f;
-    let _0x43201f = false;
-    let _0x4ea7fc = false;
-    let _0xa077c4 = false;
-    for (let _0xf101f4 = 0; _0xf101f4 < _0xd14809; _0xf101f4++) {
-      if (_0x6ae554(_0x3fe9e8)) {
+    const value3 = forMainPost ? profileVideo ? 5 : 6 : 10;
+    let local3 = value3;
+    let flag = false;
+    let flag2 = false;
+    let flag3 = false;
+    for (let num = 0; num < local3; num++) {
+      if (shouldAbort(arg2)) {
         return false;
       }
-      if (_0x371810 > 0 && Date.now() >= _0x371810) {
+      if (result > 0 && Date.now() >= result) {
         console.warn("[Built-in-Debug] [主评] 评论面板等待达到总预算，停止继续展开");
         break;
       }
-      const _0x32dd49 = profileVideo || _0x5a8eba() ? document.body : _0x701438;
-      const _0x28d4f1 = _0x383b31(_0x32dd49);
-      const _0x303a74 = _0x322721(_0x32dd49);
-      if (forMainPost && _0x3494d5(_0x701438 || document)) {
-        console.log("[Built-in-Debug] [主评] 输入区已就绪 (" + (_0xf101f4 + 1) + "/" + _0xd14809 + ")" + (_0x303a74 ? "（列表仍在加载，忽略）" : ""));
-        if (_0x303a74) {
-          _0x4237de("📝 视频主评：输入框已就绪，无需等待评论列表加载");
+      const value = profileVideo || isOnUserProfilePage() ? document.body : arg1;
+      const result2 = getCommentsTotalCount(value);
+      const result4 = isCommentPanelContentLoading(value);
+      if (forMainPost && fn33(arg1 || document)) {
+        console.log("[Built-in-Debug] [主评] 输入区已就绪 (" + (num + 1) + "/" + local3 + ")" + (result4 ? "（列表仍在加载，忽略）" : ""));
+        if (result4) {
+          reportTraceLog("📝 视频主评：输入框已就绪，无需等待评论列表加载");
         }
         return true;
       }
-      if (!forMainPost && _0x28d4f1 === 0 && !_0x303a74) {
+      if (!forMainPost && result2 === 0 && !result4) {
         console.log("[Built-in-Debug] 检测到该视频总评论数明确为 0，无需等待数据加载，立即放行");
         return true;
       }
-      if (forMainPost && _0x28d4f1 === 0 && !_0x303a74 && _0x1f9e06 && _0x5261d7(_0x1f9e06)) {
+      if (forMainPost && result2 === 0 && !result4 && result3 && isVisibleElement(result3)) {
         console.log("[Built-in-Debug] [主评] 0 评论且面板已开，进入输入框探测");
         return true;
       }
-      if (forMainPost && _0x303a74 && !_0xa077c4) {
-        _0xa077c4 = true;
-        _0x4237de("📝 视频主评：评论列表加载中，同时侦测输入框…");
-        _0x485cbc("侦测评论输入框…");
+      if (forMainPost && result4 && !flag3) {
+        flag3 = true;
+        reportTraceLog("📝 视频主评：评论列表加载中，同时侦测输入框…");
+        reportCurrentAction("侦测评论输入框…");
       }
-      await _0x30d71f(forMainPost ? profileVideo ? 400 : 500 : profileVideo ? 600 : 1200, _0x371810);
-      _0x1f9e06 = _0x149b22(_0x701438);
-      if (_0x1f9e06 && _0x5261d7(_0x1f9e06)) {
-        _0x4ea7fc = true;
+      await sleepWithinDeadline(forMainPost ? profileVideo ? 400 : 500 : profileVideo ? 600 : 1200, result);
+      result3 = findCommentPanelRoot(arg1);
+      if (result3 && isVisibleElement(result3)) {
+        flag2 = true;
         if (forMainPost) {
-          if (_0x3494d5(_0x701438 || document) || _0x3d8e02(_0x701438 || document)) {
+          if (fn33(arg1 || document) || findMainVideoCommentInput(arg1 || document)) {
             console.log("[Built-in-Debug] [主评] 面板已开且输入区就绪");
             return true;
           }
-          console.log("[Built-in-Debug] [主评] 面板可见，继续等输入区 (" + (_0xf101f4 + 1) + "/" + _0xd14809 + ")…");
+          console.log("[Built-in-Debug] [主评] 面板可见，继续等输入区 (" + (num + 1) + "/" + local3 + ")…");
         } else {
-          const _0x30f950 = _0x4308ac(_0x1f9e06);
-          const _0xa697df = _0x322721(_0x32dd49);
-          if (_0xa697df) {
-            console.log("[Built-in-Debug] 评论面板可见但仍在加载中 (" + (_0xf101f4 + 1) + "/" + _0xd14809 + ")，点击「加载中」并继续等待…");
-            await _0x5f3c7f(_0x1f9e06, _0x3fe9e8);
-          } else if (_0x30f950.length > 0) {
-            console.log("[Built-in-Debug] 评论面板已成功处于开启/可见状态，且已成功加载出 " + _0x30f950.length + " 条评论节点");
+          const result = queryCommentItemNodes(result3);
+          const result2 = isCommentPanelContentLoading(value);
+          if (result2) {
+            console.log("[Built-in-Debug] 评论面板可见但仍在加载中 (" + (num + 1) + "/" + local3 + ")，点击「加载中」并继续等待…");
+            await clickCommentPanelLoadingPlaceholder(result3, arg2);
+          } else if (result.length > 0) {
+            console.log("[Built-in-Debug] 评论面板已成功处于开启/可见状态，且已成功加载出 " + result.length + " 条评论节点");
             return true;
           } else if (profileVideo) {
-            console.log("[Built-in-Debug] [主页作品] 评论面板已可见 (" + (_0xf101f4 + 1) + "/" + _0xd14809 + ")，允许 0 评论视频发主贴");
+            console.log("[Built-in-Debug] [主页作品] 评论面板已可见 (" + (num + 1) + "/" + local3 + ")，允许 0 评论视频发主贴");
             return true;
           } else {
-            console.log("[Built-in-Debug] 评论面板可见，但内容仍在加载中或暂无评论 (" + (_0xf101f4 + 1) + "/" + _0xd14809 + ")...");
-            await _0x5f3c7f(_0x1f9e06, _0x3fe9e8);
+            console.log("[Built-in-Debug] 评论面板可见，但内容仍在加载中或暂无评论 (" + (num + 1) + "/" + local3 + ")...");
+            await clickCommentPanelLoadingPlaceholder(result3, arg2);
           }
         }
-      } else if (profileVideo && _0x5852c7()) {
+      } else if (profileVideo && isProfileCommentUiVisible()) {
         console.log("[Built-in-Debug] [主页作品] 评论 UI 已展开（占位符可见）");
         return true;
       }
-      if (!_0x43201f && _0x4ea7fc && _0xf101f4 >= _0x635d7f - 1 && (forMainPost || _0x28d4f1 !== 0 || _0x303a74)) {
-        _0xd14809 = _0x18ba59(_0x635d7f, {
+      if (!flag && flag2 && num >= value3 - 1 && (forMainPost || result2 !== 0 || result4)) {
+        local3 = getExtendedReadyRounds(value3, {
           progress: true,
           hardCapRounds: forMainPost ? profileVideo ? 7 : 9 : 18
         });
-        if (_0xd14809 > _0x635d7f) {
-          _0x43201f = true;
-          console.log("[Built-in-Debug] [慢环境] " + (forMainPost ? "主评输入区" : "评论节点") + "未就绪，延长等待 " + _0x635d7f + "→" + _0xd14809 + " 轮");
-          _0x485cbc(forMainPost ? "评论输入加载较慢，继续等待…" : "评论区加载较慢，继续等待…");
+        if (local3 > value3) {
+          flag = true;
+          console.log("[Built-in-Debug] [慢环境] " + (forMainPost ? "主评输入区" : "评论节点") + "未就绪，延长等待 " + value3 + "→" + local3 + " 轮");
+          reportCurrentAction(forMainPost ? "评论输入加载较慢，继续等待…" : "评论区加载较慢，继续等待…");
         }
       }
     }
-    if (forMainPost && _0x3494d5(_0x701438 || document)) {
+    if (forMainPost && fn33(arg1 || document)) {
       return true;
     }
-    if (_0x1f9e06 && _0x5261d7(_0x1f9e06)) {
+    if (result3 && isVisibleElement(result3)) {
       console.log("[Built-in-Debug] 评论面板超时未加载出节点，判定该视频可能暂无评论，放行处理");
       return true;
     }
-    if (profileVideo && _0x5852c7()) {
+    if (profileVideo && isProfileCommentUiVisible()) {
       return true;
     }
     return false;
   }
-  const _0x4c252f = false;
-  function _0xccbe40(_0x353a0a = {}) {
-    if (_0x353a0a.forEntityLeadgen) {
+  const flag = false;
+  function shouldExpandFoldedCommentReplies(options = {}) {
+    if (options.forEntityLeadgen) {
       return false;
     }
-    if (!_0x4c252f) {
+    if (!flag) {
       return false;
     }
-    if (_0x353a0a.forMonitorScrape) {
+    if (options.forMonitorScrape) {
       return true;
     }
-    const _0x1a8089 = _0x353a0a.taskMode ?? _0x357c41.currentTask?.taskMode;
-    return _0x1a8089 === "scrape";
+    const local = options.taskMode ?? state.currentTask?.taskMode;
+    return local === "scrape";
   }
-  async function _0x158519(_0x3246d2, _0x4d4c66, _0x1db5d0 = null, _0x42bb35 = null, _0x262fc2 = {}) {
-    if (!_0xccbe40(_0x262fc2)) {
+  async function expandReplies(arg1, arg2, arg3 = null, arg4 = null, options = {}) {
+    if (!shouldExpandFoldedCommentReplies(options)) {
       return;
     }
-    if (_0x42bb35?.skipExpand) {
+    if (arg4?.skipExpand) {
       return;
     }
-    const _0x569810 = /展开\s*\d*\s*条?回复|展开更多|——\s*展开/;
-    if (_0x42bb35 && !_0x42bb35.expandedKeys) {
-      _0x42bb35.expandedKeys = new Set();
+    const pattern = /展开\s*\d*\s*条?回复|展开更多|——\s*展开/;
+    if (arg4 && !arg4.expandedKeys) {
+      arg4.expandedKeys = new Set();
     }
-    const _0x475dc5 = _0x42bb35?.expandedKeys || new Set();
-    const _0x25d09d = _0x3f634a => {
-      const _0x27e81f = (_0x3f634a.textContent || "").trim();
-      const _0x19ec35 = _0x3f634a.closest("[data-e2e=\"comment-item\"], [class*=\"comment-item\"], [class*=\"CommentItem\"], li");
-      let _0x4003f6 = "";
-      if (_0x19ec35) {
-        const _0x334ba8 = _0x19ec35.querySelector("[data-e2e=\"comment-username\"], [data-e2e=\"comment-at-user\"], [class*=\"nickname\"], a[href*=\"/user/\"]");
-        _0x4003f6 = (_0x334ba8?.textContent || "").trim().slice(0, 32);
-        const _0xfccb29 = _0x19ec35.parentElement ? Array.from(_0x19ec35.parentElement.children).indexOf(_0x19ec35) : -1;
-        _0x4003f6 += "#" + _0xfccb29;
+    const local = arg4?.expandedKeys || new Set();
+    const local2 = arg1 => {
+      const result = (arg1.textContent || "").trim();
+      const result2 = arg1.closest("[data-e2e=\"comment-item\"], [class*=\"comment-item\"], [class*=\"CommentItem\"], li");
+      let text = "";
+      if (result2) {
+        const result = result2.querySelector("[data-e2e=\"comment-username\"], [data-e2e=\"comment-at-user\"], [class*=\"nickname\"], a[href*=\"/user/\"]");
+        text = (result?.textContent || "").trim().slice(0, 32);
+        const value = result2.parentElement ? Array.from(result2.parentElement.children).indexOf(result2) : -1;
+        text += "#" + value;
       }
-      return _0x4003f6 + "|" + _0x27e81f;
+      return text + "|" + result;
     };
-    const _0x4048d8 = _0x1e2460 => {
-      const _0x2ab4f1 = Array.from(_0x1e2460.querySelectorAll("div, span, p")).filter(_0xa10055 => {
-        if (_0xa10055 === _0x1e2460) {
+    const local3 = arg1 => {
+      const result = Array.from(arg1.querySelectorAll("div, span, p")).filter(arg12 => {
+        if (arg12 === arg1) {
           return false;
         }
-        const _0x263404 = (_0xa10055.textContent || "").trim();
-        return _0x263404.length > 0 && _0x263404.length <= 25 && _0x569810.test(_0x263404);
+        const result = (arg12.textContent || "").trim();
+        return result.length > 0 && result.length <= 25 && pattern.test(result);
       });
-      return _0x2ab4f1.length === 0;
+      return result.length === 0;
     };
-    const _0x14cd6b = Array.from(_0x3246d2.querySelectorAll("div[data-e2e], span[data-e2e], div[class*=\"expand\"], span[class*=\"expand\"], div[class*=\"Expand\"], span[class*=\"reply-btn\"], div[class*=\"reply-btn\"], div, span, p"));
-    const _0x35615f = _0x14cd6b.filter(_0x322b46 => {
-      if (_0x1db5d0 && _0x1db5d0.has(_0x322b46)) {
+    const result = Array.from(arg1.querySelectorAll("div[data-e2e], span[data-e2e], div[class*=\"expand\"], span[class*=\"expand\"], div[class*=\"Expand\"], span[class*=\"reply-btn\"], div[class*=\"reply-btn\"], div, span, p"));
+    const result2 = result.filter(arg1 => {
+      if (arg3 && arg3.has(arg1)) {
         return false;
       }
-      const _0x291080 = (_0x322b46.textContent || "").trim();
-      if (_0x291080.length === 0 || _0x291080.length > 25) {
+      const result = (arg1.textContent || "").trim();
+      if (result.length === 0 || result.length > 25) {
         return false;
       }
-      if (!_0x569810.test(_0x291080)) {
+      if (!pattern.test(result)) {
         return false;
       }
-      if (!_0x4048d8(_0x322b46)) {
+      if (!local3(arg1)) {
         return false;
       }
-      const _0xe7a666 = _0x25d09d(_0x322b46);
-      if (_0x475dc5.has(_0xe7a666)) {
+      const result2 = local2(arg1);
+      if (local.has(result2)) {
         return false;
       }
       return true;
     });
-    if (_0x35615f.length > 0) {
-      console.log("[Built-in-Debug] [展开回复] 发现 " + _0x35615f.length + " 个新展开按钮，逐一展开...");
+    if (result2.length > 0) {
+      console.log("[Built-in-Debug] [展开回复] 发现 " + result2.length + " 个新展开按钮，逐一展开...");
     }
-    for (const _0x354fdc of _0x35615f) {
-      if (_0x6ae554(_0x4d4c66)) {
+    for (const item of result2) {
+      if (shouldAbort(arg2)) {
         break;
       }
-      if (_0x42bb35?.skipExpand) {
+      if (arg4?.skipExpand) {
         break;
       }
-      const _0x273124 = _0x25d09d(_0x354fdc);
-      _0x475dc5.add(_0x273124);
-      if (_0x1db5d0) {
-        _0x1db5d0.add(_0x354fdc);
+      const result = local2(item);
+      local.add(result);
+      if (arg3) {
+        arg3.add(item);
       }
       try {
-        const _0x56d562 = _0x4219bb(_0x3246d2);
-        const _0x5a772f = (_0x354fdc.textContent || "").trim();
-        _0x479ccd(_0x354fdc, {
+        const result = getVisibleCommentNodeCount(arg1);
+        const result2 = (item.textContent || "").trim();
+        safeScrollTargetIntoView(item, {
           force: true,
           block: "nearest"
         });
-        await new Promise(_0x218c69 => setTimeout(_0x218c69, 300));
-        _0x59b5e8(_0x3246d2);
-        await _0x44e4a6(_0x354fdc, _0x4d4c66);
-        _0x59b5e8(_0x3246d2);
-        await new Promise(_0x385218 => setTimeout(_0x385218, 1200));
-        const _0x1166a4 = _0x4219bb(_0x3246d2);
-        const _0x2a63db = (_0x354fdc.textContent || "").trim();
-        const _0x3d47d5 = _0x569810.test(_0x2a63db);
-        const _0x11b9e6 = _0x1166a4 > _0x56d562 || _0x5a772f && _0x2a63db !== _0x5a772f && !_0x3d47d5;
-        if (!_0x11b9e6 && _0x3d47d5 && _0x42bb35) {
-          _0x42bb35.failCount = (_0x42bb35.failCount || 0) + 1;
-          console.warn("[Built-in-Debug] [展开回复] 展开失败 (" + _0x42bb35.failCount + "/2): \"" + _0x5a772f + "\"（已标记，不再重试）");
-          if (_0x42bb35.failCount >= 2) {
-            _0x42bb35.skipExpand = true;
+        await new Promise(arg1 => setTimeout(arg1, 300));
+        pauseVisibleDouyinVideos(arg1);
+        await simulateHumanClick(item, arg2);
+        pauseVisibleDouyinVideos(arg1);
+        await new Promise(arg1 => setTimeout(arg1, 1200));
+        const result3 = getVisibleCommentNodeCount(arg1);
+        const result4 = (item.textContent || "").trim();
+        const result5 = pattern.test(result4);
+        const local = result3 > result || result2 && result4 !== result2 && !result5;
+        if (!local && result5 && arg4) {
+          arg4.failCount = (arg4.failCount || 0) + 1;
+          console.warn("[Built-in-Debug] [展开回复] 展开失败 (" + arg4.failCount + "/2): \"" + result2 + "\"（已标记，不再重试）");
+          if (arg4.failCount >= 2) {
+            arg4.skipExpand = true;
             console.warn("[Built-in-Debug] [展开回复] 本视频已连续 2 次展开失败，后续不再点击展开");
             break;
           }
         }
-      } catch (_0x42cff4) {
-        if (_0x42bb35) {
-          _0x42bb35.failCount = (_0x42bb35.failCount || 0) + 1;
-          if (_0x42bb35.failCount >= 2) {
-            _0x42bb35.skipExpand = true;
+      } catch (error) {
+        if (arg4) {
+          arg4.failCount = (arg4.failCount || 0) + 1;
+          if (arg4.failCount >= 2) {
+            arg4.skipExpand = true;
             console.warn("[Built-in-Debug] [展开回复] 本视频已连续 2 次展开失败，后续不再点击展开");
             break;
           }
@@ -1250,140 +1250,140 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
       }
     }
   }
-  function _0x5a6355(_0x1ed156 = null) {
-    const _0x292878 = _0x1ed156 && _0x5261d7(_0x1ed156) ? _0x1ed156 : _0x554dee();
-    const _0x53381f = [".xgplayer-playswitch-next", "[data-e2e=\"video-switch-next-btn\"]", "[data-e2e=\"video-switch-next-arrow\"]", ".video-switch-next"];
-    const _0x623364 = "[class*=\"SwitchNext\"], [class*=\"switch-next\"], [aria-label*=\"下一条\"], [title*=\"下一条\"]";
-    const _0x31b78f = "[data-e2e=\"feed-active-live\"], [data-e2e=\"browse-live\"], [data-e2e=\"feed-live\"], [data-e2e=\"webcast-player\"], [class*=\"live-card\"], [class*=\"LiveCard\"]";
-    const _0x4d1669 = _0x1e8e50 => {
-      if (!_0x1e8e50) {
+  function fn37(arg1 = null) {
+    const value = arg1 && isVisibleElement(arg1) ? arg1 : getDouyinFeedScope();
+    const list = [".xgplayer-playswitch-next", "[data-e2e=\"video-switch-next-btn\"]", "[data-e2e=\"video-switch-next-arrow\"]", ".video-switch-next"];
+    const text = "[class*=\"SwitchNext\"], [class*=\"switch-next\"], [aria-label*=\"下一条\"], [title*=\"下一条\"]";
+    const text2 = "[data-e2e=\"feed-active-live\"], [data-e2e=\"browse-live\"], [data-e2e=\"feed-live\"], [data-e2e=\"webcast-player\"], [class*=\"live-card\"], [class*=\"LiveCard\"]";
+    const local = arg1 => {
+      if (!arg1) {
         return true;
       }
       try {
-        const _0x3c3b7a = [_0x1e8e50.className || "", _0x1e8e50.getAttribute?.("data-e2e") || "", _0x1e8e50.getAttribute?.("aria-label") || "", _0x1e8e50.getAttribute?.("title") || "", _0x1e8e50.id || "", (_0x1e8e50.textContent || "").slice(0, 20)].join(" ");
-        if (/playswitch-prev|SwitchPrev|switch-prev|上一条|上一[个条首]|prev/i.test(_0x3c3b7a)) {
+        const result = [arg1.className || "", arg1.getAttribute?.("data-e2e") || "", arg1.getAttribute?.("aria-label") || "", arg1.getAttribute?.("title") || "", arg1.id || "", (arg1.textContent || "").slice(0, 20)].join(" ");
+        if (/playswitch-prev|SwitchPrev|switch-prev|上一条|上一[个条首]|prev/i.test(result)) {
           return true;
         }
-        if (_0x1e8e50.closest?.(".xgplayer-playswitch-prev, [data-e2e*=\"switch-prev\"], [class*=\"SwitchPrev\"]")) {
+        if (arg1.closest?.(".xgplayer-playswitch-prev, [data-e2e*=\"switch-prev\"], [class*=\"SwitchPrev\"]")) {
           return true;
         }
-      } catch (_0xfa19ee) {}
+      } catch (error) {}
       return false;
     };
-    const _0x4a6f75 = _0x5255bf => {
+    const local2 = arg1 => {
       try {
-        return !!_0x5255bf.closest?.(_0x31b78f);
-      } catch (_0x302ee7) {
+        return !!arg1.closest?.(text2);
+      } catch (error) {
         return false;
       }
     };
-    const _0xfc6fd8 = _0x31834e => {
+    const local3 = arg1 => {
       try {
-        const _0x57cb91 = _0x31834e.getBoundingClientRect();
-        const _0x803b9f = _0x31834e.getAttribute?.("data-e2e") || "";
-        const _0x54af2f = String(_0x31834e.className || "").split(/\s+/).slice(0, 3).join(".");
-        return "" + _0x31834e.tagName + (_0x803b9f ? "[data-e2e=" + _0x803b9f + "]" : "") + (_0x54af2f ? "." + _0x54af2f : "") + "@(" + Math.round(_0x57cb91.left) + "," + Math.round(_0x57cb91.top) + "," + Math.round(_0x57cb91.width) + "x" + Math.round(_0x57cb91.height) + ")";
-      } catch (_0x2881e7) {
-        return _0x31834e?.tagName || "?";
+        const result = arg1.getBoundingClientRect();
+        const local = arg1.getAttribute?.("data-e2e") || "";
+        const result2 = String(arg1.className || "").split(/\s+/).slice(0, 3).join(".");
+        return "" + arg1.tagName + (local ? "[data-e2e=" + local + "]" : "") + (result2 ? "." + result2 : "") + "@(" + Math.round(result.left) + "," + Math.round(result.top) + "," + Math.round(result.width) + "x" + Math.round(result.height) + ")";
+      } catch (error) {
+        return arg1?.tagName || "?";
       }
     };
-    const _0x4e15b0 = (_0x47ff84, _0x37c7b1) => {
-      if (!_0x47ff84 || !_0x5261d7(_0x47ff84) || _0x4d1669(_0x47ff84) || _0x4a6f75(_0x47ff84)) {
+    const local4 = (arg1, arg2) => {
+      if (!arg1 || !isVisibleElement(arg1) || local(arg1) || local2(arg1)) {
         return -Infinity;
       }
-      let _0x2de980;
+      let local3;
       try {
-        _0x2de980 = _0x47ff84.getBoundingClientRect();
-      } catch (_0xc535c9) {
+        local3 = arg1.getBoundingClientRect();
+      } catch (error) {
         return -Infinity;
       }
-      if (!_0x2de980 || _0x2de980.width < 4 || _0x2de980.height < 4) {
+      if (!local3 || local3.width < 4 || local3.height < 4) {
         return -Infinity;
       }
-      let _0x1feadf = _0x37c7b1;
-      if (_0x191379(_0x47ff84)) {
-        _0x1feadf += 50;
+      let local4 = arg2;
+      if (isElementInFeedCenter(arg1)) {
+        local4 += 50;
       }
-      if (_0x292878 && typeof _0x292878.contains === "function" && _0x292878.contains(_0x47ff84)) {
-        _0x1feadf += 40;
+      if (value && typeof value.contains === "function" && value.contains(arg1)) {
+        local4 += 40;
       }
-      const _0xca203c = Math.max(1, window.innerWidth);
-      _0x1feadf += Math.min(30, _0x2de980.left / _0xca203c * 30);
-      _0x1feadf += Math.min(20, _0x2de980.width * _0x2de980.height / 400);
-      if (_0x292878) {
+      const result = Math.max(1, window.innerWidth);
+      local4 += Math.min(30, local3.left / result * 30);
+      local4 += Math.min(20, local3.width * local3.height / 400);
+      if (value) {
         try {
-          const _0x1bf73b = _0x292878.getBoundingClientRect();
-          const _0x4b556e = _0x2de980.left + _0x2de980.width / 2 - (_0x1bf73b.left + _0x1bf73b.width / 2);
-          const _0x27e30e = _0x2de980.top + _0x2de980.height / 2 - (_0x1bf73b.top + _0x1bf73b.height / 2);
-          _0x1feadf += Math.max(0, 25 - Math.sqrt(_0x4b556e * _0x4b556e + _0x27e30e * _0x27e30e) / 20);
-        } catch (_0x1fcddc) {}
+          const result = value.getBoundingClientRect();
+          const value2 = local3.left + local3.width / 2 - (result.left + result.width / 2);
+          const value3 = local3.top + local3.height / 2 - (result.top + result.height / 2);
+          local4 += Math.max(0, 25 - Math.sqrt(value2 * value2 + value3 * value3) / 20);
+        } catch (error) {}
       }
-      return _0x1feadf;
+      return local4;
     };
-    const _0x2801bd = (_0x3b4302, _0xf236a1) => {
-      const _0x32105f = [];
+    const local5 = (arg1, arg2) => {
+      const list = [];
       try {
-        Array.from(document.querySelectorAll(_0x3b4302)).forEach(_0x4c18af => {
-          const _0x1ae73a = _0x4e15b0(_0x4c18af, _0xf236a1);
-          if (Number.isFinite(_0x1ae73a) && _0x1ae73a > -Infinity) {
-            _0x32105f.push({
-              el: _0x4c18af,
-              score: _0x1ae73a
+        Array.from(document.querySelectorAll(arg1)).forEach(arg1 => {
+          const result = local4(arg1, arg2);
+          if (Number.isFinite(result) && result > -Infinity) {
+            list.push({
+              el: arg1,
+              score: result
             });
           }
         });
-      } catch (_0x230e04) {}
-      return _0x32105f;
+      } catch (error) {}
+      return list;
     };
-    let _0x840248 = [];
-    for (const _0x2e13ab of _0x53381f) {
-      _0x840248 = _0x840248.concat(_0x2801bd(_0x2e13ab, 100));
+    let list2 = [];
+    for (const item of list) {
+      list2 = list2.concat(local5(item, 100));
     }
-    if (!_0x840248.length) {
-      _0x840248 = _0x2801bd(_0x623364, 40);
+    if (!list2.length) {
+      list2 = local5(text, 40);
     }
-    if (!_0x840248.length) {
+    if (!list2.length) {
       return null;
     }
-    _0x840248.sort((_0x323b74, _0x1629a6) => _0x1629a6.score - _0x323b74.score);
-    const _0x3c6611 = _0x840248[0];
-    console.log("[Built-in-Debug] [切条] 命中下一条按钮 score=" + _0x3c6611.score.toFixed(1) + " " + ("candidates=" + _0x840248.length + " hit=" + _0xfc6fd8(_0x3c6611.el)));
-    return _0x3c6611.el;
+    list2.sort((arg1, arg2) => arg2.score - arg1.score);
+    const value2 = list2[0];
+    console.log("[Built-in-Debug] [切条] 命中下一条按钮 score=" + value2.score.toFixed(1) + " " + ("candidates=" + list2.length + " hit=" + local3(value2.el)));
+    return value2.el;
   }
-  async function _0x542620(_0x3b36ea, {
+  async function moveToNextVideo(arg1, {
     aggressive = false,
     preferKeyboard = false,
     keyboardOnly = false
   } = {}) {
-    if (_0x6ae554(_0x3b36ea)) {
+    if (shouldAbort(arg1)) {
       return false;
     }
-    _0x3b07e5();
-    const _0x3dbfee = _0x12c3a7();
-    const _0x3e66f3 = preferKeyboard || keyboardOnly;
-    const _0x21c25f = _0x3dbfee.shouldSkipButtonClick();
-    console.log("[Built-in-Debug] 准备切换下一条视频..." + (" aggressive=" + !!aggressive + " preferKeyboard=" + !!preferKeyboard + " keyboardOnly=" + !!keyboardOnly) + (" buttonCooldown=" + _0x21c25f));
-    if (!_0x3e66f3 && _0x21c25f) {
+    clearPendingLeadVideoUrl();
+    const result = getFeedSwitchGuard();
+    const local = preferKeyboard || keyboardOnly;
+    const result2 = result.shouldSkipButtonClick();
+    console.log("[Built-in-Debug] 准备切换下一条视频..." + (" aggressive=" + !!aggressive + " preferKeyboard=" + !!preferKeyboard + " keyboardOnly=" + !!keyboardOnly) + (" buttonCooldown=" + result2));
+    if (!local && result2) {
       console.log("[Built-in-Debug] 下一条按钮仍在冷却中，跳过重复切换（防连点）");
       return true;
     }
-    const _0x4674ce = _0x554dee();
-    const _0x2dc809 = _0x2784ab(_0x4674ce);
-    if (_0x2dc809) {
+    const result3 = getDouyinFeedScope();
+    const result4 = isDouyinFeedLiveStream(result3);
+    if (result4) {
       console.log("[Built-in-Debug] 当前处于直播间卡片，避免聚焦和向其发送键盘/滚轮事件");
       try {
         document.activeElement?.blur?.();
-      } catch (_0x36c6cd) {}
+      } catch (error) {}
       try {
         document.body?.focus?.();
-      } catch (_0x470ec) {}
-    } else if (_0x4674ce) {
+      } catch (error) {}
+    } else if (result3) {
       try {
-        _0x4674ce.focus?.();
-      } catch (_0x3e23f3) {}
+        result3.focus?.();
+      } catch (error) {}
     }
-    const _0x347dfc = (_0x227f8c = document.body) => {
-      _0x227f8c.dispatchEvent(new KeyboardEvent("keydown", {
+    const local2 = (arg1 = document.body) => {
+      arg1.dispatchEvent(new KeyboardEvent("keydown", {
         key: "ArrowDown",
         code: "ArrowDown",
         keyCode: 40,
@@ -1391,57 +1391,57 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
         bubbles: true
       }));
     };
-    const _0x4d3f63 = _0x2dc809 || !_0x4674ce ? document.body : _0x4674ce;
-    let _0x2bd36a = false;
-    if (!_0x3e66f3) {
-      const _0x413668 = _0x5a6355(_0x4674ce);
-      if (_0x413668) {
+    const value = result4 || !result3 ? document.body : result3;
+    let flag = false;
+    if (!local) {
+      const result2 = fn37(result3);
+      if (result2) {
         console.log("[Built-in-Debug] 命中下一条按钮，准备点击");
-        _0x2bd36a = await _0x10f0d2(_0x413668, _0x3b36ea, "切换下一条视频");
-        if (_0x2bd36a) {
-          _0x3dbfee.noteAttempt({
+        flag = await simulateTrustedElementClick(result2, arg1, "切换下一条视频");
+        if (flag) {
+          result.noteAttempt({
             byButton: true
           });
         }
       }
     }
-    if (!_0x2bd36a) {
-      if (_0x3e66f3) {
+    if (!flag) {
+      if (local) {
         console.log("[Built-in-Debug] 按 preferKeyboard/keyboardOnly，仅用 ArrowDown 切换");
       } else {
         console.log("[Built-in-Debug] 下一条按钮不可用，回退到 ArrowDown 切换");
       }
-      const _0x3c87fb = await _0x287fca("ArrowDown", _0x3b36ea, "切换下一条视频");
-      if (!_0x3c87fb) {
-        _0x347dfc(_0x4d3f63);
+      const result2 = await simulateTrustedKey("ArrowDown", arg1, "切换下一条视频");
+      if (!result2) {
+        local2(value);
       }
-      _0x3dbfee.noteAttempt({
+      result.noteAttempt({
         byButton: false
       });
     } else {
       console.log("[Built-in-Debug] 下一条按钮已点击，不再补按键（防连跳）");
     }
-    if (aggressive && !_0x2bd36a) {
-      await _0x3f311d(280);
-      if (!(await _0x287fca("ArrowDown", _0x3b36ea, "再次切换下一条"))) {
-        _0x347dfc(document.body);
+    if (aggressive && !flag) {
+      await sleep(280);
+      if (!(await simulateTrustedKey("ArrowDown", arg1, "再次切换下一条"))) {
+        local2(document.body);
       }
-      await _0x3f311d(280);
-      if (!(await _0x287fca("ArrowDown", _0x3b36ea, "第三次切换下一条"))) {
-        _0x347dfc(document.body);
+      await sleep(280);
+      if (!(await simulateTrustedKey("ArrowDown", arg1, "第三次切换下一条"))) {
+        local2(document.body);
       }
       try {
-        const _0x4b3a27 = _0x2dc809 || !_0x4674ce ? document.documentElement : _0x4674ce;
-        _0x4b3a27.dispatchEvent(new WheelEvent("wheel", {
+        const value = result4 || !result3 ? document.documentElement : result3;
+        value.dispatchEvent(new WheelEvent("wheel", {
           deltaY: 520,
           bubbles: true,
           cancelable: true
         }));
-      } catch (_0x3c2240) {}
+      } catch (error) {}
     }
     return true;
   }
-  async function _0x46a588(_0x38e181, {
+  async function awaitFeedVideoSwitchSettled(arg1, {
     previousIdentity = "",
     previousTitle = "",
     previousAuthor = "",
@@ -1453,200 +1453,200 @@ function createCommentFeedNavigationController(_0x51d8eb = {}) {
     acceptTitleOnlySwitch = false,
     requireDistinctVideoId = false
   } = {}) {
-    const _0x4496b6 = Date.now();
-    let _0x143cc6 = false;
-    let _0x1c3699 = "";
-    let _0x1130f1 = 0;
-    let _0x53de7e = 0;
-    let _0x77ecb = false;
-    let _0x3f5451 = 0;
-    const _0x5ea362 = previousIdentity || _0x379016() || "";
-    const _0x492127 = previousTitle || "";
-    const _0x149782 = _0x186b5d(previousAuthor || "");
-    const _0x108122 = _0x5b0aef(leadVideoUrl || dedupKey || _0x5ea362) || "";
+    const result = Date.now();
+    let flag = false;
+    let text = "";
+    let num = 0;
+    let num2 = 0;
+    let flag2 = false;
+    let num3 = 0;
+    const local = previousIdentity || getFeedVideoIdentity() || "";
+    const local2 = previousTitle || "";
+    const result2 = normalizeAuthorAccountName(previousAuthor || "");
+    const local3 = extractSpecificVideoId(leadVideoUrl || dedupKey || local) || "";
     console.log("[Built-in-Debug] [" + phaseLabel + "] 正在监控视频切换状态...");
     if (!quietTrace) {
-      _0x485cbc("等待新视频加载完成...");
+      reportCurrentAction("等待新视频加载完成...");
     }
-    for (let _0xa3d4e5 = 0; _0xa3d4e5 < 24; _0xa3d4e5++) {
-      if (_0x6ae554(_0x38e181)) {
+    for (let num4 = 0; num4 < 24; num4++) {
+      if (shouldAbort(arg1)) {
         return false;
       }
-      const _0x5d3c9b = preferredScope && _0x5261d7(preferredScope) ? preferredScope : _0x5ce888({
+      const value = preferredScope && isVisibleElement(preferredScope) ? preferredScope : resolveDouyinVideoDetailModal({
         includeFeed: false
       });
-      const _0x1f2e03 = _0x5d3c9b && _0x5261d7(_0x5d3c9b) ? _0x5d3c9b : _0x554dee() || document;
-      const _0x49e4ed = _0x379016(_0x1f2e03) || "";
-      const _0x4a7cc3 = (() => {
+      const value2 = value && isVisibleElement(value) ? value : getDouyinFeedScope() || document;
+      const local4 = getFeedVideoIdentity(value2) || "";
+      const result3 = (() => {
         try {
-          const _0x6c13e6 = _0x15f856(_0x1f2e03);
-          if (_0x46d6bb(_0x6c13e6)) {
-            return _0x6c13e6;
+          const result = captureFeedVideoShareUrl(value2);
+          if (isDouyinVideoShareUrl(result)) {
+            return result;
           }
-        } catch (_0x2a3be2) {}
-        const _0x1188c3 = _0x510d83(window.location.href);
-        if (_0x46d6bb(_0x1188c3)) {
-          return _0x1188c3;
+        } catch (error) {}
+        const result = normalizeUrl(window.location.href);
+        if (isDouyinVideoShareUrl(result)) {
+          return result;
         }
-        const _0x21e959 = _0x5b0aef(_0x1188c3) || _0x48d604(_0x1188c3);
-        if (_0x21e959) {
-          return _0x3f336a(_0x21e959);
+        const local = extractSpecificVideoId(result) || extractVideoIdFromHref(result);
+        if (local) {
+          return buildDouyinVideoShareUrl(local);
         }
         return "";
       })();
-      const _0x1b7130 = _0x5b0aef(window.location.href) || "";
-      const _0xb46c21 = _0x5b0aef(_0x4a7cc3) || _0x1b7130 || _0x5b0aef(_0x49e4ed) || "";
-      const _0x1cbfa8 = _0x251e6e(_0x1f2e03);
-      const _0x32e279 = !!_0x5ea362 && !!_0x49e4ed && _0x49e4ed !== _0x5ea362;
-      const _0xe605f8 = !!_0x108122 && !!_0xb46c21 && String(_0x108122) !== String(_0xb46c21);
-      const _0x42e3ee = _0xe605f8 || (_0x46d6bb(leadVideoUrl) && _0x46d6bb(_0x4a7cc3) ? _0x4a7cc3 !== leadVideoUrl : dedupKey ? _0x4a7cc3 !== dedupKey : false);
-      const _0x49f22e = !!_0x492127 && !!_0x1cbfa8 && _0x1cbfa8 !== "未知视频" && _0x1cbfa8 !== _0x492127;
-      const _0x107c85 = !!_0x108122 && !!_0xb46c21 && String(_0x108122) === String(_0xb46c21);
-      const _0x460d12 = _0x32e279 && (!requireDistinctVideoId || !_0x107c85);
-      const _0xc8a69c = _0xe605f8 || _0x49f22e || _0x460d12 || _0x42e3ee && !_0x107c85;
-      if (_0x2784ab() || _0x57923c()) {
+      const local5 = extractSpecificVideoId(window.location.href) || "";
+      const local6 = extractSpecificVideoId(result3) || local5 || extractSpecificVideoId(local4) || "";
+      const result4 = getVideoTitle(value2);
+      const local7 = !!local && !!local4 && local4 !== local;
+      const local8 = !!local3 && !!local6 && String(local3) !== String(local6);
+      const local9 = local8 || (isDouyinVideoShareUrl(leadVideoUrl) && isDouyinVideoShareUrl(result3) ? result3 !== leadVideoUrl : dedupKey ? result3 !== dedupKey : false);
+      const local10 = !!local2 && !!result4 && result4 !== "未知视频" && result4 !== local2;
+      const local11 = !!local3 && !!local6 && String(local3) === String(local6);
+      const local12 = local7 && (!requireDistinctVideoId || !local11);
+      const local13 = local8 || local10 || local12 || local9 && !local11;
+      if (isDouyinFeedLiveStream() || hasFeedLiveEnterHint()) {
         if (!quietTrace) {
-          _0x485cbc("切换后检测到直播间预览，将自动跳过...");
+          reportCurrentAction("切换后检测到直播间预览，将自动跳过...");
         }
-        _0x143cc6 = true;
+        flag = true;
         break;
       }
-      if (_0xc8a69c) {
-        _0x77ecb = true;
-        const _0x95145c = _0x60283(_0x1f2e03, _0x4a7cc3 || _0xb46c21);
-        const _0xe40bc5 = !!_0x149782 && !!_0x95145c && _0x186b5d(_0x95145c) === _0x149782;
-        const _0x36f0fb = !!_0x1cbfa8 && _0x1cbfa8 !== "未知视频";
-        const _0x12d88e = _0xe605f8 && _0x36f0fb;
-        if (_0xe40bc5 && !_0x12d88e) {
-          _0x3f5451 += 1;
+      if (local13) {
+        flag2 = true;
+        const result5 = getVideoAuthorNickname(value2, result3 || local6);
+        const local = !!result2 && !!result5 && normalizeAuthorAccountName(result5) === result2;
+        const local2 = !!result4 && result4 !== "未知视频";
+        const local3 = local8 && local2;
+        if (local && !local3) {
+          num3 += 1;
         } else {
-          _0x3f5451 = 0;
+          num3 = 0;
         }
-        const _0x449c74 = _0x12d88e || _0x36f0fb && !!_0x95145c && !_0xe40bc5 || acceptTitleOnlySwitch && _0x49f22e && _0x36f0fb || _0x49f22e && _0x36f0fb && _0x3f5451 >= 3;
-        const _0x3f21dd = (_0xb46c21 || _0x49e4ed || _0x4a7cc3 || "") + "|" + (_0x1cbfa8 || "") + "|" + (_0x95145c || "");
-        if (!_0x449c74) {
-          if (_0xe40bc5 && _0xa3d4e5 % 3 === 0) {
-            console.log("[Built-in-Debug] [" + phaseLabel + "] 作者仍像上一条「" + _0x95145c + "」，继续快检对齐…");
+        const local5 = local3 || local2 && !!result5 && !local || acceptTitleOnlySwitch && local10 && local2 || local10 && local2 && num3 >= 3;
+        const value = (local6 || local4 || result3 || "") + "|" + (result4 || "") + "|" + (result5 || "");
+        if (!local5) {
+          if (local && num4 % 3 === 0) {
+            console.log("[Built-in-Debug] [" + phaseLabel + "] 作者仍像上一条「" + result5 + "」，继续快检对齐…");
           }
-          _0x1c3699 = "";
-          _0x1130f1 = 0;
+          text = "";
+          num = 0;
         } else {
-          if (_0x3f21dd === _0x1c3699) {
-            _0x1130f1 += 1;
+          if (value === text) {
+            num += 1;
           } else {
-            _0x1c3699 = _0x3f21dd;
-            _0x1130f1 = 1;
+            text = value;
+            num = 1;
           }
-          const _0xf9f3c5 = _0x12d88e || acceptTitleOnlySwitch && _0x49f22e && _0x36f0fb ? 1 : 2;
-          if (_0x1130f1 >= _0xf9f3c5) {
-            const _0x5379bd = Date.now() - _0x4496b6;
-            console.log("[Built-in-Debug] [" + phaseLabel + "] 切换成功！耗时: " + _0x5379bd + "ms, " + ("id=" + (_0xb46c21 || "n/a") + ", 作者: " + (_0x95145c || "待对齐") + ", ") + ("新标题: " + (_0x1cbfa8 || "").substring(0, 15) + "..."));
+          const value3 = local3 || acceptTitleOnlySwitch && local10 && local2 ? 1 : 2;
+          if (num >= value3) {
+            const value = Date.now() - result;
+            console.log("[Built-in-Debug] [" + phaseLabel + "] 切换成功！耗时: " + value + "ms, " + ("id=" + (local6 || "n/a") + ", 作者: " + (result5 || "待对齐") + ", ") + ("新标题: " + (result4 || "").substring(0, 15) + "..."));
             if (!quietTrace) {
-              _0x485cbc("新视频已加载：" + (_0x1cbfa8 || "未知").substring(0, 18) + "...");
+              reportCurrentAction("新视频已加载：" + (result4 || "未知").substring(0, 18) + "...");
             }
-            _0x59b5e8(_0x1f2e03, "切条确认后立即暂停防连播");
-            _0x143cc6 = true;
+            pauseVisibleDouyinVideos(value2, "切条确认后立即暂停防连播");
+            flag = true;
             break;
           }
         }
       }
-      const _0x27a6b9 = _0x12c3a7();
-      if (_0x27a6b9.shouldRetrySettleSwitch({
-        waitStart: _0x4496b6,
-        round: _0xa3d4e5,
-        sawSwitchProgress: _0x77ecb
+      const result5 = getFeedSwitchGuard();
+      if (result5.shouldRetrySettleSwitch({
+        waitStart: result,
+        round: num4,
+        sawSwitchProgress: flag2
       })) {
-        _0x53de7e += 1;
-        console.log("[Built-in-Debug] [" + phaseLabel + "检测] 等待 " + _0xa3d4e5 + " 轮仍停在原视频，重新尝试切换下一条...");
+        num2 += 1;
+        console.log("[Built-in-Debug] [" + phaseLabel + "检测] 等待 " + num4 + " 轮仍停在原视频，重新尝试切换下一条...");
         if (!quietTrace) {
-          _0x485cbc("新视频未响应，重新尝试切换下一条...");
+          reportCurrentAction("新视频未响应，重新尝试切换下一条...");
         }
-        if (_0x53de7e === 1) {
-          await _0x542620(_0x38e181, {
+        if (num2 === 1) {
+          await moveToNextVideo(arg1, {
             preferKeyboard: true
           });
         } else {
-          await _0x542620(_0x38e181, {
+          await moveToNextVideo(arg1, {
             aggressive: true,
             preferKeyboard: true
           });
         }
       }
-      await _0x3f311d(_0x77ecb ? 280 : 420);
+      await sleep(flag2 ? 280 : 420);
     }
-    return _0x143cc6;
+    return flag;
   }
-  async function _0xd25427(_0x3dc549, _0x5660d1, _0x57dbc3 = 10) {
-    const _0x42ac49 = _0x5660d1 || _0x379016();
-    const _0x3442f2 = _0x57dbc3;
-    let _0x195425 = _0x3442f2;
-    let _0x4fd4b1 = false;
-    let _0x4307aa = false;
-    for (let _0x3da9c6 = 0; _0x3da9c6 < _0x195425; _0x3da9c6++) {
-      if (_0x6ae554(_0x3dc549)) {
+  async function waitForFeedItemChange(arg1, arg2, num = 10) {
+    const local = arg2 || getFeedVideoIdentity();
+    const local2 = num;
+    let local3 = local2;
+    let flag = false;
+    let flag2 = false;
+    for (let num = 0; num < local3; num++) {
+      if (shouldAbort(arg1)) {
         return false;
       }
-      await _0x3f311d(450);
-      if (_0x2784ab() || _0x57923c()) {
-        _0x4307aa = true;
+      await sleep(450);
+      if (isDouyinFeedLiveStream() || hasFeedLiveEnterHint()) {
+        flag2 = true;
         continue;
       }
-      const _0x247442 = _0x379016();
-      if (_0x247442 && _0x247442 !== _0x42ac49) {
+      const result = getFeedVideoIdentity();
+      if (result && result !== local) {
         return true;
       }
-      if (!_0x247442) {
-        _0x4307aa = true;
+      if (!result) {
+        flag2 = true;
       }
-      const _0x33478b = _0x251e6e();
-      if (_0x33478b && !_0x5af672(_0x33478b)) {
+      const result2 = getVideoTitle();
+      if (result2 && !isDouyinLiveStreamTitle(result2)) {
         return true;
       }
-      if (!_0x4fd4b1 && (_0x4307aa || !_0x33478b || _0x33478b === "未知视频") && _0x3da9c6 >= _0x3442f2 - 1) {
-        _0x195425 = _0x18ba59(_0x3442f2, {
+      if (!flag && (flag2 || !result2 || result2 === "未知视频") && num >= local2 - 1) {
+        local3 = getExtendedReadyRounds(local2, {
           progress: true,
-          hardCapRounds: Math.min(_0x3442f2 + 8, 18)
+          hardCapRounds: Math.min(local2 + 8, 18)
         });
-        if (_0x195425 > _0x3442f2) {
-          _0x4fd4b1 = true;
-          console.log("[Built-in-Debug] [慢环境] 推荐流切换较慢，延长确认 " + _0x3442f2 + "→" + _0x195425 + " 轮");
+        if (local3 > local2) {
+          flag = true;
+          console.log("[Built-in-Debug] [慢环境] 推荐流切换较慢，延长确认 " + local2 + "→" + local3 + " 轮");
         }
       }
     }
     return false;
   }
   return {
-    aggressiveCommentListScroll: _0x6eb743,
-    awaitFeedVideoSwitchSettled: _0x46a588,
-    ensureCommentPanelOpen: _0x48d5bf,
-    expandReplies: _0x158519,
-    findCommentScrollContainer: _0x388d89,
-    getAdaptiveCommentWaitRange: _0x21c0d7,
-    getCommentEndHintText: _0x5afb7b,
-    getCommentScrollMetrics: _0x506676,
-    getCommentsTotalCount: _0x383b31,
-    getExtendedReadyBudgetMs: _0x5ba095,
-    getExtendedReadyRounds: _0x18ba59,
-    getScrapeNoCompliantTolerance: _0x31673e,
-    getScrapeNoNewDataTolerance: _0x31c540,
-    getVideoStats: _0x1b1fb7,
-    getVisibleCommentNodeCount: _0x4219bb,
-    getVisibleCommentViewportFingerprint: _0x2d3248,
-    isCommentPanelContentLoading: _0x322721,
-    isCommentPanelEmptyHint: _0x56787c,
-    maybeTrimRuntimeMemory: _0x8f6f16,
-    moveToNextVideo: _0x542620,
-    parseLocalizedCountText: _0x2cf46e,
-    pruneStaleCommentDom: _0x1d4842,
-    resolveEffectiveCommentTotalCount: _0x295978,
-    sampleVisibleCommentTexts: _0x645c7b,
-    scrollCommentList: _0x172781,
-    shouldContinueScrapeAfterDuplicateWindow: _0x40e648,
-    shouldExpandFoldedCommentReplies: _0xccbe40,
-    shouldProbeIncompleteScrapeBoundary: _0x34cd40,
-    trimRuntimeMemory: _0x1a508c,
-    waitForCommentDomWarmup: _0x30a0fb,
-    waitForFeedItemChange: _0xd25427
+    aggressiveCommentListScroll: aggressiveCommentListScroll,
+    awaitFeedVideoSwitchSettled: awaitFeedVideoSwitchSettled,
+    ensureCommentPanelOpen: ensureCommentPanelOpen,
+    expandReplies: expandReplies,
+    findCommentScrollContainer: findCommentScrollContainer,
+    getAdaptiveCommentWaitRange: getAdaptiveCommentWaitRange,
+    getCommentEndHintText: getCommentEndHintText,
+    getCommentScrollMetrics: getCommentScrollMetrics,
+    getCommentsTotalCount: getCommentsTotalCount,
+    getExtendedReadyBudgetMs: getExtendedReadyBudgetMs,
+    getExtendedReadyRounds: getExtendedReadyRounds,
+    getScrapeNoCompliantTolerance: getScrapeNoCompliantTolerance,
+    getScrapeNoNewDataTolerance: getScrapeNoNewDataTolerance,
+    getVideoStats: getVideoStats,
+    getVisibleCommentNodeCount: getVisibleCommentNodeCount,
+    getVisibleCommentViewportFingerprint: getVisibleCommentViewportFingerprint,
+    isCommentPanelContentLoading: isCommentPanelContentLoading,
+    isCommentPanelEmptyHint: isCommentPanelEmptyHint,
+    maybeTrimRuntimeMemory: maybeTrimRuntimeMemory,
+    moveToNextVideo: moveToNextVideo,
+    parseLocalizedCountText: parseLocalizedCountText,
+    pruneStaleCommentDom: pruneStaleCommentDom,
+    resolveEffectiveCommentTotalCount: resolveEffectiveCommentTotalCount,
+    sampleVisibleCommentTexts: sampleVisibleCommentTexts,
+    scrollCommentList: scrollCommentList,
+    shouldContinueScrapeAfterDuplicateWindow: shouldContinueScrapeAfterDuplicateWindow,
+    shouldExpandFoldedCommentReplies: shouldExpandFoldedCommentReplies,
+    shouldProbeIncompleteScrapeBoundary: shouldProbeIncompleteScrapeBoundary,
+    trimRuntimeMemory: trimRuntimeMemory,
+    waitForCommentDomWarmup: waitForCommentDomWarmup,
+    waitForFeedItemChange: waitForFeedItemChange
   };
 }
 module.exports = {
