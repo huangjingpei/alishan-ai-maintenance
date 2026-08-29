@@ -1,443 +1,443 @@
 'use strict';
 
-function createAutomationRuntimeController(_0x4e6eeb = {}) {
+function createAutomationRuntimeController(options = {}) {
   const {
-    DOUYIN_LIKE_ENTRY_URL: _0x542118,
-    DOUYIN_RECOMMEND_URL: _0xc9047c,
-    getDouyinLikeEntryUrl: _0x3896cb,
-    getDouyinRecommendUrl: _0x22aefe,
-    getDouyinFollowUrl: _0x5c87ec,
-    buildDouyinSearchUrl: _0x1f83ec,
-    dismissEntityLoginPopupsCore: _0x50140c,
-    finalizeAccountTask: _0x3f0212,
-    getCommentV2String: _0x1fbb3e,
-    getCommentV2List: _0x570b08,
-    getMainCommentInputShellSelector: _0x328a9a,
-    hasCommentNonTextPayload: _0x55a0db,
-    ipcRenderer: _0x511cd4,
-    isAiInvokeCancelled: _0x4f940c,
-    isElementInViewport: _0x552c68,
-    isElementInViewportForAutomation: _0x316aed,
-    isMonitorLoopId: _0x302b34,
-    isProfileFirstCommentAiMode: _0x4938d4,
-    isVisibleElement: _0x21b65c,
-    localStorage: _0x35f377,
-    matchesPlaceholderHint: _0x56c995,
-    radarSessionKey: _0x283cd6,
-    randomDelay: _0x1ebf90,
-    readRadarSessionState: _0x1a2ccc,
-    resolveMainCommentWritableElement: _0x5f1c47,
-    sessionStorage: _0x3ffb63,
-    shouldAbort: _0x4913fc,
-    simulateHumanClick: _0x1060de,
-    sleep: _0x224c1b,
-    preloadDir: _0x207d3c,
-    state: _0x3b9fd2
-  } = _0x4e6eeb;
-  const _0x370af9 = _0x207d3c;
-  const _0x3bdfe2 = () => typeof _0x22aefe === "function" ? _0x22aefe() : _0xc9047c;
-  const _0x4835b7 = () => typeof _0x3896cb === "function" ? _0x3896cb() : _0x542118;
-  const _0x9deeea = () => typeof _0x5c87ec === "function" ? _0x5c87ec() : "https://www.douyin.com/follow";
-  function _0x290466(_0x3e0983, _0x565122 = null, _0x36aeda = "normal") {
-    if (!_0x3e0983) {
+    DOUYIN_LIKE_ENTRY_URL: douyinLikeEntryUrl,
+    DOUYIN_RECOMMEND_URL: douyinRecommendUrl,
+    getDouyinLikeEntryUrl: getDouyinLikeEntryUrl,
+    getDouyinRecommendUrl: getDouyinRecommendUrl,
+    getDouyinFollowUrl: getDouyinFollowUrl,
+    buildDouyinSearchUrl: buildDouyinSearchUrl,
+    dismissEntityLoginPopupsCore: dismissEntityLoginPopupsCore,
+    finalizeAccountTask: finalizeAccountTask,
+    getCommentV2String: getCommentV2String,
+    getCommentV2List: getCommentV2List,
+    getMainCommentInputShellSelector: getMainCommentInputShellSelector,
+    hasCommentNonTextPayload: hasCommentNonTextPayload,
+    ipcRenderer: ipcRenderer,
+    isAiInvokeCancelled: isAiInvokeCancelled,
+    isElementInViewport: isElementInViewport,
+    isElementInViewportForAutomation: isElementInViewportForAutomation,
+    isMonitorLoopId: isMonitorLoopId,
+    isProfileFirstCommentAiMode: isProfileFirstCommentAiMode,
+    isVisibleElement: isVisibleElement,
+    localStorage: localStorage,
+    matchesPlaceholderHint: matchesPlaceholderHint,
+    radarSessionKey: radarSessionKey,
+    randomDelay: randomDelay,
+    readRadarSessionState: readRadarSessionState,
+    resolveMainCommentWritableElement: resolveMainCommentWritableElement,
+    sessionStorage: sessionStorage,
+    shouldAbort: shouldAbort,
+    simulateHumanClick: simulateHumanClick,
+    sleep: sleep,
+    preloadDir: preloadDir,
+    state: state
+  } = options;
+  const local = preloadDir;
+  const local2 = () => typeof getDouyinRecommendUrl === "function" ? getDouyinRecommendUrl() : douyinRecommendUrl;
+  const local3 = () => typeof getDouyinLikeEntryUrl === "function" ? getDouyinLikeEntryUrl() : douyinLikeEntryUrl;
+  const local4 = () => typeof getDouyinFollowUrl === "function" ? getDouyinFollowUrl() : "https://www.douyin.com/follow";
+  function reportCurrentAction(arg1, arg2 = null, text = "normal") {
+    if (!arg1) {
       return;
     }
-    _0x140dc2(_0x3e0983, _0x565122, _0x36aeda);
+    reportTraceLog(arg1, arg2, text);
     try {
-      const _0x546398 = _0x565122 || window._radar_account_id || _0x3ffb63.getItem("radar_account_id") || "default";
-      _0x511cd4.send("automation-data", {
+      const local = arg2 || window._radar_account_id || sessionStorage.getItem("radar_account_id") || "default";
+      ipcRenderer.send("automation-data", {
         type: "current-action",
         payload: {
-          accountId: _0x546398,
-          action: _0x3e0983,
-          level: _0x36aeda
+          accountId: local,
+          action: arg1,
+          level: text
         }
       });
-    } catch (_0xf32a81) {
-      console.warn("[Built-in-Debug] 汇报当前动作失败:", _0xf32a81);
+    } catch (error) {
+      console.warn("[Built-in-Debug] 汇报当前动作失败:", error);
     }
   }
-  function _0x140dc2(_0x4f0adc, _0x55bcc1 = null, _0x14a865 = "normal") {
-    const _0x2c3ddb = String(_0x4f0adc || "").trim();
-    if (!_0x2c3ddb) {
+  function reportTraceLog(arg1, arg2 = null, text = "normal") {
+    const result = String(arg1 || "").trim();
+    if (!result) {
       return;
     }
     try {
-      const _0x3b35cf = _0x55bcc1 || window._radar_account_id || _0x3ffb63.getItem("radar_account_id") || "default";
-      const _0x598c82 = _0x3b9fd2.currentTask?.isBatchAction ? _0x3b9fd2.currentTask.batchRunId ?? _0x3b9fd2.currentTask.runId : undefined;
-      _0x511cd4.send("automation-data", {
+      const local = arg2 || window._radar_account_id || sessionStorage.getItem("radar_account_id") || "default";
+      const value = state.currentTask?.isBatchAction ? state.currentTask.batchRunId ?? state.currentTask.runId : undefined;
+      ipcRenderer.send("automation-data", {
         type: "trace-log",
         payload: {
-          accountId: _0x3b35cf,
-          message: _0x2c3ddb,
-          level: _0x14a865,
-          runId: _0x598c82,
-          batchRunId: _0x598c82
+          accountId: local,
+          message: result,
+          level: text,
+          runId: value,
+          batchRunId: value
         }
       });
-    } catch (_0x64cc9d) {
-      console.warn("[Built-in-Debug] 轨迹详情上报失败:", _0x64cc9d);
+    } catch (error) {
+      console.warn("[Built-in-Debug] 轨迹详情上报失败:", error);
     }
   }
-  function _0x3709dd() {
-    return window._radar_account_id || _0x3ffb63.getItem("radar_account_id") || "default";
+  function fn3() {
+    return window._radar_account_id || sessionStorage.getItem("radar_account_id") || "default";
   }
-  function _0x2b9e3f(_0x150424 = {}) {
+  function buildAutomationAiPayload(options = {}) {
     return {
-      accountId: _0x3709dd(),
-      ..._0x150424
+      accountId: fn3(),
+      ...options
     };
   }
-  function _0x334fa9(_0x321038, _0x9f9f75 = null) {
-    const _0x173b98 = String(_0x321038 || "").trim();
-    if (!_0x173b98) {
+  function reportProfileFirstTrace(arg1, arg2 = null) {
+    const result = String(arg1 || "").trim();
+    if (!result) {
       return;
     }
-    _0x140dc2("📝 首作评论：" + _0x173b98, _0x9f9f75);
+    reportTraceLog("📝 首作评论：" + result, arg2);
   }
-  function _0x31dea9(_0x1c5546, _0x599430 = "", _0x4937e5 = "normal") {
-    const _0x3124ba = _0x2fbda9(window._radar_account_name || window._radar_account_id || "?", 10);
-    const _0x54221f = _0x599430 ? "：" + _0x599430 : "";
-    _0x140dc2("🔍[主评·" + _0x3124ba + "] " + _0x1c5546 + _0x54221f, null, _0x4937e5);
+  function reportCommentFlowTrace(arg1, text = "", text2 = "normal") {
+    const result = fn7(window._radar_account_name || window._radar_account_id || "?", 10);
+    const value = text ? "：" + text : "";
+    reportTraceLog("🔍[主评·" + result + "] " + arg1 + value, null, text2);
   }
-  function _0x57afe6(_0xe226fb, _0x4d3b72) {
-    const _0x2dbe48 = "task_aborted_" + _0xe226fb;
-    _0x31dea9("流程被中断", _0x2dbe48 + "；" + _0x3cf170(_0x4d3b72), "warning");
+  function buildMainCommentAbortResult(arg1, arg2) {
+    const value = "task_aborted_" + arg1;
+    reportCommentFlowTrace("流程被中断", value + "；" + describeTaskAbortReason(arg2), "warning");
     return {
       success: false,
-      error: _0x2dbe48,
+      error: value,
       aborted: true
     };
   }
-  function _0x129413(_0x1a640d) {
-    if (!_0x1a640d) {
+  function getCommentPlaceholderText(arg1) {
+    if (!arg1) {
       return "";
     }
-    return [_0x1a640d.getAttribute?.("placeholder") || "", _0x1a640d.getAttribute?.("data-placeholder") || "", _0x1a640d.getAttribute?.("aria-label") || "", _0x1a640d.innerText || _0x1a640d.textContent || ""].join(" ").replace(/\s+/g, " ").trim();
+    return [arg1.getAttribute?.("placeholder") || "", arg1.getAttribute?.("data-placeholder") || "", arg1.getAttribute?.("aria-label") || "", arg1.innerText || arg1.textContent || ""].join(" ").replace(/\s+/g, " ").trim();
   }
-  function _0x4b0572(_0x1a474c, {
+  function isMainCommentPlaceholderCandidate(arg1, {
     requireViewport = true,
     profileVideo = false
   } = {}) {
-    if (!_0x1a474c || !_0x21b65c(_0x1a474c)) {
+    if (!arg1 || !isVisibleElement(arg1)) {
       return false;
     }
     if (requireViewport) {
-      if (profileVideo ? !_0x552c68(_0x1a474c) : !_0x316aed(_0x1a474c)) {
+      if (profileVideo ? !isElementInViewport(arg1) : !isElementInViewportForAutomation(arg1)) {
         return false;
       }
     }
-    const _0x2528a9 = [_0x1a474c.getAttribute?.("placeholder") || "", _0x1a474c.getAttribute?.("data-placeholder") || "", _0x1a474c.getAttribute?.("aria-label") || ""].join(" ").replace(/\s+/g, " ").trim();
-    const _0x58e50d = (_0x1a474c.innerText || _0x1a474c.textContent || "").replace(/\s+/g, " ").trim();
-    const _0x33ddd6 = _0x2528a9 || _0x58e50d;
-    const _0x134308 = typeof _0x1a474c.className === "string" ? _0x1a474c.className.toLowerCase() : "";
-    let _0x2c6d07 = false;
-    if (_0x134308.includes("placeholder")) {
-      const _0x2ec9db = _0x328a9a();
+    const result = [arg1.getAttribute?.("placeholder") || "", arg1.getAttribute?.("data-placeholder") || "", arg1.getAttribute?.("aria-label") || ""].join(" ").replace(/\s+/g, " ").trim();
+    const result2 = (arg1.innerText || arg1.textContent || "").replace(/\s+/g, " ").trim();
+    const local = result || result2;
+    const value = typeof arg1.className === "string" ? arg1.className.toLowerCase() : "";
+    let flag = false;
+    if (value.includes("placeholder")) {
+      const result = getMainCommentInputShellSelector();
       try {
-        _0x2c6d07 = !!_0x2ec9db && !!_0x1a474c.closest(_0x2ec9db);
-      } catch (_0xca298a) {}
+        flag = !!result && !!arg1.closest(result);
+      } catch (error) {}
     }
-    const _0x4f0d09 = _0x56c995(_0x33ddd6) || /说点什么|留下.*评论|友善交流|发条评论|写下.*评论|输入.*评论|发表评论/.test(_0x33ddd6) || _0x2c6d07;
-    if (!_0x4f0d09) {
+    const local2 = matchesPlaceholderHint(local) || /说点什么|留下.*评论|友善交流|发条评论|写下.*评论|输入.*评论|发表评论/.test(local) || flag;
+    if (!local2) {
       return false;
     }
-    if (_0x1a474c.closest("[class*=\"comment-item\"], [class*=\"CommentItem\"]")) {
+    if (arg1.closest("[class*=\"comment-item\"], [class*=\"CommentItem\"]")) {
       return false;
     }
-    if (!_0x2c6d07 && _0x1a474c.closest("button, [role=\"button\"]")) {
+    if (!flag && arg1.closest("button, [role=\"button\"]")) {
       return false;
     }
-    if (!_0x2c6d07) {
-      if (!_0x2528a9 && (_0x1a474c.children.length > 3 || _0x58e50d.length > 100)) {
+    if (!flag) {
+      if (!result && (arg1.children.length > 3 || result2.length > 100)) {
         return false;
       }
-      if (!_0x2528a9 && Array.from(_0x1a474c.children || []).some(_0x1c00e4 => {
-        const _0x46c877 = _0x129413(_0x1c00e4);
-        return _0x46c877 && _0x46c877.length <= 100 && _0x56c995(_0x46c877);
+      if (!result && Array.from(arg1.children || []).some(arg1 => {
+        const result = getCommentPlaceholderText(arg1);
+        return result && result.length <= 100 && matchesPlaceholderHint(result);
       })) {
         return false;
       }
     }
-    const _0x390779 = _0x1a474c.getBoundingClientRect();
-    const _0x4be839 = Math.max(800, Math.floor(window.innerWidth * 0.72));
-    const _0x38bf4c = _0x2c6d07 ? 180 : 140;
-    if (_0x390779.height > _0x38bf4c || _0x390779.width > _0x4be839) {
+    const result3 = arg1.getBoundingClientRect();
+    const result4 = Math.max(800, Math.floor(window.innerWidth * 0.72));
+    const value2 = flag ? 180 : 140;
+    if (result3.height > value2 || result3.width > result4) {
       return false;
     }
-    if (_0x390779.width < 12 || _0x390779.height < 12) {
+    if (result3.width < 12 || result3.height < 12) {
       return false;
     }
-    const _0x115dc5 = _0x390779.left + _0x390779.width / 2;
-    const _0x4cd68b = _0x390779.top + _0x390779.height / 2;
-    if (requireViewport && (_0x115dc5 <= 5 || _0x4cd68b <= 5 || _0x115dc5 >= window.innerWidth - 5 || _0x4cd68b >= window.innerHeight - 5)) {
+    const value3 = result3.left + result3.width / 2;
+    const value4 = result3.top + result3.height / 2;
+    if (requireViewport && (value3 <= 5 || value4 <= 5 || value3 >= window.innerWidth - 5 || value4 >= window.innerHeight - 5)) {
       return false;
     }
     return true;
   }
-  function _0x34336e(_0xb9b191) {
-    if (!_0xb9b191) {
+  function scoreMainCommentPlaceholderCandidate(arg1) {
+    if (!arg1) {
       return -Infinity;
     }
-    const _0x255380 = _0xb9b191.getBoundingClientRect();
-    let _0x38cb73 = 0;
-    const _0x7216ab = [_0xb9b191.getAttribute?.("placeholder") || "", _0xb9b191.getAttribute?.("data-placeholder") || "", _0xb9b191.getAttribute?.("aria-label") || ""].join(" ").trim();
-    const _0x2ae35f = _0x328a9a();
+    const result = arg1.getBoundingClientRect();
+    let num = 0;
+    const result2 = [arg1.getAttribute?.("placeholder") || "", arg1.getAttribute?.("data-placeholder") || "", arg1.getAttribute?.("aria-label") || ""].join(" ").trim();
+    const result3 = getMainCommentInputShellSelector();
     try {
-      if (_0x2ae35f && _0xb9b191.closest(_0x2ae35f)) {
-        _0x38cb73 += 240;
+      if (result3 && arg1.closest(result3)) {
+        num += 240;
       }
-    } catch (_0x40358a) {}
-    if (_0x7216ab) {
-      _0x38cb73 += 120;
+    } catch (error) {}
+    if (result2) {
+      num += 120;
     }
-    if ((_0xb9b191.innerText || _0xb9b191.textContent || "").trim().length <= 50) {
-      _0x38cb73 += 40;
+    if ((arg1.innerText || arg1.textContent || "").trim().length <= 50) {
+      num += 40;
     }
-    if (_0x255380.left >= window.innerWidth * 0.45) {
-      _0x38cb73 += 35;
+    if (result.left >= window.innerWidth * 0.45) {
+      num += 35;
     }
-    _0x38cb73 += Math.max(0, Math.min(35, _0x255380.bottom / Math.max(window.innerHeight, 1) * 35));
-    _0x38cb73 -= Math.min(60, _0xb9b191.querySelectorAll?.("*")?.length || 0);
-    return _0x38cb73;
+    num += Math.max(0, Math.min(35, result.bottom / Math.max(window.innerHeight, 1) * 35));
+    num -= Math.min(60, arg1.querySelectorAll?.("*")?.length || 0);
+    return num;
   }
-  function _0x31c9cd(_0x45f929) {
+  function describeMainCommentInputEnvironment(arg1) {
     try {
-      const _0xbe56a2 = _0x45f929 || document.body;
-      const _0x55679b = _0x1fbb3e("commentInput");
-      const _0x1a45b7 = _0x55679b ? new Set(Array.from(_0xbe56a2?.querySelectorAll?.(_0x55679b) || []).map(_0x5f1c47).filter(Boolean)).size : 0;
-      const _0x448ca6 = Array.from(_0xbe56a2?.querySelectorAll?.("div, span, p, textarea[placeholder], input[placeholder], [contenteditable=\"true\"][data-placeholder], [role=\"textbox\"][aria-label]") || []).filter(_0x1a92c1 => {
-        const _0x35af9e = _0x129413(_0x1a92c1);
-        return _0x56c995(_0x35af9e) || /评论|说点什么|留下.*评论|友善交流/.test(_0x35af9e);
+      const local = arg1 || document.body;
+      const result = getCommentV2String("commentInput");
+      const value = result ? new Set(Array.from(local?.querySelectorAll?.(result) || []).map(resolveMainCommentWritableElement).filter(Boolean)).size : 0;
+      const result2 = Array.from(local?.querySelectorAll?.("div, span, p, textarea[placeholder], input[placeholder], [contenteditable=\"true\"][data-placeholder], [role=\"textbox\"][aria-label]") || []).filter(arg1 => {
+        const result = getCommentPlaceholderText(arg1);
+        return matchesPlaceholderHint(result) || /评论|说点什么|留下.*评论|友善交流/.test(result);
       });
-      const _0x380f2f = _0x448ca6.length;
-      const _0x153ecb = _0x448ca6.filter(_0x4ffb5f => _0x4b0572(_0x4ffb5f, {
+      const value2 = result2.length;
+      const value3 = result2.filter(arg1 => isMainCommentPlaceholderCandidate(arg1, {
         requireViewport: true,
         profileVideo: false
       })).length;
-      const _0x3ec037 = _0x448ca6.filter(_0x1804c9 => _0x4b0572(_0x1804c9, {
+      const value4 = result2.filter(arg1 => isMainCommentPlaceholderCandidate(arg1, {
         requireViewport: false,
         profileVideo: false
       })).length;
-      return ["viewport=" + window.innerWidth + "x" + window.innerHeight, "visibility=" + document.visibilityState, "focused=" + (document.hasFocus?.() !== false), "modalConnected=" + !!_0x45f929?.isConnected, "editable=" + _0x1a45b7, "placeholder=" + _0x380f2f, "phClickable=" + _0x153ecb, "phLoose=" + _0x3ec037, "active=" + (document.activeElement?.tagName || "none"), "native=" + _0x3b9fd2.lastTrustedClickDiagnostic].join(" ");
-    } catch (_0xbd9a67) {
-      return "diagnostic_failed=" + _0x2fbda9(_0xbd9a67?.message || _0xbd9a67, 40);
+      return ["viewport=" + window.innerWidth + "x" + window.innerHeight, "visibility=" + document.visibilityState, "focused=" + (document.hasFocus?.() !== false), "modalConnected=" + !!arg1?.isConnected, "editable=" + value, "placeholder=" + value2, "phClickable=" + value3, "phLoose=" + value4, "active=" + (document.activeElement?.tagName || "none"), "native=" + state.lastTrustedClickDiagnostic].join(" ");
+    } catch (error) {
+      return "diagnostic_failed=" + fn7(error?.message || error, 40);
     }
   }
-  function _0x3cf170(_0x45e8cc) {
-    const _0x472b32 = ["state.taskRunning=" + _0x3b9fd2.taskRunning, "state.stopRequested=" + _0x3b9fd2.stopRequested, "state.pausedForSubview=" + _0x3b9fd2.pausedForSubview, "loopId=" + (_0x45e8cc || "null"), "state.activeLoopId=" + (_0x3b9fd2.activeLoopId || "null")];
-    if (_0x45e8cc && _0x45e8cc !== _0x3b9fd2.activeLoopId) {
-      _0x472b32.push("loopId_mismatch");
+  function describeTaskAbortReason(arg1) {
+    const list = ["state.taskRunning=" + state.taskRunning, "state.stopRequested=" + state.stopRequested, "state.pausedForSubview=" + state.pausedForSubview, "loopId=" + (arg1 || "null"), "state.activeLoopId=" + (state.activeLoopId || "null")];
+    if (arg1 && arg1 !== state.activeLoopId) {
+      list.push("loopId_mismatch");
     }
-    if (!_0x3b9fd2.taskRunning && _0x45e8cc !== "BATCH" && _0x45e8cc !== "SELF_WARMUP" && (typeof _0x45e8cc !== "string" || !_0x45e8cc.startsWith("MONITOR"))) {
-      _0x472b32.push("taskRunning_false");
+    if (!state.taskRunning && arg1 !== "BATCH" && arg1 !== "SELF_WARMUP" && (typeof arg1 !== "string" || !arg1.startsWith("MONITOR"))) {
+      list.push("taskRunning_false");
     }
-    return _0x472b32.join(", ");
+    return list.join(", ");
   }
-  let _0x2de608;
-  function _0x13b88b() {
-    if (_0x2de608 !== undefined) {
-      return _0x2de608;
+  let local5;
+  function getAutomationTextHelpersModule() {
+    if (local5 !== undefined) {
+      return local5;
     }
-    const _0x74fce3 = (() => {
+    const result = (() => {
       try {
         return require("path");
-      } catch (_0x51edd3) {
+      } catch (error) {
         return null;
       }
     })();
-    const _0x2b5b43 = ["./shared/automationTextHelpers", "./shared/automationTextHelpers.js"];
-    if (_0x74fce3 && typeof _0x370af9 === "string") {
-      _0x2b5b43.push(_0x74fce3.join(_0x370af9, "shared", "automationTextHelpers.js"), _0x74fce3.join(_0x370af9, "shared", "automationTextHelpers"), _0x74fce3.join(_0x370af9, "..", "shared", "automationTextHelpers.js"));
+    const list = ["./shared/automationTextHelpers", "./shared/automationTextHelpers.js"];
+    if (result && typeof local === "string") {
+      list.push(result.join(local, "shared", "automationTextHelpers.js"), result.join(local, "shared", "automationTextHelpers"), result.join(local, "..", "shared", "automationTextHelpers.js"));
     }
-    for (const _0x5a2421 of _0x2b5b43) {
+    for (const item of list) {
       try {
-        const _0x120ce4 = require(_0x5a2421);
-        if (typeof _0x120ce4?.clipTraceText === "function" && typeof _0x120ce4?.personalizeDmTemplate === "function") {
-          _0x2de608 = _0x120ce4;
-          return _0x2de608;
+        const result = require(item);
+        if (typeof result?.clipTraceText === "function" && typeof result?.personalizeDmTemplate === "function") {
+          local5 = result;
+          return local5;
         }
-      } catch (_0x5009e1) {}
+      } catch (error) {}
     }
     console.warn("[Built-in-Debug] automationTextHelpers 模块未找到，回退内置实现");
-    _0x2de608 = null;
-    return _0x2de608;
+    local5 = null;
+    return local5;
   }
-  function _0x34f96f(_0x39c236) {
-    const _0xdaff4d = _0x13b88b();
-    if (_0xdaff4d?.isFatalAiAuthError) {
-      return _0xdaff4d.isFatalAiAuthError(_0x39c236);
+  function fn15(arg1) {
+    const result = getAutomationTextHelpersModule();
+    if (result?.isFatalAiAuthError) {
+      return result.isFatalAiAuthError(arg1);
     }
-    if (!_0x39c236) {
+    if (!arg1) {
       return false;
     }
-    const _0x153a58 = String(_0x39c236);
-    return _0x153a58.includes("额度已用完") || _0x153a58.includes("已用完") || _0x153a58.includes("卡密已过期") || _0x153a58.includes("授权码无效") || _0x153a58.includes("设备已被封") || _0x153a58.includes("余额不足") || _0x153a58.includes("未授权");
+    const result2 = String(arg1);
+    return result2.includes("额度已用完") || result2.includes("已用完") || result2.includes("卡密已过期") || result2.includes("授权码无效") || result2.includes("设备已被封") || result2.includes("余额不足") || result2.includes("未授权");
   }
-  function _0x2fbda9(_0x4c383b, _0x2e8f4a = 120) {
-    const _0x298f78 = _0x13b88b();
-    if (_0x298f78?.clipTraceText) {
-      return _0x298f78.clipTraceText(_0x4c383b, _0x2e8f4a);
+  function fn7(arg1, num = 120) {
+    const result = getAutomationTextHelpersModule();
+    if (result?.clipTraceText) {
+      return result.clipTraceText(arg1, num);
     }
-    const _0x44bad1 = String(_0x4c383b || "").trim();
-    if (!_0x44bad1) {
+    const result2 = String(arg1 || "").trim();
+    if (!result2) {
       return "";
     }
-    if (_0x44bad1.length > _0x2e8f4a) {
-      return _0x44bad1.slice(0, _0x2e8f4a) + "…";
+    if (result2.length > num) {
+      return result2.slice(0, num) + "…";
     } else {
-      return _0x44bad1;
+      return result2;
     }
   }
-  function _0x4686eb(_0x47402b, _0x28265a = {}) {
-    const _0x51d7be = _0x13b88b();
-    if (_0x51d7be?.personalizeDmTemplate) {
-      return _0x51d7be.personalizeDmTemplate(_0x47402b, _0x28265a);
+  function fn16(arg1, options = {}) {
+    const result = getAutomationTextHelpersModule();
+    if (result?.personalizeDmTemplate) {
+      return result.personalizeDmTemplate(arg1, options);
     }
-    const _0x3cb136 = String(_0x28265a?.nickname || _0x28265a?.name || "朋友").trim() || "朋友";
-    return String(_0x47402b || "").replace(/\{nickname\}/g, _0x3cb136);
+    const local = String(options?.nickname || options?.name || "朋友").trim() || "朋友";
+    return String(arg1 || "").replace(/\{nickname\}/g, local);
   }
-  let _0x30f8e7;
-  function _0x4d9a5b(_0x148113 = _0x3b9fd2.currentTask) {
-    const _0x92a81b = _0x148113?.locationFilterRegions;
-    if (!_0x92a81b) {
+  let local6;
+  function resolveTaskLocationFilterRegions(arg1 = state.currentTask) {
+    const local = arg1?.locationFilterRegions;
+    if (!local) {
       return [];
     }
-    const _0x40f9a3 = Array.isArray(_0x92a81b) ? _0x92a81b : String(_0x92a81b).split(/[,，\s\n]+/);
-    return _0x40f9a3.map(_0x33b33e => String(_0x33b33e || "").trim()).filter(Boolean);
+    const value = Array.isArray(local) ? local : String(local).split(/[,，\s\n]+/);
+    return value.map(arg1 => String(arg1 || "").trim()).filter(Boolean);
   }
-  function _0x5b929a(_0x48543f = _0x3b9fd2.currentTask) {
-    return _0x4d9a5b(_0x48543f).length > 0;
+  function taskLocationFilterEnabled(arg1 = state.currentTask) {
+    return resolveTaskLocationFilterRegions(arg1).length > 0;
   }
-  function _0x3aef23(_0x4fd76c = _0x3b9fd2.currentTask) {
-    const _0x3e5ff7 = _0x4d9a5b(_0x4fd76c);
-    if (!_0x3e5ff7.length) {
+  function formatTaskLocationFilterSummary(arg1 = state.currentTask) {
+    const result = resolveTaskLocationFilterRegions(arg1);
+    if (!result.length) {
       return "不限";
     }
-    const _0x57762f = _0x4fd76c?.locationFilterMode === "exclude" ? "不包含" : "包含";
-    return _0x57762f + "：" + _0x3e5ff7.join("、");
+    const value = arg1?.locationFilterMode === "exclude" ? "不包含" : "包含";
+    return value + "：" + result.join("、");
   }
-  function _0x259d43(_0x3c6ca2, _0x4683c4 = _0x3b9fd2.currentTask) {
-    const _0x16f4bd = _0x4d9a5b(_0x4683c4);
-    if (!_0x16f4bd.length) {
+  function evaluateLeadLocationFilter(arg1, arg2 = state.currentTask) {
+    const result = resolveTaskLocationFilterRegions(arg2);
+    if (!result.length) {
       return {
         pass: true
       };
     }
-    const _0x4aec0a = _0x2b7132();
-    if (_0x4aec0a?.evaluateTaskLocationFilter) {
-      return _0x4aec0a.evaluateTaskLocationFilter(_0x3c6ca2, _0x4683c4);
+    const result2 = getLocationFilterModule();
+    if (result2?.evaluateTaskLocationFilter) {
+      return result2.evaluateTaskLocationFilter(arg1, arg2);
     }
-    const _0x17945e = String(_0x3c6ca2?.ipLocation || _0x3c6ca2?.location || "").trim();
-    const _0x17a495 = _0x4683c4?.locationFilterMode === "exclude" ? "exclude" : "include";
-    if (_0x17a495 === "exclude") {
-      if (!_0x17945e || _0x17945e === "未知") {
+    const result3 = String(arg1?.ipLocation || arg1?.location || "").trim();
+    const value = arg2?.locationFilterMode === "exclude" ? "exclude" : "include";
+    if (value === "exclude") {
+      if (!result3 || result3 === "未知") {
         return {
           pass: true
         };
       }
-      if (_0x16f4bd.some(_0x1026f0 => _0x1026f0 && _0x17945e.includes(_0x1026f0))) {
+      if (result.some(arg1 => arg1 && result3.includes(arg1))) {
         return {
           pass: false,
-          reason: "地区排除（" + _0x17945e + "）"
+          reason: "地区排除（" + result3 + "）"
         };
       }
       return {
         pass: true
       };
     }
-    if (!_0x17945e || _0x17945e === "未知") {
+    if (!result3 || result3 === "未知") {
       return {
         pass: false,
         reason: "地区未知"
       };
     }
-    if (_0x16f4bd.some(_0x1a2d11 => _0x1a2d11 && _0x17945e.includes(_0x1a2d11))) {
+    if (result.some(arg1 => arg1 && result3.includes(arg1))) {
       return {
         pass: true
       };
     }
     return {
       pass: false,
-      reason: "地区不符（" + _0x17945e + "）"
+      reason: "地区不符（" + result3 + "）"
     };
   }
-  function _0x2b7132() {
-    if (_0x30f8e7 !== undefined) {
-      return _0x30f8e7;
+  function getLocationFilterModule() {
+    if (local6 !== undefined) {
+      return local6;
     }
-    const _0x3e307f = (() => {
+    const result = (() => {
       try {
         return require("path");
-      } catch (_0x4629c5) {
+      } catch (error) {
         return null;
       }
     })();
-    const _0x203a3d = ["./shared/locationFilter"];
-    if (_0x3e307f && typeof _0x370af9 === "string") {
-      _0x203a3d.push(_0x3e307f.join(_0x370af9, "shared", "locationFilter"), _0x3e307f.join(_0x370af9, "..", "shared", "locationFilter"));
+    const list = ["./shared/locationFilter"];
+    if (result && typeof local === "string") {
+      list.push(result.join(local, "shared", "locationFilter"), result.join(local, "..", "shared", "locationFilter"));
     }
-    for (const _0x8b04e1 of _0x203a3d) {
+    for (const item of list) {
       try {
-        _0x30f8e7 = require(_0x8b04e1);
-        console.log("[Built-in-Debug] locationFilter 已加载: " + _0x8b04e1);
-        return _0x30f8e7;
-      } catch (_0x51981e) {}
+        local6 = require(item);
+        console.log("[Built-in-Debug] locationFilter 已加载: " + item);
+        return local6;
+      } catch (error) {}
     }
     console.warn("[Built-in-Debug] locationFilter 模块未找到，使用内置回退逻辑");
-    _0x30f8e7 = null;
-    return _0x30f8e7;
+    local6 = null;
+    return local6;
   }
-  let _0xe00c95;
-  function _0x262a76() {
-    if (_0xe00c95 !== undefined) {
-      return _0xe00c95;
+  let local7;
+  function fn22() {
+    if (local7 !== undefined) {
+      return local7;
     }
     try {
-      _0xe00c95 = require("./shared/localCommentAnalysis");
-    } catch (_0x15b081) {
-      console.warn("[Built-in-Debug] localCommentAnalysis 加载失败，跳过后端预筛:", _0x15b081.message);
-      _0xe00c95 = null;
+      local7 = require("./shared/localCommentAnalysis");
+    } catch (error) {
+      console.warn("[Built-in-Debug] localCommentAnalysis 加载失败，跳过后端预筛:", error.message);
+      local7 = null;
     }
-    return _0xe00c95;
+    return local7;
   }
-  let _0x2588d2;
-  function _0x14a84f() {
-    if (_0x2588d2 !== undefined) {
-      return _0x2588d2;
+  let local8;
+  function fn23() {
+    if (local8 !== undefined) {
+      return local8;
     }
-    const _0x447cd7 = (() => {
+    const result = (() => {
       try {
         return require("path");
-      } catch (_0x2cfa8d) {
+      } catch (error) {
         return null;
       }
     })();
-    const _0x12319c = ["./shared/douyinCommentLike", "./shared/douyinCommentLike.js"];
-    if (_0x447cd7 && typeof _0x370af9 === "string") {
-      _0x12319c.push(_0x447cd7.join(_0x370af9, "shared", "douyinCommentLike.js"), _0x447cd7.join(_0x370af9, "shared", "douyinCommentLike"), _0x447cd7.join(_0x370af9, "..", "shared", "douyinCommentLike.js"));
+    const list = ["./shared/douyinCommentLike", "./shared/douyinCommentLike.js"];
+    if (result && typeof local === "string") {
+      list.push(result.join(local, "shared", "douyinCommentLike.js"), result.join(local, "shared", "douyinCommentLike"), result.join(local, "..", "shared", "douyinCommentLike.js"));
     }
-    for (const _0x31d4da of _0x12319c) {
+    for (const item of list) {
       try {
-        const _0x3594ad = require(_0x31d4da);
-        if (typeof _0x3594ad?.resolveCommentLikeControl === "function") {
-          _0x2588d2 = _0x3594ad;
-          console.log("[Built-in-Debug] douyinCommentLike 已加载: " + _0x31d4da);
-          return _0x2588d2;
+        const result = require(item);
+        if (typeof result?.resolveCommentLikeControl === "function") {
+          local8 = result;
+          console.log("[Built-in-Debug] douyinCommentLike 已加载: " + item);
+          return local8;
         }
-      } catch (_0x25ee37) {}
+      } catch (error) {}
     }
     console.warn("[Built-in-Debug] douyinCommentLike 模块未找到，跳过评论点赞定位");
-    _0x2588d2 = null;
-    return _0x2588d2;
+    local8 = null;
+    return local8;
   }
-  function _0x5b4b75(_0xd4e4ec) {
-    const _0x43fafc = _0x14a84f();
-    if (_0x43fafc?.resolveCommentLikeControl) {
-      return _0x43fafc.resolveCommentLikeControl(_0xd4e4ec, {
-        isVisibleElement: _0x21b65c,
-        getCommentV2String: _0x1fbb3e,
-        getCommentV2List: _0x570b08
+  function resolveCommentLikeControlInNode(arg1) {
+    const result = fn23();
+    if (result?.resolveCommentLikeControl) {
+      return result.resolveCommentLikeControl(arg1, {
+        isVisibleElement: isVisibleElement,
+        getCommentV2String: getCommentV2String,
+        getCommentV2List: getCommentV2List
       });
     }
     return {
@@ -447,15 +447,15 @@ function createAutomationRuntimeController(_0x4e6eeb = {}) {
       score: -1
     };
   }
-  function _0xdb1961(_0x4280c1) {
-    if (!_0x4280c1) {
+  function snapshotCommentLikeControlState(arg1) {
+    if (!arg1) {
       return null;
     }
-    const _0xe0164f = _0x14a84f();
-    if (_0xe0164f?.snapshotCommentLikeState) {
-      return _0xe0164f.snapshotCommentLikeState(_0x4280c1, _0xe0164f.resolveCommentLikePack?.({
-        getCommentV2String: _0x1fbb3e,
-        getCommentV2List: _0x570b08
+    const result = fn23();
+    if (result?.snapshotCommentLikeState) {
+      return result.snapshotCommentLikeState(arg1, result.resolveCommentLikePack?.({
+        getCommentV2String: getCommentV2String,
+        getCommentV2List: getCommentV2List
       }));
     }
     return {
@@ -464,281 +464,281 @@ function createAutomationRuntimeController(_0x4e6eeb = {}) {
       likedClass: false
     };
   }
-  function _0x4f4b1e(_0x936474, _0xe55a28) {
-    const _0x566386 = _0x14a84f();
-    if (_0x566386?.hasCommentLikeTakenEffect) {
-      return _0x566386.hasCommentLikeTakenEffect(_0x936474, _0xe55a28);
+  function fn26(arg1, arg2) {
+    const result = fn23();
+    if (result?.hasCommentLikeTakenEffect) {
+      return result.hasCommentLikeTakenEffect(arg1, arg2);
     }
-    return !!_0xe55a28?.liked;
+    return !!arg2?.liked;
   }
-  function _0x470680(_0x76a409) {
-    if (!_0x76a409) {
+  function describeCommentLikeState(arg1) {
+    if (!arg1) {
       return "none";
     }
-    return "liked=" + (_0x76a409.liked ? 1 : 0) + " count=" + (_0x76a409.count == null ? "-" : _0x76a409.count) + " cls=" + (_0x76a409.likedClass ? 1 : 0);
+    return "liked=" + (arg1.liked ? 1 : 0) + " count=" + (arg1.count == null ? "-" : arg1.count) + " cls=" + (arg1.likedClass ? 1 : 0);
   }
-  function _0x78f795(_0x1db25c) {
-    const _0x8712a3 = Array.isArray(_0x1db25c) ? _0x1db25c : [];
-    const _0x49f729 = [];
-    const _0x5d2f83 = [];
-    const _0x427d1b = new Map();
-    for (const _0x2e3185 of _0x8712a3) {
-      if (_0x2e3185?.excludedCommentKeyword) {
-        const _0x29f0f4 = _0x2e3185.aiThought || _0x2e3185.thought || "命中排除评论关键词「" + _0x2e3185.excludedCommentKeyword + "」，直接判定为低意向";
-        _0x2e3185.isHighIntention = false;
-        _0x2e3185.aiThought = _0x29f0f4;
-        _0x2e3185.thought = _0x29f0f4;
-        const _0x45bd9b = {
+  function prepareLeadsForAiAnalysis(arg1) {
+    const value = Array.isArray(arg1) ? arg1 : [];
+    const list = [];
+    const list2 = [];
+    const map = new Map();
+    for (const item of value) {
+      if (item?.excludedCommentKeyword) {
+        const local = item.aiThought || item.thought || "命中排除评论关键词「" + item.excludedCommentKeyword + "」，直接判定为低意向";
+        item.isHighIntention = false;
+        item.aiThought = local;
+        item.thought = local;
+        const obj = {
           decision: "ignore",
           replyContent: "",
-          aiThought: _0x29f0f4
+          aiThought: local
         };
-        _0x427d1b.set(_0x2e3185.leadId, _0x45bd9b);
-        _0x49f729.push(_0x2e3185);
+        map.set(item.leadId, obj);
+        list.push(item);
       } else {
-        _0x5d2f83.push(_0x2e3185);
+        list2.push(item);
       }
     }
-    const _0x6b1828 = _0x262a76();
-    if (!_0x6b1828) {
+    const result = fn22();
+    if (!result) {
       return {
-        forBackend: _0x5d2f83,
-        localDecisions: _0x427d1b,
-        localCount: _0x49f729.length,
-        localLeads: _0x49f729
+        forBackend: list2,
+        localDecisions: map,
+        localCount: list.length,
+        localLeads: list
       };
     }
     const {
-      forBackend: _0x4d7b7d,
-      localDecisions: _0x545ed5,
-      localCount: _0x2ea30d
-    } = _0x6b1828.partitionLeadsForAiAnalysis(_0x5d2f83);
-    _0x427d1b.forEach((_0x432c1b, _0x30b0ea) => _0x545ed5.set(_0x30b0ea, _0x432c1b));
-    const _0x2f7c01 = [..._0x49f729];
-    for (const _0x335c6a of _0x5d2f83) {
-      const _0x5f2a97 = _0x545ed5.get(_0x335c6a.leadId);
-      if (_0x5f2a97) {
-        _0x6b1828.applyLocalAiDecisionToLead(_0x335c6a, _0x5f2a97);
-        _0x2f7c01.push(_0x335c6a);
+      forBackend: forBackend,
+      localDecisions: localDecisions,
+      localCount: localCount
+    } = result.partitionLeadsForAiAnalysis(list2);
+    map.forEach((arg1, arg2) => localDecisions.set(arg2, arg1));
+    const list3 = [...list];
+    for (const item of list2) {
+      const result2 = localDecisions.get(item.leadId);
+      if (result2) {
+        result.applyLocalAiDecisionToLead(item, result2);
+        list3.push(item);
       }
     }
     return {
-      forBackend: _0x4d7b7d,
-      localDecisions: _0x545ed5,
-      localCount: _0x2ea30d + _0x49f729.length,
-      localLeads: _0x2f7c01
+      forBackend: forBackend,
+      localDecisions: localDecisions,
+      localCount: localCount + list.length,
+      localLeads: list3
     };
   }
-  function _0x2131d1(_0xdf0f8b = _0x3b9fd2.currentTask?.excludeCommentKeywords) {
-    const _0xc5a3b0 = _0x13b88b();
-    if (_0xc5a3b0?.parseExcludedCommentKeywords) {
-      return _0xc5a3b0.parseExcludedCommentKeywords(_0xdf0f8b);
+  function fn29(arg1 = state.currentTask?.excludeCommentKeywords) {
+    const result = getAutomationTextHelpersModule();
+    if (result?.parseExcludedCommentKeywords) {
+      return result.parseExcludedCommentKeywords(arg1);
     }
-    return String(_0xdf0f8b || "").split(/[,，\n\r]+/).map(_0x3fa860 => _0x3fa860.trim()).filter(Boolean);
+    return String(arg1 || "").split(/[,，\n\r]+/).map(arg1 => arg1.trim()).filter(Boolean);
   }
-  function _0xf99804(_0x263bbe) {
-    const _0x2939e5 = _0x13b88b();
-    if (_0x2939e5?.parseTitleKeywordList) {
-      return _0x2939e5.parseTitleKeywordList(_0x263bbe);
+  function fn30(arg1) {
+    const result = getAutomationTextHelpersModule();
+    if (result?.parseTitleKeywordList) {
+      return result.parseTitleKeywordList(arg1);
     }
-    return String(_0x263bbe || "").split(/[,，]/).map(_0x5d4da8 => _0x5d4da8.trim()).filter(Boolean);
+    return String(arg1 || "").split(/[,，]/).map(arg1 => arg1.trim()).filter(Boolean);
   }
-  function _0x3dab1(_0xe9c99b, _0x237f29 = []) {
-    const _0xa6d3a6 = _0x13b88b();
-    if (_0xa6d3a6?.matchTitleKeywordList) {
-      return _0xa6d3a6.matchTitleKeywordList(_0xe9c99b, _0x237f29);
+  function fn31(arg1, list = []) {
+    const result = getAutomationTextHelpersModule();
+    if (result?.matchTitleKeywordList) {
+      return result.matchTitleKeywordList(arg1, list);
     }
-    const _0x47516e = String(_0xe9c99b || "").toLowerCase();
-    if (!_0x47516e || !Array.isArray(_0x237f29) || !_0x237f29.length) {
+    const result2 = String(arg1 || "").toLowerCase();
+    if (!result2 || !Array.isArray(list) || !list.length) {
       return "";
     }
-    return _0x237f29.find(_0x2465bc => _0x47516e.includes(String(_0x2465bc).toLowerCase())) || "";
+    return list.find(arg1 => result2.includes(String(arg1).toLowerCase())) || "";
   }
-  function _0x3094bb(_0x165456, _0x5f0e65 = _0x3b9fd2.currentTask) {
-    return _0x3dab1(_0x165456, _0xf99804(_0x5f0e65?.includeTitleKeywords));
+  function getIncludeTitleKeywordMatch(arg1, arg2 = state.currentTask) {
+    return fn31(arg1, fn30(arg2?.includeTitleKeywords));
   }
-  function _0xd654dc(_0x5eefb7 = _0x3b9fd2.currentTask) {
-    return _0xf99804(_0x5eefb7?.includeTitleKeywords).length > 0;
+  function shouldEnforceIncludeTitleKeywords(arg1 = state.currentTask) {
+    return fn30(arg1?.includeTitleKeywords).length > 0;
   }
-  function _0x3128ba(_0x213fa6, _0x3eb927 = _0x3b9fd2.currentTask) {
-    return !!_0x3094bb(_0x213fa6, _0x3eb927);
+  function shouldForceSelectByIncludeTitle(arg1, arg2 = state.currentTask) {
+    return !!getIncludeTitleKeywordMatch(arg1, arg2);
   }
-  function _0x4db715(_0x597ba1 = _0x3b9fd2.currentTask) {
-    return !!_0x597ba1?.enableVideoComment && _0x597ba1?.taskMode === "interaction" && _0x597ba1?.videoCommentMode === "ai" && !_0x597ba1?.enableVideoCommentWithoutText && !!_0x483cf8(_0x597ba1);
+  function shouldGenerateAiVideoMainPost(arg1 = state.currentTask) {
+    return !!arg1?.enableVideoComment && arg1?.taskMode === "interaction" && arg1?.videoCommentMode === "ai" && !arg1?.enableVideoCommentWithoutText && !!fn36(arg1);
   }
-  function _0x20c3a3(_0xb6be75, _0x10f096 = _0x3b9fd2.currentTask) {
-    const _0x419559 = String(_0xb6be75 || "").toLowerCase();
-    if (!_0x419559) {
+  function matchExcludedCommentKeyword(arg1, arg2 = state.currentTask) {
+    const result = String(arg1 || "").toLowerCase();
+    if (!result) {
       return "";
     }
-    return _0x2131d1(_0x10f096?.excludeCommentKeywords).find(_0x285b45 => _0x419559.includes(_0x285b45.toLowerCase())) || "";
+    return fn29(arg2?.excludeCommentKeywords).find(arg1 => result.includes(arg1.toLowerCase())) || "";
   }
-  function _0x498226(_0x4d5c7e = _0x3b9fd2.currentTask) {
-    const _0x4ec28f = String(_0x4d5c7e?.platform || window._radar_platform || "").toLowerCase();
-    return _0x4ec28f === "douyin" || _0x4ec28f === "dy" || _0x4ec28f.includes("douyin");
+  function fn38(arg1 = state.currentTask) {
+    const result = String(arg1?.platform || window._radar_platform || "").toLowerCase();
+    return result === "douyin" || result === "dy" || result.includes("douyin");
   }
-  function _0x146b5e(_0xdb227f = _0x3b9fd2.currentTask) {
-    const _0x370488 = _0xdb227f?.authInfo || {};
-    if (_0x370488 && (_0x370488.isFree !== undefined || _0x370488.isTrial !== undefined)) {
-      return _0x370488.isFree === false && _0x370488.isTrial === false;
+  function fn39(arg1 = state.currentTask) {
+    const local = arg1?.authInfo || {};
+    if (local && (local.isFree !== undefined || local.isTrial !== undefined)) {
+      return local.isFree === false && local.isTrial === false;
     }
-    if (_0xdb227f && (_0xdb227f.isFree !== undefined || _0xdb227f.isTrial !== undefined)) {
-      return _0xdb227f.isFree === false && _0xdb227f.isTrial === false;
+    if (arg1 && (arg1.isFree !== undefined || arg1.isTrial !== undefined)) {
+      return arg1.isFree === false && arg1.isTrial === false;
     }
     return false;
   }
-  function _0x3896de(_0x178447 = _0x3b9fd2.currentTask) {
-    return !!_0x498226(_0x178447) && _0x178447?.taskMode === "interaction" && !!_0x2932a8(_0x178447) && !!_0x146b5e(_0x178447);
+  function fn40(arg1 = state.currentTask) {
+    return !!fn38(arg1) && arg1?.taskMode === "interaction" && !!shouldUseAiCommentAnalysis(arg1) && !!fn39(arg1);
   }
-  function _0x483cf8(_0x5681b9 = _0x3b9fd2.currentTask) {
-    return !!_0x5681b9?.aiReplyMode && (!!_0x5681b9?.aiRole || !!_0x5681b9?.aiPrompt || !!_0x5681b9?.aiGoal);
+  function fn36(arg1 = state.currentTask) {
+    return !!arg1?.aiReplyMode && (!!arg1?.aiRole || !!arg1?.aiPrompt || !!arg1?.aiGoal);
   }
-  function _0x310cc3(_0x12c431 = _0x3b9fd2.currentTask) {
-    if (_0x12c431?.enablePersonaVideoFilter === false) {
+  function shouldUsePersonaVideoFilter(arg1 = state.currentTask) {
+    if (arg1?.enablePersonaVideoFilter === false) {
       return false;
     }
-    return !!_0x498226(_0x12c431) && !!_0x483cf8(_0x12c431) && !!_0x146b5e(_0x12c431);
+    return !!fn38(arg1) && !!fn36(arg1) && !!fn39(arg1);
   }
-  function _0x23e809(_0x258736 = _0x3b9fd2.currentTask) {
-    return !!_0x258736?.enableCommentKeywordFilter;
+  function shouldUseCommentKeywordFilter(arg1 = state.currentTask) {
+    return !!arg1?.enableCommentKeywordFilter;
   }
-  function _0x2932a8(_0xc36fe5 = _0x3b9fd2.currentTask) {
-    if (_0x23e809(_0xc36fe5)) {
+  function shouldUseAiCommentAnalysis(arg1 = state.currentTask) {
+    if (shouldUseCommentKeywordFilter(arg1)) {
       return false;
     }
-    return !!_0xc36fe5?.aiReplyMode;
+    return !!arg1?.aiReplyMode;
   }
-  function _0x2a5122(_0x58ed24 = _0x3b9fd2.currentTask) {
-    return !!_0x58ed24?.aiReplyMode;
+  function shouldUseAiReplyGeneration(arg1 = state.currentTask) {
+    return !!arg1?.aiReplyMode;
   }
-  async function _0x39e094(_0x3949ef, _0x5d9c36) {
-    const _0x265e0a = new Map();
-    if (!_0x23e809(_0x3b9fd2.currentTask) || !_0x2a5122(_0x3b9fd2.currentTask)) {
-      return _0x265e0a;
+  async function prefetchKeywordReplyContents(arg1, arg2) {
+    const map = new Map();
+    if (!shouldUseCommentKeywordFilter(state.currentTask) || !shouldUseAiReplyGeneration(state.currentTask)) {
+      return map;
     }
-    if (!_0x3b9fd2.currentTask?.enableComment) {
-      return _0x265e0a;
+    if (!state.currentTask?.enableComment) {
+      return map;
     }
-    if (_0x37e7f5()) {
-      _0x140dc2("🤖 关键词+AI回复：已配置纯图片/表情/@，跳过后端回复文案生成");
-      return _0x265e0a;
+    if (shouldUseTextlessReplyPayload()) {
+      reportTraceLog("🤖 关键词+AI回复：已配置纯图片/表情/@，跳过后端回复文案生成");
+      return map;
     }
-    const _0x1064aa = _0x3949ef.filter(_0x1346bb => _0x1346bb.isHighIntention);
-    if (_0x1064aa.length === 0) {
-      return _0x265e0a;
+    const result = arg1.filter(arg1 => arg1.isHighIntention);
+    if (result.length === 0) {
+      return map;
     }
-    _0x140dc2("🤖 关键词+AI回复：" + _0x1064aa.length + " 条已匹配关键词，批量请求生成回复（跳过意向判定）…");
-    for (let _0x4df2d3 = 0; _0x4df2d3 < _0x1064aa.length; _0x4df2d3 += 10) {
-      if (_0x4913fc(_0x5d9c36)) {
+    reportTraceLog("🤖 关键词+AI回复：" + result.length + " 条已匹配关键词，批量请求生成回复（跳过意向判定）…");
+    for (let num = 0; num < result.length; num += 10) {
+      if (shouldAbort(arg2)) {
         break;
       }
-      const _0x21b862 = _0x1064aa.slice(_0x4df2d3, _0x4df2d3 + 10);
-      const _0x1e18f3 = Math.floor(_0x4df2d3 / 10) + 1;
-      const _0x5f27eb = Math.ceil(_0x1064aa.length / 10) || 1;
-      _0x140dc2("🤖 关键词回复：第 " + _0x1e18f3 + "/" + _0x5f27eb + " 批，" + _0x21b862.length + " 条…");
-      const _0x7c55ba = Date.now();
-      const _0x137c72 = await _0x511cd4.invoke("ai-intelligent-analyze-batch", _0x2b9e3f({
-        leads: _0x21b862,
+      const result2 = result.slice(num, num + 10);
+      const value = Math.floor(num / 10) + 1;
+      const local = Math.ceil(result.length / 10) || 1;
+      reportTraceLog("🤖 关键词回复：第 " + value + "/" + local + " 批，" + result2.length + " 条…");
+      const result3 = Date.now();
+      const result4 = await ipcRenderer.invoke("ai-intelligent-analyze-batch", buildAutomationAiPayload({
+        leads: result2,
         generationMode: "keyword_reply_only",
-        config: _0x1645aa(_0x3b9fd2.currentTask)
+        config: fn47(state.currentTask)
       }));
-      if (_0x4913fc(_0x5d9c36) || _0x4f940c(_0x137c72)) {
+      if (shouldAbort(arg2) || isAiInvokeCancelled(result4)) {
         break;
       }
-      const _0x3ba1c3 = ((Date.now() - _0x7c55ba) / 1000).toFixed(1);
-      if (_0x137c72.success && Array.isArray(_0x137c72.data)) {
-        _0x140dc2("🤖 关键词回复：第 " + _0x1e18f3 + " 批完成（耗时 " + _0x3ba1c3 + "s，返回 " + _0x137c72.data.length + " 条）");
-        _0x137c72.data.forEach((_0x462cba, _0x2e0540) => {
-          const _0x2be091 = _0x21b862[_0x2e0540];
-          const _0x170e7e = String(_0x462cba?.replyContent || "").trim();
-          if (_0x2be091?.leadId && _0x170e7e) {
-            _0x265e0a.set(_0x2be091.leadId, _0x170e7e);
-            _0x2be091.actions = _0x2be091.actions || {};
-            _0x2be091.actions.replyContent = _0x170e7e;
+      const result5 = ((Date.now() - result3) / 1000).toFixed(1);
+      if (result4.success && Array.isArray(result4.data)) {
+        reportTraceLog("🤖 关键词回复：第 " + value + " 批完成（耗时 " + result5 + "s，返回 " + result4.data.length + " 条）");
+        result4.data.forEach((arg1, arg2) => {
+          const value = result2[arg2];
+          const result = String(arg1?.replyContent || "").trim();
+          if (value?.leadId && result) {
+            map.set(value.leadId, result);
+            value.actions = value.actions || {};
+            value.actions.replyContent = result;
           }
         });
       } else {
-        _0x140dc2("🤖 关键词回复：第 " + _0x1e18f3 + " 批失败（耗时 " + _0x3ba1c3 + "s）：" + _0x2fbda9(_0x137c72?.msg || "未知原因"));
+        reportTraceLog("🤖 关键词回复：第 " + value + " 批失败（耗时 " + result5 + "s）：" + fn7(result4?.msg || "未知原因"));
       }
     }
-    return _0x265e0a;
+    return map;
   }
-  function _0x461d0f(_0x517605 = _0x3b9fd2.currentTask) {
-    return !!_0x3896de(_0x517605) && !!_0x517605?.commentOnProfileFirstWork;
+  function isDouyinProfileTargetingEnabled(arg1 = state.currentTask) {
+    return !!fn40(arg1) && !!arg1?.commentOnProfileFirstWork;
   }
-  function _0x1645aa(_0x375815 = _0x3b9fd2.currentTask) {
+  function fn47(arg1 = state.currentTask) {
     return {
-      aiRole: _0x375815?.aiRole,
-      aiGoal: _0x375815?.aiGoal,
-      aiStyle: _0x375815?.aiStyle,
-      aiPrompt: _0x375815?.aiPrompt,
-      videoGoal: _0x375815?.videoGoal,
-      videoStyle: _0x375815?.videoStyle,
-      videoPrompt: _0x375815?.videoPrompt,
-      firstPostGoal: _0x375815?.firstPostGoal,
-      firstPostStyle: _0x375815?.firstPostStyle,
-      firstPostPrompt: _0x375815?.firstPostPrompt
+      aiRole: arg1?.aiRole,
+      aiGoal: arg1?.aiGoal,
+      aiStyle: arg1?.aiStyle,
+      aiPrompt: arg1?.aiPrompt,
+      videoGoal: arg1?.videoGoal,
+      videoStyle: arg1?.videoStyle,
+      videoPrompt: arg1?.videoPrompt,
+      firstPostGoal: arg1?.firstPostGoal,
+      firstPostStyle: arg1?.firstPostStyle,
+      firstPostPrompt: arg1?.firstPostPrompt
     };
   }
-  function _0x4feeb9(_0x5ca932 = _0x3b9fd2.currentTask) {
-    return _0x4db715(_0x5ca932) && _0x310cc3(_0x5ca932);
+  function shouldPrefetchMainPostWithVideoMatch(arg1 = state.currentTask) {
+    return shouldGenerateAiVideoMainPost(arg1) && shouldUsePersonaVideoFilter(arg1);
   }
-  async function _0xf44916(_0x33e50c, _0xb0fca9, _0x1a8781) {
-    if (!_0x4db715(_0x3b9fd2.currentTask)) {
+  async function prefetchAiMainPostComment(arg1, arg2, arg3) {
+    if (!shouldGenerateAiVideoMainPost(state.currentTask)) {
       return "";
     }
-    const _0x5a1fef = Array.isArray(_0xb0fca9) ? _0xb0fca9.filter(Boolean).slice(0, 8) : [];
-    _0x140dc2("🤖 视频主评：标题已选中，正在向后端获取文案…");
+    const value = Array.isArray(arg2) ? arg2.filter(Boolean).slice(0, 8) : [];
+    reportTraceLog("🤖 视频主评：标题已选中，正在向后端获取文案…");
     try {
-      const _0x2eb2d6 = Math.floor(Math.random() * 1500) + 150;
-      await _0x224c1b(_0x2eb2d6);
-      const _0x2680cd = await _0x511cd4.invoke("ai-generate-video-comment", _0x2b9e3f({
-        videoTitle: (_0x33e50c || "").trim() || "未知视频",
-        comments: _0x5a1fef,
+      const value2 = Math.floor(Math.random() * 1500) + 150;
+      await sleep(value2);
+      const result = await ipcRenderer.invoke("ai-generate-video-comment", buildAutomationAiPayload({
+        videoTitle: (arg1 || "").trim() || "未知视频",
+        comments: value,
         generationMode: "main_post_comment",
-        config: _0x1645aa(_0x3b9fd2.currentTask)
+        config: fn47(state.currentTask)
       }));
-      if (_0x4913fc(_0x1a8781) || _0x4f940c(_0x2680cd)) {
+      if (shouldAbort(arg3) || isAiInvokeCancelled(result)) {
         return "";
       }
-      const _0x39affa = String(_0x2680cd?.content || "").trim();
-      if (_0x2680cd?.success && _0x39affa) {
-        _0x140dc2("🤖 视频主评：已获取文案 →「" + _0x2fbda9(_0x39affa, 32) + "」");
-        return _0x39affa;
+      const result2 = String(result?.content || "").trim();
+      if (result?.success && result2) {
+        reportTraceLog("🤖 视频主评：已获取文案 →「" + fn7(result2, 32) + "」");
+        return result2;
       }
-      _0x140dc2("🤖 视频主评：后端未返回文案，发表时将重试");
+      reportTraceLog("🤖 视频主评：后端未返回文案，发表时将重试");
       return "";
-    } catch (_0xf1ad84) {
-      console.warn("[Built-in-Debug] [标题选中主评预取] 异常:", _0xf1ad84.message || _0xf1ad84);
-      _0x140dc2("🤖 视频主评：预取失败，发表时将重试");
+    } catch (error) {
+      console.warn("[Built-in-Debug] [标题选中主评预取] 异常:", error.message || error);
+      reportTraceLog("🤖 视频主评：预取失败，发表时将重试");
       return "";
     }
   }
-  async function _0x436e5a(_0x17ec21, _0x31695e, _0x3050f9, _0x247f84 = {}) {
-    if (!_0x310cc3(_0x3b9fd2.currentTask)) {
-      const _0x200a1a = _0x3b9fd2.currentTask?.enablePersonaVideoFilter === false ? "已关闭人设视频筛选" : !_0x483cf8(_0x3b9fd2.currentTask) ? "未绑定智能体，视频直接通过" : "未启用 DY 智能预筛";
+  async function matchCurrentVideoForDy(arg1, arg2, arg3, options = {}) {
+    if (!shouldUsePersonaVideoFilter(state.currentTask)) {
+      const value = state.currentTask?.enablePersonaVideoFilter === false ? "已关闭人设视频筛选" : !fn36(state.currentTask) ? "未绑定智能体，视频直接通过" : "未启用 DY 智能预筛";
       return {
         success: true,
         pass: true,
         score: 100,
-        reason: _0x200a1a,
+        reason: value,
         mainPostComment: ""
       };
     }
     try {
-      const _0x2106c0 = Array.isArray(_0x31695e) ? _0x31695e.filter(Boolean).slice(0, 10) : [];
-      const _0x48df3b = _0x247f84.withMainPost !== undefined ? !!_0x247f84.withMainPost : _0x4feeb9(_0x3b9fd2.currentTask);
-      _0x140dc2(_0x48df3b ? "🎯 智能预筛中（顺带生成主评）…" : "🎯 智能预筛中…");
-      const _0x227e48 = await _0x511cd4.invoke("ai-match-video-context", _0x2b9e3f({
-        videoTitle: _0x17ec21,
-        comments: _0x2106c0,
-        keywords: _0x3b9fd2.currentTask?.keywords || _0x3b9fd2.currentTask?.intentionKeywords || "",
-        authorNickname: _0x3b9fd2.currentTask?.videoAuthor || "",
+      const value = Array.isArray(arg2) ? arg2.filter(Boolean).slice(0, 10) : [];
+      const value2 = options.withMainPost !== undefined ? !!options.withMainPost : shouldPrefetchMainPostWithVideoMatch(state.currentTask);
+      reportTraceLog(value2 ? "🎯 智能预筛中（顺带生成主评）…" : "🎯 智能预筛中…");
+      const result = await ipcRenderer.invoke("ai-match-video-context", buildAutomationAiPayload({
+        videoTitle: arg1,
+        comments: value,
+        keywords: state.currentTask?.keywords || state.currentTask?.intentionKeywords || "",
+        authorNickname: state.currentTask?.videoAuthor || "",
         matchScene: "leadgen_persona",
-        withMainPost: _0x48df3b,
-        config: _0x1645aa(_0x3b9fd2.currentTask)
+        withMainPost: value2,
+        config: fn47(state.currentTask)
       }));
-      if (_0x4913fc(_0x3050f9)) {
+      if (shouldAbort(arg3)) {
         return {
           success: false,
           pass: true,
@@ -746,26 +746,26 @@ function createAutomationRuntimeController(_0x4e6eeb = {}) {
           mainPostComment: ""
         };
       }
-      if (_0x227e48?.pass === false) {
-        _0x140dc2("🎯 智能预筛：不匹配，跳过");
-        return _0x227e48;
+      if (result?.pass === false) {
+        reportTraceLog("🎯 智能预筛：不匹配，跳过");
+        return result;
       }
-      const _0x1265f5 = String(_0x227e48?.mainPostComment || "").trim();
-      if (_0x48df3b && _0x1265f5) {
-        _0x140dc2("🎯 智能预筛通过，已生成主评 →「" + _0x2fbda9(_0x1265f5, 32) + "」");
-      } else if (_0x48df3b) {
-        _0x140dc2("🎯 智能预筛通过（主评将另行生成）");
+      const result2 = String(result?.mainPostComment || "").trim();
+      if (value2 && result2) {
+        reportTraceLog("🎯 智能预筛通过，已生成主评 →「" + fn7(result2, 32) + "」");
+      } else if (value2) {
+        reportTraceLog("🎯 智能预筛通过（主评将另行生成）");
       } else {
-        _0x140dc2("🎯 智能预筛通过");
+        reportTraceLog("🎯 智能预筛通过");
       }
       return {
-        ...(_0x227e48 || {}),
+        ...(result || {}),
         pass: true,
-        mainPostComment: _0x1265f5
+        mainPostComment: result2
       };
-    } catch (_0x24e09e) {
-      console.warn("[Built-in-Debug] [DY智能预筛] 异常，未放行:", _0x24e09e.message || _0x24e09e);
-      _0x140dc2("🎯 智能预筛异常，跳过当前视频");
+    } catch (error) {
+      console.warn("[Built-in-Debug] [DY智能预筛] 异常，未放行:", error.message || error);
+      reportTraceLog("🎯 智能预筛异常，跳过当前视频");
       return {
         success: false,
         pass: false,
@@ -774,8 +774,8 @@ function createAutomationRuntimeController(_0x4e6eeb = {}) {
       };
     }
   }
-  async function _0x289310(_0x1f7063, _0x3a2110, _0x36efa5, _0x1677a1 = _0x3b9fd2.currentTask) {
-    if (!_0x461d0f(_0x1677a1)) {
+  async function matchLeadProfileForDy(arg1, arg2, arg3, arg4 = state.currentTask) {
+    if (!isDouyinProfileTargetingEnabled(arg4)) {
       return {
         success: true,
         pass: true,
@@ -784,31 +784,31 @@ function createAutomationRuntimeController(_0x4e6eeb = {}) {
       };
     }
     try {
-      _0x334fa9("@" + (_0x1f7063?.nickname || "?") + " 提交画像判断", _0x1f7063?.accountId);
-      const _0x113079 = await _0x511cd4.invoke("ai-match-lead-profile", _0x2b9e3f({
-        lead: _0x1f7063,
-        videoTitle: _0x3a2110 || _0x1f7063?.title || _0x1f7063?.videoTitle || "",
-        config: _0x1645aa(_0x1677a1)
+      reportProfileFirstTrace("@" + (arg1?.nickname || "?") + " 提交画像判断", arg1?.accountId);
+      const result = await ipcRenderer.invoke("ai-match-lead-profile", buildAutomationAiPayload({
+        lead: arg1,
+        videoTitle: arg2 || arg1?.title || arg1?.videoTitle || "",
+        config: fn47(arg4)
       }));
-      if (_0x4913fc(_0x36efa5)) {
+      if (shouldAbort(arg3)) {
         return {
           success: false,
           pass: true,
           reason: "任务已停止，画像结果忽略"
         };
       }
-      if (_0x113079?.pass === false) {
-        _0x334fa9("@" + (_0x1f7063?.nickname || "?") + " 画像不匹配，已跳过（" + _0x2fbda9(_0x113079.reason || "非目标人群", 80) + "）", _0x1f7063?.accountId);
-        return _0x113079;
+      if (result?.pass === false) {
+        reportProfileFirstTrace("@" + (arg1?.nickname || "?") + " 画像不匹配，已跳过（" + fn7(result.reason || "非目标人群", 80) + "）", arg1?.accountId);
+        return result;
       }
-      _0x334fa9("@" + (_0x1f7063?.nickname || "?") + " 画像通过（" + _0x2fbda9(_0x113079?.reason || "匹配目标人群", 80) + "）", _0x1f7063?.accountId);
+      reportProfileFirstTrace("@" + (arg1?.nickname || "?") + " 画像通过（" + fn7(result?.reason || "匹配目标人群", 80) + "）", arg1?.accountId);
       return {
-        ...(_0x113079 || {}),
+        ...(result || {}),
         pass: true
       };
-    } catch (_0x5c7684) {
-      console.warn("[Built-in-Debug] [DY画像判断] 异常，未放行:", _0x5c7684.message || _0x5c7684);
-      _0x334fa9("@" + (_0x1f7063?.nickname || "?") + " 画像判断异常，未确认匹配，跳过（" + _0x2fbda9(_0x5c7684.message || _0x5c7684, 80) + "）", _0x1f7063?.accountId);
+    } catch (error) {
+      console.warn("[Built-in-Debug] [DY画像判断] 异常，未放行:", error.message || error);
+      reportProfileFirstTrace("@" + (arg1?.nickname || "?") + " 画像判断异常，未确认匹配，跳过（" + fn7(error.message || error, 80) + "）", arg1?.accountId);
       return {
         success: false,
         pass: false,
@@ -816,457 +816,457 @@ function createAutomationRuntimeController(_0x4e6eeb = {}) {
       };
     }
   }
-  function _0x59ff7f(_0x814cb2) {
-    const _0x5993dc = Array.isArray(_0x814cb2?.videoSources) && _0x814cb2.videoSources.length > 0 ? _0x814cb2.videoSources : ["search"];
-    const _0x32c34c = String(_0x814cb2?.keywords || "").split(/[,，\s\n]+/).map(_0x4bd1a6 => _0x4bd1a6.trim()).filter(Boolean);
-    const _0x3f49a1 = _0x5993dc.find(_0x2bd86b => ["search", "follow", "recommend", "like", "specific"].includes(_0x2bd86b) && (_0x2bd86b !== "search" || _0x32c34c.length > 0)) || (_0x32c34c.length > 0 ? "search" : "recommend");
-    if (_0x3f49a1 === "follow") {
-      return _0x9deeea();
+  function resolveTaskEntryUrl(arg1) {
+    const value = Array.isArray(arg1?.videoSources) && arg1.videoSources.length > 0 ? arg1.videoSources : ["search"];
+    const result = String(arg1?.keywords || "").split(/[,，\s\n]+/).map(arg1 => arg1.trim()).filter(Boolean);
+    const local = value.find(arg1 => ["search", "follow", "recommend", "like", "specific"].includes(arg1) && (arg1 !== "search" || result.length > 0)) || (result.length > 0 ? "search" : "recommend");
+    if (local === "follow") {
+      return local4();
     }
-    if (_0x3f49a1 === "recommend") {
-      return _0x3bdfe2();
+    if (local === "recommend") {
+      return local2();
     }
-    if (_0x3f49a1 === "like") {
-      return _0x4835b7();
+    if (local === "like") {
+      return local3();
     }
-    if (_0x3f49a1 === "specific") {
-      const _0x13c758 = String(_0x814cb2?.specifiedUrls || "").split(/[\n,，\s]+/).map(_0xe6b62 => _0xe6b62.trim()).filter(Boolean);
-      if (_0x13c758[0]) {
-        return _0x13c758[0];
+    if (local === "specific") {
+      const result = String(arg1?.specifiedUrls || "").split(/[\n,，\s]+/).map(arg1 => arg1.trim()).filter(Boolean);
+      if (result[0]) {
+        return result[0];
       }
-      return _0x3bdfe2();
+      return local2();
     }
-    if (_0x32c34c[0]) {
-      return _0x1f83ec(_0x32c34c[0]);
+    if (result[0]) {
+      return buildDouyinSearchUrl(result[0]);
     }
-    return _0x3bdfe2();
+    return local2();
   }
-  function _0x52184e(_0x28ed6b, _0x503da0) {
-    _0x3b9fd2.taskRunning = false;
-    _0x3b9fd2.stopRequested = false;
-    const _0x44c97b = String(_0x503da0 || "未知原因").trim();
-    console.warn("[Built-in-Debug] [任务启动中止] " + _0x44c97b);
+  function abortAutomationStartup(arg1, arg2) {
+    state.taskRunning = false;
+    state.stopRequested = false;
+    const result = String(arg2 || "未知原因").trim();
+    console.warn("[Built-in-Debug] [任务启动中止] " + result);
     try {
-      _0x3f0212(_0x28ed6b, "startup_aborted", {
-        detail: _0x44c97b
+      finalizeAccountTask(arg1, "startup_aborted", {
+        detail: result
       }, {
         stopRunning: true
       });
-    } catch (_0xe93b55) {}
+    } catch (error) {}
   }
-  let _0x361cf8 = {
+  let obj = {
     key: "",
     at: 0
   };
-  const _0x15a2f2 = 30000;
-  let _0x1ae979 = false;
-  const _0x2cd67b = /请完成.{0,12}验证|拖动滑块|滑块验证|完成验证|输入验证码|短信验证码|人机验证|图形验证|请按住滑块|向右滑动|请进行验证/;
-  const _0x35bceb = /拖动|滑块|按住|向右滑动/;
-  const _0xed7c50 = /验证码|短信码|图形码|输入.*码/;
-  function _0x1aa046() {
-    const _0x6cb59f = [];
-    for (const _0x40eac5 of document.querySelectorAll("iframe")) {
-      if (!_0x21b65c(_0x40eac5)) {
+  const num = 30000;
+  let flag = false;
+  const pattern = /请完成.{0,12}验证|拖动滑块|滑块验证|完成验证|输入验证码|短信验证码|人机验证|图形验证|请按住滑块|向右滑动|请进行验证/;
+  const pattern2 = /拖动|滑块|按住|向右滑动/;
+  const pattern3 = /验证码|短信码|图形码|输入.*码/;
+  function detectPageSecurityChallenge() {
+    const list = [];
+    for (const item of document.querySelectorAll("iframe")) {
+      if (!isVisibleElement(item)) {
         continue;
       }
-      const _0x3e9a6c = (_0x40eac5.src || _0x40eac5.getAttribute("src") || "").toLowerCase();
-      if (/captcha|geetest|verify|sec-verify|nocaptcha|slider|secsdk/.test(_0x3e9a6c)) {
-        _0x6cb59f.push({
+      const result = (item.src || item.getAttribute("src") || "").toLowerCase();
+      if (/captcha|geetest|verify|sec-verify|nocaptcha|slider|secsdk/.test(result)) {
+        list.push({
           kind: "iframe",
-          hint: _0x2fbda9(_0x3e9a6c, 80)
+          hint: fn7(result, 80)
         });
       }
     }
-    for (const _0x396f9d of document.querySelectorAll("input, textarea")) {
-      if (!_0x21b65c(_0x396f9d)) {
+    for (const item of document.querySelectorAll("input, textarea")) {
+      if (!isVisibleElement(item)) {
         continue;
       }
-      const _0x47072a = (_0x396f9d.placeholder || _0x396f9d.getAttribute("aria-label") || "").trim();
-      const _0x3c9a35 = ((_0x396f9d.name || "") + " " + (_0x396f9d.id || "")).toLowerCase();
-      if (_0xed7c50.test(_0x47072a) || /captcha|verifycode|verify_code/.test(_0x3c9a35)) {
-        _0x6cb59f.push({
+      const result = (item.placeholder || item.getAttribute("aria-label") || "").trim();
+      const result2 = ((item.name || "") + " " + (item.id || "")).toLowerCase();
+      if (pattern3.test(result) || /captcha|verifycode|verify_code/.test(result2)) {
+        list.push({
           kind: "captcha-input",
-          hint: _0x2fbda9(_0x47072a || _0x3c9a35, 60)
+          hint: fn7(result || result2, 60)
         });
       }
     }
-    const _0x1554b5 = [".geetest_slider_button", ".geetest_slider", ".geetest_panel", ".captcha-slider", ".secsdk-captcha", "[class*=\"captcha\"][class*=\"slider\"]", "[class*=\"verify\"][class*=\"slider\"]"];
-    for (const _0x1632ee of _0x1554b5) {
-      const _0x1c7195 = document.querySelector(_0x1632ee);
-      if (_0x1c7195 && _0x21b65c(_0x1c7195)) {
-        _0x6cb59f.push({
+    const list2 = [".geetest_slider_button", ".geetest_slider", ".geetest_panel", ".captcha-slider", ".secsdk-captcha", "[class*=\"captcha\"][class*=\"slider\"]", "[class*=\"verify\"][class*=\"slider\"]"];
+    for (const item of list2) {
+      const result = document.querySelector(item);
+      if (result && isVisibleElement(result)) {
+        list.push({
           kind: "slider",
-          hint: _0x1632ee
+          hint: item
         });
         break;
       }
     }
-    const _0xf989b = ["[role=\"dialog\"]", "[class*=\"captcha\"]", "[class*=\"Captcha\"]", "[class*=\"verify\"]", "[class*=\"Verify\"]", "[id*=\"captcha\"]", "[id*=\"verify\"]", "[class*=\"geetest\"]"];
-    for (const _0x92fdc8 of _0xf989b) {
-      for (const _0x3babc0 of document.querySelectorAll(_0x92fdc8)) {
-        if (!_0x21b65c(_0x3babc0)) {
+    const list3 = ["[role=\"dialog\"]", "[class*=\"captcha\"]", "[class*=\"Captcha\"]", "[class*=\"verify\"]", "[class*=\"Verify\"]", "[id*=\"captcha\"]", "[id*=\"verify\"]", "[class*=\"geetest\"]"];
+    for (const item of list3) {
+      for (const item2 of document.querySelectorAll(item)) {
+        if (!isVisibleElement(item2)) {
           continue;
         }
-        const _0x334716 = _0x3babc0.getBoundingClientRect();
-        if (_0x334716.width < 120 || _0x334716.height < 60) {
+        const result = item2.getBoundingClientRect();
+        if (result.width < 120 || result.height < 60) {
           continue;
         }
-        const _0xa62ef8 = (_0x3babc0.innerText || "").replace(/\s+/g, " ").slice(0, 240);
-        if (!_0x2cd67b.test(_0xa62ef8)) {
+        const result2 = (item2.innerText || "").replace(/\s+/g, " ").slice(0, 240);
+        if (!pattern.test(result2)) {
           continue;
         }
-        if (_0x35bceb.test(_0xa62ef8)) {
-          _0x6cb59f.push({
+        if (pattern2.test(result2)) {
+          list.push({
             kind: "slider",
-            hint: _0x2fbda9(_0xa62ef8, 60)
+            hint: fn7(result2, 60)
           });
-        } else if (_0xed7c50.test(_0xa62ef8)) {
-          _0x6cb59f.push({
+        } else if (pattern3.test(result2)) {
+          list.push({
             kind: "captcha",
-            hint: _0x2fbda9(_0xa62ef8, 60)
+            hint: fn7(result2, 60)
           });
         } else {
-          _0x6cb59f.push({
+          list.push({
             kind: "verify",
-            hint: _0x2fbda9(_0xa62ef8, 60)
+            hint: fn7(result2, 60)
           });
         }
         break;
       }
-      if (_0x6cb59f.length) {
+      if (list.length) {
         break;
       }
     }
-    if (!_0x6cb59f.length) {
+    if (!list.length) {
       try {
-        const _0x347c80 = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
-        const _0x3c1c81 = _0x347c80?.closest?.("[role=\"dialog\"], [class*=\"captcha\"], [class*=\"verify\"], [class*=\"geetest\"]");
-        if (_0x3c1c81 && _0x21b65c(_0x3c1c81)) {
-          const _0x4a0752 = (_0x3c1c81.innerText || "").replace(/\s+/g, " ").slice(0, 240);
-          if (_0x2cd67b.test(_0x4a0752)) {
-            const _0x538e09 = _0x35bceb.test(_0x4a0752) ? "slider" : _0xed7c50.test(_0x4a0752) ? "captcha" : "verify";
-            _0x6cb59f.push({
-              kind: _0x538e09,
-              hint: _0x2fbda9(_0x4a0752, 60)
+        const result = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
+        const local = result?.closest?.("[role=\"dialog\"], [class*=\"captcha\"], [class*=\"verify\"], [class*=\"geetest\"]");
+        if (local && isVisibleElement(local)) {
+          const result = (local.innerText || "").replace(/\s+/g, " ").slice(0, 240);
+          if (pattern.test(result)) {
+            const value = pattern2.test(result) ? "slider" : pattern3.test(result) ? "captcha" : "verify";
+            list.push({
+              kind: value,
+              hint: fn7(result, 60)
             });
           }
         }
-      } catch (_0x27f34a) {}
+      } catch (error) {}
     }
-    if (!_0x6cb59f.length) {
+    if (!list.length) {
       return null;
     }
-    return _0x6cb59f.find(_0x403ed3 => _0x403ed3.kind === "slider") || _0x6cb59f.find(_0x21f108 => _0x21f108.kind === "captcha-input") || _0x6cb59f.find(_0x5cc22f => _0x5cc22f.kind === "captcha") || _0x6cb59f[0];
+    return list.find(arg1 => arg1.kind === "slider") || list.find(arg1 => arg1.kind === "captcha-input") || list.find(arg1 => arg1.kind === "captcha") || list[0];
   }
-  function _0x1d59b5() {
+  function fn56() {
     try {
-      if (_0x3b9fd2.currentViewKey) {
-        _0x511cd4.send("focus-automation-view", {
-          viewKey: _0x3b9fd2.currentViewKey,
+      if (state.currentViewKey) {
+        ipcRenderer.send("focus-automation-view", {
+          viewKey: state.currentViewKey,
           bringToFront: true
         });
       }
-    } catch (_0x4779d0) {}
+    } catch (error) {}
   }
-  function _0x2709ef(_0x7ead1f) {
-    if (_0x3b9fd2.stopRequested) {
+  function fn57(arg1) {
+    if (state.stopRequested) {
       return true;
     }
-    if (_0x7ead1f === "BATCH" || _0x7ead1f === "SELF_WARMUP") {
-      return !!_0x3b9fd2.stopRequested;
+    if (arg1 === "BATCH" || arg1 === "SELF_WARMUP") {
+      return !!state.stopRequested;
     }
-    if (_0x302b34(_0x7ead1f)) {
-      return !!_0x3b9fd2.stopRequested;
+    if (isMonitorLoopId(arg1)) {
+      return !!state.stopRequested;
     }
-    if (!_0x3b9fd2.taskRunning) {
+    if (!state.taskRunning) {
       return true;
     }
-    if (_0x7ead1f && _0x3b9fd2.activeLoopId && _0x7ead1f !== _0x3b9fd2.activeLoopId) {
+    if (arg1 && state.activeLoopId && arg1 !== state.activeLoopId) {
       return true;
     }
     return false;
   }
-  function _0x4e2859(_0x3a7493 = {}) {
+  function fn58(options = {}) {
     const {
       force = false,
       waiting = false
-    } = _0x3a7493;
-    const _0xe794f1 = _0x1aa046();
-    const _0x294718 = Date.now();
-    if (!_0xe794f1) {
-      if (_0x361cf8.key) {
-        const _0x215b0f = "✅ 安全验证界面已消失，任务继续执行";
-        console.log("[Built-in-Debug] [安全验证]", _0x215b0f);
-        _0x140dc2(_0x215b0f);
-        _0x361cf8 = {
+    } = options;
+    const result = detectPageSecurityChallenge();
+    const result2 = Date.now();
+    if (!result) {
+      if (obj.key) {
+        const text = "✅ 安全验证界面已消失，任务继续执行";
+        console.log("[Built-in-Debug] [安全验证]", text);
+        reportTraceLog(text);
+        obj = {
           key: "",
           at: 0
         };
         try {
-          _0x511cd4.send("automation-data", {
+          ipcRenderer.send("automation-data", {
             type: "security-challenge-cleared",
             payload: {
               accountId: window._radar_account_id
             }
           });
-        } catch (_0x246749) {}
+        } catch (error) {}
       }
       return false;
     }
-    const _0x1ee7d8 = _0xe794f1.kind + ":" + _0xe794f1.hint;
-    if (!force && _0x361cf8.key === _0x1ee7d8 && _0x294718 - _0x361cf8.at < _0x15a2f2) {
+    const value = result.kind + ":" + result.hint;
+    if (!force && obj.key === value && result2 - obj.at < num) {
       return true;
     }
-    _0x361cf8 = {
-      key: _0x1ee7d8,
-      at: _0x294718
+    obj = {
+      key: value,
+      at: result2
     };
-    const _0x29454b = {
+    const obj2 = {
       slider: "滑块验证",
       captcha: "验证码",
       "captcha-input": "验证码输入",
       iframe: "验证页",
       verify: "安全验证"
     };
-    const _0x58a4a2 = _0x29454b[_0xe794f1.kind] || "安全验证";
-    const _0x42dd4e = waiting ? "⚠️ 检测到" + _0x58a4a2 + "，任务已暂停，请在本账号窗口手动完成后再继续（" + (_0xe794f1.hint || "请查看页面") + "）" : "⚠️ 检测到" + _0x58a4a2 + "，请在本账号窗口手动完成（" + (_0xe794f1.hint || "请查看页面") + "）";
-    console.warn("[Built-in-Debug] [安全验证]", _0xe794f1.kind, _0xe794f1.hint || "");
-    _0x140dc2(_0x42dd4e, null, "warn");
-    _0x290466(_0x42dd4e);
+    const local = obj2[result.kind] || "安全验证";
+    const value2 = waiting ? "⚠️ 检测到" + local + "，任务已暂停，请在本账号窗口手动完成后再继续（" + (result.hint || "请查看页面") + "）" : "⚠️ 检测到" + local + "，请在本账号窗口手动完成（" + (result.hint || "请查看页面") + "）";
+    console.warn("[Built-in-Debug] [安全验证]", result.kind, result.hint || "");
+    reportTraceLog(value2, null, "warn");
+    reportCurrentAction(value2);
     try {
-      _0x511cd4.send("automation-data", {
+      ipcRenderer.send("automation-data", {
         type: "security-challenge",
         payload: {
           accountId: window._radar_account_id,
-          kind: _0xe794f1.kind,
-          hint: _0xe794f1.hint || "",
+          kind: result.kind,
+          hint: result.hint || "",
           waiting: !!waiting,
-          viewKey: _0x3b9fd2.currentViewKey || "",
-          message: _0x42dd4e
+          viewKey: state.currentViewKey || "",
+          message: value2
         }
       });
-    } catch (_0x162b45) {}
+    } catch (error) {}
     return true;
   }
-  async function _0x3b5470(_0x360f17) {
-    if (!_0x1aa046()) {
-      _0x4e2859();
+  async function awaitSecurityChallengeIfPresent(arg1) {
+    if (!detectPageSecurityChallenge()) {
+      fn58();
       return false;
     }
-    _0x1ae979 = true;
-    const _0x58b3e6 = Date.now();
-    let _0x5239eb = 0;
+    flag = true;
+    const result = Date.now();
+    let num2 = 0;
     try {
-      _0x4e2859({
+      fn58({
         force: true,
         waiting: true
       });
-      _0x1d59b5();
-      _0x140dc2("⏸ 任务已暂停，等待人工完成安全验证后继续", null, "warn");
-      _0x290466("⏸ 检测到安全验证，已暂停任务，请在本账号窗口完成验证…");
-      while (_0x1aa046()) {
-        if (_0x2709ef(_0x360f17)) {
+      fn56();
+      reportTraceLog("⏸ 任务已暂停，等待人工完成安全验证后继续", null, "warn");
+      reportCurrentAction("⏸ 检测到安全验证，已暂停任务，请在本账号窗口完成验证…");
+      while (detectPageSecurityChallenge()) {
+        if (fn57(arg1)) {
           throw new Error("TASK_ABORTED");
         }
-        const _0x3bbb4a = Date.now();
-        if (_0x3bbb4a - _0x5239eb >= _0x15a2f2) {
-          _0x5239eb = _0x3bbb4a;
-          const _0x55fbd3 = Math.floor((_0x3bbb4a - _0x58b3e6) / 1000);
-          _0x4e2859({
+        const result2 = Date.now();
+        if (result2 - num2 >= num) {
+          num2 = result2;
+          const result3 = Math.floor((result2 - result) / 1000);
+          fn58({
             force: true,
             waiting: true
           });
-          _0x1d59b5();
-          _0x290466("⏸ 仍在等待安全验证（已 " + _0x55fbd3 + " 秒），请完成后再继续…");
-          _0x140dc2("⏸ 仍在等待安全验证（已 " + _0x55fbd3 + " 秒）", null, "warn");
+          fn56();
+          reportCurrentAction("⏸ 仍在等待安全验证（已 " + result3 + " 秒），请完成后再继续…");
+          reportTraceLog("⏸ 仍在等待安全验证（已 " + result3 + " 秒）", null, "warn");
         }
-        await _0x224c1b(1000);
+        await sleep(1000);
       }
-      _0x4e2859();
-      _0x290466("✅ 安全验证已完成，继续执行任务");
-      _0x140dc2("✅ 安全验证已完成，继续执行任务", null, "info");
+      fn58();
+      reportCurrentAction("✅ 安全验证已完成，继续执行任务");
+      reportTraceLog("✅ 安全验证已完成，继续执行任务", null, "info");
       return true;
     } finally {
-      _0x1ae979 = false;
+      flag = false;
     }
   }
-  async function _0x2cac46() {
+  async function checkAndClickOneClickLogin() {
     try {
-      const _0x4d8635 = Array.from(document.querySelectorAll("button, [role=\"button\"], a, div, span, [class*=\"login\"], [class*=\"Login\"], [class*=\"btn\"], [class*=\"Btn\"]")).filter(_0x245e73 => _0x21b65c(_0x245e73));
-      for (const _0x1fce9f of _0x4d8635) {
-        const _0xb77921 = String(_0x1fce9f.innerText || _0x1fce9f.textContent || "").trim().replace(/\s+/g, "");
-        if (!_0xb77921 || _0xb77921.length > 24) {
+      const result = Array.from(document.querySelectorAll("button, [role=\"button\"], a, div, span, [class*=\"login\"], [class*=\"Login\"], [class*=\"btn\"], [class*=\"Btn\"]")).filter(arg1 => isVisibleElement(arg1));
+      for (const item of result) {
+        const result = String(item.innerText || item.textContent || "").trim().replace(/\s+/g, "");
+        if (!result || result.length > 24) {
           continue;
         }
-        const _0x287ff4 = /^(一键登录|快捷登录|同意并登录|手机号一键登录|授权登录|本机号码一键登录|微信一键登录|QQ一键登录)$/.test(_0xb77921) || _0xb77921.length <= 16 && /一键登录|快捷登录|同意并登录|手机号.*登录|授权登录/.test(_0xb77921);
-        if (_0x287ff4) {
-          console.log("[Built-in-Debug] [一键登录] 发现一键登录/授权按钮，自动点击:", _0xb77921);
-          _0x140dc2("🔓 检测到「" + _0xb77921 + "」弹窗按钮，已自动点击登录…");
-          _0x290466("🔓 自动点击「" + _0xb77921 + "」…");
-          await _0x1060de(_0x1fce9f, null);
-          await _0x224c1b(1200);
+        const local = /^(一键登录|快捷登录|同意并登录|手机号一键登录|授权登录|本机号码一键登录|微信一键登录|QQ一键登录)$/.test(result) || result.length <= 16 && /一键登录|快捷登录|同意并登录|手机号.*登录|授权登录/.test(result);
+        if (local) {
+          console.log("[Built-in-Debug] [一键登录] 发现一键登录/授权按钮，自动点击:", result);
+          reportTraceLog("🔓 检测到「" + result + "」弹窗按钮，已自动点击登录…");
+          reportCurrentAction("🔓 自动点击「" + result + "」…");
+          await simulateHumanClick(item, null);
+          await sleep(1200);
           return true;
         }
       }
-    } catch (_0x358117) {}
+    } catch (error) {}
     return false;
   }
-  async function _0x5ec3ed(_0x2d8ee2 = "") {
-    _0x290466("搜索页提示需要登录，正在尝试一键登录…");
-    _0x140dc2("🔓 搜索页登录墙：尝试自动点击「一键登录」…", null, "warning");
-    let _0x3f3e3a = false;
-    const _0x50a589 = Date.now() + 12000;
-    while (Date.now() < _0x50a589 && !_0x4913fc(_0x2d8ee2)) {
-      if (_0x1aa046()) {
-        await _0x3b5470(_0x2d8ee2);
+  async function awaitSearchPageLoginGate(text = "") {
+    reportCurrentAction("搜索页提示需要登录，正在尝试一键登录…");
+    reportTraceLog("🔓 搜索页登录墙：尝试自动点击「一键登录」…", null, "warning");
+    let flag = false;
+    const value = Date.now() + 12000;
+    while (Date.now() < value && !shouldAbort(text)) {
+      if (detectPageSecurityChallenge()) {
+        await awaitSecurityChallengeIfPresent(text);
         break;
       }
-      if (await _0x2cac46()) {
-        _0x3f3e3a = true;
+      if (await checkAndClickOneClickLogin()) {
+        flag = true;
         break;
       }
-      await _0x224c1b(800);
+      await sleep(800);
     }
-    if (_0x3f3e3a) {
-      _0x290466("已点击一键登录，等待搜索结果刷新…");
-      await _0x1ebf90(2500, 4500, _0x2d8ee2, "一键登录后等待搜索页");
+    if (flag) {
+      reportCurrentAction("已点击一键登录，等待搜索结果刷新…");
+      await randomDelay(2500, 4500, text, "一键登录后等待搜索页");
       return true;
     }
-    _0x290466("搜索页提示需要登录，等待登录完成后继续扫描...");
-    await _0x1ebf90(5000, 8000, _0x2d8ee2, "等待搜索页登录");
+    reportCurrentAction("搜索页提示需要登录，等待登录完成后继续扫描...");
+    await randomDelay(5000, 8000, text, "等待搜索页登录");
     try {
-      await _0x2cac46();
-    } catch (_0x4cf159) {}
+      await checkAndClickOneClickLogin();
+    } catch (error) {}
     return false;
   }
-  async function _0x268adb(_0x530732 = "") {
-    if (_0x1aa046()) {
-      await _0x3b5470(_0x530732);
+  async function handleGlobalAutomationPopupsAndSecurity(text = "") {
+    if (detectPageSecurityChallenge()) {
+      await awaitSecurityChallengeIfPresent(text);
       return true;
     }
-    const _0x5e1dc = await _0x2cac46();
-    if (_0x5e1dc) {
+    const result = await checkAndClickOneClickLogin();
+    if (result) {
       return true;
     }
     try {
-      await _0x50140c(_0x530732);
-    } catch (_0x203afe) {}
+      await dismissEntityLoginPopupsCore(text);
+    } catch (error) {}
     return false;
   }
-  function _0x20578e() {
+  function persistSessionInteractionCount() {
     try {
       if (typeof window._saveRadarState === "function") {
         window._saveRadarState();
       } else {
-        const _0x181ea9 = _0x283cd6(window._radar_account_id, _0x3b9fd2.activeLoopId);
-        const _0x1093e1 = _0x1a2ccc(window._radar_account_id, _0x3b9fd2.activeLoopId);
-        if (_0x1093e1.loopId === _0x3b9fd2.activeLoopId) {
-          _0x1093e1.sessionInteractionCount = _0x3b9fd2.sessionInteractionCount;
-          _0x1093e1.followCount = _0x3b9fd2.sessionFollowCount;
-          _0x1093e1.dmCount = _0x3b9fd2.sessionDmCount;
-          _0x35f377.setItem(_0x181ea9, JSON.stringify(_0x1093e1));
+        const result = radarSessionKey(window._radar_account_id, state.activeLoopId);
+        const result2 = readRadarSessionState(window._radar_account_id, state.activeLoopId);
+        if (result2.loopId === state.activeLoopId) {
+          result2.sessionInteractionCount = state.sessionInteractionCount;
+          result2.followCount = state.sessionFollowCount;
+          result2.dmCount = state.sessionDmCount;
+          localStorage.setItem(result, JSON.stringify(result2));
         }
       }
-    } catch (_0x512028) {}
+    } catch (error) {}
   }
-  function _0x5b1d44(_0x57fd66 = 1) {
-    _0x3b9fd2.sessionInteractionCount += _0x57fd66;
-    _0x20578e();
-    const _0xde669 = _0x3b9fd2.sessionInteractionLimit === Infinity ? "∞" : _0x3b9fd2.sessionInteractionLimit;
-    _0x140dc2("📊 互动总次数已更新：" + _0x3b9fd2.sessionInteractionCount + "/" + _0xde669);
+  function incrementInteractionCount(num = 1) {
+    state.sessionInteractionCount += num;
+    persistSessionInteractionCount();
+    const value = state.sessionInteractionLimit === Infinity ? "∞" : state.sessionInteractionLimit;
+    reportTraceLog("📊 互动总次数已更新：" + state.sessionInteractionCount + "/" + value);
     try {
-      _0x511cd4.send("automation-data", {
+      ipcRenderer.send("automation-data", {
         type: "interaction-total-progress",
         payload: {
           accountId: window._radar_account_id,
-          current: _0x3b9fd2.sessionInteractionCount,
-          limit: _0x3b9fd2.sessionInteractionLimit
+          current: state.sessionInteractionCount,
+          limit: state.sessionInteractionLimit
         }
       });
-    } catch (_0x310edf) {}
+    } catch (error) {}
   }
-  function _0x59e979() {
-    return _0x3b9fd2.sessionInteractionLimit !== Infinity && _0x3b9fd2.sessionInteractionCount >= _0x3b9fd2.sessionInteractionLimit;
+  function isInteractionLimitReached() {
+    return state.sessionInteractionLimit !== Infinity && state.sessionInteractionCount >= state.sessionInteractionLimit;
   }
-  function _0x46fa9d(_0x4fbb30 = _0x3b9fd2.currentTask) {
-    const _0x4fbab4 = _0x4fbb30?.replyTemplates || (_0x4fbb30?.commentContent ? _0x4fbb30.commentContent.split("\n").filter(_0x10b8ec => _0x10b8ec.trim()) : []);
-    return _0x4fbab4.length > 0;
+  function hasLocalReplyTemplates(arg1 = state.currentTask) {
+    const local = arg1?.replyTemplates || (arg1?.commentContent ? arg1.commentContent.split("\n").filter(arg1 => arg1.trim()) : []);
+    return local.length > 0;
   }
-  function _0x17bd86(_0x5492af = _0x3b9fd2.currentTask) {
-    return String(_0x5492af?.videoCommentContent || "").split("\n").some(_0x36c4f3 => _0x36c4f3.trim());
+  function hasVideoCommentTemplates(arg1 = state.currentTask) {
+    return String(arg1?.videoCommentContent || "").split("\n").some(arg1 => arg1.trim());
   }
-  function _0x37e7f5(_0x2d707a = _0x3b9fd2.currentTask) {
-    if (_0x2d707a?.enableCommentWithoutText) {
+  function shouldUseTextlessReplyPayload(arg1 = state.currentTask) {
+    if (arg1?.enableCommentWithoutText) {
       return true;
     }
-    if (_0x2a5122(_0x2d707a) || _0x4938d4(_0x2d707a)) {
+    if (shouldUseAiReplyGeneration(arg1) || isProfileFirstCommentAiMode(arg1)) {
       return false;
     }
-    return _0x55a0db(false) && !_0x46fa9d(_0x2d707a);
+    return hasCommentNonTextPayload(false) && !hasLocalReplyTemplates(arg1);
   }
-  function _0xa83238(_0x2ed324 = _0x3b9fd2.currentTask) {
-    if (_0x2ed324?.enableVideoCommentWithoutText) {
+  function shouldUseTextlessVideoCommentPayload(arg1 = state.currentTask) {
+    if (arg1?.enableVideoCommentWithoutText) {
       return true;
     }
-    return _0x55a0db(true) && !_0x17bd86(_0x2ed324);
+    return hasCommentNonTextPayload(true) && !hasVideoCommentTemplates(arg1);
   }
   return {
-    abortAutomationStartup: _0x52184e,
-    awaitSearchPageLoginGate: _0x5ec3ed,
-    awaitSecurityChallengeIfPresent: _0x3b5470,
-    buildAutomationAiPayload: _0x2b9e3f,
-    buildMainCommentAbortResult: _0x57afe6,
-    checkAndClickOneClickLogin: _0x2cac46,
-    clipTraceText: _0x2fbda9,
-    describeCommentLikeState: _0x470680,
-    describeMainCommentInputEnvironment: _0x31c9cd,
-    describeTaskAbortReason: _0x3cf170,
-    detectPageSecurityChallenge: _0x1aa046,
-    evaluateLeadLocationFilter: _0x259d43,
-    formatTaskLocationFilterSummary: _0x3aef23,
-    getAutomationTextHelpersModule: _0x13b88b,
-    getCommentPlaceholderText: _0x129413,
-    getIncludeTitleKeywordMatch: _0x3094bb,
-    getLocationFilterModule: _0x2b7132,
-    handleGlobalAutomationPopupsAndSecurity: _0x268adb,
-    hasCommentLikeTakenEffect: _0x4f4b1e,
-    hasLocalReplyTemplates: _0x46fa9d,
-    hasVideoCommentTemplates: _0x17bd86,
-    incrementInteractionCount: _0x5b1d44,
-    isDouyinProfileTargetingEnabled: _0x461d0f,
-    isFatalAiAuthError: _0x34f96f,
-    isInteractionLimitReached: _0x59e979,
-    isMainCommentPlaceholderCandidate: _0x4b0572,
-    matchCurrentVideoForDy: _0x436e5a,
-    matchExcludedCommentKeyword: _0x20c3a3,
-    matchLeadProfileForDy: _0x289310,
-    matchTitleKeywordList: _0x3dab1,
-    parseTitleKeywordList: _0xf99804,
-    persistSessionInteractionCount: _0x20578e,
-    personalizeDmTemplate: _0x4686eb,
-    prefetchAiMainPostComment: _0xf44916,
-    prefetchKeywordReplyContents: _0x39e094,
-    prepareLeadsForAiAnalysis: _0x78f795,
-    reportCommentFlowTrace: _0x31dea9,
-    reportCurrentAction: _0x290466,
-    reportProfileFirstTrace: _0x334fa9,
-    reportTraceLog: _0x140dc2,
-    resolveCommentLikeControlInNode: _0x5b4b75,
-    resolveTaskEntryUrl: _0x59ff7f,
-    resolveTaskLocationFilterRegions: _0x4d9a5b,
-    scoreMainCommentPlaceholderCandidate: _0x34336e,
-    shouldEnforceIncludeTitleKeywords: _0xd654dc,
-    shouldForceSelectByIncludeTitle: _0x3128ba,
-    shouldGenerateAiVideoMainPost: _0x4db715,
-    shouldPrefetchMainPostWithVideoMatch: _0x4feeb9,
-    shouldUseAiCommentAnalysis: _0x2932a8,
-    shouldUseAiReplyGeneration: _0x2a5122,
-    shouldUseCommentKeywordFilter: _0x23e809,
-    shouldUsePersonaVideoFilter: _0x310cc3,
-    shouldUseTextlessReplyPayload: _0x37e7f5,
-    shouldUseTextlessVideoCommentPayload: _0xa83238,
-    snapshotCommentLikeControlState: _0xdb1961,
-    taskLocationFilterEnabled: _0x5b929a
+    abortAutomationStartup: abortAutomationStartup,
+    awaitSearchPageLoginGate: awaitSearchPageLoginGate,
+    awaitSecurityChallengeIfPresent: awaitSecurityChallengeIfPresent,
+    buildAutomationAiPayload: buildAutomationAiPayload,
+    buildMainCommentAbortResult: buildMainCommentAbortResult,
+    checkAndClickOneClickLogin: checkAndClickOneClickLogin,
+    clipTraceText: fn7,
+    describeCommentLikeState: describeCommentLikeState,
+    describeMainCommentInputEnvironment: describeMainCommentInputEnvironment,
+    describeTaskAbortReason: describeTaskAbortReason,
+    detectPageSecurityChallenge: detectPageSecurityChallenge,
+    evaluateLeadLocationFilter: evaluateLeadLocationFilter,
+    formatTaskLocationFilterSummary: formatTaskLocationFilterSummary,
+    getAutomationTextHelpersModule: getAutomationTextHelpersModule,
+    getCommentPlaceholderText: getCommentPlaceholderText,
+    getIncludeTitleKeywordMatch: getIncludeTitleKeywordMatch,
+    getLocationFilterModule: getLocationFilterModule,
+    handleGlobalAutomationPopupsAndSecurity: handleGlobalAutomationPopupsAndSecurity,
+    hasCommentLikeTakenEffect: fn26,
+    hasLocalReplyTemplates: hasLocalReplyTemplates,
+    hasVideoCommentTemplates: hasVideoCommentTemplates,
+    incrementInteractionCount: incrementInteractionCount,
+    isDouyinProfileTargetingEnabled: isDouyinProfileTargetingEnabled,
+    isFatalAiAuthError: fn15,
+    isInteractionLimitReached: isInteractionLimitReached,
+    isMainCommentPlaceholderCandidate: isMainCommentPlaceholderCandidate,
+    matchCurrentVideoForDy: matchCurrentVideoForDy,
+    matchExcludedCommentKeyword: matchExcludedCommentKeyword,
+    matchLeadProfileForDy: matchLeadProfileForDy,
+    matchTitleKeywordList: fn31,
+    parseTitleKeywordList: fn30,
+    persistSessionInteractionCount: persistSessionInteractionCount,
+    personalizeDmTemplate: fn16,
+    prefetchAiMainPostComment: prefetchAiMainPostComment,
+    prefetchKeywordReplyContents: prefetchKeywordReplyContents,
+    prepareLeadsForAiAnalysis: prepareLeadsForAiAnalysis,
+    reportCommentFlowTrace: reportCommentFlowTrace,
+    reportCurrentAction: reportCurrentAction,
+    reportProfileFirstTrace: reportProfileFirstTrace,
+    reportTraceLog: reportTraceLog,
+    resolveCommentLikeControlInNode: resolveCommentLikeControlInNode,
+    resolveTaskEntryUrl: resolveTaskEntryUrl,
+    resolveTaskLocationFilterRegions: resolveTaskLocationFilterRegions,
+    scoreMainCommentPlaceholderCandidate: scoreMainCommentPlaceholderCandidate,
+    shouldEnforceIncludeTitleKeywords: shouldEnforceIncludeTitleKeywords,
+    shouldForceSelectByIncludeTitle: shouldForceSelectByIncludeTitle,
+    shouldGenerateAiVideoMainPost: shouldGenerateAiVideoMainPost,
+    shouldPrefetchMainPostWithVideoMatch: shouldPrefetchMainPostWithVideoMatch,
+    shouldUseAiCommentAnalysis: shouldUseAiCommentAnalysis,
+    shouldUseAiReplyGeneration: shouldUseAiReplyGeneration,
+    shouldUseCommentKeywordFilter: shouldUseCommentKeywordFilter,
+    shouldUsePersonaVideoFilter: shouldUsePersonaVideoFilter,
+    shouldUseTextlessReplyPayload: shouldUseTextlessReplyPayload,
+    shouldUseTextlessVideoCommentPayload: shouldUseTextlessVideoCommentPayload,
+    snapshotCommentLikeControlState: snapshotCommentLikeControlState,
+    taskLocationFilterEnabled: taskLocationFilterEnabled
   };
 }
 module.exports = {
