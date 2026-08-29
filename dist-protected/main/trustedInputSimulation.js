@@ -16,282 +16,282 @@ const TRUSTED_AUTOMATION_KEYS = {
   }
 };
 const TRUSTED_CLICK_TARGET_ATTR = "data-radar-trusted-click-target";
-function registerTrustedInputSimulation(_0x336a1b) {
+function registerTrustedInputSimulation(arg1) {
   const {
-    getPlatformViews: _0x1dced7,
-    getInteractionViewsMap: _0x4510d3,
-    inferAutomationViewKey: _0x108e94,
-    getBackgroundAutomationHostViews: _0x4858cb,
-    getBackgroundInteractionSlot: _0x215bde,
-    getBackgroundAutomationHostWindow: _0x292eb0,
-    getAutomationViewsVisible: _0x30d664,
-    getMainWindow: _0x2b2a96,
-    safeSetTopBrowserView: _0x747bbe,
-    parkBackgroundAutomationHostWindow: _0x523e67,
-    restoreMainWindowUiFocus: _0x21163
-  } = _0x336a1b;
-  function _0x12ec9b(_0x1a252c) {
-    for (const _0x2b30ee of _0x1dced7().values()) {
-      if (_0x2b30ee?.webContents === _0x1a252c) {
-        return _0x2b30ee;
+    getPlatformViews: getPlatformViews,
+    getInteractionViewsMap: getInteractionViewsMap,
+    inferAutomationViewKey: inferAutomationViewKey,
+    getBackgroundAutomationHostViews: getBackgroundAutomationHostViews,
+    getBackgroundInteractionSlot: getBackgroundInteractionSlot,
+    getBackgroundAutomationHostWindow: getBackgroundAutomationHostWindow,
+    getAutomationViewsVisible: getAutomationViewsVisible,
+    getMainWindow: getMainWindow,
+    safeSetTopBrowserView: safeSetTopBrowserView,
+    parkBackgroundAutomationHostWindow: parkBackgroundAutomationHostWindow,
+    restoreMainWindowUiFocus: restoreMainWindowUiFocus
+  } = arg1;
+  function fn(arg1) {
+    for (const item of getPlatformViews().values()) {
+      if (item?.webContents === arg1) {
+        return item;
       }
     }
-    for (const _0x3151a4 of _0x4510d3().values()) {
-      if (_0x3151a4?.webContents === _0x1a252c) {
-        return _0x3151a4;
+    for (const item of getInteractionViewsMap().values()) {
+      if (item?.webContents === arg1) {
+        return item;
       }
     }
     return null;
   }
-  async function _0x4061e5(_0x1a2255, _0x5ab295) {
-    const _0x2a3d86 = String(_0x5ab295 || "").trim();
-    if (!/^[a-zA-Z0-9_-]{8,96}$/.test(_0x2a3d86)) {
+  async function fn2(arg1, arg2) {
+    const result = String(arg2 || "").trim();
+    if (!/^[a-zA-Z0-9_-]{8,96}$/.test(result)) {
       return null;
     }
-    const _0xea119b = JSON.stringify(TRUSTED_CLICK_TARGET_ATTR);
-    const _0x162e8c = JSON.stringify(_0x2a3d86);
+    const result2 = JSON.stringify(TRUSTED_CLICK_TARGET_ATTR);
+    const result3 = JSON.stringify(result);
     try {
-      return await _0x1a2255.executeJavaScript("\n                (() => {\n                    const attr = " + _0xea119b + ";\n                    const token = " + _0x162e8c + ";\n                    const controls = Array.from(document.querySelectorAll('[' + attr + ']'));\n                    const control = controls.find((el) => el.getAttribute(attr) === token);\n                    if (!control || control.isConnected === false || !control.getBoundingClientRect) return null;\n                    const rect = control.getBoundingClientRect();\n                    if (!(rect.width > 1 && rect.height > 1)) return null;\n                    const samples = [[0.5, 0.5], [0.5, 0.35], [0.5, 0.65], [0.32, 0.5], [0.68, 0.5]];\n                    for (const [rx, ry] of samples) {\n                        const x = rect.left + rect.width * rx;\n                        const y = rect.top + rect.height * ry;\n                        const hit = document.elementFromPoint(x, y);\n                        const matched = !!(hit && (\n                            hit === control || control.contains(hit) || hit.contains(control)\n                        ));\n                        if (!matched) continue;\n                        return {\n                            x,\n                            y,\n                            rect: {\n                                left: rect.left,\n                                top: rect.top,\n                                width: rect.width,\n                                height: rect.height,\n                            },\n                            tag: String(control.tagName || ''),\n                            hitTag: String(hit.tagName || ''),\n                        };\n                    }\n                    return null;\n                })()\n            ", true);
-    } catch (_0x40e3c0) {
+      return await arg1.executeJavaScript("\n                (() => {\n                    const attr = " + result2 + ";\n                    const token = " + result3 + ";\n                    const controls = Array.from(document.querySelectorAll('[' + attr + ']'));\n                    const control = controls.find((el) => el.getAttribute(attr) === token);\n                    if (!control || control.isConnected === false || !control.getBoundingClientRect) return null;\n                    const rect = control.getBoundingClientRect();\n                    if (!(rect.width > 1 && rect.height > 1)) return null;\n                    const samples = [[0.5, 0.5], [0.5, 0.35], [0.5, 0.65], [0.32, 0.5], [0.68, 0.5]];\n                    for (const [rx, ry] of samples) {\n                        const x = rect.left + rect.width * rx;\n                        const y = rect.top + rect.height * ry;\n                        const hit = document.elementFromPoint(x, y);\n                        const matched = !!(hit && (\n                            hit === control || control.contains(hit) || hit.contains(control)\n                        ));\n                        if (!matched) continue;\n                        return {\n                            x,\n                            y,\n                            rect: {\n                                left: rect.left,\n                                top: rect.top,\n                                width: rect.width,\n                                height: rect.height,\n                            },\n                            tag: String(control.tagName || ''),\n                            hitTag: String(hit.tagName || ''),\n                        };\n                    }\n                    return null;\n                })()\n            ", true);
+    } catch (error) {
       return null;
     }
   }
-  async function _0x3378a1(_0x85203b, {
-    x: _0x5b6bb9,
-    y: _0x4e740f,
-    targetToken: _0xde6042
+  async function fn3(arg1, {
+    x: x2,
+    y: y2,
+    targetToken: targetToken
   } = {}) {
-    if (!_0x85203b || _0x85203b.isDestroyed?.()) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return {
         success: false,
         reason: "web_contents_unavailable"
       };
     }
-    const _0x2c190e = _0x108e94(_0x85203b);
-    const _0x390736 = _0x12ec9b(_0x85203b);
-    const _0x140ea6 = _0x4858cb();
-    const _0x407783 = !!_0x390736 && _0x140ea6.includes(_0x390736);
-    let _0x5f28c4 = false;
-    const _0x636409 = _0x2b2a96();
-    if (_0x407783) {
-      const _0x27eba4 = _0x215bde();
-      _0x5f28c4 = !!_0x27eba4 && _0x27eba4.viewKey === _0x2c190e && _0x27eba4.webContentsId === _0x85203b.id;
-      if (_0x5f28c4) {
+    const result = inferAutomationViewKey(arg1);
+    const result2 = fn(arg1);
+    const result3 = getBackgroundAutomationHostViews();
+    const local = !!result2 && result3.includes(result2);
+    let flag = false;
+    const result4 = getMainWindow();
+    if (local) {
+      const result3 = getBackgroundInteractionSlot();
+      flag = !!result3 && result3.viewKey === result && result3.webContentsId === arg1.id;
+      if (flag) {
         try {
-          _0x292eb0()?.setTopBrowserView(_0x390736);
-        } catch (_0x4d236f) {}
+          getBackgroundAutomationHostWindow()?.setTopBrowserView(result2);
+        } catch (error) {}
       }
-    } else if (_0x30d664() && _0x390736 && _0x636409 && !_0x636409.isDestroyed() && _0x636409.getBrowserViews().includes(_0x390736)) {
-      _0x747bbe(_0x390736, {
-        context: "trusted-click:" + (_0x2c190e || "?")
+    } else if (getAutomationViewsVisible() && result2 && result4 && !result4.isDestroyed() && result4.getBrowserViews().includes(result2)) {
+      safeSetTopBrowserView(result2, {
+        context: "trusted-click:" + (result || "?")
       });
     }
-    const _0x1c70f6 = _0xde6042 ? await _0x4061e5(_0x85203b, _0xde6042) : null;
-    if (_0xde6042 && !_0x1c70f6) {
+    const value = targetToken ? await fn2(arg1, targetToken) : null;
+    if (targetToken && !value) {
       return {
         success: false,
         reason: "target_not_found_or_not_hittable",
-        viewKey: _0x2c190e
+        viewKey: result
       };
     }
-    const _0x548e2b = Number(_0x1c70f6?.x ?? _0x5b6bb9);
-    const _0x436b12 = Number(_0x1c70f6?.y ?? _0x4e740f);
-    if (!Number.isFinite(_0x548e2b) || !Number.isFinite(_0x436b12)) {
+    const result5 = Number(value?.x ?? x2);
+    const result6 = Number(value?.y ?? y2);
+    if (!Number.isFinite(result5) || !Number.isFinite(result6)) {
       return {
         success: false,
         reason: "invalid_coordinates",
-        viewKey: _0x2c190e
+        viewKey: result
       };
     }
-    const _0xf6c901 = _0x85203b.debugger;
-    let _0x270711 = false;
-    let _0x25857d = false;
+    const value2 = arg1.debugger;
+    let flag2 = false;
+    let flag3 = false;
     try {
-      if (!_0xf6c901.isAttached()) {
-        _0xf6c901.attach("1.3");
-        _0x270711 = true;
+      if (!value2.isAttached()) {
+        value2.attach("1.3");
+        flag2 = true;
       }
-      await _0xf6c901.sendCommand("Input.dispatchMouseEvent", {
+      await value2.sendCommand("Input.dispatchMouseEvent", {
         type: "mouseMoved",
-        x: _0x548e2b,
-        y: _0x436b12,
+        x: result5,
+        y: result6,
         button: "none",
         buttons: 0
       });
-      await _0xf6c901.sendCommand("Input.dispatchMouseEvent", {
+      await value2.sendCommand("Input.dispatchMouseEvent", {
         type: "mousePressed",
-        x: _0x548e2b,
-        y: _0x436b12,
+        x: result5,
+        y: result6,
         button: "left",
         buttons: 1,
         clickCount: 1
       });
-      _0x25857d = true;
-      await new Promise(_0x38be3d => setTimeout(_0x38be3d, 55));
-      await _0xf6c901.sendCommand("Input.dispatchMouseEvent", {
+      flag3 = true;
+      await new Promise(arg1 => setTimeout(arg1, 55));
+      await value2.sendCommand("Input.dispatchMouseEvent", {
         type: "mouseReleased",
-        x: _0x548e2b,
-        y: _0x436b12,
+        x: result5,
+        y: result6,
         button: "left",
         buttons: 0,
         clickCount: 1
       });
-      _0x25857d = false;
+      flag3 = false;
       return {
         success: true,
         transport: "cdp",
-        viewKey: _0x2c190e,
-        backgroundHosted: _0x407783,
-        backgroundSlotOwned: _0x5f28c4,
-        zoomFactor: Number(_0x85203b.getZoomFactor?.() || 1),
-        x: _0x548e2b,
-        y: _0x436b12,
-        targetResolved: !!_0x1c70f6,
-        targetRect: _0x1c70f6?.rect || null
+        viewKey: result,
+        backgroundHosted: local,
+        backgroundSlotOwned: flag,
+        zoomFactor: Number(arg1.getZoomFactor?.() || 1),
+        x: result5,
+        y: result6,
+        targetResolved: !!value,
+        targetRect: value?.rect || null
       };
-    } catch (_0x5d56f7) {
-      if (_0x25857d && _0xf6c901.isAttached()) {
+    } catch (error) {
+      if (flag3 && value2.isAttached()) {
         try {
-          await _0xf6c901.sendCommand("Input.dispatchMouseEvent", {
+          await value2.sendCommand("Input.dispatchMouseEvent", {
             type: "mouseReleased",
-            x: _0x548e2b,
-            y: _0x436b12,
+            x: result5,
+            y: result6,
             button: "left",
             buttons: 0,
             clickCount: 1
           });
-        } catch (_0x34f346) {}
+        } catch (error) {}
       }
-      console.warn("[Main] CDP 原生点击失败 " + (_0x2c190e || "?") + ": " + _0x5d56f7.message);
+      console.warn("[Main] CDP 原生点击失败 " + (result || "?") + ": " + error.message);
     } finally {
-      if (_0x270711 && _0xf6c901.isAttached()) {
+      if (flag2 && value2.isAttached()) {
         try {
-          _0xf6c901.detach();
-        } catch (_0x2a256f) {}
+          value2.detach();
+        } catch (error) {}
       }
     }
-    if (_0x407783) {
-      const _0x139151 = _0x292eb0();
-      if (_0x139151 && !_0x139151.isDestroyed()) {
-        _0x523e67(_0x139151, "click-fallback-skip-focus");
+    if (local) {
+      const result2 = getBackgroundAutomationHostWindow();
+      if (result2 && !result2.isDestroyed()) {
+        parkBackgroundAutomationHostWindow(result2, "click-fallback-skip-focus");
         try {
-          if (_0x139151.isFocused()) {
-            _0x139151.blur();
+          if (result2.isFocused()) {
+            result2.blur();
           }
-        } catch (_0x3f1b7d) {}
+        } catch (error) {}
       }
-      if (_0x636409 && !_0x636409.isDestroyed() && _0x636409.isVisible() && !_0x636409.isMinimized()) {
-        _0x21163("click-fallback-host-skip");
+      if (result4 && !result4.isDestroyed() && result4.isVisible() && !result4.isMinimized()) {
+        restoreMainWindowUiFocus("click-fallback-host-skip");
       }
       return {
         success: false,
         reason: "cdp_failed_background_host_no_focus",
-        viewKey: _0x2c190e
+        viewKey: result
       };
     }
-    if (!_0x30d664()) {
-      _0x21163("click-fallback-preview-closed");
+    if (!getAutomationViewsVisible()) {
+      restoreMainWindowUiFocus("click-fallback-preview-closed");
       return {
         success: false,
         reason: "cdp_failed_preview_closed_no_focus",
-        viewKey: _0x2c190e
+        viewKey: result
       };
     }
     return {
       success: false,
       reason: "cdp_failed_no_coordinate_fallback",
-      viewKey: _0x2c190e
+      viewKey: result
     };
   }
-  async function _0x56b81b(_0x4ac12e, _0x430a40) {
-    const _0x1c5f8e = TRUSTED_AUTOMATION_KEYS[_0x430a40];
-    if (!_0x1c5f8e) {
+  async function fn4(arg1, arg2) {
+    const value = TRUSTED_AUTOMATION_KEYS[arg2];
+    if (!value) {
       return {
         success: false,
         reason: "unsupported_key"
       };
     }
-    if (!_0x4ac12e || _0x4ac12e.isDestroyed?.()) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return {
         success: false,
         reason: "web_contents_unavailable"
       };
     }
-    const _0x2bac15 = _0x108e94(_0x4ac12e);
-    const _0x5b79e6 = _0x12ec9b(_0x4ac12e);
-    const _0x351e43 = !!_0x5b79e6 && _0x4858cb().includes(_0x5b79e6);
-    const _0x58ee78 = _0x4ac12e.debugger;
-    let _0x299292 = false;
+    const result = inferAutomationViewKey(arg1);
+    const result2 = fn(arg1);
+    const local = !!result2 && getBackgroundAutomationHostViews().includes(result2);
+    const value2 = arg1.debugger;
+    let flag = false;
     try {
-      if (!_0x58ee78.isAttached()) {
-        _0x58ee78.attach("1.3");
-        _0x299292 = true;
+      if (!value2.isAttached()) {
+        value2.attach("1.3");
+        flag = true;
       }
-      await _0x58ee78.sendCommand("Input.dispatchKeyEvent", {
+      await value2.sendCommand("Input.dispatchKeyEvent", {
         type: "keyDown",
-        key: _0x430a40,
-        ..._0x1c5f8e
+        key: arg2,
+        ...value
       });
-      await new Promise(_0x3fd87c => setTimeout(_0x3fd87c, 45));
-      await _0x58ee78.sendCommand("Input.dispatchKeyEvent", {
+      await new Promise(arg1 => setTimeout(arg1, 45));
+      await value2.sendCommand("Input.dispatchKeyEvent", {
         type: "keyUp",
-        key: _0x430a40,
-        ..._0x1c5f8e
+        key: arg2,
+        ...value
       });
       return {
         success: true,
         transport: "cdp",
-        viewKey: _0x2bac15,
-        backgroundHosted: _0x351e43,
-        key: _0x430a40
+        viewKey: result,
+        backgroundHosted: local,
+        key: arg2
       };
-    } catch (_0x3b0d13) {
+    } catch (error) {
       return {
         success: false,
-        reason: _0x3b0d13.message || "trusted_key_failed",
-        viewKey: _0x2bac15,
-        backgroundHosted: _0x351e43,
-        key: _0x430a40
+        reason: error.message || "trusted_key_failed",
+        viewKey: result,
+        backgroundHosted: local,
+        key: arg2
       };
     } finally {
-      if (_0x299292 && _0x58ee78.isAttached()) {
+      if (flag && value2.isAttached()) {
         try {
-          _0x58ee78.detach();
-        } catch (_0x5afe08) {}
+          value2.detach();
+        } catch (error) {}
       }
     }
   }
-  async function _0x5ceb3e(_0xf198e) {
-    if (!_0xf198e || _0xf198e.isDestroyed?.()) {
+  async function fn5(arg1) {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return {
         success: false,
         reason: "web_contents_unavailable"
       };
     }
-    const _0x983e46 = _0x108e94(_0xf198e);
-    const _0x28f024 = _0x12ec9b(_0xf198e);
-    const _0x4e49f2 = !!_0x28f024 && _0x4858cb().includes(_0x28f024);
-    if (_0x4e49f2) {
-      const _0x5986c9 = _0x215bde();
-      if (!_0x5986c9 || _0x5986c9.viewKey !== _0x983e46 || _0x5986c9.webContentsId !== _0xf198e.id) {
+    const result = inferAutomationViewKey(arg1);
+    const result2 = fn(arg1);
+    const local = !!result2 && getBackgroundAutomationHostViews().includes(result2);
+    if (local) {
+      const result3 = getBackgroundInteractionSlot();
+      if (!result3 || result3.viewKey !== result || result3.webContentsId !== arg1.id) {
         return {
           success: false,
           reason: "background_interaction_slot_not_owned",
-          viewKey: _0x983e46
+          viewKey: result
         };
       }
       try {
-        _0x292eb0()?.setTopBrowserView(_0x28f024);
-      } catch (_0x4e73be) {}
+        getBackgroundAutomationHostWindow()?.setTopBrowserView(result2);
+      } catch (error) {}
     }
-    const _0x311312 = _0xf198e.debugger;
-    let _0x3e6cdc = false;
+    const value = arg1.debugger;
+    let flag = false;
     try {
-      if (!_0x311312.isAttached()) {
-        _0x311312.attach("1.3");
-        _0x3e6cdc = true;
+      if (!value.isAttached()) {
+        value.attach("1.3");
+        flag = true;
       }
-      await _0x311312.sendCommand("Input.dispatchKeyEvent", {
+      await value.sendCommand("Input.dispatchKeyEvent", {
         type: "keyDown",
         key: "Enter",
         code: "Enter",
@@ -300,8 +300,8 @@ function registerTrustedInputSimulation(_0x336a1b) {
         windowsVirtualKeyCode: 13,
         nativeVirtualKeyCode: 13
       });
-      await new Promise(_0x32228b => setTimeout(_0x32228b, 45));
-      await _0x311312.sendCommand("Input.dispatchKeyEvent", {
+      await new Promise(arg1 => setTimeout(arg1, 45));
+      await value.sendCommand("Input.dispatchKeyEvent", {
         type: "keyUp",
         key: "Enter",
         code: "Enter",
@@ -311,141 +311,141 @@ function registerTrustedInputSimulation(_0x336a1b) {
       return {
         success: true,
         transport: "cdp",
-        viewKey: _0x983e46,
-        backgroundHosted: _0x4e49f2
+        viewKey: result,
+        backgroundHosted: local
       };
-    } catch (_0x27b09c) {
+    } catch (error) {
       return {
         success: false,
-        reason: _0x27b09c.message || "native_enter_failed",
-        viewKey: _0x983e46,
-        backgroundHosted: _0x4e49f2
+        reason: error.message || "native_enter_failed",
+        viewKey: result,
+        backgroundHosted: local
       };
     } finally {
-      if (_0x3e6cdc && _0x311312.isAttached()) {
+      if (flag && value.isAttached()) {
         try {
-          _0x311312.detach();
-        } catch (_0x1774f2) {}
+          value.detach();
+        } catch (error) {}
       }
     }
   }
-  ipcMain.handle("simulate-native-click", async (_0x5a1a0e, _0x3dab88 = {}) => {
-    return _0x3378a1(_0x5a1a0e.sender, _0x3dab88);
+  ipcMain.handle("simulate-native-click", async (arg1, options = {}) => {
+    return fn3(arg1.sender, options);
   });
-  ipcMain.handle("simulate-trusted-key", async (_0x37adcd, {
-    key: _0x564370
+  ipcMain.handle("simulate-trusted-key", async (arg1, {
+    key: key
   } = {}) => {
-    return _0x56b81b(_0x37adcd.sender, _0x564370);
+    return fn4(arg1.sender, key);
   });
-  ipcMain.handle("simulate-native-enter", async _0x59849d => {
-    return _0x5ceb3e(_0x59849d.sender);
+  ipcMain.handle("simulate-native-enter", async arg1 => {
+    return fn5(arg1.sender);
   });
-  async function _0x377ac8(_0x155a0b, _0x2ba06d, _0x5b0bbf = 50) {
-    if (!_0x155a0b || _0x155a0b.isDestroyed()) {
+  async function fn6(arg1, arg2, num = 50) {
+    if (!arg1 || arg1.isDestroyed()) {
       return {
         success: false,
         reason: "destroyed"
       };
     }
-    const _0x103e53 = String(_0x2ba06d || "");
-    if (!_0x103e53) {
+    const result = String(arg2 || "");
+    if (!result) {
       return {
         success: true,
         count: 0,
         transport: "empty"
       };
     }
-    const _0x345d4e = () => new Promise(_0x17256d => {
-      setTimeout(_0x17256d, Math.max(10, Number(_0x5b0bbf) || 50) + Math.floor(Math.random() * 30));
+    const local = () => new Promise(arg1 => {
+      setTimeout(arg1, Math.max(10, Number(num) || 50) + Math.floor(Math.random() * 30));
     });
-    const _0x33f6ee = _0x155a0b.debugger;
-    let _0x273b45 = false;
+    const value = arg1.debugger;
+    let flag = false;
     try {
-      if (!_0x33f6ee.isAttached()) {
-        _0x33f6ee.attach("1.3");
-        _0x273b45 = true;
+      if (!value.isAttached()) {
+        value.attach("1.3");
+        flag = true;
       }
-      for (const _0x436cfc of _0x103e53) {
-        if (_0x155a0b.isDestroyed()) {
+      for (const item of result) {
+        if (arg1.isDestroyed()) {
           break;
         }
-        const _0x377b4b = _0x436cfc.codePointAt(0) || 0;
-        const _0x3bbc34 = _0x377b4b <= 255 ? _0x377b4b : 0;
-        await _0x33f6ee.sendCommand("Input.dispatchKeyEvent", {
+        const local2 = item.codePointAt(0) || 0;
+        const value2 = local2 <= 255 ? local2 : 0;
+        await value.sendCommand("Input.dispatchKeyEvent", {
           type: "keyDown",
-          text: _0x436cfc,
-          unmodifiedText: _0x436cfc,
-          key: _0x436cfc,
-          windowsVirtualKeyCode: _0x3bbc34,
-          nativeVirtualKeyCode: _0x3bbc34
+          text: item,
+          unmodifiedText: item,
+          key: item,
+          windowsVirtualKeyCode: value2,
+          nativeVirtualKeyCode: value2
         });
-        await _0x33f6ee.sendCommand("Input.dispatchKeyEvent", {
+        await value.sendCommand("Input.dispatchKeyEvent", {
           type: "keyUp",
-          key: _0x436cfc,
-          windowsVirtualKeyCode: _0x3bbc34,
-          nativeVirtualKeyCode: _0x3bbc34
+          key: item,
+          windowsVirtualKeyCode: value2,
+          nativeVirtualKeyCode: value2
         });
-        await _0x345d4e();
+        await local();
       }
       return {
         success: true,
-        count: _0x103e53.length,
+        count: result.length,
         transport: "cdp"
       };
-    } catch (_0x247d5a) {
+    } catch (error) {
       try {
-        for (const _0x31b860 of _0x103e53) {
-          if (_0x155a0b.isDestroyed()) {
+        for (const item of result) {
+          if (arg1.isDestroyed()) {
             break;
           }
-          _0x155a0b.sendInputEvent({
+          arg1.sendInputEvent({
             type: "char",
-            keyCode: _0x31b860
+            keyCode: item
           });
-          await _0x345d4e();
+          await local();
         }
         return {
           success: true,
-          count: _0x103e53.length,
+          count: result.length,
           transport: "sendInputEvent-char"
         };
-      } catch (_0x2ed8de) {
+      } catch (error) {
         return {
           success: false,
-          reason: _0x2ed8de?.message || "simulate_text_failed"
+          reason: error?.message || "simulate_text_failed"
         };
       }
     } finally {
-      if (_0x273b45 && _0x33f6ee.isAttached()) {
+      if (flag && value.isAttached()) {
         try {
-          _0x33f6ee.detach();
-        } catch (_0x4e0e44) {}
+          value.detach();
+        } catch (error) {}
       }
     }
   }
-  ipcMain.handle("simulate-text", async (_0x361b80, {
-    text: _0x182c6b,
+  ipcMain.handle("simulate-text", async (arg1, {
+    text: text,
     delay = 50
   } = {}) => {
-    return _0x377ac8(_0x361b80.sender, _0x182c6b, delay);
+    return fn6(arg1.sender, text, delay);
   });
-  ipcMain.on("simulate-text", async (_0x447b27, {
-    text: _0x7d03a2,
+  ipcMain.on("simulate-text", async (arg1, {
+    text: text,
     delay = 50
   } = {}) => {
-    await _0x377ac8(_0x447b27.sender, _0x7d03a2, delay);
+    await fn6(arg1.sender, text, delay);
   });
-  ipcMain.on("simulate-key", (_0x54dda5, {
-    type: _0x4f8e34,
-    keyCode: _0x3282c5,
-    modifiers: _0x2e4f8b
+  ipcMain.on("simulate-key", (arg1, {
+    type: type,
+    keyCode: keyCode,
+    modifiers: modifiers
   }) => {
-    const _0x5b532d = _0x54dda5.sender;
-    if (_0x5b532d && !_0x5b532d.isDestroyed()) {
-      _0x5b532d.sendInputEvent({
-        type: _0x4f8e34,
-        keyCode: _0x3282c5,
-        modifiers: _0x2e4f8b
+    const value = arg1.sender;
+    if (value && !value.isDestroyed()) {
+      value.sendInputEvent({
+        type: type,
+        keyCode: keyCode,
+        modifiers: modifiers
       });
     }
   });
