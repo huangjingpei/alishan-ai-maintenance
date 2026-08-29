@@ -4,39 +4,39 @@ const path = require("path");
 const {
   buildSelfWarmupEventSeenKey
 } = require("../shared/selfWarmupDedupe");
-const SELF_WARMUP_TASKS_FILE = _0x2e117d => path.join(_0x2e117d, "self_warmup_tasks.enc");
+const SELF_WARMUP_TASKS_FILE = arg1 => path.join(arg1, "self_warmup_tasks.enc");
 const MAX_EVENT_RECORDS = 800;
-function createCrypto(_0x1a0853) {
-  const _0x36a892 = crypto.scryptSync("huoke-radar-secret-v1", "salt", 32);
-  const _0x17b3f0 = Buffer.alloc(16, 0);
-  const _0x42f1d9 = SELF_WARMUP_TASKS_FILE(_0x1a0853);
-  function _0x2a1ae4(_0x3347c4, _0x1ef67c = []) {
-    if (!fs.existsSync(_0x3347c4)) {
-      return _0x1ef67c;
+function createCrypto(arg1) {
+  const result = crypto.scryptSync("huoke-radar-secret-v1", "salt", 32);
+  const result2 = Buffer.alloc(16, 0);
+  const result3 = SELF_WARMUP_TASKS_FILE(arg1);
+  function fn(arg1, list = []) {
+    if (!fs.existsSync(arg1)) {
+      return list;
     }
     try {
-      const _0x59fbf2 = fs.readFileSync(_0x3347c4, "utf8");
-      if (!_0x59fbf2) {
-        return _0x1ef67c;
+      const result3 = fs.readFileSync(arg1, "utf8");
+      if (!result3) {
+        return list;
       }
-      const _0x276e8b = crypto.createDecipheriv("aes-256-cbc", _0x36a892, _0x17b3f0);
-      let _0x379e92 = _0x276e8b.update(_0x59fbf2, "hex", "utf8");
-      _0x379e92 += _0x276e8b.final("utf8");
-      return JSON.parse(_0x379e92);
-    } catch (_0x40019c) {
-      return _0x1ef67c;
+      const result4 = crypto.createDecipheriv("aes-256-cbc", result, result2);
+      let result5 = result4.update(result3, "hex", "utf8");
+      result5 += result4.final("utf8");
+      return JSON.parse(result5);
+    } catch (error) {
+      return list;
     }
   }
-  function _0x34b377(_0x44e2b0, _0x3bfbb4) {
-    const _0xb2980d = crypto.createCipheriv("aes-256-cbc", _0x36a892, _0x17b3f0);
-    let _0x1598f8 = _0xb2980d.update(JSON.stringify(_0x3bfbb4), "utf8", "hex");
-    _0x1598f8 += _0xb2980d.final("hex");
-    fs.writeFileSync(_0x44e2b0, _0x1598f8);
+  function fn2(arg1, arg2) {
+    const result3 = crypto.createCipheriv("aes-256-cbc", result, result2);
+    let result4 = result3.update(JSON.stringify(arg2), "utf8", "hex");
+    result4 += result3.final("hex");
+    fs.writeFileSync(arg1, result4);
   }
   return {
-    filePath: _0x42f1d9,
-    readTasks: () => _0x2a1ae4(_0x42f1d9, []),
-    writeTasks: _0x2f6851 => _0x34b377(_0x42f1d9, _0x2f6851)
+    filePath: result3,
+    readTasks: () => fn(result3, []),
+    writeTasks: arg1 => fn2(result3, arg1)
   };
 }
 function createEmptySelfWarmupTaskStats() {
@@ -57,432 +57,432 @@ function createEmptySelfWarmupTaskStats() {
     lastCycleAt: null
   };
 }
-function normalizeSelfWarmupEvent(_0x5a7ffe = {}) {
+function normalizeSelfWarmupEvent(options = {}) {
   return {
-    id: String(_0x5a7ffe.id || "warm_event_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8)),
-    ts: Number(_0x5a7ffe.ts || Date.now()),
-    accountId: String(_0x5a7ffe.accountId || ""),
-    accountName: String(_0x5a7ffe.accountName || ""),
-    source: _0x5a7ffe.source || "notification",
-    eventType: _0x5a7ffe.eventType || "unknown",
-    eventLabel: String(_0x5a7ffe.eventLabel || ""),
-    nickname: String(_0x5a7ffe.nickname || ""),
-    userUrl: String(_0x5a7ffe.userUrl || ""),
-    videoUrl: String(_0x5a7ffe.videoUrl || ""),
-    text: String(_0x5a7ffe.text || ""),
-    timeText: String(_0x5a7ffe.timeText || _0x5a7ffe.time || ""),
-    unread: !!_0x5a7ffe.unread,
-    isGroupChat: !!_0x5a7ffe.isGroupChat,
-    hasFollowButton: _0x5a7ffe.hasFollowButton === undefined ? false : !!_0x5a7ffe.hasFollowButton,
-    matched: _0x5a7ffe.matched === undefined ? true : !!_0x5a7ffe.matched,
-    matchType: _0x5a7ffe.matchType || "rule",
-    judgeReason: String(_0x5a7ffe.judgeReason || ""),
-    suggestedText: String(_0x5a7ffe.suggestedText || ""),
-    suggestedCommentText: String(_0x5a7ffe.suggestedCommentText || ""),
-    suggestedDmText: String(_0x5a7ffe.suggestedDmText || ""),
-    suggestionStatus: _0x5a7ffe.suggestionStatus || "none",
-    webhookStatus: _0x5a7ffe.webhookStatus || "none",
-    actionStatus: _0x5a7ffe.actionStatus || "none",
-    actionSummary: String(_0x5a7ffe.actionSummary || ""),
-    actionErrorReason: String(_0x5a7ffe.actionErrorReason || ""),
-    actionFailures: Array.isArray(_0x5a7ffe.actionFailures) ? _0x5a7ffe.actionFailures.map(_0x44e858 => ({
-      action: String(_0x44e858?.action || ""),
-      reason: String(_0x44e858?.reason || "")
+    id: String(options.id || "warm_event_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8)),
+    ts: Number(options.ts || Date.now()),
+    accountId: String(options.accountId || ""),
+    accountName: String(options.accountName || ""),
+    source: options.source || "notification",
+    eventType: options.eventType || "unknown",
+    eventLabel: String(options.eventLabel || ""),
+    nickname: String(options.nickname || ""),
+    userUrl: String(options.userUrl || ""),
+    videoUrl: String(options.videoUrl || ""),
+    text: String(options.text || ""),
+    timeText: String(options.timeText || options.time || ""),
+    unread: !!options.unread,
+    isGroupChat: !!options.isGroupChat,
+    hasFollowButton: options.hasFollowButton === undefined ? false : !!options.hasFollowButton,
+    matched: options.matched === undefined ? true : !!options.matched,
+    matchType: options.matchType || "rule",
+    judgeReason: String(options.judgeReason || ""),
+    suggestedText: String(options.suggestedText || ""),
+    suggestedCommentText: String(options.suggestedCommentText || ""),
+    suggestedDmText: String(options.suggestedDmText || ""),
+    suggestionStatus: options.suggestionStatus || "none",
+    webhookStatus: options.webhookStatus || "none",
+    actionStatus: options.actionStatus || "none",
+    actionSummary: String(options.actionSummary || ""),
+    actionErrorReason: String(options.actionErrorReason || ""),
+    actionFailures: Array.isArray(options.actionFailures) ? options.actionFailures.map(arg1 => ({
+      action: String(arg1?.action || ""),
+      reason: String(arg1?.reason || "")
     })) : [],
-    actionSkippedReasons: Array.isArray(_0x5a7ffe.actionSkippedReasons) ? _0x5a7ffe.actionSkippedReasons.map(_0x48688b => ({
-      action: String(_0x48688b?.action || ""),
-      reason: String(_0x48688b?.reason || "")
+    actionSkippedReasons: Array.isArray(options.actionSkippedReasons) ? options.actionSkippedReasons.map(arg1 => ({
+      action: String(arg1?.action || ""),
+      reason: String(arg1?.reason || "")
     })) : [],
-    actionsTaken: Array.isArray(_0x5a7ffe.actionsTaken) ? _0x5a7ffe.actionsTaken.map(String) : [],
-    suggestionErrorReason: String(_0x5a7ffe.suggestionErrorReason || ""),
-    webhookErrorReason: String(_0x5a7ffe.webhookErrorReason || "")
+    actionsTaken: Array.isArray(options.actionsTaken) ? options.actionsTaken.map(String) : [],
+    suggestionErrorReason: String(options.suggestionErrorReason || ""),
+    webhookErrorReason: String(options.webhookErrorReason || "")
   };
 }
-function normalizeSelfWarmupTask(_0x911919 = {}) {
-  const _0x635562 = Array.isArray(_0x911919.runs) ? _0x911919.runs.map(_0xe6f3b6 => ({
-    accountId: String(_0xe6f3b6.accountId || ""),
-    nickname: String(_0xe6f3b6.nickname || _0xe6f3b6.name || ""),
-    name: String(_0xe6f3b6.name || ""),
-    personaId: _0xe6f3b6.personaId || "none",
-    endedAt: _0xe6f3b6.endedAt != null ? Number(_0xe6f3b6.endedAt) : null,
-    endReason: _0xe6f3b6.endReason || ""
-  })).filter(_0x58ad39 => _0x58ad39.accountId) : [];
+function normalizeSelfWarmupTask(options = {}) {
+  const value = Array.isArray(options.runs) ? options.runs.map(arg1 => ({
+    accountId: String(arg1.accountId || ""),
+    nickname: String(arg1.nickname || arg1.name || ""),
+    name: String(arg1.name || ""),
+    personaId: arg1.personaId || "none",
+    endedAt: arg1.endedAt != null ? Number(arg1.endedAt) : null,
+    endReason: arg1.endReason || ""
+  })).filter(arg1 => arg1.accountId) : [];
   return {
-    id: String(_0x911919.id || "self_warmup_" + Date.now()),
-    name: String(_0x911919.name || "自热互动"),
-    status: _0x911919.status || "draft",
-    createdAt: Number(_0x911919.createdAt || Date.now()),
-    startedAt: _0x911919.startedAt != null ? Number(_0x911919.startedAt) : null,
-    endedAt: _0x911919.endedAt != null ? Number(_0x911919.endedAt) : null,
-    endReason: _0x911919.endReason || "",
-    runs: _0x635562,
-    configSnapshot: _0x911919.configSnapshot || null,
+    id: String(options.id || "self_warmup_" + Date.now()),
+    name: String(options.name || "自热互动"),
+    status: options.status || "draft",
+    createdAt: Number(options.createdAt || Date.now()),
+    startedAt: options.startedAt != null ? Number(options.startedAt) : null,
+    endedAt: options.endedAt != null ? Number(options.endedAt) : null,
+    endReason: options.endReason || "",
+    runs: value,
+    configSnapshot: options.configSnapshot || null,
     stats: {
       ...createEmptySelfWarmupTaskStats(),
-      ...(_0x911919.stats || {})
+      ...(options.stats || {})
     },
-    events: Array.isArray(_0x911919.events) ? _0x911919.events.map(normalizeSelfWarmupEvent).slice(0, MAX_EVENT_RECORDS) : [],
-    remark: _0x911919.remark || ""
+    events: Array.isArray(options.events) ? options.events.map(normalizeSelfWarmupEvent).slice(0, MAX_EVENT_RECORDS) : [],
+    remark: options.remark || ""
   };
 }
 function createSelfWarmupTasksApi({
-  userDataPath: _0xe566e4
+  userDataPath: userDataPath
 }) {
-  const _0x52cb4f = createCrypto(_0xe566e4);
+  const result = createCrypto(userDataPath);
   const {
-    readTasks: _0x186159,
-    writeTasks: _0x5b7b4a
-  } = _0x52cb4f;
-  const _0x4325c1 = require("./selfWarmupEventsStore");
+    readTasks: readTasks,
+    writeTasks: writeTasks
+  } = result;
+  const selfWarmupEventsStore = require("./selfWarmupEventsStore");
   try {
-    _0x4325c1.runSelfWarmupEventsSqliteMigrationIfNeeded({
-      readTasks: _0x186159,
-      writeTasks: _0x5b7b4a,
+    selfWarmupEventsStore.runSelfWarmupEventsSqliteMigrationIfNeeded({
+      readTasks: readTasks,
+      writeTasks: writeTasks,
       normalizeEvent: normalizeSelfWarmupEvent
     });
-  } catch (_0xd8b10c) {
-    console.error("[SelfWarmup] 明细 SQLite 迁移异常（保留 enc）:", _0xd8b10c);
+  } catch (error) {
+    console.error("[SelfWarmup] 明细 SQLite 迁移异常（保留 enc）:", error);
   }
-  function _0x51e779() {
-    if (!_0x4325c1.isReady()) {
+  function fn() {
+    if (!selfWarmupEventsStore.isReady()) {
       return false;
     }
     try {
-      _0x4325c1.runSelfWarmupEventsSqliteMigrationIfNeeded({
-        readTasks: _0x186159,
-        writeTasks: _0x5b7b4a,
+      selfWarmupEventsStore.runSelfWarmupEventsSqliteMigrationIfNeeded({
+        readTasks: readTasks,
+        writeTasks: writeTasks,
         normalizeEvent: normalizeSelfWarmupEvent
       });
-    } catch (_0x550288) {
-      console.error("[SelfWarmup] 明细 SQLite 迁移异常（保留 enc）:", _0x550288);
+    } catch (error) {
+      console.error("[SelfWarmup] 明细 SQLite 迁移异常（保留 enc）:", error);
       return false;
     }
-    return _0x4325c1.isMigrationApplied();
+    return selfWarmupEventsStore.isMigrationApplied();
   }
-  function _0x14766e(_0x30db8b) {
-    const _0xea3487 = _0x51e779();
-    _0x5b7b4a((Array.isArray(_0x30db8b) ? _0x30db8b : []).map(_0x2afe5d => {
-      const _0x51b0bc = {
-        ..._0x2afe5d
+  function fn2(arg1) {
+    const result = fn();
+    writeTasks((Array.isArray(arg1) ? arg1 : []).map(arg1 => {
+      const obj = {
+        ...arg1
       };
-      if (_0xea3487) {
-        _0x51b0bc.events = [];
+      if (result) {
+        obj.events = [];
       }
-      return _0x51b0bc;
+      return obj;
     }));
   }
-  function _0x5ac21c(_0x177b11) {
-    if (!_0x177b11) {
+  function fn3(arg1) {
+    if (!arg1) {
       return null;
     }
-    if (!_0x51e779()) {
-      const _0x1a2c1e = Array.isArray(_0x177b11.events) ? _0x177b11.events : [];
+    if (!fn()) {
+      const value = Array.isArray(arg1.events) ? arg1.events : [];
       return {
-        ..._0x177b11,
-        eventCount: _0x1a2c1e.length,
-        hitCount: _0x1a2c1e.filter(_0x4a3f90 => _0x4a3f90?.matched !== false).length
+        ...arg1,
+        eventCount: value.length,
+        hitCount: value.filter(arg1 => arg1?.matched !== false).length
       };
     }
     return {
-      ..._0x177b11,
+      ...arg1,
       events: [],
-      eventCount: Number(_0x177b11.eventCount) || 0,
-      hitCount: Number(_0x177b11.hitCount) || 0
+      eventCount: Number(arg1.eventCount) || 0,
+      hitCount: Number(arg1.hitCount) || 0
     };
   }
-  function _0x4ce3a1(_0x536cae) {
-    if (!_0x51e779()) {
-      return _0x536cae.map(_0x5ac21c);
+  function fn4(arg1) {
+    if (!fn()) {
+      return arg1.map(fn3);
     }
-    const _0x429be9 = _0x4325c1.countEventsByTask();
-    return _0x536cae.map(_0x25cf72 => {
-      const _0xd32a21 = _0x429be9.get(String(_0x25cf72.id)) || {
+    const result = selfWarmupEventsStore.countEventsByTask();
+    return arg1.map(arg1 => {
+      const local = result.get(String(arg1.id)) || {
         eventCount: 0,
         hitCount: 0
       };
-      return _0x5ac21c({
-        ..._0x25cf72,
+      return fn3({
+        ...arg1,
         events: [],
-        eventCount: _0xd32a21.eventCount,
-        hitCount: _0xd32a21.hitCount
+        eventCount: local.eventCount,
+        hitCount: local.hitCount
       });
     });
   }
-  function _0x544f1e() {
-    return _0x4ce3a1(_0x186159().map(normalizeSelfWarmupTask).sort((_0x1e54f7, _0x59b206) => (_0x59b206.createdAt || 0) - (_0x1e54f7.createdAt || 0)));
+  function listTasks() {
+    return fn4(readTasks().map(normalizeSelfWarmupTask).sort((arg1, arg2) => (arg2.createdAt || 0) - (arg1.createdAt || 0)));
   }
-  function _0x90484d(_0x31f28f) {
-    const _0x5c1ffb = _0x186159().map(normalizeSelfWarmupTask).find(_0x43afb2 => _0x43afb2.id === _0x31f28f);
-    if (!_0x5c1ffb) {
+  function findTaskById(arg1) {
+    const result = readTasks().map(normalizeSelfWarmupTask).find(arg12 => arg12.id === arg1);
+    if (!result) {
       return null;
     }
-    return _0x4ce3a1([_0x5c1ffb])[0];
+    return fn4([result])[0];
   }
-  function _0x5b94a0(_0x5beb22) {
-    const _0x5d9d89 = _0x186159().map(normalizeSelfWarmupTask);
-    const _0x4d6f8f = normalizeSelfWarmupTask(_0x5beb22);
-    const _0x4353aa = _0x5d9d89.findIndex(_0x5149c8 => _0x5149c8.id === _0x4d6f8f.id);
-    if (_0x4353aa === -1) {
-      _0x5d9d89.unshift(_0x4d6f8f);
-      if (_0x51e779() && Array.isArray(_0x5beb22?.events) && _0x5beb22.events.length) {
-        _0x4325c1.upsertEvents(_0x4d6f8f.id, _0x5beb22.events, {
+  function upsertTask(arg1) {
+    const result = readTasks().map(normalizeSelfWarmupTask);
+    const result2 = normalizeSelfWarmupTask(arg1);
+    const result3 = result.findIndex(arg1 => arg1.id === result2.id);
+    if (result3 === -1) {
+      result.unshift(result2);
+      if (fn() && Array.isArray(arg1?.events) && arg1.events.length) {
+        selfWarmupEventsStore.upsertEvents(result2.id, arg1.events, {
           normalizeEvent: normalizeSelfWarmupEvent
         });
       }
     } else {
-      const _0x4ad1a2 = {
-        ..._0x5d9d89[_0x4353aa],
-        ..._0x4d6f8f,
-        id: _0x4d6f8f.id
+      const obj = {
+        ...result[result3],
+        ...result2,
+        id: result2.id
       };
-      if (!Array.isArray(_0x5beb22.events) && !_0x51e779()) {
-        _0x4ad1a2.events = _0x5d9d89[_0x4353aa].events;
+      if (!Array.isArray(arg1.events) && !fn()) {
+        obj.events = result[result3].events;
       }
-      _0x5d9d89[_0x4353aa] = normalizeSelfWarmupTask(_0x4ad1a2);
+      result[result3] = normalizeSelfWarmupTask(obj);
     }
-    _0x14766e(_0x5d9d89);
-    return _0x90484d(_0x4d6f8f.id);
+    fn2(result);
+    return findTaskById(result2.id);
   }
-  function _0x7b0824(_0x384b90, _0x4f9338 = {}) {
-    const _0x49b05b = _0x186159().map(normalizeSelfWarmupTask);
-    const _0x54dfd1 = _0x49b05b.findIndex(_0x15579f => _0x15579f.id === _0x384b90);
-    if (_0x54dfd1 === -1) {
+  function patchTask(arg1, options = {}) {
+    const result = readTasks().map(normalizeSelfWarmupTask);
+    const result2 = result.findIndex(arg12 => arg12.id === arg1);
+    if (result2 === -1) {
       return null;
     }
     const {
-      events: _0x52b278,
-      ..._0x30cf0a
-    } = _0x4f9338 || {};
-    const _0x327010 = {
-      ..._0x49b05b[_0x54dfd1],
-      ..._0x30cf0a,
-      id: _0x384b90
+      events: events,
+      ...local
+    } = options || {};
+    const obj = {
+      ...result[result2],
+      ...local,
+      id: arg1
     };
-    if (!_0x51e779() && Object.prototype.hasOwnProperty.call(_0x4f9338 || {}, "events")) {
-      _0x327010.events = _0x52b278;
+    if (!fn() && Object.prototype.hasOwnProperty.call(options || {}, "events")) {
+      obj.events = events;
     }
-    _0x49b05b[_0x54dfd1] = normalizeSelfWarmupTask(_0x327010);
-    _0x14766e(_0x49b05b);
-    if (_0x51e779() && Object.prototype.hasOwnProperty.call(_0x4f9338 || {}, "events")) {
-      _0x4325c1.deleteEvents(_0x384b90, {
+    result[result2] = normalizeSelfWarmupTask(obj);
+    fn2(result);
+    if (fn() && Object.prototype.hasOwnProperty.call(options || {}, "events")) {
+      selfWarmupEventsStore.deleteEvents(arg1, {
         clearAll: true
       });
-      if (Array.isArray(_0x52b278) && _0x52b278.length) {
-        _0x4325c1.upsertEvents(_0x384b90, _0x52b278, {
+      if (Array.isArray(events) && events.length) {
+        selfWarmupEventsStore.upsertEvents(arg1, events, {
           normalizeEvent: normalizeSelfWarmupEvent
         });
       }
     }
-    return _0x90484d(_0x384b90);
+    return findTaskById(arg1);
   }
-  function _0x5d823b(_0x14a093 = []) {
-    const _0x242c7d = new Set(Array.isArray(_0x14a093) ? _0x14a093 : [_0x14a093]);
-    const _0x19111d = _0x186159().filter(_0x418044 => !_0x242c7d.has(_0x418044.id));
-    _0x14766e(_0x19111d);
-    if (_0x51e779()) {
-      _0x242c7d.forEach(_0x2b988a => _0x4325c1.deleteAllForTask(_0x2b988a));
+  function deleteTasks(list = []) {
+    const set = new Set(Array.isArray(list) ? list : [list]);
+    const result = readTasks().filter(arg1 => !set.has(arg1.id));
+    fn2(result);
+    if (fn()) {
+      set.forEach(arg1 => selfWarmupEventsStore.deleteAllForTask(arg1));
     }
     return true;
   }
-  function _0x477a7c(_0x5d9ac7, _0x2c92d5 = {}) {
-    const _0x151937 = _0x90484d(_0x5d9ac7);
-    if (!_0x151937) {
+  function incrementStats(arg1, options = {}) {
+    const result = findTaskById(arg1);
+    if (!result) {
       return null;
     }
-    const _0x5046b5 = {
+    const obj = {
       ...createEmptySelfWarmupTaskStats(),
-      ...(_0x151937.stats || {})
+      ...(result.stats || {})
     };
-    Object.keys(createEmptySelfWarmupTaskStats()).forEach(_0x24f50a => {
-      if (_0x24f50a === "lastCycleAt") {
+    Object.keys(createEmptySelfWarmupTaskStats()).forEach(arg1 => {
+      if (arg1 === "lastCycleAt") {
         return;
       }
-      const _0x5b275d = Number(_0x2c92d5[_0x24f50a]);
-      if (Number.isFinite(_0x5b275d) && _0x5b275d > 0) {
-        _0x5046b5[_0x24f50a] += Math.floor(_0x5b275d);
+      const result = Number(options[arg1]);
+      if (Number.isFinite(result) && result > 0) {
+        obj[arg1] += Math.floor(result);
       }
     });
-    if (_0x2c92d5.lastCycleAt != null) {
-      _0x5046b5.lastCycleAt = Number(_0x2c92d5.lastCycleAt);
+    if (options.lastCycleAt != null) {
+      obj.lastCycleAt = Number(options.lastCycleAt);
     }
-    if (_0x2c92d5.lastCycleEvents != null) {
-      _0x5046b5.lastCycleEvents = Number(_0x2c92d5.lastCycleEvents);
+    if (options.lastCycleEvents != null) {
+      obj.lastCycleEvents = Number(options.lastCycleEvents);
     }
-    return _0x7b0824(_0x5d9ac7, {
-      stats: _0x5046b5
+    return patchTask(arg1, {
+      stats: obj
     });
   }
-  function _0xd0ca8d(_0x5b4de3, _0x3dd731 = {}) {
-    const _0xbc97a7 = normalizeSelfWarmupEvent(_0x3dd731);
-    if (_0x51e779()) {
-      if (!_0x90484d(_0x5b4de3)) {
+  function appendEventRecord(arg1, options = {}) {
+    const result = normalizeSelfWarmupEvent(options);
+    if (fn()) {
+      if (!findTaskById(arg1)) {
         return null;
       }
-      _0x4325c1.upsertEvents(_0x5b4de3, [_0xbc97a7], {
+      selfWarmupEventsStore.upsertEvents(arg1, [result], {
         normalizeEvent: normalizeSelfWarmupEvent
       });
-      return _0x90484d(_0x5b4de3);
+      return findTaskById(arg1);
     }
-    const _0x24606e = _0x186159().map(normalizeSelfWarmupTask);
-    const _0x44e359 = _0x24606e.findIndex(_0x22f1e2 => _0x22f1e2.id === _0x5b4de3);
-    if (_0x44e359 === -1) {
+    const result2 = readTasks().map(normalizeSelfWarmupTask);
+    const result3 = result2.findIndex(arg12 => arg12.id === arg1);
+    if (result3 === -1) {
       return null;
     }
-    const _0x4fe589 = (_0x24606e[_0x44e359].events || []).map(normalizeSelfWarmupEvent);
-    const _0xbe9641 = buildSelfWarmupEventSeenKey(_0xbc97a7);
-    const _0x50185d = _0x4fe589.findIndex(_0x4ababf => buildSelfWarmupEventSeenKey(_0x4ababf) === _0xbe9641);
-    if (_0x50185d >= 0) {
-      _0x4fe589[_0x50185d] = normalizeSelfWarmupEvent({
-        ..._0x4fe589[_0x50185d],
-        ..._0xbc97a7,
-        id: _0x4fe589[_0x50185d].id || _0xbc97a7.id
+    const result4 = (result2[result3].events || []).map(normalizeSelfWarmupEvent);
+    const result5 = buildSelfWarmupEventSeenKey(result);
+    const result6 = result4.findIndex(arg1 => buildSelfWarmupEventSeenKey(arg1) === result5);
+    if (result6 >= 0) {
+      result4[result6] = normalizeSelfWarmupEvent({
+        ...result4[result6],
+        ...result,
+        id: result4[result6].id || result.id
       });
-      _0x24606e[_0x44e359] = normalizeSelfWarmupTask({
-        ..._0x24606e[_0x44e359],
-        events: _0x4fe589.slice(0, MAX_EVENT_RECORDS)
+      result2[result3] = normalizeSelfWarmupTask({
+        ...result2[result3],
+        events: result4.slice(0, MAX_EVENT_RECORDS)
       });
     } else {
-      _0x24606e[_0x44e359] = normalizeSelfWarmupTask({
-        ..._0x24606e[_0x44e359],
-        events: [_0xbc97a7, ..._0x4fe589].slice(0, MAX_EVENT_RECORDS)
+      result2[result3] = normalizeSelfWarmupTask({
+        ...result2[result3],
+        events: [result, ...result4].slice(0, MAX_EVENT_RECORDS)
       });
     }
-    _0x14766e(_0x24606e);
-    return _0x5ac21c(_0x24606e[_0x44e359]);
+    fn2(result2);
+    return fn3(result2[result3]);
   }
-  function _0x593ce9(_0x37fa1d, _0x1dd02a = {}) {
-    const _0x3ed468 = _0x90484d(_0x37fa1d);
-    if (!_0x3ed468) {
+  function deleteEventRecords(arg1, options = {}) {
+    const result = findTaskById(arg1);
+    if (!result) {
       return null;
     }
-    if (_0x51e779()) {
+    if (fn()) {
       const {
-        rows: _0xc5f7ee
-      } = _0x4325c1.deleteEvents(_0x37fa1d, _0x1dd02a);
+        rows: rows
+      } = selfWarmupEventsStore.deleteEvents(arg1, options);
       return {
-        ..._0x90484d(_0x37fa1d),
-        _removedEvents: _0xc5f7ee
+        ...findTaskById(arg1),
+        _removedEvents: rows
       };
     }
     const {
       eventIds = [],
       clearAll = false
-    } = _0x1dd02a;
-    const _0x314d2d = _0x186159().map(normalizeSelfWarmupTask);
-    const _0x149281 = _0x314d2d.findIndex(_0x44e3fb => _0x44e3fb.id === _0x37fa1d);
-    if (_0x149281 === -1) {
+    } = options;
+    const result2 = readTasks().map(normalizeSelfWarmupTask);
+    const result3 = result2.findIndex(arg12 => arg12.id === arg1);
+    if (result3 === -1) {
       return null;
     }
-    const _0x5d6b05 = _0x314d2d[_0x149281].events || [];
-    let _0x1e2661 = _0x5d6b05;
-    let _0x4718c1 = [];
+    const local = result2[result3].events || [];
+    let local2 = local;
+    let list = [];
     if (clearAll) {
-      _0x4718c1 = _0x5d6b05;
-      _0x1e2661 = [];
+      list = local;
+      local2 = [];
     } else {
-      const _0x4390b4 = new Set(Array.isArray(eventIds) ? eventIds : [eventIds]);
-      if (_0x4390b4.size === 0) {
-        return _0x5ac21c(_0x314d2d[_0x149281]);
+      const set = new Set(Array.isArray(eventIds) ? eventIds : [eventIds]);
+      if (set.size === 0) {
+        return fn3(result2[result3]);
       }
-      _0x4718c1 = _0x5d6b05.filter(_0x33b2ff => _0x4390b4.has(_0x33b2ff.id));
-      _0x1e2661 = _0x5d6b05.filter(_0x4ae428 => !_0x4390b4.has(_0x4ae428.id));
+      list = local.filter(arg1 => set.has(arg1.id));
+      local2 = local.filter(arg1 => !set.has(arg1.id));
     }
-    _0x314d2d[_0x149281] = normalizeSelfWarmupTask({
-      ..._0x314d2d[_0x149281],
-      events: _0x1e2661
+    result2[result3] = normalizeSelfWarmupTask({
+      ...result2[result3],
+      events: local2
     });
-    _0x14766e(_0x314d2d);
+    fn2(result2);
     return {
-      ..._0x5ac21c(_0x314d2d[_0x149281]),
-      _removedEvents: _0x4718c1
+      ...fn3(result2[result3]),
+      _removedEvents: list
     };
   }
-  function _0x185221(_0x5ebaa9, _0xd66efc = {}) {
-    if (_0x51e779()) {
-      return _0x4325c1.listEventsPage(_0x5ebaa9, _0xd66efc);
+  function listEventRecordsPage(arg1, options = {}) {
+    if (fn()) {
+      return selfWarmupEventsStore.listEventsPage(arg1, options);
     }
-    const _0x20949d = _0x186159().map(normalizeSelfWarmupTask).find(_0x488408 => _0x488408.id === _0x5ebaa9);
-    let _0x305b2c = Array.isArray(_0x20949d?.events) ? _0x20949d.events : [];
-    const _0x56911e = String(_0xd66efc.result || "all");
-    if (_0x56911e === "hit") {
-      _0x305b2c = _0x305b2c.filter(_0x4a1f92 => _0x4a1f92?.matched !== false);
+    const result = readTasks().map(normalizeSelfWarmupTask).find(arg12 => arg12.id === arg1);
+    let value = Array.isArray(result?.events) ? result.events : [];
+    const result2 = String(options.result || "all");
+    if (result2 === "hit") {
+      value = value.filter(arg1 => arg1?.matched !== false);
     }
-    if (_0x56911e === "miss") {
-      _0x305b2c = _0x305b2c.filter(_0xea390d => _0xea390d?.matched === false);
+    if (result2 === "miss") {
+      value = value.filter(arg1 => arg1?.matched === false);
     }
-    const _0x5739e4 = String(_0xd66efc.keyword || "").trim().toLowerCase();
-    if (_0x5739e4) {
-      _0x305b2c = _0x305b2c.filter(_0x5a7991 => {
-        const _0x42124e = [_0x5a7991.nickname, _0x5a7991.text, _0x5a7991.eventLabel, _0x5a7991.judgeReason, _0x5a7991.suggestedText, _0x5a7991.accountName, _0x5a7991.timeText, _0x5a7991.actionErrorReason, _0x5a7991.suggestionErrorReason, _0x5a7991.webhookErrorReason].map(_0x5a2e9c => String(_0x5a2e9c || "").toLowerCase()).join(" ");
-        return _0x42124e.includes(_0x5739e4);
+    const result3 = String(options.keyword || "").trim().toLowerCase();
+    if (result3) {
+      value = value.filter(arg1 => {
+        const result = [arg1.nickname, arg1.text, arg1.eventLabel, arg1.judgeReason, arg1.suggestedText, arg1.accountName, arg1.timeText, arg1.actionErrorReason, arg1.suggestionErrorReason, arg1.webhookErrorReason].map(arg1 => String(arg1 || "").toLowerCase()).join(" ");
+        return result.includes(result3);
       });
     }
-    const _0x1db7fd = Array.isArray(_0x20949d?.events) ? _0x20949d.events : [];
-    const _0x28e376 = Math.max(1, Math.min(100, Number(_0xd66efc.limit) || 20));
-    const _0x1900c1 = Math.max(0, Number(_0xd66efc.offset) || 0);
+    const value2 = Array.isArray(result?.events) ? result.events : [];
+    const result4 = Math.max(1, Math.min(100, Number(options.limit) || 20));
+    const result5 = Math.max(0, Number(options.offset) || 0);
     return {
-      items: _0x305b2c.slice(_0x1900c1, _0x1900c1 + _0x28e376),
-      total: _0x305b2c.length,
+      items: value.slice(result5, result5 + result4),
+      total: value.length,
       counts: {
-        all: _0x1db7fd.length,
-        hit: _0x1db7fd.filter(_0x720d67 => _0x720d67?.matched !== false).length,
-        miss: _0x1db7fd.filter(_0x56e8b8 => _0x56e8b8?.matched === false).length
+        all: value2.length,
+        hit: value2.filter(arg1 => arg1?.matched !== false).length,
+        miss: value2.filter(arg1 => arg1?.matched === false).length
       }
     };
   }
-  function _0x15b911(_0x3eb56c, _0x214559 = {}) {
-    if (_0x51e779()) {
-      return _0x4325c1.listEventsForUser(_0x3eb56c, _0x214559);
+  function listEventsForUser(arg1, options = {}) {
+    if (fn()) {
+      return selfWarmupEventsStore.listEventsForUser(arg1, options);
     }
-    const _0x1f70f3 = _0x186159().map(normalizeSelfWarmupTask).find(_0x416419 => _0x416419.id === _0x3eb56c);
-    const _0x2365e9 = String(_0x214559.nickname || "").trim().toLowerCase();
-    const _0x32c604 = String(_0x214559.userUrl || "").trim();
-    return (_0x1f70f3?.events || []).filter(_0x2e316f => {
-      const _0x2acf63 = String(_0x2e316f.nickname || "").trim().toLowerCase();
-      const _0x948f60 = _0x2365e9 && _0x2acf63 && _0x2365e9 === _0x2acf63;
-      const _0x74ad2a = _0x32c604 && String(_0x2e316f.userUrl || "").includes(_0x32c604.split("?")[0]);
-      return _0x948f60 || _0x74ad2a;
+    const result = readTasks().map(normalizeSelfWarmupTask).find(arg12 => arg12.id === arg1);
+    const result2 = String(options.nickname || "").trim().toLowerCase();
+    const result3 = String(options.userUrl || "").trim();
+    return (result?.events || []).filter(arg1 => {
+      const result = String(arg1.nickname || "").trim().toLowerCase();
+      const local = result2 && result && result2 === result;
+      const local2 = result3 && String(arg1.userUrl || "").includes(result3.split("?")[0]);
+      return local || local2;
     });
   }
-  function _0x8e04aa() {
-    const _0x4eb8b2 = _0x186159().map(normalizeSelfWarmupTask);
-    const _0x42ffa0 = Date.now();
-    let _0x4bcdca = false;
-    const _0x10963c = _0x4eb8b2.map(_0x253c06 => {
-      if (_0x253c06.status !== "running") {
-        return _0x253c06;
+  function resetStaleRunningTasks() {
+    const result = readTasks().map(normalizeSelfWarmupTask);
+    const result2 = Date.now();
+    let flag = false;
+    const result3 = result.map(arg1 => {
+      if (arg1.status !== "running") {
+        return arg1;
       }
-      _0x4bcdca = true;
-      const _0x46dce0 = (_0x253c06.runs || []).map(_0x20f0ee => _0x20f0ee.endedAt ? _0x20f0ee : {
-        ..._0x20f0ee,
-        endedAt: _0x42ffa0,
+      flag = true;
+      const result = (arg1.runs || []).map(arg1 => arg1.endedAt ? arg1 : {
+        ...arg1,
+        endedAt: result2,
         endReason: "app_restart"
       });
       return normalizeSelfWarmupTask({
-        ..._0x253c06,
+        ...arg1,
         status: "stopped",
-        runs: _0x46dce0,
-        endedAt: _0x253c06.endedAt || _0x42ffa0,
+        runs: result,
+        endedAt: arg1.endedAt || result2,
         endReason: "app_restart"
       });
     });
-    if (_0x4bcdca) {
-      _0x14766e(_0x10963c);
+    if (flag) {
+      fn2(result3);
     }
-    return _0x4bcdca;
+    return flag;
   }
   return {
-    listTasks: _0x544f1e,
-    findTaskById: _0x90484d,
-    upsertTask: _0x5b94a0,
-    patchTask: _0x7b0824,
-    deleteTasks: _0x5d823b,
-    incrementStats: _0x477a7c,
-    appendEventRecord: _0xd0ca8d,
-    deleteEventRecords: _0x593ce9,
-    listEventRecordsPage: _0x185221,
-    listEventsForUser: _0x15b911,
-    resetStaleRunningTasks: _0x8e04aa,
+    listTasks: listTasks,
+    findTaskById: findTaskById,
+    upsertTask: upsertTask,
+    patchTask: patchTask,
+    deleteTasks: deleteTasks,
+    incrementStats: incrementStats,
+    appendEventRecord: appendEventRecord,
+    deleteEventRecords: deleteEventRecords,
+    listEventRecordsPage: listEventRecordsPage,
+    listEventsForUser: listEventsForUser,
+    resetStaleRunningTasks: resetStaleRunningTasks,
     normalizeSelfWarmupTask: normalizeSelfWarmupTask
   };
 }
