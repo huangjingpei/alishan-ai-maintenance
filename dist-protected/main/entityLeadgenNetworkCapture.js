@@ -18,254 +18,254 @@ const {
   isDouyinNestedReplyComment,
   shouldWalkCommentNestedKey
 } = require("../shared/douyinCommentReplyGuard");
-function cleanNickname(_0xe3a5f1) {
-  return String(_0xe3a5f1 || "").trim().replace(/^@+/, "");
+function cleanNickname(arg1) {
+  return String(arg1 || "").trim().replace(/^@+/, "");
 }
-function parseFollowerCount(_0x52aa48) {
-  if (!_0x52aa48 || typeof _0x52aa48 !== "object") {
+function parseFollowerCount(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return null;
   }
-  const _0x12932e = _0x52aa48.follower_count ?? _0x52aa48.followerCount ?? _0x52aa48.mplatform_followers_count ?? _0x52aa48.mplatformFollowersCount ?? _0x52aa48.fans_count ?? _0x52aa48.fansCount;
-  const _0x1d27fd = Number(_0x12932e);
-  if (Number.isFinite(_0x1d27fd) && _0x1d27fd >= 0) {
-    return Math.floor(_0x1d27fd);
+  const local = arg1.follower_count ?? arg1.followerCount ?? arg1.mplatform_followers_count ?? arg1.mplatformFollowersCount ?? arg1.fans_count ?? arg1.fansCount;
+  const result = Number(local);
+  if (Number.isFinite(result) && result >= 0) {
+    return Math.floor(result);
   } else {
     return null;
   }
 }
-function normalizeUser(_0x29fb17, _0xc97fe, _0x1c1ddf = {}) {
-  if (!_0x29fb17 || typeof _0x29fb17 !== "object") {
+function normalizeUser(arg1, arg2, options = {}) {
+  if (!arg1 || typeof arg1 !== "object") {
     return null;
   }
-  const _0x59a1f7 = String(_0x29fb17.sec_uid || _0x29fb17.secUid || "").trim();
-  const _0x8455b0 = cleanNickname(_0x29fb17.nickname || _0x29fb17.nickName || _0x29fb17.nick_name);
-  if (!_0x59a1f7 || _0x59a1f7.length < 8 || !_0x8455b0 || /^(self|login)$/i.test(_0x59a1f7)) {
+  const result = String(arg1.sec_uid || arg1.secUid || "").trim();
+  const result2 = cleanNickname(arg1.nickname || arg1.nickName || arg1.nick_name);
+  if (!result || result.length < 8 || !result2 || /^(self|login)$/i.test(result)) {
     return null;
   }
-  const _0x928b83 = String(_0x1c1ddf.timeText || _0x29fb17.timeText || _0x29fb17.time || "").trim();
-  const _0x3a92b8 = String(_0x1c1ddf.ipLocation || _0x29fb17.ipLocation || _0x29fb17.location || "").trim();
-  const _0x587f1d = String(_0x1c1ddf.videoUrl || _0x29fb17.videoUrl || "").trim();
+  const result3 = String(options.timeText || arg1.timeText || arg1.time || "").trim();
+  const result4 = String(options.ipLocation || arg1.ipLocation || arg1.location || "").trim();
+  const result5 = String(options.videoUrl || arg1.videoUrl || "").trim();
   return {
-    secUid: _0x59a1f7,
-    userKey: _0x59a1f7,
-    nickname: _0x8455b0,
-    userUrl: "https://www.douyin.com/user/" + _0x59a1f7,
-    sourceType: _0xc97fe,
-    followerCount: parseFollowerCount(_0x29fb17),
-    content: String(_0x1c1ddf.content || _0x29fb17.content || _0x29fb17.text || "").trim(),
-    timeText: _0x928b83,
-    time: _0x928b83,
-    ipLocation: _0x3a92b8,
-    location: _0x3a92b8,
-    ...(_0x587f1d ? {
-      videoUrl: _0x587f1d
+    secUid: result,
+    userKey: result,
+    nickname: result2,
+    userUrl: "https://www.douyin.com/user/" + result,
+    sourceType: arg2,
+    followerCount: parseFollowerCount(arg1),
+    content: String(options.content || arg1.content || arg1.text || "").trim(),
+    timeText: result3,
+    time: result3,
+    ipLocation: result4,
+    location: result4,
+    ...(result5 ? {
+      videoUrl: result5
     } : {})
   };
 }
-function extractAwemeVideoId(_0x17bcbc) {
-  if (!_0x17bcbc || typeof _0x17bcbc !== "object") {
+function extractAwemeVideoId(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return "";
   }
-  const _0x2b4816 = _0x17bcbc.aweme_id || _0x17bcbc.awemeId || _0x17bcbc.group_id || _0x17bcbc.groupId || _0x17bcbc.item_id || _0x17bcbc.itemId || _0x17bcbc.aweme_id_str || _0x17bcbc.id_str || _0x17bcbc.id;
-  const _0x3476cf = String(_0x2b4816 || "").trim();
-  if (/^\d{10,}$/.test(_0x3476cf)) {
-    return _0x3476cf;
+  const local = arg1.aweme_id || arg1.awemeId || arg1.group_id || arg1.groupId || arg1.item_id || arg1.itemId || arg1.aweme_id_str || arg1.id_str || arg1.id;
+  const result = String(local || "").trim();
+  if (/^\d{10,}$/.test(result)) {
+    return result;
   } else {
     return "";
   }
 }
-function isLiveOrJunkSearchAweme(_0x52040c) {
-  if (!_0x52040c || typeof _0x52040c !== "object") {
+function isLiveOrJunkSearchAweme(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return true;
   }
-  const _0x479dd1 = Number(_0x52040c.aweme_type ?? _0x52040c.awemeType ?? _0x52040c.media_type ?? _0x52040c.mediaType);
-  if (_0x479dd1 === 101 || _0x479dd1 === 400) {
+  const result = Number(arg1.aweme_type ?? arg1.awemeType ?? arg1.media_type ?? arg1.mediaType);
+  if (result === 101 || result === 400) {
     return true;
   }
-  if (_0x52040c.live_id || _0x52040c.liveId || _0x52040c.room_id || _0x52040c.roomId || _0x52040c.is_live || _0x52040c.isLive) {
+  if (arg1.live_id || arg1.liveId || arg1.room_id || arg1.roomId || arg1.is_live || arg1.isLive) {
     return true;
   }
-  if (_0x52040c.cell_type === "related_search" || _0x52040c.card_type === "related_search") {
+  if (arg1.cell_type === "related_search" || arg1.card_type === "related_search") {
     return true;
   }
-  const _0x521feb = String(_0x52040c.desc || _0x52040c.description || _0x52040c.title || _0x52040c.share_info?.share_title || _0x52040c.shareInfo?.shareTitle || "").replace(/\s+/g, " ").trim();
-  if (/^(相关搜索|大家都在搜|猜你想搜)$/i.test(_0x521feb)) {
+  const result2 = String(arg1.desc || arg1.description || arg1.title || arg1.share_info?.share_title || arg1.shareInfo?.shareTitle || "").replace(/\s+/g, " ").trim();
+  if (/^(相关搜索|大家都在搜|猜你想搜)$/i.test(result2)) {
     return true;
   }
-  if (/的抖音直播间|抖音直播间(?:直播)?$|正在直播|进入直播间/.test(_0x521feb)) {
+  if (/的抖音直播间|抖音直播间(?:直播)?$|正在直播|进入直播间/.test(result2)) {
     return true;
   }
   return false;
 }
-function normalizeVideoItem(_0x329c4c, _0x25c725 = "") {
-  const _0x53c19e = extractAwemeVideoId(_0x329c4c);
-  if (!_0x53c19e) {
+function normalizeVideoItem(arg1, text = "") {
+  const result = extractAwemeVideoId(arg1);
+  if (!result) {
     return null;
   }
-  if (isLiveOrJunkSearchAweme(_0x329c4c)) {
+  if (isLiveOrJunkSearchAweme(arg1)) {
     return null;
   }
-  let _0x8e150c = String(_0x329c4c.desc || _0x329c4c.description || _0x329c4c.title || _0x329c4c.share_info?.share_title || _0x329c4c.shareInfo?.shareTitle || "").replace(/\s+/g, " ").trim().slice(0, 100);
-  if (/^(相关搜索|大家都在搜|猜你想搜|视频|直播|图文)$/i.test(_0x8e150c)) {
-    _0x8e150c = "";
+  let result2 = String(arg1.desc || arg1.description || arg1.title || arg1.share_info?.share_title || arg1.shareInfo?.shareTitle || "").replace(/\s+/g, " ").trim().slice(0, 100);
+  if (/^(相关搜索|大家都在搜|猜你想搜|视频|直播|图文)$/i.test(result2)) {
+    result2 = "";
   }
-  if (/的抖音直播间|抖音直播间/.test(_0x8e150c)) {
+  if (/的抖音直播间|抖音直播间/.test(result2)) {
     return null;
   }
-  const _0x156a7b = "https://www.douyin.com/video/" + _0x53c19e;
-  const _0x190e11 = _0x329c4c.author || _0x329c4c.authorInfo || _0x329c4c.author_info || {};
-  const _0x5c35db = String(_0x190e11.sec_uid || _0x190e11.secUid || "").trim();
-  const _0x597742 = cleanNickname(_0x190e11.nickname || _0x190e11.nickName || _0x190e11.nick_name);
-  const _0x54cb25 = _0x5c35db.length >= 8 && !/^(self|login)$/i.test(_0x5c35db) ? "https://www.douyin.com/user/" + _0x5c35db : "";
-  const _0x282295 = _0x329c4c.statistics || _0x329c4c.stats || {};
+  const value = "https://www.douyin.com/video/" + result;
+  const local = arg1.author || arg1.authorInfo || arg1.author_info || {};
+  const result3 = String(local.sec_uid || local.secUid || "").trim();
+  const result4 = cleanNickname(local.nickname || local.nickName || local.nick_name);
+  const value2 = result3.length >= 8 && !/^(self|login)$/i.test(result3) ? "https://www.douyin.com/user/" + result3 : "";
+  const local2 = arg1.statistics || arg1.stats || {};
   return {
-    nickname: _0x8e150c || "抖音视频作品",
-    title: _0x8e150c || "抖音视频作品",
-    userUrl: _0x156a7b,
-    videoUrl: _0x156a7b,
-    userKey: "video:" + _0x53c19e,
-    content: _0x156a7b,
+    nickname: result2 || "抖音视频作品",
+    title: result2 || "抖音视频作品",
+    userUrl: value,
+    videoUrl: value,
+    userKey: "video:" + result,
+    content: value,
     sourceType: "video",
     entrySource: "entity_video",
     entryLabel: "线索采集：视频作品链接",
-    searchKeyword: String(_0x25c725 || ""),
-    authorNickname: _0x597742 || "",
-    authorProfileUrl: _0x54cb25,
-    authorSecUid: _0x54cb25 ? _0x5c35db : "",
-    likeCount: Number(_0x282295.digg_count ?? _0x282295.diggCount ?? _0x329c4c.digg_count ?? 0) || 0,
-    commentCount: Number(_0x282295.comment_count ?? _0x282295.commentCount ?? _0x329c4c.comment_count ?? 0) || 0,
-    collectCount: Number(_0x282295.collect_count ?? _0x282295.collectCount ?? _0x329c4c.collect_count ?? 0) || 0,
-    shareCount: Number(_0x282295.share_count ?? _0x282295.shareCount ?? _0x329c4c.share_count ?? 0) || 0,
-    duration: Number(_0x329c4c.duration ?? _0x329c4c.video?.duration ?? 0) || 0,
-    createTime: Number(_0x329c4c.create_time ?? _0x329c4c.createTime ?? 0) || 0
+    searchKeyword: String(text || ""),
+    authorNickname: result4 || "",
+    authorProfileUrl: value2,
+    authorSecUid: value2 ? result3 : "",
+    likeCount: Number(local2.digg_count ?? local2.diggCount ?? arg1.digg_count ?? 0) || 0,
+    commentCount: Number(local2.comment_count ?? local2.commentCount ?? arg1.comment_count ?? 0) || 0,
+    collectCount: Number(local2.collect_count ?? local2.collectCount ?? arg1.collect_count ?? 0) || 0,
+    shareCount: Number(local2.share_count ?? local2.shareCount ?? arg1.share_count ?? 0) || 0,
+    duration: Number(arg1.duration ?? arg1.video?.duration ?? 0) || 0,
+    createTime: Number(arg1.create_time ?? arg1.createTime ?? 0) || 0
   };
 }
-function extractEntityUsersFromResponse(_0x1a680b, _0x87b76b = "blogger", _0x4be4bb = "") {
-  if (!_0x1a680b || typeof _0x1a680b !== "object") {
+function extractEntityUsersFromResponse(arg1, text = "blogger", text2 = "") {
+  if (!arg1 || typeof arg1 !== "object") {
     return [];
   }
-  const _0x1837fe = new Map();
-  const _0x1bcd39 = new WeakSet();
-  const _0x22f49a = (_0x68848f, _0x55f514 = {}) => {
-    const _0x4255e3 = normalizeUser(_0x68848f, _0x87b76b, _0x55f514);
-    if (!_0x4255e3) {
+  const map = new Map();
+  const weakSet = new WeakSet();
+  const local = (arg1, options = {}) => {
+    const result = normalizeUser(arg1, text, options);
+    if (!result) {
       return;
     }
-    if (!_0x1837fe.has(_0x4255e3.userKey)) {
-      _0x1837fe.set(_0x4255e3.userKey, _0x4255e3);
+    if (!map.has(result.userKey)) {
+      map.set(result.userKey, result);
       return;
     }
-    _0x1837fe.set(_0x4255e3.userKey, mergeCommentUserFields(_0x1837fe.get(_0x4255e3.userKey), _0x4255e3));
+    map.set(result.userKey, mergeCommentUserFields(map.get(result.userKey), result));
   };
-  const _0x7e4d36 = _0x440ceb => {
-    const _0x353da0 = normalizeVideoItem(_0x440ceb, _0x4be4bb);
-    if (_0x353da0 && !_0x1837fe.has(_0x353da0.userKey)) {
-      _0x1837fe.set(_0x353da0.userKey, _0x353da0);
+  const local2 = arg1 => {
+    const result = normalizeVideoItem(arg1, text2);
+    if (result && !map.has(result.userKey)) {
+      map.set(result.userKey, result);
     }
   };
-  const _0x1f1b98 = (_0x5530ab, _0x449d8e = 0) => {
-    if (typeof _0x5530ab === "string") {
-      const _0x43a1b5 = _0x5530ab.trim();
-      if (_0x43a1b5 && (_0x43a1b5[0] === "{" || _0x43a1b5[0] === "[")) {
+  const local3 = (arg1, num = 0) => {
+    if (typeof arg1 === "string") {
+      const result = arg1.trim();
+      if (result && (result[0] === "{" || result[0] === "[")) {
         try {
-          _0x1f1b98(JSON.parse(_0x43a1b5), _0x449d8e + 1);
-        } catch (_0x4e9f0d) {}
+          local3(JSON.parse(result), num + 1);
+        } catch (error) {}
       }
       return;
     }
-    if (!_0x5530ab || typeof _0x5530ab !== "object" || _0x449d8e > 12 || _0x1bcd39.has(_0x5530ab)) {
+    if (!arg1 || typeof arg1 !== "object" || num > 12 || weakSet.has(arg1)) {
       return;
     }
-    _0x1bcd39.add(_0x5530ab);
-    if (Array.isArray(_0x5530ab)) {
-      _0x5530ab.forEach(_0x73a9d2 => _0x1f1b98(_0x73a9d2, _0x449d8e + 1));
+    weakSet.add(arg1);
+    if (Array.isArray(arg1)) {
+      arg1.forEach(arg1 => local3(arg1, num + 1));
       return;
     }
-    const _0xe371fa = _0x5530ab.aweme_info || _0x5530ab.awemeInfo || _0x5530ab.aweme || _0x5530ab.aweme_detail;
-    if (_0xe371fa && typeof _0xe371fa === "object") {
-      if (_0x87b76b === "video") {
-        _0x7e4d36(_0xe371fa);
-      } else if (_0x87b76b === "blogger") {
-        _0x22f49a(_0xe371fa.author || _0xe371fa.authorInfo || _0xe371fa.author_info);
+    const local4 = arg1.aweme_info || arg1.awemeInfo || arg1.aweme || arg1.aweme_detail;
+    if (local4 && typeof local4 === "object") {
+      if (text === "video") {
+        local2(local4);
+      } else if (text === "blogger") {
+        local(local4.author || local4.authorInfo || local4.author_info);
       }
     }
-    if (_0x87b76b === "video" && extractAwemeVideoId(_0x5530ab) && (_0x5530ab.desc != null || _0x5530ab.author || _0x5530ab.video)) {
-      _0x7e4d36(_0x5530ab);
+    if (text === "video" && extractAwemeVideoId(arg1) && (arg1.desc != null || arg1.author || arg1.video)) {
+      local2(arg1);
     }
-    const _0x51c25f = _0x87b76b === "comment" ? readCommentMetaFromApiObject(_0x5530ab) : null;
-    const _0x2aca2c = _0x87b76b === "comment" ? readCommentTextFromApiObject(_0x5530ab) : "";
-    const _0x278db4 = _0x87b76b === "comment" && isDouyinNestedReplyComment(_0x5530ab);
-    const _0x4bd9ad = _0x5530ab.user_info || _0x5530ab.userInfo;
-    if (!_0x278db4 && _0x4bd9ad && typeof _0x4bd9ad === "object" && _0x87b76b !== "blogger" && _0x87b76b !== "video") {
-      _0x22f49a(_0x4bd9ad, _0x51c25f ? {
-        content: _0x2aca2c,
-        timeText: _0x51c25f.timeText,
-        ipLocation: _0x51c25f.ipLocation
+    const value = text === "comment" ? readCommentMetaFromApiObject(arg1) : null;
+    const value2 = text === "comment" ? readCommentTextFromApiObject(arg1) : "";
+    const local5 = text === "comment" && isDouyinNestedReplyComment(arg1);
+    const local6 = arg1.user_info || arg1.userInfo;
+    if (!local5 && local6 && typeof local6 === "object" && text !== "blogger" && text !== "video") {
+      local(local6, value ? {
+        content: value2,
+        timeText: value.timeText,
+        ipLocation: value.ipLocation
       } : {
-        content: _0x2aca2c
+        content: value2
       });
     }
-    if (!_0x278db4 && _0x5530ab.user && typeof _0x5530ab.user === "object" && _0x87b76b !== "blogger" && _0x87b76b !== "video") {
-      _0x22f49a(_0x5530ab.user, _0x51c25f ? {
-        content: _0x2aca2c || _0x5530ab.user.content || _0x5530ab.user.text || "",
-        timeText: _0x51c25f.timeText,
-        ipLocation: _0x51c25f.ipLocation
+    if (!local5 && arg1.user && typeof arg1.user === "object" && text !== "blogger" && text !== "video") {
+      local(arg1.user, value ? {
+        content: value2 || arg1.user.content || arg1.user.text || "",
+        timeText: value.timeText,
+        ipLocation: value.ipLocation
       } : {
-        content: _0x2aca2c || _0x5530ab.user.content || _0x5530ab.user.text || ""
+        content: value2 || arg1.user.content || arg1.user.text || ""
       });
     }
-    if (!_0x278db4 && _0x87b76b !== "blogger" && _0x87b76b !== "video" && (_0x5530ab.sec_uid || _0x5530ab.secUid) && (_0x5530ab.nickname || _0x5530ab.nickName || _0x5530ab.nick_name)) {
-      _0x22f49a(_0x5530ab, _0x51c25f ? {
-        content: _0x2aca2c,
-        timeText: _0x51c25f.timeText,
-        ipLocation: _0x51c25f.ipLocation
+    if (!local5 && text !== "blogger" && text !== "video" && (arg1.sec_uid || arg1.secUid) && (arg1.nickname || arg1.nickName || arg1.nick_name)) {
+      local(arg1, value ? {
+        content: value2,
+        timeText: value.timeText,
+        ipLocation: value.ipLocation
       } : {
-        content: _0x2aca2c
+        content: value2
       });
     }
-    ["data", "cards", "aweme_list", "awemeList", "business_data", "user_list", "userList", "users", "followers", "followings", "follow_list", "messages", "data", "comments", "comment", "reply_comments"].forEach(_0x4b75fc => {
-      if (_0x5530ab[_0x4b75fc] == null) {
+    ["data", "cards", "aweme_list", "awemeList", "business_data", "user_list", "userList", "users", "followers", "followings", "follow_list", "messages", "data", "comments", "comment", "reply_comments"].forEach(arg12 => {
+      if (arg1[arg12] == null) {
         return;
       }
-      if (_0x87b76b === "comment" && !shouldWalkCommentNestedKey(_0x4b75fc, {
+      if (text === "comment" && !shouldWalkCommentNestedKey(arg12, {
         includeReplies: false
       })) {
         return;
       }
-      _0x1f1b98(_0x5530ab[_0x4b75fc], _0x449d8e + 1);
+      local3(arg1[arg12], num + 1);
     });
   };
-  _0x1f1b98(_0x1a680b);
-  return [..._0x1837fe.values()];
+  local3(arg1);
+  return [...map.values()];
 }
-function isInterestingResponse(_0xbfe83c, _0x4befcc) {
-  const _0x40176e = String(_0xbfe83c || "");
-  if (_0x4befcc === "mutual" || _0x4befcc === "following") {
-    return RELATION_RESPONSE_RE.test(_0x40176e);
+function isInterestingResponse(arg1, arg2) {
+  const result = String(arg1 || "");
+  if (arg2 === "mutual" || arg2 === "following") {
+    return RELATION_RESPONSE_RE.test(result);
   }
-  if (_0x4befcc === "live") {
-    return LIVE_RESPONSE_RE.test(_0x40176e);
+  if (arg2 === "live") {
+    return LIVE_RESPONSE_RE.test(result);
   }
-  if (_0x4befcc === "comment") {
-    return COMMENT_RESPONSE_RE.test(_0x40176e);
+  if (arg2 === "comment") {
+    return COMMENT_RESPONSE_RE.test(result);
   }
-  if (_0x4befcc === "video") {
-    return VIDEO_RESPONSE_RE.test(_0x40176e);
+  if (arg2 === "video") {
+    return VIDEO_RESPONSE_RE.test(result);
   }
-  return SEARCH_RESPONSE_RE.test(_0x40176e);
+  return SEARCH_RESPONSE_RE.test(result);
 }
-function withTimeout(_0x243f9e, _0x2acaad, _0x445876 = "timeout") {
-  let _0x3b2a84 = null;
-  return Promise.race([Promise.resolve(_0x243f9e), new Promise((_0x40faf5, _0x5521ad) => {
-    _0x3b2a84 = setTimeout(() => _0x5521ad(new Error(_0x445876)), _0x2acaad);
+function withTimeout(arg1, arg2, text = "timeout") {
+  let local = null;
+  return Promise.race([Promise.resolve(arg1), new Promise((arg1, arg22) => {
+    local = setTimeout(() => arg22(new Error(text)), arg2);
   })]).finally(() => {
-    if (_0x3b2a84) {
-      clearTimeout(_0x3b2a84);
+    if (local) {
+      clearTimeout(local);
     }
   });
 }
-function createEntityLeadgenNetworkCapture(_0x28a63e) {
-  const _0x3ff1e = {
+function createEntityLeadgenNetworkCapture(arg1) {
+  const obj = {
     attached: false,
     attaching: null,
     sourceType: "",
@@ -274,156 +274,156 @@ function createEntityLeadgenNetworkCapture(_0x28a63e) {
     pendingRequests: new Map(),
     users: new Map()
   };
-  const _0x559290 = async (_0x557c92, _0x3b291b, _0x248e0f = {}) => {
-    if (_0x3b291b === "Network.responseReceived") {
-      const _0x3cf395 = _0x248e0f.response?.url || "";
-      if (_0x3ff1e.sourceType && isInterestingResponse(_0x3cf395, _0x3ff1e.sourceType)) {
-        _0x3ff1e.pendingRequests.set(_0x248e0f.requestId, _0x3cf395);
+  const local = async (arg12, arg2, options = {}) => {
+    if (arg2 === "Network.responseReceived") {
+      const local = options.response?.url || "";
+      if (obj.sourceType && isInterestingResponse(local, obj.sourceType)) {
+        obj.pendingRequests.set(options.requestId, local);
       }
       return;
     }
-    if (_0x3b291b === "Network.loadingFailed") {
-      _0x3ff1e.pendingRequests.delete(_0x248e0f.requestId);
+    if (arg2 === "Network.loadingFailed") {
+      obj.pendingRequests.delete(options.requestId);
       return;
     }
-    if (_0x3b291b !== "Network.loadingFinished") {
+    if (arg2 !== "Network.loadingFinished") {
       return;
     }
-    const _0x38f090 = _0x3ff1e.pendingRequests.get(_0x248e0f.requestId);
-    if (!_0x38f090) {
+    const result = obj.pendingRequests.get(options.requestId);
+    if (!result) {
       return;
     }
-    _0x3ff1e.pendingRequests.delete(_0x248e0f.requestId);
+    obj.pendingRequests.delete(options.requestId);
     try {
-      const _0x4ca2f7 = await withTimeout(_0x28a63e.webContents.debugger.sendCommand("Network.getResponseBody", {
-        requestId: _0x248e0f.requestId
+      const result = await withTimeout(arg1.webContents.debugger.sendCommand("Network.getResponseBody", {
+        requestId: options.requestId
       }), 1200, "getResponseBody timeout");
-      const _0x5bd370 = _0x4ca2f7?.base64Encoded ? Buffer.from(_0x4ca2f7.body || "", "base64").toString("utf8") : String(_0x4ca2f7?.body || "");
-      if (!_0x5bd370 || _0x5bd370[0] !== "{" && _0x5bd370[0] !== "[") {
+      const value = result?.base64Encoded ? Buffer.from(result.body || "", "base64").toString("utf8") : String(result?.body || "");
+      if (!value || value[0] !== "{" && value[0] !== "[") {
         return;
       }
-      const _0x5d05dc = JSON.parse(_0x5bd370);
-      extractEntityUsersFromResponse(_0x5d05dc, _0x3ff1e.sourceType, _0x3ff1e.searchKeyword).forEach(_0x54be25 => {
-        const _0x371b70 = canonicalizeDouyinVideoUrl(_0x54be25.videoUrl) || _0x3ff1e.sourceVideoUrl || "";
-        _0x3ff1e.users.set(_0x54be25.userKey, {
-          ..._0x54be25,
-          searchKeyword: _0x3ff1e.searchKeyword || _0x54be25.searchKeyword || "",
-          ...(_0x371b70 ? {
-            videoUrl: _0x371b70
+      const result2 = JSON.parse(value);
+      extractEntityUsersFromResponse(result2, obj.sourceType, obj.searchKeyword).forEach(arg1 => {
+        const local = canonicalizeDouyinVideoUrl(arg1.videoUrl) || obj.sourceVideoUrl || "";
+        obj.users.set(arg1.userKey, {
+          ...arg1,
+          searchKeyword: obj.searchKeyword || arg1.searchKeyword || "",
+          ...(local ? {
+            videoUrl: local
           } : {})
         });
       });
-    } catch (_0x2f284a) {}
+    } catch (error) {}
   };
-  async function _0x10277e() {
-    if (_0x3ff1e.attached || !_0x28a63e || _0x28a63e.isDestroyed()) {
-      return _0x3ff1e.attached;
+  async function attach() {
+    if (obj.attached || !arg1 || arg1.isDestroyed()) {
+      return obj.attached;
     }
-    if (_0x3ff1e.attaching) {
-      return _0x3ff1e.attaching;
+    if (obj.attaching) {
+      return obj.attaching;
     }
-    _0x3ff1e.attaching = (async () => {
+    obj.attaching = (async () => {
       try {
         await withTimeout((async () => {
-          if (!_0x28a63e.webContents.debugger.isAttached()) {
-            _0x28a63e.webContents.debugger.attach("1.3");
+          if (!arg1.webContents.debugger.isAttached()) {
+            arg1.webContents.debugger.attach("1.3");
           }
-          _0x28a63e.webContents.debugger.removeListener("message", _0x559290);
-          _0x28a63e.webContents.debugger.on("message", _0x559290);
-          await _0x28a63e.webContents.debugger.sendCommand("Network.enable", {
+          arg1.webContents.debugger.removeListener("message", local);
+          arg1.webContents.debugger.on("message", local);
+          await arg1.webContents.debugger.sendCommand("Network.enable", {
             maxTotalBufferSize: 20971520,
             maxResourceBufferSize: 5242880
           });
         })(), ATTACH_TIMEOUT_MS, "debugger attach timeout");
-        _0x3ff1e.attached = true;
-      } catch (_0x535782) {
-        _0x3ff1e.attached = false;
+        obj.attached = true;
+      } catch (error) {
+        obj.attached = false;
         try {
-          if (_0x28a63e && !_0x28a63e.isDestroyed() && _0x28a63e.webContents.debugger.isAttached()) {
-            _0x28a63e.webContents.debugger.detach();
+          if (arg1 && !arg1.isDestroyed() && arg1.webContents.debugger.isAttached()) {
+            arg1.webContents.debugger.detach();
           }
-        } catch (_0x40ea36) {}
+        } catch (error) {}
       } finally {
-        _0x3ff1e.attaching = null;
+        obj.attaching = null;
       }
-      return _0x3ff1e.attached;
+      return obj.attached;
     })();
-    return _0x3ff1e.attaching;
+    return obj.attaching;
   }
-  async function _0x15936d({
-    sourceType: _0x4a25c1,
+  async function begin({
+    sourceType: sourceType,
     searchKeyword = "",
     sourceVideoUrl = ""
   } = {}) {
-    _0x3ff1e.sourceType = String(_0x4a25c1 || "");
-    _0x3ff1e.searchKeyword = String(searchKeyword || "");
-    _0x3ff1e.sourceVideoUrl = canonicalizeDouyinVideoUrl(sourceVideoUrl) || (_0x4a25c1 === "comment" ? canonicalizeDouyinVideoUrl(searchKeyword) : "") || "";
-    _0x3ff1e.pendingRequests.clear();
-    _0x3ff1e.users.clear();
+    obj.sourceType = String(sourceType || "");
+    obj.searchKeyword = String(searchKeyword || "");
+    obj.sourceVideoUrl = canonicalizeDouyinVideoUrl(sourceVideoUrl) || (sourceType === "comment" ? canonicalizeDouyinVideoUrl(searchKeyword) : "") || "";
+    obj.pendingRequests.clear();
+    obj.users.clear();
     try {
-      await _0x10277e();
-    } catch (_0x3a5f69) {}
-    return _0x3ff1e.attached;
+      await attach();
+    } catch (error) {}
+    return obj.attached;
   }
-  function _0x1ce434(_0x23b266 = 0) {
-    const _0x471058 = [..._0x3ff1e.users.values()];
-    _0x3ff1e.users.clear();
-    if (Number(_0x23b266) > 0) {
-      return _0x471058.slice(0, Math.floor(Number(_0x23b266)));
+  function takeUsers(num = 0) {
+    const list = [...obj.users.values()];
+    obj.users.clear();
+    if (Number(num) > 0) {
+      return list.slice(0, Math.floor(Number(num)));
     }
-    return _0x471058;
+    return list;
   }
-  function _0x4edcff(_0x2fbdd9 = "") {
-    const _0x344411 = String(_0x2fbdd9 || "").trim();
-    if (!_0x344411) {
+  function findVideoUser(text = "") {
+    const result = String(text || "").trim();
+    if (!result) {
       return null;
     }
-    const _0xf12ab4 = extractAwemeVideoId({
-      aweme_id: _0x344411
-    }) || _0x344411.match(/\/(?:video|note)\/(\d{10,})/i)?.[1] || "" || (/^\d{10,}$/.test(_0x344411) ? _0x344411 : "");
-    if (!_0xf12ab4) {
+    const local = extractAwemeVideoId({
+      aweme_id: result
+    }) || result.match(/\/(?:video|note)\/(\d{10,})/i)?.[1] || "" || (/^\d{10,}$/.test(result) ? result : "");
+    if (!local) {
       return null;
     }
-    const _0x29c107 = _0x3ff1e.users.get("video:" + _0xf12ab4);
-    if (_0x29c107) {
-      return _0x29c107;
+    const result2 = obj.users.get("video:" + local);
+    if (result2) {
+      return result2;
     }
-    for (const _0x10e577 of _0x3ff1e.users.values()) {
-      const _0x3b39a4 = String(_0x10e577?.userKey || "");
-      if (_0x3b39a4 === "video:" + _0xf12ab4) {
-        return _0x10e577;
+    for (const item of obj.users.values()) {
+      const result = String(item?.userKey || "");
+      if (result === "video:" + local) {
+        return item;
       }
-      const _0x1967df = String(_0x10e577?.videoUrl || _0x10e577?.userUrl || _0x10e577?.content || "");
-      if (_0x1967df.includes(_0xf12ab4)) {
-        return _0x10e577;
+      const result2 = String(item?.videoUrl || item?.userUrl || item?.content || "");
+      if (result2.includes(local)) {
+        return item;
       }
     }
     return null;
   }
-  function _0x28d0f5() {
-    _0x3ff1e.pendingRequests.clear();
-    _0x3ff1e.users.clear();
-    _0x3ff1e.attaching = null;
-    if (!_0x28a63e || _0x28a63e.isDestroyed()) {
+  function dispose() {
+    obj.pendingRequests.clear();
+    obj.users.clear();
+    obj.attaching = null;
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
     try {
-      _0x28a63e.webContents.debugger.removeListener("message", _0x559290);
-    } catch (_0x4a2aed) {}
+      arg1.webContents.debugger.removeListener("message", local);
+    } catch (error) {}
     try {
-      if (_0x28a63e.webContents.debugger.isAttached()) {
-        _0x28a63e.webContents.debugger.detach();
+      if (arg1.webContents.debugger.isAttached()) {
+        arg1.webContents.debugger.detach();
       }
-    } catch (_0x523d81) {}
-    _0x3ff1e.attached = false;
+    } catch (error) {}
+    obj.attached = false;
   }
   return {
-    attach: _0x10277e,
-    begin: _0x15936d,
-    takeUsers: _0x1ce434,
-    findVideoUser: _0x4edcff,
-    dispose: _0x28d0f5,
-    isAttached: () => _0x3ff1e.attached
+    attach: attach,
+    begin: begin,
+    takeUsers: takeUsers,
+    findVideoUser: findVideoUser,
+    dispose: dispose,
+    isAttached: () => obj.attached
   };
 }
 module.exports = {
