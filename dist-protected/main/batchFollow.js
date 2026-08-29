@@ -16,767 +16,767 @@ const BATCH_PROFILE_OPEN_TIMEOUT_MS = 40000;
 const SUBVIEW_HANDOFF_MIN_GAP_MS = 2800;
 const COMPACT_BACKGROUND_AUTOMATION_WIDTH = 1200;
 const COMPACT_BACKGROUND_AUTOMATION_HEIGHT = 800;
-function createBatchFollow(_0x40add4) {
+function createBatchFollow(arg1) {
   const {
-    getMainWindow: _0x42dad6,
-    getPlatformViews: _0x3193d5,
-    getInteractionViewsMap: _0x86f3df,
-    getInteractionLocksMap: _0x3a36f,
-    getViewSettingsMap: _0x57e918,
-    getBatchActionQueueMap: _0x203fb0,
-    getPendingBatchByViewKey: _0x2e6906,
-    getIsBatchActionRunningMap: _0x429dfe,
-    getViewActiveBatchRunMap: _0x199df4,
-    getLastInteractionFinishedAtByViewKey: _0xf98cb,
-    getBackgroundDetachedViewKeys: _0x1f8fcb,
-    getBackgroundLayoutHoldViewKeys: _0x1e01e0,
-    getIsCurrentUserFree: _0x5b84f2,
-    isAutomationViewKey: _0x44fc67,
-    isBatchViewRuntimeActive: _0x533b89,
-    pushAutomationTrace: _0x47064a,
-    suspendOccludedAutomationRendering: _0x156745,
-    historyManager: _0x4e7042,
-    ensureRuntimeConfigReadyForTask: _0x137c25,
-    runtimeConfigBlockReason: _0x2e4783,
-    resolveAutomationPreloadPath: _0x5bc01b,
-    attachProtocolGuard: _0x261f1e,
-    configureAutomationSession: _0xb14d6f,
-    configureXianyuSession: _0x5112a1,
-    store: _0x4df458,
-    runtimeConfig: _0x1a8625,
-    automationUserAgent: _0x503d8b,
-    historyFile: _0x173215,
-    cryptoKey: _0x379978,
-    cryptoIv: _0x2c1ede,
-    isLeadsSqliteRuntime: _0x372db0,
-    inferInteractionViewKey: _0x23a5ae,
-    shouldAttachAutomationView: _0x1485dd,
-    shouldKeepAutomationViewAttached: _0x45ecd1,
-    parkAutomationViewInMainWindow: _0x1b54ab,
-    enterBackgroundDetachedMode: _0x232da4,
-    safeSetTopBrowserView: _0x38c93c,
-    nudgeAutomationViewRepaint: _0x36d65f,
-    restoreForegroundAutomationRendering: _0x418bc3,
-    isValidAutomationBounds: _0x12775e,
-    isBackgroundAutomationHidden: _0x3cfd4d,
-    cacheAutomationPreviewBounds: _0x3c0e9b,
-    resolveInteractionViewportBounds: _0x13b874,
-    shouldShowInteractionView: _0x583df5,
-    restoreVisibleInteractionStack: _0x4afa5c,
-    attachAutomationViewToBackgroundHost: _0x43f1d4,
-    focusAutomationWebContentsSafely: _0x4d6a45,
-    canParkAutomationViewInMainWindow: _0x5eff65,
-    attachLivePreviewSpectatorIfPossible: _0x573aab,
-    ensureMainViewVisibleForBatch: _0x4a8277,
-    getBackgroundAutomationHostViews: _0x2e39f0,
-    cancelPendingAutomationViewDestroy: _0x105f1f,
-    cancelInteractionViewIdleCleanup: _0x5531e6,
-    scheduleInteractionViewIdleCleanup: _0x5027f7,
-    finishInteraction: _0x4732a0,
-    preserveAutomationViewAfterTaskFinish: _0x49cbc9,
-    recoverMainAutomationView: _0x3c3c85,
-    initAutomationView: _0x5d13ef,
+    getMainWindow: getMainWindow,
+    getPlatformViews: getPlatformViews,
+    getInteractionViewsMap: getInteractionViewsMap,
+    getInteractionLocksMap: getInteractionLocksMap,
+    getViewSettingsMap: getViewSettingsMap,
+    getBatchActionQueueMap: getBatchActionQueueMap,
+    getPendingBatchByViewKey: getPendingBatchByViewKey,
+    getIsBatchActionRunningMap: getIsBatchActionRunningMap,
+    getViewActiveBatchRunMap: getViewActiveBatchRunMap,
+    getLastInteractionFinishedAtByViewKey: getLastInteractionFinishedAtByViewKey,
+    getBackgroundDetachedViewKeys: getBackgroundDetachedViewKeys,
+    getBackgroundLayoutHoldViewKeys: getBackgroundLayoutHoldViewKeys,
+    getIsCurrentUserFree: getIsCurrentUserFree,
+    isAutomationViewKey: isAutomationViewKey,
+    isBatchViewRuntimeActive: isBatchViewRuntimeActive,
+    pushAutomationTrace: pushAutomationTrace,
+    suspendOccludedAutomationRendering: suspendOccludedAutomationRendering,
+    historyManager: historyManager,
+    ensureRuntimeConfigReadyForTask: ensureRuntimeConfigReadyForTask,
+    runtimeConfigBlockReason: runtimeConfigBlockReason,
+    resolveAutomationPreloadPath: resolveAutomationPreloadPath,
+    attachProtocolGuard: attachProtocolGuard,
+    configureAutomationSession: configureAutomationSession,
+    configureXianyuSession: configureXianyuSession,
+    store: store,
+    runtimeConfig: runtimeConfig,
+    automationUserAgent: automationUserAgent,
+    historyFile: historyFile,
+    cryptoKey: cryptoKey,
+    cryptoIv: cryptoIv,
+    isLeadsSqliteRuntime: isLeadsSqliteRuntime,
+    inferInteractionViewKey: inferInteractionViewKey,
+    shouldAttachAutomationView: shouldAttachAutomationView,
+    shouldKeepAutomationViewAttached: shouldKeepAutomationViewAttached,
+    parkAutomationViewInMainWindow: parkAutomationViewInMainWindow,
+    enterBackgroundDetachedMode: enterBackgroundDetachedMode,
+    safeSetTopBrowserView: safeSetTopBrowserView,
+    nudgeAutomationViewRepaint: nudgeAutomationViewRepaint,
+    restoreForegroundAutomationRendering: restoreForegroundAutomationRendering,
+    isValidAutomationBounds: isValidAutomationBounds,
+    isBackgroundAutomationHidden: isBackgroundAutomationHidden,
+    cacheAutomationPreviewBounds: cacheAutomationPreviewBounds,
+    resolveInteractionViewportBounds: resolveInteractionViewportBounds,
+    shouldShowInteractionView: shouldShowInteractionView,
+    restoreVisibleInteractionStack: restoreVisibleInteractionStack,
+    attachAutomationViewToBackgroundHost: attachAutomationViewToBackgroundHost,
+    focusAutomationWebContentsSafely: focusAutomationWebContentsSafely,
+    canParkAutomationViewInMainWindow: canParkAutomationViewInMainWindow,
+    attachLivePreviewSpectatorIfPossible: attachLivePreviewSpectatorIfPossible,
+    ensureMainViewVisibleForBatch: ensureMainViewVisibleForBatch,
+    getBackgroundAutomationHostViews: getBackgroundAutomationHostViews,
+    cancelPendingAutomationViewDestroy: cancelPendingAutomationViewDestroy,
+    cancelInteractionViewIdleCleanup: cancelInteractionViewIdleCleanup,
+    scheduleInteractionViewIdleCleanup: scheduleInteractionViewIdleCleanup,
+    finishInteraction: finishInteraction,
+    preserveAutomationViewAfterTaskFinish: preserveAutomationViewAfterTaskFinish,
+    recoverMainAutomationView: recoverMainAutomationView,
+    initAutomationView: initAutomationView,
     cancelAutomationAiRetry = () => {},
-    attachAutomationViewStabilityGuards: _0x1bdc80,
-    registerWebContentsLogger: _0x73b805,
-    releaseBatchRuntimeGuardIfIdle: _0xdc2c01,
-    acquireBatchRuntimeGuard: _0x14a3de,
-    syncAutomationRuntimeGuard: _0x5d5b96
-  } = _0x40add4;
-  let _0x3c18e0 = 0;
-  let _0x411698 = false;
-  let _0x24247a = 0;
-  let _0x828cc1 = {
+    attachAutomationViewStabilityGuards: attachAutomationViewStabilityGuards,
+    registerWebContentsLogger: registerWebContentsLogger,
+    releaseBatchRuntimeGuardIfIdle: releaseBatchRuntimeGuardIfIdle,
+    acquireBatchRuntimeGuard: acquireBatchRuntimeGuard,
+    syncAutomationRuntimeGuard: syncAutomationRuntimeGuard
+  } = arg1;
+  let num = 0;
+  let flag = false;
+  let num2 = 0;
+  let obj = {
     total: 0,
     current: 0,
     success: 0,
     failed: 0,
     skipped: 0
   };
-  const _0x4ae52a = new Map();
-  const _0x1e68e3 = new Map();
-  const _0x32ff84 = new Map();
-  const _0x1b5a42 = new Map();
-  function _0x41634a(_0xf6cd10 = null) {
-    if (_0xf6cd10?.canCommentFirstWork) {
+  const map = new Map();
+  const map2 = new Map();
+  const map3 = new Map();
+  const map4 = new Map();
+  function fn(arg1 = null) {
+    if (arg1?.canCommentFirstWork) {
       return 360000;
     }
-    if (_0xf6cd10?.canDM) {
+    if (arg1?.canDM) {
       return 240000;
     }
     return 180000;
   }
-  function _0x555d5b(_0x318bd0, _0x2ad8a9 = "", _0x1beb78 = {}) {
-    const _0x24e511 = _0x3a36f();
-    const _0x4149ee = _0x24e511.get(_0x318bd0);
-    if (!_0x4149ee || typeof _0x4149ee.onTimeout !== "function") {
+  function fn2(arg1, text = "", options = {}) {
+    const result = getInteractionLocksMap();
+    const result2 = result.get(arg1);
+    if (!result2 || typeof result2.onTimeout !== "function") {
       return false;
     }
-    if (_0x2ad8a9 && _0x4149ee.interactionId && _0x2ad8a9 !== _0x4149ee.interactionId) {
+    if (text && result2.interactionId && text !== result2.interactionId) {
       return false;
     }
-    const _0x18a2b6 = Number(_0x1beb78.extendMs);
-    const _0x38e0a4 = Number.isFinite(_0x18a2b6) && _0x18a2b6 > 0 ? _0x18a2b6 : Number(_0x4149ee.timeoutMs) || 360000;
-    if (_0x4149ee.timer) {
-      clearTimeout(_0x4149ee.timer);
+    const result3 = Number(options.extendMs);
+    const value = Number.isFinite(result3) && result3 > 0 ? result3 : Number(result2.timeoutMs) || 360000;
+    if (result2.timer) {
+      clearTimeout(result2.timer);
     }
-    _0x4149ee.timer = setTimeout(_0x4149ee.onTimeout, _0x38e0a4);
-    _0x4149ee.lastActivityAt = Date.now();
-    _0x4149ee.timeoutMs = Number(_0x4149ee.timeoutMs) || _0x38e0a4;
+    result2.timer = setTimeout(result2.onTimeout, value);
+    result2.lastActivityAt = Date.now();
+    result2.timeoutMs = Number(result2.timeoutMs) || value;
     return true;
   }
-  function _0x353391(_0x2fab38, _0x12921c = "preempt", _0x460b8d = {}) {
+  function fn3(arg1, text = "preempt", options = {}) {
     cancelAutomationAiRetry();
-    const _0x3de6f5 = _0x86f3df().get(_0x2fab38);
-    if (!_0x3de6f5?.webContents || _0x3de6f5.webContents.isDestroyed()) {
+    const result = getInteractionViewsMap().get(arg1);
+    if (!result?.webContents || result.webContents.isDestroyed()) {
       return;
     }
     try {
-      _0x3de6f5.webContents.send("interaction-preempt", {
-        viewKey: _0x2fab38,
-        reason: _0x12921c,
-        ..._0x460b8d
+      result.webContents.send("interaction-preempt", {
+        viewKey: arg1,
+        reason: text,
+        ...options
       });
-    } catch (_0x259f40) {
-      console.warn("[Batch] [" + _0x2fab38 + "] 发送 interaction-preempt 失败: " + (_0x259f40?.message || _0x259f40));
+    } catch (error) {
+      console.warn("[Batch] [" + arg1 + "] 发送 interaction-preempt 失败: " + (error?.message || error));
     }
   }
-  function _0x542199(_0x412e61 = null, _0x5574b2 = null) {
-    if (_0x5574b2 != null && Number.isFinite(Number(_0x5574b2))) {
-      return Number(_0x5574b2);
+  function resolveActiveBatchRunId(arg1 = null, arg2 = null) {
+    if (arg2 != null && Number.isFinite(Number(arg2))) {
+      return Number(arg2);
     }
-    if (_0x412e61) {
-      const _0x5c1b62 = _0x2e6906().get(_0x412e61);
-      if (_0x5c1b62?.runId != null) {
-        return _0x5c1b62.runId;
+    if (arg1) {
+      const result = getPendingBatchByViewKey().get(arg1);
+      if (result?.runId != null) {
+        return result.runId;
       }
-      const _0xd32581 = _0x199df4().get(_0x412e61);
-      if (_0xd32581 != null) {
-        return _0xd32581;
+      const result2 = getViewActiveBatchRunMap().get(arg1);
+      if (result2 != null) {
+        return result2;
       }
     }
     return null;
   }
-  function _0x54648b(_0xd08321, _0x4150ff = {}) {
-    if (_0xd08321 == null) {
+  function appendBatchFollowLog(arg1, options = {}) {
+    if (arg1 == null) {
       return null;
     }
     try {
-      const _0x916b1b = _0x4e7042.appendBatchRunLog(_0xd08321, _0x4150ff);
-      const _0x58ec78 = _0x42dad6();
-      if (_0x916b1b && _0x58ec78 && !_0x58ec78.isDestroyed()) {
-        _0x58ec78.webContents.send("batch-run-log", {
-          runId: _0xd08321,
-          log: _0x916b1b
+      const result = historyManager.appendBatchRunLog(arg1, options);
+      const result2 = getMainWindow();
+      if (result && result2 && !result2.isDestroyed()) {
+        result2.webContents.send("batch-run-log", {
+          runId: arg1,
+          log: result
         });
       }
-      return _0x916b1b;
-    } catch (_0x38ad6e) {
-      console.warn("[Batch] 写入批量跟进日志失败:", _0x38ad6e?.message || _0x38ad6e);
+      return result;
+    } catch (error) {
+      console.warn("[Batch] 写入批量跟进日志失败:", error?.message || error);
       return null;
     }
   }
-  function _0x562fd7(_0x20b317, _0x2b636c) {
-    const _0x3d98f8 = _0x20b317 + "_" + _0x2b636c;
-    const _0xe40ce6 = _0x4ae52a.get(_0x3d98f8);
-    if (_0xe40ce6) {
-      clearInterval(_0xe40ce6);
-      _0x4ae52a.delete(_0x3d98f8);
+  function fn6(arg1, arg2) {
+    const value = arg1 + "_" + arg2;
+    const result = map.get(value);
+    if (result) {
+      clearInterval(result);
+      map.delete(value);
     }
   }
-  function _0x3020a8(_0x264594, _0x23d1f2, _0x1bd86c, _0x3ed8f7) {
-    const _0x32c5ea = _0x264594 + "_" + _0x23d1f2;
-    let _0x2cd68c = _0x1e68e3.get(_0x32c5ea);
-    if (!_0x2cd68c) {
-      _0x2cd68c = new Set();
-      _0x1e68e3.set(_0x32c5ea, _0x2cd68c);
+  function fn7(arg1, arg2, arg3, arg4) {
+    const value = arg1 + "_" + arg2;
+    let result = map2.get(value);
+    if (!result) {
+      result = new Set();
+      map2.set(value, result);
     }
-    const _0x142cb2 = setTimeout(() => {
-      const _0x4512f3 = _0x1e68e3.get(_0x32c5ea);
-      _0x4512f3?.delete(_0x142cb2);
-      if (_0x4512f3?.size === 0) {
-        _0x1e68e3.delete(_0x32c5ea);
+    const result2 = setTimeout(() => {
+      const result = map2.get(value);
+      result?.delete(result2);
+      if (result?.size === 0) {
+        map2.delete(value);
       }
-      _0x1bd86c();
-    }, Math.max(0, _0x3ed8f7));
-    _0x2cd68c.add(_0x142cb2);
-    return _0x142cb2;
+      arg3();
+    }, Math.max(0, arg4));
+    result.add(result2);
+    return result2;
   }
-  function _0x560ee3(_0x4f791c, _0x1fb1de) {
-    const _0x509f86 = _0x4f791c + "_" + _0x1fb1de;
-    const _0x3209b2 = _0x1e68e3.get(_0x509f86);
-    if (!_0x3209b2) {
+  function fn8(arg1, arg2) {
+    const value = arg1 + "_" + arg2;
+    const result = map2.get(value);
+    if (!result) {
       return;
     }
-    for (const _0x2af6f2 of _0x3209b2) {
-      clearTimeout(_0x2af6f2);
+    for (const item of result) {
+      clearTimeout(item);
     }
-    _0x1e68e3.delete(_0x509f86);
+    map2.delete(value);
   }
-  function _0x3b4415() {
-    for (const _0x1343db of _0x4ae52a.values()) {
-      clearInterval(_0x1343db);
+  function fn9() {
+    for (const item of map.values()) {
+      clearInterval(item);
     }
-    _0x4ae52a.clear();
-    for (const _0x36d3c7 of _0x1e68e3.values()) {
-      for (const _0x44f55e of _0x36d3c7) {
-        clearTimeout(_0x44f55e);
+    map.clear();
+    for (const item of map2.values()) {
+      for (const item2 of item) {
+        clearTimeout(item2);
       }
     }
-    _0x1e68e3.clear();
+    map2.clear();
   }
-  function _0x4676e6(_0xb21c96) {
-    for (const [_0x3c5b35, _0x4b994a] of [..._0x4ae52a.entries()]) {
-      if (_0x3c5b35.startsWith(_0xb21c96 + "_")) {
-        clearInterval(_0x4b994a);
-        _0x4ae52a.delete(_0x3c5b35);
+  function clearBatchWaitTickersForView(arg1) {
+    for (const [local, local2] of [...map.entries()]) {
+      if (local.startsWith(arg1 + "_")) {
+        clearInterval(local2);
+        map.delete(local);
       }
     }
-    for (const [_0x391b5a, _0x4182a7] of [..._0x1e68e3.entries()]) {
-      if (!_0x391b5a.startsWith(_0xb21c96 + "_")) {
+    for (const [local, local2] of [...map2.entries()]) {
+      if (!local.startsWith(arg1 + "_")) {
         continue;
       }
-      for (const _0x145104 of _0x4182a7) {
-        clearTimeout(_0x145104);
+      for (const item of local2) {
+        clearTimeout(item);
       }
-      _0x1e68e3.delete(_0x391b5a);
+      map2.delete(local);
     }
   }
-  function _0x1bed5a(_0x405bfe, _0x24348a) {
-    _0x3193d5().forEach((_0x502633, _0x1c072a) => {
-      if (!_0x502633 || _0x502633.webContents.isDestroyed()) {
+  function cancelBatchWandering(arg1, arg2) {
+    getPlatformViews().forEach((arg12, arg22) => {
+      if (!arg12 || arg12.webContents.isDestroyed()) {
         return;
       }
       try {
-        _0x502633.webContents.send("control-task", {
+        arg12.webContents.send("control-task", {
           type: "CANCEL_WANDERING",
           payload: {
-            reason: _0x405bfe,
-            batchRunId: _0x24348a,
-            viewKey: _0x1c072a
+            reason: arg1,
+            batchRunId: arg2,
+            viewKey: arg22
           }
         });
-      } catch (_0x4ecefe) {
-        console.warn("[Batch] [" + _0x1c072a + "] 取消拟人闲逛失败: " + _0x4ecefe.message);
+      } catch (error) {
+        console.warn("[Batch] [" + arg22 + "] 取消拟人闲逛失败: " + error.message);
       }
     });
   }
-  function _0xe75fe9(_0x180782, _0x529c7e) {
-    const _0x2a3055 = _0x203fb0();
-    const _0x316d6b = _0x2e6906();
-    const _0x8c2464 = _0x199df4();
-    const _0x14a2d4 = _0x86f3df();
-    const _0x2ce2f1 = _0x3a36f();
-    const _0x5e9fe8 = new Set([..._0x2a3055.keys(), ..._0x316d6b.keys(), ..._0x8c2464.keys()]);
-    for (const _0x4bf85c of _0x5e9fe8) {
-      const _0x2aa273 = _0x316d6b.get(_0x4bf85c);
-      if (_0x2aa273 && _0x529c7e != null && _0x2aa273.runId !== _0x529c7e) {
+  function cancelActiveBatchInteractions(arg1, arg2) {
+    const result = getBatchActionQueueMap();
+    const result2 = getPendingBatchByViewKey();
+    const result3 = getViewActiveBatchRunMap();
+    const result4 = getInteractionViewsMap();
+    const result5 = getInteractionLocksMap();
+    const set = new Set([...result.keys(), ...result2.keys(), ...result3.keys()]);
+    for (const item of set) {
+      const result = result2.get(item);
+      if (result && arg2 != null && result.runId !== arg2) {
         continue;
       }
-      const _0x34be44 = _0x14a2d4.get(_0x4bf85c);
+      const result3 = result4.get(item);
       try {
-        if (_0x34be44 && !_0x34be44.webContents.isDestroyed()) {
-          _0x34be44.webContents.send("interaction-preempt", {
-            viewKey: _0x4bf85c,
-            reason: _0x180782,
-            cancelledBatchRunId: _0x529c7e
+        if (result3 && !result3.webContents.isDestroyed()) {
+          result3.webContents.send("interaction-preempt", {
+            viewKey: item,
+            reason: arg1,
+            cancelledBatchRunId: arg2
           });
-          _0x34be44.webContents.stop();
+          result3.webContents.stop();
         }
-      } catch (_0x3e6682) {
-        console.warn("[Batch] [" + _0x4bf85c + "] 取消旧互动任务失败: " + _0x3e6682.message);
+      } catch (error) {
+        console.warn("[Batch] [" + item + "] 取消旧互动任务失败: " + error.message);
       }
-      _0x316d6b.delete(_0x4bf85c);
-      if (_0x2ce2f1.has(_0x4bf85c)) {
-        _0x4732a0(_0x4bf85c, {
+      result2.delete(item);
+      if (result5.has(item)) {
+        finishInteraction(item, {
           error: "batch-cancelled"
-        }, _0x180782);
+        }, arg1);
       }
     }
   }
-  function _0x5e3278({
-    viewKeyFound: _0x4d75f5,
-    accountId: _0x179624,
-    finishedLeadName: _0x32af09,
-    nextLeadName: _0x5072b0,
-    delayMs: _0x5d7c4a,
-    delayMin: _0x40ac85,
-    delayMax: _0x12be47,
-    sender: _0xf4670e,
-    scheduledRunId: _0x3736e6
+  function fn13({
+    viewKeyFound: viewKeyFound,
+    accountId: accountId,
+    finishedLeadName: finishedLeadName,
+    nextLeadName: nextLeadName,
+    delayMs: delayMs,
+    delayMin: delayMin,
+    delayMax: delayMax,
+    sender: sender,
+    scheduledRunId: scheduledRunId
   }) {
-    const _0x25143c = Math.round(_0x5d7c4a / 1000);
-    const _0x2606a0 = _0x5d7c4a > 3000 ? Math.round((_0x5d7c4a - 3000) / 1000) : 0;
-    const _0x46149d = Math.max(0, _0x25143c - _0x2606a0);
-    const _0x2d90d5 = _0x40ac85 + "-" + _0x12be47;
-    let _0x510990;
-    if (_0x2606a0 > 0) {
-      _0x510990 = "⏳ 批量间隙：@" + (_0x32af09 || "上一条") + " 已完成，" + _0x25143c + "s 后处理下一条（" + _0x2606a0 + "s 推荐页刷视频 + " + _0x46149d + "s 提前准备，间隔设置 " + _0x2d90d5 + "s）";
+    const result = Math.round(delayMs / 1000);
+    const value = delayMs > 3000 ? Math.round((delayMs - 3000) / 1000) : 0;
+    const result2 = Math.max(0, result - value);
+    const value2 = delayMin + "-" + delayMax;
+    let local;
+    if (value > 0) {
+      local = "⏳ 批量间隙：@" + (finishedLeadName || "上一条") + " 已完成，" + result + "s 后处理下一条（" + value + "s 推荐页刷视频 + " + result2 + "s 提前准备，间隔设置 " + value2 + "s）";
     } else {
-      _0x510990 = "⏳ 批量间隙：@" + (_0x32af09 || "上一条") + " 已完成，等待 " + _0x25143c + "s 后处理下一条（间隔设置 " + _0x2d90d5 + "s）";
+      local = "⏳ 批量间隙：@" + (finishedLeadName || "上一条") + " 已完成，等待 " + result + "s 后处理下一条（间隔设置 " + value2 + "s）";
     }
-    _0x47064a(_0x510990, _0x179624, {
-      runId: _0x3736e6,
-      viewKey: _0x4d75f5,
+    pushAutomationTrace(local, accountId, {
+      runId: scheduledRunId,
+      viewKey: viewKeyFound,
       phase: "delay",
       level: "info"
     });
-    if (_0x5072b0) {
-      _0x47064a("📋 下一条：@" + _0x5072b0, _0x179624, {
-        runId: _0x3736e6,
-        viewKey: _0x4d75f5,
+    if (nextLeadName) {
+      pushAutomationTrace("📋 下一条：@" + nextLeadName, accountId, {
+        runId: scheduledRunId,
+        viewKey: viewKeyFound,
         phase: "delay",
-        leadName: _0x5072b0
+        leadName: nextLeadName
       });
     }
-    _0x562fd7(_0x4d75f5, _0x3736e6);
-    _0x560ee3(_0x4d75f5, _0x3736e6);
-    const _0x2f4347 = Date.now();
-    const _0x9a9546 = _0x4d75f5 + "_" + _0x3736e6;
-    const _0x555774 = setInterval(() => {
-      if (_0x411698 || _0x3c18e0 !== _0x3736e6) {
-        _0x562fd7(_0x4d75f5, _0x3736e6);
+    fn6(viewKeyFound, scheduledRunId);
+    fn8(viewKeyFound, scheduledRunId);
+    const result3 = Date.now();
+    const value3 = viewKeyFound + "_" + scheduledRunId;
+    const result4 = setInterval(() => {
+      if (flag || num !== scheduledRunId) {
+        fn6(viewKeyFound, scheduledRunId);
         return;
       }
-      const _0x5b25a6 = Math.floor((Date.now() - _0x2f4347) / 1000);
-      const _0x4bb026 = _0x25143c - _0x5b25a6;
-      if (_0x4bb026 <= 0) {
-        _0x562fd7(_0x4d75f5, _0x3736e6);
+      const result2 = Math.floor((Date.now() - result3) / 1000);
+      const value = result - result2;
+      if (value <= 0) {
+        fn6(viewKeyFound, scheduledRunId);
         return;
       }
-      _0x47064a("⏳ 批量间隙：剩余约 " + _0x4bb026 + "s…", _0x179624, {
-        runId: _0x3736e6,
-        viewKey: _0x4d75f5,
+      pushAutomationTrace("⏳ 批量间隙：剩余约 " + value + "s…", accountId, {
+        runId: scheduledRunId,
+        viewKey: viewKeyFound,
         phase: "delay",
         persist: false
       });
     }, 10000);
-    _0x4ae52a.set(_0x9a9546, _0x555774);
-    const _0x562697 = _0x3193d5().get(_0x4d75f5);
-    if (_0x5d7c4a > 3000 && _0x562697 && !_0x562697.webContents.isDestroyed()) {
-      const _0x136bca = _0x5d7c4a - 3000;
-      console.log("[Batch] 等待 " + _0x25143c + "s 后处理下一个任务，期间执行 " + Math.round(_0x136bca / 1000) + "s 推荐页刷视频...");
-      _0x562697.webContents.loadURL("https://www.douyin.com/?recommend=1");
-      _0x3020a8(_0x4d75f5, _0x3736e6, () => {
-        if (!_0x411698 && _0x3c18e0 === _0x3736e6 && !_0x562697.webContents.isDestroyed()) {
-          _0x562697.webContents.send("control-task", {
+    map.set(value3, result4);
+    const result5 = getPlatformViews().get(viewKeyFound);
+    if (delayMs > 3000 && result5 && !result5.webContents.isDestroyed()) {
+      const value = delayMs - 3000;
+      console.log("[Batch] 等待 " + result + "s 后处理下一个任务，期间执行 " + Math.round(value / 1000) + "s 推荐页刷视频...");
+      result5.webContents.loadURL("https://www.douyin.com/?recommend=1");
+      fn7(viewKeyFound, scheduledRunId, () => {
+        if (!flag && num === scheduledRunId && !result5.webContents.isDestroyed()) {
+          result5.webContents.send("control-task", {
             type: "PERFORM_WANDERING",
             payload: {
-              duration: _0x136bca,
-              traceAccountId: _0x179624,
-              batchRunId: _0x3736e6
+              duration: value,
+              traceAccountId: accountId,
+              batchRunId: scheduledRunId
             }
           });
         }
       }, 1500);
     } else {
-      console.log("[Batch] 等待 " + _0x25143c + "s 后处理下一个任务...");
+      console.log("[Batch] 等待 " + result + "s 后处理下一个任务...");
     }
-    const _0x5e885b = _0x203fb0().get(_0x4d75f5);
-    const _0x595196 = _0x5e885b ? _0x5e885b[0] : null;
-    if (_0x5d7c4a > 3000 && _0x595196 && _0x595196.lead?.userUrl) {
-      _0x3020a8(_0x4d75f5, _0x3736e6, () => {
-        if (!_0x411698 && _0x3c18e0 === _0x3736e6 && _0x562697 && !_0x562697.webContents.isDestroyed()) {
-          const _0x47e53d = _0x4776e5(_0x595196.lead.userUrl);
-          _0x47064a("🚀 提前 3 秒导航至下一目标主页进行加载: @" + (_0x595196.lead.nickname || "未知"), _0x179624, {
-            runId: _0x3736e6,
-            viewKey: _0x4d75f5,
+    const result6 = getBatchActionQueueMap().get(viewKeyFound);
+    const value4 = result6 ? result6[0] : null;
+    if (delayMs > 3000 && value4 && value4.lead?.userUrl) {
+      fn7(viewKeyFound, scheduledRunId, () => {
+        if (!flag && num === scheduledRunId && result5 && !result5.webContents.isDestroyed()) {
+          const result = fn14(value4.lead.userUrl);
+          pushAutomationTrace("🚀 提前 3 秒导航至下一目标主页进行加载: @" + (value4.lead.nickname || "未知"), accountId, {
+            runId: scheduledRunId,
+            viewKey: viewKeyFound,
             phase: "delay",
-            leadName: _0x595196.lead.nickname || ""
+            leadName: value4.lead.nickname || ""
           });
-          console.log("[Batch] [" + _0x4d75f5 + "] 提前 3 秒载入下一目标主页: " + _0x47e53d);
-          _0x562697.webContents.loadURL(_0x47e53d);
+          console.log("[Batch] [" + viewKeyFound + "] 提前 3 秒载入下一目标主页: " + result);
+          result5.webContents.loadURL(result);
         }
-      }, _0x5d7c4a - 3000);
+      }, delayMs - 3000);
     }
-    _0x3020a8(_0x4d75f5, _0x3736e6, () => {
-      _0x562fd7(_0x4d75f5, _0x3736e6);
-      if (!_0x411698 && _0x3c18e0 === _0x3736e6) {
-        _0x47064a("▶️ 批量间隙结束，开始处理下一条", _0x179624, {
-          runId: _0x3736e6,
-          viewKey: _0x4d75f5,
+    fn7(viewKeyFound, scheduledRunId, () => {
+      fn6(viewKeyFound, scheduledRunId);
+      if (!flag && num === scheduledRunId) {
+        pushAutomationTrace("▶️ 批量间隙结束，开始处理下一条", accountId, {
+          runId: scheduledRunId,
+          viewKey: viewKeyFound,
           phase: "delay",
           level: "info"
         });
-        _0x18d9a3(_0x4d75f5, _0x3736e6, "normal-gap-delay");
+        dispatchNextBatchItem(viewKeyFound, scheduledRunId, "normal-gap-delay");
       }
-    }, _0x5d7c4a);
+    }, delayMs);
   }
-  function _0x42afd2(_0x2aaf68, _0x18d876) {
-    const _0x1dab52 = (_0x2aaf68?.template || "你好 {nickname}").split("\n").filter(_0x44b4f3 => _0x44b4f3.trim());
-    if (_0x1dab52.length === 0) {
-      return "你好".replace(/{nickname}/g, _0x18d876?.nickname || "朋友");
+  function pickBatchDmText(arg1, arg2) {
+    const result = (arg1?.template || "你好 {nickname}").split("\n").filter(arg1 => arg1.trim());
+    if (result.length === 0) {
+      return "你好".replace(/{nickname}/g, arg2?.nickname || "朋友");
     }
-    const _0x13906a = _0x1dab52[_0x24247a % _0x1dab52.length];
-    _0x24247a += 1;
-    return _0x13906a.replace(/{nickname}/g, _0x18d876?.nickname || "朋友");
+    const value = result[num2 % result.length];
+    num2 += 1;
+    return value.replace(/{nickname}/g, arg2?.nickname || "朋友");
   }
-  function _0x4776e5(_0x20a2af) {
-    if (!_0x20a2af || typeof _0x20a2af !== "string") {
-      return _0x20a2af;
+  function fn14(arg1) {
+    if (!arg1 || typeof arg1 !== "string") {
+      return arg1;
     }
     try {
-      const _0x234ae1 = new URL(_0x20a2af.startsWith("http") ? _0x20a2af : "https://www.douyin.com" + (_0x20a2af.startsWith("/") ? _0x20a2af : "/" + _0x20a2af));
-      _0x234ae1.searchParams.set("from_tab_name", "main");
-      return _0x234ae1.toString();
-    } catch (_0x4e888b) {
-      if (_0x20a2af.includes("from_tab_name=")) {
-        return _0x20a2af;
+      const url = new URL(arg1.startsWith("http") ? arg1 : "https://www.douyin.com" + (arg1.startsWith("/") ? arg1 : "/" + arg1));
+      url.searchParams.set("from_tab_name", "main");
+      return url.toString();
+    } catch (error) {
+      if (arg1.includes("from_tab_name=")) {
+        return arg1;
       }
-      if (_0x20a2af.includes("?")) {
-        return _0x20a2af + "&from_tab_name=main";
+      if (arg1.includes("?")) {
+        return arg1 + "&from_tab_name=main";
       } else {
-        return _0x20a2af + "?from_tab_name=main";
+        return arg1 + "?from_tab_name=main";
       }
     }
   }
-  function _0x38897d(_0x4bffbe, _0x19a706, _0xf5f524) {
-    const _0x36710f = _0x19a706?.type || "follow_dm";
-    const _0x3e8d7e = _0x19a706?.profileCommentUseAi && _0x19a706?.personaByAccount?.[_0x4bffbe?.accountId];
-    const _0x269057 = (_0x19a706.commentTemplate || "").trim();
-    const _0x3cebda = _0x19a706.commentMentionPosition === "after" ? "after" : "before";
-    const _0x494a2d = !!_0x19a706.enableCommentMention;
-    const _0x5a4dcd = _0x19a706.commentMentionNicknames || "";
-    const _0x3e1cfe = Number.isFinite(Number(_0x19a706.commentMentionPercent)) ? Math.max(0, Math.min(100, Math.round(Number(_0x19a706.commentMentionPercent)))) : 100;
-    if (_0x494a2d) {
-      console.log("[Batch] 构建首作任务 @概率=" + _0x3e1cfe + "% nicks=" + String(_0x5a4dcd || "").slice(0, 40));
+  function buildBatchInteractionTask(arg1, arg2, arg3) {
+    const local = arg2?.type || "follow_dm";
+    const local2 = arg2?.profileCommentUseAi && arg2?.personaByAccount?.[arg1?.accountId];
+    const result = (arg2.commentTemplate || "").trim();
+    const value = arg2.commentMentionPosition === "after" ? "after" : "before";
+    const flag = !!arg2.enableCommentMention;
+    const local3 = arg2.commentMentionNicknames || "";
+    const value2 = Number.isFinite(Number(arg2.commentMentionPercent)) ? Math.max(0, Math.min(100, Math.round(Number(arg2.commentMentionPercent)))) : 100;
+    if (flag) {
+      console.log("[Batch] 构建首作任务 @概率=" + value2 + "% nicks=" + String(local3 || "").slice(0, 40));
     }
-    const _0x2951b8 = !!_0x19a706.commentUseRandomSuffix;
-    const _0x2aa898 = !!_0x19a706.enableCommentWithoutText;
-    const _0x42c135 = !!_0x19a706.enableCommentImage;
-    const _0x560316 = !!_0x19a706.enableCommentExpression;
-    const _0x5db4dc = Array.isArray(_0x19a706.commentImagePaths) ? _0x19a706.commentImagePaths.filter(_0x109dc9 => typeof _0x109dc9 === "string" && _0x109dc9.trim()) : String(_0x19a706.commentImagePath || "").trim() ? [String(_0x19a706.commentImagePath).trim()] : [];
-    const _0x3d5bfb = Math.max(1, Math.min(8, Number(_0x19a706.commentExpressionCount) || 3));
-    const _0x210731 = Number.isFinite(Number(_0x19a706.commentAttachmentPercent)) ? Math.max(0, Math.min(100, Number(_0x19a706.commentAttachmentPercent))) : 20;
-    const _0x176e7e = {
-      viewKey: _0xf5f524,
-      lead: _0x4bffbe,
+    const flag2 = !!arg2.commentUseRandomSuffix;
+    const flag3 = !!arg2.enableCommentWithoutText;
+    const flag4 = !!arg2.enableCommentImage;
+    const flag5 = !!arg2.enableCommentExpression;
+    const value3 = Array.isArray(arg2.commentImagePaths) ? arg2.commentImagePaths.filter(arg1 => typeof arg1 === "string" && arg1.trim()) : String(arg2.commentImagePath || "").trim() ? [String(arg2.commentImagePath).trim()] : [];
+    const result2 = Math.max(1, Math.min(8, Number(arg2.commentExpressionCount) || 3));
+    const value4 = Number.isFinite(Number(arg2.commentAttachmentPercent)) ? Math.max(0, Math.min(100, Number(arg2.commentAttachmentPercent))) : 20;
+    const obj = {
+      viewKey: arg3,
+      lead: arg1,
       isBatchAction: true,
       batchConfig: {
-        type: _0x19a706.type,
-        template: _0x19a706.template,
-        commentTemplate: _0x19a706.commentTemplate,
-        profileCommentUseAi: _0x19a706.profileCommentUseAi,
-        useRandomSuffix: _0x19a706.useRandomSuffix,
-        dmUseRandomSuffix: !!_0x19a706.useRandomSuffix,
-        commentUseRandomSuffix: _0x2951b8,
-        enableCommentWithoutText: _0x2aa898,
-        enableCommentMention: _0x494a2d,
-        commentMentionNicknames: _0x5a4dcd,
-        commentMentionPosition: _0x3cebda,
-        commentMentionPercent: _0x3e1cfe,
-        enableCommentImage: _0x42c135,
-        commentImagePaths: _0x5db4dc,
-        enableCommentExpression: _0x560316,
-        commentExpressionCount: _0x3d5bfb,
-        commentAttachmentPercent: _0x210731,
-        followDmDelayMin: _0x19a706.followDmDelayMin,
-        followDmDelayMax: _0x19a706.followDmDelayMax,
-        dmTarget: _0x19a706.dmTarget,
-        genderFilter: _0x19a706.genderFilter,
-        ageFilterEnabled: _0x19a706.ageFilterEnabled === true,
-        ageMin: _0x19a706.ageMin,
-        ageMax: _0x19a706.ageMax,
-        personaByAccount: _0x19a706.personaByAccount,
+        type: arg2.type,
+        template: arg2.template,
+        commentTemplate: arg2.commentTemplate,
+        profileCommentUseAi: arg2.profileCommentUseAi,
+        useRandomSuffix: arg2.useRandomSuffix,
+        dmUseRandomSuffix: !!arg2.useRandomSuffix,
+        commentUseRandomSuffix: flag2,
+        enableCommentWithoutText: flag3,
+        enableCommentMention: flag,
+        commentMentionNicknames: local3,
+        commentMentionPosition: value,
+        commentMentionPercent: value2,
+        enableCommentImage: flag4,
+        commentImagePaths: value3,
+        enableCommentExpression: flag5,
+        commentExpressionCount: result2,
+        commentAttachmentPercent: value4,
+        followDmDelayMin: arg2.followDmDelayMin,
+        followDmDelayMax: arg2.followDmDelayMax,
+        dmTarget: arg2.dmTarget,
+        genderFilter: arg2.genderFilter,
+        ageFilterEnabled: arg2.ageFilterEnabled === true,
+        ageMin: arg2.ageMin,
+        ageMax: arg2.ageMax,
+        personaByAccount: arg2.personaByAccount,
         profileFirstWorkLikePercent: (() => {
-          const _0x3bedfb = Number(_0x19a706.profileFirstWorkLikePercent);
-          if (Number.isFinite(_0x3bedfb)) {
-            return Math.max(0, Math.min(100, Math.round(_0x3bedfb)));
+          const result = Number(arg2.profileFirstWorkLikePercent);
+          if (Number.isFinite(result)) {
+            return Math.max(0, Math.min(100, Math.round(result)));
           } else {
             return 10;
           }
         })(),
         profileFirstWorkCollectPercent: (() => {
-          const _0x59b81d = Number(_0x19a706.profileFirstWorkCollectPercent);
-          if (Number.isFinite(_0x59b81d)) {
-            return Math.max(0, Math.min(100, Math.round(_0x59b81d)));
+          const result = Number(arg2.profileFirstWorkCollectPercent);
+          if (Number.isFinite(result)) {
+            return Math.max(0, Math.min(100, Math.round(result)));
           } else {
             return 10;
           }
         })()
       },
-      canFollow: _0x36710f.includes("follow"),
-      canDM: _0x36710f === "follow_dm" || _0x36710f === "message",
-      canCommentFirstWork: _0x36710f === "profile_first_comment",
-      commentOnProfileFirstWork: _0x36710f === "profile_first_comment",
+      canFollow: local.includes("follow"),
+      canDM: local === "follow_dm" || local === "message",
+      canCommentFirstWork: local === "profile_first_comment",
+      commentOnProfileFirstWork: local === "profile_first_comment",
       profileFirstWorkLikePercent: (() => {
-        const _0x549a97 = Number(_0x19a706.profileFirstWorkLikePercent);
-        if (Number.isFinite(_0x549a97)) {
-          return Math.max(0, Math.min(100, Math.round(_0x549a97)));
+        const result = Number(arg2.profileFirstWorkLikePercent);
+        if (Number.isFinite(result)) {
+          return Math.max(0, Math.min(100, Math.round(result)));
         } else {
           return 10;
         }
       })(),
       profileFirstWorkCollectPercent: (() => {
-        const _0x232717 = Number(_0x19a706.profileFirstWorkCollectPercent);
-        if (Number.isFinite(_0x232717)) {
-          return Math.max(0, Math.min(100, Math.round(_0x232717)));
+        const result = Number(arg2.profileFirstWorkCollectPercent);
+        if (Number.isFinite(result)) {
+          return Math.max(0, Math.min(100, Math.round(result)));
         } else {
           return 10;
         }
       })(),
       enableWarmup: false,
       enableRandomLike: false,
-      followDmDelayMin: _0x19a706.followDmDelayMin,
-      followDmDelayMax: _0x19a706.followDmDelayMax,
-      useRandomSuffix: !!_0x19a706.useRandomSuffix,
-      dmUseRandomSuffix: !!_0x19a706.useRandomSuffix,
-      genderFilter: _0x19a706.genderFilter || "all",
-      ageFilterEnabled: _0x19a706.ageFilterEnabled === true,
-      ageMin: _0x19a706.ageMin,
-      ageMax: _0x19a706.ageMax,
-      dmContent: _0x36710f.includes("message") || _0x36710f === "follow_dm" ? _0x42afd2(_0x19a706, _0x4bffbe) : "",
-      dmTarget: _0x19a706.dmTarget === "followed_only" ? "followed_only" : "all",
-      commentTemplate: _0x269057,
-      commentContent: _0x269057,
-      videoCommentContent: _0x269057,
-      batchProfileCommentUseAi: !!_0x19a706.profileCommentUseAi,
-      enableCommentMention: _0x494a2d,
-      commentMentionNicknames: _0x5a4dcd,
-      commentMentionPosition: _0x3cebda,
-      commentMentionPercent: _0x3e1cfe,
-      commentUseRandomSuffix: _0x2951b8,
-      enableCommentWithoutText: _0x2aa898,
-      enableCommentImage: _0x42c135,
-      commentImagePaths: _0x5db4dc,
-      commentImagePath: _0x5db4dc[0] || "",
-      enableCommentExpression: _0x560316,
-      commentExpressionCount: _0x3d5bfb,
-      commentAttachmentPercent: _0x210731
+      followDmDelayMin: arg2.followDmDelayMin,
+      followDmDelayMax: arg2.followDmDelayMax,
+      useRandomSuffix: !!arg2.useRandomSuffix,
+      dmUseRandomSuffix: !!arg2.useRandomSuffix,
+      genderFilter: arg2.genderFilter || "all",
+      ageFilterEnabled: arg2.ageFilterEnabled === true,
+      ageMin: arg2.ageMin,
+      ageMax: arg2.ageMax,
+      dmContent: local.includes("message") || local === "follow_dm" ? pickBatchDmText(arg2, arg1) : "",
+      dmTarget: arg2.dmTarget === "followed_only" ? "followed_only" : "all",
+      commentTemplate: result,
+      commentContent: result,
+      videoCommentContent: result,
+      batchProfileCommentUseAi: !!arg2.profileCommentUseAi,
+      enableCommentMention: flag,
+      commentMentionNicknames: local3,
+      commentMentionPosition: value,
+      commentMentionPercent: value2,
+      commentUseRandomSuffix: flag2,
+      enableCommentWithoutText: flag3,
+      enableCommentImage: flag4,
+      commentImagePaths: value3,
+      commentImagePath: value3[0] || "",
+      enableCommentExpression: flag5,
+      commentExpressionCount: result2,
+      commentAttachmentPercent: value4
     };
-    if (_0x3e8d7e) {
-      Object.assign(_0x176e7e, {
+    if (local2) {
+      Object.assign(obj, {
         aiReplyMode: true,
         profileFirstCommentUseAi: true,
-        aiRole: _0x3e8d7e.aiRole,
-        aiGoal: _0x3e8d7e.aiGoal,
-        aiStyle: _0x3e8d7e.aiStyle,
-        aiPrompt: _0x3e8d7e.aiPrompt,
-        firstPostGoal: _0x3e8d7e.firstPostGoal || "",
-        firstPostStyle: _0x3e8d7e.firstPostStyle || "",
-        firstPostPrompt: _0x3e8d7e.firstPostPrompt || "",
-        videoGoal: _0x3e8d7e.videoGoal || "",
-        videoStyle: _0x3e8d7e.videoStyle || "",
-        videoPrompt: _0x3e8d7e.videoPrompt || ""
+        aiRole: local2.aiRole,
+        aiGoal: local2.aiGoal,
+        aiStyle: local2.aiStyle,
+        aiPrompt: local2.aiPrompt,
+        firstPostGoal: local2.firstPostGoal || "",
+        firstPostStyle: local2.firstPostStyle || "",
+        firstPostPrompt: local2.firstPostPrompt || "",
+        videoGoal: local2.videoGoal || "",
+        videoStyle: local2.videoStyle || "",
+        videoPrompt: local2.videoPrompt || ""
       });
     }
-    return _0x176e7e;
+    return obj;
   }
-  function _0x58ac61(_0x29871d, _0x48c2f8 = {}) {
-    if (_0x48c2f8.profileFirstTargetFiltered || _0x48c2f8.targetRejected || _0x48c2f8.demographicFilterFailed) {
+  function fn18(arg1, options = {}) {
+    if (options.profileFirstTargetFiltered || options.targetRejected || options.demographicFilterFailed) {
       return true;
     }
-    const _0x12ec39 = String(_0x29871d || "");
-    if (!_0x12ec39) {
+    const result = String(arg1 || "");
+    if (!result) {
       return false;
     }
-    return _0x12ec39.includes("性别不符") || _0x12ec39.startsWith("年龄不符") || _0x12ec39.includes("低于最小年龄") || _0x12ec39.includes("超过最大年龄");
+    return result.includes("性别不符") || result.startsWith("年龄不符") || result.includes("低于最小年龄") || result.includes("超过最大年龄");
   }
-  function _0x239abe(_0x120ca8, _0x1225f4 = {}) {
-    if (_0x1225f4.noWorks) {
+  function fn19(arg1, options = {}) {
+    if (options.noWorks) {
       return true;
     }
-    const _0x38858b = String(_0x120ca8 || "");
-    return _0x38858b.includes("作品数为0") || _0x38858b.includes("无公开作品");
+    const result = String(arg1 || "");
+    return result.includes("作品数为0") || result.includes("无公开作品");
   }
-  function _0x500f66(_0x198d9a, _0x17b52c = {}) {
-    if (_0x17b52c.isPrivate && (_0x17b52c.skipped || String(_0x198d9a || "").includes("私密账号"))) {
+  function fn20(arg1, options = {}) {
+    if (options.isPrivate && (options.skipped || String(arg1 || "").includes("私密账号"))) {
       return true;
     }
-    const _0x27f885 = String(_0x198d9a || "");
-    return _0x27f885.includes("私密账号");
+    const result = String(arg1 || "");
+    return result.includes("私密账号");
   }
-  function _0x467f95(_0x230734, _0x59dc48 = {}) {
-    if (_0x59dc48?.userGone || _0x59dc48?.errorCode === "USER_NOT_FOUND") {
+  function fn21(arg1, options = {}) {
+    if (options?.userGone || options?.errorCode === "USER_NOT_FOUND") {
       return true;
     }
-    if (_0x59dc48?.profileUnavailable && /用户不存在|已注销|无此用户|账号已被封禁/.test(String(_0x59dc48.profileUnavailableReason || ""))) {
+    if (options?.profileUnavailable && /用户不存在|已注销|无此用户|账号已被封禁/.test(String(options.profileUnavailableReason || ""))) {
       return true;
     }
-    const _0xd50cb4 = String(_0x230734 || "");
-    return /USER_NOT_FOUND/i.test(_0xd50cb4) || _0xd50cb4.includes("用户不存在") || _0xd50cb4.includes("无此用户") || _0xd50cb4.includes("账号已被封禁") || _0xd50cb4.includes(BATCH_USER_GONE_REASON);
+    const result = String(arg1 || "");
+    return /USER_NOT_FOUND/i.test(result) || result.includes("用户不存在") || result.includes("无此用户") || result.includes("账号已被封禁") || result.includes(BATCH_USER_GONE_REASON);
   }
-  function _0x1a7ce9(_0x1dbcf4 = {}) {
-    if (!_0x1dbcf4 || typeof _0x1dbcf4 !== "object") {
+  function fn22(options = {}) {
+    if (!options || typeof options !== "object") {
       return false;
     }
-    if (_0x1dbcf4.userGone) {
+    if (options.userGone) {
       return true;
     }
-    if (_0x1dbcf4.profileUnavailable && /用户不存在|已注销|无此用户|账号已被封禁/.test(String(_0x1dbcf4.profileUnavailableReason || ""))) {
+    if (options.profileUnavailable && /用户不存在|已注销|无此用户|账号已被封禁/.test(String(options.profileUnavailableReason || ""))) {
       return true;
     }
-    return /用户不存在|已注销|USER_NOT_FOUND/i.test(String(_0x1dbcf4.lastBatchSkipReason || _0x1dbcf4.lastError || ""));
+    return /用户不存在|已注销|USER_NOT_FOUND/i.test(String(options.lastBatchSkipReason || options.lastError || ""));
   }
-  function _0x1fe2fa(_0x4f9192, _0x204530 = {}) {
-    return _0x239abe(_0x4f9192, _0x204530) || _0x58ac61(_0x4f9192, _0x204530) || _0x500f66(_0x4f9192, _0x204530);
+  function isBatchCountedFailure(arg1, options = {}) {
+    return fn19(arg1, options) || fn18(arg1, options) || fn20(arg1, options);
   }
-  function _0x2b5b03(_0x5dfb28, _0x2094b7, _0x39f139) {
-    const _0x1afd3d = _0x2094b7 || {};
-    const _0x542d37 = _0x1afd3d.skipReason || _0x1afd3d.error || _0x1afd3d.profileUnavailableReason || "";
-    const _0x44d96e = _0x467f95(_0x542d37, _0x1afd3d);
-    const _0x51a186 = BATCH_USER_GONE_REASON;
-    if (_0x5dfb28 === "profile_first_comment") {
-      const _0x1892a3 = _0x1afd3d.skipReason || _0x1afd3d.error || "";
-      const _0x545da5 = _0x239abe(_0x1892a3, _0x1afd3d);
-      const _0x41e600 = _0x58ac61(_0x1892a3, _0x1afd3d);
-      const _0x11ba20 = _0x500f66(_0x1892a3, _0x1afd3d);
-      const _0x16b59b = _0x545da5 || _0x41e600 || _0x11ba20;
-      const _0x502493 = !_0x16b59b && (_0x44d96e || !!_0x1afd3d.skipped || !!_0x1afd3d.skipReason);
-      const _0x41d5eb = _0x16b59b ? false : _0x502493 ? false : !!_0x1afd3d.success;
-      const _0x8bd22c = _0x11ba20 ? _0x1892a3 || "对方账号设置了隐私，未执行关注/私信/首作评论" : _0x41e600 ? _0x1892a3 || "筛选不符" : _0x545da5 ? _0x1afd3d.error || _0x1892a3 || "作品数为0" : _0x41d5eb && !_0x502493 ? "" : _0x44d96e ? _0x51a186 : _0x1afd3d.error || _0x1afd3d.skipReason || "";
+  function mapSubviewResultsToBatchPayload(arg1, arg2, arg3) {
+    const local = arg2 || {};
+    const local2 = local.skipReason || local.error || local.profileUnavailableReason || "";
+    const result = fn21(local2, local);
+    const local3 = BATCH_USER_GONE_REASON;
+    if (arg1 === "profile_first_comment") {
+      const local2 = local.skipReason || local.error || "";
+      const result2 = fn19(local2, local);
+      const result3 = fn18(local2, local);
+      const result4 = fn20(local2, local);
+      const local4 = result2 || result3 || result4;
+      const local5 = !local4 && (result || !!local.skipped || !!local.skipReason);
+      const value = local4 ? false : local5 ? false : !!local.success;
+      const value2 = result4 ? local2 || "对方账号设置了隐私，未执行关注/私信/首作评论" : result3 ? local2 || "筛选不符" : result2 ? local.error || local2 || "作品数为0" : value && !local5 ? "" : result ? local3 : local.error || local.skipReason || "";
       return {
-        leadId: _0x39f139.leadId,
-        accountId: _0x39f139.accountId,
-        leadName: _0x39f139.nickname,
-        leadPlatform: _0x39f139.platform,
-        accountName: _0x39f139.accountName,
-        ..._0x1831a2(_0x39f139),
-        success: _0x41d5eb,
-        skipped: _0x502493,
-        skipReason: _0x16b59b ? "" : _0x44d96e ? _0x51a186 : _0x1afd3d.skipReason || "",
-        error: _0x8bd22c,
-        type: _0x5dfb28,
+        leadId: arg3.leadId,
+        accountId: arg3.accountId,
+        leadName: arg3.nickname,
+        leadPlatform: arg3.platform,
+        accountName: arg3.accountName,
+        ...fn25(arg3),
+        success: value,
+        skipped: local5,
+        skipReason: local4 ? "" : result ? local3 : local.skipReason || "",
+        error: value2,
+        type: arg1,
         interactionResults: {
-          skipped: _0x502493,
-          skipReason: _0x16b59b ? "" : _0x44d96e ? _0x51a186 : _0x1afd3d.skipReason || "",
-          noWorks: _0x545da5,
-          isPrivate: _0x1afd3d.isPrivate !== undefined ? !!_0x1afd3d.isPrivate : _0x11ba20 || undefined,
-          userGone: _0x44d96e || undefined,
-          profileUnavailable: _0x44d96e ? true : _0x1afd3d.profileUnavailable || undefined,
-          profileUnavailableReason: _0x44d96e ? _0x51a186 : _0x1afd3d.profileUnavailableReason || undefined,
-          profileFirstTargetFiltered: !!_0x1afd3d.profileFirstTargetFiltered || _0x41e600,
-          demographicFilterFailed: !!_0x1afd3d.demographicFilterFailed || _0x41e600,
-          profileCommented: !!_0x1afd3d.success && !_0x16b59b && !_0x502493,
-          replyContent: _0x1afd3d.content || "",
-          worksCount: _0x1afd3d.worksCount,
-          gender: _0x1afd3d.gender,
-          age: _0x1afd3d.age,
-          location: _0x1afd3d.location,
-          douyinId: _0x1afd3d.douyinId,
-          signature: _0x1afd3d.signature,
-          profileCommentAt: _0x1afd3d.profileCommentAt || _0x39f139.profileCommentAt,
-          lastTouchAt: _0x1afd3d.lastTouchAt || _0x39f139.lastTouchAt,
-          touchCounts: _0x1afd3d.touchCounts || _0x39f139.touchCounts,
-          touchLog: _0x1afd3d.touchLog || _0x39f139.touchLog
+          skipped: local5,
+          skipReason: local4 ? "" : result ? local3 : local.skipReason || "",
+          noWorks: result2,
+          isPrivate: local.isPrivate !== undefined ? !!local.isPrivate : result4 || undefined,
+          userGone: result || undefined,
+          profileUnavailable: result ? true : local.profileUnavailable || undefined,
+          profileUnavailableReason: result ? local3 : local.profileUnavailableReason || undefined,
+          profileFirstTargetFiltered: !!local.profileFirstTargetFiltered || result3,
+          demographicFilterFailed: !!local.demographicFilterFailed || result3,
+          profileCommented: !!local.success && !local4 && !local5,
+          replyContent: local.content || "",
+          worksCount: local.worksCount,
+          gender: local.gender,
+          age: local.age,
+          location: local.location,
+          douyinId: local.douyinId,
+          signature: local.signature,
+          profileCommentAt: local.profileCommentAt || arg3.profileCommentAt,
+          lastTouchAt: local.lastTouchAt || arg3.lastTouchAt,
+          touchCounts: local.touchCounts || arg3.touchCounts,
+          touchLog: local.touchLog || arg3.touchLog
         }
       };
     }
-    const _0x11e291 = !!_0x1afd3d.followed;
-    const _0x1fdbde = !!_0x1afd3d.messaged;
-    const _0x23484b = _0x1afd3d.skipReason || _0x1afd3d.error || "";
-    const _0x2fc5c4 = _0x58ac61(_0x23484b, _0x1afd3d);
-    const _0x531cc4 = _0x500f66(_0x23484b, _0x1afd3d);
-    const _0x40e552 = _0x2fc5c4 || _0x531cc4;
-    const _0x1964c5 = !_0x40e552 && (_0x44d96e || !!_0x1afd3d.skipped);
-    const _0x1ad268 = _0x40e552 ? false : _0x1964c5 ? false : _0x11e291 || _0x1fdbde;
-    const _0x364d10 = _0x1afd3d.worksCount !== undefined && _0x1afd3d.worksCount !== null ? _0x1afd3d.worksCount : _0x39f139.worksCount !== undefined ? _0x39f139.worksCount : undefined;
-    const _0x1b6bbb = _0x1afd3d.isPrivate !== undefined ? !!_0x1afd3d.isPrivate : _0x39f139.isPrivate !== undefined ? !!_0x39f139.isPrivate : undefined;
+    const flag = !!local.followed;
+    const flag2 = !!local.messaged;
+    const local4 = local.skipReason || local.error || "";
+    const result2 = fn18(local4, local);
+    const result3 = fn20(local4, local);
+    const local5 = result2 || result3;
+    const local6 = !local5 && (result || !!local.skipped);
+    const value = local5 ? false : local6 ? false : flag || flag2;
+    const value2 = local.worksCount !== undefined && local.worksCount !== null ? local.worksCount : arg3.worksCount !== undefined ? arg3.worksCount : undefined;
+    const value3 = local.isPrivate !== undefined ? !!local.isPrivate : arg3.isPrivate !== undefined ? !!arg3.isPrivate : undefined;
     return {
-      leadId: _0x39f139.leadId,
-      accountId: _0x39f139.accountId,
-      leadName: _0x39f139.nickname,
-      leadPlatform: _0x39f139.platform,
-      accountName: _0x39f139.accountName,
-      ..._0x1831a2(_0x39f139),
-      success: _0x1ad268,
-      skipped: _0x1964c5,
-      skipReason: _0x40e552 ? "" : _0x44d96e ? _0x51a186 : _0x1afd3d.skipReason || "",
-      error: _0x531cc4 ? _0x23484b || "对方账号设置了隐私，未执行关注/私信" : _0x2fc5c4 ? _0x23484b || "筛选不符" : _0x1964c5 ? _0x44d96e ? _0x51a186 : _0x1afd3d.skipReason || "过滤跳过" : _0x1afd3d.error || (_0x1ad268 ? "" : "互动未完成"),
-      type: _0x5dfb28,
+      leadId: arg3.leadId,
+      accountId: arg3.accountId,
+      leadName: arg3.nickname,
+      leadPlatform: arg3.platform,
+      accountName: arg3.accountName,
+      ...fn25(arg3),
+      success: value,
+      skipped: local6,
+      skipReason: local5 ? "" : result ? local3 : local.skipReason || "",
+      error: result3 ? local4 || "对方账号设置了隐私，未执行关注/私信" : result2 ? local4 || "筛选不符" : local6 ? result ? local3 : local.skipReason || "过滤跳过" : local.error || (value ? "" : "互动未完成"),
+      type: arg1,
       interactionResults: {
-        followed: _0x11e291,
-        messaged: _0x1fdbde,
-        dmContent: _0x1afd3d.dmContent,
-        skipped: _0x1964c5,
-        skipReason: _0x40e552 ? "" : _0x44d96e ? _0x51a186 : _0x1afd3d.skipReason || "",
-        demographicFilterFailed: !!_0x1afd3d.demographicFilterFailed || _0x2fc5c4,
-        worksCount: _0x364d10,
-        isPrivate: _0x1b6bbb !== undefined ? _0x1b6bbb : _0x531cc4 || undefined,
-        userGone: _0x44d96e || undefined,
-        profileUnavailable: _0x44d96e ? true : _0x1afd3d.profileUnavailable || undefined,
-        profileUnavailableReason: _0x44d96e ? _0x51a186 : _0x1afd3d.profileUnavailableReason || undefined,
-        gender: _0x1afd3d.gender,
-        age: _0x1afd3d.age,
-        location: _0x1afd3d.location,
-        douyinId: _0x1afd3d.douyinId,
-        signature: _0x1afd3d.signature,
-        profileCommentAt: _0x1afd3d.profileCommentAt || _0x39f139.profileCommentAt,
-        lastTouchAt: _0x1afd3d.lastTouchAt || _0x39f139.lastTouchAt,
-        touchCounts: _0x1afd3d.touchCounts || _0x39f139.touchCounts,
-        touchLog: _0x1afd3d.touchLog || _0x39f139.touchLog
+        followed: flag,
+        messaged: flag2,
+        dmContent: local.dmContent,
+        skipped: local6,
+        skipReason: local5 ? "" : result ? local3 : local.skipReason || "",
+        demographicFilterFailed: !!local.demographicFilterFailed || result2,
+        worksCount: value2,
+        isPrivate: value3 !== undefined ? value3 : result3 || undefined,
+        userGone: result || undefined,
+        profileUnavailable: result ? true : local.profileUnavailable || undefined,
+        profileUnavailableReason: result ? local3 : local.profileUnavailableReason || undefined,
+        gender: local.gender,
+        age: local.age,
+        location: local.location,
+        douyinId: local.douyinId,
+        signature: local.signature,
+        profileCommentAt: local.profileCommentAt || arg3.profileCommentAt,
+        lastTouchAt: local.lastTouchAt || arg3.lastTouchAt,
+        touchCounts: local.touchCounts || arg3.touchCounts,
+        touchLog: local.touchLog || arg3.touchLog
       }
     };
   }
-  function _0x3f0eea(_0x1cba6f) {
-    if (!_0x1cba6f) {
+  function resolveViewKeyFromSender(arg1) {
+    if (!arg1) {
       return null;
     }
-    for (const [_0x3c706a, _0xe39cfc] of _0x3193d5().entries()) {
-      if (_0xe39cfc.webContents === _0x1cba6f) {
-        return _0x3c706a;
+    for (const [local, local2] of getPlatformViews().entries()) {
+      if (local2.webContents === arg1) {
+        return local;
       }
     }
-    return _0x23a5ae(_0x1cba6f);
+    return inferInteractionViewKey(arg1);
   }
-  function _0x33af4c() {
+  function fn27() {
     return 10000 + Math.floor(Math.random() * 10001);
   }
-  function _0x1a958e(_0x30b0f7 = "") {
+  function fn28(text = "") {
     try {
-      let _0x581d64 = String(_0x30b0f7 || "").trim();
-      if (!_0x581d64) {
+      let result = String(text || "").trim();
+      if (!result) {
         return "";
       }
-      if (_0x581d64.startsWith("//")) {
-        _0x581d64 = "https:" + _0x581d64;
+      if (result.startsWith("//")) {
+        result = "https:" + result;
       }
-      if (!/^https?:\/\//i.test(_0x581d64)) {
-        _0x581d64 = "https://www.douyin.com" + (_0x581d64.startsWith("/") ? _0x581d64 : "/" + _0x581d64);
+      if (!/^https?:\/\//i.test(result)) {
+        result = "https://www.douyin.com" + (result.startsWith("/") ? result : "/" + result);
       }
-      const _0x147a67 = new URL(_0x581d64);
-      const _0x437fb8 = _0x147a67.pathname.match(/\/user\/(?:profile\/)?([^/?#]+)/i);
-      if (!_0x437fb8?.[1]) {
+      const url = new URL(result);
+      const result2 = url.pathname.match(/\/user\/(?:profile\/)?([^/?#]+)/i);
+      if (!result2?.[1]) {
         return "";
       }
-      const _0x41efa4 = decodeURIComponent(_0x437fb8[1]);
-      if (!_0x41efa4 || ["self", "login"].includes(_0x41efa4.toLowerCase())) {
+      const result3 = decodeURIComponent(result2[1]);
+      if (!result3 || ["self", "login"].includes(result3.toLowerCase())) {
         return "";
       }
-      return _0x41efa4;
-    } catch (_0x46d8cc) {
+      return result3;
+    } catch (error) {
       return "";
     }
   }
-  function _0xd4ef40(_0x4d8dbb) {
-    const _0xb1de22 = String(_0x4d8dbb || "").trim();
-    return _0xb1de22.length >= 15 && !["self", "login", "anonymous", "undefined", "null"].includes(_0xb1de22.toLowerCase()) && !_0xb1de22.startsWith("name:") && !_0xb1de22.startsWith("live_") && !/^uid:\d+$/i.test(_0xb1de22) && !/^webcast:/i.test(_0xb1de22) && !/^video:\d+$/i.test(_0xb1de22) && /^[A-Za-z0-9_-]+$/.test(_0xb1de22);
+  function fn29(arg1) {
+    const result = String(arg1 || "").trim();
+    return result.length >= 15 && !["self", "login", "anonymous", "undefined", "null"].includes(result.toLowerCase()) && !result.startsWith("name:") && !result.startsWith("live_") && !/^uid:\d+$/i.test(result) && !/^webcast:/i.test(result) && !/^video:\d+$/i.test(result) && /^[A-Za-z0-9_-]+$/.test(result);
   }
-  function _0x1831a2(_0x2c55f9 = {}) {
-    const _0x11d737 = String(_0x2c55f9.userUrl || _0x2c55f9.profileUrl || "").trim();
-    const _0x16d17e = _0x1a958e(_0x11d737);
-    const _0x268426 = String(_0x2c55f9.secUid || _0x2c55f9.sec_uid || "").trim();
-    const _0x50515e = _0xd4ef40(_0x2c55f9.leadId) ? String(_0x2c55f9.leadId).trim() : "";
-    const _0x2912f5 = _0xd4ef40(_0x268426) && _0x268426 || _0xd4ef40(_0x16d17e) && _0x16d17e || _0x50515e || "";
-    let _0x541c3f = "";
-    if (_0x11d737 && !/(?:video|note)\/\d{10,}/i.test(_0x11d737)) {
+  function fn25(options = {}) {
+    const result = String(options.userUrl || options.profileUrl || "").trim();
+    const result2 = fn28(result);
+    const result3 = String(options.secUid || options.sec_uid || "").trim();
+    const value = fn29(options.leadId) ? String(options.leadId).trim() : "";
+    const local = fn29(result3) && result3 || fn29(result2) && result2 || value || "";
+    let text = "";
+    if (result && !/(?:video|note)\/\d{10,}/i.test(result)) {
       try {
-        const _0x445d5d = new URL(_0x11d737.startsWith("http") ? _0x11d737 : "https://www.douyin.com" + (_0x11d737.startsWith("/") ? _0x11d737 : "/" + _0x11d737));
-        _0x541c3f = ("" + _0x445d5d.origin + _0x445d5d.pathname).replace(/\/$/, "");
-      } catch (_0x26cada) {
-        _0x541c3f = _0x11d737;
+        const url = new URL(result.startsWith("http") ? result : "https://www.douyin.com" + (result.startsWith("/") ? result : "/" + result));
+        text = ("" + url.origin + url.pathname).replace(/\/$/, "");
+      } catch (error) {
+        text = result;
       }
     }
-    if (!_0x541c3f && _0x2912f5) {
-      _0x541c3f = "https://www.douyin.com/user/" + _0x2912f5;
+    if (!text && local) {
+      text = "https://www.douyin.com/user/" + local;
     }
     return {
-      userUrl: _0x541c3f,
-      secUid: _0x2912f5
+      userUrl: text,
+      secUid: local
     };
   }
-  async function _0x4649ed(_0x48e303, _0x3e0833 = {}) {
-    const _0x37aca1 = {
+  async function fn30(arg1, options = {}) {
+    const obj = {
       alive: false,
       loading: false,
       blankPage: true,
@@ -790,81 +790,81 @@ function createBatchFollow(_0x40add4) {
       href: "",
       textLength: 0
     };
-    const _0x6639db = _0x86f3df().get(_0x48e303);
-    if (!_0x6639db?.webContents || _0x6639db.webContents.isDestroyed()) {
-      return _0x37aca1;
+    const result = getInteractionViewsMap().get(arg1);
+    if (!result?.webContents || result.webContents.isDestroyed()) {
+      return obj;
     }
-    const _0x47dac5 = _0x1a958e(_0x3e0833?.userUrl || _0x3e0833?.profileUrl || "");
+    const result2 = fn28(options?.userUrl || options?.profileUrl || "");
     try {
-      const _0x2daf50 = await _0x6639db.webContents.executeJavaScript("(() => {\n                try {\n                    const href = String(location.href || '');\n                    const text = String(document.body?.innerText || '').trim().slice(0, 2400);\n                    const textLength = text.length;\n                    const blankPage = !text || textLength < 8 || href === 'about:blank';\n                    const networkError = /网络不太顺畅|无法访问此网站|刷新一下|err_name_not_resolved|err_connection|err_timed_out|err_aborted|net::err_/i.test(text);\n                    const loadingText = /加载中|正在加载|请稍候|稍后再试/.test(text);\n                    let loadingEl = false;\n                    try {\n                        loadingEl = Array.from(document.querySelectorAll(\n                            '[class*=\"loading\"], [class*=\"Loading\"], [class*=\"spinner\"], [class*=\"Spinner\"], [data-e2e*=\"loading\"]'\n                        )).some((el) => {\n                            const r = el.getBoundingClientRect();\n                            return r.width >= 6 && r.height >= 6 && r.bottom > 0 && r.top < (window.innerHeight || 800);\n                        });\n                    } catch (_) { loadingEl = false; }\n                    const onProfile = /\\/user\\//i.test(href);\n                    const onVideoDetail = /\\/(?:video|note)\\//i.test(href) || /modal_id=/i.test(href);\n                    let worksCards = 0;\n                    try {\n                        const root = document.querySelector('[data-e2e=\"user-post-list\"]') || document.body;\n                        worksCards = Array.from(root.querySelectorAll(\n                            'a[href*=\"/video/\"], a[href*=\"/note/\"], [data-e2e=\"user-post-item\"], [role=\"listitem\"]'\n                        )).filter((el) => {\n                            const r = el.getBoundingClientRect();\n                            return r.width >= 60 && r.height >= 60;\n                        }).length;\n                    } catch (_) { worksCards = 0; }\n                    const panel = document.querySelector(\n                        '[data-e2e=\"comment-list\"], .comment-mainContent, [class*=\"comment-list\"], [class*=\"CommentList\"]'\n                    );\n                    let panelOpen = false;\n                    if (panel) {\n                        const pr = panel.getBoundingClientRect();\n                        panelOpen = pr.height > 60 && pr.width > 60;\n                    }\n                    const commentInputHint = /说点什么|留下你的评论|友善交流|写评论/.test(text)\n                        || !!document.querySelector('[contenteditable=\"true\"], textarea[placeholder*=\"评论\"], [data-e2e*=\"comment-input\"]');\n                    let currentUid = '';\n                    try {\n                        const m = href.match(/\\/user\\/(?:profile\\/)?([^/?#]+)/i);\n                        if (m && m[1] && !['self', 'login'].includes(String(m[1]).toLowerCase())) {\n                            currentUid = decodeURIComponent(m[1]);\n                        }\n                    } catch (_) {}\n                    return {\n                        href,\n                        textLength,\n                        blankPage,\n                        networkError,\n                        loading: loadingText || loadingEl,\n                        onProfile,\n                        onVideoDetail,\n                        worksCards,\n                        panelOpen,\n                        commentInputHint,\n                        currentUid,\n                    };\n                } catch (err) {\n                    return {\n                        href: '',\n                        textLength: 0,\n                        blankPage: true,\n                        networkError: false,\n                        loading: false,\n                        onProfile: false,\n                        onVideoDetail: false,\n                        worksCards: 0,\n                        panelOpen: false,\n                        commentInputHint: false,\n                        currentUid: '',\n                        error: String(err && err.message || err || ''),\n                    };\n                }\n            })()", true);
-      const _0x444c5c = String(_0x2daf50?.currentUid || "");
+      const result3 = await result.webContents.executeJavaScript("(() => {\n                try {\n                    const href = String(location.href || '');\n                    const text = String(document.body?.innerText || '').trim().slice(0, 2400);\n                    const textLength = text.length;\n                    const blankPage = !text || textLength < 8 || href === 'about:blank';\n                    const networkError = /网络不太顺畅|无法访问此网站|刷新一下|err_name_not_resolved|err_connection|err_timed_out|err_aborted|net::err_/i.test(text);\n                    const loadingText = /加载中|正在加载|请稍候|稍后再试/.test(text);\n                    let loadingEl = false;\n                    try {\n                        loadingEl = Array.from(document.querySelectorAll(\n                            '[class*=\"loading\"], [class*=\"Loading\"], [class*=\"spinner\"], [class*=\"Spinner\"], [data-e2e*=\"loading\"]'\n                        )).some((el) => {\n                            const r = el.getBoundingClientRect();\n                            return r.width >= 6 && r.height >= 6 && r.bottom > 0 && r.top < (window.innerHeight || 800);\n                        });\n                    } catch (_) { loadingEl = false; }\n                    const onProfile = /\\/user\\//i.test(href);\n                    const onVideoDetail = /\\/(?:video|note)\\//i.test(href) || /modal_id=/i.test(href);\n                    let worksCards = 0;\n                    try {\n                        const root = document.querySelector('[data-e2e=\"user-post-list\"]') || document.body;\n                        worksCards = Array.from(root.querySelectorAll(\n                            'a[href*=\"/video/\"], a[href*=\"/note/\"], [data-e2e=\"user-post-item\"], [role=\"listitem\"]'\n                        )).filter((el) => {\n                            const r = el.getBoundingClientRect();\n                            return r.width >= 60 && r.height >= 60;\n                        }).length;\n                    } catch (_) { worksCards = 0; }\n                    const panel = document.querySelector(\n                        '[data-e2e=\"comment-list\"], .comment-mainContent, [class*=\"comment-list\"], [class*=\"CommentList\"]'\n                    );\n                    let panelOpen = false;\n                    if (panel) {\n                        const pr = panel.getBoundingClientRect();\n                        panelOpen = pr.height > 60 && pr.width > 60;\n                    }\n                    const commentInputHint = /说点什么|留下你的评论|友善交流|写评论/.test(text)\n                        || !!document.querySelector('[contenteditable=\"true\"], textarea[placeholder*=\"评论\"], [data-e2e*=\"comment-input\"]');\n                    let currentUid = '';\n                    try {\n                        const m = href.match(/\\/user\\/(?:profile\\/)?([^/?#]+)/i);\n                        if (m && m[1] && !['self', 'login'].includes(String(m[1]).toLowerCase())) {\n                            currentUid = decodeURIComponent(m[1]);\n                        }\n                    } catch (_) {}\n                    return {\n                        href,\n                        textLength,\n                        blankPage,\n                        networkError,\n                        loading: loadingText || loadingEl,\n                        onProfile,\n                        onVideoDetail,\n                        worksCards,\n                        panelOpen,\n                        commentInputHint,\n                        currentUid,\n                    };\n                } catch (err) {\n                    return {\n                        href: '',\n                        textLength: 0,\n                        blankPage: true,\n                        networkError: false,\n                        loading: false,\n                        onProfile: false,\n                        onVideoDetail: false,\n                        worksCards: 0,\n                        panelOpen: false,\n                        commentInputHint: false,\n                        currentUid: '',\n                        error: String(err && err.message || err || ''),\n                    };\n                }\n            })()", true);
+      const result4 = String(result3?.currentUid || "");
       return {
         alive: true,
-        loading: !!_0x2daf50?.loading,
-        blankPage: !!_0x2daf50?.blankPage,
-        networkError: !!_0x2daf50?.networkError,
-        onProfile: !!_0x2daf50?.onProfile,
-        onVideoDetail: !!_0x2daf50?.onVideoDetail,
-        sameUser: !!_0x47dac5 && !!_0x444c5c && _0x47dac5 === _0x444c5c,
-        worksCards: Number(_0x2daf50?.worksCards) || 0,
-        panelOpen: !!_0x2daf50?.panelOpen,
-        commentInputHint: !!_0x2daf50?.commentInputHint,
-        href: String(_0x2daf50?.href || ""),
-        textLength: Number(_0x2daf50?.textLength) || 0
+        loading: !!result3?.loading,
+        blankPage: !!result3?.blankPage,
+        networkError: !!result3?.networkError,
+        onProfile: !!result3?.onProfile,
+        onVideoDetail: !!result3?.onVideoDetail,
+        sameUser: !!result2 && !!result4 && result2 === result4,
+        worksCards: Number(result3?.worksCards) || 0,
+        panelOpen: !!result3?.panelOpen,
+        commentInputHint: !!result3?.commentInputHint,
+        href: String(result3?.href || ""),
+        textLength: Number(result3?.textLength) || 0
       };
-    } catch (_0x549833) {
+    } catch (error) {
       return {
-        ..._0x37aca1,
+        ...obj,
         blankPage: true
       };
     }
   }
-  function _0x36d083(_0x45cbec = {}, _0x2102a4 = "", _0x226a1f = "") {
-    const _0x10eca6 = ((_0x2102a4 || "") + " " + (_0x226a1f || "")).toLowerCase();
-    if (!_0x45cbec.alive) {
+  function fn31(options = {}, text = "", text2 = "") {
+    const result = ((text || "") + " " + (text2 || "")).toLowerCase();
+    if (!options.alive) {
       return {
         reload: true,
         reason: "互动页已失效"
       };
     }
-    if (_0x45cbec.blankPage && !_0x45cbec.onProfile && !_0x45cbec.onVideoDetail) {
+    if (options.blankPage && !options.onProfile && !options.onVideoDetail) {
       return {
         reload: true,
         reason: "页面几乎空白，可能加载失败"
       };
     }
-    if (_0x45cbec.networkError && _0x45cbec.blankPage) {
+    if (options.networkError && options.blankPage) {
       return {
         reload: true,
         reason: "页面提示网络异常且内容不可用"
       };
     }
-    if (_0x10eca6.includes("子视图切换失败") || _0x10eca6.includes("互动子视图创建失败") || _0x10eca6.includes("profile_url_mismatch") || _0x10eca6.includes("navigation") || /net::err_|err_aborted|err_timed_out|err_connection/.test(_0x10eca6)) {
+    if (result.includes("子视图切换失败") || result.includes("互动子视图创建失败") || result.includes("profile_url_mismatch") || result.includes("navigation") || /net::err_|err_aborted|err_timed_out|err_connection/.test(result)) {
       return {
         reload: true,
         reason: "导航/创建类错误，需重开主页"
       };
     }
-    if (_0x45cbec.onProfile && (_0x45cbec.sameUser || !_0x1a958e(_0x45cbec.href))) {
-      if (_0x10eca6.includes("profile_works_not_ready") || _0x10eca6.includes("作品区未就绪") || _0x10eca6.includes("作品区加载超时") || _0x10eca6.includes("主页打开超时") || _0x10eca6.includes("主页加载超时") || _0x10eca6.includes("profile_ready_timeout") || _0x10eca6.includes("interaction-timeout")) {
+    if (options.onProfile && (options.sameUser || !fn28(options.href))) {
+      if (result.includes("profile_works_not_ready") || result.includes("作品区未就绪") || result.includes("作品区加载超时") || result.includes("主页打开超时") || result.includes("主页加载超时") || result.includes("profile_ready_timeout") || result.includes("interaction-timeout")) {
         return {
           reload: false,
-          reason: _0x45cbec.loading ? "目标主页仍在加载，先等待后原地再跑" : _0x45cbec.worksCards > 0 ? "目标主页仍在（可见作品卡 " + _0x45cbec.worksCards + "），先等待后原地再跑" : "仍在目标主页，先等待后原地再跑"
+          reason: options.loading ? "目标主页仍在加载，先等待后原地再跑" : options.worksCards > 0 ? "目标主页仍在（可见作品卡 " + options.worksCards + "），先等待后原地再跑" : "仍在目标主页，先等待后原地再跑"
         };
       }
     }
-    if (_0x45cbec.onVideoDetail || _0x45cbec.onProfile && (_0x45cbec.panelOpen || _0x45cbec.commentInputHint)) {
-      if (_0x10eca6.includes("comment_input_not_found") || _0x10eca6.includes("未找到评论输入框") || _0x10eca6.includes("profile_video_detail_resume_failed") || _0x10eca6.includes("详情续跑未就绪") || _0x10eca6.includes("作品详情续跑")) {
+    if (options.onVideoDetail || options.onProfile && (options.panelOpen || options.commentInputHint)) {
+      if (result.includes("comment_input_not_found") || result.includes("未找到评论输入框") || result.includes("profile_video_detail_resume_failed") || result.includes("详情续跑未就绪") || result.includes("作品详情续跑")) {
         return {
           reload: false,
-          reason: _0x45cbec.loading ? "作品详情/评论区仍在加载，先等待后原地再跑" : _0x45cbec.panelOpen ? "评论区仍在，先等待后原地再跑" : "仍在作品详情页，先等待后原地再跑"
+          reason: options.loading ? "作品详情/评论区仍在加载，先等待后原地再跑" : options.panelOpen ? "评论区仍在，先等待后原地再跑" : "仍在作品详情页，先等待后原地再跑"
         };
       }
     }
-    if (_0x45cbec.sameUser && (_0x45cbec.onProfile || _0x45cbec.onVideoDetail)) {
+    if (options.sameUser && (options.onProfile || options.onVideoDetail)) {
       return {
         reload: false,
-        reason: _0x45cbec.loading ? "仍在目标用户页且加载中，先等待后原地再跑" : "仍在目标用户页，先等待后原地再跑"
+        reason: options.loading ? "仍在目标用户页且加载中，先等待后原地再跑" : "仍在目标用户页，先等待后原地再跑"
       };
     }
     return {
@@ -872,63 +872,63 @@ function createBatchFollow(_0x40add4) {
       reason: "当前页已偏离目标用户，需重开主页"
     };
   }
-  function _0x18a471(_0x22706e, _0x330052, _0x45d413, _0x171f23, _0x53c2ff) {
-    const _0x1c0551 = _0x3a36f();
-    if (_0x411698 || _0x3c18e0 !== _0x171f23) {
-      _0x4732a0(_0x22706e, {
+  function fn32(arg1, arg2, arg3, arg4, arg5) {
+    const result = getInteractionLocksMap();
+    if (flag || num !== arg4) {
+      finishInteraction(arg1, {
         success: false,
         error: "batch_stopped"
       }, "retry-cancelled");
       return false;
     }
-    const _0x2487f2 = _0x86f3df().get(_0x22706e);
-    if (!_0x2487f2?.webContents || _0x2487f2.webContents.isDestroyed()) {
+    const result2 = getInteractionViewsMap().get(arg1);
+    if (!result2?.webContents || result2.webContents.isDestroyed()) {
       return false;
     }
-    let _0x37b693 = _0x1c0551.get(_0x22706e);
-    const _0x5d6b59 = _0x37b693?.successCheckpoint;
-    if (_0x5d6b59?.success && _0x5d6b59?.profileWorkCommented) {
-      const _0x305118 = _0x2e6906().get(_0x22706e) || {
-        lead: _0x330052,
-        config: _0x45d413,
-        runId: _0x171f23
+    let result3 = result.get(arg1);
+    const local = result3?.successCheckpoint;
+    if (local?.success && local?.profileWorkCommented) {
+      const local2 = getPendingBatchByViewKey().get(arg1) || {
+        lead: arg2,
+        config: arg3,
+        runId: arg4
       };
-      console.warn("[Batch] [" + _0x22706e + "] 原地再跑前已有首作评论成功检查点，直接完结 @" + (_0x330052.nickname || ""));
-      _0x353391(_0x22706e, "success-checkpoint-before-inplace");
-      Promise.resolve(_0x3b2d0d(_0x22706e, _0x305118, _0x5d6b59, _0x2487f2.webContents)).then(_0x4d0ff6 => {
-        if (_0x4d0ff6 !== "retry-scheduled") {
-          _0x4732a0(_0x22706e, _0x5d6b59, "success-checkpoint");
+      console.warn("[Batch] [" + arg1 + "] 原地再跑前已有首作评论成功检查点，直接完结 @" + (arg2.nickname || ""));
+      fn3(arg1, "success-checkpoint-before-inplace");
+      Promise.resolve(completeBatchFromInteraction(arg1, local2, local, result2.webContents)).then(arg12 => {
+        if (arg12 !== "retry-scheduled") {
+          finishInteraction(arg1, local, "success-checkpoint");
         }
-      }).catch(() => _0x4732a0(_0x22706e, _0x5d6b59, "success-checkpoint"));
+      }).catch(() => finishInteraction(arg1, local, "success-checkpoint"));
       return true;
     }
-    _0x353391(_0x22706e, "batch-inplace-retry", {
-      attempt: _0x53c2ff
+    fn3(arg1, "batch-inplace-retry", {
+      attempt: arg5
     });
-    const _0x303ab2 = Date.now() + "_inplace_" + Math.random().toString(36).slice(2, 8);
-    const _0x276997 = {
-      ..._0x38897d(_0x330052, _0x45d413, _0x22706e),
-      batchRunId: _0x171f23,
-      viewKey: _0x22706e,
-      interactionId: _0x303ab2,
+    const value = Date.now() + "_inplace_" + Math.random().toString(36).slice(2, 8);
+    const obj = {
+      ...buildBatchInteractionTask(arg2, arg3, arg1),
+      batchRunId: arg4,
+      viewKey: arg1,
+      interactionId: value,
       createdAt: Date.now(),
-      __batchInPlaceRetry: _0x53c2ff
+      __batchInPlaceRetry: arg5
     };
-    const _0x58b671 = _0x41634a(_0x276997);
-    _0x37b693 = _0x1c0551.get(_0x22706e);
-    if (!_0x37b693) {
-      const _0x43ba80 = _0x3193d5().get(_0x22706e);
-      const _0x2078c7 = _0x13b874(_0x22706e, _0x43ba80, _0x2487f2, null);
-      _0x37b693 = {
-        bounds: _0x2078c7,
-        zoomFactor: _0x43ba80?.webContents && !_0x43ba80.webContents.isDestroyed() ? _0x43ba80.webContents.getZoomFactor() : 1,
-        previewBounds: _0x2078c7 ? {
-          ..._0x2078c7
+    const result4 = fn(obj);
+    result3 = result.get(arg1);
+    if (!result3) {
+      const result5 = getPlatformViews().get(arg1);
+      const result6 = resolveInteractionViewportBounds(arg1, result5, result2, null);
+      result3 = {
+        bounds: result6,
+        zoomFactor: result5?.webContents && !result5.webContents.isDestroyed() ? result5.webContents.getZoomFactor() : 1,
+        previewBounds: result6 ? {
+          ...result6
         } : null,
-        previewZoomFactor: _0x43ba80?.webContents && !_0x43ba80.webContents.isDestroyed() ? _0x43ba80.webContents.getZoomFactor() : 1,
+        previewZoomFactor: result5?.webContents && !result5.webContents.isDestroyed() ? result5.webContents.getZoomFactor() : 1,
         startedAt: Date.now(),
-        interactionId: _0x303ab2,
-        timeoutMs: _0x58b671,
+        interactionId: value,
+        timeoutMs: result4,
         successCheckpoint: null,
         visibleSwapReady: true,
         timer: null,
@@ -938,52 +938,52 @@ function createBatchFollow(_0x40add4) {
         onTimeout: null,
         onProfileOpenTimeout: null
       };
-      _0x1c0551.set(_0x22706e, _0x37b693);
+      result.set(arg1, result3);
     } else {
-      if (_0x37b693.timer) {
-        clearTimeout(_0x37b693.timer);
+      if (result3.timer) {
+        clearTimeout(result3.timer);
       }
-      if (_0x37b693.taskDispatchTimer) {
-        clearTimeout(_0x37b693.taskDispatchTimer);
+      if (result3.taskDispatchTimer) {
+        clearTimeout(result3.taskDispatchTimer);
       }
-      if (_0x37b693.profileOpenTimer) {
-        clearTimeout(_0x37b693.profileOpenTimer);
-        _0x37b693.profileOpenTimer = null;
+      if (result3.profileOpenTimer) {
+        clearTimeout(result3.profileOpenTimer);
+        result3.profileOpenTimer = null;
       }
-      _0x37b693.interactionId = _0x303ab2;
-      _0x37b693.startedAt = Date.now();
-      _0x37b693.timeoutMs = _0x58b671;
-      _0x37b693.profileOpenReady = true;
+      result3.interactionId = value;
+      result3.startedAt = Date.now();
+      result3.timeoutMs = result4;
+      result3.profileOpenReady = true;
     }
-    _0x37b693.onTimeout = () => {
-      const _0xd87b94 = _0x1c0551.get(_0x22706e);
-      if (!_0xd87b94 || _0xd87b94.interactionId !== _0x303ab2) {
+    result3.onTimeout = () => {
+      const result3 = result.get(arg1);
+      if (!result3 || result3.interactionId !== value) {
         return;
       }
-      const _0x21b24f = _0xd87b94.successCheckpoint;
-      const _0x578644 = _0x2e6906().get(_0x22706e);
-      if (_0x21b24f?.success && _0x21b24f?.profileWorkCommented && _0x578644?.runId === _0x3c18e0) {
-        Promise.resolve(_0x3b2d0d(_0x22706e, _0x578644, _0x21b24f, _0x2487f2.webContents)).then(_0x1cb1b1 => {
-          if (_0x1cb1b1 !== "retry-scheduled") {
-            _0x4732a0(_0x22706e, _0x21b24f, "success-checkpoint");
+      const value2 = result3.successCheckpoint;
+      const result4 = getPendingBatchByViewKey().get(arg1);
+      if (value2?.success && value2?.profileWorkCommented && result4?.runId === num) {
+        Promise.resolve(completeBatchFromInteraction(arg1, result4, value2, result2.webContents)).then(arg12 => {
+          if (arg12 !== "retry-scheduled") {
+            finishInteraction(arg1, value2, "success-checkpoint");
           }
-        }).catch(() => _0x4732a0(_0x22706e, _0x21b24f, "success-checkpoint"));
+        }).catch(() => finishInteraction(arg1, value2, "success-checkpoint"));
         return;
       }
-      if (_0x578644 && _0x578644.runId === _0x3c18e0) {
-        Promise.resolve(_0x3b2d0d(_0x22706e, _0x578644, {
+      if (result4 && result4.runId === num) {
+        Promise.resolve(completeBatchFromInteraction(arg1, result4, {
           success: false,
           error: "interaction-timeout"
-        }, _0x2487f2.webContents)).then(_0x4dc2c8 => {
-          if (_0x4dc2c8 !== "retry-scheduled") {
-            _0x4732a0(_0x22706e, {
+        }, result2.webContents)).then(arg12 => {
+          if (arg12 !== "retry-scheduled") {
+            finishInteraction(arg1, {
               followed: false,
               messaged: false,
               error: "interaction-timeout"
             }, "timeout");
           }
         }).catch(() => {
-          _0x4732a0(_0x22706e, {
+          finishInteraction(arg1, {
             followed: false,
             messaged: false,
             error: "interaction-timeout"
@@ -991,379 +991,379 @@ function createBatchFollow(_0x40add4) {
         });
         return;
       }
-      _0x4732a0(_0x22706e, {
+      finishInteraction(arg1, {
         followed: false,
         messaged: false,
         error: "interaction-timeout"
       }, "timeout");
     };
-    _0x37b693.timer = setTimeout(_0x37b693.onTimeout, _0x58b671);
-    _0x2e6906().set(_0x22706e, {
-      lead: _0x330052,
-      config: _0x45d413,
-      runId: _0x171f23
+    result3.timer = setTimeout(result3.onTimeout, result4);
+    getPendingBatchByViewKey().set(arg1, {
+      lead: arg2,
+      config: arg3,
+      runId: arg4
     });
     try {
-      _0x2487f2.webContents.send("interaction-prepare-task", _0x276997);
-      console.warn("[Batch] [" + _0x22706e + "] 第 " + _0x53c2ff + " 次原地再跑 @" + (_0x330052.nickname || "") + "（不重载）");
+      result2.webContents.send("interaction-prepare-task", obj);
+      console.warn("[Batch] [" + arg1 + "] 第 " + arg5 + " 次原地再跑 @" + (arg2.nickname || "") + "（不重载）");
       return true;
-    } catch (_0x4c89bb) {
-      console.warn("[Batch] [" + _0x22706e + "] 原地再派发失败:", _0x4c89bb?.message || _0x4c89bb);
+    } catch (error) {
+      console.warn("[Batch] [" + arg1 + "] 原地再派发失败:", error?.message || error);
       return false;
     }
   }
-  function _0x2cfed7(_0xb132f6, _0x2618de, _0x4f7882, _0xde8a8d, _0x2cd4d3, _0x5aad87, _0xed2044 = "", _0x577177 = {}) {
+  function fn34(arg1, arg2, arg3, arg4, arg5, arg6, text = "", options = {}) {
     try {
-      const _0x161d2b = _0x86f3df().get(_0xb132f6);
-      if (_0x161d2b?.webContents && !_0x161d2b.webContents.isDestroyed()) {
-        _0x161d2b.webContents.stop();
+      const result = getInteractionViewsMap().get(arg1);
+      if (result?.webContents && !result.webContents.isDestroyed()) {
+        result.webContents.stop();
       }
-    } catch (_0x1d0b3a) {}
-    _0x2e6906().delete(_0xb132f6);
-    _0x4732a0(_0xb132f6, {
+    } catch (error) {}
+    getPendingBatchByViewKey().delete(arg1);
+    finishInteraction(arg1, {
       success: false,
-      error: _0x5aad87
+      error: arg6
     }, "retry-cleanup");
-    const _0x5afcb4 = _0x203fb0();
-    const _0xaf266 = _0x5afcb4.get(_0xb132f6);
-    if (_0xaf266) {
-      _0xaf266.unshift({
-        lead: _0x2618de,
-        config: _0x4f7882
+    const result = getBatchActionQueueMap();
+    const result2 = result.get(arg1);
+    if (result2) {
+      result2.unshift({
+        lead: arg2,
+        config: arg3
       });
     } else {
-      _0x5afcb4.set(_0xb132f6, [{
-        lead: _0x2618de,
-        config: _0x4f7882
+      result.set(arg1, [{
+        lead: arg2,
+        config: arg3
       }]);
     }
-    const _0x3f009d = _0x577177.immediate ? 800 : _0x33af4c();
-    console.warn("[Batch] [" + _0xb132f6 + "] " + Math.round(_0x3f009d / 1000) + " 秒后进行第 " + _0x2cd4d3 + " 次主页重开" + ("" + (_0xed2044 ? "（" + _0xed2044 + "）" : "")));
+    const value = options.immediate ? 800 : fn27();
+    console.warn("[Batch] [" + arg1 + "] " + Math.round(value / 1000) + " 秒后进行第 " + arg5 + " 次主页重开" + ("" + (text ? "（" + text + "）" : "")));
     setTimeout(() => {
-      if (!_0x411698 && _0x3c18e0 === _0xde8a8d) {
-        _0x18d9a3(_0xb132f6, _0xde8a8d, "profile-load-retry-" + _0x2cd4d3);
+      if (!flag && num === arg4) {
+        dispatchNextBatchItem(arg1, arg4, "profile-load-retry-" + arg5);
       }
-    }, _0x3f009d);
+    }, value);
   }
-  function _0x3678d0(_0x4c6af0, _0x4be27e = "") {
-    if (!_0x4c6af0 && !_0x4be27e) {
+  function fn35(arg1, text = "") {
+    if (!arg1 && !text) {
       return false;
     }
-    const _0x209717 = ((_0x4c6af0 || "") + " " + (_0x4be27e || "")).toLowerCase();
-    if (_0x209717.includes("user_not_found") || _0x209717.includes("用户不存在") || _0x209717.includes("无此用户") || _0x209717.includes("账号已被封禁") || _0x209717.includes("可能已注销")) {
+    const result = ((arg1 || "") + " " + (text || "")).toLowerCase();
+    if (result.includes("user_not_found") || result.includes("用户不存在") || result.includes("无此用户") || result.includes("账号已被封禁") || result.includes("可能已注销")) {
       return false;
     }
-    return _0x209717.includes("interaction-timeout") || _0x209717.includes("profile_ready_timeout") || _0x209717.includes("profile_works_not_ready") || _0x209717.includes("作品区未就绪") || _0x209717.includes("作品区加载超时") || _0x209717.includes("profile_video_detail_resume_failed") || _0x209717.includes("详情续跑未就绪") || _0x209717.includes("作品详情续跑") || _0x209717.includes("comment_input_not_found") || _0x209717.includes("未找到评论输入框") || _0x209717.includes("profile_url_mismatch") || _0x209717.includes("主页加载超时") || _0x209717.includes("主页打开超时") || _0x209717.includes("子视图切换失败") || _0x209717.includes("互动子视图创建失败") || _0x209717.includes("加载失败") || _0x209717.includes("net::err_") || _0x209717.includes("页面加载") || _0x209717.includes("navigation") || _0x209717.includes("err_aborted") || _0x209717.includes("err_timed_out") || _0x209717.includes("err_connection");
+    return result.includes("interaction-timeout") || result.includes("profile_ready_timeout") || result.includes("profile_works_not_ready") || result.includes("作品区未就绪") || result.includes("作品区加载超时") || result.includes("profile_video_detail_resume_failed") || result.includes("详情续跑未就绪") || result.includes("作品详情续跑") || result.includes("comment_input_not_found") || result.includes("未找到评论输入框") || result.includes("profile_url_mismatch") || result.includes("主页加载超时") || result.includes("主页打开超时") || result.includes("子视图切换失败") || result.includes("互动子视图创建失败") || result.includes("加载失败") || result.includes("net::err_") || result.includes("页面加载") || result.includes("navigation") || result.includes("err_aborted") || result.includes("err_timed_out") || result.includes("err_connection");
   }
-  async function _0x3b2d0d(_0x57c4cb, _0x5eb6b1, _0x34bf4a, _0x351175) {
+  async function completeBatchFromInteraction(arg1, arg2, arg3, arg4) {
     const {
-      lead: _0x50e4e6,
-      config: _0x55395a,
-      runId: _0x51add6
-    } = _0x5eb6b1;
-    const _0x12241b = _0x34bf4a?.error || _0x34bf4a?.errorCode || "";
-    const _0x58c8f6 = _0x34bf4a?.errorCode || "";
-    if (!_0x34bf4a?.success && _0x3678d0(_0x12241b, _0x58c8f6)) {
-      const _0x509184 = _0x57c4cb + ":" + (_0x50e4e6.leadId || _0x50e4e6.nickname);
-      const _0x547c55 = _0x32ff84.get(_0x509184) || 0;
-      if (_0x547c55 < BATCH_PROFILE_LOAD_MAX_RETRIES) {
-        _0x32ff84.set(_0x509184, _0x547c55 + 1);
-        const _0x25ba7c = _0x547c55 + 1;
-        const _0x4af03d = await _0x4649ed(_0x57c4cb, _0x50e4e6);
-        const _0x3bcb74 = _0x36d083(_0x4af03d, _0x58c8f6, _0x12241b);
-        console.warn("[Batch] [" + _0x57c4cb + "] 主页/详情未就绪，第 " + _0x25ba7c + "/" + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次重试: @" + _0x50e4e6.nickname + (" (" + _0x12241b + ") → " + (_0x3bcb74.reload ? "重开主页" : "原地再跑") + "（" + _0x3bcb74.reason + "；") + ("加载中=" + (_0x4af03d.loading ? "是" : "否") + "，主页=" + (_0x4af03d.onProfile ? "是" : "否") + "，") + ("详情=" + (_0x4af03d.onVideoDetail ? "是" : "否") + "，作品卡=" + _0x4af03d.worksCards + "）"));
-        _0x47064a("⚠️ @" + (_0x50e4e6.nickname || "未知") + " " + (_0x3bcb74.reload ? "需重开主页" : "先原地再试") + ("（" + _0x12241b + "；" + _0x3bcb74.reason + "），第 " + _0x25ba7c + "/" + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次"), _0x50e4e6.accountId, {
-          runId: _0x51add6,
-          viewKey: _0x57c4cb,
+      lead: lead,
+      config: config,
+      runId: runId
+    } = arg2;
+    const local = arg3?.error || arg3?.errorCode || "";
+    const local2 = arg3?.errorCode || "";
+    if (!arg3?.success && fn35(local, local2)) {
+      const value = arg1 + ":" + (lead.leadId || lead.nickname);
+      const local3 = map3.get(value) || 0;
+      if (local3 < BATCH_PROFILE_LOAD_MAX_RETRIES) {
+        map3.set(value, local3 + 1);
+        const value2 = local3 + 1;
+        const result = await fn30(arg1, lead);
+        const result2 = fn31(result, local2, local);
+        console.warn("[Batch] [" + arg1 + "] 主页/详情未就绪，第 " + value2 + "/" + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次重试: @" + lead.nickname + (" (" + local + ") → " + (result2.reload ? "重开主页" : "原地再跑") + "（" + result2.reason + "；") + ("加载中=" + (result.loading ? "是" : "否") + "，主页=" + (result.onProfile ? "是" : "否") + "，") + ("详情=" + (result.onVideoDetail ? "是" : "否") + "，作品卡=" + result.worksCards + "）"));
+        pushAutomationTrace("⚠️ @" + (lead.nickname || "未知") + " " + (result2.reload ? "需重开主页" : "先原地再试") + ("（" + local + "；" + result2.reason + "），第 " + value2 + "/" + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次"), lead.accountId, {
+          runId: runId,
+          viewKey: arg1,
           phase: "retry",
           level: "warning",
-          leadName: _0x50e4e6.nickname || ""
+          leadName: lead.nickname || ""
         });
-        _0x54648b(_0x51add6, {
-          message: "@" + (_0x50e4e6.nickname || "未知") + " " + (_0x3bcb74.reload ? "将重开主页" : "将原地再跑") + ("（" + _0x12241b + "；" + _0x3bcb74.reason + "），第 " + _0x25ba7c + " 次…"),
+        appendBatchFollowLog(runId, {
+          message: "@" + (lead.nickname || "未知") + " " + (result2.reload ? "将重开主页" : "将原地再跑") + ("（" + local + "；" + result2.reason + "），第 " + value2 + " 次…"),
           level: "warning",
-          accountId: _0x50e4e6.accountId,
-          accountName: _0x50e4e6.accountName || "",
-          viewKey: _0x57c4cb,
-          leadId: _0x50e4e6.leadId,
-          leadName: _0x50e4e6.nickname || "",
+          accountId: lead.accountId,
+          accountName: lead.accountName || "",
+          viewKey: arg1,
+          leadId: lead.leadId,
+          leadName: lead.nickname || "",
           phase: "retry"
         });
-        if (!_0x3bcb74.reload) {
-          const _0x37bc97 = _0x33af4c();
-          console.warn("[Batch] [" + _0x57c4cb + "] 不重载，" + Math.round(_0x37bc97 / 1000) + " 秒后原地再跑 @" + (_0x50e4e6.nickname || ""));
-          _0x353391(_0x57c4cb, "batch-inplace-retry-wait", {
-            attempt: _0x25ba7c
+        if (!result2.reload) {
+          const result = fn27();
+          console.warn("[Batch] [" + arg1 + "] 不重载，" + Math.round(result / 1000) + " 秒后原地再跑 @" + (lead.nickname || ""));
+          fn3(arg1, "batch-inplace-retry-wait", {
+            attempt: value2
           });
-          const _0x54ca77 = _0x3a36f();
-          const _0x4de8bd = _0x54ca77.get(_0x57c4cb);
-          if (_0x4de8bd?.successCheckpoint?.success && _0x4de8bd.successCheckpoint?.profileWorkCommented) {
-            console.warn("[Batch] [" + _0x57c4cb + "] 超时瞬间已有首作成功检查点，取消原地重试并完结");
-            const _0x533b49 = _0x4de8bd.successCheckpoint;
-            Promise.resolve(_0x3b2d0d(_0x57c4cb, _0x5eb6b1, _0x533b49, _0x351175)).then(_0x206cc3 => {
-              if (_0x206cc3 !== "retry-scheduled") {
-                _0x4732a0(_0x57c4cb, _0x533b49, "success-checkpoint");
+          const result2 = getInteractionLocksMap();
+          const result3 = result2.get(arg1);
+          if (result3?.successCheckpoint?.success && result3.successCheckpoint?.profileWorkCommented) {
+            console.warn("[Batch] [" + arg1 + "] 超时瞬间已有首作成功检查点，取消原地重试并完结");
+            const value = result3.successCheckpoint;
+            Promise.resolve(completeBatchFromInteraction(arg1, arg2, value, arg4)).then(arg12 => {
+              if (arg12 !== "retry-scheduled") {
+                finishInteraction(arg1, value, "success-checkpoint");
               }
-            }).catch(() => _0x4732a0(_0x57c4cb, _0x533b49, "success-checkpoint"));
+            }).catch(() => finishInteraction(arg1, value, "success-checkpoint"));
             return "retry-scheduled";
           }
-          if (_0x4de8bd) {
-            if (_0x4de8bd.timer) {
-              clearTimeout(_0x4de8bd.timer);
+          if (result3) {
+            if (result3.timer) {
+              clearTimeout(result3.timer);
             }
-            if (_0x4de8bd.taskDispatchTimer) {
-              clearTimeout(_0x4de8bd.taskDispatchTimer);
+            if (result3.taskDispatchTimer) {
+              clearTimeout(result3.taskDispatchTimer);
             }
-            if (_0x4de8bd.profileOpenTimer) {
-              clearTimeout(_0x4de8bd.profileOpenTimer);
-              _0x4de8bd.profileOpenTimer = null;
+            if (result3.profileOpenTimer) {
+              clearTimeout(result3.profileOpenTimer);
+              result3.profileOpenTimer = null;
             }
-            _0x4de8bd.profileOpenReady = true;
-            const _0x4a1ff5 = "batch_wait_retry_" + Date.now();
-            _0x4de8bd.interactionId = _0x4a1ff5;
-            _0x4de8bd.timer = setTimeout(() => {
-              const _0x304e51 = _0x54ca77.get(_0x57c4cb);
-              if (!_0x304e51 || _0x304e51.interactionId !== _0x4a1ff5) {
+            result3.profileOpenReady = true;
+            const value = "batch_wait_retry_" + Date.now();
+            result3.interactionId = value;
+            result3.timer = setTimeout(() => {
+              const result = result2.get(arg1);
+              if (!result || result.interactionId !== value) {
                 return;
               }
-              if (_0x304e51.successCheckpoint?.success && _0x304e51.successCheckpoint?.profileWorkCommented) {
-                const _0x1d0008 = _0x304e51.successCheckpoint;
-                console.warn("[Batch] [" + _0x57c4cb + "] 原地等待期间收到成功检查点，完结而非重开 @" + (_0x50e4e6.nickname || ""));
-                Promise.resolve(_0x3b2d0d(_0x57c4cb, _0x5eb6b1, _0x1d0008, _0x351175)).then(_0x221530 => {
-                  if (_0x221530 !== "retry-scheduled") {
-                    _0x4732a0(_0x57c4cb, _0x1d0008, "success-checkpoint");
+              if (result.successCheckpoint?.success && result.successCheckpoint?.profileWorkCommented) {
+                const value = result.successCheckpoint;
+                console.warn("[Batch] [" + arg1 + "] 原地等待期间收到成功检查点，完结而非重开 @" + (lead.nickname || ""));
+                Promise.resolve(completeBatchFromInteraction(arg1, arg2, value, arg4)).then(arg12 => {
+                  if (arg12 !== "retry-scheduled") {
+                    finishInteraction(arg1, value, "success-checkpoint");
                   }
-                }).catch(() => _0x4732a0(_0x57c4cb, _0x1d0008, "success-checkpoint"));
+                }).catch(() => finishInteraction(arg1, value, "success-checkpoint"));
                 return;
               }
-              console.warn("[Batch] [" + _0x57c4cb + "] 原地等待超时，改为重开主页 @" + (_0x50e4e6.nickname || ""));
-              _0x2cfed7(_0x57c4cb, _0x50e4e6, _0x55395a, _0x51add6, _0x25ba7c, _0x12241b, "原地等待超时", {
+              console.warn("[Batch] [" + arg1 + "] 原地等待超时，改为重开主页 @" + (lead.nickname || ""));
+              fn34(arg1, lead, config, runId, value2, local, "原地等待超时", {
                 immediate: true
               });
-            }, _0x37bc97 + 90000);
+            }, result + 90000);
           }
           setTimeout(() => {
             (async () => {
-              if (_0x411698 || _0x3c18e0 !== _0x51add6) {
-                _0x2e6906().delete(_0x57c4cb);
-                _0x4732a0(_0x57c4cb, {
+              if (flag || num !== runId) {
+                getPendingBatchByViewKey().delete(arg1);
+                finishInteraction(arg1, {
                   success: false,
                   error: "batch_stopped"
                 }, "retry-cancelled");
                 return;
               }
-              const _0x2bba7b = _0x3a36f();
-              const _0x41f0b1 = _0x2bba7b.get(_0x57c4cb);
-              if (_0x41f0b1?.successCheckpoint?.success && _0x41f0b1.successCheckpoint?.profileWorkCommented) {
-                const _0x449c26 = _0x41f0b1.successCheckpoint;
-                console.warn("[Batch] [" + _0x57c4cb + "] 原地等待结束前已成功，跳过再跑 @" + (_0x50e4e6.nickname || ""));
-                Promise.resolve(_0x3b2d0d(_0x57c4cb, _0x5eb6b1, _0x449c26, _0x351175)).then(_0x494006 => {
-                  if (_0x494006 !== "retry-scheduled") {
-                    _0x4732a0(_0x57c4cb, _0x449c26, "success-checkpoint");
+              const result = getInteractionLocksMap();
+              const result2 = result.get(arg1);
+              if (result2?.successCheckpoint?.success && result2.successCheckpoint?.profileWorkCommented) {
+                const value = result2.successCheckpoint;
+                console.warn("[Batch] [" + arg1 + "] 原地等待结束前已成功，跳过再跑 @" + (lead.nickname || ""));
+                Promise.resolve(completeBatchFromInteraction(arg1, arg2, value, arg4)).then(arg12 => {
+                  if (arg12 !== "retry-scheduled") {
+                    finishInteraction(arg1, value, "success-checkpoint");
                   }
-                }).catch(() => _0x4732a0(_0x57c4cb, _0x449c26, "success-checkpoint"));
+                }).catch(() => finishInteraction(arg1, value, "success-checkpoint"));
                 return;
               }
-              const _0x1550c0 = await _0x4649ed(_0x57c4cb, _0x50e4e6);
-              const _0x3af4d4 = _0x36d083(_0x1550c0, _0x58c8f6, _0x12241b);
-              if (!_0x3af4d4.reload && _0x1550c0.onProfile && (_0x1550c0.sameUser || _0x1550c0.worksCards > 0 || _0x1550c0.loading)) {
-                const _0x1ec47b = _0x18a471(_0x57c4cb, _0x50e4e6, _0x55395a, _0x51add6, _0x25ba7c);
-                if (_0x1ec47b) {
+              const result3 = await fn30(arg1, lead);
+              const result4 = fn31(result3, local2, local);
+              if (!result4.reload && result3.onProfile && (result3.sameUser || result3.worksCards > 0 || result3.loading)) {
+                const result = fn32(arg1, lead, config, runId, value2);
+                if (result) {
                   return;
                 }
               }
-              console.warn("[Batch] [" + _0x57c4cb + "] 原地条件不再满足（" + _0x3af4d4.reason + "），改为重开主页");
-              _0x2cfed7(_0x57c4cb, _0x50e4e6, _0x55395a, _0x51add6, _0x25ba7c, _0x12241b, _0x3af4d4.reason, {
+              console.warn("[Batch] [" + arg1 + "] 原地条件不再满足（" + result4.reason + "），改为重开主页");
+              fn34(arg1, lead, config, runId, value2, local, result4.reason, {
                 immediate: true
               });
-            })().catch(_0x3b58cd => {
-              console.warn("[Batch] [" + _0x57c4cb + "] 原地重试异常，改为重开:", _0x3b58cd?.message || _0x3b58cd);
-              _0x2cfed7(_0x57c4cb, _0x50e4e6, _0x55395a, _0x51add6, _0x25ba7c, _0x12241b, "原地重试异常", {
+            })().catch(arg12 => {
+              console.warn("[Batch] [" + arg1 + "] 原地重试异常，改为重开:", arg12?.message || arg12);
+              fn34(arg1, lead, config, runId, value2, local, "原地重试异常", {
                 immediate: true
               });
             });
-          }, _0x37bc97);
+          }, result);
           return "retry-scheduled";
         }
-        _0x2cfed7(_0x57c4cb, _0x50e4e6, _0x55395a, _0x51add6, _0x25ba7c, _0x12241b, _0x3bcb74.reason);
+        fn34(arg1, lead, config, runId, value2, local, result2.reason);
         return "retry-scheduled";
       }
-      _0x32ff84.delete(_0x509184);
-      _0x34bf4a = {
-        ..._0x34bf4a,
-        error: "主页加载超时，已重试" + BATCH_PROFILE_LOAD_MAX_RETRIES + "次仍失败（" + _0x12241b + "）"
+      map3.delete(value);
+      arg3 = {
+        ...arg3,
+        error: "主页加载超时，已重试" + BATCH_PROFILE_LOAD_MAX_RETRIES + "次仍失败（" + local + "）"
       };
-      console.error("[Batch] [" + _0x57c4cb + "] 主页加载重试 " + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次后仍失败: @" + _0x50e4e6.nickname);
-      _0x54648b(_0x51add6, {
-        message: "@" + (_0x50e4e6.nickname || "未知") + " 主页加载重试 " + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次后仍失败，已跳过",
+      console.error("[Batch] [" + arg1 + "] 主页加载重试 " + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次后仍失败: @" + lead.nickname);
+      appendBatchFollowLog(runId, {
+        message: "@" + (lead.nickname || "未知") + " 主页加载重试 " + BATCH_PROFILE_LOAD_MAX_RETRIES + " 次后仍失败，已跳过",
         level: "error",
-        accountId: _0x50e4e6.accountId,
-        accountName: _0x50e4e6.accountName || "",
-        viewKey: _0x57c4cb,
-        leadId: _0x50e4e6.leadId,
-        leadName: _0x50e4e6.nickname || "",
+        accountId: lead.accountId,
+        accountName: lead.accountName || "",
+        viewKey: arg1,
+        leadId: lead.leadId,
+        leadName: lead.nickname || "",
         phase: "retry-exhausted"
       });
     } else {
-      const _0x5ee656 = _0x57c4cb + ":" + (_0x50e4e6.leadId || _0x50e4e6.nickname);
-      _0x32ff84.delete(_0x5ee656);
+      const value = arg1 + ":" + (lead.leadId || lead.nickname);
+      map3.delete(value);
     }
-    _0x2e6906().delete(_0x57c4cb);
-    const _0x7399af = _0x2b5b03(_0x55395a.type, _0x34bf4a, _0x50e4e6);
-    const _0x51ef4c = _0x86f3df().get(_0x57c4cb);
-    const _0x195d8b = _0x351175 && typeof _0x351175.isDestroyed === "function" && !_0x351175.isDestroyed();
-    const _0x413a82 = {
-      sender: (_0x195d8b ? _0x351175 : null) || _0x51ef4c?.webContents || _0x3193d5().get(_0x57c4cb)?.webContents
+    getPendingBatchByViewKey().delete(arg1);
+    const result = mapSubviewResultsToBatchPayload(config.type, arg3, lead);
+    const result2 = getInteractionViewsMap().get(arg1);
+    const local3 = arg4 && typeof arg4.isDestroyed === "function" && !arg4.isDestroyed();
+    const obj = {
+      sender: (local3 ? arg4 : null) || result2?.webContents || getPlatformViews().get(arg1)?.webContents
     };
-    _0x38898c(_0x413a82, _0x7399af, _0x51add6, _0x57c4cb);
+    processBatchItemFinished(obj, result, runId, arg1);
     return "completed";
   }
-  function _0x59dee3(_0x260ffb, _0x2187fe, _0x35197a) {
-    const _0x55c790 = _0xf98cb().get(_0x260ffb) || 0;
-    const _0x3d26ad = Date.now() - _0x55c790;
-    const _0x5eabab = Math.max(0, SUBVIEW_HANDOFF_MIN_GAP_MS - _0x3d26ad);
-    if (_0x5eabab > 0) {
-      console.log("[Main] [子视图模式] 距上次互动结束 " + _0x3d26ad + "ms，缓冲 " + _0x5eabab + "ms 后再打开下一主页");
+  function runInteractionStart(arg1, arg2, arg3) {
+    const local = getLastInteractionFinishedAtByViewKey().get(arg1) || 0;
+    const value = Date.now() - local;
+    const result = Math.max(0, SUBVIEW_HANDOFF_MIN_GAP_MS - value);
+    if (result > 0) {
+      console.log("[Main] [子视图模式] 距上次互动结束 " + value + "ms，缓冲 " + result + "ms 后再打开下一主页");
       setTimeout(() => {
-        if (_0x35197a?.isBatchAction && _0x35197a?.batchRunId !== _0x3c18e0) {
-          console.log("[Batch] 忽略旧代次的延迟互动启动 (" + _0x260ffb + ", run " + _0x35197a?.batchRunId + ")");
+        if (arg3?.isBatchAction && arg3?.batchRunId !== num) {
+          console.log("[Batch] 忽略旧代次的延迟互动启动 (" + arg1 + ", run " + arg3?.batchRunId + ")");
           return;
         }
-        const _0x5b2dee = _0x346810(_0x260ffb, _0x2187fe, _0x35197a);
-        if (_0x5b2dee || !_0x35197a?.isBatchAction) {
+        const result = fn38(arg1, arg2, arg3);
+        if (result || !arg3?.isBatchAction) {
           return;
         }
-        const _0x46c8fd = _0x2e6906().get(_0x260ffb);
-        if (!_0x46c8fd || _0x35197a?.batchRunId != null && _0x46c8fd.runId !== _0x35197a.batchRunId) {
+        const result2 = getPendingBatchByViewKey().get(arg1);
+        if (!result2 || arg3?.batchRunId != null && result2.runId !== arg3.batchRunId) {
           return;
         }
-        console.error("[Batch] [" + _0x260ffb + "] 延迟启动子视图失败，回传失败结果");
-        Promise.resolve(_0x3b2d0d(_0x260ffb, _0x46c8fd, {
+        console.error("[Batch] [" + arg1 + "] 延迟启动子视图失败，回传失败结果");
+        Promise.resolve(completeBatchFromInteraction(arg1, result2, {
           success: false,
           error: "子视图切换失败"
-        }, _0x86f3df().get(_0x260ffb)?.webContents || _0x3193d5().get(_0x260ffb)?.webContents)).then(_0x59a771 => {
-          if (_0x59a771 === "retry-scheduled") {
+        }, getInteractionViewsMap().get(arg1)?.webContents || getPlatformViews().get(arg1)?.webContents)).then(arg12 => {
+          if (arg12 === "retry-scheduled") {
             return;
           }
-          _0x4732a0(_0x260ffb, {
+          finishInteraction(arg1, {
             success: false,
             error: "子视图切换失败"
           }, "delayed-start-failed");
         }).catch(() => {
-          _0x4732a0(_0x260ffb, {
+          finishInteraction(arg1, {
             success: false,
             error: "子视图切换失败"
           }, "delayed-start-failed");
         });
-      }, _0x5eabab);
+      }, result);
       return true;
     }
-    return _0x346810(_0x260ffb, _0x2187fe, _0x35197a);
+    return fn38(arg1, arg2, arg3);
   }
-  function _0x21f742(_0x3b1c16) {
-    _0x5531e6(_0x3b1c16);
-    const _0x3f1a6d = _0x86f3df();
-    const _0xdd9333 = _0x3f1a6d.get(_0x3b1c16);
-    if (_0xdd9333 && !_0xdd9333.webContents.isDestroyed()) {
-      return _0xdd9333;
+  function ensureInteractionView(arg1) {
+    cancelInteractionViewIdleCleanup(arg1);
+    const result = getInteractionViewsMap();
+    const result2 = result.get(arg1);
+    if (result2 && !result2.webContents.isDestroyed()) {
+      return result2;
     }
-    if (_0xdd9333) {
-      _0x3f1a6d.delete(_0x3b1c16);
+    if (result2) {
+      result.delete(arg1);
     }
-    const _0x233bac = _0x3193d5().get(_0x3b1c16);
-    const _0x5c6841 = _0x42dad6();
-    if (!_0x233bac || !_0x5c6841 || _0x5c6841.isDestroyed()) {
+    const result3 = getPlatformViews().get(arg1);
+    const result4 = getMainWindow();
+    if (!result3 || !result4 || result4.isDestroyed()) {
       return null;
     }
-    const _0x1b7dc9 = _0x57e918();
-    const _0x423026 = _0x1b7dc9.get(_0x3b1c16) || {};
-    const _0x4cde0a = _0x423026.platform || _0x1b7dc9.get(_0x3b1c16 + "_platform") || _0x3b1c16.split("_")[0] || "douyin";
-    const _0x511263 = new BrowserView({
+    const result5 = getViewSettingsMap();
+    const local = result5.get(arg1) || {};
+    const local2 = local.platform || result5.get(arg1 + "_platform") || arg1.split("_")[0] || "douyin";
+    const browserView = new BrowserView({
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
         sandbox: false,
-        preload: _0x5bc01b(),
-        partition: "persist:automation:" + _0x3b1c16,
+        preload: resolveAutomationPreloadPath(),
+        partition: "persist:automation:" + arg1,
         backgroundThrottling: false,
         spellcheck: false
       }
     });
-    _0x511263.setBackgroundColor("#111827");
-    _0x511263.setBounds({
+    browserView.setBackgroundColor("#111827");
+    browserView.setBounds({
       x: -5000,
       y: -5000,
       width: COMPACT_BACKGROUND_AUTOMATION_WIDTH,
       height: COMPACT_BACKGROUND_AUTOMATION_HEIGHT
     });
-    _0x261f1e(_0x511263.webContents, _0x3b1c16 + ":interaction");
-    _0x1bdc80(_0x511263, _0x3b1c16, {
+    attachProtocolGuard(browserView.webContents, arg1 + ":interaction");
+    attachAutomationViewStabilityGuards(browserView, arg1, {
       isInteraction: true
     });
-    _0xb14d6f(_0x511263.webContents.session, _0x3b1c16);
-    if (_0x4cde0a === "xianyu") {
-      _0x5112a1(_0x511263.webContents.session);
+    configureAutomationSession(browserView.webContents.session, arg1);
+    if (local2 === "xianyu") {
+      configureXianyuSession(browserView.webContents.session);
     }
-    _0x511263.webContents.setUserAgent(_0x503d8b);
-    _0x511263.webContents.setAudioMuted(_0x4df458.get("system_video_muted", true));
-    _0x511263.webContents.on("did-fail-load", (_0x586c3e, _0x3b6d89, _0x9c90f9, _0x5f20a0, _0x1fda50) => {
-      if (_0x5f20a0?.includes("bytedance.net") || _0x5f20a0?.includes("douyin.com")) {
-        console.warn("[Network][" + _0x3b1c16 + ":interaction] did-fail-load code=" + _0x3b6d89 + " main=" + _0x1fda50 + " " + _0x9c90f9 + " " + _0x5f20a0);
+    browserView.webContents.setUserAgent(automationUserAgent);
+    browserView.webContents.setAudioMuted(store.get("system_video_muted", true));
+    browserView.webContents.on("did-fail-load", (arg12, arg2, arg3, arg4, arg5) => {
+      if (arg4?.includes("bytedance.net") || arg4?.includes("douyin.com")) {
+        console.warn("[Network][" + arg1 + ":interaction] did-fail-load code=" + arg2 + " main=" + arg5 + " " + arg3 + " " + arg4);
       }
     });
-    _0x73b805(_0x511263.webContents, _0x4cde0a, true);
-    _0x511263.webContents.on("dom-ready", () => {
-      _0x1a8625.ensureAndPushToWebContents(_0x511263.webContents);
+    registerWebContentsLogger(browserView.webContents, local2, true);
+    browserView.webContents.on("dom-ready", () => {
+      runtimeConfig.ensureAndPushToWebContents(browserView.webContents);
     });
-    _0x3f1a6d.set(_0x3b1c16, _0x511263);
-    _0x1a8625.ensureAndPushToWebContents(_0x511263.webContents);
-    console.log("[Perf] 已按需创建互动视图: " + _0x3b1c16);
-    return _0x511263;
+    result.set(arg1, browserView);
+    runtimeConfig.ensureAndPushToWebContents(browserView.webContents);
+    console.log("[Perf] 已按需创建互动视图: " + arg1);
+    return browserView;
   }
-  function _0x346810(_0x4cdb97, _0x2045be, _0x197a48) {
-    const _0x366f44 = _0x3193d5();
-    const _0x2e19b0 = _0x3a36f();
-    const _0x3f4664 = _0x42dad6();
-    const _0x5b25eb = _0x1f8fcb();
-    const _0x290deb = _0x1e01e0();
-    const _0x54b7d2 = _0x366f44.get(_0x4cdb97);
-    const _0x183da5 = _0x21f742(_0x4cdb97);
-    if (!_0x54b7d2 || !_0x183da5 || !_0x3f4664) {
-      if (_0x183da5) {
-        _0x5027f7(_0x4cdb97);
+  function fn38(arg1, arg2, arg3) {
+    const result = getPlatformViews();
+    const result2 = getInteractionLocksMap();
+    const result3 = getMainWindow();
+    const result4 = getBackgroundDetachedViewKeys();
+    const result5 = getBackgroundLayoutHoldViewKeys();
+    const result6 = result.get(arg1);
+    const result7 = ensureInteractionView(arg1);
+    if (!result6 || !result7 || !result3) {
+      if (result7) {
+        scheduleInteractionViewIdleCleanup(arg1);
       }
       return false;
     }
-    const _0x259df5 = _0x2e19b0.get(_0x4cdb97);
-    const _0x43c6dc = _0x13b874(_0x4cdb97, _0x54b7d2, _0x183da5, _0x259df5);
-    if (!_0x12775e(_0x43c6dc)) {
-      console.warn("[Main] 无法解析互动视口坐标，取消子视图切换: " + _0x4cdb97);
-      _0x5027f7(_0x4cdb97);
+    const result8 = result2.get(arg1);
+    const result9 = resolveInteractionViewportBounds(arg1, result6, result7, result8);
+    if (!isValidAutomationBounds(result9)) {
+      console.warn("[Main] 无法解析互动视口坐标，取消子视图切换: " + arg1);
+      scheduleInteractionViewIdleCleanup(arg1);
       return false;
     }
-    console.log("[Main] [子视图模式] 切换至互动视图: " + _0x2045be + " (坐标: " + _0x43c6dc.x + ", " + _0x43c6dc.y + ")");
-    const _0x4052ea = _0x2e19b0.get(_0x4cdb97);
-    if (_0x4052ea?.timer) {
-      clearTimeout(_0x4052ea.timer);
+    console.log("[Main] [子视图模式] 切换至互动视图: " + arg2 + " (坐标: " + result9.x + ", " + result9.y + ")");
+    const result10 = result2.get(arg1);
+    if (result10?.timer) {
+      clearTimeout(result10.timer);
     }
-    if (_0x4052ea?.taskDispatchTimer) {
-      clearTimeout(_0x4052ea.taskDispatchTimer);
+    if (result10?.taskDispatchTimer) {
+      clearTimeout(result10.taskDispatchTimer);
     }
-    if (_0x4052ea?.loadListener) {
-      _0x183da5.webContents.removeListener("did-finish-load", _0x4052ea.loadListener);
+    if (result10?.loadListener) {
+      result7.webContents.removeListener("did-finish-load", result10.loadListener);
     }
-    const _0x3dae76 = Date.now() + "_" + Math.random().toString(36).slice(2);
-    const _0x198c6f = _0x41634a(_0x197a48);
-    const _0x2713c8 = {
-      bounds: _0x43c6dc,
-      zoomFactor: _0x54b7d2.webContents.getZoomFactor(),
+    const value = Date.now() + "_" + Math.random().toString(36).slice(2);
+    const result11 = fn(arg3);
+    const obj = {
+      bounds: result9,
+      zoomFactor: result6.webContents.getZoomFactor(),
       previewBounds: {
-        ..._0x43c6dc
+        ...result9
       },
-      previewZoomFactor: _0x54b7d2.webContents.getZoomFactor(),
+      previewZoomFactor: result6.webContents.getZoomFactor(),
       startedAt: Date.now(),
-      interactionId: _0x3dae76,
-      timeoutMs: _0x198c6f,
+      interactionId: value,
+      timeoutMs: result11,
       successCheckpoint: null,
       visibleSwapReady: false,
       timer: null,
@@ -1373,41 +1373,41 @@ function createBatchFollow(_0x40add4) {
       onTimeout: null,
       onProfileOpenTimeout: null
     };
-    _0x2713c8.onTimeout = () => {
-      const _0x5bb25b = _0x2e19b0.get(_0x4cdb97);
-      if (!_0x5bb25b || _0x5bb25b.interactionId !== _0x3dae76) {
+    obj.onTimeout = () => {
+      const result = result2.get(arg1);
+      if (!result || result.interactionId !== value) {
         return;
       }
-      if (_0x5bb25b.profileOpenTimer) {
-        clearTimeout(_0x5bb25b.profileOpenTimer);
-        _0x5bb25b.profileOpenTimer = null;
+      if (result.profileOpenTimer) {
+        clearTimeout(result.profileOpenTimer);
+        result.profileOpenTimer = null;
       }
-      const _0x119315 = _0x5bb25b.successCheckpoint;
-      const _0x1e289c = _0x2e6906().get(_0x4cdb97);
-      if (_0x119315?.success && _0x119315?.profileWorkCommented && _0x1e289c?.runId === _0x3c18e0) {
-        console.warn("[Batch] [" + _0x4cdb97 + "] 首作评论成功回调迟到，使用成功检查点完成本条，避免误记 interaction-timeout");
-        Promise.resolve(_0x3b2d0d(_0x4cdb97, _0x1e289c, _0x119315, _0x183da5.webContents)).then(_0x53f101 => {
-          if (_0x53f101 !== "retry-scheduled") {
-            _0x4732a0(_0x4cdb97, _0x119315, "success-checkpoint");
+      const value2 = result.successCheckpoint;
+      const result3 = getPendingBatchByViewKey().get(arg1);
+      if (value2?.success && value2?.profileWorkCommented && result3?.runId === num) {
+        console.warn("[Batch] [" + arg1 + "] 首作评论成功回调迟到，使用成功检查点完成本条，避免误记 interaction-timeout");
+        Promise.resolve(completeBatchFromInteraction(arg1, result3, value2, result7.webContents)).then(arg12 => {
+          if (arg12 !== "retry-scheduled") {
+            finishInteraction(arg1, value2, "success-checkpoint");
           }
-        }).catch(() => _0x4732a0(_0x4cdb97, _0x119315, "success-checkpoint"));
+        }).catch(() => finishInteraction(arg1, value2, "success-checkpoint"));
         return;
       }
-      console.warn("[Main] [子视图模式] 互动超时，强制恢复主视图: " + _0x4cdb97);
-      if (_0x1e289c && _0x1e289c.runId === _0x3c18e0) {
-        Promise.resolve(_0x3b2d0d(_0x4cdb97, _0x1e289c, {
+      console.warn("[Main] [子视图模式] 互动超时，强制恢复主视图: " + arg1);
+      if (result3 && result3.runId === num) {
+        Promise.resolve(completeBatchFromInteraction(arg1, result3, {
           success: false,
           error: "interaction-timeout"
-        }, _0x183da5.webContents)).then(_0xbb195e => {
-          if (_0xbb195e !== "retry-scheduled") {
-            _0x4732a0(_0x4cdb97, {
+        }, result7.webContents)).then(arg12 => {
+          if (arg12 !== "retry-scheduled") {
+            finishInteraction(arg1, {
               followed: false,
               messaged: false,
               error: "interaction-timeout"
             }, "timeout");
           }
         }).catch(() => {
-          _0x4732a0(_0x4cdb97, {
+          finishInteraction(arg1, {
             followed: false,
             messaged: false,
             error: "interaction-timeout"
@@ -1415,49 +1415,49 @@ function createBatchFollow(_0x40add4) {
         });
         return;
       }
-      _0x4732a0(_0x4cdb97, {
+      finishInteraction(arg1, {
         followed: false,
         messaged: false,
         error: "interaction-timeout"
       }, "timeout");
     };
-    _0x2713c8.timer = setTimeout(_0x2713c8.onTimeout, _0x198c6f);
-    if (_0x197a48?.isBatchAction) {
-      _0x2713c8.onProfileOpenTimeout = async () => {
-        const _0x54b63a = _0x2e19b0.get(_0x4cdb97);
-        if (!_0x54b63a || _0x54b63a.interactionId !== _0x3dae76) {
+    obj.timer = setTimeout(obj.onTimeout, result11);
+    if (arg3?.isBatchAction) {
+      obj.onProfileOpenTimeout = async () => {
+        const result = result2.get(arg1);
+        if (!result || result.interactionId !== value) {
           return;
         }
-        if (_0x54b63a.profileOpenReady) {
+        if (result.profileOpenReady) {
           return;
         }
         try {
-          if (_0x183da5?.webContents && !_0x183da5.webContents.isDestroyed()) {
-            const _0x42432e = await _0x183da5.webContents.executeJavaScript("\n                            !!(document.querySelector('a[href*=\"/user/\"]') || document.querySelector('.user-info') || document.querySelector('[data-e2e=\"user-info\"]') || (document.body && document.body.innerText && (document.body.innerText.includes('获赞') || document.body.innerText.includes('作品'))))\n                        ").catch(() => false);
-            if (_0x42432e) {
-              console.warn("[Batch] [" + _0x4cdb97 + "] 主页加载事件虽阻塞，但 DOM 核心节点已就绪，跳过超时拦截继续跟进");
-              _0x54b63a.profileOpenReady = true;
+          if (result7?.webContents && !result7.webContents.isDestroyed()) {
+            const result2 = await result7.webContents.executeJavaScript("\n                            !!(document.querySelector('a[href*=\"/user/\"]') || document.querySelector('.user-info') || document.querySelector('[data-e2e=\"user-info\"]') || (document.body && document.body.innerText && (document.body.innerText.includes('获赞') || document.body.innerText.includes('作品'))))\n                        ").catch(() => false);
+            if (result2) {
+              console.warn("[Batch] [" + arg1 + "] 主页加载事件虽阻塞，但 DOM 核心节点已就绪，跳过超时拦截继续跟进");
+              result.profileOpenReady = true;
               return;
             }
           }
-        } catch (_0x25420a) {}
-        _0x54b63a.profileOpenTimer = null;
-        const _0xada9b3 = _0x2e6906().get(_0x4cdb97);
-        console.warn("[Batch] [" + _0x4cdb97 + "] 主页打开超过 " + BATCH_PROFILE_OPEN_TIMEOUT_MS / 1000 + "s 仍未就绪");
-        if (_0xada9b3 && _0xada9b3.runId === _0x3c18e0) {
-          Promise.resolve(_0x3b2d0d(_0x4cdb97, _0xada9b3, {
+        } catch (error) {}
+        result.profileOpenTimer = null;
+        const result3 = getPendingBatchByViewKey().get(arg1);
+        console.warn("[Batch] [" + arg1 + "] 主页打开超过 " + BATCH_PROFILE_OPEN_TIMEOUT_MS / 1000 + "s 仍未就绪");
+        if (result3 && result3.runId === num) {
+          Promise.resolve(completeBatchFromInteraction(arg1, result3, {
             success: false,
             error: "主页打开超时"
-          }, _0x183da5.webContents)).then(_0x305174 => {
-            if (_0x305174 !== "retry-scheduled") {
-              _0x4732a0(_0x4cdb97, {
+          }, result7.webContents)).then(arg12 => {
+            if (arg12 !== "retry-scheduled") {
+              finishInteraction(arg1, {
                 followed: false,
                 messaged: false,
                 error: "主页打开超时"
               }, "profile-open-timeout");
             }
           }).catch(() => {
-            _0x4732a0(_0x4cdb97, {
+            finishInteraction(arg1, {
               followed: false,
               messaged: false,
               error: "主页打开超时"
@@ -1465,1145 +1465,1145 @@ function createBatchFollow(_0x40add4) {
           });
         }
       };
-      _0x2713c8.profileOpenTimer = setTimeout(_0x2713c8.onProfileOpenTimeout, BATCH_PROFILE_OPEN_TIMEOUT_MS);
+      obj.profileOpenTimer = setTimeout(obj.onProfileOpenTimeout, BATCH_PROFILE_OPEN_TIMEOUT_MS);
     }
-    _0x2e19b0.set(_0x4cdb97, _0x2713c8);
-    if (_0x583df5(_0x4cdb97)) {
-      const _0x7a55d1 = _0x4afa5c(_0x4cdb97, "runInteractionStart:stage-before-load:" + _0x4cdb97);
-      _0x47064a(_0x7a55d1.interactionStaged ? "🖥 用户主页子视图已进入有效视口（底层预热 " + _0x43c6dc.width + "x" + _0x43c6dc.height + "）" : "⚠ 用户主页子视图未获得有效视口，正在重试", _0x197a48?.lead?.accountId, {
-        viewKey: _0x4cdb97,
+    result2.set(arg1, obj);
+    if (shouldShowInteractionView(arg1)) {
+      const result = restoreVisibleInteractionStack(arg1, "runInteractionStart:stage-before-load:" + arg1);
+      pushAutomationTrace(result.interactionStaged ? "🖥 用户主页子视图已进入有效视口（底层预热 " + result9.width + "x" + result9.height + "）" : "⚠ 用户主页子视图未获得有效视口，正在重试", arg3?.lead?.accountId, {
+        viewKey: arg1,
         phase: "interaction-viewport",
-        leadName: _0x197a48?.lead?.nickname || "",
-        level: _0x7a55d1.interactionStaged ? "normal" : "warning",
+        leadName: arg3?.lead?.nickname || "",
+        level: result.interactionStaged ? "normal" : "warning",
         persist: false
       });
     } else {
-      _0x43f1d4(_0x4cdb97, _0x183da5, {
+      attachAutomationViewToBackgroundHost(arg1, result7, {
         active: true,
         force: true
       });
-      _0x5b25eb.delete(_0x4cdb97);
-      _0x290deb.add(_0x4cdb97);
-      _0x47064a("🖥 用户主页子视图已进入后台稳定视口（" + COMPACT_BACKGROUND_AUTOMATION_WIDTH + "x" + COMPACT_BACKGROUND_AUTOMATION_HEIGHT + "）", _0x197a48?.lead?.accountId, {
-        viewKey: _0x4cdb97,
+      result4.delete(arg1);
+      result5.add(arg1);
+      pushAutomationTrace("🖥 用户主页子视图已进入后台稳定视口（" + COMPACT_BACKGROUND_AUTOMATION_WIDTH + "x" + COMPACT_BACKGROUND_AUTOMATION_HEIGHT + "）", arg3?.lead?.accountId, {
+        viewKey: arg1,
         phase: "interaction-viewport",
-        leadName: _0x197a48?.lead?.nickname || "",
+        leadName: arg3?.lead?.nickname || "",
         persist: false
       });
     }
-    let _0x58b8ea = false;
-    let _0x4f1210 = null;
-    const _0x3577a3 = () => {
-      if (_0x58b8ea) {
+    let flag = false;
+    let local = null;
+    const local2 = () => {
+      if (flag) {
         return Promise.resolve(true);
       }
-      if (_0x4f1210) {
-        return _0x4f1210;
+      if (local) {
+        return local;
       }
-      _0x4f1210 = (async () => {
-        const _0x5f9312 = _0x2e19b0.get(_0x4cdb97);
-        if (!_0x5f9312 || _0x5f9312.interactionId !== _0x3dae76) {
+      local = (async () => {
+        const result = result2.get(arg1);
+        if (!result || result.interactionId !== value) {
           return false;
         }
-        const _0x2fa889 = _0x583df5(_0x4cdb97);
-        if (_0x2fa889) {
-          const _0x48a609 = _0x4afa5c(_0x4cdb97, "runInteractionStart:visual-stage:" + _0x4cdb97);
-          if (!_0x48a609.interactionStaged) {
-            console.warn("[Main] [子视图模式] 互动视图未能获得有效视口，暂不下发任务 (" + _0x4cdb97 + ")");
+        const result8 = shouldShowInteractionView(arg1);
+        if (result8) {
+          const result = restoreVisibleInteractionStack(arg1, "runInteractionStart:visual-stage:" + arg1);
+          if (!result.interactionStaged) {
+            console.warn("[Main] [子视图模式] 互动视图未能获得有效视口，暂不下发任务 (" + arg1 + ")");
             return false;
           }
-          const _0x561cc8 = await waitForInteractionViewVisualReady(_0x183da5, () => _0x2e19b0.get(_0x4cdb97)?.interactionId === _0x3dae76);
-          if (!_0x561cc8.ready) {
-            console.warn("[Main] [子视图模式] 可见首帧尚未就绪，继续显示主视图 (" + _0x4cdb97 + ", " + (_0x561cc8.reason || "unknown") + ")");
+          const result3 = await waitForInteractionViewVisualReady(result7, () => result2.get(arg1)?.interactionId === value);
+          if (!result3.ready) {
+            console.warn("[Main] [子视图模式] 可见首帧尚未就绪，继续显示主视图 (" + arg1 + ", " + (result3.reason || "unknown") + ")");
             return false;
           }
-          if (!_0x583df5(_0x4cdb97)) {
-            _0x43f1d4(_0x4cdb97, _0x183da5, {
+          if (!shouldShowInteractionView(arg1)) {
+            attachAutomationViewToBackgroundHost(arg1, result7, {
               active: true
             });
-            _0x5b25eb.delete(_0x4cdb97);
-            _0x290deb.add(_0x4cdb97);
-            _0x58b8ea = true;
+            result4.delete(arg1);
+            result5.add(arg1);
+            flag = true;
             return true;
           }
-          const _0x1fe83c = _0x2e19b0.get(_0x4cdb97);
-          if (!_0x1fe83c || _0x1fe83c.interactionId !== _0x3dae76) {
+          const result6 = result2.get(arg1);
+          if (!result6 || result6.interactionId !== value) {
             return false;
           }
-          await new Promise(_0x57b8de => setTimeout(_0x57b8de, 420));
-          const _0x550669 = _0x2e19b0.get(_0x4cdb97);
-          if (!_0x550669 || _0x550669.interactionId !== _0x3dae76) {
+          await new Promise(arg1 => setTimeout(arg1, 420));
+          const result8 = result2.get(arg1);
+          if (!result8 || result8.interactionId !== value) {
             return false;
           }
-          _0x550669.visibleSwapReady = true;
-          const _0x42d53f = _0x4afa5c(_0x4cdb97, "runInteractionStart:warmed-visible-swap:" + _0x4cdb97);
-          if (!_0x42d53f.interactionVisible) {
+          result8.visibleSwapReady = true;
+          const result9 = restoreVisibleInteractionStack(arg1, "runInteractionStart:warmed-visible-swap:" + arg1);
+          if (!result9.interactionVisible) {
             return false;
           }
-          console.log("[Main] [子视图模式] 可见子视图首帧已预热后置顶 (" + _0x4cdb97 + ", " + _0x561cc8.reason + ", " + _0x561cc8.elapsedMs + "ms)");
-          _0x47064a("🖥 首作互动画面已就绪并显示（首帧预热 " + _0x561cc8.elapsedMs + "ms）", _0x197a48?.lead?.accountId, {
-            viewKey: _0x4cdb97,
+          console.log("[Main] [子视图模式] 可见子视图首帧已预热后置顶 (" + arg1 + ", " + result3.reason + ", " + result3.elapsedMs + "ms)");
+          pushAutomationTrace("🖥 首作互动画面已就绪并显示（首帧预热 " + result3.elapsedMs + "ms）", arg3?.lead?.accountId, {
+            viewKey: arg1,
             phase: "interaction-view",
-            leadName: _0x197a48?.lead?.nickname || "",
+            leadName: arg3?.lead?.nickname || "",
             persist: false
           });
         } else {
-          if (_0x1485dd(_0x4cdb97)) {
-            _0x418bc3(_0x54b7d2.webContents);
-            if (!_0x3f4664.getBrowserViews().includes(_0x54b7d2)) {
-              _0x3f4664.addBrowserView(_0x54b7d2);
+          if (shouldAttachAutomationView(arg1)) {
+            restoreForegroundAutomationRendering(result6.webContents);
+            if (!result3.getBrowserViews().includes(result6)) {
+              result3.addBrowserView(result6);
             }
-            if (!_0x12775e(_0x54b7d2.getBounds()) && _0x12775e(_0x43c6dc)) {
-              _0x54b7d2.setBounds(_0x43c6dc);
+            if (!isValidAutomationBounds(result6.getBounds()) && isValidAutomationBounds(result9)) {
+              result6.setBounds(result9);
             }
-            _0x38c93c(_0x54b7d2, {
-              context: "runInteractionStart:keep-preview:" + _0x4cdb97
+            safeSetTopBrowserView(result6, {
+              context: "runInteractionStart:keep-preview:" + arg1
             });
           } else {
-            _0x156745(_0x54b7d2.webContents);
-            if (_0x5eff65()) {
-              _0x1b54ab(_0x4cdb97, _0x54b7d2);
+            suspendOccludedAutomationRendering(result6.webContents);
+            if (canParkAutomationViewInMainWindow()) {
+              parkAutomationViewInMainWindow(arg1, result6);
             }
           }
-          _0x43f1d4(_0x4cdb97, _0x183da5, {
+          attachAutomationViewToBackgroundHost(arg1, result7, {
             active: true
           });
-          _0x5b25eb.delete(_0x4cdb97);
-          _0x290deb.add(_0x4cdb97);
+          result4.delete(arg1);
+          result5.add(arg1);
         }
-        _0x58b8ea = true;
-        if (_0x2fa889) {
-          _0x4d6a45(_0x183da5.webContents);
+        flag = true;
+        if (result8) {
+          focusAutomationWebContentsSafely(result7.webContents);
         }
         return true;
       })().finally(() => {
-        if (!_0x58b8ea) {
-          _0x4f1210 = null;
+        if (!flag) {
+          local = null;
         }
       });
-      return _0x4f1210;
+      return local;
     };
-    const _0x1c8ad3 = _0x2e19b0.get(_0x4cdb97);
-    const _0x4e726a = {
-      ..._0x197a48,
-      viewKey: _0x4cdb97,
-      interactionId: _0x3dae76,
+    const result12 = result2.get(arg1);
+    const obj2 = {
+      ...arg3,
+      viewKey: arg1,
+      interactionId: value,
       createdAt: Date.now()
     };
-    let _0x53e425 = false;
-    const _0x507ea1 = async () => {
-      if (_0x53e425) {
+    let flag2 = false;
+    const local3 = async () => {
+      if (flag2) {
         return;
       }
-      const _0xb78daf = await _0x3577a3();
-      const _0x4da20f = _0x2e19b0.get(_0x4cdb97);
-      if (!_0x4da20f || _0x4da20f.interactionId !== _0x3dae76) {
+      const result = await local2();
+      const result3 = result2.get(arg1);
+      if (!result3 || result3.interactionId !== value) {
         return;
       }
-      if (!_0xb78daf) {
-        if (_0x4da20f.taskDispatchTimer) {
-          clearTimeout(_0x4da20f.taskDispatchTimer);
+      if (!result) {
+        if (result3.taskDispatchTimer) {
+          clearTimeout(result3.taskDispatchTimer);
         }
-        _0x4da20f.taskDispatchTimer = setTimeout(() => {
-          _0x4da20f.taskDispatchTimer = null;
-          _0x507ea1();
+        result3.taskDispatchTimer = setTimeout(() => {
+          result3.taskDispatchTimer = null;
+          local3();
         }, 600);
-        if (typeof _0x4da20f.taskDispatchTimer.unref === "function") {
-          _0x4da20f.taskDispatchTimer.unref();
+        if (typeof result3.taskDispatchTimer.unref === "function") {
+          result3.taskDispatchTimer.unref();
         }
         return;
       }
-      if (_0x4da20f.taskDispatchTimer) {
-        clearTimeout(_0x4da20f.taskDispatchTimer);
-        _0x4da20f.taskDispatchTimer = null;
+      if (result3.taskDispatchTimer) {
+        clearTimeout(result3.taskDispatchTimer);
+        result3.taskDispatchTimer = null;
       }
-      if (_0x4da20f.profileOpenTimer) {
-        clearTimeout(_0x4da20f.profileOpenTimer);
-        _0x4da20f.profileOpenTimer = null;
+      if (result3.profileOpenTimer) {
+        clearTimeout(result3.profileOpenTimer);
+        result3.profileOpenTimer = null;
       }
-      if (!_0x183da5.webContents.isDestroyed()) {
-        let _0x57ede1 = _0x4e726a;
+      if (!result7.webContents.isDestroyed()) {
+        let local = obj2;
         try {
           if (typeof structuredClone === "function") {
-            _0x57ede1 = structuredClone(_0x4e726a);
+            local = structuredClone(obj2);
           } else {
-            _0x57ede1 = JSON.parse(JSON.stringify(_0x4e726a));
+            local = JSON.parse(JSON.stringify(obj2));
           }
-        } catch (_0x189b70) {
-          console.warn("[Main] 子视图任务含不可克隆字段，已做 JSON 降级净化: " + _0x189b70.message);
+        } catch (error) {
+          console.warn("[Main] 子视图任务含不可克隆字段，已做 JSON 降级净化: " + error.message);
           try {
-            _0x57ede1 = JSON.parse(JSON.stringify(_0x4e726a));
-          } catch (_0x4e6993) {
-            _0x57ede1 = {
-              viewKey: _0x4cdb97,
-              interactionId: _0x3dae76,
-              batchRunId: _0x4e726a?.batchRunId,
+            local = JSON.parse(JSON.stringify(obj2));
+          } catch (error) {
+            local = {
+              viewKey: arg1,
+              interactionId: value,
+              batchRunId: obj2?.batchRunId,
               createdAt: Date.now(),
-              lead: _0x4e726a?.lead ? {
-                nickname: _0x4e726a.lead.nickname,
-                leadId: _0x4e726a.lead.leadId
+              lead: obj2?.lead ? {
+                nickname: obj2.lead.nickname,
+                leadId: obj2.lead.leadId
               } : undefined,
-              canFollow: !!_0x4e726a?.canFollow,
-              canDM: !!_0x4e726a?.canDM,
-              canCommentFirstWork: !!_0x4e726a?.canCommentFirstWork,
-              commentOnProfileFirstWork: !!_0x4e726a?.commentOnProfileFirstWork || !!_0x4e726a?.canCommentFirstWork,
-              profileFirstWorkLikePercent: Number.isFinite(Number(_0x4e726a?.profileFirstWorkLikePercent)) ? Math.max(0, Math.min(100, Math.round(Number(_0x4e726a.profileFirstWorkLikePercent)))) : 10,
-              profileFirstWorkCollectPercent: Number.isFinite(Number(_0x4e726a?.profileFirstWorkCollectPercent)) ? Math.max(0, Math.min(100, Math.round(Number(_0x4e726a.profileFirstWorkCollectPercent)))) : 10,
-              enableWarmup: !!_0x4e726a?.enableWarmup,
-              followDmDelayMin: _0x4e726a?.followDmDelayMin,
-              followDmDelayMax: _0x4e726a?.followDmDelayMax,
-              useRandomSuffix: !!_0x4e726a?.useRandomSuffix,
-              dmUseRandomSuffix: !!_0x4e726a?.dmUseRandomSuffix,
-              genderFilter: _0x4e726a?.genderFilter || "all",
-              profileFirstGenderFilter: _0x4e726a?.profileFirstGenderFilter || "all",
-              profileFirstAgeFilterEnabled: _0x4e726a?.profileFirstAgeFilterEnabled === true,
-              profileFirstAgeMin: _0x4e726a?.profileFirstAgeMin,
-              profileFirstAgeMax: _0x4e726a?.profileFirstAgeMax,
-              ageFilterEnabled: _0x4e726a?.ageFilterEnabled === true,
-              ageMin: _0x4e726a?.ageMin,
-              ageMax: _0x4e726a?.ageMax,
-              dmContent: _0x4e726a?.dmContent || "",
-              dmTarget: _0x4e726a?.dmTarget === "followed_only" ? "followed_only" : "all",
-              commentTemplate: _0x4e726a?.commentTemplate || "",
-              commentContent: _0x4e726a?.commentContent || "",
-              commentUseRandomSuffix: !!_0x4e726a?.commentUseRandomSuffix,
-              videoCommentContent: _0x4e726a?.videoCommentContent || "",
-              videoCommentMode: _0x4e726a?.videoCommentMode || "",
-              videoCommentUseRandomSuffix: !!_0x4e726a?.videoCommentUseRandomSuffix,
-              batchProfileCommentUseAi: !!_0x4e726a?.batchProfileCommentUseAi,
-              profileFirstCommentUseAi: !!_0x4e726a?.profileFirstCommentUseAi,
-              aiReplyMode: !!_0x4e726a?.aiReplyMode,
-              aiRole: _0x4e726a?.aiRole || "",
-              aiGoal: _0x4e726a?.aiGoal || "",
-              aiStyle: _0x4e726a?.aiStyle || "",
-              aiPrompt: _0x4e726a?.aiPrompt || "",
-              firstPostGoal: _0x4e726a?.firstPostGoal || "",
-              firstPostStyle: _0x4e726a?.firstPostStyle || "",
-              firstPostPrompt: _0x4e726a?.firstPostPrompt || "",
-              videoGoal: _0x4e726a?.videoGoal || "",
-              videoStyle: _0x4e726a?.videoStyle || "",
-              videoPrompt: _0x4e726a?.videoPrompt || "",
-              batchConfig: _0x4e726a?.batchConfig,
-              enableCommentMention: !!_0x4e726a?.enableCommentMention,
-              commentMentionNicknames: _0x4e726a?.commentMentionNicknames || "",
-              commentMentionPosition: _0x4e726a?.commentMentionPosition || "before",
-              commentMentionPercent: Number.isFinite(Number(_0x4e726a?.commentMentionPercent)) ? Math.max(0, Math.min(100, Math.round(Number(_0x4e726a.commentMentionPercent)))) : 100,
-              enableVideoCommentMention: !!_0x4e726a?.enableVideoCommentMention,
-              videoCommentMentionNicknames: _0x4e726a?.videoCommentMentionNicknames || "",
-              videoCommentMentionPosition: _0x4e726a?.videoCommentMentionPosition || "before",
-              videoCommentMentionPercent: Number.isFinite(Number(_0x4e726a?.videoCommentMentionPercent)) ? Math.max(0, Math.min(100, Math.round(Number(_0x4e726a.videoCommentMentionPercent)))) : 100,
-              enableCommentExpression: !!_0x4e726a?.enableCommentExpression,
-              commentExpressionCount: _0x4e726a?.commentExpressionCount || 3,
-              enableCommentImage: !!_0x4e726a?.enableCommentImage,
-              commentImagePaths: _0x4e726a?.commentImagePaths || [],
-              commentImagePath: _0x4e726a?.commentImagePath || "",
-              enableCommentWithoutText: !!_0x4e726a?.enableCommentWithoutText,
-              commentAttachmentPercent: Number.isFinite(Number(_0x4e726a?.commentAttachmentPercent)) ? Number(_0x4e726a.commentAttachmentPercent) : 20,
-              enableVideoCommentExpression: !!_0x4e726a?.enableVideoCommentExpression,
-              videoCommentExpressionCount: _0x4e726a?.videoCommentExpressionCount || 3,
-              enableVideoCommentImage: !!_0x4e726a?.enableVideoCommentImage,
-              videoCommentImagePaths: _0x4e726a?.videoCommentImagePaths || []
+              canFollow: !!obj2?.canFollow,
+              canDM: !!obj2?.canDM,
+              canCommentFirstWork: !!obj2?.canCommentFirstWork,
+              commentOnProfileFirstWork: !!obj2?.commentOnProfileFirstWork || !!obj2?.canCommentFirstWork,
+              profileFirstWorkLikePercent: Number.isFinite(Number(obj2?.profileFirstWorkLikePercent)) ? Math.max(0, Math.min(100, Math.round(Number(obj2.profileFirstWorkLikePercent)))) : 10,
+              profileFirstWorkCollectPercent: Number.isFinite(Number(obj2?.profileFirstWorkCollectPercent)) ? Math.max(0, Math.min(100, Math.round(Number(obj2.profileFirstWorkCollectPercent)))) : 10,
+              enableWarmup: !!obj2?.enableWarmup,
+              followDmDelayMin: obj2?.followDmDelayMin,
+              followDmDelayMax: obj2?.followDmDelayMax,
+              useRandomSuffix: !!obj2?.useRandomSuffix,
+              dmUseRandomSuffix: !!obj2?.dmUseRandomSuffix,
+              genderFilter: obj2?.genderFilter || "all",
+              profileFirstGenderFilter: obj2?.profileFirstGenderFilter || "all",
+              profileFirstAgeFilterEnabled: obj2?.profileFirstAgeFilterEnabled === true,
+              profileFirstAgeMin: obj2?.profileFirstAgeMin,
+              profileFirstAgeMax: obj2?.profileFirstAgeMax,
+              ageFilterEnabled: obj2?.ageFilterEnabled === true,
+              ageMin: obj2?.ageMin,
+              ageMax: obj2?.ageMax,
+              dmContent: obj2?.dmContent || "",
+              dmTarget: obj2?.dmTarget === "followed_only" ? "followed_only" : "all",
+              commentTemplate: obj2?.commentTemplate || "",
+              commentContent: obj2?.commentContent || "",
+              commentUseRandomSuffix: !!obj2?.commentUseRandomSuffix,
+              videoCommentContent: obj2?.videoCommentContent || "",
+              videoCommentMode: obj2?.videoCommentMode || "",
+              videoCommentUseRandomSuffix: !!obj2?.videoCommentUseRandomSuffix,
+              batchProfileCommentUseAi: !!obj2?.batchProfileCommentUseAi,
+              profileFirstCommentUseAi: !!obj2?.profileFirstCommentUseAi,
+              aiReplyMode: !!obj2?.aiReplyMode,
+              aiRole: obj2?.aiRole || "",
+              aiGoal: obj2?.aiGoal || "",
+              aiStyle: obj2?.aiStyle || "",
+              aiPrompt: obj2?.aiPrompt || "",
+              firstPostGoal: obj2?.firstPostGoal || "",
+              firstPostStyle: obj2?.firstPostStyle || "",
+              firstPostPrompt: obj2?.firstPostPrompt || "",
+              videoGoal: obj2?.videoGoal || "",
+              videoStyle: obj2?.videoStyle || "",
+              videoPrompt: obj2?.videoPrompt || "",
+              batchConfig: obj2?.batchConfig,
+              enableCommentMention: !!obj2?.enableCommentMention,
+              commentMentionNicknames: obj2?.commentMentionNicknames || "",
+              commentMentionPosition: obj2?.commentMentionPosition || "before",
+              commentMentionPercent: Number.isFinite(Number(obj2?.commentMentionPercent)) ? Math.max(0, Math.min(100, Math.round(Number(obj2.commentMentionPercent)))) : 100,
+              enableVideoCommentMention: !!obj2?.enableVideoCommentMention,
+              videoCommentMentionNicknames: obj2?.videoCommentMentionNicknames || "",
+              videoCommentMentionPosition: obj2?.videoCommentMentionPosition || "before",
+              videoCommentMentionPercent: Number.isFinite(Number(obj2?.videoCommentMentionPercent)) ? Math.max(0, Math.min(100, Math.round(Number(obj2.videoCommentMentionPercent)))) : 100,
+              enableCommentExpression: !!obj2?.enableCommentExpression,
+              commentExpressionCount: obj2?.commentExpressionCount || 3,
+              enableCommentImage: !!obj2?.enableCommentImage,
+              commentImagePaths: obj2?.commentImagePaths || [],
+              commentImagePath: obj2?.commentImagePath || "",
+              enableCommentWithoutText: !!obj2?.enableCommentWithoutText,
+              commentAttachmentPercent: Number.isFinite(Number(obj2?.commentAttachmentPercent)) ? Number(obj2.commentAttachmentPercent) : 20,
+              enableVideoCommentExpression: !!obj2?.enableVideoCommentExpression,
+              videoCommentExpressionCount: obj2?.videoCommentExpressionCount || 3,
+              enableVideoCommentImage: !!obj2?.enableVideoCommentImage,
+              videoCommentImagePaths: obj2?.videoCommentImagePaths || []
             };
           }
         }
-        _0x53e425 = true;
-        _0x183da5.webContents.send("interaction-prepare-task", _0x57ede1);
+        flag2 = true;
+        result7.webContents.send("interaction-prepare-task", local);
       }
     };
-    if (_0x1c8ad3) {
-      _0x1c8ad3.loadListener = _0x507ea1;
+    if (result12) {
+      result12.loadListener = local3;
     }
-    _0x183da5.webContents.once("did-finish-load", _0x507ea1);
+    result7.webContents.once("did-finish-load", local3);
     try {
-      if (!_0x183da5.webContents.isDestroyed()) {
-        _0x183da5.webContents.send("interaction-preempt", {
-          viewKey: _0x4cdb97,
-          url: _0x2045be,
-          interactionId: _0x3dae76
+      if (!result7.webContents.isDestroyed()) {
+        result7.webContents.send("interaction-preempt", {
+          viewKey: arg1,
+          url: arg2,
+          interactionId: value
         });
       }
-    } catch (_0x48d3ac) {}
+    } catch (error) {}
     try {
-      if (!_0x183da5.webContents.isDestroyed()) {
-        _0x183da5.webContents.stop();
+      if (!result7.webContents.isDestroyed()) {
+        result7.webContents.stop();
       }
-    } catch (_0x2a4591) {}
-    _0x183da5.webContents.loadURL(_0x2045be).catch(_0x2b3693 => {
-      console.warn("[Main] [子视图模式] 互动视图加载失败: " + _0x2b3693.message);
-      const _0x1b976a = _0x2e19b0.get(_0x4cdb97);
-      if (!_0x1b976a || _0x1b976a.interactionId !== _0x3dae76) {
+    } catch (error) {}
+    result7.webContents.loadURL(arg2).catch(arg12 => {
+      console.warn("[Main] [子视图模式] 互动视图加载失败: " + arg12.message);
+      const result = result2.get(arg1);
+      if (!result || result.interactionId !== value) {
         return;
       }
-      const _0x5be252 = _0x2e6906().get(_0x4cdb97);
-      if (_0x5be252 && _0x197a48?.isBatchAction && _0x5be252.runId === _0x3c18e0) {
-        const _0x228120 = "页面加载失败: " + (_0x2b3693.message || "loadURL failed");
-        Promise.resolve(_0x3b2d0d(_0x4cdb97, _0x5be252, {
+      const result3 = getPendingBatchByViewKey().get(arg1);
+      if (result3 && arg3?.isBatchAction && result3.runId === num) {
+        const value = "页面加载失败: " + (arg12.message || "loadURL failed");
+        Promise.resolve(completeBatchFromInteraction(arg1, result3, {
           success: false,
-          error: _0x228120
-        }, _0x183da5.webContents)).then(_0x400ea2 => {
-          if (_0x400ea2 !== "retry-scheduled") {
-            _0x4732a0(_0x4cdb97, {
+          error: value
+        }, result7.webContents)).then(arg12 => {
+          if (arg12 !== "retry-scheduled") {
+            finishInteraction(arg1, {
               followed: false,
               messaged: false,
-              error: _0x228120
+              error: value
             }, "load-failed");
           }
         }).catch(() => {
-          _0x4732a0(_0x4cdb97, {
+          finishInteraction(arg1, {
             followed: false,
             messaged: false,
-            error: _0x228120
+            error: value
           }, "load-failed");
         });
       }
     });
     return true;
   }
-  function _0x2d4784(_0x28b2af, _0x7c98b6) {
-    return _0x28b2af + "_" + _0x7c98b6;
+  function fn40(arg1, arg2) {
+    return arg1 + "_" + arg2;
   }
-  function _0x18d9a3(_0x532fe5, _0x3ff473, _0x16244b = "unknown") {
-    const _0xefb780 = _0x2d4784(_0x532fe5, _0x3ff473);
-    let _0x135a1d;
+  function dispatchNextBatchItem(arg1, arg2, text = "unknown") {
+    const result = fn40(arg1, arg2);
+    let local;
     try {
-      _0x135a1d = _0x145c77(_0x532fe5, _0x3ff473);
-    } catch (_0x2b4f07) {
-      _0x135a1d = Promise.reject(_0x2b4f07);
+      local = processNextBatchItem(arg1, arg2);
+    } catch (error) {
+      local = Promise.reject(error);
     }
-    Promise.resolve(_0x135a1d).then(() => {
-      _0x1b5a42.delete(_0xefb780);
-    }).catch(_0x3d1d4c => {
-      const _0x3345d4 = (_0x1b5a42.get(_0xefb780) || 0) + 1;
-      _0x1b5a42.set(_0xefb780, _0x3345d4);
-      console.error("[Batch] [" + _0x532fe5 + "] 下一条调度异常 (" + _0x16244b + ", 第" + _0x3345d4 + "次):", _0x3d1d4c);
-      const _0x218903 = _0x532fe5.includes("_") ? _0x532fe5.split("_").slice(1).join("_") : "default";
-      _0x47064a("⚠️ 批量调度异常，2 秒后自动恢复（" + (_0x3d1d4c?.message || "未知错误") + "）", _0x218903);
-      if (_0x411698 || _0x3c18e0 !== _0x3ff473 || !_0x533b89(_0x532fe5)) {
+    Promise.resolve(local).then(() => {
+      map4.delete(result);
+    }).catch(arg12 => {
+      const value = (map4.get(result) || 0) + 1;
+      map4.set(result, value);
+      console.error("[Batch] [" + arg1 + "] 下一条调度异常 (" + text + ", 第" + value + "次):", arg12);
+      const value2 = arg1.includes("_") ? arg1.split("_").slice(1).join("_") : "default";
+      pushAutomationTrace("⚠️ 批量调度异常，2 秒后自动恢复（" + (arg12?.message || "未知错误") + "）", value2);
+      if (flag || num !== arg2 || !isBatchViewRuntimeActive(arg1)) {
         return;
       }
-      setTimeout(() => _0x18d9a3(_0x532fe5, _0x3ff473, "auto-retry"), 2000);
+      setTimeout(() => dispatchNextBatchItem(arg1, arg2, "auto-retry"), 2000);
     });
   }
-  async function _0x145c77(_0x4cda8c, _0x2097e9 = _0x3c18e0) {
-    const _0x4121c3 = _0x203fb0();
-    const _0x5e46b2 = _0x429dfe();
-    const _0x153b2a = _0x199df4();
-    const _0x4a058f = _0x2e6906();
-    const _0x407e11 = _0x42dad6();
-    if (_0x2097e9 !== _0x3c18e0) {
-      console.log("[Batch] 忽略过期批量代次回调 (" + _0x4cda8c + ")");
+  async function processNextBatchItem(arg1, arg2 = num) {
+    const result = getBatchActionQueueMap();
+    const result2 = getIsBatchActionRunningMap();
+    const result3 = getViewActiveBatchRunMap();
+    const result4 = getPendingBatchByViewKey();
+    const result5 = getMainWindow();
+    if (arg2 !== num) {
+      console.log("[Batch] 忽略过期批量代次回调 (" + arg1 + ")");
       return;
     }
-    if (_0x411698) {
-      console.log("[Batch] 停止信号已触发，清空队列 (" + _0x4cda8c + ")");
-      _0x4121c3.delete(_0x4cda8c);
-      _0x5e46b2.set(_0x4cda8c, false);
-      _0x153b2a.delete(_0x4cda8c);
-      _0x49cbc9(_0x4cda8c, "manual_stop");
-      const _0x5cdec5 = _0x4cda8c.includes("_") ? _0x4cda8c.split("_").slice(1).join("_") : null;
-      if (_0x407e11) {
-        _0x407e11.webContents.send("batch-account-finished", {
-          viewKey: _0x4cda8c,
-          accountId: _0x5cdec5,
+    if (flag) {
+      console.log("[Batch] 停止信号已触发，清空队列 (" + arg1 + ")");
+      result.delete(arg1);
+      result2.set(arg1, false);
+      result3.delete(arg1);
+      preserveAutomationViewAfterTaskFinish(arg1, "manual_stop");
+      const value = arg1.includes("_") ? arg1.split("_").slice(1).join("_") : null;
+      if (result5) {
+        result5.webContents.send("batch-account-finished", {
+          viewKey: arg1,
+          accountId: value,
           reason: "manual_stop"
         });
-        _0x407e11.webContents.send("view-batch-status", {
-          viewKey: _0x4cda8c,
+        result5.webContents.send("view-batch-status", {
+          viewKey: arg1,
           isRunning: false
         });
       }
       return;
     }
-    _0x105f1f(_0x4cda8c);
-    const _0x15c5a6 = _0x4a058f.get(_0x4cda8c);
-    if (_0x15c5a6 && _0x15c5a6.runId === _0x2097e9) {
-      console.log("[Batch] [" + _0x4cda8c + "] 当前条仍在执行，忽略重复的下一条调度");
+    cancelPendingAutomationViewDestroy(arg1);
+    const result6 = result4.get(arg1);
+    if (result6 && result6.runId === arg2) {
+      console.log("[Batch] [" + arg1 + "] 当前条仍在执行，忽略重复的下一条调度");
       return;
     }
-    const _0x19951e = _0x4121c3.get(_0x4cda8c);
-    if (!_0x19951e || _0x19951e.length === 0) {
-      console.log("[Batch] 视图 " + _0x4cda8c + " 的批量任务已全部完成");
-      _0x5e46b2.set(_0x4cda8c, false);
-      _0x4121c3.delete(_0x4cda8c);
-      _0x153b2a.delete(_0x4cda8c);
-      _0x1b5a42.delete(_0x2d4784(_0x4cda8c, _0x2097e9));
-      _0x562fd7(_0x4cda8c, _0x2097e9);
-      _0x49cbc9(_0x4cda8c, "batch_completed");
-      const _0x51bf1a = _0x4cda8c.includes("_") ? _0x4cda8c.split("_").slice(1).join("_") : null;
-      if (_0x407e11) {
-        _0x407e11.webContents.send("batch-account-finished", {
-          viewKey: _0x4cda8c,
-          accountId: _0x51bf1a,
+    const result7 = result.get(arg1);
+    if (!result7 || result7.length === 0) {
+      console.log("[Batch] 视图 " + arg1 + " 的批量任务已全部完成");
+      result2.set(arg1, false);
+      result.delete(arg1);
+      result3.delete(arg1);
+      map4.delete(fn40(arg1, arg2));
+      fn6(arg1, arg2);
+      preserveAutomationViewAfterTaskFinish(arg1, "batch_completed");
+      const value = arg1.includes("_") ? arg1.split("_").slice(1).join("_") : null;
+      if (result5) {
+        result5.webContents.send("batch-account-finished", {
+          viewKey: arg1,
+          accountId: value,
           reason: "batch_completed"
         });
-        _0x407e11.webContents.send("view-batch-status", {
-          viewKey: _0x4cda8c,
+        result5.webContents.send("view-batch-status", {
+          viewKey: arg1,
           isRunning: false
         });
-        _0x407e11.webContents.send("new-status", "[Batch] 视图 " + _0x4cda8c + " 批量任务处理完毕");
-        const _0x41b817 = Array.from(_0x5e46b2.values()).some(Boolean);
-        if (!_0x41b817) {
+        result5.webContents.send("new-status", "[Batch] 视图 " + arg1 + " 批量任务处理完毕");
+        const result = Array.from(result2.values()).some(Boolean);
+        if (!result) {
           try {
-            _0x4e7042.finalizeBatchRun(_0x2097e9, "completed");
-          } catch (_0x31c003) {}
-          _0x54648b(_0x2097e9, {
-            message: "批量跟进已完成：成功 " + (_0x828cc1.success || 0) + "，失败 " + (_0x828cc1.failed || 0) + "，跳过 " + (_0x828cc1.skipped || 0),
+            historyManager.finalizeBatchRun(arg2, "completed");
+          } catch (error) {}
+          appendBatchFollowLog(arg2, {
+            message: "批量跟进已完成：成功 " + (obj.success || 0) + "，失败 " + (obj.failed || 0) + "，跳过 " + (obj.skipped || 0),
             level: "success",
             phase: "run",
-            viewKey: _0x4cda8c,
-            accountId: _0x51bf1a || ""
+            viewKey: arg1,
+            accountId: value || ""
           });
-          _0x407e11.webContents.send("batch-task-complete", {
-            runId: _0x2097e9
+          result5.webContents.send("batch-task-complete", {
+            runId: arg2
           });
         }
       }
-      _0xdc2c01?.({
+      releaseBatchRuntimeGuardIfIdle?.({
         force: true
       });
       return;
     }
-    _0x5e46b2.set(_0x4cda8c, true);
-    if (_0x407e11) {
-      _0x407e11.webContents.send("view-batch-status", {
-        viewKey: _0x4cda8c,
+    result2.set(arg1, true);
+    if (result5) {
+      result5.webContents.send("view-batch-status", {
+        viewKey: arg1,
         isRunning: true
       });
     }
-    const _0x20b628 = _0x19951e[0];
+    const value = result7[0];
     const {
-      lead: _0x44115d,
-      config: _0x3362ed
-    } = _0x20b628;
-    let _0x321573 = _0x3193d5().get(_0x4cda8c);
-    const _0x3748dc = _0x4cda8c.split("_")[0];
-    if (!_0x321573) {
-      console.log("[Batch] 视图 " + _0x4cda8c + " 不存在，正在初始化并等待...");
-      _0x5d13ef({
-        accountId: _0x44115d.accountId,
-        accountName: _0x44115d.accountName
-      }, _0x3748dc);
-      setTimeout(() => _0x18d9a3(_0x4cda8c, _0x2097e9, "wait-view-init"), 5000);
+      lead: lead,
+      config: config
+    } = value;
+    let result8 = getPlatformViews().get(arg1);
+    const value2 = arg1.split("_")[0];
+    if (!result8) {
+      console.log("[Batch] 视图 " + arg1 + " 不存在，正在初始化并等待...");
+      initAutomationView({
+        accountId: lead.accountId,
+        accountName: lead.accountName
+      }, value2);
+      setTimeout(() => dispatchNextBatchItem(arg1, arg2, "wait-view-init"), 5000);
       return;
     }
-    _0x153b2a.set(_0x4cda8c, _0x2097e9);
-    console.log("[Batch] [" + _0x4cda8c + "] 正在处理: " + _0x44115d.nickname + ", 动作: " + _0x3362ed.type);
-    if (_0x1a7ce9(_0x44115d)) {
-      _0x19951e.shift();
-      const _0x2d0b84 = _0x44115d.profileUnavailableReason || _0x44115d.lastBatchSkipReason || BATCH_USER_GONE_REASON;
-      console.warn("[Batch] [" + _0x4cda8c + "] @" + (_0x44115d.nickname || "未知") + " 已标记" + _0x2d0b84 + "，跳过开主页");
-      _0x4a058f.delete(_0x4cda8c);
-      _0x38898c({
-        sender: _0x321573?.webContents || null
+    result3.set(arg1, arg2);
+    console.log("[Batch] [" + arg1 + "] 正在处理: " + lead.nickname + ", 动作: " + config.type);
+    if (fn22(lead)) {
+      result7.shift();
+      const local = lead.profileUnavailableReason || lead.lastBatchSkipReason || BATCH_USER_GONE_REASON;
+      console.warn("[Batch] [" + arg1 + "] @" + (lead.nickname || "未知") + " 已标记" + local + "，跳过开主页");
+      result4.delete(arg1);
+      processBatchItemFinished({
+        sender: result8?.webContents || null
       }, {
-        leadId: _0x44115d.leadId,
-        accountId: _0x44115d.accountId,
-        leadName: _0x44115d.nickname,
-        leadPlatform: _0x44115d.platform,
-        accountName: _0x44115d.accountName,
+        leadId: lead.leadId,
+        accountId: lead.accountId,
+        leadName: lead.nickname,
+        leadPlatform: lead.platform,
+        accountName: lead.accountName,
         success: false,
         skipped: true,
-        skipReason: _0x2d0b84,
-        error: _0x2d0b84,
-        type: _0x3362ed.type,
+        skipReason: local,
+        error: local,
+        type: config.type,
         interactionResults: {
           skipped: true,
-          skipReason: _0x2d0b84,
+          skipReason: local,
           userGone: true,
           profileUnavailable: true,
-          profileUnavailableReason: _0x2d0b84
+          profileUnavailableReason: local
         }
-      }, _0x2097e9, _0x4cda8c);
+      }, arg2, arg1);
       return;
     }
-    const _0x324f4c = _0x44115d.userUrl;
-    if (!_0x324f4c) {
-      _0x19951e.shift();
-      console.error("[Batch] 线索 " + _0x44115d.nickname + " 缺失用户主页链接，跳过");
-      _0x828cc1.current += 1;
-      if (_0x828cc1.total > 0) {
-        _0x828cc1.current = Math.min(_0x828cc1.current, _0x828cc1.total);
+    const value3 = lead.userUrl;
+    if (!value3) {
+      result7.shift();
+      console.error("[Batch] 线索 " + lead.nickname + " 缺失用户主页链接，跳过");
+      obj.current += 1;
+      if (obj.total > 0) {
+        obj.current = Math.min(obj.current, obj.total);
       }
-      _0x828cc1.failed += 1;
-      if (_0x372db0() && _0x44115d.leadId) {
-        const _0x33a83d = dbManager.setLeadLastBatchFollowResult(_0x44115d.leadId, {
+      obj.failed += 1;
+      if (isLeadsSqliteRuntime() && lead.leadId) {
+        const result = dbManager.setLeadLastBatchFollowResult(lead.leadId, {
           status: "failed",
           message: "缺失主页链接",
           at: Date.now(),
-          type: _0x3362ed.type,
-          runId: _0x2097e9
+          type: config.type,
+          runId: arg2
         });
-        if (!_0x33a83d) {
-          console.warn("[Batch] 最近跟进结果回写失败 leadId=" + _0x44115d.leadId + "（缺失主页链接）");
+        if (!result) {
+          console.warn("[Batch] 最近跟进结果回写失败 leadId=" + lead.leadId + "（缺失主页链接）");
         }
       }
       try {
-        _0x4e7042.appendBatchRunResult(_0x2097e9, {
-          leadId: _0x44115d.leadId,
-          accountId: _0x44115d.accountId,
+        historyManager.appendBatchRunResult(arg2, {
+          leadId: lead.leadId,
+          accountId: lead.accountId,
           success: false,
           error: "缺失主页链接",
-          type: _0x3362ed.type,
-          leadName: _0x44115d.nickname || "未知",
-          leadPlatform: _0x44115d.platform,
-          accountName: _0x44115d.accountName || "主账号",
-          ..._0x1831a2(_0x44115d),
+          type: config.type,
+          leadName: lead.nickname || "未知",
+          leadPlatform: lead.platform,
+          accountName: lead.accountName || "主账号",
+          ...fn25(lead),
           time: new Date().toLocaleTimeString(),
-          viewKey: _0x4cda8c
-        }, _0x828cc1);
-      } catch (_0x18d673) {}
-      if (_0x407e11) {
-        _0x407e11.webContents.send("batch-item-result", {
-          leadId: _0x44115d.leadId,
-          accountId: _0x44115d.accountId,
+          viewKey: arg1
+        }, obj);
+      } catch (error) {}
+      if (result5) {
+        result5.webContents.send("batch-item-result", {
+          leadId: lead.leadId,
+          accountId: lead.accountId,
           success: false,
           error: "缺失主页链接",
-          type: _0x3362ed.type,
-          leadName: _0x44115d.nickname || "未知",
-          leadPlatform: _0x44115d.platform,
-          accountName: _0x44115d.accountName || "主账号",
+          type: config.type,
+          leadName: lead.nickname || "未知",
+          leadPlatform: lead.platform,
+          accountName: lead.accountName || "主账号",
           time: new Date().toLocaleTimeString(),
-          viewKey: _0x4cda8c,
-          runId: _0x2097e9
+          viewKey: arg1,
+          runId: arg2
         });
-        _0x407e11.webContents.send("batch-task-progress", {
-          ..._0x828cc1,
-          lastLeadName: _0x44115d.nickname || "未知",
-          lastAction: _0x3362ed.type,
-          status: _0x828cc1.total > 0 && _0x828cc1.current >= _0x828cc1.total ? "completed" : "executing"
+        result5.webContents.send("batch-task-progress", {
+          ...obj,
+          lastLeadName: lead.nickname || "未知",
+          lastAction: config.type,
+          status: obj.total > 0 && obj.current >= obj.total ? "completed" : "executing"
         });
       }
-      _0x18d9a3(_0x4cda8c, _0x2097e9, "missing-profile-url");
+      dispatchNextBatchItem(arg1, arg2, "missing-profile-url");
       return;
     }
-    if (_0x407e11) {
-      _0x407e11.webContents.send("new-log", "[批量跟进] [" + _0x4cda8c + "] 正在处理: " + _0x44115d.nickname + " (" + _0x3362ed.type + ")");
-      _0x407e11.webContents.send("batch-item-start", {
-        leadId: _0x44115d.leadId,
-        accountId: _0x44115d.accountId,
-        accountName: _0x44115d.accountName,
-        leadName: _0x44115d.nickname,
-        type: _0x3362ed.type,
-        viewKey: _0x4cda8c,
-        runId: _0x2097e9
+    if (result5) {
+      result5.webContents.send("new-log", "[批量跟进] [" + arg1 + "] 正在处理: " + lead.nickname + " (" + config.type + ")");
+      result5.webContents.send("batch-item-start", {
+        leadId: lead.leadId,
+        accountId: lead.accountId,
+        accountName: lead.accountName,
+        leadName: lead.nickname,
+        type: config.type,
+        viewKey: arg1,
+        runId: arg2
       });
-      _0x407e11.webContents.send("batch-task-progress", {
-        ..._0x828cc1,
-        lastLeadName: _0x44115d.nickname || "未知",
-        lastAction: _0x3362ed.type,
+      result5.webContents.send("batch-task-progress", {
+        ...obj,
+        lastLeadName: lead.nickname || "未知",
+        lastAction: config.type,
         status: "executing",
-        runId: _0x2097e9
+        runId: arg2
       });
     }
-    _0x54648b(_0x2097e9, {
-      message: "开始处理 @" + (_0x44115d.nickname || "未知") + "（" + _0x3362ed.type + "）",
+    appendBatchFollowLog(arg2, {
+      message: "开始处理 @" + (lead.nickname || "未知") + "（" + config.type + "）",
       level: "info",
-      accountId: _0x44115d.accountId,
-      accountName: _0x44115d.accountName || "",
-      viewKey: _0x4cda8c,
-      leadId: _0x44115d.leadId,
-      leadName: _0x44115d.nickname || "",
+      accountId: lead.accountId,
+      accountName: lead.accountName || "",
+      viewKey: arg1,
+      leadId: lead.leadId,
+      leadName: lead.nickname || "",
       phase: "item"
     });
-    console.log("[Batch] [" + _0x4cda8c + "] 正在切换至批量任务模式，停止原获客循环");
-    _0x57e918().delete(_0x4cda8c);
-    _0x5d5b96?.(_0x4cda8c, null);
-    _0x321573.webContents.send("control-task", {
+    console.log("[Batch] [" + arg1 + "] 正在切换至批量任务模式，停止原获客循环");
+    getViewSettingsMap().delete(arg1);
+    syncAutomationRuntimeGuard?.(arg1, null);
+    result8.webContents.send("control-task", {
       type: "STOP_TASK"
     });
-    if (!_0x1485dd(_0x4cda8c)) {
-      if (_0x5eff65()) {
-        _0x1b54ab(_0x4cda8c, _0x321573);
+    if (!shouldAttachAutomationView(arg1)) {
+      if (canParkAutomationViewInMainWindow()) {
+        parkAutomationViewInMainWindow(arg1, result8);
       } else {
-        _0x232da4(_0x4cda8c, _0x321573);
+        enterBackgroundDetachedMode(arg1, result8);
       }
     }
-    const _0x29cd3f = _0x21f742(_0x4cda8c);
-    if (!_0x29cd3f) {
-      _0x19951e.shift();
-      console.error("[Batch] 无法创建互动子视图: " + _0x4cda8c + "，跳过本条");
-      _0x3b2d0d(_0x4cda8c, {
-        lead: _0x44115d,
-        config: _0x3362ed,
-        runId: _0x2097e9
+    const result9 = ensureInteractionView(arg1);
+    if (!result9) {
+      result7.shift();
+      console.error("[Batch] 无法创建互动子视图: " + arg1 + "，跳过本条");
+      completeBatchFromInteraction(arg1, {
+        lead: lead,
+        config: config,
+        runId: arg2
       }, {
         success: false,
         error: "互动子视图创建失败"
-      }, _0x321573.webContents);
+      }, result8.webContents);
       return;
     }
-    _0x4a058f.set(_0x4cda8c, {
-      lead: _0x44115d,
-      config: _0x3362ed,
-      runId: _0x2097e9
+    result4.set(arg1, {
+      lead: lead,
+      config: config,
+      runId: arg2
     });
-    const _0xdc4230 = {
-      ..._0x38897d(_0x44115d, _0x3362ed, _0x4cda8c),
-      batchRunId: _0x2097e9
+    const obj2 = {
+      ...buildBatchInteractionTask(lead, config, arg1),
+      batchRunId: arg2
     };
-    const _0x2b3a2f = _0x4776e5(_0x324f4c);
-    console.log("[Batch] [" + _0x4cda8c + "] 子视图跟进（同自动获客 interaction-start）: " + _0x44115d.nickname + " (" + _0x3362ed.type + ")");
-    let _0x3ea9ca = false;
+    const result10 = fn14(value3);
+    console.log("[Batch] [" + arg1 + "] 子视图跟进（同自动获客 interaction-start）: " + lead.nickname + " (" + config.type + ")");
+    let flag2 = false;
     try {
-      _0x3ea9ca = _0x59dee3(_0x4cda8c, _0x2b3a2f, _0xdc4230);
-    } catch (_0x5a5250) {
-      console.error("[Batch] [" + _0x4cda8c + "] 子视图启动异常:", _0x5a5250);
+      flag2 = runInteractionStart(arg1, result10, obj2);
+    } catch (error) {
+      console.error("[Batch] [" + arg1 + "] 子视图启动异常:", error);
     }
-    _0x19951e.shift();
-    if (!_0x3ea9ca) {
-      _0x4a058f.delete(_0x4cda8c);
+    result7.shift();
+    if (!flag2) {
+      result4.delete(arg1);
       try {
-        _0x3c3c85(_0x4cda8c, null, {
+        recoverMainAutomationView(arg1, null, {
           force: true
         });
-      } catch (_0x5d003d) {}
-      _0x3b2d0d(_0x4cda8c, {
-        lead: _0x44115d,
-        config: _0x3362ed,
-        runId: _0x2097e9
+      } catch (error) {}
+      completeBatchFromInteraction(arg1, {
+        lead: lead,
+        config: config,
+        runId: arg2
       }, {
         success: false,
         error: "子视图切换失败"
-      }, _0x29cd3f.webContents);
+      }, result9.webContents);
     }
   }
-  function _0x38898c(_0x24c577, _0x18905c, _0x70feb2 = _0x3c18e0, _0x5509c5 = null) {
+  function processBatchItemFinished(arg1, arg2, arg3 = num, arg4 = null) {
     const {
-      leadId: _0x1b65bf,
-      accountId: _0x5d8275,
-      success: _0x234b10,
-      type: _0x396668,
-      error: _0x294404,
-      leadName: _0x796b58,
-      leadPlatform: _0x1938e3,
-      accountName: _0x1a9d8e,
-      skipped: _0x14bbf3,
-      skipReason: _0xf9861e,
-      interactionResults: _0x350c6c,
-      userUrl: _0x2045cd,
-      secUid: _0x74317a,
-      profileUrl: _0x25549e
-    } = _0x18905c;
-    const _0x19a0a3 = _0x5509c5 || _0x3f0eea(_0x24c577?.sender);
-    if (!_0x19a0a3) {
-      console.warn("[Batch] 无法解析 viewKey，丢弃完成回调 lead=" + (_0x796b58 || _0x1b65bf || "?"));
+      leadId: leadId,
+      accountId: accountId,
+      success: success,
+      type: type,
+      error: error,
+      leadName: leadName,
+      leadPlatform: leadPlatform,
+      accountName: accountName,
+      skipped: skipped2,
+      skipReason: skipReason2,
+      interactionResults: interactionResults,
+      userUrl: userUrl,
+      secUid: secUid,
+      profileUrl: profileUrl
+    } = arg2;
+    const local = arg4 || resolveViewKeyFromSender(arg1?.sender);
+    if (!local) {
+      console.warn("[Batch] 无法解析 viewKey，丢弃完成回调 lead=" + (leadName || leadId || "?"));
       return;
     }
-    const _0x184382 = _0x2e6906();
-    if (_0x184382.has(_0x19a0a3)) {
-      _0x184382.delete(_0x19a0a3);
-      _0x4732a0(_0x19a0a3, _0x350c6c || _0x18905c, "batch-done");
+    const result = getPendingBatchByViewKey();
+    if (result.has(local)) {
+      result.delete(local);
+      finishInteraction(local, interactionResults || arg2, "batch-done");
     }
-    const _0x4259eb = _0x199df4().get(_0x19a0a3);
-    if (_0x4259eb !== _0x70feb2) {
-      console.log("[Batch] 忽略过期任务的完成回调 (" + _0x19a0a3 + ", run " + _0x4259eb + " vs " + _0x70feb2 + ")");
+    const result2 = getViewActiveBatchRunMap().get(local);
+    if (result2 !== arg3) {
+      console.log("[Batch] 忽略过期任务的完成回调 (" + local + ", run " + result2 + " vs " + arg3 + ")");
       return;
     }
-    if (_0x350c6c) {
-      let _0xb3f36f = 0;
-      let _0x1133e2 = [];
-      if (fs.existsSync(_0x173215)) {
+    if (interactionResults) {
+      let num = 0;
+      let list = [];
+      if (fs.existsSync(historyFile)) {
         try {
-          const _0x37da70 = fs.readFileSync(_0x173215, "utf8");
-          const _0x3cf7d4 = crypto.createDecipheriv("aes-256-cbc", _0x379978, _0x2c1ede);
-          let _0x2c4994 = _0x3cf7d4.update(_0x37da70, "hex", "utf8");
-          _0x2c4994 += _0x3cf7d4.final("utf8");
-          _0x1133e2 = JSON.parse(_0x2c4994);
-        } catch (_0x58462b) {
-          console.error("[Main] History parse error in batch sync", _0x58462b);
+          const result = fs.readFileSync(historyFile, "utf8");
+          const result2 = crypto.createDecipheriv("aes-256-cbc", cryptoKey, cryptoIv);
+          let result3 = result2.update(result, "hex", "utf8");
+          result3 += result2.final("utf8");
+          list = JSON.parse(result3);
+        } catch (error) {
+          console.error("[Main] History parse error in batch sync", error);
         }
       }
-      _0x1133e2.forEach(_0x5bd0dc => {
-        if (!_0x5bd0dc.items) {
+      list.forEach(arg1 => {
+        if (!arg1.items) {
           return;
         }
-        const _0x1ea5e8 = _0x5bd0dc.items.find(_0x572a68 => _0x572a68.leadId === _0x1b65bf || _0x572a68.nickname === _0x796b58 && _0x572a68.platform === _0x1938e3 || _0x572a68.nickname === _0x796b58 && String(_0x572a68.platform || "").toLowerCase() === String(_0x1938e3 || "").toLowerCase());
-        if (_0x1ea5e8) {
-          _0x1ea5e8.actions = _0x1ea5e8.actions || {};
-          if (_0x350c6c.followed) {
-            _0x1ea5e8.followed = true;
-            _0x1ea5e8.actions.followed = true;
+        const result = arg1.items.find(arg1 => arg1.leadId === leadId || arg1.nickname === leadName && arg1.platform === leadPlatform || arg1.nickname === leadName && String(arg1.platform || "").toLowerCase() === String(leadPlatform || "").toLowerCase());
+        if (result) {
+          result.actions = result.actions || {};
+          if (interactionResults.followed) {
+            result.followed = true;
+            result.actions.followed = true;
           }
-          if (_0x350c6c.messaged) {
-            _0x1ea5e8.messaged = true;
-            _0x1ea5e8.actions.messaged = true;
-            if (_0x350c6c.dmContent) {
-              _0x1ea5e8.dmContent = _0x350c6c.dmContent;
-              _0x1ea5e8.actions.dmContent = _0x350c6c.dmContent;
+          if (interactionResults.messaged) {
+            result.messaged = true;
+            result.actions.messaged = true;
+            if (interactionResults.dmContent) {
+              result.dmContent = interactionResults.dmContent;
+              result.actions.dmContent = interactionResults.dmContent;
             }
           }
-          if (_0x350c6c.profileCommented) {
-            _0x1ea5e8.replied = true;
-            _0x1ea5e8.actions.profileWorkCommented = true;
-            if (_0x350c6c.replyContent) {
-              _0x1ea5e8.replyContent = _0x350c6c.replyContent;
-              _0x1ea5e8.actions.replyContent = _0x350c6c.replyContent;
+          if (interactionResults.profileCommented) {
+            result.replied = true;
+            result.actions.profileWorkCommented = true;
+            if (interactionResults.replyContent) {
+              result.replyContent = interactionResults.replyContent;
+              result.actions.replyContent = interactionResults.replyContent;
             }
           }
-          if (_0x350c6c.touchCounts) {
-            _0x1ea5e8.touchCounts = {
-              ...(_0x1ea5e8.touchCounts || {}),
-              ..._0x350c6c.touchCounts
+          if (interactionResults.touchCounts) {
+            result.touchCounts = {
+              ...(result.touchCounts || {}),
+              ...interactionResults.touchCounts
             };
           } else {
-            _0x1ea5e8.touchCounts = _0x1ea5e8.touchCounts || {
+            result.touchCounts = result.touchCounts || {
               like: 0,
               reply: 0,
               follow: 0,
               message: 0,
               profileComment: 0
             };
-            if (_0x350c6c.followed) {
-              _0x1ea5e8.touchCounts.follow = Math.max(1, Number(_0x1ea5e8.touchCounts.follow || 0));
+            if (interactionResults.followed) {
+              result.touchCounts.follow = Math.max(1, Number(result.touchCounts.follow || 0));
             }
-            if (_0x350c6c.messaged) {
-              _0x1ea5e8.touchCounts.message = Math.max(1, Number(_0x1ea5e8.touchCounts.message || 0));
+            if (interactionResults.messaged) {
+              result.touchCounts.message = Math.max(1, Number(result.touchCounts.message || 0));
             }
-            if (_0x350c6c.profileCommented) {
-              _0x1ea5e8.touchCounts.profileComment = Math.max(1, Number(_0x1ea5e8.touchCounts.profileComment || 0));
-            }
-          }
-          if (_0x350c6c.touchLog) {
-            _0x1ea5e8.touchLog = _0x350c6c.touchLog;
-          }
-          if (_0x350c6c.profileCommentAt) {
-            _0x1ea5e8.profileCommentAt = Number(_0x350c6c.profileCommentAt);
-          }
-          if (_0x350c6c.lastTouchAt) {
-            _0x1ea5e8.lastTouchAt = Math.max(Number(_0x1ea5e8.lastTouchAt || 0), Number(_0x350c6c.lastTouchAt || 0));
-          } else if (_0x350c6c.messaged || _0x350c6c.followed || _0x350c6c.profileCommented) {
-            _0x1ea5e8.lastTouchAt = Date.now();
-          }
-          if (_0x350c6c.worksCount !== undefined && _0x350c6c.worksCount !== null) {
-            _0x1ea5e8.worksCount = _0x350c6c.worksCount;
-            if (Number(_0x350c6c.worksCount) === 0) {
-              _0x1ea5e8.noWorks = true;
+            if (interactionResults.profileCommented) {
+              result.touchCounts.profileComment = Math.max(1, Number(result.touchCounts.profileComment || 0));
             }
           }
-          if (_0x350c6c.noWorks) {
-            _0x1ea5e8.noWorks = true;
+          if (interactionResults.touchLog) {
+            result.touchLog = interactionResults.touchLog;
           }
-          if (_0x350c6c.isPrivate !== undefined) {
-            _0x1ea5e8.isPrivate = _0x350c6c.isPrivate;
+          if (interactionResults.profileCommentAt) {
+            result.profileCommentAt = Number(interactionResults.profileCommentAt);
           }
-          if (_0x350c6c.userGone || _0x350c6c.profileUnavailable) {
-            _0x1ea5e8.userGone = true;
-            _0x1ea5e8.profileUnavailable = true;
-            _0x1ea5e8.profileUnavailableReason = _0x350c6c.profileUnavailableReason || _0x350c6c.skipReason || BATCH_USER_GONE_REASON;
+          if (interactionResults.lastTouchAt) {
+            result.lastTouchAt = Math.max(Number(result.lastTouchAt || 0), Number(interactionResults.lastTouchAt || 0));
+          } else if (interactionResults.messaged || interactionResults.followed || interactionResults.profileCommented) {
+            result.lastTouchAt = Date.now();
           }
-          if (_0x350c6c.skipReason) {
-            _0x1ea5e8.lastBatchSkipReason = _0x350c6c.skipReason;
+          if (interactionResults.worksCount !== undefined && interactionResults.worksCount !== null) {
+            result.worksCount = interactionResults.worksCount;
+            if (Number(interactionResults.worksCount) === 0) {
+              result.noWorks = true;
+            }
           }
-          if (_0x350c6c.location) {
-            _0x1ea5e8.location = _0x350c6c.location;
+          if (interactionResults.noWorks) {
+            result.noWorks = true;
           }
-          if (_0x350c6c.douyinId) {
-            _0x1ea5e8.douyinId = _0x350c6c.douyinId;
+          if (interactionResults.isPrivate !== undefined) {
+            result.isPrivate = interactionResults.isPrivate;
           }
-          if (_0x350c6c.gender) {
-            _0x1ea5e8.gender = _0x350c6c.gender;
+          if (interactionResults.userGone || interactionResults.profileUnavailable) {
+            result.userGone = true;
+            result.profileUnavailable = true;
+            result.profileUnavailableReason = interactionResults.profileUnavailableReason || interactionResults.skipReason || BATCH_USER_GONE_REASON;
           }
-          if (_0x350c6c.signature) {
-            _0x1ea5e8.signature = _0x350c6c.signature;
+          if (interactionResults.skipReason) {
+            result.lastBatchSkipReason = interactionResults.skipReason;
           }
-          if (_0x350c6c.contact) {
-            _0x1ea5e8.contact = _0x350c6c.contact;
+          if (interactionResults.location) {
+            result.location = interactionResults.location;
           }
-          _0xb3f36f++;
+          if (interactionResults.douyinId) {
+            result.douyinId = interactionResults.douyinId;
+          }
+          if (interactionResults.gender) {
+            result.gender = interactionResults.gender;
+          }
+          if (interactionResults.signature) {
+            result.signature = interactionResults.signature;
+          }
+          if (interactionResults.contact) {
+            result.contact = interactionResults.contact;
+          }
+          num++;
         }
       });
-      if (_0xb3f36f > 0) {
-        console.log("[Batch] 已同步 " + _0xb3f36f + " 条历史记录中的线索状态");
+      if (num > 0) {
+        console.log("[Batch] 已同步 " + num + " 条历史记录中的线索状态");
         try {
-          const _0x92604d = JSON.stringify(_0x1133e2);
-          const _0x5afbcc = crypto.createCipheriv("aes-256-cbc", _0x379978, _0x2c1ede);
-          let _0x4def2f = _0x5afbcc.update(_0x92604d, "utf8", "hex");
-          _0x4def2f += _0x5afbcc.final("hex");
-          fs.writeFileSync(_0x173215, _0x4def2f);
-        } catch (_0x1320d8) {
-          console.error("[Main] History save error in batch sync", _0x1320d8);
+          const result = JSON.stringify(list);
+          const result2 = crypto.createCipheriv("aes-256-cbc", cryptoKey, cryptoIv);
+          let result3 = result2.update(result, "utf8", "hex");
+          result3 += result2.final("hex");
+          fs.writeFileSync(historyFile, result3);
+        } catch (error) {
+          console.error("[Main] History save error in batch sync", error);
         }
       }
     }
-    if (_0x350c6c && (_0x350c6c.userGone || _0x350c6c.profileUnavailable || _0x350c6c.noWorks || _0x350c6c.isPrivate !== undefined || _0x350c6c.worksCount !== undefined && _0x350c6c.worksCount !== null) && _0x372db0() && _0x1b65bf) {
+    if (interactionResults && (interactionResults.userGone || interactionResults.profileUnavailable || interactionResults.noWorks || interactionResults.isPrivate !== undefined || interactionResults.worksCount !== undefined && interactionResults.worksCount !== null) && isLeadsSqliteRuntime() && leadId) {
       try {
-        let _0x2aea57 = dbManager.getLeadById(_0x1b65bf) || dbManager.getLeadByUserKey(_0x1b65bf);
-        if (!_0x2aea57) {
-          const _0x12051b = dbManager.findLeadRowId({
-            leadId: _0x1b65bf,
-            key: _0x1b65bf,
-            nickname: _0x796b58,
-            platform: _0x1938e3,
-            worksCount: _0x350c6c.worksCount,
-            noWorks: _0x350c6c.noWorks,
-            isPrivate: _0x350c6c.isPrivate,
-            userGone: _0x350c6c.userGone
+        let local = dbManager.getLeadById(leadId) || dbManager.getLeadByUserKey(leadId);
+        if (!local) {
+          const result = dbManager.findLeadRowId({
+            leadId: leadId,
+            key: leadId,
+            nickname: leadName,
+            platform: leadPlatform,
+            worksCount: interactionResults.worksCount,
+            noWorks: interactionResults.noWorks,
+            isPrivate: interactionResults.isPrivate,
+            userGone: interactionResults.userGone
           });
-          if (_0x12051b) {
-            _0x2aea57 = dbManager.getLeadById(_0x12051b);
+          if (result) {
+            local = dbManager.getLeadById(result);
           }
         }
-        if (_0x2aea57) {
-          if (_0x350c6c.userGone || _0x350c6c.profileUnavailable) {
-            _0x2aea57.userGone = true;
-            _0x2aea57.profileUnavailable = true;
-            _0x2aea57.profileUnavailableReason = _0x350c6c.profileUnavailableReason || _0x350c6c.skipReason || BATCH_USER_GONE_REASON;
-            _0x2aea57.lastBatchSkipReason = _0x350c6c.skipReason || _0x2aea57.profileUnavailableReason;
+        if (local) {
+          if (interactionResults.userGone || interactionResults.profileUnavailable) {
+            local.userGone = true;
+            local.profileUnavailable = true;
+            local.profileUnavailableReason = interactionResults.profileUnavailableReason || interactionResults.skipReason || BATCH_USER_GONE_REASON;
+            local.lastBatchSkipReason = interactionResults.skipReason || local.profileUnavailableReason;
           }
-          if (_0x350c6c.worksCount !== undefined && _0x350c6c.worksCount !== null) {
-            _0x2aea57.worksCount = _0x350c6c.worksCount;
-            if (Number(_0x350c6c.worksCount) === 0) {
-              _0x2aea57.noWorks = true;
+          if (interactionResults.worksCount !== undefined && interactionResults.worksCount !== null) {
+            local.worksCount = interactionResults.worksCount;
+            if (Number(interactionResults.worksCount) === 0) {
+              local.noWorks = true;
             }
           }
-          if (_0x350c6c.noWorks) {
-            _0x2aea57.noWorks = true;
+          if (interactionResults.noWorks) {
+            local.noWorks = true;
           }
-          if (_0x350c6c.isPrivate !== undefined) {
-            _0x2aea57.isPrivate = !!_0x350c6c.isPrivate;
+          if (interactionResults.isPrivate !== undefined) {
+            local.isPrivate = !!interactionResults.isPrivate;
           }
-          if (_0x350c6c.skipReason) {
-            _0x2aea57.lastBatchSkipReason = _0x350c6c.skipReason;
+          if (interactionResults.skipReason) {
+            local.lastBatchSkipReason = interactionResults.skipReason;
           }
-          dbManager.upsertLead(_0x2aea57);
+          dbManager.upsertLead(local);
         } else {
-          console.warn("[Batch] SQLite 未找到线索行，账号标记未落库 leadId=" + _0x1b65bf + " name=" + (_0x796b58 || ""));
+          console.warn("[Batch] SQLite 未找到线索行，账号标记未落库 leadId=" + leadId + " name=" + (leadName || ""));
         }
-      } catch (_0x2d084d) {
-        console.warn("[Batch] SQLite 回写账号标记失败:", _0x2d084d?.message || _0x2d084d);
+      } catch (error) {
+        console.warn("[Batch] SQLite 回写账号标记失败:", error?.message || error);
       }
     }
-    console.log("[Batch] 动作反馈: leadId=" + _0x1b65bf + ", success=" + _0x234b10 + ", error=" + (_0x294404 || "无"));
-    const _0x2b160b = _0x5d8275 || (_0x19a0a3.includes("_") ? _0x19a0a3.split("_").slice(1).join("_") : "default");
-    const _0x5cb84b = _0xf9861e || _0x294404 || _0x350c6c?.skipReason || "";
-    const _0x43b6c3 = _0x1fe2fa(_0x5cb84b, {
-      ...(_0x350c6c || {}),
-      noWorks: !!_0x350c6c?.noWorks || !!_0x18905c?.noWorks,
-      isPrivate: !!_0x350c6c?.isPrivate || !!_0x18905c?.isPrivate,
-      skipped: !!_0x14bbf3 || !!_0x350c6c?.skipped,
-      profileFirstTargetFiltered: !!_0x350c6c?.profileFirstTargetFiltered || !!_0x18905c?.profileFirstTargetFiltered,
-      demographicFilterFailed: !!_0x350c6c?.demographicFilterFailed || !!_0x18905c?.demographicFilterFailed
+    console.log("[Batch] 动作反馈: leadId=" + leadId + ", success=" + success + ", error=" + (error || "无"));
+    const local2 = accountId || (local.includes("_") ? local.split("_").slice(1).join("_") : "default");
+    const local3 = skipReason2 || error || interactionResults?.skipReason || "";
+    const result3 = isBatchCountedFailure(local3, {
+      ...(interactionResults || {}),
+      noWorks: !!interactionResults?.noWorks || !!arg2?.noWorks,
+      isPrivate: !!interactionResults?.isPrivate || !!arg2?.isPrivate,
+      skipped: !!skipped2 || !!interactionResults?.skipped,
+      profileFirstTargetFiltered: !!interactionResults?.profileFirstTargetFiltered || !!arg2?.profileFirstTargetFiltered,
+      demographicFilterFailed: !!interactionResults?.demographicFilterFailed || !!arg2?.demographicFilterFailed
     });
-    const _0x263328 = !_0x43b6c3 && (!!_0x14bbf3 || !!_0x350c6c && !!_0x350c6c.skipped);
-    const _0x1402b0 = !_0x43b6c3 && !_0x263328 && !!_0x234b10;
-    _0x828cc1.current += 1;
-    if (_0x828cc1.total > 0) {
-      _0x828cc1.current = Math.min(_0x828cc1.current, _0x828cc1.total);
+    const local4 = !result3 && (!!skipped2 || !!interactionResults && !!interactionResults.skipped);
+    const local5 = !result3 && !local4 && !!success;
+    obj.current += 1;
+    if (obj.total > 0) {
+      obj.current = Math.min(obj.current, obj.total);
     }
-    if (_0x263328) {
-      _0x828cc1.skipped = (_0x828cc1.skipped || 0) + 1;
-    } else if (_0x1402b0) {
-      _0x828cc1.success += 1;
+    if (local4) {
+      obj.skipped = (obj.skipped || 0) + 1;
+    } else if (local5) {
+      obj.success += 1;
     } else {
-      _0x828cc1.failed += 1;
+      obj.failed += 1;
     }
-    const _0x304e09 = _0x57e918();
-    const _0x50760a = _0x1a9d8e || _0x304e09.get(_0x19a0a3 + "_nickname") || _0x304e09.get(_0x19a0a3 + "_name") || "主账号";
-    const _0x47f93a = "DY";
-    const _0x104e15 = _0x304e09.get(_0x19a0a3 + "_platform") || "";
-    const _0x1809dc = _0x104e15 === "xianyu" || _0x19a0a3.toLowerCase().startsWith("xianyu") ? "XY" : "DY";
-    const _0x3578aa = _0x43b6c3 ? _0x5cb84b || _0x294404 || "筛选不符" : _0x294404;
-    const _0x1caf27 = {
-      leadId: _0x1b65bf,
-      accountId: _0x2b160b,
-      success: _0x1402b0,
-      skipped: _0x263328,
-      skipReason: _0x263328 ? _0xf9861e || _0x350c6c && _0x350c6c.skipReason || "" : "",
-      type: _0x396668,
-      error: _0x3578aa,
-      leadName: _0x796b58 || "未知",
-      leadPlatform: _0x47f93a,
-      accountName: _0x50760a,
-      platform: _0x1809dc,
-      ..._0x1831a2({
-        leadId: _0x1b65bf,
-        userUrl: _0x2045cd || _0x25549e || "",
-        secUid: _0x74317a || ""
+    const result4 = getViewSettingsMap();
+    const local6 = accountName || result4.get(local + "_nickname") || result4.get(local + "_name") || "主账号";
+    const text = "DY";
+    const local7 = result4.get(local + "_platform") || "";
+    const value = local7 === "xianyu" || local.toLowerCase().startsWith("xianyu") ? "XY" : "DY";
+    const value2 = result3 ? local3 || error || "筛选不符" : error;
+    const obj2 = {
+      leadId: leadId,
+      accountId: local2,
+      success: local5,
+      skipped: local4,
+      skipReason: local4 ? skipReason2 || interactionResults && interactionResults.skipReason || "" : "",
+      type: type,
+      error: value2,
+      leadName: leadName || "未知",
+      leadPlatform: text,
+      accountName: local6,
+      platform: value,
+      ...fn25({
+        leadId: leadId,
+        userUrl: userUrl || profileUrl || "",
+        secUid: secUid || ""
       }),
       time: new Date().toLocaleTimeString(),
-      viewKey: _0x19a0a3,
-      interactionResults: _0x350c6c,
-      runId: _0x70feb2
+      viewKey: local,
+      interactionResults: interactionResults,
+      runId: arg3
     };
-    if (_0x372db0() && _0x1b65bf) {
-      const _0xb53596 = _0x1402b0 ? "执行成功（" + (_0x396668 || "批量跟进") + "）" : _0x263328 ? "已跳过：" + (_0x1caf27.skipReason || _0x3578aa || "条件不符") : _0x3578aa || "执行失败";
-      const _0x45e954 = dbManager.setLeadLastBatchFollowResult(_0x1b65bf, {
-        status: _0x1402b0 ? "success" : "failed",
-        message: _0xb53596,
+    if (isLeadsSqliteRuntime() && leadId) {
+      const value = local5 ? "执行成功（" + (type || "批量跟进") + "）" : local4 ? "已跳过：" + (obj2.skipReason || value2 || "条件不符") : value2 || "执行失败";
+      const result = dbManager.setLeadLastBatchFollowResult(leadId, {
+        status: local5 ? "success" : "failed",
+        message: value,
         at: Date.now(),
-        type: _0x396668,
-        runId: _0x70feb2
+        type: type,
+        runId: arg3
       });
-      if (!_0x45e954) {
-        console.warn("[Batch] 最近跟进结果回写失败 leadId=" + _0x1b65bf + " name=" + (_0x796b58 || ""));
+      if (!result) {
+        console.warn("[Batch] 最近跟进结果回写失败 leadId=" + leadId + " name=" + (leadName || ""));
       }
     }
     try {
       const {
-        interactionResults: _0x516266,
-        ..._0x209d1d
-      } = _0x1caf27;
-      _0x4e7042.appendBatchRunResult(_0x70feb2, _0x209d1d, _0x828cc1);
-    } catch (_0x107eca) {}
-    const _0xef6ea = _0x263328 ? "已跳过 @" + (_0x796b58 || "未知") + "（" + (_0x1caf27.skipReason || "条件不符") + "）" : _0x1402b0 ? "完成 @" + (_0x796b58 || "未知") + "（" + (_0x396668 || "跟进") + "）" : "失败 @" + (_0x796b58 || "未知") + "：" + (_0x3578aa || "未知错误");
-    _0x54648b(_0x70feb2, {
-      message: _0xef6ea,
-      level: _0x263328 ? "warning" : _0x1402b0 ? "success" : "error",
-      accountId: _0x2b160b,
-      accountName: _0x50760a,
-      viewKey: _0x19a0a3,
-      leadId: _0x1b65bf,
-      leadName: _0x796b58 || "",
+        interactionResults: interactionResults,
+        ...local
+      } = obj2;
+      historyManager.appendBatchRunResult(arg3, local, obj);
+    } catch (error) {}
+    const value3 = local4 ? "已跳过 @" + (leadName || "未知") + "（" + (obj2.skipReason || "条件不符") + "）" : local5 ? "完成 @" + (leadName || "未知") + "（" + (type || "跟进") + "）" : "失败 @" + (leadName || "未知") + "：" + (value2 || "未知错误");
+    appendBatchFollowLog(arg3, {
+      message: value3,
+      level: local4 ? "warning" : local5 ? "success" : "error",
+      accountId: local2,
+      accountName: local6,
+      viewKey: local,
+      leadId: leadId,
+      leadName: leadName || "",
       phase: "result"
     });
-    const _0x14b820 = _0x42dad6();
-    if (_0x14b820) {
-      _0x14b820.webContents.send("batch-item-result", _0x1caf27);
-      _0x14b820.webContents.send("batch-task-progress", {
-        ..._0x828cc1,
-        lastLeadName: _0x796b58 || "未知",
-        lastAction: _0x396668,
-        status: _0x828cc1.total > 0 && _0x828cc1.current >= _0x828cc1.total ? "completed" : "executing",
-        runId: _0x70feb2
+    const result5 = getMainWindow();
+    if (result5) {
+      result5.webContents.send("batch-item-result", obj2);
+      result5.webContents.send("batch-task-progress", {
+        ...obj,
+        lastLeadName: leadName || "未知",
+        lastAction: type,
+        status: obj.total > 0 && obj.current >= obj.total ? "completed" : "executing",
+        runId: arg3
       });
     }
-    const _0x34de89 = _0x203fb0().get(_0x19a0a3);
-    const _0xc974e = _0x3c18e0;
-    if (!_0x34de89 || _0x34de89.length === 0) {
-      console.log("[Batch] 队列已空，立即收尾 (" + _0x19a0a3 + ")");
-      _0x18d9a3(_0x19a0a3, _0xc974e, "queue-empty-finalize");
+    const result6 = getBatchActionQueueMap().get(local);
+    const local8 = num;
+    if (!result6 || result6.length === 0) {
+      console.log("[Batch] 队列已空，立即收尾 (" + local + ")");
+      dispatchNextBatchItem(local, local8, "queue-empty-finalize");
       return;
     }
-    if (!_0x1402b0) {
-      const _0x47c918 = Math.floor(Math.random() * 6 + 3) * 1000;
-      console.log("[Batch] 任务判定为失败/过滤跳过，延迟 " + _0x47c918 / 1000 + " 秒后处理下一条 (" + _0x19a0a3 + ")");
-      _0x47064a("⏳ 失败/跳过缓冲：等 " + _0x47c918 / 1000 + "s 后处理下一条", _0x2b160b, {
-        runId: _0xc974e,
-        viewKey: _0x19a0a3,
+    if (!local5) {
+      const value = Math.floor(Math.random() * 6 + 3) * 1000;
+      console.log("[Batch] 任务判定为失败/过滤跳过，延迟 " + value / 1000 + " 秒后处理下一条 (" + local + ")");
+      pushAutomationTrace("⏳ 失败/跳过缓冲：等 " + value / 1000 + "s 后处理下一条", local2, {
+        runId: local8,
+        viewKey: local,
         phase: "delay",
         level: "warning",
-        accountName: _0x50760a,
-        leadName: _0x796b58 || ""
+        accountName: local6,
+        leadName: leadName || ""
       });
-      _0x3020a8(_0x19a0a3, _0xc974e, () => {
-        if (!_0x411698 && _0x3c18e0 === _0xc974e) {
-          _0x47064a("▶️ 失败/跳过缓冲结束，开始处理下一条", _0x2b160b, {
-            runId: _0xc974e,
-            viewKey: _0x19a0a3,
+      fn7(local, local8, () => {
+        if (!flag && num === local8) {
+          pushAutomationTrace("▶️ 失败/跳过缓冲结束，开始处理下一条", local2, {
+            runId: local8,
+            viewKey: local,
             phase: "delay",
             level: "info"
           });
-          _0x18d9a3(_0x19a0a3, _0xc974e, "failed-item-delay");
+          dispatchNextBatchItem(local, local8, "failed-item-delay");
         }
-      }, _0x47c918);
+      }, value);
       return;
     }
-    const _0x46f791 = _0x34de89[0];
-    const _0x4b3601 = _0x46f791?.config?.delayMin || 120;
-    const _0x22a69c = _0x46f791?.config?.delayMax || 180;
-    const _0x44b56d = Math.floor(Math.random() * (_0x22a69c - _0x4b3601 + 1) + _0x4b3601) * 1000;
-    _0x5e3278({
-      viewKeyFound: _0x19a0a3,
-      accountId: _0x2b160b,
-      finishedLeadName: _0x796b58,
-      nextLeadName: _0x46f791?.lead?.nickname,
-      delayMs: _0x44b56d,
-      delayMin: _0x4b3601,
-      delayMax: _0x22a69c,
-      sender: _0x24c577.sender,
-      scheduledRunId: _0xc974e
+    const value4 = result6[0];
+    const local9 = value4?.config?.delayMin || 120;
+    const local10 = value4?.config?.delayMax || 180;
+    const value5 = Math.floor(Math.random() * (local10 - local9 + 1) + local9) * 1000;
+    fn13({
+      viewKeyFound: local,
+      accountId: local2,
+      finishedLeadName: leadName,
+      nextLeadName: value4?.lead?.nickname,
+      delayMs: value5,
+      delayMin: local9,
+      delayMax: local10,
+      sender: arg1.sender,
+      scheduledRunId: local8
     });
   }
-  function _0x3776dc(_0x3c7e0c, _0x5ecaf2 = "manual_stop") {
-    if (!_0x3c7e0c || !_0x44fc67(_0x3c7e0c)) {
+  function stopBatchAccountByViewKey(arg1, text = "manual_stop") {
+    if (!arg1 || !isAutomationViewKey(arg1)) {
       return false;
     }
-    const _0x1fb130 = _0x199df4();
-    const _0x542785 = _0x203fb0();
-    const _0x2f35ed = _0x2e6906();
-    const _0x591fc7 = _0x429dfe();
-    const _0x58d806 = _0x86f3df();
-    const _0x3925a0 = _0x3a36f();
-    const _0x497cf7 = _0x42dad6();
-    const _0x51a7a6 = _0x1fb130.get(_0x3c7e0c) ?? _0x3c18e0;
-    const _0x37971c = _0x542785.has(_0x3c7e0c) || _0x2f35ed.has(_0x3c7e0c) || _0x591fc7.get(_0x3c7e0c) || _0x1fb130.has(_0x3c7e0c);
-    if (!_0x37971c) {
+    const result = getViewActiveBatchRunMap();
+    const result2 = getBatchActionQueueMap();
+    const result3 = getPendingBatchByViewKey();
+    const result4 = getIsBatchActionRunningMap();
+    const result5 = getInteractionViewsMap();
+    const result6 = getInteractionLocksMap();
+    const result7 = getMainWindow();
+    const local = result.get(arg1) ?? num;
+    const local2 = result2.has(arg1) || result3.has(arg1) || result4.get(arg1) || result.has(arg1);
+    if (!local2) {
       return false;
     }
-    console.log("[Batch] 停止单账号批量任务: " + _0x3c7e0c);
-    _0x4676e6(_0x3c7e0c);
-    _0x1b5a42.delete(_0x2d4784(_0x3c7e0c, _0x51a7a6));
-    _0x542785.delete(_0x3c7e0c);
-    _0x591fc7.set(_0x3c7e0c, false);
-    _0x1fb130.delete(_0x3c7e0c);
-    const _0xf0b058 = _0x2f35ed.get(_0x3c7e0c);
-    if (_0xf0b058) {
-      const _0x37167f = _0x58d806.get(_0x3c7e0c);
+    console.log("[Batch] 停止单账号批量任务: " + arg1);
+    clearBatchWaitTickersForView(arg1);
+    map4.delete(fn40(arg1, local));
+    result2.delete(arg1);
+    result4.set(arg1, false);
+    result.delete(arg1);
+    const result8 = result3.get(arg1);
+    if (result8) {
+      const result = result5.get(arg1);
       try {
-        if (_0x37167f && !_0x37167f.webContents.isDestroyed()) {
-          _0x37167f.webContents.send("interaction-preempt", {
-            viewKey: _0x3c7e0c,
-            reason: _0x5ecaf2,
-            cancelledBatchRunId: _0x51a7a6
+        if (result && !result.webContents.isDestroyed()) {
+          result.webContents.send("interaction-preempt", {
+            viewKey: arg1,
+            reason: text,
+            cancelledBatchRunId: local
           });
-          _0x37167f.webContents.stop();
+          result.webContents.stop();
         }
-      } catch (_0x221ba7) {
-        console.warn("[Batch] [" + _0x3c7e0c + "] 取消互动失败: " + _0x221ba7.message);
+      } catch (error) {
+        console.warn("[Batch] [" + arg1 + "] 取消互动失败: " + error.message);
       }
-      _0x2f35ed.delete(_0x3c7e0c);
+      result3.delete(arg1);
     }
-    if (_0x3925a0.has(_0x3c7e0c)) {
-      _0x4732a0(_0x3c7e0c, {
+    if (result6.has(arg1)) {
+      finishInteraction(arg1, {
         error: "batch-account-stopped"
-      }, _0x5ecaf2);
+      }, text);
     }
     try {
-      const _0x37fc89 = _0x3193d5().get(_0x3c7e0c);
-      if (_0x37fc89 && !_0x37fc89.webContents.isDestroyed()) {
-        _0x37fc89.webContents.send("control-task", {
+      const result = getPlatformViews().get(arg1);
+      if (result && !result.webContents.isDestroyed()) {
+        result.webContents.send("control-task", {
           type: "CANCEL_WANDERING",
           payload: {
-            reason: _0x5ecaf2,
-            batchRunId: _0x51a7a6,
-            viewKey: _0x3c7e0c
+            reason: text,
+            batchRunId: local,
+            viewKey: arg1
           }
         });
       }
-    } catch (_0x5d2275) {
-      console.warn("[Batch] [" + _0x3c7e0c + "] 取消拟人闲逛失败: " + _0x5d2275.message);
+    } catch (error) {
+      console.warn("[Batch] [" + arg1 + "] 取消拟人闲逛失败: " + error.message);
     }
-    _0x49cbc9(_0x3c7e0c, _0x5ecaf2);
-    const _0x255ea0 = _0x3c7e0c.includes("_") ? _0x3c7e0c.split("_").slice(1).join("_") : null;
-    if (_0x497cf7 && !_0x497cf7.isDestroyed()) {
-      _0x497cf7.webContents.send("batch-account-finished", {
-        viewKey: _0x3c7e0c,
-        accountId: _0x255ea0,
-        reason: _0x5ecaf2,
-        runId: _0x51a7a6
+    preserveAutomationViewAfterTaskFinish(arg1, text);
+    const value = arg1.includes("_") ? arg1.split("_").slice(1).join("_") : null;
+    if (result7 && !result7.isDestroyed()) {
+      result7.webContents.send("batch-account-finished", {
+        viewKey: arg1,
+        accountId: value,
+        reason: text,
+        runId: local
       });
-      _0x497cf7.webContents.send("view-batch-status", {
-        viewKey: _0x3c7e0c,
+      result7.webContents.send("view-batch-status", {
+        viewKey: arg1,
         isRunning: false
       });
-      const _0x214efb = Array.from(_0x591fc7.values()).some(Boolean);
-      if (!_0x214efb) {
-        const _0x5d977e = _0x5ecaf2 === "manual_stop" ? "stopped" : "completed";
+      const result = Array.from(result4.values()).some(Boolean);
+      if (!result) {
+        const value2 = text === "manual_stop" ? "stopped" : "completed";
         try {
-          _0x4e7042.finalizeBatchRun(_0x51a7a6, _0x5d977e);
-        } catch (_0x78cd35) {}
-        _0x54648b(_0x51a7a6, {
-          message: _0x5d977e === "stopped" ? "批量跟进已停止" : "批量跟进已完成：成功 " + (_0x828cc1.success || 0) + "，失败 " + (_0x828cc1.failed || 0) + "，跳过 " + (_0x828cc1.skipped || 0),
-          level: _0x5d977e === "stopped" ? "warning" : "success",
+          historyManager.finalizeBatchRun(local, value2);
+        } catch (error) {}
+        appendBatchFollowLog(local, {
+          message: value2 === "stopped" ? "批量跟进已停止" : "批量跟进已完成：成功 " + (obj.success || 0) + "，失败 " + (obj.failed || 0) + "，跳过 " + (obj.skipped || 0),
+          level: value2 === "stopped" ? "warning" : "success",
           phase: "run",
-          viewKey: _0x3c7e0c,
-          accountId: _0x255ea0 || ""
+          viewKey: arg1,
+          accountId: value || ""
         });
-        _0x497cf7.webContents.send("batch-task-complete", {
-          runId: _0x51a7a6,
-          status: _0x5d977e
+        result7.webContents.send("batch-task-complete", {
+          runId: local,
+          status: value2
         });
       }
     }
-    _0xdc2c01?.();
+    releaseBatchRuntimeGuardIfIdle?.();
     return true;
   }
-  function _0x2848e7() {
+  function registerIpc() {
     ipcMain.handle("get-batch-runtime-state", () => {
-      const _0x4ba112 = new Set();
-      _0x429dfe().forEach((_0x38a57e, _0x5be6e9) => {
-        if (_0x38a57e) {
-          _0x4ba112.add(_0x5be6e9);
+      const set = new Set();
+      getIsBatchActionRunningMap().forEach((arg1, arg2) => {
+        if (arg1) {
+          set.add(arg2);
         }
       });
-      _0x203fb0().forEach((_0x2495e6, _0x352f6e) => {
-        if (Array.isArray(_0x2495e6) && _0x2495e6.length > 0) {
-          _0x4ba112.add(_0x352f6e);
+      getBatchActionQueueMap().forEach((arg1, arg2) => {
+        if (Array.isArray(arg1) && arg1.length > 0) {
+          set.add(arg2);
         }
       });
-      _0x2e6906().forEach((_0x45db86, _0x1c2bbb) => _0x4ba112.add(_0x1c2bbb));
+      getPendingBatchByViewKey().forEach((arg1, arg2) => set.add(arg2));
       return {
-        active: !_0x411698 && _0x4ba112.size > 0,
-        runId: _0x3c18e0,
-        runningViewKeys: [..._0x4ba112],
+        active: !flag && set.size > 0,
+        runId: num,
+        runningViewKeys: [...set],
         progress: {
-          ..._0x828cc1
+          ...obj
         }
       };
     });
-    ipcMain.on("start-batch-action", (_0x43284a, {
-      leads: _0x5c2a52,
-      config: _0xcfd3fa
+    ipcMain.on("start-batch-action", (arg1, {
+      leads: leads,
+      config: config
     }) => {
       (async () => {
-        const _0x227915 = _0x42dad6();
-        if (_0x5b84f2()) {
+        const result = getMainWindow();
+        if (getIsCurrentUserFree()) {
           console.warn("[Auth-Shield] 拦截到未激活状态尝试启动批量操作！");
-          if (_0x227915) {
-            _0x227915.webContents.send("new-status", "[WARN] 未激活专业版不支持批量关注、私信、首作评论等操作，请激活后使用");
-            _0x227915.webContents.send("batch-task-stopped");
+          if (result) {
+            result.webContents.send("new-status", "[WARN] 未激活专业版不支持批量关注、私信、首作评论等操作，请激活后使用");
+            result.webContents.send("batch-task-stopped");
           }
           return;
         }
-        const _0x43fdd6 = await _0x137c25({
+        const result2 = await ensureRuntimeConfigReadyForTask({
           allowDialogRetry: true
         });
-        if (!_0x43fdd6.ok) {
+        if (!result2.ok) {
           console.warn("[RuntimeConfig] 拦截批量跟进：运行配置未就绪");
-          if (_0x227915 && !_0x227915.isDestroyed()) {
-            _0x227915.webContents.send("new-status", "[WARN] " + (_0x43fdd6.reason || _0x2e4783));
-            _0x227915.webContents.send("batch-task-stopped");
+          if (result && !result.isDestroyed()) {
+            result.webContents.send("new-status", "[WARN] " + (result2.reason || runtimeConfigBlockReason));
+            result.webContents.send("batch-task-stopped");
           }
           return;
         }
-        const _0x2880e8 = _0x203fb0();
-        const _0x3bec86 = _0x429dfe();
-        const _0x4991e1 = _0x199df4();
-        const _0x3df245 = _0x3c18e0;
-        _0xe75fe9("batch-replaced", _0x3df245);
-        _0x1bed5a("batch-replaced", _0x3df245);
-        _0x3b4415();
-        _0x411698 = false;
-        _0xdc2c01?.({
+        const result3 = getBatchActionQueueMap();
+        const result4 = getIsBatchActionRunningMap();
+        const result5 = getViewActiveBatchRunMap();
+        const local = num;
+        cancelActiveBatchInteractions("batch-replaced", local);
+        cancelBatchWandering("batch-replaced", local);
+        fn9();
+        flag = false;
+        releaseBatchRuntimeGuardIfIdle?.({
           force: true
         });
         try {
-          _0x4e7042.finalizeBatchRun(_0x3df245, "stopped");
-        } catch (_0x3c0a8a) {}
-        _0x3c18e0 += 1;
-        const _0xc33ac0 = _0x3c18e0;
-        _0x24247a = 0;
-        _0x2880e8.clear();
-        _0x3bec86.clear();
-        _0x4991e1.clear();
-        _0x1b5a42.clear();
-        _0x32ff84.clear();
-        _0x828cc1 = {
-          total: _0x5c2a52.length,
+          historyManager.finalizeBatchRun(local, "stopped");
+        } catch (error) {}
+        num += 1;
+        const local2 = num;
+        num2 = 0;
+        result3.clear();
+        result4.clear();
+        result5.clear();
+        map4.clear();
+        map3.clear();
+        obj = {
+          total: leads.length,
           current: 0,
           success: 0,
           failed: 0,
           skipped: 0
         };
-        if (_0xcfd3fa && typeof _0xcfd3fa === "object") {
-          const _0x50d743 = Number(_0xcfd3fa.commentMentionPercent);
-          _0xcfd3fa.commentMentionPercent = Number.isFinite(_0x50d743) ? Math.max(0, Math.min(100, Math.round(_0x50d743))) : 100;
+        if (config && typeof config === "object") {
+          const result = Number(config.commentMentionPercent);
+          config.commentMentionPercent = Number.isFinite(result) ? Math.max(0, Math.min(100, Math.round(result))) : 100;
         }
-        console.log("[Batch] 收到批量任务请求, 线索量: " + _0x5c2a52.length + ", 类型: " + _0xcfd3fa.type + (", @提及=" + (_0xcfd3fa.enableCommentMention ? "开" : "关")) + (", @概率=" + (Number.isFinite(Number(_0xcfd3fa.commentMentionPercent)) ? _0xcfd3fa.commentMentionPercent : 100) + "%"));
-        const _0x3218b8 = Array.from(new Set((_0x5c2a52 || []).map(_0x1545d4 => _0x1545d4.accountId).filter(Boolean)));
-        const _0x5d0237 = Array.from(new Set((_0x5c2a52 || []).map(_0x16989b => _0x16989b.accountName).filter(Boolean)));
+        console.log("[Batch] 收到批量任务请求, 线索量: " + leads.length + ", 类型: " + config.type + (", @提及=" + (config.enableCommentMention ? "开" : "关")) + (", @概率=" + (Number.isFinite(Number(config.commentMentionPercent)) ? config.commentMentionPercent : 100) + "%"));
+        const result6 = Array.from(new Set((leads || []).map(arg1 => arg1.accountId).filter(Boolean)));
+        const result7 = Array.from(new Set((leads || []).map(arg1 => arg1.accountName).filter(Boolean)));
         try {
-          _0x4e7042.createBatchRun({
-            id: "batch_" + _0xc33ac0 + "_" + Date.now(),
-            runId: _0xc33ac0,
+          historyManager.createBatchRun({
+            id: "batch_" + local2 + "_" + Date.now(),
+            runId: local2,
             startedAt: Date.now(),
             endedAt: null,
             status: "running",
-            type: _0xcfd3fa?.type || "follow_dm",
-            genderFilter: _0xcfd3fa?.genderFilter || "all",
-            accountIds: _0x3218b8,
-            accountNames: _0x5d0237,
-            total: _0x5c2a52.length,
+            type: config?.type || "follow_dm",
+            genderFilter: config?.genderFilter || "all",
+            accountIds: result6,
+            accountNames: result7,
+            total: leads.length,
             current: 0,
             success: 0,
             failed: 0,
@@ -2611,264 +2611,264 @@ function createBatchFollow(_0x40add4) {
             results: [],
             logs: []
           });
-          _0x54648b(_0xc33ac0, {
-            message: "批量跟进已启动：共 " + _0x5c2a52.length + " 条，动作 " + (_0xcfd3fa?.type || "follow_dm") + "，账号 " + (_0x5d0237.join("、") || _0x3218b8.length),
+          appendBatchFollowLog(local2, {
+            message: "批量跟进已启动：共 " + leads.length + " 条，动作 " + (config?.type || "follow_dm") + "，账号 " + (result7.join("、") || result6.length),
             level: "info",
             phase: "run"
           });
-        } catch (_0x365dda) {
-          console.warn("[Batch] 创建批量跟进详情记录失败:", _0x365dda?.message || _0x365dda);
+        } catch (error) {
+          console.warn("[Batch] 创建批量跟进详情记录失败:", error?.message || error);
         }
-        if (_0x227915) {
-          _0x227915.webContents.send("batch-task-info", {
-            total: _0x5c2a52.length,
-            runId: _0xc33ac0
+        if (result) {
+          result.webContents.send("batch-task-info", {
+            total: leads.length,
+            runId: local2
           });
         }
-        _0x5c2a52.forEach(_0x4ac297 => {
-          const _0x348010 = "douyin";
-          const _0x1625b1 = _0x4ac297.accountId && _0x4ac297.accountId !== "default" ? _0x348010 + "_" + _0x4ac297.accountId : _0x348010;
-          if (!_0x2880e8.has(_0x1625b1)) {
-            _0x2880e8.set(_0x1625b1, []);
+        leads.forEach(arg1 => {
+          const text = "douyin";
+          const value = arg1.accountId && arg1.accountId !== "default" ? text + "_" + arg1.accountId : text;
+          if (!result3.has(value)) {
+            result3.set(value, []);
           }
-          _0x2880e8.get(_0x1625b1).push({
-            lead: _0x4ac297,
-            config: _0xcfd3fa
+          result3.get(value).push({
+            lead: arg1,
+            config: config
           });
         });
-        const _0x99516b = [..._0x2880e8.values()].some(_0x471f6e => Array.isArray(_0x471f6e) && _0x471f6e.length > 0);
-        if (_0x99516b) {
-          _0x14a3de?.(_0xc33ac0, _0x5c2a52.length);
-        } else if (_0x227915) {
+        const result8 = [...result3.values()].some(arg1 => Array.isArray(arg1) && arg1.length > 0);
+        if (result8) {
+          acquireBatchRuntimeGuard?.(local2, leads.length);
+        } else if (result) {
           try {
-            _0x4e7042.finalizeBatchRun(_0xc33ac0, "completed");
-          } catch (_0x3f2175) {}
-          _0x227915.webContents.send("batch-task-complete");
+            historyManager.finalizeBatchRun(local2, "completed");
+          } catch (error) {}
+          result.webContents.send("batch-task-complete");
         }
-        _0x2880e8.forEach((_0x59ed0d, _0x30e762) => {
-          if (_0x59ed0d.length > 0) {
-            _0x105f1f(_0x30e762);
-            _0x3bec86.set(_0x30e762, true);
-            if (_0x227915) {
-              _0x227915.webContents.send("view-batch-status", {
-                viewKey: _0x30e762,
+        result3.forEach((arg1, arg2) => {
+          if (arg1.length > 0) {
+            cancelPendingAutomationViewDestroy(arg2);
+            result4.set(arg2, true);
+            if (result) {
+              result.webContents.send("view-batch-status", {
+                viewKey: arg2,
                 isRunning: true
               });
             }
-            _0x18d9a3(_0x30e762, _0xc33ac0, "batch-start");
+            dispatchNextBatchItem(arg2, local2, "batch-start");
           }
         });
-      })().catch(_0x283607 => {
-        console.error("[Batch] start-batch-action failed:", _0x283607?.message || _0x283607);
-        const _0x3bc8f9 = _0x42dad6();
-        if (_0x3bc8f9 && !_0x3bc8f9.isDestroyed()) {
-          _0x3bc8f9.webContents.send("batch-task-stopped");
+      })().catch(arg1 => {
+        console.error("[Batch] start-batch-action failed:", arg1?.message || arg1);
+        const result = getMainWindow();
+        if (result && !result.isDestroyed()) {
+          result.webContents.send("batch-task-stopped");
         }
       });
     });
-    ipcMain.on("batch-item-finished", (_0x1ea071, _0x429583) => {
-      _0x38898c(_0x1ea071, _0x429583);
+    ipcMain.on("batch-item-finished", (arg1, arg2) => {
+      processBatchItemFinished(arg1, arg2);
     });
     ipcMain.on("stop-batch-action", () => {
       console.log("[Batch] 收到手动停止指令");
-      const _0x577ed5 = _0x42dad6();
-      const _0x42fa16 = _0x203fb0();
-      const _0x46dbf5 = _0x429dfe();
-      const _0x5c6ac6 = _0x199df4();
-      const _0x5bb1de = _0x2e6906();
-      const _0x294dc4 = _0x3c18e0;
-      const _0x16720d = new Set([..._0x42fa16.keys(), ..._0x5bb1de.keys(), ..._0x5c6ac6.keys(), ...[..._0x46dbf5.entries()].filter(([, _0x1ca37d]) => _0x1ca37d).map(([_0xfe0c46]) => _0xfe0c46)]);
-      _0x411698 = true;
-      _0x3c18e0 += 1;
-      _0xe75fe9("batch-manual-stop", _0x294dc4);
-      _0x1bed5a("batch-manual-stop", _0x294dc4);
-      _0x42fa16.clear();
-      _0x46dbf5.clear();
-      _0x5c6ac6.clear();
-      _0x5bb1de.clear();
-      _0x1b5a42.clear();
-      _0x32ff84.clear();
-      _0x3b4415();
+      const result = getMainWindow();
+      const result2 = getBatchActionQueueMap();
+      const result3 = getIsBatchActionRunningMap();
+      const result4 = getViewActiveBatchRunMap();
+      const result5 = getPendingBatchByViewKey();
+      const local = num;
+      const set = new Set([...result2.keys(), ...result5.keys(), ...result4.keys(), ...[...result3.entries()].filter(([, arg1]) => arg1).map(([arg1]) => arg1)]);
+      flag = true;
+      num += 1;
+      cancelActiveBatchInteractions("batch-manual-stop", local);
+      cancelBatchWandering("batch-manual-stop", local);
+      result2.clear();
+      result3.clear();
+      result4.clear();
+      result5.clear();
+      map4.clear();
+      map3.clear();
+      fn9();
       try {
-        _0x4e7042.finalizeBatchRun(_0x294dc4, "stopped");
-      } catch (_0x494512) {}
-      _0x54648b(_0x294dc4, {
+        historyManager.finalizeBatchRun(local, "stopped");
+      } catch (error) {}
+      appendBatchFollowLog(local, {
         message: "批量跟进已手动停止",
         level: "warning",
         phase: "run"
       });
-      for (const _0x26d582 of _0x16720d) {
-        _0x49cbc9(_0x26d582, "manual_stop");
-        const _0x598862 = _0x26d582.includes("_") ? _0x26d582.split("_").slice(1).join("_") : null;
-        if (_0x577ed5 && !_0x577ed5.isDestroyed()) {
-          _0x577ed5.webContents.send("batch-account-finished", {
-            viewKey: _0x26d582,
-            accountId: _0x598862,
+      for (const item of set) {
+        preserveAutomationViewAfterTaskFinish(item, "manual_stop");
+        const value = item.includes("_") ? item.split("_").slice(1).join("_") : null;
+        if (result && !result.isDestroyed()) {
+          result.webContents.send("batch-account-finished", {
+            viewKey: item,
+            accountId: value,
             reason: "manual_stop",
-            runId: _0x294dc4
+            runId: local
           });
-          _0x577ed5.webContents.send("view-batch-status", {
-            viewKey: _0x26d582,
+          result.webContents.send("view-batch-status", {
+            viewKey: item,
             isRunning: false
           });
         }
       }
-      _0xdc2c01?.({
+      releaseBatchRuntimeGuardIfIdle?.({
         force: true
       });
-      if (_0x577ed5) {
-        _0x577ed5.webContents.send("batch-task-stopped", {
-          runId: _0x294dc4
+      if (result) {
+        result.webContents.send("batch-task-stopped", {
+          runId: local
         });
       }
     });
-    ipcMain.on("stop-batch-account", (_0x2b4736, _0x18c5ae = {}) => {
-      const _0x1f973d = typeof _0x18c5ae === "string" ? _0x18c5ae : _0x18c5ae?.viewKey;
-      if (!_0x1f973d) {
+    ipcMain.on("stop-batch-account", (arg1, options = {}) => {
+      const value = typeof options === "string" ? options : options?.viewKey;
+      if (!value) {
         return;
       }
-      _0x3776dc(_0x1f973d, _0x18c5ae?.reason || "manual_stop");
+      stopBatchAccountByViewKey(value, options?.reason || "manual_stop");
     });
-    ipcMain.on("interaction-start", (_0x3f65a9, {
-      viewKey: _0x4c7ae3,
-      url: _0xb78ee2,
-      taskData: _0x550d29
+    ipcMain.on("interaction-start", (arg1, {
+      viewKey: viewKey,
+      url: url,
+      taskData: taskData
     }) => {
-      _0x59dee3(_0x4c7ae3, _0xb78ee2, _0x550d29);
+      runInteractionStart(viewKey, url, taskData);
     });
-    ipcMain.on("interaction-profile-ready", (_0x8673ee, _0x120066 = {}) => {
-      const _0x1b2fce = _0x120066.viewKey || _0x23a5ae(_0x8673ee.sender);
-      if (!_0x1b2fce) {
+    ipcMain.on("interaction-profile-ready", (arg1, options = {}) => {
+      const local = options.viewKey || inferInteractionViewKey(arg1.sender);
+      if (!local) {
         return;
       }
-      const _0x17a435 = _0x3a36f().get(_0x1b2fce);
-      if (!_0x17a435) {
+      const result = getInteractionLocksMap().get(local);
+      if (!result) {
         return;
       }
-      if (_0x120066.interactionId && _0x17a435.interactionId && _0x120066.interactionId !== _0x17a435.interactionId) {
+      if (options.interactionId && result.interactionId && options.interactionId !== result.interactionId) {
         return;
       }
-      _0x17a435.profileOpenReady = true;
-      if (_0x17a435.profileOpenTimer) {
-        clearTimeout(_0x17a435.profileOpenTimer);
-        _0x17a435.profileOpenTimer = null;
+      result.profileOpenReady = true;
+      if (result.profileOpenTimer) {
+        clearTimeout(result.profileOpenTimer);
+        result.profileOpenTimer = null;
       }
     });
-    ipcMain.on("interaction-activity", (_0x50d561, _0x507c25 = {}) => {
-      const _0x3abe63 = _0x507c25.viewKey || _0x23a5ae(_0x50d561.sender);
-      if (!_0x3abe63) {
+    ipcMain.on("interaction-activity", (arg1, options = {}) => {
+      const local = options.viewKey || inferInteractionViewKey(arg1.sender);
+      if (!local) {
         return;
       }
-      const _0x206974 = _0x555d5b(_0x3abe63, _0x507c25.interactionId || "", {
-        extendMs: _0x507c25.extendMs
+      const result = fn2(local, options.interactionId || "", {
+        extendMs: options.extendMs
       });
-      if (_0x206974 && _0x507c25.reason) {
-        console.log("[Batch] [" + _0x3abe63 + "] 互动续期（" + _0x507c25.reason + "）");
+      if (result && options.reason) {
+        console.log("[Batch] [" + local + "] 互动续期（" + options.reason + "）");
       }
     });
-    ipcMain.on("interaction-success-checkpoint", (_0x9aded6, _0x29fbb8 = {}) => {
-      const _0x1b555b = _0x29fbb8.viewKey || _0x23a5ae(_0x9aded6.sender);
-      if (!_0x1b555b) {
+    ipcMain.on("interaction-success-checkpoint", (arg1, options = {}) => {
+      const local = options.viewKey || inferInteractionViewKey(arg1.sender);
+      if (!local) {
         return;
       }
-      const _0x594b32 = _0x3a36f().get(_0x1b555b);
-      const _0x2d17fa = _0x2e6906().get(_0x1b555b);
-      const _0x1959ef = _0x29fbb8.results || {};
-      if (!_0x594b32 || !_0x2d17fa || !_0x1959ef.success || !_0x1959ef.profileWorkCommented) {
+      const result = getInteractionLocksMap().get(local);
+      const result2 = getPendingBatchByViewKey().get(local);
+      const local2 = options.results || {};
+      if (!result || !result2 || !local2.success || !local2.profileWorkCommented) {
         return;
       }
-      const _0x1fe711 = _0x29fbb8.interactionId && _0x594b32.interactionId && _0x29fbb8.interactionId !== _0x594b32.interactionId && !String(_0x594b32.interactionId).startsWith("batch_wait_retry_");
-      if (_0x1fe711) {
+      const local3 = options.interactionId && result.interactionId && options.interactionId !== result.interactionId && !String(result.interactionId).startsWith("batch_wait_retry_");
+      if (local3) {
         return;
       }
-      if (_0x29fbb8.batchRunId != null && _0x29fbb8.batchRunId !== _0x2d17fa.runId) {
+      if (options.batchRunId != null && options.batchRunId !== result2.runId) {
         return;
       }
-      _0x594b32.successCheckpoint = _0x1959ef;
-      if (_0x594b32.timer) {
-        clearTimeout(_0x594b32.timer);
+      result.successCheckpoint = local2;
+      if (result.timer) {
+        clearTimeout(result.timer);
       }
-      _0x594b32.timer = setTimeout(_0x594b32.onTimeout, 60000);
-      console.log("[Batch] [" + _0x1b555b + "] 已记录首作评论成功检查点，等待最终结果回传");
+      result.timer = setTimeout(result.onTimeout, 60000);
+      console.log("[Batch] [" + local + "] 已记录首作评论成功检查点，等待最终结果回传");
     });
-    ipcMain.on("interaction-done", (_0x1ff899, {
-      viewKey: _0x324ca6,
-      interactionId: _0x209478,
-      batchRunId: _0x35e428,
-      results: _0x5d1298
+    ipcMain.on("interaction-done", (arg1, {
+      viewKey: viewKey,
+      interactionId: interactionId2,
+      batchRunId: batchRunId,
+      results: results
     }) => {
-      const _0x32b9cf = _0x324ca6 || _0x23a5ae(_0x1ff899.sender);
-      if (!_0x32b9cf) {
+      const local = viewKey || inferInteractionViewKey(arg1.sender);
+      if (!local) {
         console.warn("[Main] [子视图模式] 收到互动结束，但无法识别 viewKey");
         return;
       }
-      const _0x3c7ec7 = _0x3a36f().get(_0x32b9cf)?.interactionId;
-      const _0x58a98f = _0x2e6906().get(_0x32b9cf);
-      if (_0x209478 && _0x3c7ec7 && _0x209478 !== _0x3c7ec7) {
-        if (_0x58a98f && _0x5d1298?.success && _0x5d1298?.profileWorkCommented && (_0x35e428 == null || _0x35e428 === _0x58a98f.runId) && _0x58a98f.runId === _0x3c18e0) {
-          console.warn("[Batch] [" + _0x32b9cf + "] 采纳迟到的首作评论成功（旧 interactionId=" + _0x209478 + "），完结本条并取消重试");
-          const _0x2654ee = _0x3a36f().get(_0x32b9cf);
-          if (_0x2654ee) {
-            _0x2654ee.successCheckpoint = _0x5d1298;
+      const local2 = getInteractionLocksMap().get(local)?.interactionId;
+      const result = getPendingBatchByViewKey().get(local);
+      if (interactionId2 && local2 && interactionId2 !== local2) {
+        if (result && results?.success && results?.profileWorkCommented && (batchRunId == null || batchRunId === result.runId) && result.runId === num) {
+          console.warn("[Batch] [" + local + "] 采纳迟到的首作评论成功（旧 interactionId=" + interactionId2 + "），完结本条并取消重试");
+          const result2 = getInteractionLocksMap().get(local);
+          if (result2) {
+            result2.successCheckpoint = results;
           }
-          _0x353391(_0x32b9cf, "late-profile-comment-success");
-          Promise.resolve(_0x3b2d0d(_0x32b9cf, _0x58a98f, _0x5d1298, _0x1ff899.sender)).then(_0x1d8871 => {
-            if (_0x1d8871 === "retry-scheduled") {
+          fn3(local, "late-profile-comment-success");
+          Promise.resolve(completeBatchFromInteraction(local, result, results, arg1.sender)).then(arg1 => {
+            if (arg1 === "retry-scheduled") {
               return;
             }
-            _0x4732a0(_0x32b9cf, _0x5d1298);
-          }).catch(_0x113f97 => {
-            console.warn("[Batch] [" + _0x32b9cf + "] 迟到成功完结异常:", _0x113f97?.message || _0x113f97);
-            _0x4732a0(_0x32b9cf, _0x5d1298);
+            finishInteraction(local, results);
+          }).catch(arg1 => {
+            console.warn("[Batch] [" + local + "] 迟到成功完结异常:", arg1?.message || arg1);
+            finishInteraction(local, results);
           });
           return;
         }
-        console.log("[Main] [子视图模式] 忽略旧互动回调 (" + _0x32b9cf + ", " + _0x209478 + " != " + _0x3c7ec7 + ")");
+        console.log("[Main] [子视图模式] 忽略旧互动回调 (" + local + ", " + interactionId2 + " != " + local2 + ")");
         return;
       }
-      if (_0x58a98f && _0x35e428 != null && _0x35e428 !== _0x58a98f.runId) {
-        console.log("[Batch] 忽略旧代次互动回调 (" + _0x32b9cf + ", run " + _0x35e428 + " != " + _0x58a98f.runId + ")");
+      if (result && batchRunId != null && batchRunId !== result.runId) {
+        console.log("[Batch] 忽略旧代次互动回调 (" + local + ", run " + batchRunId + " != " + result.runId + ")");
         return;
       }
-      if (_0x58a98f) {
-        if (_0x58a98f.runId !== _0x3c18e0) {
-          _0x2e6906().delete(_0x32b9cf);
-          _0x4732a0(_0x32b9cf, _0x5d1298);
+      if (result) {
+        if (result.runId !== num) {
+          getPendingBatchByViewKey().delete(local);
+          finishInteraction(local, results);
           return;
         }
-        Promise.resolve(_0x3b2d0d(_0x32b9cf, _0x58a98f, _0x5d1298, _0x1ff899.sender)).then(_0x2f92d4 => {
-          if (_0x2f92d4 === "retry-scheduled") {
+        Promise.resolve(completeBatchFromInteraction(local, result, results, arg1.sender)).then(arg1 => {
+          if (arg1 === "retry-scheduled") {
             return;
           }
-          _0x4732a0(_0x32b9cf, _0x5d1298);
-        }).catch(_0x5cf2d9 => {
-          console.warn("[Batch] [" + _0x32b9cf + "] completeBatchFromInteraction 异常:", _0x5cf2d9?.message || _0x5cf2d9);
-          _0x4732a0(_0x32b9cf, _0x5d1298);
+          finishInteraction(local, results);
+        }).catch(arg1 => {
+          console.warn("[Batch] [" + local + "] completeBatchFromInteraction 异常:", arg1?.message || arg1);
+          finishInteraction(local, results);
         });
         return;
       }
-      _0x4732a0(_0x32b9cf, _0x5d1298);
+      finishInteraction(local, results);
     });
   }
   return {
-    resolveActiveBatchRunId: _0x542199,
-    appendBatchFollowLog: _0x54648b,
-    clearBatchWaitTickersForView: _0x4676e6,
-    cancelBatchWandering: _0x1bed5a,
-    cancelActiveBatchInteractions: _0xe75fe9,
-    pickBatchDmText: _0x42afd2,
-    buildBatchInteractionTask: _0x38897d,
-    isBatchCountedFailure: _0x1fe2fa,
-    mapSubviewResultsToBatchPayload: _0x2b5b03,
-    resolveViewKeyFromSender: _0x3f0eea,
-    completeBatchFromInteraction: _0x3b2d0d,
-    runInteractionStart: _0x59dee3,
-    ensureInteractionView: _0x21f742,
-    dispatchNextBatchItem: _0x18d9a3,
-    processNextBatchItem: _0x145c77,
-    processBatchItemFinished: _0x38898c,
-    stopBatchAccountByViewKey: _0x3776dc,
-    registerIpc: _0x2848e7
+    resolveActiveBatchRunId: resolveActiveBatchRunId,
+    appendBatchFollowLog: appendBatchFollowLog,
+    clearBatchWaitTickersForView: clearBatchWaitTickersForView,
+    cancelBatchWandering: cancelBatchWandering,
+    cancelActiveBatchInteractions: cancelActiveBatchInteractions,
+    pickBatchDmText: pickBatchDmText,
+    buildBatchInteractionTask: buildBatchInteractionTask,
+    isBatchCountedFailure: isBatchCountedFailure,
+    mapSubviewResultsToBatchPayload: mapSubviewResultsToBatchPayload,
+    resolveViewKeyFromSender: resolveViewKeyFromSender,
+    completeBatchFromInteraction: completeBatchFromInteraction,
+    runInteractionStart: runInteractionStart,
+    ensureInteractionView: ensureInteractionView,
+    dispatchNextBatchItem: dispatchNextBatchItem,
+    processNextBatchItem: processNextBatchItem,
+    processBatchItemFinished: processBatchItemFinished,
+    stopBatchAccountByViewKey: stopBatchAccountByViewKey,
+    registerIpc: registerIpc
   };
 }
 module.exports = {
