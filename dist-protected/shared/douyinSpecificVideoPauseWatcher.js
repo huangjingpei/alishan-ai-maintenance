@@ -1,36 +1,36 @@
 'use strict';
 
-function findSpecificVideoResumeHint(_0x11a375) {
-  if (!_0x11a375) {
+function findSpecificVideoResumeHint(arg1) {
+  if (!arg1) {
     return false;
   }
   try {
-    let _0xbab60b = null;
-    for (let _0x5bc838 = 0; _0x5bc838 < _0x11a375.length; _0x5bc838++) {
-      const _0x486b5a = _0x11a375.key(_0x5bc838);
-      if (!_0x486b5a || !_0x486b5a.startsWith("radar_state_")) {
+    let local = null;
+    for (let num = 0; num < arg1.length; num++) {
+      const result = arg1.key(num);
+      if (!result || !result.startsWith("radar_state_")) {
         continue;
       }
-      const _0x5d13b9 = JSON.parse(_0x11a375.getItem(_0x486b5a) || "{}");
-      if (_0x5d13b9?.loopId && (!_0xbab60b || Number(_0x5d13b9.updatedAt || 0) > Number(_0xbab60b.updatedAt || 0))) {
-        _0xbab60b = _0x5d13b9;
+      const result2 = JSON.parse(arg1.getItem(result) || "{}");
+      if (result2?.loopId && (!local || Number(result2.updatedAt || 0) > Number(local.updatedAt || 0))) {
+        local = result2;
       }
     }
-    if (!_0xbab60b) {
+    if (!local) {
       return false;
     }
-    const _0x3e30c0 = String(_0xbab60b.videoSourcesKey || "").split(",");
-    return _0x3e30c0[_0xbab60b.sIndex] === "specific";
-  } catch (_0x5cad6f) {
+    const result = String(local.videoSourcesKey || "").split(",");
+    return result[local.sIndex] === "specific";
+  } catch (error) {
     return false;
   }
 }
 function createDouyinSpecificVideoPauseWatcher({
-  storage: _0x3ca876,
-  getTaskState: _0x1095a4,
-  getCurrentUrl: _0x55a346,
-  isViewingVideoPage: _0x181526,
-  queryVideos: _0x34492f,
+  storage: storage,
+  getTaskState: getTaskState,
+  getCurrentUrl: getCurrentUrl,
+  isViewingVideoPage: isViewingVideoPage,
+  queryVideos: queryVideos,
   now = Date.now,
   random = Math.random,
   setIntervalFn = setInterval,
@@ -39,81 +39,81 @@ function createDouyinSpecificVideoPauseWatcher({
   bootstrapMs = 3000,
   intervalMs = 50
 } = {}) {
-  const _0x832875 = now();
-  const _0x305686 = _0x832875 + bootstrapMs;
-  const _0x154b12 = findSpecificVideoResumeHint(_0x3ca876);
-  let _0x547c72 = null;
-  let _0xf79acc = null;
-  let _0x4d1aac = null;
-  let _0x2867bd = 1000 + random() * 2000;
-  function _0x45c3cf() {
-    const _0x57448d = typeof _0x1095a4 === "function" ? _0x1095a4() : {};
-    if (_0x57448d.taskRunning && !_0x57448d.stopRequested && _0x57448d.currentRunningSource === "specific") {
+  const result = now();
+  const value = result + bootstrapMs;
+  const result2 = findSpecificVideoResumeHint(storage);
+  let local = null;
+  let local2 = null;
+  let local3 = null;
+  let value2 = 1000 + random() * 2000;
+  function fn() {
+    const value2 = typeof getTaskState === "function" ? getTaskState() : {};
+    if (value2.taskRunning && !value2.stopRequested && value2.currentRunningSource === "specific") {
       return true;
     }
-    return !_0x57448d.stopRequested && _0x154b12 && now() < _0x305686;
+    return !value2.stopRequested && result2 && now() < value;
   }
-  function _0x48737e() {
-    if (_0x547c72 === null) {
+  function stop() {
+    if (local === null) {
       return;
     }
-    clearIntervalFn(_0x547c72);
-    _0x547c72 = null;
-    _0xf79acc = null;
-    _0x4d1aac = null;
+    clearIntervalFn(local);
+    local = null;
+    local2 = null;
+    local3 = null;
   }
-  function _0x2dc031() {
-    if (!_0x45c3cf()) {
-      _0x48737e();
+  function fn3() {
+    if (!fn()) {
+      stop();
       return;
     }
-    const _0x304d52 = typeof _0x55a346 === "function" ? String(_0x55a346() || "") : "";
-    if (_0x304d52 !== _0xf79acc) {
-      _0xf79acc = _0x304d52;
-      _0x4d1aac = null;
-      _0x2867bd = 1000 + random() * 2000;
+    const value = typeof getCurrentUrl === "function" ? String(getCurrentUrl() || "") : "";
+    if (value !== local2) {
+      local2 = value;
+      local3 = null;
+      value2 = 1000 + random() * 2000;
     }
-    if (typeof _0x181526 !== "function" || !_0x181526(_0x304d52)) {
+    if (typeof isViewingVideoPage !== "function" || !isViewingVideoPage(value)) {
       return;
     }
-    const _0x620db5 = typeof _0x34492f === "function" ? Array.from(_0x34492f() || []) : [];
-    if (!_0x620db5.length) {
+    const value3 = typeof queryVideos === "function" ? Array.from(queryVideos() || []) : [];
+    if (!value3.length) {
       return;
     }
-    if (_0x4d1aac === null) {
-      _0x4d1aac = now();
-      log("[Built-in-Debug] [指定视频-延时暂停] 检测到视频渲染，设定延时 " + _0x2867bd.toFixed(0) + "ms 后暂停");
+    if (local3 === null) {
+      local3 = now();
+      log("[Built-in-Debug] [指定视频-延时暂停] 检测到视频渲染，设定延时 " + value2.toFixed(0) + "ms 后暂停");
     }
-    if (now() - _0x4d1aac < _0x2867bd) {
+    if (now() - local3 < value2) {
       return;
     }
-    _0x620db5.forEach(_0x208ae9 => {
+    value3.forEach(arg1 => {
       try {
-        _0x208ae9.muted = true;
-        if (!_0x208ae9.paused) {
-          _0x208ae9.pause();
+        arg1.muted = true;
+        if (!arg1.paused) {
+          arg1.pause();
           log("[Built-in-Debug] [指定视频-延时暂停] 已达到延时，极速暂停了视频播放！");
         }
-      } catch (_0x312f64) {}
+      } catch (error) {}
     });
   }
-  function _0x5d9868() {
-    if (_0x547c72 !== null || !_0x45c3cf()) {
+  function fn4() {
+    if (local !== null || !fn()) {
       return;
     }
-    _0x547c72 = setIntervalFn(_0x2dc031, intervalMs);
+    local = setIntervalFn(fn3, intervalMs);
   }
-  function _0x5d4d27() {
-    if (_0x45c3cf()) {
-      _0x5d9868();
+  function sync() {
+    if (fn()) {
+      fn4();
     } else {
-      _0x48737e();
+      stop();
     }
   }
   return {
-    sync: _0x5d4d27,
-    stop: _0x48737e,
-    isRunning: () => _0x547c72 !== null
+    sync: sync,
+    stop: stop,
+    isRunning: () => local !== null
   };
 }
 module.exports = {
