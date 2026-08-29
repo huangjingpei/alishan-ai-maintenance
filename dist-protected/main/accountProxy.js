@@ -18,22 +18,22 @@ const DOUYIN_PROBE_URLS = ["https://douyin.com/", "https://www.douyin.com/"];
 const IP_ENDPOINTS = [{
   url: "http://myip.ipip.net",
   plain: true,
-  parse: _0x4dbee4 => String(_0x4dbee4).match(/(\d{1,3}(?:\.\d{1,3}){3})/)?.[1] || ""
+  parse: arg1 => String(arg1).match(/(\d{1,3}(?:\.\d{1,3}){3})/)?.[1] || ""
 }, {
   url: "https://qifu-api.baidubce.com/ip/local/geo/v1/district",
   plain: false,
-  parse: _0x1813a7 => String(_0x1813a7?.ip || "").trim()
+  parse: arg1 => String(arg1?.ip || "").trim()
 }, {
   url: "http://httpbin.org/ip",
   plain: false,
-  parse: _0x198aa4 => String(_0x198aa4?.origin || "").split(",")[0]?.trim() || ""
+  parse: arg1 => String(arg1?.origin || "").split(",")[0]?.trim() || ""
 }, {
   url: "http://ifconfig.me/ip",
   plain: true,
-  parse: _0x24d01b => {
-    const _0x3a0a40 = String(_0x24d01b || "").trim();
-    if (/^\d{1,3}(\.\d{1,3}){3}$/.test(_0x3a0a40)) {
-      return _0x3a0a40;
+  parse: arg1 => {
+    const result = String(arg1 || "").trim();
+    if (/^\d{1,3}(\.\d{1,3}){3}$/.test(result)) {
+      return result;
     } else {
       return "";
     }
@@ -41,178 +41,178 @@ const IP_ENDPOINTS = [{
 }, {
   url: "http://api.ipify.org/?format=json",
   plain: false,
-  parse: _0x56a526 => String(_0x56a526?.ip || "").trim()
+  parse: arg1 => String(arg1?.ip || "").trim()
 }];
-function getProxyCredentials(_0x1e8a44) {
-  const _0x210a85 = normalizeProxyConfig(_0x1e8a44);
-  if (!_0x210a85.username) {
+function getProxyCredentials(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  if (!result.username) {
     return null;
   }
   return {
-    username: _0x210a85.username,
-    password: _0x210a85.password || ""
+    username: result.username,
+    password: result.password || ""
   };
 }
-function formatProxyError(_0x22d356) {
-  const _0x515c1b = _0x22d356?.response?.status;
-  if (_0x515c1b === 502) {
+function formatProxyError(arg1) {
+  const local = arg1?.response?.status;
+  if (local === 502) {
     return "所有测试站点均无法通过代理访问，请检查代理类型（HTTP / SOCKS5）、端口与节点是否正常";
   }
-  if (_0x515c1b === 407) {
+  if (local === 407) {
     return "代理认证失败，请检查用户名与密码";
   }
-  if (_0x515c1b === 403) {
+  if (local === 403) {
     return "代理拒绝访问，请检查账号权限或节点状态";
   }
-  if (_0x515c1b) {
-    return "代理测试失败（HTTP " + _0x515c1b + "），请检查代理配置与节点是否正常";
+  if (local) {
+    return "代理测试失败（HTTP " + local + "），请检查代理配置与节点是否正常";
   }
-  const _0x44ae67 = String(_0x22d356?.message || _0x22d356 || "").trim();
-  if (!_0x44ae67) {
+  const result = String(arg1?.message || arg1 || "").trim();
+  if (!result) {
     return "代理连接失败，请检查配置";
   }
-  if (_0x44ae67.includes("status code 502")) {
+  if (result.includes("status code 502")) {
     return "所有测试站点均无法通过代理访问，请检查代理类型（HTTP / SOCKS5）、端口与节点是否正常";
   }
-  if (_0x44ae67.includes("status code 407")) {
+  if (result.includes("status code 407")) {
     return "代理认证失败，请检查用户名与密码";
   }
-  if (_0x44ae67.includes("SocksClient") || _0x44ae67.includes("Socks5") || _0x44ae67.includes("SOCKS")) {
+  if (result.includes("SocksClient") || result.includes("Socks5") || result.includes("SOCKS")) {
     return "SOCKS5 连接失败，请确认已选 SOCKS5 类型且端口为 SOCKS5 端口（非 HTTP 端口）";
   }
-  if (_0x44ae67.includes("ERR_CONNECTION_REFUSED") || _0x22d356?.code === "ECONNREFUSED") {
+  if (result.includes("ERR_CONNECTION_REFUSED") || arg1?.code === "ECONNREFUSED") {
     return "无法连接代理服务器，请检查主机、端口及代理软件是否已启动";
   }
-  if (_0x22d356?.code === "ECONNABORTED" || _0x22d356?.code === "ETIMEDOUT" || _0x44ae67.includes("超时")) {
+  if (arg1?.code === "ECONNABORTED" || arg1?.code === "ETIMEDOUT" || result.includes("超时")) {
     return "连接超时，请检查代理是否可用";
   }
-  return _0x44ae67.replace(/^net::/i, "") || "代理连接失败，请检查配置";
+  return result.replace(/^net::/i, "") || "代理连接失败，请检查配置";
 }
-function findViewKeyForWebContents(_0x2fea04, ..._0x4b016b) {
-  if (!_0x2fea04) {
+function findViewKeyForWebContents(arg1, ...restArgs) {
+  if (!arg1) {
     return null;
   }
-  for (const _0x10e32c of _0x4b016b) {
-    if (!_0x10e32c || typeof _0x10e32c.entries !== "function") {
+  for (const item of restArgs) {
+    if (!item || typeof item.entries !== "function") {
       continue;
     }
-    for (const [_0x56f7d3, _0x2622f0] of _0x10e32c.entries()) {
-      if (_0x2622f0?.webContents === _0x2fea04) {
-        return _0x56f7d3;
+    for (const [local, local2] of item.entries()) {
+      if (local2?.webContents === arg1) {
+        return local;
       }
     }
   }
   return null;
 }
-function registerProxyLoginHandler(..._0x47cb04) {
+function registerProxyLoginHandler(...restArgs) {
   if (registerProxyLoginHandler._registered) {
     return;
   }
   registerProxyLoginHandler._registered = true;
-  app.on("login", (_0x3af430, _0x431080, _0x21d7cd, _0x25476c, _0x4d6eba) => {
-    if (!_0x25476c?.isProxy) {
+  app.on("login", (arg1, arg2, arg3, arg4, arg5) => {
+    if (!arg4?.isProxy) {
       return;
     }
-    const _0x5b5208 = findViewKeyForWebContents(_0x431080, ..._0x47cb04);
-    if (!_0x5b5208) {
+    const result = findViewKeyForWebContents(arg2, ...restArgs);
+    if (!result) {
       return;
     }
-    const _0x145cdd = proxyAuthByViewKey.get(_0x5b5208);
-    if (!_0x145cdd?.username) {
+    const result2 = proxyAuthByViewKey.get(result);
+    if (!result2?.username) {
       return;
     }
-    _0x3af430.preventDefault();
-    _0x4d6eba(_0x145cdd.username, _0x145cdd.password || "");
+    arg1.preventDefault();
+    arg5(result2.username, result2.password || "");
   });
 }
-function socksBridgeFingerprint(_0x1cf641) {
-  const _0x2f4daa = normalizeProxyConfig(_0x1cf641);
-  return "socks5|" + _0x2f4daa.host + "|" + _0x2f4daa.port + "|" + _0x2f4daa.username + "|" + (_0x2f4daa.password || "");
+function socksBridgeFingerprint(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  return "socks5|" + result.host + "|" + result.port + "|" + result.username + "|" + (result.password || "");
 }
-function buildUpstreamSocksUrl(_0xb23c09) {
-  const _0x4d614e = normalizeProxyConfig(_0xb23c09);
-  const _0x14bf73 = _0x4d614e.username ? encodeURIComponent(_0x4d614e.username) + ":" + encodeURIComponent(_0x4d614e.password || "") + "@" : "";
-  return "socks5h://" + _0x14bf73 + _0x4d614e.host + ":" + _0x4d614e.port;
+function buildUpstreamSocksUrl(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  const value = result.username ? encodeURIComponent(result.username) + ":" + encodeURIComponent(result.password || "") + "@" : "";
+  return "socks5h://" + value + result.host + ":" + result.port;
 }
-async function startSocksAuthHttpBridge(_0x17a0fa) {
-  const _0x25bf00 = buildUpstreamSocksUrl(_0x17a0fa);
-  const _0x16af4c = await ProxyChain.anonymizeProxy(_0x25bf00);
-  const _0x37440d = new URL(_0x16af4c);
-  const _0x5fac0f = Number(_0x37440d.port);
-  if (!_0x5fac0f) {
+async function startSocksAuthHttpBridge(arg1) {
+  const result = buildUpstreamSocksUrl(arg1);
+  const result2 = await ProxyChain.anonymizeProxy(result);
+  const url = new URL(result2);
+  const result3 = Number(url.port);
+  if (!result3) {
     throw new Error("本地 SOCKS 桥接端口分配失败");
   }
-  console.log("[Proxy-Bridge] 已启动本地桥 " + _0x37440d.host + " → " + normalizeProxyConfig(_0x17a0fa).host + ":" + normalizeProxyConfig(_0x17a0fa).port);
+  console.log("[Proxy-Bridge] 已启动本地桥 " + url.host + " → " + normalizeProxyConfig(arg1).host + ":" + normalizeProxyConfig(arg1).port);
   return {
-    localUrl: _0x16af4c,
-    host: _0x37440d.hostname || "127.0.0.1",
-    port: _0x5fac0f,
+    localUrl: result2,
+    host: url.hostname || "127.0.0.1",
+    port: result3,
     close: async () => {
       try {
-        await ProxyChain.closeAnonymizedProxy(_0x16af4c, true);
-      } catch (_0x3920bd) {
-        console.warn("[Proxy-Bridge] 关闭失败: " + (_0x3920bd.message || _0x3920bd));
+        await ProxyChain.closeAnonymizedProxy(result2, true);
+      } catch (error) {
+        console.warn("[Proxy-Bridge] 关闭失败: " + (error.message || error));
       }
     }
   };
 }
-async function releaseSocksBridgeForViewKey(_0x1209ac) {
-  if (!_0x1209ac) {
+async function releaseSocksBridgeForViewKey(arg1) {
+  if (!arg1) {
     return;
   }
-  const _0x3874b4 = socksBridgeFpByViewKey.get(_0x1209ac);
-  if (!_0x3874b4) {
+  const result = socksBridgeFpByViewKey.get(arg1);
+  if (!result) {
     return;
   }
-  socksBridgeFpByViewKey.delete(_0x1209ac);
-  const _0x3abf0a = socksBridgeByFingerprint.get(_0x3874b4);
-  if (!_0x3abf0a) {
+  socksBridgeFpByViewKey.delete(arg1);
+  const result2 = socksBridgeByFingerprint.get(result);
+  if (!result2) {
     return;
   }
-  _0x3abf0a.viewKeys.delete(_0x1209ac);
-  if (_0x3abf0a.viewKeys.size > 0) {
+  result2.viewKeys.delete(arg1);
+  if (result2.viewKeys.size > 0) {
     return;
   }
-  socksBridgeByFingerprint.delete(_0x3874b4);
+  socksBridgeByFingerprint.delete(result);
   try {
-    await _0x3abf0a.close();
-    console.log("[Proxy-Bridge] 已关闭本地桥 127.0.0.1:" + _0x3abf0a.port);
-  } catch (_0x3d5883) {
-    console.warn("[Proxy-Bridge] 关闭失败: " + (_0x3d5883.message || _0x3d5883));
+    await result2.close();
+    console.log("[Proxy-Bridge] 已关闭本地桥 127.0.0.1:" + result2.port);
+  } catch (error) {
+    console.warn("[Proxy-Bridge] 关闭失败: " + (error.message || error));
   }
 }
-async function acquireSocksAuthBridge(_0x184c62, _0x35a200) {
-  const _0x48c63c = socksBridgeFingerprint(_0x184c62);
-  let _0x597749 = socksBridgeByFingerprint.get(_0x48c63c);
-  if (!_0x597749) {
-    const _0x2eccef = await startSocksAuthHttpBridge(_0x184c62);
-    _0x597749 = {
-      ..._0x2eccef,
+async function acquireSocksAuthBridge(arg1, arg2) {
+  const result = socksBridgeFingerprint(arg1);
+  let result2 = socksBridgeByFingerprint.get(result);
+  if (!result2) {
+    const result3 = await startSocksAuthHttpBridge(arg1);
+    result2 = {
+      ...result3,
       viewKeys: new Set()
     };
-    socksBridgeByFingerprint.set(_0x48c63c, _0x597749);
+    socksBridgeByFingerprint.set(result, result2);
   }
-  if (_0x35a200) {
-    _0x597749.viewKeys.add(_0x35a200);
-    socksBridgeFpByViewKey.set(_0x35a200, _0x48c63c);
+  if (arg2) {
+    result2.viewKeys.add(arg2);
+    socksBridgeFpByViewKey.set(arg2, result);
   }
-  return _0x597749;
+  return result2;
 }
-async function applyAccountProxy(_0x859ef0, _0x20d404, _0x384227) {
-  if (!_0x859ef0) {
+async function applyAccountProxy(arg1, arg2, arg3) {
+  if (!arg1) {
     return {
       applied: false
     };
   }
-  if (_0x384227) {
-    await releaseSocksBridgeForViewKey(_0x384227);
+  if (arg3) {
+    await releaseSocksBridgeForViewKey(arg3);
   }
-  const _0x49c641 = normalizeProxyConfig(_0x20d404);
-  if (!isProxyActive(_0x49c641)) {
-    if (_0x384227) {
-      proxyAuthByViewKey.delete(_0x384227);
+  const result = normalizeProxyConfig(arg2);
+  if (!isProxyActive(result)) {
+    if (arg3) {
+      proxyAuthByViewKey.delete(arg3);
     }
-    await _0x859ef0.setProxy({
+    await arg1.setProxy({
       mode: "direct"
     });
     return {
@@ -220,97 +220,97 @@ async function applyAccountProxy(_0x859ef0, _0x20d404, _0x384227) {
       mode: "direct"
     };
   }
-  if (_0x49c641.type === "socks5" && _0x49c641.username) {
-    if (_0x384227) {
-      proxyAuthByViewKey.delete(_0x384227);
+  if (result.type === "socks5" && result.username) {
+    if (arg3) {
+      proxyAuthByViewKey.delete(arg3);
     }
-    const _0x27e811 = await acquireSocksAuthBridge(_0x49c641, _0x384227);
-    const _0x6ef9e = "http://" + _0x27e811.host + ":" + _0x27e811.port;
-    await _0x859ef0.setProxy({
-      proxyRules: _0x6ef9e,
+    const result2 = await acquireSocksAuthBridge(result, arg3);
+    const value = "http://" + result2.host + ":" + result2.port;
+    await arg1.setProxy({
+      proxyRules: value,
       proxyBypassRules: "<local>"
     });
-    console.log("[Proxy][" + (_0x384227 || "-") + "] SOCKS5 认证桥接已启用 → " + _0x27e811.host + ":" + _0x27e811.port);
+    console.log("[Proxy][" + (arg3 || "-") + "] SOCKS5 认证桥接已启用 → " + result2.host + ":" + result2.port);
     return {
       applied: true,
       mode: "socks5-auth-bridge",
-      rules: _0x6ef9e,
-      bridge: _0x27e811.host + ":" + _0x27e811.port
+      rules: value,
+      bridge: result2.host + ":" + result2.port
     };
   }
-  const _0x3b7955 = buildProxyRules(_0x49c641);
-  const _0x128ee7 = getProxyCredentials(_0x49c641);
-  if (_0x384227) {
-    if (_0x128ee7) {
-      proxyAuthByViewKey.set(_0x384227, _0x128ee7);
+  const result2 = buildProxyRules(result);
+  const result3 = getProxyCredentials(result);
+  if (arg3) {
+    if (result3) {
+      proxyAuthByViewKey.set(arg3, result3);
     } else {
-      proxyAuthByViewKey.delete(_0x384227);
+      proxyAuthByViewKey.delete(arg3);
     }
   }
-  await _0x859ef0.setProxy({
-    proxyRules: _0x3b7955,
+  await arg1.setProxy({
+    proxyRules: result2,
     proxyBypassRules: "<local>"
   });
   return {
     applied: true,
     mode: "proxy",
-    rules: _0x3b7955
+    rules: result2
   };
 }
-function buildAxiosProxyConfig(_0x3c8ff8) {
-  const _0x3b0de4 = normalizeProxyConfig(_0x3c8ff8);
+function buildAxiosProxyConfig(arg1) {
+  const result = normalizeProxyConfig(arg1);
   return {
     protocol: "http",
-    host: _0x3b0de4.host,
-    port: Number(_0x3b0de4.port),
-    ...(_0x3b0de4.username ? {
+    host: result.host,
+    port: Number(result.port),
+    ...(result.username ? {
       auth: {
-        username: _0x3b0de4.username,
-        password: _0x3b0de4.password || ""
+        username: result.username,
+        password: result.password || ""
       }
     } : {})
   };
 }
-function buildSocksAgent(_0x58ec4c) {
-  const _0x53b1d5 = normalizeProxyConfig(_0x58ec4c);
-  const _0x3cc349 = _0x53b1d5.username ? encodeURIComponent(_0x53b1d5.username) + ":" + encodeURIComponent(_0x53b1d5.password || "") + "@" : "";
-  return new SocksProxyAgent("socks5h://" + _0x3cc349 + _0x53b1d5.host + ":" + _0x53b1d5.port);
+function buildSocksAgent(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  const value = result.username ? encodeURIComponent(result.username) + ":" + encodeURIComponent(result.password || "") + "@" : "";
+  return new SocksProxyAgent("socks5h://" + value + result.host + ":" + result.port);
 }
-function buildAxiosTransport(_0xa003d9) {
-  const _0x314286 = normalizeProxyConfig(_0xa003d9);
-  if (_0x314286.type === "socks5") {
-    const _0x4a67cb = buildSocksAgent(_0x314286);
+function buildAxiosTransport(arg1) {
+  const result = normalizeProxyConfig(arg1);
+  if (result.type === "socks5") {
+    const result2 = buildSocksAgent(result);
     return {
-      httpAgent: _0x4a67cb,
-      httpsAgent: _0x4a67cb,
+      httpAgent: result2,
+      httpsAgent: result2,
       proxy: false
     };
   }
   return {
-    proxy: buildAxiosProxyConfig(_0x314286)
+    proxy: buildAxiosProxyConfig(result)
   };
 }
-async function probeEndpoint(_0x13ce7c, _0x41f79b, _0x1673ac) {
-  const _0x8bfc0f = await axios.get(_0x13ce7c.url, {
-    ..._0x41f79b,
-    timeout: _0x1673ac,
-    responseType: _0x13ce7c.plain ? "text" : "json",
-    validateStatus: _0x41d85e => _0x41d85e >= 200 && _0x41d85e < 300
+async function probeEndpoint(arg1, arg2, arg3) {
+  const result = await axios.get(arg1.url, {
+    ...arg2,
+    timeout: arg3,
+    responseType: arg1.plain ? "text" : "json",
+    validateStatus: arg1 => arg1 >= 200 && arg1 < 300
   });
-  const _0x2840f7 = _0x13ce7c.parse(_0x8bfc0f.data);
-  if (!_0x2840f7) {
+  const result2 = arg1.parse(result.data);
+  if (!result2) {
     throw new Error("无法解析出口 IP");
   }
-  return _0x2840f7;
+  return result2;
 }
-async function probeDouyinReachable(_0x32f9cb, _0x593ed3) {
-  const _0x50a749 = Math.max(4000, Math.floor(_0x593ed3 / DOUYIN_PROBE_URLS.length));
-  let _0x562575 = null;
-  for (const _0x3ea0e of DOUYIN_PROBE_URLS) {
+async function probeDouyinReachable(arg1, arg2) {
+  const result = Math.max(4000, Math.floor(arg2 / DOUYIN_PROBE_URLS.length));
+  let local = null;
+  for (const item of DOUYIN_PROBE_URLS) {
     try {
-      const _0x33570e = await axios.get(_0x3ea0e, {
-        ..._0x32f9cb,
-        timeout: _0x50a749,
+      const result2 = await axios.get(item, {
+        ...arg1,
+        timeout: result,
         responseType: "text",
         maxRedirects: 0,
         headers: {
@@ -319,73 +319,73 @@ async function probeDouyinReachable(_0x32f9cb, _0x593ed3) {
         },
         validateStatus: () => true
       });
-      if (_0x33570e.status >= 200 && _0x33570e.status < 400) {
+      if (result2.status >= 200 && result2.status < 400) {
         return true;
       }
-      _0x562575 = new Error("官网返回 HTTP " + _0x33570e.status);
-    } catch (_0x3f34e6) {
-      const _0x5d12ba = _0x3f34e6?.response?.status;
-      if (_0x5d12ba >= 200 && _0x5d12ba < 400) {
+      local = new Error("官网返回 HTTP " + result2.status);
+    } catch (error) {
+      const local2 = error?.response?.status;
+      if (local2 >= 200 && local2 < 400) {
         return true;
       }
-      _0x562575 = _0x3f34e6;
+      local = error;
     }
   }
-  throw _0x562575 || new Error("无法访问官网");
+  throw local || new Error("无法访问官网");
 }
-async function resolveExitIp(_0x110e94, _0x5eccc1) {
-  const _0xed7156 = Math.max(3000, Math.floor(_0x5eccc1 / IP_ENDPOINTS.length));
-  for (const _0x5ed431 of IP_ENDPOINTS) {
+async function resolveExitIp(arg1, arg2) {
+  const result = Math.max(3000, Math.floor(arg2 / IP_ENDPOINTS.length));
+  for (const item of IP_ENDPOINTS) {
     try {
-      return await probeEndpoint(_0x5ed431, _0x110e94, _0xed7156);
-    } catch (_0x28fe08) {}
+      return await probeEndpoint(item, arg1, result);
+    } catch (error) {}
   }
   return "";
 }
-async function testProxyWithAxios(_0x4d8b62, _0x1b4171) {
-  const _0xa3e247 = buildAxiosTransport(_0x4d8b62);
-  const _0x2d6d40 = Math.min(12000, Math.max(6000, Math.floor(_0x1b4171 * 0.7)));
-  const _0x5450e4 = Math.max(4000, _0x1b4171 - _0x2d6d40);
+async function testProxyWithAxios(arg1, arg2) {
+  const result = buildAxiosTransport(arg1);
+  const result2 = Math.min(12000, Math.max(6000, Math.floor(arg2 * 0.7)));
+  const result3 = Math.max(4000, arg2 - result2);
   try {
-    await probeDouyinReachable(_0xa3e247, _0x2d6d40);
-    const _0x2145b8 = await resolveExitIp(_0xa3e247, _0x5450e4);
+    await probeDouyinReachable(result, result2);
+    const result4 = await resolveExitIp(result, result3);
     return {
       douyinOk: true,
-      ip: _0x2145b8
+      ip: result4
     };
-  } catch (_0x5f0a6e) {
-    const _0x3d17c4 = await resolveExitIp(_0xa3e247, Math.min(8000, _0x1b4171));
-    if (_0x3d17c4) {
-      const _0x565adb = new Error("代理出口 IP " + _0x3d17c4 + " 可达，但无法访问官网，请更换可用节点");
-      _0x565adb.code = "DOUYIN_UNREACHABLE";
-      throw _0x565adb;
+  } catch (error) {
+    const result2 = await resolveExitIp(result, Math.min(8000, arg2));
+    if (result2) {
+      const error = new Error("代理出口 IP " + result2 + " 可达，但无法访问官网，请更换可用节点");
+      error.code = "DOUYIN_UNREACHABLE";
+      throw error;
     }
-    throw _0x5f0a6e;
+    throw error;
   }
 }
-async function testProxyConnection(_0x4389f3, {
+async function testProxyConnection(arg1, {
   timeoutMs = 18000
 } = {}) {
-  const _0x5e239a = normalizeProxyConfig(_0x4389f3);
-  if (!isProxyActive(_0x5e239a)) {
+  const result = normalizeProxyConfig(arg1);
+  if (!isProxyActive(result)) {
     return {
       success: false,
       message: "请先启用代理并填写主机与端口"
     };
   }
   try {
-    const _0x22efb8 = await testProxyWithAxios(_0x5e239a, timeoutMs);
-    const _0x4cfa1e = _0x22efb8?.ip || "";
+    const result2 = await testProxyWithAxios(result, timeoutMs);
+    const local = result2?.ip || "";
     return {
       success: true,
-      ip: _0x4cfa1e,
+      ip: local,
       douyinOk: true,
-      message: _0x4cfa1e ? "官网可达，代理可用。出口 IP：" + _0x4cfa1e : "官网可达，代理可用"
+      message: local ? "官网可达，代理可用。出口 IP：" + local : "官网可达，代理可用"
     };
-  } catch (_0x11825f) {
+  } catch (error) {
     return {
       success: false,
-      message: _0x11825f?.code === "DOUYIN_UNREACHABLE" ? _0x11825f.message : formatProxyError(_0x11825f)
+      message: error?.code === "DOUYIN_UNREACHABLE" ? error.message : formatProxyError(error)
     };
   }
 }
