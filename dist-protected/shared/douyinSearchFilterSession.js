@@ -1,28 +1,28 @@
 'use strict';
 
 const FILTER_LOCK_SUFFIXES = ["", "_attempts", "_sort", "_time", "_duration", "_scope", "_format", "_warned"];
-function buildAppliedFiltersBaseKey(_0xa39916, _0x5c6387) {
-  return "applied_filters_" + String(_0xa39916 || "") + "_" + String(_0x5c6387 || "");
+function buildAppliedFiltersBaseKey(arg1, arg2) {
+  return "applied_filters_" + String(arg1 || "") + "_" + String(arg2 || "");
 }
-function listAppliedFilterSessionKeys(_0x5c6b30, _0x1ac6bf) {
-  const _0x1297c5 = buildAppliedFiltersBaseKey(_0x5c6b30, _0x1ac6bf);
-  return FILTER_LOCK_SUFFIXES.map(_0x1b87be => "" + _0x1297c5 + _0x1b87be);
+function listAppliedFilterSessionKeys(arg1, arg2) {
+  const result = buildAppliedFiltersBaseKey(arg1, arg2);
+  return FILTER_LOCK_SUFFIXES.map(arg1 => "" + result + arg1);
 }
-function clearAppliedSearchFilterSession(_0x4c9475, _0xcbc50a, _0x318ff7) {
-  if (!_0x4c9475 || typeof _0x4c9475.removeItem !== "function") {
+function clearAppliedSearchFilterSession(arg1, arg2, arg3) {
+  if (!arg1 || typeof arg1.removeItem !== "function") {
     return 0;
   }
-  let _0x82eaf0 = 0;
-  for (const _0x2dddc8 of listAppliedFilterSessionKeys(_0xcbc50a, _0x318ff7)) {
+  let num = 0;
+  for (const item of listAppliedFilterSessionKeys(arg2, arg3)) {
     try {
-      if (typeof _0x4c9475.getItem === "function" && _0x4c9475.getItem(_0x2dddc8) == null) {
+      if (typeof arg1.getItem === "function" && arg1.getItem(item) == null) {
         continue;
       }
-      _0x4c9475.removeItem(_0x2dddc8);
-      _0x82eaf0 += 1;
-    } catch (_0x2c0859) {}
+      arg1.removeItem(item);
+      num += 1;
+    } catch (error) {}
   }
-  return _0x82eaf0;
+  return num;
 }
 function shouldCountFilterAttempt({
   uiReady = false
