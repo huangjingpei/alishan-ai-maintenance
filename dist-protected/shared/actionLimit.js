@@ -1,149 +1,149 @@
 'use strict';
 
-function normalizeActionLimitRange(_0x2928db = {}, _0x5f3678 = {}) {
-  let _0x52b8ed = Number(_0x2928db[_0x5f3678.minField]);
-  let _0x3a8328 = Number(_0x2928db[_0x5f3678.maxField]);
-  if (!Number.isFinite(_0x52b8ed)) {
-    _0x52b8ed = Number(_0x5f3678.defaultMin) || 10;
+function normalizeActionLimitRange(options = {}, options2 = {}) {
+  let result = Number(options[options2.minField]);
+  let result2 = Number(options[options2.maxField]);
+  if (!Number.isFinite(result)) {
+    result = Number(options2.defaultMin) || 10;
   }
-  if (!Number.isFinite(_0x3a8328)) {
-    _0x3a8328 = Number(_0x5f3678.defaultMax) || 20;
+  if (!Number.isFinite(result2)) {
+    result2 = Number(options2.defaultMax) || 20;
   }
-  _0x52b8ed = Math.max(1, Math.floor(_0x52b8ed));
-  _0x3a8328 = Math.max(1, Math.floor(_0x3a8328));
-  if (_0x52b8ed > _0x3a8328) {
-    [_0x52b8ed, _0x3a8328] = [_0x3a8328, _0x52b8ed];
+  result = Math.max(1, Math.floor(result));
+  result2 = Math.max(1, Math.floor(result2));
+  if (result > result2) {
+    [result, result2] = [result2, result];
   }
-  const _0xbc4499 = Math.max(1, Number(_0x5f3678.hardMax) || 10000);
+  const result3 = Math.max(1, Number(options2.hardMax) || 10000);
   return {
-    min: Math.min(_0x52b8ed, _0xbc4499),
-    max: Math.min(_0x3a8328, _0xbc4499)
+    min: Math.min(result, result3),
+    max: Math.min(result2, result3)
   };
 }
-function pickActionLimit(_0x349ddd, _0x40fccb = Math.random) {
-  const _0x473215 = Math.max(1, Math.floor(Number(_0x349ddd?.min) || 1));
-  const _0x133434 = Math.max(_0x473215, Math.floor(Number(_0x349ddd?.max) || _0x473215));
-  const _0x500e8c = Math.max(0, Math.min(0.999999999, Number(_0x40fccb()) || 0));
-  return Math.floor(_0x500e8c * (_0x133434 - _0x473215 + 1)) + _0x473215;
+function pickActionLimit(arg1, arg2 = Math.random) {
+  const result = Math.max(1, Math.floor(Number(arg1?.min) || 1));
+  const result2 = Math.max(result, Math.floor(Number(arg1?.max) || result));
+  const result3 = Math.max(0, Math.min(0.999999999, Number(arg2()) || 0));
+  return Math.floor(result3 * (result2 - result + 1)) + result;
 }
-function createActionLimitState(_0xf21895 = {}, _0x509861 = [], _0x4c7412 = Math.random) {
-  const _0x49d20d = {};
-  const _0x153710 = {};
-  for (const _0xde827a of _0x509861) {
-    if (!_0xde827a?.key) {
+function createActionLimitState(options = {}, list = [], arg3 = Math.random) {
+  const obj = {};
+  const obj2 = {};
+  for (const item of list) {
+    if (!item?.key) {
       continue;
     }
-    const _0x1aa1ad = normalizeActionLimitRange(_0xf21895, _0xde827a);
-    const _0x35ed1b = _0xf21895[_0xde827a.enabledField] === true;
-    _0x49d20d[_0xde827a.key] = {
-      key: _0xde827a.key,
-      label: _0xde827a.label || _0xde827a.key,
-      enabled: _0x35ed1b,
-      min: _0x1aa1ad.min,
-      max: _0x1aa1ad.max,
-      limit: _0x35ed1b ? pickActionLimit(_0x1aa1ad, _0x4c7412) : null
+    const result = normalizeActionLimitRange(options, item);
+    const value = options[item.enabledField] === true;
+    obj[item.key] = {
+      key: item.key,
+      label: item.label || item.key,
+      enabled: value,
+      min: result.min,
+      max: result.max,
+      limit: value ? pickActionLimit(result, arg3) : null
     };
-    _0x153710[_0xde827a.key] = 0;
+    obj2[item.key] = 0;
   }
   return {
-    limits: _0x49d20d,
-    counts: _0x153710
+    limits: obj,
+    counts: obj2
   };
 }
-function getActionLimitStatus(_0xe6ea30, _0xfa0a56) {
-  const _0x508c06 = _0xe6ea30?.limits?.[_0xfa0a56];
-  const _0x4de89d = Math.max(0, Number(_0xe6ea30?.counts?.[_0xfa0a56]) || 0);
-  if (!_0x508c06 || !_0x508c06.enabled) {
+function getActionLimitStatus(arg1, arg2) {
+  const local = arg1?.limits?.[arg2];
+  const result = Math.max(0, Number(arg1?.counts?.[arg2]) || 0);
+  if (!local || !local.enabled) {
     return {
       enabled: false,
       allowed: true,
-      count: _0x4de89d,
+      count: result,
       limit: null,
       remaining: Infinity
     };
   }
-  const _0x2da2f8 = Math.max(1, Number(_0x508c06.limit) || 1);
+  const result2 = Math.max(1, Number(local.limit) || 1);
   return {
     enabled: true,
-    allowed: _0x4de89d < _0x2da2f8,
-    count: _0x4de89d,
-    limit: _0x2da2f8,
-    remaining: Math.max(0, _0x2da2f8 - _0x4de89d),
-    label: _0x508c06.label || _0xfa0a56
+    allowed: result < result2,
+    count: result,
+    limit: result2,
+    remaining: Math.max(0, result2 - result),
+    label: local.label || arg2
   };
 }
-function recordActionLimitSuccess(_0x111f08, _0x13bda3, _0x47cea8 = 1) {
-  if (!_0x111f08?.counts || !Object.prototype.hasOwnProperty.call(_0x111f08.counts, _0x13bda3)) {
-    return getActionLimitStatus(_0x111f08, _0x13bda3);
+function recordActionLimitSuccess(arg1, arg2, num = 1) {
+  if (!arg1?.counts || !Object.prototype.hasOwnProperty.call(arg1.counts, arg2)) {
+    return getActionLimitStatus(arg1, arg2);
   }
-  _0x111f08.counts[_0x13bda3] = Math.max(0, Number(_0x111f08.counts[_0x13bda3]) || 0) + Math.max(0, Math.floor(Number(_0x47cea8) || 0));
-  return getActionLimitStatus(_0x111f08, _0x13bda3);
+  arg1.counts[arg2] = Math.max(0, Number(arg1.counts[arg2]) || 0) + Math.max(0, Math.floor(Number(num) || 0));
+  return getActionLimitStatus(arg1, arg2);
 }
-function formatActionLimitSummary(_0x44c3a7) {
-  const _0x5a4107 = _0x44c3a7?.template || _0x44c3a7;
-  return Object.values(_0x5a4107?.limits || {}).map(_0x5dc3d2 => _0x5dc3d2.enabled ? _0x5dc3d2.label + " " + _0x5dc3d2.limit + "（区间 " + _0x5dc3d2.min + "-" + _0x5dc3d2.max + "）" : _0x5dc3d2.label + " 不限").join("；");
+function formatActionLimitSummary(arg1) {
+  const local = arg1?.template || arg1;
+  return Object.values(local?.limits || {}).map(arg1 => arg1.enabled ? arg1.label + " " + arg1.limit + "（区间 " + arg1.min + "-" + arg1.max + "）" : arg1.label + " 不限").join("；");
 }
-function cloneActionLimitState(_0x318c4b = {}) {
-  const _0x530f96 = {};
-  Object.keys(_0x318c4b.counts || _0x318c4b.limits || {}).forEach(_0x1c1d42 => {
-    _0x530f96[_0x1c1d42] = 0;
+function cloneActionLimitState(options = {}) {
+  const obj = {};
+  Object.keys(options.counts || options.limits || {}).forEach(arg1 => {
+    obj[arg1] = 0;
   });
   return {
-    limits: JSON.parse(JSON.stringify(_0x318c4b.limits || {})),
-    counts: _0x530f96
+    limits: JSON.parse(JSON.stringify(options.limits || {})),
+    counts: obj
   };
 }
-function createAccountActionLimitStore(_0x4e6cd4 = {}, _0xe26861 = [], _0x14fafb = [], _0x5883a2 = Math.random) {
-  const _0x5de0cf = createActionLimitState(_0x4e6cd4, _0xe26861, _0x5883a2);
-  const _0x383fab = Object.create(null);
-  for (const _0x353207 of _0x14fafb || []) {
-    const _0x38be7f = String(_0x353207 || "").trim();
-    if (!_0x38be7f) {
+function createAccountActionLimitStore(options = {}, list = [], list2 = [], arg4 = Math.random) {
+  const result = createActionLimitState(options, list, arg4);
+  const result2 = Object.create(null);
+  for (const item of list2 || []) {
+    const result3 = String(item || "").trim();
+    if (!result3) {
       continue;
     }
-    _0x383fab[_0x38be7f] = cloneActionLimitState(_0x5de0cf);
+    result2[result3] = cloneActionLimitState(result);
   }
   return {
-    template: _0x5de0cf,
-    accounts: _0x383fab,
-    config: _0x4e6cd4,
-    specs: _0xe26861
+    template: result,
+    accounts: result2,
+    config: options,
+    specs: list
   };
 }
-function ensureAccountActionLimitState(_0x1f4ca0, _0x4d97fe, _0x3de6da = Math.random) {
-  if (!_0x1f4ca0) {
-    return createActionLimitState({}, [], _0x3de6da);
+function ensureAccountActionLimitState(arg1, arg2, arg3 = Math.random) {
+  if (!arg1) {
+    return createActionLimitState({}, [], arg3);
   }
-  if (_0x1f4ca0.limits && _0x1f4ca0.counts && !_0x1f4ca0.template && !_0x1f4ca0.accounts) {
-    return _0x1f4ca0;
+  if (arg1.limits && arg1.counts && !arg1.template && !arg1.accounts) {
+    return arg1;
   }
-  if (!_0x1f4ca0.template) {
-    _0x1f4ca0.template = createActionLimitState(_0x1f4ca0.config || {}, _0x1f4ca0.specs || [], _0x3de6da);
+  if (!arg1.template) {
+    arg1.template = createActionLimitState(arg1.config || {}, arg1.specs || [], arg3);
   }
-  if (!_0x1f4ca0.accounts) {
-    _0x1f4ca0.accounts = Object.create(null);
+  if (!arg1.accounts) {
+    arg1.accounts = Object.create(null);
   }
-  const _0x415afb = String(_0x4d97fe || "").trim();
-  if (!_0x415afb) {
-    return _0x1f4ca0.template;
+  const result = String(arg2 || "").trim();
+  if (!result) {
+    return arg1.template;
   }
-  if (!_0x1f4ca0.accounts[_0x415afb]) {
-    _0x1f4ca0.accounts[_0x415afb] = cloneActionLimitState(_0x1f4ca0.template);
+  if (!arg1.accounts[result]) {
+    arg1.accounts[result] = cloneActionLimitState(arg1.template);
   }
-  return _0x1f4ca0.accounts[_0x415afb];
+  return arg1.accounts[result];
 }
-function getAccountActionLimitStatus(_0x5770d0, _0x2c217c, _0x3c72f9) {
-  return getActionLimitStatus(ensureAccountActionLimitState(_0x5770d0, _0x2c217c), _0x3c72f9);
+function getAccountActionLimitStatus(arg1, arg2, arg3) {
+  return getActionLimitStatus(ensureAccountActionLimitState(arg1, arg2), arg3);
 }
-function recordAccountActionLimitSuccess(_0x1a7e91, _0x44732a, _0xa7b3d8, _0x27d759 = 1) {
-  return recordActionLimitSuccess(ensureAccountActionLimitState(_0x1a7e91, _0x44732a), _0xa7b3d8, _0x27d759);
+function recordAccountActionLimitSuccess(arg1, arg2, arg3, num = 1) {
+  return recordActionLimitSuccess(ensureAccountActionLimitState(arg1, arg2), arg3, num);
 }
-function formatAccountActionLimitSummary(_0x75deb6) {
-  const _0x3ed9e0 = formatActionLimitSummary(_0x75deb6);
-  if (_0x3ed9e0) {
-    return "每账号 " + _0x3ed9e0;
+function formatAccountActionLimitSummary(arg1) {
+  const result = formatActionLimitSummary(arg1);
+  if (result) {
+    return "每账号 " + result;
   } else {
-    return _0x3ed9e0;
+    return result;
   }
 }
 const ACCOUNT_ACTION_LIMIT_SPECS = Object.freeze([{
@@ -171,17 +171,17 @@ const ACCOUNT_ACTION_LIMIT_SPECS = Object.freeze([{
   minField: "autoDmLimitMin",
   maxField: "autoDmLimitMax"
 }]);
-function mapSelfWarmupActionToLimitKey(_0x4ad495) {
-  if (_0x4ad495 === "like_comment") {
+function mapSelfWarmupActionToLimitKey(arg1) {
+  if (arg1 === "like_comment") {
     return "like";
   }
-  if (_0x4ad495 === "reply_comment" || _0x4ad495 === "reply_dm") {
+  if (arg1 === "reply_comment" || arg1 === "reply_dm") {
     return "reply";
   }
-  if (_0x4ad495 === "follow_back" || _0x4ad495 === "user_follow") {
+  if (arg1 === "follow_back" || arg1 === "user_follow") {
     return "follow";
   }
-  if (_0x4ad495 === "send_dm") {
+  if (arg1 === "send_dm") {
     return "dm";
   }
   return "";
