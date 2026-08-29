@@ -2,59 +2,59 @@
 
 const FRAME_HEADER_BLOCKLIST = new Set(["x-frame-options", "content-security-policy", "x-content-security-policy"]);
 const DOCUMENT_RESOURCE_TYPES = new Set(["mainFrame", "subFrame"]);
-function headerValue(_0x4d24f6, _0x1f2815) {
-  const _0x3bf6c0 = _0x4d24f6 || {};
-  const _0x273a67 = String(_0x1f2815 || "").toLowerCase();
-  for (const _0x2bfa24 of Object.keys(_0x3bf6c0)) {
-    if (_0x2bfa24.toLowerCase() !== _0x273a67) {
+function headerValue(arg1, arg2) {
+  const local = arg1 || {};
+  const result = String(arg2 || "").toLowerCase();
+  for (const item of Object.keys(local)) {
+    if (item.toLowerCase() !== result) {
       continue;
     }
-    const _0xe8e421 = _0x3bf6c0[_0x2bfa24];
-    if (Array.isArray(_0xe8e421)) {
-      return _0xe8e421.join(" ");
+    const value = local[item];
+    if (Array.isArray(value)) {
+      return value.join(" ");
     } else {
-      return String(_0xe8e421 || "");
+      return String(value || "");
     }
   }
   return "";
 }
-function looksLikeNonHtmlDocument(_0x2f6fd8) {
-  const _0x2fe7a1 = headerValue(_0x2f6fd8, "content-type");
-  if (!_0x2fe7a1) {
+function looksLikeNonHtmlDocument(arg1) {
+  const result = headerValue(arg1, "content-type");
+  if (!result) {
     return false;
   }
-  if (/javascript|ecmascript|\bjson\b|octet-stream|wasm/i.test(_0x2fe7a1)) {
+  if (/javascript|ecmascript|\bjson\b|octet-stream|wasm/i.test(result)) {
     return true;
   }
-  if (/text\/css|image\/|font\/|audio\/|video\//i.test(_0x2fe7a1)) {
+  if (/text\/css|image\/|font\/|audio\/|video\//i.test(result)) {
     return true;
   }
   return false;
 }
-function stripFrameBlockingHeaders(_0x29b496 = {}) {
-  const _0x18b64b = _0x29b496.responseHeaders || {};
-  const _0x2ee7a2 = String(_0x29b496.resourceType || "");
-  if (!DOCUMENT_RESOURCE_TYPES.has(_0x2ee7a2) || looksLikeNonHtmlDocument(_0x18b64b)) {
+function stripFrameBlockingHeaders(options = {}) {
+  const local = options.responseHeaders || {};
+  const result = String(options.resourceType || "");
+  if (!DOCUMENT_RESOURCE_TYPES.has(result) || looksLikeNonHtmlDocument(local)) {
     return {
       cancel: false,
-      responseHeaders: _0x18b64b
+      responseHeaders: local
     };
   }
-  const _0x1d1da2 = {
-    ..._0x18b64b
+  const obj = {
+    ...local
   };
-  for (const _0x2c8299 of Object.keys(_0x1d1da2)) {
-    if (FRAME_HEADER_BLOCKLIST.has(_0x2c8299.toLowerCase())) {
-      delete _0x1d1da2[_0x2c8299];
+  for (const item of Object.keys(obj)) {
+    if (FRAME_HEADER_BLOCKLIST.has(item.toLowerCase())) {
+      delete obj[item];
     }
   }
   return {
     cancel: false,
-    responseHeaders: _0x1d1da2
+    responseHeaders: obj
   };
 }
-function handleStripFrameBlockingHeaders(_0x20bd35, _0x55ed3f) {
-  _0x55ed3f(stripFrameBlockingHeaders(_0x20bd35));
+function handleStripFrameBlockingHeaders(arg1, arg2) {
+  arg2(stripFrameBlockingHeaders(arg1));
 }
 module.exports = {
   stripFrameBlockingHeaders: stripFrameBlockingHeaders,
