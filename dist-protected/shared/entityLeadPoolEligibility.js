@@ -4,59 +4,59 @@ const {
   isEntityRelationAuthorSource,
   resolveAuthorSecUidFromLead
 } = require("./collectedLeadKeys");
-function hasUsableSecUid(_0x47659d) {
-  const _0x1afe6b = String(_0x47659d?.secUid || _0x47659d?.sec_uid || "").trim();
-  if (_0x1afe6b.length < 15) {
+function hasUsableSecUid(arg1) {
+  const result = String(arg1?.secUid || arg1?.sec_uid || "").trim();
+  if (result.length < 15) {
     return false;
   }
-  if (["self", "login", "anonymous", "undefined", "null"].includes(_0x1afe6b.toLowerCase())) {
+  if (["self", "login", "anonymous", "undefined", "null"].includes(result.toLowerCase())) {
     return false;
   }
-  if (_0x1afe6b.startsWith("name:") || _0x1afe6b.startsWith("live_") || _0x1afe6b.startsWith("webcast:")) {
+  if (result.startsWith("name:") || result.startsWith("live_") || result.startsWith("webcast:")) {
     return false;
   }
-  return /^[A-Za-z0-9_-]+$/.test(_0x1afe6b);
+  return /^[A-Za-z0-9_-]+$/.test(result);
 }
-function isEntityLiveLead(_0x8edef) {
-  if (!_0x8edef || typeof _0x8edef !== "object") {
+function isEntityLiveLead(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return false;
   }
-  if (_0x8edef.sourceType === "live" || _0x8edef.entrySource === "entity_live") {
+  if (arg1.sourceType === "live" || arg1.entrySource === "entity_live") {
     return true;
   }
-  if (_0x8edef.webcastUid || _0x8edef.liveEvent || _0x8edef.liveUrl) {
+  if (arg1.webcastUid || arg1.liveEvent || arg1.liveUrl) {
     return true;
   }
-  const _0x5f1f08 = String(_0x8edef.userKey || "");
-  return _0x5f1f08.startsWith("webcast:");
+  const result = String(arg1.userKey || "");
+  return result.startsWith("webcast:");
 }
-function isEntityLeadEligibleForLeadPool(_0x8a3832) {
-  if (!_0x8a3832 || typeof _0x8a3832 !== "object") {
+function isEntityLeadEligibleForLeadPool(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return false;
   }
-  if (isEntityRelationAuthorSource(_0x8a3832.sourceType, _0x8a3832.entrySource)) {
-    return !!resolveAuthorSecUidFromLead(_0x8a3832);
+  if (isEntityRelationAuthorSource(arg1.sourceType, arg1.entrySource)) {
+    return !!resolveAuthorSecUidFromLead(arg1);
   }
-  if (_0x8a3832.leadKind === "video_card" && (_0x8a3832.videoUrl || _0x8a3832.url || _0x8a3832.leadId)) {
+  if (arg1.leadKind === "video_card" && (arg1.videoUrl || arg1.url || arg1.leadId)) {
     return true;
   }
-  if (_0x8a3832.leadKind === "collected_author" && resolveAuthorSecUidFromLead(_0x8a3832)) {
+  if (arg1.leadKind === "collected_author" && resolveAuthorSecUidFromLead(arg1)) {
     return true;
   }
-  const _0x2d75f6 = String(_0x8a3832.nickname || "").trim();
-  if (!_0x2d75f6) {
+  const result = String(arg1.nickname || "").trim();
+  if (!result) {
     return false;
   }
-  if (isEntityLiveLead(_0x8a3832)) {
-    return hasUsableSecUid(_0x8a3832);
+  if (isEntityLiveLead(arg1)) {
+    return hasUsableSecUid(arg1);
   }
-  if (_0x8a3832.userUrl || _0x8a3832.uid || _0x8a3832.secUid) {
+  if (arg1.userUrl || arg1.uid || arg1.secUid) {
     return true;
   }
-  if (_0x8a3832.sourceType === "video" && (_0x8a3832.userKey || _0x8a3832.videoUrl)) {
+  if (arg1.sourceType === "video" && (arg1.userKey || arg1.videoUrl)) {
     return true;
   }
-  if (_0x8a3832.userKey) {
+  if (arg1.userKey) {
     return true;
   }
   return false;
