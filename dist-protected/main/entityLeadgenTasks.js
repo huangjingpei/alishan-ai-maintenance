@@ -13,41 +13,41 @@ const {
 } = require("../shared/entityBloggerProfileSelect");
 const dbManager = require("./dbManager");
 const entityLeadgenLeadsQuery = require("./entityLeadgenLeadsQuery");
-function normalizeLeadPublishTimeMs(_0x12942a) {
-  return normalizeAwemeCreateTimeMs(_0x12942a?.publishTime ?? _0x12942a?.createTime ?? _0x12942a?.create_time ?? 0);
+function normalizeLeadPublishTimeMs(arg1) {
+  return normalizeAwemeCreateTimeMs(arg1?.publishTime ?? arg1?.createTime ?? arg1?.create_time ?? 0);
 }
-const ENTITY_LEADGEN_TASKS_FILE = _0x5f26d5 => path.join(_0x5f26d5, "entity_leadgen_tasks.enc");
-function createCrypto(_0x5de064) {
-  const _0x49c52f = crypto.scryptSync("huoke-radar-secret-v1", "salt", 32);
-  const _0x13cb5d = Buffer.alloc(16, 0);
-  const _0x228b86 = ENTITY_LEADGEN_TASKS_FILE(_0x5de064);
-  function _0x28037d(_0x2c6b5c, _0x1c00a6 = []) {
-    if (!fs.existsSync(_0x2c6b5c)) {
-      return _0x1c00a6;
+const ENTITY_LEADGEN_TASKS_FILE = arg1 => path.join(arg1, "entity_leadgen_tasks.enc");
+function createCrypto(arg1) {
+  const result = crypto.scryptSync("huoke-radar-secret-v1", "salt", 32);
+  const result2 = Buffer.alloc(16, 0);
+  const result3 = ENTITY_LEADGEN_TASKS_FILE(arg1);
+  function fn(arg1, list = []) {
+    if (!fs.existsSync(arg1)) {
+      return list;
     }
     try {
-      const _0x3bc219 = fs.readFileSync(_0x2c6b5c, "utf8");
-      if (!_0x3bc219) {
-        return _0x1c00a6;
+      const result3 = fs.readFileSync(arg1, "utf8");
+      if (!result3) {
+        return list;
       }
-      const _0x6f6db1 = crypto.createDecipheriv("aes-256-cbc", _0x49c52f, _0x13cb5d);
-      let _0x36a063 = _0x6f6db1.update(_0x3bc219, "hex", "utf8");
-      _0x36a063 += _0x6f6db1.final("utf8");
-      return JSON.parse(_0x36a063);
-    } catch (_0xd123e1) {
-      return _0x1c00a6;
+      const result4 = crypto.createDecipheriv("aes-256-cbc", result, result2);
+      let result5 = result4.update(result3, "hex", "utf8");
+      result5 += result4.final("utf8");
+      return JSON.parse(result5);
+    } catch (error) {
+      return list;
     }
   }
-  function _0x526b84(_0xd36602, _0x179e28) {
-    const _0x35bb27 = crypto.createCipheriv("aes-256-cbc", _0x49c52f, _0x13cb5d);
-    let _0x2a2b8a = _0x35bb27.update(JSON.stringify(_0x179e28), "utf8", "hex");
-    _0x2a2b8a += _0x35bb27.final("hex");
-    fs.writeFileSync(_0xd36602, _0x2a2b8a);
+  function fn2(arg1, arg2) {
+    const result3 = crypto.createCipheriv("aes-256-cbc", result, result2);
+    let result4 = result3.update(JSON.stringify(arg2), "utf8", "hex");
+    result4 += result3.final("hex");
+    fs.writeFileSync(arg1, result4);
   }
   return {
-    filePath: _0x228b86,
-    readTasks: () => _0x28037d(_0x228b86, []),
-    writeTasks: _0x418690 => _0x526b84(_0x228b86, _0x418690)
+    filePath: result3,
+    readTasks: () => fn(result3, []),
+    writeTasks: arg1 => fn2(result3, arg1)
   };
 }
 function createEmptyEntityLeadgenTaskStats() {
@@ -66,581 +66,581 @@ function createEmptyEntityLeadgenTaskStats() {
     lastCycleAt: null
   };
 }
-function normalizeLeadRecord(_0x475a2c = {}, _0x4a36ac = {}) {
-  const _0x3379bf = String(_0x475a2c.sourceType || "").trim();
-  const _0x3a69b4 = String(_0x475a2c.leadKind || "").trim();
-  const _0x1a3e57 = String(_0x475a2c.videoUrl || _0x475a2c.url || "").trim();
-  const _0x471dc8 = _0x3a69b4 === "video_card" || _0x3379bf === "video" || String(_0x475a2c.identityType || "") === "video" ? extractDouyinVideoId(_0x1a3e57 || _0x475a2c.content || _0x475a2c.leadId || "") || (String(_0x475a2c.leadId || _0x475a2c.userKey || "").startsWith("video:") ? String(_0x475a2c.leadId || _0x475a2c.userKey).slice(6) : "") : "";
-  const _0x5a31a = !!_0x471dc8 || _0x3a69b4 === "video_card" || _0x3379bf === "video";
-  const _0x18f680 = _0x4a36ac.stableId ? ensureStableEntityLeadId(_0x4a36ac.taskId, _0x475a2c) : String(_0x475a2c.id || "entity_lead_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8));
-  if (_0x5a31a && _0x471dc8) {
-    const _0x412976 = "https://www.douyin.com/video/" + _0x471dc8;
-    const _0x5e92c8 = String(_0x475a2c.title || "").replace(/\s+/g, " ").trim() || String(_0x475a2c.nickname || "").replace(/\s+/g, " ").trim() || "抖音视频作品";
-    const _0x1c0c16 = Array.isArray(_0x475a2c.collectedFields) && _0x475a2c.collectedFields.length ? _0x475a2c.collectedFields.map(String) : ["video"];
-    const _0x4f06dc = String(_0x475a2c.authorProfileUrl || "").trim() || (_0x1c0c16.includes("author") && /\/user\//i.test(String(_0x475a2c.userUrl || "")) && !/\/(?:video|note)\//i.test(String(_0x475a2c.userUrl || "")) ? String(_0x475a2c.userUrl || "").trim() : "");
-    const _0x183649 = String(_0x475a2c.authorNickname || "").trim().replace(/^@+/, "") || (_0x1c0c16.includes("author") && String(_0x475a2c.nickname || "").trim() && String(_0x475a2c.nickname || "").trim() !== _0x5e92c8 ? String(_0x475a2c.nickname || "").trim().replace(/^@+/, "") : "");
+function normalizeLeadRecord(options = {}, options2 = {}) {
+  const result = String(options.sourceType || "").trim();
+  const result2 = String(options.leadKind || "").trim();
+  const result3 = String(options.videoUrl || options.url || "").trim();
+  const value = result2 === "video_card" || result === "video" || String(options.identityType || "") === "video" ? extractDouyinVideoId(result3 || options.content || options.leadId || "") || (String(options.leadId || options.userKey || "").startsWith("video:") ? String(options.leadId || options.userKey).slice(6) : "") : "";
+  const local = !!value || result2 === "video_card" || result === "video";
+  const value2 = options2.stableId ? ensureStableEntityLeadId(options2.taskId, options) : String(options.id || "entity_lead_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8));
+  if (local && value) {
+    const value3 = "https://www.douyin.com/video/" + value;
+    const local = String(options.title || "").replace(/\s+/g, " ").trim() || String(options.nickname || "").replace(/\s+/g, " ").trim() || "抖音视频作品";
+    const value4 = Array.isArray(options.collectedFields) && options.collectedFields.length ? options.collectedFields.map(String) : ["video"];
+    const local2 = String(options.authorProfileUrl || "").trim() || (value4.includes("author") && /\/user\//i.test(String(options.userUrl || "")) && !/\/(?:video|note)\//i.test(String(options.userUrl || "")) ? String(options.userUrl || "").trim() : "");
+    const local3 = String(options.authorNickname || "").trim().replace(/^@+/, "") || (value4.includes("author") && String(options.nickname || "").trim() && String(options.nickname || "").trim() !== local ? String(options.nickname || "").trim().replace(/^@+/, "") : "");
     return {
-      id: _0x18f680,
-      ts: Number(_0x475a2c.ts || Date.now()),
-      accountId: String(_0x475a2c.accountId || ""),
-      accountName: String(_0x475a2c.accountName || ""),
-      nickname: _0x183649 || _0x5e92c8,
-      title: _0x5e92c8,
+      id: value2,
+      ts: Number(options.ts || Date.now()),
+      accountId: String(options.accountId || ""),
+      accountName: String(options.accountName || ""),
+      nickname: local3 || local,
+      title: local,
       uid: "",
       secUid: "",
       webcastUid: "",
       privacyMasked: false,
       identityType: "video",
-      profileAvailable: !!_0x1c0c16.includes("author") && !!_0x4f06dc,
-      profileUnavailable: !_0x1c0c16.includes("author") || !_0x4f06dc,
-      profileUnavailableReason: _0x1c0c16.includes("author") && _0x4f06dc ? "" : "视频作品链接",
-      userUrl: _0x4f06dc,
-      authorProfileUrl: _0x4f06dc,
-      videoUrl: _0x412976,
-      url: _0x412976,
+      profileAvailable: !!value4.includes("author") && !!local2,
+      profileUnavailable: !value4.includes("author") || !local2,
+      profileUnavailableReason: value4.includes("author") && local2 ? "" : "视频作品链接",
+      userUrl: local2,
+      authorProfileUrl: local2,
+      videoUrl: value3,
+      url: value3,
       leadKind: "video_card",
-      leadId: "video:" + _0x471dc8,
-      collectedFields: _0x1c0c16,
-      content: _0x412976,
-      timeText: String(_0x475a2c.timeText || _0x475a2c.publishTimeText || "卡片采集"),
+      leadId: "video:" + value,
+      collectedFields: value4,
+      content: value3,
+      timeText: String(options.timeText || options.publishTimeText || "卡片采集"),
       ipLocation: "",
       messageId: "",
-      eventTimestamp: Number(_0x475a2c.eventTimestamp || 0) || 0,
-      publishTime: normalizeLeadPublishTimeMs(_0x475a2c),
-      publishTimeText: String(_0x475a2c.publishTimeText || "").trim(),
+      eventTimestamp: Number(options.eventTimestamp || 0) || 0,
+      publishTime: normalizeLeadPublishTimeMs(options),
+      publishTimeText: String(options.publishTimeText || "").trim(),
       liveEvent: null,
       liveEvents: [],
       sourceType: "video",
-      searchKeyword: String(_0x475a2c.searchKeyword || ""),
-      entrySource: String(_0x475a2c.entrySource || "entity_video"),
-      entryLabel: String(_0x475a2c.entryLabel || "线索采集：视频作品链接"),
-      duplicate: !!_0x475a2c.duplicate
+      searchKeyword: String(options.searchKeyword || ""),
+      entrySource: String(options.entrySource || "entity_video"),
+      entryLabel: String(options.entryLabel || "线索采集：视频作品链接"),
+      duplicate: !!options.duplicate
     };
   }
-  const _0xa9541a = String(_0x475a2c.uid || "");
-  const _0x57ab34 = String(_0x475a2c.secUid || _0x475a2c.sec_uid || "");
-  const _0x550499 = String(_0x475a2c.webcastUid || _0x475a2c.webcast_uid || "");
-  const _0x4615ea = !_0xa9541a && !_0x57ab34 && _0x550499.length >= 15 && _0x550499 !== "111111" && /^[A-Za-z0-9_-]+$/.test(_0x550499) ? _0x550499 : "";
-  const _0x561d54 = !!_0x57ab34;
-  const _0x4a02bf = _0x561d54 ? "https://www.douyin.com/user/" + _0x57ab34 : "";
+  const result4 = String(options.uid || "");
+  const result5 = String(options.secUid || options.sec_uid || "");
+  const result6 = String(options.webcastUid || options.webcast_uid || "");
+  const value3 = !result4 && !result5 && result6.length >= 15 && result6 !== "111111" && /^[A-Za-z0-9_-]+$/.test(result6) ? result6 : "";
+  const flag = !!result5;
+  const value4 = flag ? "https://www.douyin.com/user/" + result5 : "";
   return {
-    id: _0x18f680,
-    ts: Number(_0x475a2c.ts || Date.now()),
-    accountId: String(_0x475a2c.accountId || ""),
-    accountName: String(_0x475a2c.accountName || ""),
-    nickname: String(_0x475a2c.nickname || ""),
-    title: String(_0x475a2c.title || _0x475a2c.sourceVideoTitle || "").trim(),
-    sourceVideoTitle: String(_0x475a2c.sourceVideoTitle || _0x475a2c.title || "").trim(),
-    uid: _0xa9541a,
-    secUid: _0x57ab34,
-    webcastUid: _0x4615ea,
-    privacyMasked: !!_0x475a2c.privacyMasked,
-    identityType: _0x561d54 ? "profile" : _0x4615ea ? "webcast" : String(_0x475a2c.identityType || "numeric"),
-    profileAvailable: _0x561d54,
-    profileUnavailable: !_0x561d54,
-    profileUnavailableReason: _0x561d54 ? "" : String(_0x475a2c.profileUnavailableReason || (_0x4615ea ? "主播设置不支持查看他人资料" : "实时消息未提供主页标识")),
-    userUrl: _0x4a02bf,
-    videoUrl: canonicalizeDouyinVideoUrl(_0x475a2c.videoUrl) || "",
-    url: String(_0x475a2c.url || _0x4a02bf || ""),
-    leadKind: String(_0x475a2c.leadKind || ""),
-    leadId: String(_0x475a2c.leadId || ""),
-    collectedFields: Array.isArray(_0x475a2c.collectedFields) ? _0x475a2c.collectedFields.map(String) : [],
-    content: String(_0x475a2c.content || ""),
-    timeText: stripLocationFromCommentTimeText(_0x475a2c.timeText || _0x475a2c.time) || String(_0x475a2c.timeText || _0x475a2c.time || ""),
-    ipLocation: String(_0x475a2c.ipLocation || _0x475a2c.location || ""),
-    messageId: String(_0x475a2c.messageId || ""),
-    eventTimestamp: Number(_0x475a2c.eventTimestamp || 0) || 0,
-    publishTime: normalizeLeadPublishTimeMs(_0x475a2c),
-    liveEvent: _0x475a2c.liveEvent && typeof _0x475a2c.liveEvent === "object" ? _0x475a2c.liveEvent : null,
-    liveEvents: Array.isArray(_0x475a2c.liveEvents) ? _0x475a2c.liveEvents.slice(-500) : [],
-    sourceType: String(_0x475a2c.sourceType || ""),
-    searchKeyword: String(_0x475a2c.searchKeyword || ""),
-    entrySource: String(_0x475a2c.entrySource || ""),
-    entryLabel: String(_0x475a2c.entryLabel || ""),
-    duplicate: !!_0x475a2c.duplicate
+    id: value2,
+    ts: Number(options.ts || Date.now()),
+    accountId: String(options.accountId || ""),
+    accountName: String(options.accountName || ""),
+    nickname: String(options.nickname || ""),
+    title: String(options.title || options.sourceVideoTitle || "").trim(),
+    sourceVideoTitle: String(options.sourceVideoTitle || options.title || "").trim(),
+    uid: result4,
+    secUid: result5,
+    webcastUid: value3,
+    privacyMasked: !!options.privacyMasked,
+    identityType: flag ? "profile" : value3 ? "webcast" : String(options.identityType || "numeric"),
+    profileAvailable: flag,
+    profileUnavailable: !flag,
+    profileUnavailableReason: flag ? "" : String(options.profileUnavailableReason || (value3 ? "主播设置不支持查看他人资料" : "实时消息未提供主页标识")),
+    userUrl: value4,
+    videoUrl: canonicalizeDouyinVideoUrl(options.videoUrl) || "",
+    url: String(options.url || value4 || ""),
+    leadKind: String(options.leadKind || ""),
+    leadId: String(options.leadId || ""),
+    collectedFields: Array.isArray(options.collectedFields) ? options.collectedFields.map(String) : [],
+    content: String(options.content || ""),
+    timeText: stripLocationFromCommentTimeText(options.timeText || options.time) || String(options.timeText || options.time || ""),
+    ipLocation: String(options.ipLocation || options.location || ""),
+    messageId: String(options.messageId || ""),
+    eventTimestamp: Number(options.eventTimestamp || 0) || 0,
+    publishTime: normalizeLeadPublishTimeMs(options),
+    liveEvent: options.liveEvent && typeof options.liveEvent === "object" ? options.liveEvent : null,
+    liveEvents: Array.isArray(options.liveEvents) ? options.liveEvents.slice(-500) : [],
+    sourceType: String(options.sourceType || ""),
+    searchKeyword: String(options.searchKeyword || ""),
+    entrySource: String(options.entrySource || ""),
+    entryLabel: String(options.entryLabel || ""),
+    duplicate: !!options.duplicate
   };
 }
-function normalizeEntityLeadgenTask(_0x4bb2f6 = {}) {
-  const _0x1fde88 = Array.isArray(_0x4bb2f6.runs) ? _0x4bb2f6.runs.map(_0x132911 => ({
-    accountId: String(_0x132911.accountId || ""),
-    nickname: String(_0x132911.nickname || _0x132911.name || ""),
-    name: String(_0x132911.name || ""),
-    endedAt: _0x132911.endedAt != null ? Number(_0x132911.endedAt) : null,
-    endReason: _0x132911.endReason || ""
-  })).filter(_0x14c8d5 => _0x14c8d5.accountId) : [];
-  const _0xbbf467 = Array.isArray(_0x4bb2f6.leads) ? _0x4bb2f6.leads : [];
-  const _0x33da16 = _0xbbf467.map(_0x1d6453 => normalizeLeadRecord(_0x1d6453, {
-    taskId: String(_0x4bb2f6.id || ""),
+function normalizeEntityLeadgenTask(options = {}) {
+  const value = Array.isArray(options.runs) ? options.runs.map(arg1 => ({
+    accountId: String(arg1.accountId || ""),
+    nickname: String(arg1.nickname || arg1.name || ""),
+    name: String(arg1.name || ""),
+    endedAt: arg1.endedAt != null ? Number(arg1.endedAt) : null,
+    endReason: arg1.endReason || ""
+  })).filter(arg1 => arg1.accountId) : [];
+  const value2 = Array.isArray(options.leads) ? options.leads : [];
+  const result = value2.map(arg1 => normalizeLeadRecord(arg1, {
+    taskId: String(options.id || ""),
     stableId: true
   }));
   return {
-    id: String(_0x4bb2f6.id || "entity_" + Date.now()),
-    name: String(_0x4bb2f6.name || "线索采集"),
-    status: _0x4bb2f6.status || "draft",
-    createdAt: Number(_0x4bb2f6.createdAt || Date.now()),
-    startedAt: _0x4bb2f6.startedAt != null ? Number(_0x4bb2f6.startedAt) : null,
-    endedAt: _0x4bb2f6.endedAt != null ? Number(_0x4bb2f6.endedAt) : null,
-    endReason: _0x4bb2f6.endReason || "",
-    runs: _0x1fde88,
-    configSnapshot: _0x4bb2f6.configSnapshot || null,
+    id: String(options.id || "entity_" + Date.now()),
+    name: String(options.name || "线索采集"),
+    status: options.status || "draft",
+    createdAt: Number(options.createdAt || Date.now()),
+    startedAt: options.startedAt != null ? Number(options.startedAt) : null,
+    endedAt: options.endedAt != null ? Number(options.endedAt) : null,
+    endReason: options.endReason || "",
+    runs: value,
+    configSnapshot: options.configSnapshot || null,
     stats: {
       ...createEmptyEntityLeadgenTaskStats(),
-      ...(_0x4bb2f6.stats || {})
+      ...(options.stats || {})
     },
-    leads: _0x33da16,
-    roomHints: Array.isArray(_0x4bb2f6.roomHints) ? _0x4bb2f6.roomHints.map(_0x222863 => ({
-      url: String(_0x222863?.url || ""),
-      reason: String(_0x222863?.reason || ""),
-      message: String(_0x222863?.message || ""),
-      ts: Number(_0x222863?.ts || Date.now()) || Date.now()
-    })).filter(_0x285ef6 => _0x285ef6.url).slice(-50) : [],
-    remark: _0x4bb2f6.remark || ""
+    leads: result,
+    roomHints: Array.isArray(options.roomHints) ? options.roomHints.map(arg1 => ({
+      url: String(arg1?.url || ""),
+      reason: String(arg1?.reason || ""),
+      message: String(arg1?.message || ""),
+      ts: Number(arg1?.ts || Date.now()) || Date.now()
+    })).filter(arg1 => arg1.url).slice(-50) : [],
+    remark: options.remark || ""
   };
 }
-function normalizeEntityLeadgenTaskForMigration(_0x4a79f5 = {}) {
-  return normalizeEntityLeadgenTask(_0x4a79f5);
+function normalizeEntityLeadgenTaskForMigration(options = {}) {
+  return normalizeEntityLeadgenTask(options);
 }
-function ensureStableEntityLeadId(_0x194aec, _0x1c3371 = {}) {
-  const _0xd1a506 = String(_0x1c3371.id || "").trim();
-  if (_0xd1a506) {
-    return _0xd1a506;
+function ensureStableEntityLeadId(arg1, options = {}) {
+  const result = String(options.id || "").trim();
+  if (result) {
+    return result;
   }
-  const _0xf14f42 = String(_0x1c3371.leadId || _0x1c3371.userKey || "").trim();
-  if (/^video:\d{10,}$/i.test(_0xf14f42) || /^author:/i.test(_0xf14f42)) {
-    const _0x380066 = crypto.createHash("sha1").update(String(_0x194aec || "") + "|" + _0xf14f42.toLowerCase()).digest("hex").slice(0, 20);
-    return "entity_lead_" + _0x380066;
+  const result2 = String(options.leadId || options.userKey || "").trim();
+  if (/^video:\d{10,}$/i.test(result2) || /^author:/i.test(result2)) {
+    const result = crypto.createHash("sha1").update(String(arg1 || "") + "|" + result2.toLowerCase()).digest("hex").slice(0, 20);
+    return "entity_lead_" + result;
   }
-  const _0x611f39 = extractDouyinVideoId(_0x1c3371.videoUrl || _0x1c3371.url || _0x1c3371.content || "");
-  if (_0x611f39 && (_0x1c3371.leadKind === "video_card" || _0x1c3371.sourceType === "video" || _0x1c3371.identityType === "video")) {
-    const _0x51a878 = crypto.createHash("sha1").update(String(_0x194aec || "") + "|video:" + _0x611f39).digest("hex").slice(0, 20);
-    return "entity_lead_" + _0x51a878;
+  const result3 = extractDouyinVideoId(options.videoUrl || options.url || options.content || "");
+  if (result3 && (options.leadKind === "video_card" || options.sourceType === "video" || options.identityType === "video")) {
+    const result = crypto.createHash("sha1").update(String(arg1 || "") + "|video:" + result3).digest("hex").slice(0, 20);
+    return "entity_lead_" + result;
   }
-  const _0x5685d0 = [String(_0x194aec || ""), String(_0x1c3371.ts || ""), String(_0x1c3371.nickname || _0x1c3371.title || ""), String(_0x1c3371.content || ""), String(_0x1c3371.sourceType || _0x1c3371.leadKind || ""), String(_0x1c3371.accountId || ""), String(_0x1c3371.leadId || _0x1c3371.secUid || _0x1c3371.uid || _0x1c3371.videoUrl || _0x1c3371.url || _0x1c3371.userUrl || ""), String(_0x1c3371.messageId || "")].join("|");
-  const _0x6fbaf2 = crypto.createHash("sha1").update(_0x5685d0).digest("hex").slice(0, 20);
-  return "entity_lead_" + _0x6fbaf2;
+  const result4 = [String(arg1 || ""), String(options.ts || ""), String(options.nickname || options.title || ""), String(options.content || ""), String(options.sourceType || options.leadKind || ""), String(options.accountId || ""), String(options.leadId || options.secUid || options.uid || options.videoUrl || options.url || options.userUrl || ""), String(options.messageId || "")].join("|");
+  const result5 = crypto.createHash("sha1").update(result4).digest("hex").slice(0, 20);
+  return "entity_lead_" + result5;
 }
-function ensureSqliteReady(_0x3ca9d3) {
-  dbManager.initDatabase(_0x3ca9d3);
+function ensureSqliteReady(arg1) {
+  dbManager.initDatabase(arg1);
   return !!dbManager.getDatabaseInstance();
 }
-function createEncEntityLeadgenTasksApi(_0x56e07c) {
-  const _0x356642 = createCrypto(_0x56e07c);
+function createEncEntityLeadgenTasksApi(arg1) {
+  const result = createCrypto(arg1);
   const {
-    readTasks: _0x56adbb,
-    writeTasks: _0x44322d
-  } = _0x356642;
-  function _0x5bf4da() {
-    return _0x56adbb().map(normalizeEntityLeadgenTask).sort((_0x120344, _0x3b473c) => (_0x3b473c.createdAt || 0) - (_0x120344.createdAt || 0));
+    readTasks: readTasks,
+    writeTasks: writeTasks
+  } = result;
+  function fn() {
+    return readTasks().map(normalizeEntityLeadgenTask).sort((arg1, arg2) => (arg2.createdAt || 0) - (arg1.createdAt || 0));
   }
-  function _0x2f5443(_0x43010d) {
-    return _0x5bf4da().find(_0x1a557d => _0x1a557d.id === _0x43010d) || null;
+  function fn2(arg1) {
+    return fn().find(arg12 => arg12.id === arg1) || null;
   }
-  function _0x308b9b(_0xe6e642) {
-    const _0x1aaf77 = _0x56adbb().map(normalizeEntityLeadgenTask);
-    const _0x3db8d0 = normalizeEntityLeadgenTask(_0xe6e642);
-    const _0x196b6e = _0x1aaf77.findIndex(_0x29e847 => _0x29e847.id === _0x3db8d0.id);
-    if (_0x196b6e === -1) {
-      _0x1aaf77.unshift(_0x3db8d0);
+  function fn3(arg1) {
+    const result = readTasks().map(normalizeEntityLeadgenTask);
+    const result2 = normalizeEntityLeadgenTask(arg1);
+    const result3 = result.findIndex(arg1 => arg1.id === result2.id);
+    if (result3 === -1) {
+      result.unshift(result2);
     } else {
-      _0x1aaf77[_0x196b6e] = {
-        ..._0x1aaf77[_0x196b6e],
-        ..._0x3db8d0
+      result[result3] = {
+        ...result[result3],
+        ...result2
       };
     }
-    _0x44322d(_0x1aaf77);
-    return _0x3db8d0;
+    writeTasks(result);
+    return result2;
   }
-  function _0x5c7307(_0x14c2d2, _0x25ee2e = {}) {
-    const _0x2a3d0c = _0x56adbb().map(normalizeEntityLeadgenTask);
-    const _0x5ebfa1 = _0x2a3d0c.findIndex(_0x400287 => _0x400287.id === _0x14c2d2);
-    if (_0x5ebfa1 === -1) {
+  function fn4(arg1, options = {}) {
+    const result = readTasks().map(normalizeEntityLeadgenTask);
+    const result2 = result.findIndex(arg12 => arg12.id === arg1);
+    if (result2 === -1) {
       return null;
     }
-    _0x2a3d0c[_0x5ebfa1] = normalizeEntityLeadgenTask({
-      ..._0x2a3d0c[_0x5ebfa1],
-      ..._0x25ee2e,
-      id: _0x14c2d2
+    result[result2] = normalizeEntityLeadgenTask({
+      ...result[result2],
+      ...options,
+      id: arg1
     });
-    _0x44322d(_0x2a3d0c);
-    return _0x2a3d0c[_0x5ebfa1];
+    writeTasks(result);
+    return result[result2];
   }
-  function _0x47cfbf(_0x4b6c43 = []) {
-    const _0x3b648c = new Set(Array.isArray(_0x4b6c43) ? _0x4b6c43 : [_0x4b6c43]);
-    const _0x586afe = _0x56adbb().filter(_0x4af7b6 => !_0x3b648c.has(_0x4af7b6.id));
-    _0x44322d(_0x586afe);
+  function fn5(list = []) {
+    const set = new Set(Array.isArray(list) ? list : [list]);
+    const result = readTasks().filter(arg1 => !set.has(arg1.id));
+    writeTasks(result);
     return true;
   }
-  function _0x26ba9b(_0x131f65, _0x5f4f27 = {}) {
-    const _0x248ee2 = _0x2f5443(_0x131f65);
-    if (!_0x248ee2) {
+  function fn6(arg1, options = {}) {
+    const result = fn2(arg1);
+    if (!result) {
       return null;
     }
-    const _0x5eb795 = {
+    const obj = {
       ...createEmptyEntityLeadgenTaskStats(),
-      ...(_0x248ee2.stats || {})
+      ...(result.stats || {})
     };
-    Object.keys(createEmptyEntityLeadgenTaskStats()).forEach(_0x803652 => {
-      if (_0x803652 === "lastCycleAt") {
+    Object.keys(createEmptyEntityLeadgenTaskStats()).forEach(arg1 => {
+      if (arg1 === "lastCycleAt") {
         return;
       }
-      const _0x3875e3 = Number(_0x5f4f27[_0x803652]);
-      if (Number.isFinite(_0x3875e3) && _0x3875e3 > 0) {
-        _0x5eb795[_0x803652] += Math.floor(_0x3875e3);
+      const result = Number(options[arg1]);
+      if (Number.isFinite(result) && result > 0) {
+        obj[arg1] += Math.floor(result);
       }
     });
-    if (_0x5f4f27.lastCycleAt != null) {
-      _0x5eb795.lastCycleAt = Number(_0x5f4f27.lastCycleAt);
+    if (options.lastCycleAt != null) {
+      obj.lastCycleAt = Number(options.lastCycleAt);
     }
-    return _0x5c7307(_0x131f65, {
-      stats: _0x5eb795
+    return fn4(arg1, {
+      stats: obj
     });
   }
-  function _0x535c64(_0x476bdb, _0x54d945 = []) {
-    const _0x48c2ee = (Array.isArray(_0x54d945) ? _0x54d945 : [_0x54d945]).filter(Boolean).map(_0x3aa7d3 => normalizeLeadRecord(_0x3aa7d3, {
+  function fn7(arg1, list = []) {
+    const result = (Array.isArray(list) ? list : [list]).filter(Boolean).map(arg12 => normalizeLeadRecord(arg12, {
       stableId: true,
-      taskId: _0x476bdb
-    })).sort((_0x190c34, _0x2bb72b) => _0x2bb72b.ts - _0x190c34.ts);
-    if (!_0x48c2ee.length) {
-      return _0x2f5443(_0x476bdb);
+      taskId: arg1
+    })).sort((arg1, arg2) => arg2.ts - arg1.ts);
+    if (!result.length) {
+      return fn2(arg1);
     }
-    const _0xabf6dc = _0x56adbb().map(normalizeEntityLeadgenTask);
-    const _0x215a19 = _0xabf6dc.findIndex(_0x545c4d => _0x545c4d.id === _0x476bdb);
-    if (_0x215a19 === -1) {
+    const result2 = readTasks().map(normalizeEntityLeadgenTask);
+    const result3 = result2.findIndex(arg12 => arg12.id === arg1);
+    if (result3 === -1) {
       return null;
     }
-    const _0x5de082 = Array.isArray(_0xabf6dc[_0x215a19].leads) ? _0xabf6dc[_0x215a19].leads : [];
-    const _0x2de02b = new Map(_0x5de082.map(_0x4cb7f9 => [String(_0x4cb7f9.id || ""), _0x4cb7f9]));
-    _0x48c2ee.forEach(_0x353c6c => {
-      if (!_0x353c6c?.id) {
+    const value = Array.isArray(result2[result3].leads) ? result2[result3].leads : [];
+    const map = new Map(value.map(arg1 => [String(arg1.id || ""), arg1]));
+    result.forEach(arg1 => {
+      if (!arg1?.id) {
         return;
       }
-      _0x2de02b.set(String(_0x353c6c.id), _0x353c6c);
+      map.set(String(arg1.id), arg1);
     });
-    _0xabf6dc[_0x215a19] = normalizeEntityLeadgenTask({
-      ..._0xabf6dc[_0x215a19],
-      leads: [..._0x2de02b.values()].sort((_0x2ca92b, _0x262d94) => (_0x262d94.ts || 0) - (_0x2ca92b.ts || 0))
+    result2[result3] = normalizeEntityLeadgenTask({
+      ...result2[result3],
+      leads: [...map.values()].sort((arg1, arg2) => (arg2.ts || 0) - (arg1.ts || 0))
     });
-    _0x44322d(_0xabf6dc);
-    return _0xabf6dc[_0x215a19];
+    writeTasks(result2);
+    return result2[result3];
   }
-  function _0x3947b6(_0x4da64e, _0x4b8cfd = {}) {
-    const _0x4ec992 = _0x2f5443(_0x4da64e);
-    const _0x4b91f4 = Array.isArray(_0x4ec992?.leads) ? _0x4ec992.leads : [];
-    return entityLeadgenLeadsQuery.paginateLeadsArray(_0x4b91f4, _0x4b8cfd);
+  function fn8(arg1, options = {}) {
+    const result = fn2(arg1);
+    const value = Array.isArray(result?.leads) ? result.leads : [];
+    return entityLeadgenLeadsQuery.paginateLeadsArray(value, options);
   }
-  function _0x4f80af(_0x662d74, _0x4cbae5 = {}) {
-    const _0x4ecc77 = _0x2f5443(_0x662d74);
-    if (!_0x4ecc77) {
+  function fn9(arg1, options = {}) {
+    const result = fn2(arg1);
+    if (!result) {
       return null;
     }
     const {
       leadIds = [],
       clearAll = false
-    } = _0x4cbae5;
+    } = options;
     if (clearAll) {
-      return _0x5c7307(_0x662d74, {
+      return fn4(arg1, {
         leads: [],
         stats: createEmptyEntityLeadgenTaskStats()
       });
     }
-    const _0x5b2424 = new Set(Array.isArray(leadIds) ? leadIds : [leadIds]);
-    if (_0x5b2424.size === 0) {
-      return _0x4ecc77;
+    const set = new Set(Array.isArray(leadIds) ? leadIds : [leadIds]);
+    if (set.size === 0) {
+      return result;
     }
-    const _0x12dcd9 = (_0x4ecc77.leads || []).filter(_0x16d29a => !_0x5b2424.has(_0x16d29a.id));
-    return _0x5c7307(_0x662d74, {
-      leads: _0x12dcd9
+    const result2 = (result.leads || []).filter(arg1 => !set.has(arg1.id));
+    return fn4(arg1, {
+      leads: result2
     });
   }
-  function _0x489404() {
-    const _0x59525c = _0x56adbb().map(normalizeEntityLeadgenTask);
-    const _0x59a8b7 = Date.now();
-    let _0x320b71 = false;
-    const _0x2b4525 = _0x59525c.map(_0x3c1240 => {
-      if (_0x3c1240.status !== "running") {
-        return _0x3c1240;
+  function fn10() {
+    const result = readTasks().map(normalizeEntityLeadgenTask);
+    const result2 = Date.now();
+    let flag = false;
+    const result3 = result.map(arg1 => {
+      if (arg1.status !== "running") {
+        return arg1;
       }
-      _0x320b71 = true;
-      const _0x23f8eb = (_0x3c1240.runs || []).map(_0x2e0131 => _0x2e0131.endedAt ? _0x2e0131 : {
-        ..._0x2e0131,
-        endedAt: _0x59a8b7,
+      flag = true;
+      const result = (arg1.runs || []).map(arg1 => arg1.endedAt ? arg1 : {
+        ...arg1,
+        endedAt: result2,
         endReason: "app_restart"
       });
       return normalizeEntityLeadgenTask({
-        ..._0x3c1240,
+        ...arg1,
         status: "stopped",
-        runs: _0x23f8eb,
-        endedAt: _0x3c1240.endedAt || _0x59a8b7,
+        runs: result,
+        endedAt: arg1.endedAt || result2,
         endReason: "app_restart"
       });
     });
-    if (_0x320b71) {
-      _0x44322d(_0x2b4525);
+    if (flag) {
+      writeTasks(result3);
     }
-    return _0x320b71;
+    return flag;
   }
   return {
     runtime: "enc",
-    listTasks: _0x5bf4da,
-    findTaskById: _0x2f5443,
-    upsertTask: _0x308b9b,
-    patchTask: _0x5c7307,
-    deleteTasks: _0x47cfbf,
-    incrementStats: _0x26ba9b,
-    appendLeadRecords: _0x535c64,
-    listLeadRecordsPage: _0x3947b6,
-    deleteLeadRecords: _0x4f80af,
-    resetStaleRunningTasks: _0x489404,
+    listTasks: fn,
+    findTaskById: fn2,
+    upsertTask: fn3,
+    patchTask: fn4,
+    deleteTasks: fn5,
+    incrementStats: fn6,
+    appendLeadRecords: fn7,
+    listLeadRecordsPage: fn8,
+    deleteLeadRecords: fn9,
+    resetStaleRunningTasks: fn10,
     normalizeEntityLeadgenTask: normalizeEntityLeadgenTask
   };
 }
-function createSqliteEntityLeadgenTasksApi(_0xb62566) {
-  ensureSqliteReady(_0xb62566);
-  function _0x4e15db(_0x115a66, {
+function createSqliteEntityLeadgenTasksApi(arg1) {
+  ensureSqliteReady(arg1);
+  function fn(arg1, {
     includeLeads = true
   } = {}) {
-    if (!_0x115a66) {
+    if (!arg1) {
       return null;
     }
-    const _0x35b658 = normalizeEntityLeadgenTask({
-      ..._0x115a66,
-      leads: includeLeads && Array.isArray(_0x115a66.leads) ? _0x115a66.leads : []
+    const result = normalizeEntityLeadgenTask({
+      ...arg1,
+      leads: includeLeads && Array.isArray(arg1.leads) ? arg1.leads : []
     });
     if (!includeLeads) {
-      _0x35b658.leads = [];
+      result.leads = [];
     }
-    return _0x35b658;
+    return result;
   }
-  function _0x41d4e4(_0x1fa5c7 = {}) {
-    const _0xf22df6 = _0x1fa5c7.includeLeads !== false;
+  function fn2(options = {}) {
+    const value = options.includeLeads !== false;
     return dbManager.listEntityLeadgenTasks({
-      includeLeads: _0xf22df6,
+      includeLeads: value,
       leadLimit: 0
-    }).map(_0x3bcfeb => _0x4e15db(_0x3bcfeb, {
-      includeLeads: _0xf22df6
+    }).map(arg1 => fn(arg1, {
+      includeLeads: value
     }));
   }
-  function _0x205aa2(_0x9cea66, _0x2d420e = {}) {
-    const _0x18bb96 = _0x2d420e.includeLeads !== false;
-    const _0x430839 = dbManager.getEntityLeadgenTaskById(_0x9cea66, {
-      includeLeads: _0x18bb96,
+  function fn3(arg1, options = {}) {
+    const value = options.includeLeads !== false;
+    const result = dbManager.getEntityLeadgenTaskById(arg1, {
+      includeLeads: value,
       leadLimit: 0
     });
-    return _0x4e15db(_0x430839, {
-      includeLeads: _0x18bb96
+    return fn(result, {
+      includeLeads: value
     });
   }
-  function _0x3a5b10(_0x2c88fe) {
-    const _0x1b658b = _0x2c88fe && typeof _0x2c88fe === "object" ? _0x2c88fe : {};
-    const _0x5c1cb3 = String(_0x1b658b.id || "entity_" + Date.now());
-    const _0x409727 = dbManager.getEntityLeadgenTaskById(_0x5c1cb3, {
+  function fn4(arg1) {
+    const value = arg1 && typeof arg1 === "object" ? arg1 : {};
+    const result = String(value.id || "entity_" + Date.now());
+    const result2 = dbManager.getEntityLeadgenTaskById(result, {
       includeLeads: false
     });
-    if (!_0x409727) {
-      const _0x458664 = normalizeEntityLeadgenTask({
-        ..._0x1b658b,
-        id: _0x5c1cb3
+    if (!result2) {
+      const result2 = normalizeEntityLeadgenTask({
+        ...value,
+        id: result
       });
-      const _0x2e22e3 = dbManager.upsertEntityLeadgenTask(_0x458664, {
+      const result3 = dbManager.upsertEntityLeadgenTask(result2, {
         replaceLeads: false
       });
-      return _0x4e15db(_0x2e22e3 || _0x458664);
+      return fn(result3 || result2);
     }
-    const _0x7b8df1 = {
-      ..._0x409727,
-      ..._0x1b658b,
-      id: _0x5c1cb3,
-      createdAt: _0x409727.createdAt || _0x1b658b.createdAt
+    const obj = {
+      ...result2,
+      ...value,
+      id: result,
+      createdAt: result2.createdAt || value.createdAt
     };
-    const _0x5832f2 = ["roomHints", "remark", "stats", "configSnapshot", "runs"];
-    for (const _0x583d80 of _0x5832f2) {
-      if (!Object.prototype.hasOwnProperty.call(_0x1b658b, _0x583d80)) {
-        _0x7b8df1[_0x583d80] = _0x409727[_0x583d80];
+    const list = ["roomHints", "remark", "stats", "configSnapshot", "runs"];
+    for (const item of list) {
+      if (!Object.prototype.hasOwnProperty.call(value, item)) {
+        obj[item] = result2[item];
       }
     }
-    _0x7b8df1.leads = [];
-    const _0x1f0bcd = normalizeEntityLeadgenTask(_0x7b8df1);
-    const _0x2877bb = dbManager.upsertEntityLeadgenTask(_0x1f0bcd, {
+    obj.leads = [];
+    const result3 = normalizeEntityLeadgenTask(obj);
+    const result4 = dbManager.upsertEntityLeadgenTask(result3, {
       replaceLeads: false
     });
-    return _0x4e15db(_0x2877bb || _0x1f0bcd);
+    return fn(result4 || result3);
   }
-  function _0x461539(_0x508dda, _0x33b837 = {}) {
-    const _0x29cf81 = _0x205aa2(_0x508dda, {
+  function fn5(arg1, options = {}) {
+    const result = fn3(arg1, {
       includeLeads: false
     });
-    if (!_0x29cf81) {
+    if (!result) {
       return null;
     }
     const {
-      leads: _0x2bacf5,
-      ..._0x51d1a0
-    } = _0x33b837 || {};
-    const _0x1ae7e4 = normalizeEntityLeadgenTask({
-      ..._0x29cf81,
-      ..._0x51d1a0,
-      id: _0x508dda,
-      leads: _0x29cf81.leads || []
+      leads: leads,
+      ...local
+    } = options || {};
+    const result2 = normalizeEntityLeadgenTask({
+      ...result,
+      ...local,
+      id: arg1,
+      leads: result.leads || []
     });
-    dbManager.upsertEntityLeadgenTask(_0x1ae7e4, {
+    dbManager.upsertEntityLeadgenTask(result2, {
       replaceLeads: false
     });
-    if (Object.prototype.hasOwnProperty.call(_0x33b837 || {}, "leads")) {
-      if (!Array.isArray(_0x2bacf5) || _0x2bacf5.length === 0) {
-        dbManager.deleteEntityLeadgenLeads(_0x508dda, {
+    if (Object.prototype.hasOwnProperty.call(options || {}, "leads")) {
+      if (!Array.isArray(leads) || leads.length === 0) {
+        dbManager.deleteEntityLeadgenLeads(arg1, {
           clearAll: true
         });
       } else {
-        dbManager.replaceEntityLeadgenLeads(_0x508dda, _0x2bacf5.map(normalizeLeadRecord));
+        dbManager.replaceEntityLeadgenLeads(arg1, leads.map(normalizeLeadRecord));
       }
     }
-    return _0x205aa2(_0x508dda);
+    return fn3(arg1);
   }
-  function _0x297eb7(_0x315a8f = []) {
-    return dbManager.deleteEntityLeadgenTasks(_0x315a8f);
+  function fn6(list = []) {
+    return dbManager.deleteEntityLeadgenTasks(list);
   }
-  function _0xdfea1a(_0x192d55, _0xc81fe7 = {}) {
-    const _0xee6619 = _0x205aa2(_0x192d55, {
+  function fn7(arg1, options = {}) {
+    const result = fn3(arg1, {
       includeLeads: false
     });
-    if (!_0xee6619) {
+    if (!result) {
       return null;
     }
-    const _0x4f5c09 = {
+    const obj = {
       ...createEmptyEntityLeadgenTaskStats(),
-      ...(_0xee6619.stats || {})
+      ...(result.stats || {})
     };
-    Object.keys(createEmptyEntityLeadgenTaskStats()).forEach(_0x48f0f9 => {
-      if (_0x48f0f9 === "lastCycleAt") {
+    Object.keys(createEmptyEntityLeadgenTaskStats()).forEach(arg1 => {
+      if (arg1 === "lastCycleAt") {
         return;
       }
-      const _0x5a777e = Number(_0xc81fe7[_0x48f0f9]);
-      if (Number.isFinite(_0x5a777e) && _0x5a777e > 0) {
-        _0x4f5c09[_0x48f0f9] += Math.floor(_0x5a777e);
+      const result = Number(options[arg1]);
+      if (Number.isFinite(result) && result > 0) {
+        obj[arg1] += Math.floor(result);
       }
     });
-    if (_0xc81fe7.lastCycleAt != null) {
-      _0x4f5c09.lastCycleAt = Number(_0xc81fe7.lastCycleAt);
+    if (options.lastCycleAt != null) {
+      obj.lastCycleAt = Number(options.lastCycleAt);
     }
-    return _0x461539(_0x192d55, {
-      stats: _0x4f5c09
+    return fn5(arg1, {
+      stats: obj
     });
   }
-  function _0x372e22(_0xd93804, _0x5c803 = []) {
-    const _0x160e71 = (Array.isArray(_0x5c803) ? _0x5c803 : [_0x5c803]).filter(Boolean).map(_0x2701da => normalizeLeadRecord(_0x2701da, {
+  function fn8(arg1, list = []) {
+    const result = (Array.isArray(list) ? list : [list]).filter(Boolean).map(arg12 => normalizeLeadRecord(arg12, {
       stableId: true,
-      taskId: _0xd93804
+      taskId: arg1
     }));
-    if (!_0x160e71.length) {
-      return _0x205aa2(_0xd93804, {
+    if (!result.length) {
+      return fn3(arg1, {
         includeLeads: false
       });
     }
-    const _0x5f2316 = dbManager.getEntityLeadgenTaskById(_0xd93804, {
+    const result2 = dbManager.getEntityLeadgenTaskById(arg1, {
       includeLeads: false
     });
-    if (!_0x5f2316) {
+    if (!result2) {
       return null;
     }
-    dbManager.appendEntityLeadgenLeads(_0xd93804, _0x160e71);
-    return _0x205aa2(_0xd93804, {
+    dbManager.appendEntityLeadgenLeads(arg1, result);
+    return fn3(arg1, {
       includeLeads: false
     });
   }
-  function _0x2eae46(_0x3efa44, _0x184960 = {}) {
-    return dbManager.listEntityLeadgenLeadsPage(_0x3efa44, _0x184960);
+  function fn9(arg1, options = {}) {
+    return dbManager.listEntityLeadgenLeadsPage(arg1, options);
   }
-  function _0x1a08d8(_0x59510b, _0x13edbc = {}) {
-    const _0x44df65 = dbManager.getEntityLeadgenTaskById(_0x59510b, {
+  function fn10(arg1, options = {}) {
+    const result = dbManager.getEntityLeadgenTaskById(arg1, {
       includeLeads: false
     });
-    if (!_0x44df65) {
+    if (!result) {
       return null;
     }
     const {
       leadIds = [],
       clearAll = false
-    } = _0x13edbc;
-    dbManager.deleteEntityLeadgenLeads(_0x59510b, {
+    } = options;
+    dbManager.deleteEntityLeadgenLeads(arg1, {
       leadIds: leadIds,
       clearAll: clearAll
     });
     if (clearAll) {
-      return _0x461539(_0x59510b, {
+      return fn5(arg1, {
         stats: createEmptyEntityLeadgenTaskStats()
       });
     }
-    return _0x205aa2(_0x59510b, {
+    return fn3(arg1, {
       includeLeads: false
     });
   }
-  function _0x4fe91e() {
-    const _0x432ee4 = dbManager.listEntityLeadgenTasks({
+  function resetStaleRunningTasks() {
+    const result = dbManager.listEntityLeadgenTasks({
       includeLeads: false
     });
-    const _0xc640ac = Date.now();
-    let _0x3e2241 = false;
-    for (const _0x400993 of _0x432ee4) {
-      if (_0x400993.status !== "running") {
+    const result2 = Date.now();
+    let flag = false;
+    for (const item of result) {
+      if (item.status !== "running") {
         continue;
       }
-      _0x3e2241 = true;
-      const _0x1890b9 = (_0x400993.runs || []).map(_0x516d46 => _0x516d46.endedAt ? _0x516d46 : {
-        ..._0x516d46,
-        endedAt: _0xc640ac,
+      flag = true;
+      const result = (item.runs || []).map(arg1 => arg1.endedAt ? arg1 : {
+        ...arg1,
+        endedAt: result2,
         endReason: "app_restart"
       });
-      const _0x22d57f = normalizeEntityLeadgenTask({
-        ..._0x400993,
+      const result3 = normalizeEntityLeadgenTask({
+        ...item,
         status: "stopped",
-        runs: _0x1890b9,
-        endedAt: _0x400993.endedAt || _0xc640ac,
+        runs: result,
+        endedAt: item.endedAt || result2,
         endReason: "app_restart",
         leads: []
       });
-      dbManager.upsertEntityLeadgenTask(_0x22d57f, {
+      dbManager.upsertEntityLeadgenTask(result3, {
         replaceLeads: false
       });
     }
-    return _0x3e2241;
+    return flag;
   }
   return {
     runtime: "sqlite",
-    listTasks: _0x41d4e4,
-    findTaskById: _0x205aa2,
-    upsertTask: _0x3a5b10,
-    patchTask: _0x461539,
-    deleteTasks: _0x297eb7,
-    incrementStats: _0xdfea1a,
-    appendLeadRecords: _0x372e22,
-    listLeadRecordsPage: _0x2eae46,
-    deleteLeadRecords: _0x1a08d8,
-    resetStaleRunningTasks: _0x4fe91e,
+    listTasks: fn2,
+    findTaskById: fn3,
+    upsertTask: fn4,
+    patchTask: fn5,
+    deleteTasks: fn6,
+    incrementStats: fn7,
+    appendLeadRecords: fn8,
+    listLeadRecordsPage: fn9,
+    deleteLeadRecords: fn10,
+    resetStaleRunningTasks: resetStaleRunningTasks,
     normalizeEntityLeadgenTask: normalizeEntityLeadgenTask
   };
 }
 function createEntityLeadgenTasksApi({
-  userDataPath: _0x398dcb
+  userDataPath: userDataPath
 }) {
   try {
-    ensureSqliteReady(_0x398dcb);
-    const _0x23bad7 = require("./dbMigration");
-    const _0x5717d9 = _0x23bad7.runV4EntityLeadgenCutoverIfNeeded(_0x398dcb);
+    ensureSqliteReady(userDataPath);
+    const dbMigration = require("./dbMigration");
+    const result = dbMigration.runV4EntityLeadgenCutoverIfNeeded(userDataPath);
     if (dbManager.isEntityLeadgenRuntimeReady()) {
-      return createSqliteEntityLeadgenTasksApi(_0x398dcb);
+      return createSqliteEntityLeadgenTasksApi(userDataPath);
     }
-    if (!_0x5717d9.ok) {
-      console.warn("[EntityLeadgen] v4 迁移未成功:", _0x5717d9.error || "");
-      const _0x27aa88 = ENTITY_LEADGEN_TASKS_FILE(_0x398dcb);
-      if (fs.existsSync(_0x27aa88)) {
+    if (!result.ok) {
+      console.warn("[EntityLeadgen] v4 迁移未成功:", result.error || "");
+      const result2 = ENTITY_LEADGEN_TASKS_FILE(userDataPath);
+      if (fs.existsSync(result2)) {
         console.warn("[EntityLeadgen] 继续使用 enc，待下次启动重试迁移");
-        return createEncEntityLeadgenTasksApi(_0x398dcb);
+        return createEncEntityLeadgenTasksApi(userDataPath);
       }
     }
-    return createSqliteEntityLeadgenTasksApi(_0x398dcb);
-  } catch (_0x31cd1e) {
-    console.warn("[EntityLeadgen] SQLite 不可用，回退 enc:", _0x31cd1e.message);
-    return createEncEntityLeadgenTasksApi(_0x398dcb);
+    return createSqliteEntityLeadgenTasksApi(userDataPath);
+  } catch (error) {
+    console.warn("[EntityLeadgen] SQLite 不可用，回退 enc:", error.message);
+    return createEncEntityLeadgenTasksApi(userDataPath);
   }
 }
 module.exports = {
