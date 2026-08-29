@@ -3,189 +3,189 @@
 const {
   BrowserView
 } = require("electron");
-function buildMonitorViewKey(_0x57af4a) {
-  const _0x5e3511 = String(_0x57af4a || "").trim() || "unknown";
-  return "monitor_" + _0x5e3511;
+function buildMonitorViewKey(arg1) {
+  const local = String(arg1 || "").trim() || "unknown";
+  return "monitor_" + local;
 }
-function buildAccountSessionKey(_0x2450fa, {
+function buildAccountSessionKey(arg1, {
   platform = "douyin"
 } = {}) {
-  const _0x801cb4 = String(_0x2450fa || "").trim();
-  if (!_0x801cb4) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return "";
   }
-  const _0x4a08a2 = String(platform || "douyin").trim().toLowerCase() || "douyin";
-  return _0x4a08a2 + "_" + _0x801cb4;
+  const local = String(platform || "douyin").trim().toLowerCase() || "douyin";
+  return local + "_" + result;
 }
-function createMonitorAutomationViewHostFactory(_0x1f7e64 = {}) {
+function createMonitorAutomationViewHostFactory(options = {}) {
   const {
-    getPlatformViews: _0x3fb5ed,
-    getMainWindow: _0x3f8554,
-    attachAutomationViewToBackgroundHost: _0x5a1b02,
-    ensureBackgroundAutomationHostWindow: _0x3a3e7c,
-    configureAutomationSession: _0x125ed1,
-    attachProtocolGuard: _0x3bc2a9,
-    applyAccountProxy: _0x68cb9c,
-    resolveAutomationPreloadPath: _0x2b23bf,
+    getPlatformViews: getPlatformViews,
+    getMainWindow: getMainWindow,
+    attachAutomationViewToBackgroundHost: attachAutomationViewToBackgroundHost,
+    ensureBackgroundAutomationHostWindow: ensureBackgroundAutomationHostWindow,
+    configureAutomationSession: configureAutomationSession,
+    attachProtocolGuard: attachProtocolGuard,
+    applyAccountProxy: applyAccountProxy,
+    resolveAutomationPreloadPath: resolveAutomationPreloadPath,
     automationUserAgent = "",
-    store: _0x721a40,
-    getViewSettingsMap: _0x277261,
-    destroyAutomationBrowserView: _0x2deb66
-  } = _0x1f7e64;
-  async function _0x2d416a(_0x2070a9, _0x1c3828, {
+    store: store,
+    getViewSettingsMap: getViewSettingsMap,
+    destroyAutomationBrowserView: destroyAutomationBrowserView
+  } = options;
+  async function createMonitorAccountHost(arg1, arg2, {
     platform = "douyin"
   } = {}) {
-    const _0x2608a8 = buildMonitorViewKey(_0x2070a9);
-    const _0x48917a = buildAccountSessionKey(_0x2070a9, {
+    const result = buildMonitorViewKey(arg1);
+    const result2 = buildAccountSessionKey(arg1, {
       platform: platform
     });
-    const _0x3c4cbb = _0x3fb5ed?.();
-    if (!_0x3c4cbb) {
+    const local = getPlatformViews?.();
+    if (!local) {
       throw new Error("platformViews 不可用");
     }
-    const _0x4e0944 = _0x48917a ? "persist:automation:" + _0x48917a : "temp:monitor:" + _0x2608a8;
-    const _0x5e6bee = typeof _0x2b23bf === "function" ? _0x2b23bf() : "";
-    const _0x531dd1 = new BrowserView({
+    const value = result2 ? "persist:automation:" + result2 : "temp:monitor:" + result;
+    const value2 = typeof resolveAutomationPreloadPath === "function" ? resolveAutomationPreloadPath() : "";
+    const browserView = new BrowserView({
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
         sandbox: false,
-        preload: _0x5e6bee,
-        partition: _0x4e0944,
+        preload: value2,
+        partition: value,
         backgroundThrottling: false,
         spellcheck: false
       }
     });
     try {
-      _0x531dd1.setBackgroundColor("#111827");
-    } catch (_0x3b1d35) {}
+      browserView.setBackgroundColor("#111827");
+    } catch (error) {}
     try {
-      _0x531dd1.setBounds({
+      browserView.setBounds({
         x: 0,
         y: 0,
         width: 1280,
         height: 800
       });
-    } catch (_0x41e294) {}
-    const _0x19e35c = _0x531dd1.webContents;
-    const _0x26f29b = _0x48917a || _0x2608a8;
-    if (typeof _0x125ed1 === "function") {
-      _0x125ed1(_0x19e35c.session, _0x26f29b);
+    } catch (error) {}
+    const value3 = browserView.webContents;
+    const local2 = result2 || result;
+    if (typeof configureAutomationSession === "function") {
+      configureAutomationSession(value3.session, local2);
     }
     if (automationUserAgent) {
       try {
-        _0x19e35c.setUserAgent(automationUserAgent);
-      } catch (_0x50f94e) {}
+        value3.setUserAgent(automationUserAgent);
+      } catch (error) {}
     }
     try {
-      _0x3bc2a9?.(_0x19e35c, "video-monitor:" + _0x2608a8);
-    } catch (_0x1a4cb6) {}
+      attachProtocolGuard?.(value3, "video-monitor:" + result);
+    } catch (error) {}
     try {
-      _0x19e35c.setWindowOpenHandler(() => ({
+      value3.setWindowOpenHandler(() => ({
         action: "deny"
       }));
-    } catch (_0x2e54fc) {}
-    if (typeof _0x68cb9c === "function") {
-      await _0x68cb9c(_0x19e35c.session, _0x1c3828, _0x48917a || _0x2608a8);
+    } catch (error) {}
+    if (typeof applyAccountProxy === "function") {
+      await applyAccountProxy(value3.session, arg2, result2 || result);
     }
     try {
-      const _0x2e0e66 = _0x721a40?.get?.("system_video_muted", true);
-      _0x19e35c.setAudioMuted(_0x2e0e66 !== false);
-    } catch (_0x4632be) {}
+      const local = store?.get?.("system_video_muted", true);
+      value3.setAudioMuted(local !== false);
+    } catch (error) {}
     try {
-      _0x19e35c.setFrameRate?.(30);
-    } catch (_0x155ef9) {}
-    _0x3c4cbb.set(_0x2608a8, _0x531dd1);
+      value3.setFrameRate?.(30);
+    } catch (error) {}
+    local.set(result, browserView);
     try {
-      const _0x3b4ed3 = typeof _0x277261 === "function" ? _0x277261() : null;
-      _0x3b4ed3?.set?.(_0x2608a8, {
-        taskId: "monitor-host:" + _0x2070a9,
-        accountId: String(_0x2070a9),
+      const value = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
+      value?.set?.(result, {
+        taskId: "monitor-host:" + arg1,
+        accountId: String(arg1),
         platform: platform || "douyin",
         taskMode: "video_monitor",
         videoMonitor: true
       });
-    } catch (_0x1e4ab3) {}
-    let _0x4ff32f = false;
-    const _0x9de00e = [];
-    const _0x193bc4 = {
-      value: "监控任务 - " + _0x2070a9
+    } catch (error) {}
+    let flag = false;
+    const list = [];
+    const obj = {
+      value: "监控任务 - " + arg1
     };
-    const _0x54fd6e = {
+    const obj2 = {
       __radarMonitorHost: true,
-      __radarMonitorViewKey: _0x2608a8,
-      __radarMonitorAccountSessionKey: _0x48917a || "",
-      __radarMonitorAccountId: String(_0x2070a9),
+      __radarMonitorViewKey: result,
+      __radarMonitorAccountSessionKey: result2 || "",
+      __radarMonitorAccountId: String(arg1),
       __radarAllowVisibleMonitor: false,
       __radarMonitorActive: false,
       __radarMonitorLastUsedAt: Date.now(),
       __radarMonitorProcessedVideos: 0,
-      webContents: _0x19e35c,
-      isDestroyed: () => _0x4ff32f || _0x19e35c.isDestroyed?.(),
-      loadURL: _0xd78cd5 => _0x19e35c.loadURL(_0xd78cd5),
-      setTitle: _0x3958e4 => {
-        _0x193bc4.value = String(_0x3958e4 || _0x193bc4.value);
+      webContents: value3,
+      isDestroyed: () => flag || value3.isDestroyed?.(),
+      loadURL: arg1 => value3.loadURL(arg1),
+      setTitle: arg1 => {
+        obj.value = String(arg1 || obj.value);
       },
-      getTitle: () => _0x193bc4.value,
-      on: (_0x4de5f0, _0x330a79) => {
-        if (_0x4de5f0 === "closed") {
-          _0x9de00e.push(_0x330a79);
-          return _0x54fd6e;
+      getTitle: () => obj.value,
+      on: (arg1, arg2) => {
+        if (arg1 === "closed") {
+          list.push(arg2);
+          return obj2;
         }
-        if (_0x4de5f0 === "close") {
-          return _0x54fd6e;
+        if (arg1 === "close") {
+          return obj2;
         }
         try {
-          _0x19e35c.on(_0x4de5f0, _0x330a79);
-        } catch (_0x1b7c73) {}
-        return _0x54fd6e;
+          value3.on(arg1, arg2);
+        } catch (error) {}
+        return obj2;
       },
-      once: (_0x6623dc, _0xb5c5e4) => {
-        if (_0x6623dc === "closed") {
-          const _0x1ec2e1 = (..._0x23d58c) => {
-            const _0x3abd1b = _0x9de00e.indexOf(_0x1ec2e1);
-            if (_0x3abd1b >= 0) {
-              _0x9de00e.splice(_0x3abd1b, 1);
+      once: (arg1, arg2) => {
+        if (arg1 === "closed") {
+          const local = (...restArgs) => {
+            const result = list.indexOf(local);
+            if (result >= 0) {
+              list.splice(result, 1);
             }
-            _0xb5c5e4(..._0x23d58c);
+            arg2(...restArgs);
           };
-          _0x9de00e.push(_0x1ec2e1);
-          return _0x54fd6e;
+          list.push(local);
+          return obj2;
         }
         try {
-          _0x19e35c.once(_0x6623dc, _0xb5c5e4);
-        } catch (_0x2f9a68) {}
-        return _0x54fd6e;
+          value3.once(arg1, arg2);
+        } catch (error) {}
+        return obj2;
       },
       destroy: () => {
-        if (_0x4ff32f) {
+        if (flag) {
           return;
         }
-        _0x4ff32f = true;
+        flag = true;
         try {
-          _0x3c4cbb.delete(_0x2608a8);
-        } catch (_0xc02e8) {}
+          local.delete(result);
+        } catch (error) {}
         try {
-          const _0x2d523b = typeof _0x277261 === "function" ? _0x277261() : null;
-          _0x2d523b?.delete?.(_0x2608a8);
-        } catch (_0x46666d) {}
+          const value = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
+          value?.delete?.(result);
+        } catch (error) {}
         try {
-          if (typeof _0x2deb66 === "function") {
-            _0x2deb66(_0x531dd1, _0x2608a8, "monitor-main");
-          } else if (!_0x19e35c.isDestroyed?.()) {
+          if (typeof destroyAutomationBrowserView === "function") {
+            destroyAutomationBrowserView(browserView, result, "monitor-main");
+          } else if (!value3.isDestroyed?.()) {
             try {
-              _0x3f8554?.()?.removeBrowserView?.(_0x531dd1);
-            } catch (_0x4ffd42) {}
+              getMainWindow?.()?.removeBrowserView?.(browserView);
+            } catch (error) {}
             try {
-              _0x3a3e7c?.()?.removeBrowserView?.(_0x531dd1);
-            } catch (_0x1afa48) {}
-            _0x19e35c.destroy?.();
+              ensureBackgroundAutomationHostWindow?.()?.removeBrowserView?.(browserView);
+            } catch (error) {}
+            value3.destroy?.();
           }
-        } catch (_0x46a3c5) {}
-        for (const _0x277ae2 of _0x9de00e.splice(0)) {
+        } catch (error) {}
+        for (const item of list.splice(0)) {
           try {
-            _0x277ae2();
-          } catch (_0x2a8844) {}
+            item();
+          } catch (error) {}
         }
       },
       show: () => {},
@@ -202,8 +202,8 @@ function createMonitorAutomationViewHostFactory(_0x1f7e64 = {}) {
       setBounds: () => {},
       getBounds: () => {
         try {
-          return _0x531dd1.getBounds();
-        } catch (_0x2001ef) {
+          return browserView.getBounds();
+        } catch (error) {
           return {
             x: 0,
             y: 0,
@@ -214,8 +214,8 @@ function createMonitorAutomationViewHostFactory(_0x1f7e64 = {}) {
       },
       getContentBounds: () => {
         try {
-          return _0x531dd1.getBounds();
-        } catch (_0x461166) {
+          return browserView.getBounds();
+        } catch (error) {
           return {
             x: 0,
             y: 0,
@@ -226,16 +226,16 @@ function createMonitorAutomationViewHostFactory(_0x1f7e64 = {}) {
       }
     };
     return {
-      facade: _0x54fd6e,
-      view: _0x531dd1,
-      viewKey: _0x2608a8,
-      webContents: _0x19e35c
+      facade: obj2,
+      view: browserView,
+      viewKey: result,
+      webContents: value3
     };
   }
   return {
     buildMonitorViewKey: buildMonitorViewKey,
     buildAccountSessionKey: buildAccountSessionKey,
-    createMonitorAccountHost: _0x2d416a
+    createMonitorAccountHost: createMonitorAccountHost
   };
 }
 module.exports = {
