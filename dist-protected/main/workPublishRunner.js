@@ -25,142 +25,142 @@ const RUNTIME_LOG_TASK_LIMIT = 40;
 const NAVIGATION_TIMEOUT_MS = 60000;
 const UPLOAD_WAIT_MS = 480000;
 const PUBLISH_WAIT_MS = 90000;
-function sleep(_0x1a6916) {
-  return new Promise(_0x574805 => setTimeout(_0x574805, _0x1a6916));
+function sleep(arg1) {
+  return new Promise(arg12 => setTimeout(arg12, arg1));
 }
-function randomBetween(_0x59797f, _0x169c5a) {
-  const _0x32e257 = Math.min(_0x59797f, _0x169c5a);
-  const _0x4933ed = Math.max(_0x59797f, _0x169c5a);
-  return _0x32e257 + Math.floor(Math.random() * (_0x4933ed - _0x32e257 + 1));
+function randomBetween(arg1, arg2) {
+  const result = Math.min(arg1, arg2);
+  const result2 = Math.max(arg1, arg2);
+  return result + Math.floor(Math.random() * (result2 - result + 1));
 }
-function createWorkPublishRunner(_0x2c52be) {
+function createWorkPublishRunner(arg1) {
   const {
-    app: _0x57bf9b,
-    store: _0x51ee9c,
-    fs: _0x1185c3,
+    app: app,
+    store: store,
+    fs: fs,
     runtimeConfig = null,
-    applyAccountProxy: _0x1e3c68,
-    configureAutomationSession: _0x2f4918,
-    applyPackagedWindowMenuPolicy: _0x4e8db6,
-    attachProtocolGuard: _0x3f8467
-  } = _0x2c52be;
-  async function _0x44d2ef(_0x1e11c7) {
-    if (!runtimeConfig || !_0x1e11c7 || _0x1e11c7.isDestroyed?.()) {
+    applyAccountProxy: applyAccountProxy,
+    configureAutomationSession: configureAutomationSession,
+    applyPackagedWindowMenuPolicy: applyPackagedWindowMenuPolicy,
+    attachProtocolGuard: attachProtocolGuard
+  } = arg1;
+  async function fn(arg1) {
+    if (!runtimeConfig || !arg1 || arg1.isDestroyed?.()) {
       return;
     }
     try {
       if (typeof runtimeConfig.ensureFetched === "function") {
         await runtimeConfig.ensureFetched();
       }
-      runtimeConfig.pushToWebContents?.(_0x1e11c7);
-    } catch (_0xda7e73) {
-      console.warn("[WorkPublish] runtime config push failed:", _0xda7e73?.message || _0xda7e73);
+      runtimeConfig.pushToWebContents?.(arg1);
+    } catch (error) {
+      console.warn("[WorkPublish] runtime config push failed:", error?.message || error);
     }
   }
-  const _0x25346b = () => {
-    if (typeof _0x2c52be.getMainWindow === "function") {
-      return _0x2c52be.getMainWindow();
+  const local = () => {
+    if (typeof arg1.getMainWindow === "function") {
+      return arg1.getMainWindow();
     }
-    return _0x2c52be.mainWindow || null;
+    return arg1.mainWindow || null;
   };
-  const _0x34d8bc = new Map();
-  const _0x344ba2 = new Map();
-  const _0x3086e4 = new Map();
-  const _0xf53b13 = _0x509e72 => "work-publish:" + _0x509e72;
-  function _0x4c5a05(_0x5d91d4, _0x2f9ad9) {
+  const map = new Map();
+  const map2 = new Map();
+  const map3 = new Map();
+  const local2 = arg1 => "work-publish:" + arg1;
+  function fn2(arg1, arg2) {
     try {
-      const _0x3f1a6d = _0x25346b();
-      if (_0x3f1a6d && !_0x3f1a6d.isDestroyed() && !_0x3f1a6d.webContents?.isDestroyed?.()) {
-        _0x3f1a6d.webContents.send("work-publish-task-event", {
-          taskId: _0x5d91d4,
-          ..._0x2f9ad9
+      const result = local();
+      if (result && !result.isDestroyed() && !result.webContents?.isDestroyed?.()) {
+        result.webContents.send("work-publish-task-event", {
+          taskId: arg1,
+          ...arg2
         });
       }
-    } catch (_0x33af45) {}
+    } catch (error) {}
   }
-  function _0x492188(_0x337aab, _0x40353f, _0xa12fb0 = "info") {
-    if (!_0x337aab || !_0x40353f) {
+  function fn3(arg1, arg2, text = "info") {
+    if (!arg1 || !arg2) {
       return;
     }
-    const _0x18410f = {
-      taskId: _0x337aab,
+    const obj = {
+      taskId: arg1,
       type: "log",
-      message: _0x40353f,
-      level: _0xa12fb0,
+      message: arg2,
+      level: text,
       ts: Date.now()
     };
-    if (!_0x3086e4.has(_0x337aab) && _0x3086e4.size >= RUNTIME_LOG_TASK_LIMIT) {
-      const _0x3f150b = [..._0x3086e4.keys()].find(_0x576443 => !_0x34d8bc.has(_0x576443)) || _0x3086e4.keys().next().value;
-      if (_0x3f150b != null) {
-        _0x3086e4.delete(_0x3f150b);
+    if (!map3.has(arg1) && map3.size >= RUNTIME_LOG_TASK_LIMIT) {
+      const local = [...map3.keys()].find(arg1 => !map.has(arg1)) || map3.keys().next().value;
+      if (local != null) {
+        map3.delete(local);
       }
     }
-    const _0x1f5502 = _0x3086e4.get(_0x337aab) || [];
-    _0x1f5502.push(_0x18410f);
-    if (_0x1f5502.length > RUNTIME_LOG_LIMIT) {
-      _0x1f5502.splice(0, _0x1f5502.length - RUNTIME_LOG_LIMIT);
+    const local = map3.get(arg1) || [];
+    local.push(obj);
+    if (local.length > RUNTIME_LOG_LIMIT) {
+      local.splice(0, local.length - RUNTIME_LOG_LIMIT);
     }
-    _0x3086e4.set(_0x337aab, _0x1f5502);
-    _0x4c5a05(_0x337aab, _0x18410f);
+    map3.set(arg1, local);
+    fn2(arg1, obj);
   }
-  function _0x5fe83d(_0x33861c = null) {
-    if (_0x33861c != null && _0x33861c !== "") {
-      return (_0x3086e4.get(_0x33861c) || []).map(_0x56f494 => ({
-        ..._0x56f494
+  function getTaskLogs(arg1 = null) {
+    if (arg1 != null && arg1 !== "") {
+      return (map3.get(arg1) || []).map(arg1 => ({
+        ...arg1
       }));
     }
-    const _0xd126e9 = {};
-    for (const [_0x2cfbe5, _0x2d4955] of _0x3086e4.entries()) {
-      _0xd126e9[_0x2cfbe5] = _0x2d4955.map(_0x49542a => ({
-        ..._0x49542a
+    const obj = {};
+    for (const [local, local2] of map3.entries()) {
+      obj[local] = local2.map(arg1 => ({
+        ...arg1
       }));
     }
-    return _0xd126e9;
+    return obj;
   }
-  function _0x26a1c2(_0x5f2718 = null) {
-    if (_0x5f2718 != null && _0x5f2718 !== "") {
-      return _0x3086e4.delete(_0x5f2718);
+  function clearTaskLogs(arg1 = null) {
+    if (arg1 != null && arg1 !== "") {
+      return map3.delete(arg1);
     }
-    _0x3086e4.clear();
+    map3.clear();
     return true;
   }
-  function _0x162577() {
-    return [..._0x34d8bc.keys()];
+  function listRunningTaskIds() {
+    return [...map.keys()];
   }
-  function _0x390916(_0x13aa6c) {
-    return _0x34d8bc.has(String(_0x13aa6c));
+  function isTaskRunning(arg1) {
+    return map.has(String(arg1));
   }
-  function _0xd5f6d() {
-    let _0x1bc847 = path.join(__dirname, "..", "automation-preload.js");
-    if (_0x57bf9b.isPackaged) {
-      const _0x3682ab = _0x51ee9c.get("latest_resource_path");
-      if (_0x3682ab && _0x1185c3.existsSync(path.join(_0x3682ab, "automation-preload.js"))) {
-        _0x1bc847 = path.join(_0x3682ab, "automation-preload.js");
+  function fn8() {
+    let result = path.join(__dirname, "..", "automation-preload.js");
+    if (app.isPackaged) {
+      const result2 = store.get("latest_resource_path");
+      if (result2 && fs.existsSync(path.join(result2, "automation-preload.js"))) {
+        result = path.join(result2, "automation-preload.js");
       }
     }
-    return _0x1bc847;
+    return result;
   }
-  async function _0x16b4ea(_0xaef10, _0x401111) {
-    if (!_0xaef10 || _0xaef10.isDestroyed() || _0xaef10.webContents.isDestroyed()) {
+  async function fn9(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed() || arg1.webContents.isDestroyed()) {
       throw new Error("window_destroyed");
     }
-    return _0xaef10.webContents.executeJavaScript(_0x401111, true);
+    return arg1.webContents.executeJavaScript(arg2, true);
   }
-  async function _0x2a618e(_0x1d66bd, _0x4d9547, _0x5b4ab2 = NAVIGATION_TIMEOUT_MS) {
-    if (!_0x1d66bd || _0x1d66bd.isDestroyed()) {
+  async function fn10(arg1, arg2, arg3 = NAVIGATION_TIMEOUT_MS) {
+    if (!arg1 || arg1.isDestroyed()) {
       throw new Error("window_destroyed");
     }
-    await Promise.race([_0x1d66bd.loadURL(_0x4d9547), sleep(_0x5b4ab2).then(() => {
+    await Promise.race([arg1.loadURL(arg2), sleep(arg3).then(() => {
       throw new Error("navigation_timeout");
     })]);
     await sleep(1800);
   }
-  async function _0x8ea7aa(_0x12288d, _0x55f983) {
-    const _0x58e6bb = "douyin_" + _0x12288d;
-    const _0x42f821 = "persist:automation:" + _0x58e6bb;
-    const _0x554af8 = _0x25346b();
-    const _0x25e54e = new BrowserWindow({
-      parent: _0x554af8 && !_0x554af8.isDestroyed() ? _0x554af8 : undefined,
+  async function fn11(arg1, arg2) {
+    const value = "douyin_" + arg1;
+    const value2 = "persist:automation:" + value;
+    const result = local();
+    const browserWindow = new BrowserWindow({
+      parent: result && !result.isDestroyed() ? result : undefined,
       width: 1280,
       height: 900,
       show: false,
@@ -171,228 +171,228 @@ function createWorkPublishRunner(_0x2c52be) {
       focusable: false,
       backgroundColor: "#0f172a",
       webPreferences: {
-        partition: _0x42f821,
+        partition: value2,
         backgroundThrottling: false,
         contextIsolation: true,
         sandbox: false,
-        preload: _0xd5f6d(),
+        preload: fn8(),
         spellcheck: false
       },
       autoHideMenuBar: true
     });
-    _0x25e54e.__radarWorkPublishAccountId = String(_0x12288d);
-    _0x25e54e.__radarAllowVisibleMonitor = false;
-    applyHiddenAutomationWindowPolicy(_0x25e54e, {
-      parent: _0x554af8
+    browserWindow.__radarWorkPublishAccountId = String(arg1);
+    browserWindow.__radarAllowVisibleMonitor = false;
+    applyHiddenAutomationWindowPolicy(browserWindow, {
+      parent: result
     });
-    if (typeof _0x4e8db6 === "function") {
-      _0x4e8db6(_0x25e54e);
+    if (typeof applyPackagedWindowMenuPolicy === "function") {
+      applyPackagedWindowMenuPolicy(browserWindow);
     }
-    if (typeof _0x3f8467 === "function") {
-      _0x3f8467(_0x25e54e.webContents, "work-publish:" + _0x58e6bb);
+    if (typeof attachProtocolGuard === "function") {
+      attachProtocolGuard(browserWindow.webContents, "work-publish:" + value);
     }
     try {
-      if (typeof _0x2f4918 === "function") {
-        _0x2f4918(_0x25e54e.webContents.session, _0x58e6bb);
+      if (typeof configureAutomationSession === "function") {
+        configureAutomationSession(browserWindow.webContents.session, value);
       }
-    } catch (_0x586ac1) {}
+    } catch (error) {}
     try {
-      if (typeof _0x1e3c68 === "function" && _0x55f983) {
-        await _0x1e3c68(_0x25e54e.webContents.session, _0x55f983, _0x58e6bb);
+      if (typeof applyAccountProxy === "function" && arg2) {
+        await applyAccountProxy(browserWindow.webContents.session, arg2, value);
       }
-    } catch (_0x465bfa) {
-      console.warn("[WorkPublish] apply proxy failed:", _0x465bfa.message);
+    } catch (error) {
+      console.warn("[WorkPublish] apply proxy failed:", error.message);
     }
-    ensureHiddenWindowStaysHidden(_0x25e54e);
-    _0x25e54e.webContents.on("dom-ready", () => {
-      runtimeConfig?.ensureAndPushToWebContents?.(_0x25e54e.webContents);
+    ensureHiddenWindowStaysHidden(browserWindow);
+    browserWindow.webContents.on("dom-ready", () => {
+      runtimeConfig?.ensureAndPushToWebContents?.(browserWindow.webContents);
     });
-    _0x25e54e.on("closed", () => {
-      if (_0x344ba2.get(String(_0x12288d)) === _0x25e54e) {
-        _0x344ba2.delete(String(_0x12288d));
+    browserWindow.on("closed", () => {
+      if (map2.get(String(arg1)) === browserWindow) {
+        map2.delete(String(arg1));
       }
     });
-    _0x344ba2.set(String(_0x12288d), _0x25e54e);
-    await _0x44d2ef(_0x25e54e.webContents);
-    return _0x25e54e;
+    map2.set(String(arg1), browserWindow);
+    await fn(browserWindow.webContents);
+    return browserWindow;
   }
-  async function _0x181922(_0x4a2d0c, _0x1bfbc9 = {}) {
-    const _0x3ceab0 = String(_0x4a2d0c);
-    let _0x53844e = _0x344ba2.get(_0x3ceab0);
-    if (_0x53844e && !_0x53844e.isDestroyed()) {
-      return _0x53844e;
+  async function fn12(arg1, options = {}) {
+    const result = String(arg1);
+    let result2 = map2.get(result);
+    if (result2 && !result2.isDestroyed()) {
+      return result2;
     }
-    return _0x8ea7aa(_0x3ceab0, _0x1bfbc9.proxy || null);
+    return fn11(result, options.proxy || null);
   }
-  function _0x4a9e5c() {
-    return [..._0x344ba2.values()].filter(_0xb15885 => _0xb15885 && !_0xb15885.isDestroyed()).map(_0x38ebf8 => _0x38ebf8.webContents).filter(_0x3abd52 => _0x3abd52 && !_0x3abd52.isDestroyed?.());
+  function listWebContents() {
+    return [...map2.values()].filter(arg1 => arg1 && !arg1.isDestroyed()).map(arg1 => arg1.webContents).filter(arg1 => arg1 && !arg1.isDestroyed?.());
   }
-  function _0x59b948(_0x5f1c6f) {
-    const _0x2965db = String(_0x5f1c6f);
-    const _0x1dc0c9 = _0x344ba2.get(_0x2965db);
-    if (!_0x1dc0c9) {
+  function fn14(arg1) {
+    const result = String(arg1);
+    const result2 = map2.get(result);
+    if (!result2) {
       return;
     }
-    _0x344ba2.delete(_0x2965db);
+    map2.delete(result);
     try {
-      if (!_0x1dc0c9.isDestroyed()) {
-        _0x1dc0c9.destroy();
+      if (!result2.isDestroyed()) {
+        result2.destroy();
       }
-    } catch (_0x523502) {}
+    } catch (error) {}
   }
-  function _0x541cf0(_0x1fa897 = new Set()) {
-    for (const [_0x81766b] of _0x344ba2.entries()) {
-      if (_0x1fa897.has(String(_0x81766b))) {
+  function fn15(arg1 = new Set()) {
+    for (const [local] of map2.entries()) {
+      if (arg1.has(String(local))) {
         continue;
       }
-      const _0x1aaf58 = [..._0x34d8bc.values()].some(_0x45febc => (_0x45febc.accountIds || []).includes(String(_0x81766b)));
-      if (!_0x1aaf58) {
-        _0x59b948(_0x81766b);
+      const result = [...map.values()].some(arg1 => (arg1.accountIds || []).includes(String(local)));
+      if (!result) {
+        fn14(local);
       }
     }
   }
-  async function _0x5280a4(_0x56eeba, _0x77c8c1 = []) {
-    const _0x5817f0 = (Array.isArray(_0x77c8c1) ? _0x77c8c1 : [_0x77c8c1]).map(_0x31d350 => path.resolve(String(_0x31d350 || ""))).filter(_0x1de5bc => _0x1de5bc && _0x1185c3.existsSync(_0x1de5bc));
-    if (!_0x5817f0.length) {
+  async function fn16(arg1, list = []) {
+    const result = (Array.isArray(list) ? list : [list]).map(arg1 => path.resolve(String(arg1 || ""))).filter(arg1 => arg1 && fs.existsSync(arg1));
+    if (!result.length) {
       return {
         ok: false,
         error: "file_not_found"
       };
     }
-    if (!_0x56eeba || _0x56eeba.isDestroyed()) {
+    if (!arg1 || arg1.isDestroyed()) {
       return {
         ok: false,
         error: "no_webcontents"
       };
     }
-    const _0x4f0b49 = _0x56eeba.debugger;
-    let _0x5027e3 = false;
+    const value = arg1.debugger;
+    let flag = false;
     try {
-      if (!_0x4f0b49.isAttached()) {
-        _0x4f0b49.attach("1.3");
-        _0x5027e3 = true;
+      if (!value.isAttached()) {
+        value.attach("1.3");
+        flag = true;
       }
       const {
-        root: _0x2ca7a5
-      } = await _0x4f0b49.sendCommand("DOM.getDocument", {
+        root: root
+      } = await value.sendCommand("DOM.getDocument", {
         depth: -1,
         pierce: true
       });
-      const _0x48b97c = ["input[type=\"file\"][accept*=\"video\"]", "input[type=\"file\"][accept*=\"image\"]", "input[type=\"file\"][accept*=\"*\"]", "input[type=\"file\"]"];
-      let _0x1469c2 = null;
-      let _0x291c9e = "";
-      for (const _0x4d9ed8 of _0x48b97c) {
+      const list = ["input[type=\"file\"][accept*=\"video\"]", "input[type=\"file\"][accept*=\"image\"]", "input[type=\"file\"][accept*=\"*\"]", "input[type=\"file\"]"];
+      let local = null;
+      let text = "";
+      for (const item of list) {
         try {
-          const _0x5b6377 = await _0x4f0b49.sendCommand("DOM.querySelector", {
-            nodeId: _0x2ca7a5.nodeId,
-            selector: _0x4d9ed8
+          const result = await value.sendCommand("DOM.querySelector", {
+            nodeId: root.nodeId,
+            selector: item
           });
-          if (_0x5b6377?.nodeId) {
-            _0x1469c2 = _0x5b6377.nodeId;
-            _0x291c9e = _0x4d9ed8;
+          if (result?.nodeId) {
+            local = result.nodeId;
+            text = item;
             break;
           }
-        } catch (_0x18ee5d) {}
+        } catch (error) {}
       }
-      if (!_0x1469c2) {
+      if (!local) {
         return {
           ok: false,
           error: "no_file_input"
         };
       }
-      await _0x4f0b49.sendCommand("DOM.setFileInputFiles", {
-        nodeId: _0x1469c2,
-        files: _0x5817f0
+      await value.sendCommand("DOM.setFileInputFiles", {
+        nodeId: local,
+        files: result
       });
       return {
         ok: true,
         method: "cdp",
-        selector: _0x291c9e,
-        count: _0x5817f0.length
+        selector: text,
+        count: result.length
       };
-    } catch (_0x3fccfe) {
+    } catch (error) {
       return {
         ok: false,
-        error: _0x3fccfe.message || String(_0x3fccfe)
+        error: error.message || String(error)
       };
     } finally {
-      if (_0x5027e3) {
+      if (flag) {
         try {
-          _0x4f0b49.detach();
-        } catch (_0x4a3dff) {}
+          value.detach();
+        } catch (error) {}
       }
     }
   }
-  async function _0xf431e2(_0x23de43, _0x5d03b1, {
-    timeoutMs: _0x3af66d,
+  async function fn17(arg1, arg2, {
+    timeoutMs: timeoutMs,
     intervalMs = 1500,
     label = "wait"
   } = {}) {
-    const _0x4618c2 = Date.now();
-    while (Date.now() - _0x4618c2 < _0x3af66d) {
-      if (_0x23de43.stopRequested) {
+    const result = Date.now();
+    while (Date.now() - result < timeoutMs) {
+      if (arg1.stopRequested) {
         throw new Error("stopped");
       }
-      const _0x44bf5d = await _0x5d03b1();
-      if (_0x44bf5d) {
-        return _0x44bf5d;
+      const result = await arg2();
+      if (result) {
+        return result;
       }
       await sleep(intervalMs);
     }
     throw new Error(label + "_timeout");
   }
-  async function _0x2ff8e0(_0x1a51ab, _0x5599d0, _0x25afa3) {
-    const _0x1fc763 = _0x1a51ab.taskId;
-    const _0x484ec8 = String(_0x5599d0.accountId || "");
-    const _0x45243f = _0x5599d0.media?.filePath || "";
-    if (!_0x484ec8) {
+  async function fn18(arg1, arg2, arg3) {
+    const value = arg1.taskId;
+    const result = String(arg2.accountId || "");
+    const local = arg2.media?.filePath || "";
+    if (!result) {
       throw new Error("缺少账号");
     }
-    if (!_0x45243f || !_0x1185c3.existsSync(_0x45243f)) {
+    if (!local || !fs.existsSync(local)) {
       throw new Error("素材文件不存在");
     }
-    if (_0x5599d0.media?.type === "image") {
+    if (arg2.media?.type === "image") {
       throw new Error("暂不支持图文，请使用视频素材");
     }
-    const _0x48ea33 = new Set([".mp4", ".mov", ".m4v", ".avi", ".mkv"]);
-    if (!_0x48ea33.has(path.extname(_0x45243f).toLowerCase())) {
+    const set = new Set([".mp4", ".mov", ".m4v", ".avi", ".mkv"]);
+    if (!set.has(path.extname(local).toLowerCase())) {
       throw new Error("暂不支持图文，请使用视频素材");
     }
-    _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 打开创作者上传页…");
-    const _0x18efd2 = await _0x181922(_0x484ec8, _0x25afa3);
-    ensureHiddenWindowStaysHidden(_0x18efd2);
-    await _0x2a618e(_0x18efd2, CREATOR_UPLOAD_URL);
+    fn3(value, "[" + (arg2.accountName || result) + "] 打开创作者上传页…");
+    const result2 = await fn12(result, arg3);
+    ensureHiddenWindowStaysHidden(result2);
+    await fn10(result2, CREATOR_UPLOAD_URL);
     try {
-      await _0x16b4ea(_0x18efd2, getDismissDialogScript());
-    } catch (_0x3b7e67) {}
+      await fn9(result2, getDismissDialogScript());
+    } catch (error) {}
     await sleep(800);
-    let _0x3743cf = await _0x16b4ea(_0x18efd2, getPageProbeScript());
-    if (_0x3743cf?.hasLogin) {
+    let result3 = await fn9(result2, getPageProbeScript());
+    if (result3?.hasLogin) {
       throw new Error("账号未登录创作者中心，请先在账号池登录该抖音号");
     }
-    if (!_0x3743cf?.fileInputCount) {
+    if (!result3?.fileInputCount) {
       try {
-        await _0x16b4ea(_0x18efd2, "(() => {\n          const nodes = Array.from(document.querySelectorAll('button, [role=\"button\"], div, span'));\n          for (const el of nodes) {\n            const t = (el.innerText || el.textContent || '').trim();\n            if (/上传视频|上传/.test(t) && t.length <= 8 && !/图文/.test(t)) { el.click(); return true; }\n          }\n          return false;\n        })()");
+        await fn9(result2, "(() => {\n          const nodes = Array.from(document.querySelectorAll('button, [role=\"button\"], div, span'));\n          for (const el of nodes) {\n            const t = (el.innerText || el.textContent || '').trim();\n            if (/上传视频|上传/.test(t) && t.length <= 8 && !/图文/.test(t)) { el.click(); return true; }\n          }\n          return false;\n        })()");
         await sleep(1200);
-        _0x3743cf = await _0x16b4ea(_0x18efd2, getPageProbeScript());
-      } catch (_0x2cd275) {}
+        result3 = await fn9(result2, getPageProbeScript());
+      } catch (error) {}
     }
-    _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 注入素材文件…");
-    const _0x2daf67 = await _0x5280a4(_0x18efd2.webContents, [_0x45243f]);
-    if (!_0x2daf67.ok) {
-      throw new Error("无法选择素材：" + (_0x2daf67.error || "unknown"));
+    fn3(value, "[" + (arg2.accountName || result) + "] 注入素材文件…");
+    const result4 = await fn16(result2.webContents, [local]);
+    if (!result4.ok) {
+      throw new Error("无法选择素材：" + (result4.error || "unknown"));
     }
-    _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 等待上传/解析完成…");
-    await _0xf431e2(_0x1a51ab, async () => {
+    fn3(value, "[" + (arg2.accountName || result) + "] 等待上传/解析完成…");
+    await fn17(arg1, async () => {
       try {
-        await _0x16b4ea(_0x18efd2, getDismissDialogScript());
-      } catch (_0x3a54c4) {}
-      const _0x2de630 = await _0x16b4ea(_0x18efd2, getPageProbeScript());
-      if (_0x2de630?.hasLogin) {
+        await fn9(result2, getDismissDialogScript());
+      } catch (error) {}
+      const result = await fn9(result2, getPageProbeScript());
+      if (result?.hasLogin) {
         throw new Error("登录态失效");
       }
-      if (_0x2de630?.editReady || (_0x2de630?.publishBtns || []).some(_0x1d2b48 => _0x1d2b48.includes("发布"))) {
-        return _0x2de630;
+      if (result?.editReady || (result?.publishBtns || []).some(arg1 => arg1.includes("发布"))) {
+        return result;
       }
       return null;
     }, {
@@ -401,35 +401,35 @@ function createWorkPublishRunner(_0x2c52be) {
       label: "upload_parse"
     });
     await sleep(1200);
-    _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 填写标题与描述…");
-    const _0x513841 = await _0x16b4ea(_0x18efd2, getFillTitleDescScript(_0x5599d0.title || "", _0x5599d0.description || ""));
-    if (!_0x513841?.titleOk) {
-      _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 标题填写可能失败，继续尝试发布", "warn");
+    fn3(value, "[" + (arg2.accountName || result) + "] 填写标题与描述…");
+    const result5 = await fn9(result2, getFillTitleDescScript(arg2.title || "", arg2.description || ""));
+    if (!result5?.titleOk) {
+      fn3(value, "[" + (arg2.accountName || result) + "] 标题填写可能失败，继续尝试发布", "warn");
     }
     await sleep(800);
     {
-      const _0x288cbc = randomBetween(10, 30);
-      _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 【临时】发布前随机等待 " + _0x288cbc + " 秒，请核对标题/描述/素材…", "warn");
-      const _0x182d59 = Date.now() + _0x288cbc * 1000;
-      while (Date.now() < _0x182d59) {
-        if (_0x1a51ab.stopRequested) {
+      const result2 = randomBetween(10, 30);
+      fn3(value, "[" + (arg2.accountName || result) + "] 【临时】发布前随机等待 " + result2 + " 秒，请核对标题/描述/素材…", "warn");
+      const value2 = Date.now() + result2 * 1000;
+      while (Date.now() < value2) {
+        if (arg1.stopRequested) {
           throw new Error("stopped");
         }
-        await sleep(Math.min(1000, _0x182d59 - Date.now()));
+        await sleep(Math.min(1000, value2 - Date.now()));
       }
     }
-    _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 点击发布…");
-    const _0x207ad3 = await _0x16b4ea(_0x18efd2, getClickPublishScript());
-    if (!_0x207ad3?.ok) {
-      throw new Error("未找到发布按钮：" + (_0x207ad3?.reason || "unknown"));
+    fn3(value, "[" + (arg2.accountName || result) + "] 点击发布…");
+    const result6 = await fn9(result2, getClickPublishScript());
+    if (!result6?.ok) {
+      throw new Error("未找到发布按钮：" + (result6?.reason || "unknown"));
     }
-    const _0x41b64c = await _0xf431e2(_0x1a51ab, async () => {
-      const _0x1ba6d1 = await _0x16b4ea(_0x18efd2, getPublishResultScript());
-      if (_0x1ba6d1?.ok === true) {
-        return _0x1ba6d1;
+    const result7 = await fn17(arg1, async () => {
+      const result = await fn9(result2, getPublishResultScript());
+      if (result?.ok === true) {
+        return result;
       }
-      if (_0x1ba6d1?.ok === false) {
-        throw new Error(_0x1ba6d1.message || "发布失败");
+      if (result?.ok === false) {
+        throw new Error(result.message || "发布失败");
       }
       return null;
     }, {
@@ -437,255 +437,255 @@ function createWorkPublishRunner(_0x2c52be) {
       intervalMs: 2000,
       label: "publish_confirm"
     });
-    _0x492188(_0x1fc763, "[" + (_0x5599d0.accountName || _0x484ec8) + "] 发布成功（" + (_0x41b64c.kind || "ok") + "）", "success");
+    fn3(value, "[" + (arg2.accountName || result) + "] 发布成功（" + (result7.kind || "ok") + "）", "success");
     return true;
   }
-  async function _0x52143c(_0x27ea83, _0x4f6d84, _0x6d8308, _0x5be8c6) {
+  async function fn19(arg1, arg2, arg3, arg4) {
     const {
-      taskId: _0x1e2e20,
-      tasksApi: _0x5bfcd7,
-      accountsById: _0x3e8cea
-    } = _0x27ea83;
-    const _0x5bdb16 = _0x3e8cea.get(String(_0x4f6d84.accountId)) || {};
-    _0x5bfcd7?.updateItem?.(_0x1e2e20, _0x4f6d84.id, {
+      taskId: taskId,
+      tasksApi: tasksApi,
+      accountsById: accountsById
+    } = arg1;
+    const local = accountsById.get(String(arg2.accountId)) || {};
+    tasksApi?.updateItem?.(taskId, arg2.id, {
       status: "publishing",
       error: ""
     });
-    _0x4c5a05(_0x1e2e20, {
+    fn2(taskId, {
       type: "item-progress",
-      itemId: _0x4f6d84.id,
+      itemId: arg2.id,
       status: "publishing",
-      index: _0x6d8308,
-      total: _0x5be8c6
+      index: arg3,
+      total: arg4
     });
     try {
-      await _0x2ff8e0(_0x27ea83, _0x4f6d84, _0x5bdb16);
-      _0x5bfcd7?.updateItem?.(_0x1e2e20, _0x4f6d84.id, {
+      await fn18(arg1, arg2, local);
+      tasksApi?.updateItem?.(taskId, arg2.id, {
         status: "published",
         publishedAt: Date.now(),
         error: ""
       });
-      _0x4c5a05(_0x1e2e20, {
+      fn2(taskId, {
         type: "item-progress",
-        itemId: _0x4f6d84.id,
+        itemId: arg2.id,
         status: "published",
-        index: _0x6d8308,
-        total: _0x5be8c6
+        index: arg3,
+        total: arg4
       });
       return {
         ok: true,
-        itemId: _0x4f6d84.id
+        itemId: arg2.id
       };
-    } catch (_0x5711ed) {
-      const _0x14791f = _0x5711ed?.message || String(_0x5711ed);
-      if (_0x14791f === "stopped") {
-        _0x5bfcd7?.updateItem?.(_0x1e2e20, _0x4f6d84.id, {
+    } catch (error) {
+      const local = error?.message || String(error);
+      if (local === "stopped") {
+        tasksApi?.updateItem?.(taskId, arg2.id, {
           status: "ready",
           error: ""
         });
         return {
           ok: false,
           stopped: true,
-          itemId: _0x4f6d84.id
+          itemId: arg2.id
         };
       }
-      _0x492188(_0x1e2e20, "[" + (_0x4f6d84.accountName || _0x4f6d84.accountId) + "] 失败：" + _0x14791f, "error");
-      _0x5bfcd7?.updateItem?.(_0x1e2e20, _0x4f6d84.id, {
+      fn3(taskId, "[" + (arg2.accountName || arg2.accountId) + "] 失败：" + local, "error");
+      tasksApi?.updateItem?.(taskId, arg2.id, {
         status: "failed",
-        error: _0x14791f
+        error: local
       });
-      _0x4c5a05(_0x1e2e20, {
+      fn2(taskId, {
         type: "item-progress",
-        itemId: _0x4f6d84.id,
+        itemId: arg2.id,
         status: "failed",
-        error: _0x14791f,
-        index: _0x6d8308,
-        total: _0x5be8c6
+        error: local,
+        index: arg3,
+        total: arg4
       });
       return {
         ok: false,
-        itemId: _0x4f6d84.id,
-        error: _0x14791f
+        itemId: arg2.id,
+        error: local
       };
     }
   }
-  async function _0x215135(_0x18bf2e) {
+  async function fn20(arg1) {
     const {
-      taskId: _0xb79dbe,
-      tasksApi: _0x3516d0
-    } = _0x18bf2e;
-    const _0x20eb9f = (_0x18bf2e.items || []).filter(_0x4f8d54 => ["ready", "queued", "failed", "draft"].includes(_0x4f8d54.status) && _0x4f8d54.accountId && _0x4f8d54.media?.filePath);
-    if (!_0x20eb9f.length) {
-      _0x492188(_0xb79dbe, "没有可发布的条目（需账号+素材+文案）", "warn");
-      _0x18bf2e.status = "done";
-      _0x3516d0?.saveTask?.({
-        ..._0x18bf2e.taskRecord,
+      taskId: taskId,
+      tasksApi: tasksApi
+    } = arg1;
+    const result = (arg1.items || []).filter(arg1 => ["ready", "queued", "failed", "draft"].includes(arg1.status) && arg1.accountId && arg1.media?.filePath);
+    if (!result.length) {
+      fn3(taskId, "没有可发布的条目（需账号+素材+文案）", "warn");
+      arg1.status = "done";
+      tasksApi?.saveTask?.({
+        ...arg1.taskRecord,
         status: "done",
         updatedAt: Date.now()
       });
       return;
     }
-    const _0x2a3e69 = _0x20eb9f.length;
-    const _0x3e78e9 = _0x18bf2e.publishMode === "parallel";
-    if (_0x3e78e9) {
-      _0x492188(_0xb79dbe, "同时发布模式：并行处理 " + _0x2a3e69 + " 条");
-      await Promise.all(_0x20eb9f.map((_0x5e31fb, _0x30aabe) => _0x52143c(_0x18bf2e, _0x5e31fb, _0x30aabe, _0x2a3e69)));
+    const value = result.length;
+    const value2 = arg1.publishMode === "parallel";
+    if (value2) {
+      fn3(taskId, "同时发布模式：并行处理 " + value + " 条");
+      await Promise.all(result.map((arg12, arg2) => fn19(arg1, arg12, arg2, value)));
     } else {
-      const _0x4c9d6b = Math.max(0, Number(_0x18bf2e.staggerMinSec) || 0);
-      const _0x48dc89 = Math.max(_0x4c9d6b, Number(_0x18bf2e.staggerMaxSec) || _0x4c9d6b);
-      _0x492188(_0xb79dbe, "间隔发布模式：每条间隔随机 " + _0x4c9d6b + "–" + _0x48dc89 + " 秒");
-      for (let _0x468aba = 0; _0x468aba < _0x20eb9f.length; _0x468aba += 1) {
-        if (_0x18bf2e.stopRequested) {
+      const result2 = Math.max(0, Number(arg1.staggerMinSec) || 0);
+      const result3 = Math.max(result2, Number(arg1.staggerMaxSec) || result2);
+      fn3(taskId, "间隔发布模式：每条间隔随机 " + result2 + "–" + result3 + " 秒");
+      for (let num = 0; num < result.length; num += 1) {
+        if (arg1.stopRequested) {
           break;
         }
-        const _0x3385fe = await _0x52143c(_0x18bf2e, _0x20eb9f[_0x468aba], _0x468aba, _0x2a3e69);
-        if (_0x3385fe?.stopped || _0x18bf2e.stopRequested) {
+        const result4 = await fn19(arg1, result[num], num, value);
+        if (result4?.stopped || arg1.stopRequested) {
           break;
         }
-        if (_0x468aba < _0x20eb9f.length - 1) {
-          const _0x1e4110 = randomBetween(_0x4c9d6b, _0x48dc89);
-          if (_0x1e4110 > 0) {
-            _0x492188(_0xb79dbe, "随机等待 " + _0x1e4110 + " 秒后发布下一条…");
-            const _0x5b671a = Date.now() + _0x1e4110 * 1000;
-            while (Date.now() < _0x5b671a) {
-              if (_0x18bf2e.stopRequested) {
+        if (num < result.length - 1) {
+          const result = randomBetween(result2, result3);
+          if (result > 0) {
+            fn3(taskId, "随机等待 " + result + " 秒后发布下一条…");
+            const value = Date.now() + result * 1000;
+            while (Date.now() < value) {
+              if (arg1.stopRequested) {
                 break;
               }
-              await sleep(Math.min(2000, _0x5b671a - Date.now()));
+              await sleep(Math.min(2000, value - Date.now()));
             }
           } else {
-            _0x492188(_0xb79dbe, "间隔为 0，立即发布下一条");
+            fn3(taskId, "间隔为 0，立即发布下一条");
           }
         }
       }
     }
-    const _0x4b2416 = _0x3516d0?.getTask?.(_0xb79dbe) || _0x18bf2e.taskRecord;
-    const _0x5b7b6d = _0x4b2416?.items || [];
-    const _0x12097b = _0x5b7b6d.length && _0x5b7b6d.every(_0x2fbaf8 => _0x2fbaf8.status === "published" || _0x2fbaf8.status === "failed");
-    const _0x3d2fcb = _0x18bf2e.stopRequested ? "stopped" : _0x12097b ? "done" : "ready";
-    _0x3516d0?.saveTask?.({
-      ..._0x4b2416,
-      status: _0x3d2fcb,
+    const local = tasksApi?.getTask?.(taskId) || arg1.taskRecord;
+    const local2 = local?.items || [];
+    const local3 = local2.length && local2.every(arg1 => arg1.status === "published" || arg1.status === "failed");
+    const value3 = arg1.stopRequested ? "stopped" : local3 ? "done" : "ready";
+    tasksApi?.saveTask?.({
+      ...local,
+      status: value3,
       updatedAt: Date.now(),
       endedAt: Date.now(),
-      endReason: _0x18bf2e.stopRequested ? "manual_stop" : "finished"
+      endReason: arg1.stopRequested ? "manual_stop" : "finished"
     });
-    _0x492188(_0xb79dbe, _0x18bf2e.stopRequested ? "任务已停止" : "任务结束", _0x18bf2e.stopRequested ? "warn" : "info");
-    _0x4c5a05(_0xb79dbe, {
+    fn3(taskId, arg1.stopRequested ? "任务已停止" : "任务结束", arg1.stopRequested ? "warn" : "info");
+    fn2(taskId, {
       type: "task-finished",
-      status: _0x3d2fcb
+      status: value3
     });
   }
-  function _0x18c365(_0xbc3fce, _0x4e5f5a = [], _0x380ffd) {
-    const _0x8cc88f = String(_0xbc3fce?.id || "");
-    if (!_0x8cc88f) {
+  function startTask(arg1, list = [], arg3) {
+    const result = String(arg1?.id || "");
+    if (!result) {
       return false;
     }
-    if (_0x34d8bc.has(_0x8cc88f)) {
+    if (map.has(result)) {
       return false;
     }
-    const _0x4b69c1 = Array.isArray(_0x4e5f5a) ? _0x4e5f5a : [];
-    const _0x9692d4 = new Map(_0x4b69c1.map(_0x4f86c1 => [String(_0x4f86c1.id), _0x4f86c1]));
-    const _0x100415 = Array.isArray(_0xbc3fce.items) ? _0xbc3fce.items : [];
-    const _0x1180ac = [...new Set(_0x100415.map(_0x14d83d => String(_0x14d83d.accountId || "")).filter(Boolean))];
-    const _0xd6e8cb = Math.max(0, Number(_0xbc3fce.staggerMinSec) || 0);
-    const _0x23300f = Math.max(_0xd6e8cb, Number(_0xbc3fce.staggerMaxSec) || _0xd6e8cb);
-    const _0x30b565 = Date.now();
-    const _0x32fb45 = {
-      taskId: _0x8cc88f,
-      generation: _0x30b565,
+    const value = Array.isArray(list) ? list : [];
+    const map2 = new Map(value.map(arg1 => [String(arg1.id), arg1]));
+    const value2 = Array.isArray(arg1.items) ? arg1.items : [];
+    const list2 = [...new Set(value2.map(arg1 => String(arg1.accountId || "")).filter(Boolean))];
+    const result2 = Math.max(0, Number(arg1.staggerMinSec) || 0);
+    const result3 = Math.max(result2, Number(arg1.staggerMaxSec) || result2);
+    const result4 = Date.now();
+    const obj = {
+      taskId: result,
+      generation: result4,
       stopRequested: false,
-      taskRecord: _0xbc3fce,
-      items: _0x100415,
-      accountIds: _0x1180ac,
-      accountsById: _0x9692d4,
-      tasksApi: _0x380ffd,
-      publishMode: _0xbc3fce.publishMode === "parallel" ? "parallel" : "interval",
-      staggerMinSec: _0xd6e8cb,
-      staggerMaxSec: _0x23300f,
+      taskRecord: arg1,
+      items: value2,
+      accountIds: list2,
+      accountsById: map2,
+      tasksApi: arg3,
+      publishMode: arg1.publishMode === "parallel" ? "parallel" : "interval",
+      staggerMinSec: result2,
+      staggerMaxSec: result3,
       status: "running"
     };
-    acquireTaskRuntimeGuard(_0xf53b13(_0x8cc88f), {
-      taskId: _0x8cc88f,
+    acquireTaskRuntimeGuard(local2(result), {
+      taskId: result,
       kind: "work_publish",
-      accountIds: _0x1180ac
+      accountIds: list2
     });
-    _0x34d8bc.set(_0x8cc88f, _0x32fb45);
-    _0x26a1c2(_0x8cc88f);
-    _0x492188(_0x8cc88f, "开始发布任务，共 " + _0x100415.length + " 项");
-    _0x380ffd?.saveTask?.({
-      ..._0xbc3fce,
+    map.set(result, obj);
+    clearTaskLogs(result);
+    fn3(result, "开始发布任务，共 " + value2.length + " 项");
+    arg3?.saveTask?.({
+      ...arg1,
       status: "running",
       updatedAt: Date.now(),
       startedAt: Date.now()
     });
     (async () => {
       try {
-        await _0x215135(_0x32fb45);
-      } catch (_0x2c7cd2) {
-        _0x492188(_0x8cc88f, "任务异常：" + (_0x2c7cd2.message || _0x2c7cd2), "error");
-        _0x380ffd?.saveTask?.({
-          ..._0xbc3fce,
+        await fn20(obj);
+      } catch (error) {
+        fn3(result, "任务异常：" + (error.message || error), "error");
+        arg3?.saveTask?.({
+          ...arg1,
           status: "stopped",
           updatedAt: Date.now(),
           endReason: "error"
         });
-        _0x4c5a05(_0x8cc88f, {
+        fn2(result, {
           type: "task-finished",
           status: "stopped",
-          error: _0x2c7cd2.message
+          error: error.message
         });
       } finally {
-        _0x34d8bc.delete(_0x8cc88f);
-        releaseTaskRuntimeGuard(_0xf53b13(_0x8cc88f));
-        _0x541cf0(new Set());
+        map.delete(result);
+        releaseTaskRuntimeGuard(local2(result));
+        fn15(new Set());
       }
     })();
     return true;
   }
-  function _0x3c3877(_0x495c77) {
-    const _0x44f63f = _0x34d8bc.get(String(_0x495c77));
-    if (!_0x44f63f) {
+  function stopTask(arg1) {
+    const result = map.get(String(arg1));
+    if (!result) {
       return false;
     }
-    _0x44f63f.stopRequested = true;
-    _0x492188(_0x495c77, "正在停止…", "warn");
+    result.stopRequested = true;
+    fn3(arg1, "正在停止…", "warn");
     return true;
   }
-  function _0x2af800() {
-    for (const _0x10e18c of [..._0x34d8bc.keys()]) {
-      _0x3c3877(_0x10e18c);
+  function stopAll() {
+    for (const item of [...map.keys()]) {
+      stopTask(item);
     }
   }
-  function _0xc38d74(_0x4d0f69) {
-    const _0x1d10d5 = _0x344ba2.get(String(_0x4d0f69));
-    if (!_0x1d10d5 || _0x1d10d5.isDestroyed()) {
+  function showMonitorWindow(arg1) {
+    const result = map2.get(String(arg1));
+    if (!result || result.isDestroyed()) {
       return false;
     }
-    return showHiddenAutomationWindow(_0x1d10d5, {
-      title: "作品发布监控 · " + _0x4d0f69,
+    return showHiddenAutomationWindow(result, {
+      title: "作品发布监控 · " + arg1,
       width: 1200,
       height: 860
     });
   }
-  function _0x521d96(_0x34a492) {
-    const _0x610d44 = _0x344ba2.get(String(_0x34a492));
-    if (!_0x610d44 || _0x610d44.isDestroyed()) {
+  function hideMonitorWindow(arg1) {
+    const result = map2.get(String(arg1));
+    if (!result || result.isDestroyed()) {
       return false;
     }
-    return hideVisibleAutomationWindow(_0x610d44);
+    return hideVisibleAutomationWindow(result);
   }
   return {
-    startTask: _0x18c365,
-    stopTask: _0x3c3877,
-    stopAll: _0x2af800,
-    isTaskRunning: _0x390916,
-    listRunningTaskIds: _0x162577,
-    listWebContents: _0x4a9e5c,
-    getTaskLogs: _0x5fe83d,
-    clearTaskLogs: _0x26a1c2,
-    showMonitorWindow: _0xc38d74,
-    hideMonitorWindow: _0x521d96
+    startTask: startTask,
+    stopTask: stopTask,
+    stopAll: stopAll,
+    isTaskRunning: isTaskRunning,
+    listRunningTaskIds: listRunningTaskIds,
+    listWebContents: listWebContents,
+    getTaskLogs: getTaskLogs,
+    clearTaskLogs: clearTaskLogs,
+    showMonitorWindow: showMonitorWindow,
+    hideMonitorWindow: hideMonitorWindow
   };
 }
 module.exports = {
