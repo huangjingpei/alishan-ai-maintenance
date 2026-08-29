@@ -1,20 +1,20 @@
 'use strict';
 
-function normalizeChromeVersion(_0x536598) {
-  const _0x12ebcc = String(_0x536598 || "").match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:\.(\d+))?/);
-  if (!_0x12ebcc) {
+function normalizeChromeVersion(arg1) {
+  const result = String(arg1 || "").match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:\.(\d+))?/);
+  if (!result) {
     return "124.0.6367.207";
   }
-  return [_0x12ebcc[1], _0x12ebcc[2] || "0", _0x12ebcc[3] || "0", _0x12ebcc[4] || "0"].join(".");
+  return [result[1], result[2] || "0", result[3] || "0", result[4] || "0"].join(".");
 }
-function resolveAutomationPlatform(_0x4940ca = process.platform) {
-  if (_0x4940ca === "win32") {
+function resolveAutomationPlatform(arg1 = process.platform) {
+  if (arg1 === "win32") {
     return {
       userAgentPlatform: "Windows NT 10.0; Win64; x64",
       clientHintPlatform: "Windows"
     };
   }
-  if (_0x4940ca === "darwin") {
+  if (arg1 === "darwin") {
     return {
       userAgentPlatform: "Macintosh; Intel Mac OS X 10_15_7",
       clientHintPlatform: "macOS"
@@ -29,13 +29,13 @@ function buildAutomationBrowserIdentity({
   platform = process.platform,
   chromeVersion = "124.0.6367.207"
 } = {}) {
-  const _0x57ed0e = normalizeChromeVersion(chromeVersion);
-  const _0x27f74d = resolveAutomationPlatform(platform);
+  const result = normalizeChromeVersion(chromeVersion);
+  const result2 = resolveAutomationPlatform(platform);
   return {
-    chromeVersion: _0x57ed0e,
-    chromeMajor: _0x57ed0e.split(".")[0],
-    clientHintPlatform: _0x27f74d.clientHintPlatform,
-    userAgent: "Mozilla/5.0 (" + _0x27f74d.userAgentPlatform + ") AppleWebKit/537.36 " + ("(KHTML, like Gecko) Chrome/" + _0x57ed0e + " Safari/537.36")
+    chromeVersion: result,
+    chromeMajor: result.split(".")[0],
+    clientHintPlatform: result2.clientHintPlatform,
+    userAgent: "Mozilla/5.0 (" + result2.userAgentPlatform + ") AppleWebKit/537.36 " + ("(KHTML, like Gecko) Chrome/" + result + " Safari/537.36")
   };
 }
 module.exports = {
