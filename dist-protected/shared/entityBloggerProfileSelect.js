@@ -7,90 +7,90 @@ const BLOGGER_WORK_COUNT_MAX = 50;
 const BLOGGER_PUBLISH_DAYS_DEFAULT = 3;
 const BLOGGER_PUBLISH_DAYS_MAX = 365;
 const BLOGGER_PUBLISH_DAYS_PRESETS = Object.freeze([1, 3, 7, 30]);
-function normalizeBloggerWorkSelectMode(_0x71f4cc) {
-  if (_0x71f4cc === BLOGGER_WORK_SELECT_COUNT) {
+function normalizeBloggerWorkSelectMode(arg1) {
+  if (arg1 === BLOGGER_WORK_SELECT_COUNT) {
     return BLOGGER_WORK_SELECT_COUNT;
   } else {
     return BLOGGER_WORK_SELECT_DAYS;
   }
 }
-function normalizeBloggerWorkCount(_0x26cf18) {
-  const _0x41131e = Number(_0x26cf18);
-  if (!Number.isFinite(_0x41131e) || _0x41131e <= 0) {
+function normalizeBloggerWorkCount(arg1) {
+  const result = Number(arg1);
+  if (!Number.isFinite(result) || result <= 0) {
     return BLOGGER_WORK_COUNT_DEFAULT;
   }
-  return Math.max(1, Math.min(BLOGGER_WORK_COUNT_MAX, Math.floor(_0x41131e)));
+  return Math.max(1, Math.min(BLOGGER_WORK_COUNT_MAX, Math.floor(result)));
 }
-function normalizeBloggerPublishWithinDays(_0x542b64) {
-  const _0x25a943 = Number(_0x542b64);
-  if (!Number.isFinite(_0x25a943) || _0x25a943 <= 0) {
+function normalizeBloggerPublishWithinDays(arg1) {
+  const result = Number(arg1);
+  if (!Number.isFinite(result) || result <= 0) {
     return BLOGGER_PUBLISH_DAYS_DEFAULT;
   }
-  return Math.max(1, Math.min(BLOGGER_PUBLISH_DAYS_MAX, Math.floor(_0x25a943)));
+  return Math.max(1, Math.min(BLOGGER_PUBLISH_DAYS_MAX, Math.floor(result)));
 }
-function resolvePublishWithinDaysCutoffMs(_0x19f07c, _0x4965ec = Date.now()) {
-  const _0x14fdb0 = normalizeBloggerPublishWithinDays(_0x19f07c);
-  const _0x3eb0cb = Number(_0x4965ec) > 0 ? Number(_0x4965ec) : Date.now();
-  return _0x3eb0cb - _0x14fdb0 * 24 * 60 * 60 * 1000;
+function resolvePublishWithinDaysCutoffMs(arg1, arg2 = Date.now()) {
+  const result = normalizeBloggerPublishWithinDays(arg1);
+  const value = Number(arg2) > 0 ? Number(arg2) : Date.now();
+  return value - result * 24 * 60 * 60 * 1000;
 }
-function normalizeAwemeCreateTimeMs(_0x1838b8) {
-  const _0x3de544 = Number(_0x1838b8);
-  if (!Number.isFinite(_0x3de544) || _0x3de544 <= 0) {
+function normalizeAwemeCreateTimeMs(arg1) {
+  const result = Number(arg1);
+  if (!Number.isFinite(result) || result <= 0) {
     return 0;
   }
-  if (_0x3de544 < 1000000000000) {
-    return Math.floor(_0x3de544 * 1000);
+  if (result < 1000000000000) {
+    return Math.floor(result * 1000);
   }
-  return Math.floor(_0x3de544);
+  return Math.floor(result);
 }
-function isBloggerWorkWithinPublishDays(_0x5919ee = {}, _0x4dc92e, _0x5906ec = Date.now()) {
-  const _0x33a059 = normalizeBloggerPublishWithinDays(_0x4dc92e);
-  const _0x32acfd = Number(_0x5906ec) > 0 ? Number(_0x5906ec) : Date.now();
-  const _0x104951 = String(_0x5919ee.publishTimeText || _0x5919ee.timeText || "").replace(/\s+/g, "");
-  const _0x36ddbb = _0x104951.match(/(\d{1,3})天前/);
-  if (_0x36ddbb && Number(_0x36ddbb[1]) >= _0x33a059) {
+function isBloggerWorkWithinPublishDays(options = {}, arg2, arg3 = Date.now()) {
+  const result = normalizeBloggerPublishWithinDays(arg2);
+  const value = Number(arg3) > 0 ? Number(arg3) : Date.now();
+  const result2 = String(options.publishTimeText || options.timeText || "").replace(/\s+/g, "");
+  const result3 = result2.match(/(\d{1,3})天前/);
+  if (result3 && Number(result3[1]) >= result) {
     return false;
   }
-  if (/昨天/.test(_0x104951) && _0x33a059 <= 1) {
+  if (/昨天/.test(result2) && result <= 1) {
     return false;
   }
-  if (/前天/.test(_0x104951) && _0x33a059 <= 2) {
+  if (/前天/.test(result2) && result <= 2) {
     return false;
   }
-  const _0x5b0d0a = normalizeAwemeCreateTimeMs(_0x5919ee.createTimeMs ?? _0x5919ee.createTime ?? 0);
-  if (!(_0x5b0d0a > 0)) {
+  const result4 = normalizeAwemeCreateTimeMs(options.createTimeMs ?? options.createTime ?? 0);
+  if (!(result4 > 0)) {
     return true;
   }
-  const _0x1c2203 = resolvePublishWithinDaysCutoffMs(_0x33a059, _0x32acfd);
-  return _0x5b0d0a > _0x1c2203;
+  const result5 = resolvePublishWithinDaysCutoffMs(result, value);
+  return result4 > result5;
 }
-function selectBloggerProfileWorks(_0x3377a1, _0x166f07 = {}) {
-  const _0x3a15e0 = Array.isArray(_0x3377a1) ? _0x3377a1.filter(_0x3ba039 => _0x3ba039 && _0x3ba039.awemeId) : [];
-  const _0x53f120 = normalizeBloggerWorkSelectMode(_0x166f07.mode);
-  if (_0x53f120 === BLOGGER_WORK_SELECT_COUNT) {
-    const _0x7ffe27 = normalizeBloggerWorkCount(_0x166f07.count);
-    return _0x3a15e0.slice(0, _0x7ffe27);
+function selectBloggerProfileWorks(arg1, options = {}) {
+  const value = Array.isArray(arg1) ? arg1.filter(arg1 => arg1 && arg1.awemeId) : [];
+  const result = normalizeBloggerWorkSelectMode(options.mode);
+  if (result === BLOGGER_WORK_SELECT_COUNT) {
+    const result = normalizeBloggerWorkCount(options.count);
+    return value.slice(0, result);
   }
-  const _0x37ddcd = normalizeBloggerPublishWithinDays(_0x166f07.withinDays);
-  const _0x5daf81 = Number(_0x166f07.nowMs) > 0 ? Number(_0x166f07.nowMs) : Date.now();
-  const _0x3cea31 = _0x3a15e0.some(_0x49a4c3 => normalizeAwemeCreateTimeMs(_0x49a4c3.createTimeMs ?? _0x49a4c3.createTime ?? 0) > 0 || String(_0x49a4c3.publishTimeText || _0x49a4c3.timeText || "").trim());
-  if (!_0x3cea31) {
-    return _0x3a15e0;
+  const result2 = normalizeBloggerPublishWithinDays(options.withinDays);
+  const value2 = Number(options.nowMs) > 0 ? Number(options.nowMs) : Date.now();
+  const result3 = value.some(arg1 => normalizeAwemeCreateTimeMs(arg1.createTimeMs ?? arg1.createTime ?? 0) > 0 || String(arg1.publishTimeText || arg1.timeText || "").trim());
+  if (!result3) {
+    return value;
   }
-  const _0x5eb768 = [];
-  for (const _0x615352 of _0x3a15e0) {
-    const _0x3c7284 = normalizeAwemeCreateTimeMs(_0x615352.createTimeMs ?? _0x615352.createTime ?? 0);
-    const _0x517bdc = !!String(_0x615352.publishTimeText || _0x615352.timeText || "").trim();
-    if (_0x3c7284 > 0 || _0x517bdc) {
-      if (!isBloggerWorkWithinPublishDays(_0x615352, _0x37ddcd, _0x5daf81)) {
+  const list = [];
+  for (const item of value) {
+    const result = normalizeAwemeCreateTimeMs(item.createTimeMs ?? item.createTime ?? 0);
+    const flag = !!String(item.publishTimeText || item.timeText || "").trim();
+    if (result > 0 || flag) {
+      if (!isBloggerWorkWithinPublishDays(item, result2, value2)) {
         break;
       }
-      _0x5eb768.push(_0x615352);
+      list.push(item);
       continue;
     }
-    _0x5eb768.push(_0x615352);
+    list.push(item);
   }
-  return _0x5eb768;
+  return list;
 }
 module.exports = {
   BLOGGER_WORK_SELECT_COUNT: BLOGGER_WORK_SELECT_COUNT,
