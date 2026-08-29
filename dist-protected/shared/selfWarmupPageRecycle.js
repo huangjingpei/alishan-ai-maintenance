@@ -1,53 +1,53 @@
 'use strict';
 
-function parseDouyinUrl(_0x2d6567) {
+function parseDouyinUrl(arg1) {
   try {
-    const _0xad3b6f = new URL(String(_0x2d6567 || ""));
-    if (!/(^|\.)douyin\.com$/i.test(_0xad3b6f.hostname)) {
+    const url = new URL(String(arg1 || ""));
+    if (!/(^|\.)douyin\.com$/i.test(url.hostname)) {
       return null;
     }
-    return _0xad3b6f;
-  } catch (_0x47f9c5) {
+    return url;
+  } catch (error) {
     return null;
   }
 }
-function isDouyinChatPageUrl(_0x321338) {
-  const _0x5a55fd = parseDouyinUrl(_0x321338);
-  return !!_0x5a55fd && _0x5a55fd.pathname === "/chat";
+function isDouyinChatPageUrl(arg1) {
+  const result = parseDouyinUrl(arg1);
+  return !!result && result.pathname === "/chat";
 }
-function isWarmupIdleJingxuanUrl(_0x2b44b9) {
-  const _0x1755d0 = parseDouyinUrl(_0x2b44b9);
-  if (!_0x1755d0) {
+function isWarmupIdleJingxuanUrl(arg1) {
+  const result = parseDouyinUrl(arg1);
+  if (!result) {
     return false;
   }
-  const _0x102db2 = _0x1755d0.pathname || "";
-  if (_0x102db2 !== "/" && _0x102db2 !== "/jingxuan") {
+  const local = result.pathname || "";
+  if (local !== "/" && local !== "/jingxuan") {
     return false;
   }
-  return !_0x1755d0.searchParams.get("modal_id");
+  return !result.searchParams.get("modal_id");
 }
-function shouldWarmupIdleOnChat(_0x2b42ce = {}) {
-  return _0x2b42ce.watchMessages !== false;
+function shouldWarmupIdleOnChat(options = {}) {
+  return options.watchMessages !== false;
 }
-function isWarmupHeavyPageUrl(_0x2c796f) {
-  if (isDouyinChatPageUrl(_0x2c796f)) {
+function isWarmupHeavyPageUrl(arg1) {
+  if (isDouyinChatPageUrl(arg1)) {
     return false;
   }
-  const _0x318f5f = parseDouyinUrl(_0x2c796f);
-  if (!_0x318f5f) {
+  const result = parseDouyinUrl(arg1);
+  if (!result) {
     return true;
   }
-  const _0x3bfc02 = _0x318f5f.pathname || "";
-  if (_0x3bfc02 === "/" || _0x3bfc02 === "/jingxuan") {
+  const local = result.pathname || "";
+  if (local === "/" || local === "/jingxuan") {
     return true;
   }
-  if (/^\/(video|note|user|search|discover|aweme)\//i.test(_0x3bfc02)) {
+  if (/^\/(video|note|user|search|discover|aweme)\//i.test(local)) {
     return true;
   }
-  if (_0x318f5f.searchParams.get("modal_id")) {
+  if (result.searchParams.get("modal_id")) {
     return true;
   }
-  return _0x3bfc02 !== "/chat";
+  return local !== "/chat";
 }
 module.exports = {
   isDouyinChatPageUrl: isDouyinChatPageUrl,
