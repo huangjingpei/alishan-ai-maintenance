@@ -4,12 +4,12 @@ const {
   isCommentWithinWindowMinutes
 } = require("../shared/commentTime");
 const DEFAULT_MONITOR_COMMENT_WINDOW_MINUTES = 60;
-function resolveMonitorCommentWindowMinutes(_0x1c76f2 = {}) {
-  const _0x429e40 = _0x1c76f2?.commentWindowMinutes;
-  if (_0x429e40 != null && Number.isFinite(Number(_0x429e40))) {
-    const _0x4294fe = Math.floor(Number(_0x429e40));
-    if (_0x4294fe >= 1) {
-      return Math.min(_0x4294fe, 10080);
+function resolveMonitorCommentWindowMinutes(options = {}) {
+  const local = options?.commentWindowMinutes;
+  if (local != null && Number.isFinite(Number(local))) {
+    const result = Math.floor(Number(local));
+    if (result >= 1) {
+      return Math.min(result, 10080);
     }
   }
   return DEFAULT_MONITOR_COMMENT_WINDOW_MINUTES;
