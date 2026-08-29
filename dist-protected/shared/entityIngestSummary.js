@@ -1,47 +1,47 @@
 'use strict';
 
-function formatEntityIngestSummary(_0x42b3de = {}) {
-  const _0x3ec688 = Number(_0x42b3de.synced || 0);
-  const _0x4f60f9 = Number(_0x42b3de.duplicates || 0);
-  const _0xb1a4a3 = Number(_0x42b3de.alreadyCounted || 0);
-  const _0xbff52f = Number(_0x42b3de.inPool ?? _0x4f60f9);
-  const _0x3f4a40 = Number(_0x42b3de.skipped || 0);
-  const _0x36858a = Number(_0x42b3de.truncated || 0);
-  const _0x43f107 = Number(_0x42b3de.received || 0);
-  const _0x418e0f = _0xbff52f > 0 ? _0xbff52f : _0x3ec688 === 0 && _0xb1a4a3 === 0 && _0x3f4a40 === 0 && _0x43f107 > 0 ? _0x43f107 : 0;
-  if (_0x3ec688 === 0 && _0xb1a4a3 > 0 && _0x418e0f === 0) {
-    return "已入库 " + _0xb1a4a3;
+function formatEntityIngestSummary(options = {}) {
+  const result = Number(options.synced || 0);
+  const result2 = Number(options.duplicates || 0);
+  const result3 = Number(options.alreadyCounted || 0);
+  const result4 = Number(options.inPool ?? result2);
+  const result5 = Number(options.skipped || 0);
+  const result6 = Number(options.truncated || 0);
+  const result7 = Number(options.received || 0);
+  const value = result4 > 0 ? result4 : result === 0 && result3 === 0 && result5 === 0 && result7 > 0 ? result7 : 0;
+  if (result === 0 && result3 > 0 && value === 0) {
+    return "已入库 " + result3;
   }
-  if (_0x3ec688 === 0 && _0x418e0f > 0) {
-    return "已经有 " + _0x418e0f + " 条在库";
+  if (result === 0 && value > 0) {
+    return "已经有 " + value + " 条在库";
   }
-  const _0xa3b1fd = ["新入库 " + _0x3ec688];
-  if (_0x418e0f > 0) {
-    _0xa3b1fd.push("已经有 " + _0x418e0f + " 条在库");
+  const list = ["新入库 " + result];
+  if (value > 0) {
+    list.push("已经有 " + value + " 条在库");
   }
-  if (_0xb1a4a3 > 0 && (_0x3ec688 > 0 || _0x418e0f > 0)) {
-    _0xa3b1fd.push("本轮已计入 " + _0xb1a4a3);
+  if (result3 > 0 && (result > 0 || value > 0)) {
+    list.push("本轮已计入 " + result3);
   }
-  if (_0x3ec688 === 0 && _0x418e0f === 0 && _0xb1a4a3 === 0) {
-    if (_0x3f4a40 > 0) {
-      _0xa3b1fd.push("缺字段跳过 " + _0x3f4a40);
+  if (result === 0 && value === 0 && result3 === 0) {
+    if (result5 > 0) {
+      list.push("缺字段跳过 " + result5);
     }
-    if (_0x36858a > 0) {
-      _0xa3b1fd.push("已达上限未入 " + _0x36858a);
+    if (result6 > 0) {
+      list.push("已达上限未入 " + result6);
     }
   }
-  return _0xa3b1fd.join("，");
+  return list.join("，");
 }
-function entityIngestSummaryLevel(_0x1732d7 = {}) {
-  const _0x370c3e = Number(_0x1732d7.synced || 0);
-  const _0x2c23ee = Number(_0x1732d7.duplicates || 0);
-  const _0x163223 = Number(_0x1732d7.alreadyCounted || 0);
-  const _0x3478ab = Number(_0x1732d7.inPool ?? _0x2c23ee);
-  const _0x5ada44 = Number(_0x1732d7.received || 0);
-  if (_0x370c3e > 0 || _0x3478ab > 0 || _0x163223 > 0) {
+function entityIngestSummaryLevel(options = {}) {
+  const result = Number(options.synced || 0);
+  const result2 = Number(options.duplicates || 0);
+  const result3 = Number(options.alreadyCounted || 0);
+  const result4 = Number(options.inPool ?? result2);
+  const result5 = Number(options.received || 0);
+  if (result > 0 || result4 > 0 || result3 > 0) {
     return "success";
   }
-  if (_0x370c3e === 0 && _0x5ada44 > 0 && Number(_0x1732d7.skipped || 0) === 0) {
+  if (result === 0 && result5 > 0 && Number(options.skipped || 0) === 0) {
     return "success";
   }
   return "info";
