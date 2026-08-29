@@ -20,216 +20,216 @@ function createEmptyTouchCounts() {
     profileComment: 0
   };
 }
-function normalizeTouchCounts(_0x1e46ec) {
-  const _0x107bdb = createEmptyTouchCounts();
-  if (!_0x1e46ec || typeof _0x1e46ec !== "object") {
-    return _0x107bdb;
+function normalizeTouchCounts(arg1) {
+  const result = createEmptyTouchCounts();
+  if (!arg1 || typeof arg1 !== "object") {
+    return result;
   }
-  TOUCH_TYPES.forEach(_0x1d720b => {
-    const _0x17f88b = Number(_0x1e46ec[_0x1d720b]);
-    _0x107bdb[_0x1d720b] = Number.isFinite(_0x17f88b) && _0x17f88b > 0 ? Math.floor(_0x17f88b) : 0;
+  TOUCH_TYPES.forEach(arg12 => {
+    const result2 = Number(arg1[arg12]);
+    result[arg12] = Number.isFinite(result2) && result2 > 0 ? Math.floor(result2) : 0;
   });
-  return _0x107bdb;
+  return result;
 }
-function getTotalTouchCount(_0x39f0fb) {
-  const _0x1b6b20 = normalizeTouchCounts(_0x39f0fb);
-  return TOUCH_TYPES.reduce((_0x3cb158, _0x4ad578) => _0x3cb158 + _0x1b6b20[_0x4ad578], 0);
+function getTotalTouchCount(arg1) {
+  const result = normalizeTouchCounts(arg1);
+  return TOUCH_TYPES.reduce((arg1, arg2) => arg1 + result[arg2], 0);
 }
-function migrateTouchCountsFromLegacy(_0x192b4b) {
-  if (!_0x192b4b) {
+function migrateTouchCountsFromLegacy(arg1) {
+  if (!arg1) {
     return createEmptyTouchCounts();
   }
-  const _0x5bbf2c = normalizeTouchCounts(_0x192b4b.touchCounts);
-  if (_0x192b4b.liked || _0x192b4b.actions?.liked) {
-    _0x5bbf2c.like = Math.max(_0x5bbf2c.like, 1);
+  const result = normalizeTouchCounts(arg1.touchCounts);
+  if (arg1.liked || arg1.actions?.liked) {
+    result.like = Math.max(result.like, 1);
   }
-  if (_0x192b4b.actions?.profileWorkCommented) {
-    _0x5bbf2c.profileComment = Math.max(_0x5bbf2c.profileComment, 1);
-  } else if (_0x192b4b.replied || _0x192b4b.actions?.replied) {
-    _0x5bbf2c.reply = Math.max(_0x5bbf2c.reply, 1);
+  if (arg1.actions?.profileWorkCommented) {
+    result.profileComment = Math.max(result.profileComment, 1);
+  } else if (arg1.replied || arg1.actions?.replied) {
+    result.reply = Math.max(result.reply, 1);
   }
-  if (_0x192b4b.followed || _0x192b4b.actions?.followed) {
-    _0x5bbf2c.follow = Math.max(_0x5bbf2c.follow, 1);
+  if (arg1.followed || arg1.actions?.followed) {
+    result.follow = Math.max(result.follow, 1);
   }
-  if (_0x192b4b.messaged || _0x192b4b.actions?.messaged) {
-    _0x5bbf2c.message = Math.max(_0x5bbf2c.message, 1);
+  if (arg1.messaged || arg1.actions?.messaged) {
+    result.message = Math.max(result.message, 1);
   }
-  return _0x5bbf2c;
+  return result;
 }
-function ensureLeadMeta(_0x178e39) {
-  if (!_0x178e39) {
-    return _0x178e39;
+function ensureLeadMeta(arg1) {
+  if (!arg1) {
+    return arg1;
   }
-  if (!Array.isArray(_0x178e39.touchLog)) {
-    _0x178e39.touchLog = [];
+  if (!Array.isArray(arg1.touchLog)) {
+    arg1.touchLog = [];
   }
-  _0x178e39.touchCounts = migrateTouchCountsFromLegacy(_0x178e39);
-  if (_0x178e39.worksCount === undefined) {
-    _0x178e39.worksCount = null;
+  arg1.touchCounts = migrateTouchCountsFromLegacy(arg1);
+  if (arg1.worksCount === undefined) {
+    arg1.worksCount = null;
   }
-  if (!_0x178e39.entrySource && _0x178e39.taskName) {
-    const _0x3c9baa = String(_0x178e39.taskName);
-    if (_0x3c9baa.includes("关注列表")) {
-      _0x178e39.entrySource = "follow";
-    } else if (_0x3c9baa.includes("推荐")) {
-      _0x178e39.entrySource = "recommend";
-    } else if (_0x3c9baa && !_0x3c9baa.includes("+")) {
-      _0x178e39.entrySource = "search";
+  if (!arg1.entrySource && arg1.taskName) {
+    const result = String(arg1.taskName);
+    if (result.includes("关注列表")) {
+      arg1.entrySource = "follow";
+    } else if (result.includes("推荐")) {
+      arg1.entrySource = "recommend";
+    } else if (result && !result.includes("+")) {
+      arg1.entrySource = "search";
     }
   }
-  if (!_0x178e39.entryLabel) {
-    if (_0x178e39.entrySource === "search" && _0x178e39.searchKeyword) {
-      _0x178e39.entryLabel = "搜索: " + _0x178e39.searchKeyword;
-    } else if (_0x178e39.entrySource === "follow") {
-      _0x178e39.entryLabel = "关注列表";
-    } else if (_0x178e39.entrySource === "recommend") {
-      _0x178e39.entryLabel = "推荐页";
-    } else if (_0x178e39.entrySource === "like") {
-      _0x178e39.entryLabel = "喜欢列表";
-    } else if (_0x178e39.entrySource === "specific") {
-      _0x178e39.entryLabel = "指定视频";
-    } else if (_0x178e39.entrySource === "monitor") {
-      _0x178e39.entryLabel = _0x178e39.taskName ? "监控: " + _0x178e39.taskName : "监控视频";
-    } else if (_0x178e39.entrySource === "entity_blogger") {
-      _0x178e39.entryLabel = "线索采集：搜索博主";
-    } else if (_0x178e39.entrySource === "entity_user") {
-      _0x178e39.entryLabel = "线索采集：搜索用户";
-    } else if (_0x178e39.entrySource === "entity_mutual") {
-      _0x178e39.entryLabel = "线索采集：相互关注";
-    } else if (_0x178e39.entrySource === "entity_following") {
-      _0x178e39.entryLabel = "线索采集：关注列表";
-    } else if (_0x178e39.taskName) {
-      _0x178e39.entryLabel = _0x178e39.taskName;
+  if (!arg1.entryLabel) {
+    if (arg1.entrySource === "search" && arg1.searchKeyword) {
+      arg1.entryLabel = "搜索: " + arg1.searchKeyword;
+    } else if (arg1.entrySource === "follow") {
+      arg1.entryLabel = "关注列表";
+    } else if (arg1.entrySource === "recommend") {
+      arg1.entryLabel = "推荐页";
+    } else if (arg1.entrySource === "like") {
+      arg1.entryLabel = "喜欢列表";
+    } else if (arg1.entrySource === "specific") {
+      arg1.entryLabel = "指定视频";
+    } else if (arg1.entrySource === "monitor") {
+      arg1.entryLabel = arg1.taskName ? "监控: " + arg1.taskName : "监控视频";
+    } else if (arg1.entrySource === "entity_blogger") {
+      arg1.entryLabel = "线索采集：搜索博主";
+    } else if (arg1.entrySource === "entity_user") {
+      arg1.entryLabel = "线索采集：搜索用户";
+    } else if (arg1.entrySource === "entity_mutual") {
+      arg1.entryLabel = "线索采集：相互关注";
+    } else if (arg1.entrySource === "entity_following") {
+      arg1.entryLabel = "线索采集：关注列表";
+    } else if (arg1.taskName) {
+      arg1.entryLabel = arg1.taskName;
     }
   }
-  return _0x178e39;
+  return arg1;
 }
-function recordTouchOnLead(_0x29e33b, _0x51feec) {
-  if (!_0x29e33b || !_0x51feec?.type || !TOUCH_TYPES.includes(_0x51feec.type)) {
-    return _0x29e33b;
+function recordTouchOnLead(arg1, arg2) {
+  if (!arg1 || !arg2?.type || !TOUCH_TYPES.includes(arg2.type)) {
+    return arg1;
   }
-  ensureLeadMeta(_0x29e33b);
-  const _0x467849 = Number(_0x51feec.at || Date.now());
-  const _0xa7bbfa = _0x51feec.accountName || _0x29e33b.accountName || "";
-  const _0x498907 = _0x51feec.content || "";
-  const _0x2f0470 = _0x51feec.source || "acquire";
-  const _0x132425 = _0x51feec.channel || (_0x2f0470 === "monitor" ? "监控任务" : _0x2f0470 === "batch" ? "线索库批量" : "自动获客");
-  const _0x5d03f5 = (_0x29e33b.touchLog || []).some(_0x23c3c9 => {
-    if (_0x23c3c9.type !== _0x51feec.type) {
+  ensureLeadMeta(arg1);
+  const result = Number(arg2.at || Date.now());
+  const local = arg2.accountName || arg1.accountName || "";
+  const local2 = arg2.content || "";
+  const local3 = arg2.source || "acquire";
+  const local4 = arg2.channel || (local3 === "monitor" ? "监控任务" : local3 === "batch" ? "线索库批量" : "自动获客");
+  const result2 = (arg1.touchLog || []).some(arg1 => {
+    if (arg1.type !== arg2.type) {
       return false;
     }
-    if ((_0x23c3c9.accountName || "") !== _0xa7bbfa) {
+    if ((arg1.accountName || "") !== local) {
       return false;
     }
-    const _0x402d27 = Number(_0x23c3c9.at || _0x23c3c9.timestamp || 0);
-    return _0x402d27 && Math.abs(_0x402d27 - _0x467849) < 2500;
+    const result2 = Number(arg1.at || arg1.timestamp || 0);
+    return result2 && Math.abs(result2 - result) < 2500;
   });
-  if (_0x5d03f5) {
-    return _0x29e33b;
+  if (result2) {
+    return arg1;
   }
-  _0x29e33b.touchCounts[_0x51feec.type] = (_0x29e33b.touchCounts[_0x51feec.type] || 0) + 1;
-  _0x29e33b.touchLog.unshift({
-    type: _0x51feec.type,
-    label: TOUCH_TYPE_LABELS[_0x51feec.type] || _0x51feec.type,
-    at: _0x467849,
-    content: _0x498907,
-    accountName: _0xa7bbfa,
-    success: _0x51feec.success !== false,
-    source: _0x2f0470,
-    channel: _0x132425
+  arg1.touchCounts[arg2.type] = (arg1.touchCounts[arg2.type] || 0) + 1;
+  arg1.touchLog.unshift({
+    type: arg2.type,
+    label: TOUCH_TYPE_LABELS[arg2.type] || arg2.type,
+    at: result,
+    content: local2,
+    accountName: local,
+    success: arg2.success !== false,
+    source: local3,
+    channel: local4
   });
-  _0x29e33b.lastTouchAt = Math.max(Number(_0x29e33b.lastTouchAt || 0), _0x467849);
-  if (_0x29e33b.touchLog.length > 200) {
-    _0x29e33b.touchLog.length = 200;
+  arg1.lastTouchAt = Math.max(Number(arg1.lastTouchAt || 0), result);
+  if (arg1.touchLog.length > 200) {
+    arg1.touchLog.length = 200;
   }
-  return _0x29e33b;
+  return arg1;
 }
-function syncTouchCountsFromLog(_0x2d8e94) {
-  if (!_0x2d8e94) {
-    return _0x2d8e94;
+function syncTouchCountsFromLog(arg1) {
+  if (!arg1) {
+    return arg1;
   }
-  const _0x18fc04 = createEmptyTouchCounts();
-  for (const _0x5bca5b of _0x2d8e94.touchLog || []) {
-    if (TOUCH_TYPES.includes(_0x5bca5b.type)) {
-      _0x18fc04[_0x5bca5b.type] += 1;
+  const result = createEmptyTouchCounts();
+  for (const item of arg1.touchLog || []) {
+    if (TOUCH_TYPES.includes(item.type)) {
+      result[item.type] += 1;
     }
   }
-  _0x2d8e94.touchCounts = _0x18fc04;
-  return _0x2d8e94;
+  arg1.touchCounts = result;
+  return arg1;
 }
-function mergeTouchLogs(_0x441edf = [], _0x2a8702 = []) {
-  const _0x42e084 = [...(Array.isArray(_0x2a8702) ? _0x2a8702 : []), ...(Array.isArray(_0x441edf) ? _0x441edf : [])];
-  const _0x428a81 = new Set();
-  const _0x4fd078 = [];
-  for (const _0x48f01a of _0x42e084) {
-    if (!_0x48f01a || !_0x48f01a.type) {
+function mergeTouchLogs(list = [], list2 = []) {
+  const list3 = [...(Array.isArray(list2) ? list2 : []), ...(Array.isArray(list) ? list : [])];
+  const set = new Set();
+  const list4 = [];
+  for (const item of list3) {
+    if (!item || !item.type) {
       continue;
     }
-    const _0x153eca = Number(_0x48f01a.at || _0x48f01a.timestamp || 0);
-    const _0x343bab = _0x153eca ? Math.floor(_0x153eca / 1000) : 0;
-    const _0x51a28d = String(_0x48f01a.content || "").trim().slice(0, 80);
-    const _0x2c53a2 = _0x48f01a.type + "|" + (_0x48f01a.accountName || "") + "|" + _0x51a28d + "|" + _0x343bab;
-    if (_0x428a81.has(_0x2c53a2)) {
+    const result = Number(item.at || item.timestamp || 0);
+    const value = result ? Math.floor(result / 1000) : 0;
+    const result2 = String(item.content || "").trim().slice(0, 80);
+    const value2 = item.type + "|" + (item.accountName || "") + "|" + result2 + "|" + value;
+    if (set.has(value2)) {
       continue;
     }
-    _0x428a81.add(_0x2c53a2);
-    _0x4fd078.push(_0x48f01a);
+    set.add(value2);
+    list4.push(item);
   }
-  return _0x4fd078.sort((_0x384091, _0x4aa178) => Number(_0x4aa178.at || _0x4aa178.timestamp || 0) - Number(_0x384091.at || _0x384091.timestamp || 0)).slice(0, 200);
+  return list4.sort((arg1, arg2) => Number(arg2.at || arg2.timestamp || 0) - Number(arg1.at || arg1.timestamp || 0)).slice(0, 200);
 }
-function recountTouchCountsAfterMerge(_0x3f6990) {
-  if (!_0x3f6990) {
-    return _0x3f6990;
+function recountTouchCountsAfterMerge(arg1) {
+  if (!arg1) {
+    return arg1;
   }
-  if (!Array.isArray(_0x3f6990.touchLog)) {
-    _0x3f6990.touchLog = [];
+  if (!Array.isArray(arg1.touchLog)) {
+    arg1.touchLog = [];
   }
-  if (_0x3f6990.touchLog.length) {
-    syncTouchCountsFromLog(_0x3f6990);
+  if (arg1.touchLog.length) {
+    syncTouchCountsFromLog(arg1);
   } else {
-    _0x3f6990.touchCounts = normalizeTouchCounts(_0x3f6990.touchCounts);
+    arg1.touchCounts = normalizeTouchCounts(arg1.touchCounts);
   }
-  _0x3f6990.touchCounts = migrateTouchCountsFromLegacy(_0x3f6990);
-  return _0x3f6990;
+  arg1.touchCounts = migrateTouchCountsFromLegacy(arg1);
+  return arg1;
 }
 const WORKS_COUNT_UNKNOWN = -1;
-function normalizeWorksCount(_0x4abde6) {
-  if (_0x4abde6 === null || _0x4abde6 === undefined) {
+function normalizeWorksCount(arg1) {
+  if (arg1 === null || arg1 === undefined) {
     return WORKS_COUNT_UNKNOWN;
   }
-  if (typeof _0x4abde6 === "string") {
-    const _0x38b235 = String(_0x4abde6).trim();
-    if (!_0x38b235 || _0x38b235 === "未知" || _0x38b235 === "-" || _0x38b235 === "null" || _0x38b235 === "N/A" || /^unknown$/i.test(_0x38b235)) {
+  if (typeof arg1 === "string") {
+    const result = String(arg1).trim();
+    if (!result || result === "未知" || result === "-" || result === "null" || result === "N/A" || /^unknown$/i.test(result)) {
       return WORKS_COUNT_UNKNOWN;
     }
   }
-  const _0x39594d = Number(String(_0x4abde6).replace(/[^\d.-]/g, ""));
-  if (!Number.isFinite(_0x39594d) || _0x39594d < 0) {
+  const result = Number(String(arg1).replace(/[^\d.-]/g, ""));
+  if (!Number.isFinite(result) || result < 0) {
     return WORKS_COUNT_UNKNOWN;
   }
-  return Math.floor(_0x39594d);
+  return Math.floor(result);
 }
-function formatWorksCount(_0x4e7a86) {
-  if (_0x4e7a86 === null || _0x4e7a86 === undefined || _0x4e7a86 === "") {
+function formatWorksCount(arg1) {
+  if (arg1 === null || arg1 === undefined || arg1 === "") {
     return "未知";
   }
-  const _0x30b3b0 = normalizeWorksCount(_0x4e7a86);
-  if (_0x30b3b0 < 0) {
+  const result = normalizeWorksCount(arg1);
+  if (result < 0) {
     return "未知";
   }
-  return String(_0x30b3b0);
+  return String(result);
 }
-function serializeWorksCountForCsv(_0x1ec728) {
-  if (_0x1ec728 === null || _0x1ec728 === undefined || _0x1ec728 === "") {
+function serializeWorksCountForCsv(arg1) {
+  if (arg1 === null || arg1 === undefined || arg1 === "") {
     return String(WORKS_COUNT_UNKNOWN);
   }
-  return String(normalizeWorksCount(_0x1ec728));
+  return String(normalizeWorksCount(arg1));
 }
-function formatTouchSummary(_0x2c5bfe) {
-  const _0x5c213d = normalizeTouchCounts(_0x2c5bfe);
-  const _0x19b72a = TOUCH_TYPES.filter(_0x26d396 => _0x5c213d[_0x26d396] > 0).map(_0x594e64 => "" + TOUCH_TYPE_LABELS[_0x594e64] + _0x5c213d[_0x594e64]);
-  if (_0x19b72a.length) {
-    return _0x19b72a.join(" · ");
+function formatTouchSummary(arg1) {
+  const result = normalizeTouchCounts(arg1);
+  const result2 = TOUCH_TYPES.filter(arg1 => result[arg1] > 0).map(arg1 => "" + TOUCH_TYPE_LABELS[arg1] + result[arg1]);
+  if (result2.length) {
+    return result2.join(" · ");
   } else {
     return "未触达";
   }
