@@ -1,186 +1,186 @@
 'use strict';
 
 const MIGRATION_ID = "leads_sec_uid_backfill_v1";
-function ensureSchemaMigrationsTable(_0x525f56) {
-  if (!_0x525f56) {
+function ensureSchemaMigrationsTable(arg1) {
+  if (!arg1) {
     return;
   }
-  _0x525f56.exec("\n    CREATE TABLE IF NOT EXISTS schema_migrations (\n      id TEXT PRIMARY KEY,\n      applied_at INTEGER NOT NULL,\n      status TEXT NOT NULL DEFAULT 'done',\n      backup_path TEXT DEFAULT '',\n      stats_json TEXT DEFAULT '{}'\n    );\n  ");
+  arg1.exec("\n    CREATE TABLE IF NOT EXISTS schema_migrations (\n      id TEXT PRIMARY KEY,\n      applied_at INTEGER NOT NULL,\n      status TEXT NOT NULL DEFAULT 'done',\n      backup_path TEXT DEFAULT '',\n      stats_json TEXT DEFAULT '{}'\n    );\n  ");
 }
-function isDone(_0x525ebd) {
+function isDone(arg1) {
   try {
-    ensureSchemaMigrationsTable(_0x525ebd);
-    const _0x2883e9 = _0x525ebd.prepare("SELECT status FROM schema_migrations WHERE id = ?").get(MIGRATION_ID);
-    return String(_0x2883e9?.status || "") === "done";
-  } catch (_0x5f15c3) {
+    ensureSchemaMigrationsTable(arg1);
+    const result = arg1.prepare("SELECT status FROM schema_migrations WHERE id = ?").get(MIGRATION_ID);
+    return String(result?.status || "") === "done";
+  } catch (error) {
     return false;
   }
 }
-function markDone(_0x4797be, _0x1f0ea2 = {}) {
-  ensureSchemaMigrationsTable(_0x4797be);
-  _0x4797be.prepare("\n    INSERT INTO schema_migrations (id, applied_at, status, backup_path, stats_json)\n    VALUES (?, ?, 'done', '', ?)\n    ON CONFLICT(id) DO UPDATE SET\n      applied_at = excluded.applied_at,\n      status = 'done',\n      stats_json = excluded.stats_json\n  ").run(MIGRATION_ID, Date.now(), JSON.stringify(_0x1f0ea2));
+function markDone(arg1, options = {}) {
+  ensureSchemaMigrationsTable(arg1);
+  arg1.prepare("\n    INSERT INTO schema_migrations (id, applied_at, status, backup_path, stats_json)\n    VALUES (?, ?, 'done', '', ?)\n    ON CONFLICT(id) DO UPDATE SET\n      applied_at = excluded.applied_at,\n      status = 'done',\n      stats_json = excluded.stats_json\n  ").run(MIGRATION_ID, Date.now(), JSON.stringify(options));
 }
-function parseRaw(_0x5ce7c2) {
+function parseRaw(arg1) {
   try {
-    return JSON.parse(_0x5ce7c2.raw_data || "{}");
-  } catch (_0x17c486) {
+    return JSON.parse(arg1.raw_data || "{}");
+  } catch (error) {
     return {};
   }
 }
-function runLeadsSecUidBackfillIfNeeded(_0x14fdd2) {
-  if (!_0x14fdd2) {
+function runLeadsSecUidBackfillIfNeeded(arg1) {
+  if (!arg1) {
     return {
       skipped: true,
       updated: 0,
       merged: 0
     };
   }
-  ensureSchemaMigrationsTable(_0x14fdd2);
-  if (isDone(_0x14fdd2)) {
+  ensureSchemaMigrationsTable(arg1);
+  if (isDone(arg1)) {
     return {
       skipped: true,
       updated: 0,
       merged: 0
     };
   }
-  let _0x40f888;
+  let local;
   try {
-    _0x40f888 = require("../shared/leadUserKey");
-  } catch (_0x50d2ee) {
-    console.error("[Migrate] leads_sec_uid_backfill 无法加载 leadUserKey:", _0x50d2ee.message);
+    local = require("../shared/leadUserKey");
+  } catch (error) {
+    console.error("[Migrate] leads_sec_uid_backfill 无法加载 leadUserKey:", error.message);
     return {
       skipped: true,
       updated: 0,
       merged: 0,
-      error: _0x50d2ee.message
+      error: error.message
     };
   }
   try {
-    const _0x46d888 = _0x14fdd2.prepare("PRAGMA table_info(leads)").all();
-    if (!_0x46d888.some(_0x3bd0b => _0x3bd0b.name === "sec_uid")) {
-      _0x14fdd2.exec("ALTER TABLE leads ADD COLUMN sec_uid TEXT DEFAULT ''");
+    const result = arg1.prepare("PRAGMA table_info(leads)").all();
+    if (!result.some(arg1 => arg1.name === "sec_uid")) {
+      arg1.exec("ALTER TABLE leads ADD COLUMN sec_uid TEXT DEFAULT ''");
     }
-  } catch (_0x232564) {
-    console.warn("[Migrate] 确保 sec_uid 列失败:", _0x232564.message);
+  } catch (error) {
+    console.warn("[Migrate] 确保 sec_uid 列失败:", error.message);
   }
-  let _0x5c359d = 0;
-  let _0x3827f5 = 0;
+  let num = 0;
+  let num2 = 0;
   try {
-    const _0x45b9f6 = _0x14fdd2.transaction(() => {
-      const _0xbb8b71 = _0x14fdd2.prepare("\n        SELECT id, lead_user_id, sec_uid, captured_at, raw_data, lead_kind\n        FROM leads\n        WHERE lead_kind IS NULL OR lead_kind = '' OR (lead_kind != 'video_card' AND lead_kind != 'video')\n      ").all();
-      const _0x41506b = new Map();
-      for (const _0x5ccd00 of _0xbb8b71) {
-        const _0x50e46c = parseRaw(_0x5ccd00);
-        if (_0x40f888.isVideoLeadRecord?.(_0x50e46c)) {
+    const result = arg1.transaction(() => {
+      const result = arg1.prepare("\n        SELECT id, lead_user_id, sec_uid, captured_at, raw_data, lead_kind\n        FROM leads\n        WHERE lead_kind IS NULL OR lead_kind = '' OR (lead_kind != 'video_card' AND lead_kind != 'video')\n      ").all();
+      const map = new Map();
+      for (const item of result) {
+        const result = parseRaw(item);
+        if (local.isVideoLeadRecord?.(result)) {
           continue;
         }
-        const _0x3d8db2 = String(_0x40f888.getPersonLeadSecUid?.(_0x50e46c) || (_0x40f888.isDouyinSecUid?.(_0x5ccd00.id) ? _0x5ccd00.id : "") || (_0x40f888.isDouyinSecUid?.(_0x5ccd00.lead_user_id) ? _0x5ccd00.lead_user_id : "") || (_0x40f888.isDouyinSecUid?.(_0x5ccd00.sec_uid) ? _0x5ccd00.sec_uid : "") || "").trim();
-        if (!_0x3d8db2) {
+        const result2 = String(local.getPersonLeadSecUid?.(result) || (local.isDouyinSecUid?.(item.id) ? item.id : "") || (local.isDouyinSecUid?.(item.lead_user_id) ? item.lead_user_id : "") || (local.isDouyinSecUid?.(item.sec_uid) ? item.sec_uid : "") || "").trim();
+        if (!result2) {
           continue;
         }
-        const _0x554a9f = _0x41506b.get(_0x3d8db2);
-        if (!_0x554a9f) {
-          _0x41506b.set(_0x3d8db2, {
-            keepId: _0x5ccd00.id,
-            row: _0x5ccd00,
-            raw: _0x50e46c
+        const result3 = map.get(result2);
+        if (!result3) {
+          map.set(result2, {
+            keepId: item.id,
+            row: item,
+            raw: result
           });
           continue;
         }
-        const _0x1a7722 = String(_0x554a9f.raw.content || "").length + String(_0x554a9f.raw.userUrl || "").length;
-        const _0x46ac80 = String(_0x50e46c.content || "").length + String(_0x50e46c.userUrl || "").length;
-        const _0x2b572f = Number(_0x554a9f.row.captured_at) || 0;
-        const _0x5e34de = Number(_0x5ccd00.captured_at) || 0;
-        const _0x231588 = _0x46ac80 > _0x1a7722 || _0x46ac80 === _0x1a7722 && _0x5e34de >= _0x2b572f;
-        if (_0x231588) {
-          _0x40f888.mergeLeadRecords(_0x50e46c, _0x554a9f.raw);
-          _0x41506b.set(_0x3d8db2, {
-            keepId: _0x5ccd00.id,
-            row: _0x5ccd00,
-            raw: _0x50e46c
+        const value = String(result3.raw.content || "").length + String(result3.raw.userUrl || "").length;
+        const value2 = String(result.content || "").length + String(result.userUrl || "").length;
+        const local2 = Number(result3.row.captured_at) || 0;
+        const local3 = Number(item.captured_at) || 0;
+        const local4 = value2 > value || value2 === value && local3 >= local2;
+        if (local4) {
+          local.mergeLeadRecords(result, result3.raw);
+          map.set(result2, {
+            keepId: item.id,
+            row: item,
+            raw: result
           });
-          _0x554a9f._drop = true;
+          result3._drop = true;
         } else {
-          _0x40f888.mergeLeadRecords(_0x554a9f.raw, _0x50e46c);
-          _0x554a9f._dropIds = _0x554a9f._dropIds || [];
-          _0x554a9f._dropIds.push(_0x5ccd00.id);
+          local.mergeLeadRecords(result3.raw, result);
+          result3._dropIds = result3._dropIds || [];
+          result3._dropIds.push(item.id);
         }
       }
-      const _0x865884 = _0x14fdd2.prepare("\n        UPDATE leads\n        SET id = ?, lead_user_id = ?, sec_uid = ?, raw_data = ?\n        WHERE id = ?\n      ");
-      const _0x4d8bf6 = _0x14fdd2.prepare("DELETE FROM leads WHERE id = ?");
-      for (const [_0x1e5b5b, _0x459313] of _0x41506b.entries()) {
-        const _0x33c302 = new Set(_0x459313._dropIds || []);
-        if (_0x459313.keepId !== _0x1e5b5b) {
-          const _0x292592 = _0x14fdd2.prepare("SELECT id FROM leads WHERE id = ?").get(_0x1e5b5b);
-          if (_0x292592 && _0x292592.id !== _0x459313.keepId) {
-            const _0x1e515c = _0x14fdd2.prepare("SELECT raw_data FROM leads WHERE id = ?").get(_0x1e5b5b);
-            if (_0x1e515c) {
+      const result2 = arg1.prepare("\n        UPDATE leads\n        SET id = ?, lead_user_id = ?, sec_uid = ?, raw_data = ?\n        WHERE id = ?\n      ");
+      const result3 = arg1.prepare("DELETE FROM leads WHERE id = ?");
+      for (const [local2, local3] of map.entries()) {
+        const set = new Set(local3._dropIds || []);
+        if (local3.keepId !== local2) {
+          const result = arg1.prepare("SELECT id FROM leads WHERE id = ?").get(local2);
+          if (result && result.id !== local3.keepId) {
+            const result = arg1.prepare("SELECT raw_data FROM leads WHERE id = ?").get(local2);
+            if (result) {
               try {
-                const _0x32a5ca = JSON.parse(_0x1e515c.raw_data || "{}");
-                _0x40f888.mergeLeadRecords(_0x459313.raw, _0x32a5ca);
-              } catch (_0x467840) {}
-              _0x33c302.add(_0x1e5b5b);
+                const result2 = JSON.parse(result.raw_data || "{}");
+                local.mergeLeadRecords(local3.raw, result2);
+              } catch (error) {}
+              set.add(local2);
             }
           }
         }
-        for (const _0x58aacf of _0x33c302) {
-          if (_0x58aacf === _0x459313.keepId) {
+        for (const item of set) {
+          if (item === local3.keepId) {
             continue;
           }
-          _0x4d8bf6.run(_0x58aacf);
-          _0x3827f5 += 1;
+          result3.run(item);
+          num2 += 1;
         }
-        _0x459313.raw.secUid = _0x1e5b5b;
-        _0x459313.raw.leadId = _0x1e5b5b;
-        _0x459313.raw.key = _0x1e5b5b;
-        _0x459313.raw.userKey = _0x1e5b5b;
-        const _0x36cbfe = JSON.stringify(_0x459313.raw);
-        if (_0x459313.keepId === _0x1e5b5b) {
-          _0x14fdd2.prepare("UPDATE leads SET lead_user_id = ?, sec_uid = ?, raw_data = ? WHERE id = ?").run(_0x1e5b5b, _0x1e5b5b, _0x36cbfe, _0x1e5b5b);
-          _0x5c359d += 1;
+        local3.raw.secUid = local2;
+        local3.raw.leadId = local2;
+        local3.raw.key = local2;
+        local3.raw.userKey = local2;
+        const result = JSON.stringify(local3.raw);
+        if (local3.keepId === local2) {
+          arg1.prepare("UPDATE leads SET lead_user_id = ?, sec_uid = ?, raw_data = ? WHERE id = ?").run(local2, local2, result, local2);
+          num += 1;
         } else {
           try {
-            _0x4d8bf6.run(_0x1e5b5b);
-          } catch (_0x52b682) {}
+            result3.run(local2);
+          } catch (error) {}
           try {
-            _0x865884.run(_0x1e5b5b, _0x1e5b5b, _0x1e5b5b, _0x36cbfe, _0x459313.keepId);
-            _0x5c359d += 1;
-            if (_0x459313.keepId !== _0x1e5b5b) {
-              _0x3827f5 += 1;
+            result2.run(local2, local2, local2, result, local3.keepId);
+            num += 1;
+            if (local3.keepId !== local2) {
+              num2 += 1;
             }
-          } catch (_0x20cfbd) {
-            _0x14fdd2.prepare("\n              INSERT INTO leads (\n                id, lead_user_id, nickname, video_id, video_title, account_id, content, captured_at, raw_data,\n                is_high_intention, lead_kind, entry_source, search_keyword, account_name, location, sec_uid\n              )\n              SELECT ?, ?, nickname, video_id, video_title, account_id, content, captured_at, ?,\n                is_high_intention, lead_kind, entry_source, search_keyword, account_name, location, ?\n              FROM leads WHERE id = ?\n            ").run(_0x1e5b5b, _0x1e5b5b, _0x36cbfe, _0x1e5b5b, _0x459313.keepId);
-            _0x4d8bf6.run(_0x459313.keepId);
-            _0x5c359d += 1;
-            _0x3827f5 += 1;
+          } catch (error) {
+            arg1.prepare("\n              INSERT INTO leads (\n                id, lead_user_id, nickname, video_id, video_title, account_id, content, captured_at, raw_data,\n                is_high_intention, lead_kind, entry_source, search_keyword, account_name, location, sec_uid\n              )\n              SELECT ?, ?, nickname, video_id, video_title, account_id, content, captured_at, ?,\n                is_high_intention, lead_kind, entry_source, search_keyword, account_name, location, ?\n              FROM leads WHERE id = ?\n            ").run(local2, local2, result, local2, local3.keepId);
+            result3.run(local3.keepId);
+            num += 1;
+            num2 += 1;
           }
         }
       }
       try {
-        _0x14fdd2.exec("\n          CREATE UNIQUE INDEX IF NOT EXISTS idx_leads_sec_uid_unique\n          ON leads(sec_uid)\n          WHERE sec_uid IS NOT NULL AND sec_uid != ''\n        ");
-      } catch (_0x5a8d69) {
-        console.warn("[Migrate] idx_leads_sec_uid_unique 仍失败:", _0x5a8d69.message);
+        arg1.exec("\n          CREATE UNIQUE INDEX IF NOT EXISTS idx_leads_sec_uid_unique\n          ON leads(sec_uid)\n          WHERE sec_uid IS NOT NULL AND sec_uid != ''\n        ");
+      } catch (error) {
+        console.warn("[Migrate] idx_leads_sec_uid_unique 仍失败:", error.message);
       }
-      markDone(_0x14fdd2, {
-        updated: _0x5c359d,
-        merged: _0x3827f5,
-        scanned: _0xbb8b71.length
+      markDone(arg1, {
+        updated: num,
+        merged: num2,
+        scanned: result.length
       });
     });
-    _0x45b9f6();
-    console.log("[Migrate] leads_sec_uid_backfill_v1 完成: updated=" + _0x5c359d + " merged=" + _0x3827f5);
+    result();
+    console.log("[Migrate] leads_sec_uid_backfill_v1 完成: updated=" + num + " merged=" + num2);
     return {
       skipped: false,
-      updated: _0x5c359d,
-      merged: _0x3827f5
+      updated: num,
+      merged: num2
     };
-  } catch (_0x2e4e5d) {
-    console.error("[Migrate] leads_sec_uid_backfill_v1 失败:", _0x2e4e5d);
+  } catch (error) {
+    console.error("[Migrate] leads_sec_uid_backfill_v1 失败:", error);
     return {
       skipped: false,
-      updated: _0x5c359d,
-      merged: _0x3827f5,
-      error: _0x2e4e5d.message || String(_0x2e4e5d)
+      updated: num,
+      merged: num2,
+      error: error.message || String(error)
     };
   }
 }
