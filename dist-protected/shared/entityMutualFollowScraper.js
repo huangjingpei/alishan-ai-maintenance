@@ -1,310 +1,310 @@
-function isVisibleElement(_0x5bf270) {
-  if (!_0x5bf270 || typeof _0x5bf270.getBoundingClientRect !== "function") {
+function isVisibleElement(arg1) {
+  if (!arg1 || typeof arg1.getBoundingClientRect !== "function") {
     return false;
   }
   try {
-    const _0x1ceaaa = window.getComputedStyle(_0x5bf270);
-    if (_0x1ceaaa.display === "none" || _0x1ceaaa.visibility === "hidden" || parseFloat(_0x1ceaaa.opacity || "1") <= 0.01) {
+    const result = window.getComputedStyle(arg1);
+    if (result.display === "none" || result.visibility === "hidden" || parseFloat(result.opacity || "1") <= 0.01) {
       return false;
     }
-    const _0xb2039b = _0x5bf270.getBoundingClientRect();
-    return _0xb2039b.width > 0 && _0xb2039b.height > 0;
-  } catch (_0x3d4b48) {
+    const result2 = arg1.getBoundingClientRect();
+    return result2.width > 0 && result2.height > 0;
+  } catch (error) {
     return false;
   }
 }
-function findEntityFollowingTab(_0x3b892d = null) {
-  const _0x17ad9c = Array.from(document.querySelectorAll("[role=\"tab\"], .semi-tabs-tab"));
-  const _0x150e2e = _0x17ad9c.find(_0x53b292 => {
-    if (!isVisibleElement(_0x53b292)) {
+function findEntityFollowingTab(arg1 = null) {
+  const result = Array.from(document.querySelectorAll("[role=\"tab\"], .semi-tabs-tab"));
+  const result2 = result.find(arg1 => {
+    if (!isVisibleElement(arg1)) {
       return false;
     }
-    const _0x1fbd3f = String(_0x53b292.innerText || _0x53b292.textContent || "").replace(/\s+/g, "").trim();
-    if (!/^关注(\(\d+\))?$/.test(_0x1fbd3f)) {
+    const result = String(arg1.innerText || arg1.textContent || "").replace(/\s+/g, "").trim();
+    if (!/^关注(\(\d+\))?$/.test(result)) {
       return false;
     }
-    let _0x4cf5aa = _0x53b292.parentElement;
-    while (_0x4cf5aa && _0x4cf5aa !== document.body) {
-      if (window.getComputedStyle(_0x4cf5aa).position === "fixed") {
+    let value = arg1.parentElement;
+    while (value && value !== document.body) {
+      if (window.getComputedStyle(value).position === "fixed") {
         return true;
       }
-      _0x4cf5aa = _0x4cf5aa.parentElement;
+      value = value.parentElement;
     }
     return false;
   });
-  if (_0x150e2e) {
-    const _0x383582 = String(_0x150e2e.innerText || "").trim();
-    if (typeof _0x3b892d === "function") {
-      _0x3b892d("[调试] 成功命中关注Tab: \"" + _0x383582 + "\"");
+  if (result2) {
+    const result = String(result2.innerText || "").trim();
+    if (typeof arg1 === "function") {
+      arg1("[调试] 成功命中关注Tab: \"" + result + "\"");
     }
-    return _0x150e2e;
+    return result2;
   }
-  const _0x4fd7f3 = Array.from(document.querySelectorAll("[role=\"dialog\"], [class*=\"modal\"], [class*=\"Modal\"], [class*=\"drawer\"], [class*=\"Drawer\"], [class*=\"popup\"], [class*=\"Popup\"], [class*=\"semi-modal\"], [class*=\"semi-drawer\"], [class*=\"semi-portal\"]")).filter(_0x3c811b => isVisibleElement(_0x3c811b));
-  const _0x223e1d = _0x4fd7f3.length ? _0x4fd7f3 : [document.body];
-  for (const _0x298989 of _0x223e1d) {
-    const _0x50afba = Array.from(_0x298989.querySelectorAll("button, [role=\"tab\"], [role=\"button\"], div, span, a"));
-    const _0x1f08fe = _0x50afba.find(_0x4fbf7c => {
-      if (!isVisibleElement(_0x4fbf7c)) {
+  const result3 = Array.from(document.querySelectorAll("[role=\"dialog\"], [class*=\"modal\"], [class*=\"Modal\"], [class*=\"drawer\"], [class*=\"Drawer\"], [class*=\"popup\"], [class*=\"Popup\"], [class*=\"semi-modal\"], [class*=\"semi-drawer\"], [class*=\"semi-portal\"]")).filter(arg1 => isVisibleElement(arg1));
+  const value = result3.length ? result3 : [document.body];
+  for (const item of value) {
+    const result = Array.from(item.querySelectorAll("button, [role=\"tab\"], [role=\"button\"], div, span, a"));
+    const result2 = result.find(arg1 => {
+      if (!isVisibleElement(arg1)) {
         return false;
       }
-      const _0xf5c2ec = String(_0x4fbf7c.innerText || _0x4fbf7c.textContent || "").replace(/\s+/g, "").trim();
-      return /^关注(\(\d+\))?$/.test(_0xf5c2ec);
+      const result = String(arg1.innerText || arg1.textContent || "").replace(/\s+/g, "").trim();
+      return /^关注(\(\d+\))?$/.test(result);
     });
-    if (!_0x1f08fe) {
+    if (!result2) {
       continue;
     }
-    const _0x5bb471 = _0x1f08fe.matches?.("button, [role=\"tab\"], [role=\"button\"], a") ? _0x1f08fe : _0x1f08fe.closest?.("button, [role=\"tab\"], [role=\"button\"], a") || _0x1f08fe;
-    if (_0x5bb471 && typeof _0x3b892d === "function") {
-      _0x3b892d("[调试] 兜底命中关注Tab: \"" + _0x5bb471.innerText?.trim() + "\"");
+    const value = result2.matches?.("button, [role=\"tab\"], [role=\"button\"], a") ? result2 : result2.closest?.("button, [role=\"tab\"], [role=\"button\"], a") || result2;
+    if (value && typeof arg1 === "function") {
+      arg1("[调试] 兜底命中关注Tab: \"" + value.innerText?.trim() + "\"");
     }
-    return _0x5bb471;
+    return value;
   }
-  if (typeof _0x3b892d === "function") {
-    _0x3b892d("[调试] 未找到关注Tab，将使用粉丝列表回退模式");
+  if (typeof arg1 === "function") {
+    arg1("[调试] 未找到关注Tab，将使用粉丝列表回退模式");
   }
   return null;
 }
-function findEntityRelationModalContainer(_0x461e70 = null) {
+function findEntityRelationModalContainer(arg1 = null) {
   if (typeof document === "undefined") {
     return null;
   }
-  const _0x5641a6 = Array.from(document.querySelectorAll("[role=\"dialog\"], [class*=\"modal\"], [class*=\"Modal\"], [class*=\"drawer\"], [class*=\"Drawer\"], [class*=\"popup\"], [class*=\"Popup\"], [class*=\"semi-modal\"], [class*=\"semi-drawer\"], [class*=\"semi-portal\"], [class*=\"userMenu\"], [class*=\"relation\"], [class*=\"fans\"], [class*=\"follow\"]")).filter(_0x18f8ab => isVisibleElement(_0x18f8ab));
-  const _0x34000c = _0x5641a6.find(_0x40693e => {
-    const _0x1ff244 = String(_0x40693e.innerText || _0x40693e.textContent || "");
-    return /关注\s*\(\d+\)/.test(_0x1ff244) && /粉丝\s*\(\d+\)/.test(_0x1ff244) || /搜索用户名字或抖音号/.test(_0x1ff244) || _0x40693e.querySelectorAll("a[href*=\"/user/\"]").length > 0 && /回关|已关注|相互关注/.test(_0x1ff244);
+  const result = Array.from(document.querySelectorAll("[role=\"dialog\"], [class*=\"modal\"], [class*=\"Modal\"], [class*=\"drawer\"], [class*=\"Drawer\"], [class*=\"popup\"], [class*=\"Popup\"], [class*=\"semi-modal\"], [class*=\"semi-drawer\"], [class*=\"semi-portal\"], [class*=\"userMenu\"], [class*=\"relation\"], [class*=\"fans\"], [class*=\"follow\"]")).filter(arg1 => isVisibleElement(arg1));
+  const result2 = result.find(arg1 => {
+    const result = String(arg1.innerText || arg1.textContent || "");
+    return /关注\s*\(\d+\)/.test(result) && /粉丝\s*\(\d+\)/.test(result) || /搜索用户名字或抖音号/.test(result) || arg1.querySelectorAll("a[href*=\"/user/\"]").length > 0 && /回关|已关注|相互关注/.test(result);
   });
-  if (_0x34000c) {
-    const _0x6299a6 = String(_0x34000c.className || "").slice(0, 40);
-    if (typeof _0x461e70 === "function") {
-      _0x461e70("[调试] 明确定位到弹窗容器: <" + _0x34000c.tagName + "." + _0x6299a6 + ">");
+  if (result2) {
+    const result = String(result2.className || "").slice(0, 40);
+    if (typeof arg1 === "function") {
+      arg1("[调试] 明确定位到弹窗容器: <" + result2.tagName + "." + result + ">");
     }
-    return _0x34000c;
+    return result2;
   }
-  const _0x230067 = Array.from(document.querySelectorAll("div, section, aside")).filter(_0x43699e => {
-    if (!isVisibleElement(_0x43699e)) {
+  const result3 = Array.from(document.querySelectorAll("div, section, aside")).filter(arg1 => {
+    if (!isVisibleElement(arg1)) {
       return false;
     }
-    if (_0x43699e === document.body || _0x43699e === document.documentElement) {
+    if (arg1 === document.body || arg1 === document.documentElement) {
       return false;
     }
-    const _0x5f1b80 = _0x43699e.getBoundingClientRect();
-    if (_0x5f1b80.width < 200 || _0x5f1b80.height < 200) {
+    const result = arg1.getBoundingClientRect();
+    if (result.width < 200 || result.height < 200) {
       return false;
     }
-    if (_0x5f1b80.width >= window.innerWidth - 10 && _0x5f1b80.height >= window.innerHeight - 10) {
+    if (result.width >= window.innerWidth - 10 && result.height >= window.innerHeight - 10) {
       return false;
     }
-    const _0x2ff072 = String(_0x43699e.innerText || _0x43699e.textContent || "");
-    if (!/粉丝/.test(_0x2ff072) && !/关注/.test(_0x2ff072)) {
+    const result2 = String(arg1.innerText || arg1.textContent || "");
+    if (!/粉丝/.test(result2) && !/关注/.test(result2)) {
       return false;
     }
-    const _0x5b3f59 = _0x43699e.getAttribute?.("role") === "dialog" || /modal|drawer|popup|semi/i.test(_0x43699e.className || "") || /搜索用户名字/.test(_0x2ff072) || _0x43699e.querySelectorAll("a[href*=\"/user/\"]").length >= 1;
-    return _0x5b3f59;
-  }).sort((_0x345eb1, _0x4abd12) => _0x4abd12.querySelectorAll("a[href*=\"/user/\"]").length - _0x345eb1.querySelectorAll("a[href*=\"/user/\"]").length);
-  const _0xb5a46 = _0x230067[0] || null;
-  if (_0xb5a46 && typeof _0x461e70 === "function") {
-    _0x461e70("[调试] 泛化定位到弹窗容器: <" + _0xb5a46.tagName + "." + String(_0xb5a46.className || "").slice(0, 40) + ">");
-  } else if (!_0xb5a46 && typeof _0x461e70 === "function") {
-    _0x461e70("[调试] 警告: 未能找到弹窗容器!");
+    const local = arg1.getAttribute?.("role") === "dialog" || /modal|drawer|popup|semi/i.test(arg1.className || "") || /搜索用户名字/.test(result2) || arg1.querySelectorAll("a[href*=\"/user/\"]").length >= 1;
+    return local;
+  }).sort((arg1, arg2) => arg2.querySelectorAll("a[href*=\"/user/\"]").length - arg1.querySelectorAll("a[href*=\"/user/\"]").length);
+  const local = result3[0] || null;
+  if (local && typeof arg1 === "function") {
+    arg1("[调试] 泛化定位到弹窗容器: <" + local.tagName + "." + String(local.className || "").slice(0, 40) + ">");
+  } else if (!local && typeof arg1 === "function") {
+    arg1("[调试] 警告: 未能找到弹窗容器!");
   }
-  return _0xb5a46;
+  return local;
 }
-function findEntityRelationListScroller(_0x24fcdd = null) {
-  const _0x3d6ab4 = findEntityRelationModalContainer();
-  if (!_0x3d6ab4) {
-    if (typeof _0x24fcdd === "function") {
-      _0x24fcdd("[调试] 无弹窗容器，滚动容器使用 document.body");
+function findEntityRelationListScroller(arg1 = null) {
+  const result = findEntityRelationModalContainer();
+  if (!result) {
+    if (typeof arg1 === "function") {
+      arg1("[调试] 无弹窗容器，滚动容器使用 document.body");
     }
     return document.body;
   }
-  const _0x1fbf79 = Array.from(_0x3d6ab4.querySelectorAll("div, ul, section, article"));
-  const _0xf2929b = _0x1fbf79.filter(_0x2d04f4 => {
-    if (!isVisibleElement(_0x2d04f4)) {
+  const result2 = Array.from(result.querySelectorAll("div, ul, section, article"));
+  const result3 = result2.filter(arg1 => {
+    if (!isVisibleElement(arg1)) {
       return false;
     }
-    const _0x1e4bb6 = window.getComputedStyle(_0x2d04f4);
-    const _0x35c657 = /(auto|scroll|overlay)/.test(_0x1e4bb6.overflowY + " " + _0x1e4bb6.overflow) || _0x2d04f4.scrollHeight > _0x2d04f4.clientHeight + 10;
-    if (!_0x35c657) {
+    const result = window.getComputedStyle(arg1);
+    const local = /(auto|scroll|overlay)/.test(result.overflowY + " " + result.overflow) || arg1.scrollHeight > arg1.clientHeight + 10;
+    if (!local) {
       return false;
     }
-    return _0x2d04f4.querySelectorAll("a[href*=\"/user/\"], a[href*=\"sec_uid\"]").length >= 1;
-  }).sort((_0xde07f3, _0x5e0b19) => {
-    const _0x47c641 = _0x5e0b19.scrollHeight - _0x5e0b19.clientHeight - (_0xde07f3.scrollHeight - _0xde07f3.clientHeight);
-    if (Math.abs(_0x47c641) > 10) {
-      return _0x47c641;
+    return arg1.querySelectorAll("a[href*=\"/user/\"], a[href*=\"sec_uid\"]").length >= 1;
+  }).sort((arg1, arg2) => {
+    const value = arg2.scrollHeight - arg2.clientHeight - (arg1.scrollHeight - arg1.clientHeight);
+    if (Math.abs(value) > 10) {
+      return value;
     }
-    return _0x5e0b19.querySelectorAll("a[href*=\"/user/\"]").length - _0xde07f3.querySelectorAll("a[href*=\"/user/\"]").length;
+    return arg2.querySelectorAll("a[href*=\"/user/\"]").length - arg1.querySelectorAll("a[href*=\"/user/\"]").length;
   });
-  const _0x5932b7 = _0xf2929b[0] || _0x3d6ab4;
-  if (typeof _0x24fcdd === "function") {
-    const _0xd9a91d = String(_0x5932b7.className || "").slice(0, 40);
-    const _0x3cb500 = _0x5932b7.querySelectorAll("a[href*=\"/user/\"]").length;
-    _0x24fcdd("[调试] 列表滚动容器: <" + _0x5932b7.tagName + "." + _0xd9a91d + ">, scrollH=" + _0x5932b7.scrollHeight + ", clientH=" + _0x5932b7.clientHeight + ", scrollTop=" + _0x5932b7.scrollTop + ", 用户数=" + _0x3cb500);
+  const local = result3[0] || result;
+  if (typeof arg1 === "function") {
+    const result = String(local.className || "").slice(0, 40);
+    const value = local.querySelectorAll("a[href*=\"/user/\"]").length;
+    arg1("[调试] 列表滚动容器: <" + local.tagName + "." + result + ">, scrollH=" + local.scrollHeight + ", clientH=" + local.clientHeight + ", scrollTop=" + local.scrollTop + ", 用户数=" + value);
   }
-  return _0x5932b7;
+  return local;
 }
-function findUserCardRow(_0x17aa8e, _0x34ed0d) {
-  let _0x1e7a8c = _0x17aa8e;
-  while (_0x1e7a8c && _0x1e7a8c !== _0x34ed0d && _0x1e7a8c !== document.body) {
-    const _0x278718 = _0x1e7a8c.querySelectorAll("a[href*=\"/user/\"]").length;
-    const _0x2aa20f = String(_0x1e7a8c.innerText || _0x1e7a8c.textContent || "");
-    const _0x5d8af0 = /相互关注|已关注|回关|\+ 关注|移除/.test(_0x2aa20f);
-    if (_0x278718 <= 3 && _0x5d8af0) {
-      return _0x1e7a8c;
+function findUserCardRow(arg1, arg2) {
+  let local = arg1;
+  while (local && local !== arg2 && local !== document.body) {
+    const value = local.querySelectorAll("a[href*=\"/user/\"]").length;
+    const result = String(local.innerText || local.textContent || "");
+    const result2 = /相互关注|已关注|回关|\+ 关注|移除/.test(result);
+    if (value <= 3 && result2) {
+      return local;
     }
-    _0x1e7a8c = _0x1e7a8c.parentElement;
+    local = local.parentElement;
   }
-  return _0x17aa8e.closest("li") || _0x17aa8e.parentElement;
+  return arg1.closest("li") || arg1.parentElement;
 }
 function collectEntityRelationUsersFromList({
   sourceType = "mutual",
-  collectEntityUsersFromApiBuffer: _0x16b875,
-  normalizeDouyinAuthorProfileUrl: _0x521c0b,
-  buildEntityUserKey: _0x53b5f3,
+  collectEntityUsersFromApiBuffer: collectEntityUsersFromApiBuffer,
+  normalizeDouyinAuthorProfileUrl: normalizeDouyinAuthorProfileUrl,
+  buildEntityUserKey: buildEntityUserKey,
   logFn = null
 } = {}) {
-  const _0xeb5dac = sourceType === "following" ? "following" : "mutual";
-  const _0x3c5032 = [];
-  const _0x2ae31b = new Set();
-  const _0xc962b = _0xeb5dac === "following" ? "关注列表" : "互关";
-  if (typeof _0x16b875 === "function") {
-    const _0x206521 = _0x16b875(_0xeb5dac);
-    for (const _0x3f5338 of _0x206521) {
-      if (_0x2ae31b.has(_0x3f5338.userKey)) {
+  const value = sourceType === "following" ? "following" : "mutual";
+  const list = [];
+  const set = new Set();
+  const value2 = value === "following" ? "关注列表" : "互关";
+  if (typeof collectEntityUsersFromApiBuffer === "function") {
+    const result = collectEntityUsersFromApiBuffer(value);
+    for (const item of result) {
+      if (set.has(item.userKey)) {
         continue;
       }
-      _0x2ae31b.add(_0x3f5338.userKey);
-      _0x3c5032.push(_0x3f5338);
+      set.add(item.userKey);
+      list.push(item);
     }
   }
-  const _0x3eecb9 = findEntityRelationModalContainer(logFn);
-  if (!_0x3eecb9) {
-    return _0x3c5032;
+  const result = findEntityRelationModalContainer(logFn);
+  if (!result) {
+    return list;
   }
-  const _0x17f715 = Array.from(_0x3eecb9.querySelectorAll("a[href*=\"/user/\"], a[href*=\"sec_uid\"]"));
-  let _0x22dcfd = 0;
-  for (const _0xcfe242 of _0x17f715) {
-    if (!isVisibleElement(_0xcfe242)) {
+  const result2 = Array.from(result.querySelectorAll("a[href*=\"/user/\"], a[href*=\"sec_uid\"]"));
+  let num = 0;
+  for (const item of result2) {
+    if (!isVisibleElement(item)) {
       continue;
     }
-    const _0x13ab8d = _0xcfe242.href || _0xcfe242.getAttribute?.("href") || "";
-    if (!_0x13ab8d || _0x13ab8d.includes("/user/self")) {
+    const local = item.href || item.getAttribute?.("href") || "";
+    if (!local || local.includes("/user/self")) {
       continue;
     }
-    const _0x300f62 = typeof _0x521c0b === "function" ? _0x521c0b(_0x13ab8d) : _0x13ab8d;
-    const _0x27ef3f = typeof _0x53b5f3 === "function" ? _0x53b5f3(_0x300f62) : _0x300f62;
-    if (!_0x27ef3f || !_0x300f62 || _0x2ae31b.has(_0x27ef3f)) {
+    const value2 = typeof normalizeDouyinAuthorProfileUrl === "function" ? normalizeDouyinAuthorProfileUrl(local) : local;
+    const value3 = typeof buildEntityUserKey === "function" ? buildEntityUserKey(value2) : value2;
+    if (!value3 || !value2 || set.has(value3)) {
       continue;
     }
-    const _0x39bf49 = findUserCardRow(_0xcfe242, _0x3eecb9) || _0xcfe242.closest("li, div") || _0xcfe242;
-    const _0x2a8d98 = String(_0x39bf49.innerText || _0x39bf49.textContent || "");
-    if (_0xeb5dac === "mutual") {
-      const _0x29821e = /相互关注|互相关注/.test(_0x2a8d98) && !/回关/.test(_0x2a8d98);
-      if (!_0x29821e) {
+    const local2 = findUserCardRow(item, result) || item.closest("li, div") || item;
+    const result2 = String(local2.innerText || local2.textContent || "");
+    if (value === "mutual") {
+      const local = /相互关注|互相关注/.test(result2) && !/回关/.test(result2);
+      if (!local) {
         continue;
       }
     } else {
-      const _0x27b77a = /相互关注|互相关注|已关注|移除/.test(_0x2a8d98);
-      if (!_0x27b77a) {
+      const result = /相互关注|互相关注|已关注|移除/.test(result2);
+      if (!result) {
         continue;
       }
     }
-    let _0x1f1089 = String(_0xcfe242.innerText || _0xcfe242.textContent || "").replace(/\s+/g, " ").trim().replace(/^@+/, "");
-    if (!_0x1f1089 || /相互关注|互相关注|关注|私信|回关|移除/.test(_0x1f1089)) {
-      const _0x401120 = String(_0x39bf49.innerText || "").split(/\n+/).map(_0x67c97 => _0x67c97.trim()).find(_0x5d48bc => _0x5d48bc && _0x5d48bc.length <= 40 && !/相互关注|互相关注|关注|粉丝|获赞|私信|回关|移除/.test(_0x5d48bc));
-      _0x1f1089 = _0x401120 ? _0x401120.replace(/^@+/, "") : "";
+    let result3 = String(item.innerText || item.textContent || "").replace(/\s+/g, " ").trim().replace(/^@+/, "");
+    if (!result3 || /相互关注|互相关注|关注|私信|回关|移除/.test(result3)) {
+      const result = String(local2.innerText || "").split(/\n+/).map(arg1 => arg1.trim()).find(arg1 => arg1 && arg1.length <= 40 && !/相互关注|互相关注|关注|粉丝|获赞|私信|回关|移除/.test(arg1));
+      result3 = result ? result.replace(/^@+/, "") : "";
     }
-    if (!_0x1f1089) {
+    if (!result3) {
       continue;
     }
-    _0x2ae31b.add(_0x27ef3f);
-    _0x3c5032.push({
-      nickname: _0x1f1089,
-      userUrl: _0x300f62,
-      userKey: _0x27ef3f
+    set.add(value3);
+    list.push({
+      nickname: result3,
+      userUrl: value2,
+      userKey: value3
     });
-    _0x22dcfd += 1;
+    num += 1;
   }
   if (typeof logFn === "function") {
-    logFn("[调试] 弹窗内共解析 " + _0x17f715.length + " 个用户链接，DOM 提取出 " + _0x22dcfd + " 个" + _0xc962b + "用户 (总计 " + _0x3c5032.length + ")");
+    logFn("[调试] 弹窗内共解析 " + result2.length + " 个用户链接，DOM 提取出 " + num + " 个" + value2 + "用户 (总计 " + list.length + ")");
   }
-  return _0x3c5032;
+  return list;
 }
-function collectEntityMutualUsersFromList(_0x48281a = {}) {
+function collectEntityMutualUsersFromList(options = {}) {
   return collectEntityRelationUsersFromList({
-    ..._0x48281a,
+    ...options,
     sourceType: "mutual"
   });
 }
-async function scrollEntityMutualContainer(_0x58c25f, _0x3a7e48, _0x39a53e = null) {
-  const _0x564dce = _0x58c25f || findEntityRelationListScroller(_0x39a53e);
-  if (!_0x564dce) {
-    if (typeof _0x39a53e === "function") {
-      _0x39a53e("[调试] 无法滚动: 未确定滚动目标容器");
+async function scrollEntityMutualContainer(arg1, arg2, arg3 = null) {
+  const local = arg1 || findEntityRelationListScroller(arg3);
+  if (!local) {
+    if (typeof arg3 === "function") {
+      arg3("[调试] 无法滚动: 未确定滚动目标容器");
     }
     return {
       moved: false,
       atBottom: true
     };
   }
-  const _0x4b9023 = _0x564dce.scrollTop || 0;
-  const _0x43866a = _0x564dce.scrollHeight || 0;
-  const _0x37241b = _0x564dce.querySelectorAll("a[href*=\"/user/\"]").length;
-  const _0xc70ede = _0x564dce.clientHeight || 400;
-  const _0x1e418d = Math.max(0, (_0x564dce.scrollHeight || 0) - _0xc70ede);
-  const _0x1fb110 = _0x4b9023 >= _0x1e418d - 24 && _0x1e418d > 80;
-  if (_0x1fb110) {
+  const local2 = local.scrollTop || 0;
+  const local3 = local.scrollHeight || 0;
+  const value = local.querySelectorAll("a[href*=\"/user/\"]").length;
+  const local4 = local.clientHeight || 400;
+  const result = Math.max(0, (local.scrollHeight || 0) - local4);
+  const local5 = local2 >= result - 24 && result > 80;
+  if (local5) {
     try {
-      _0x564dce.scrollTop = Math.max(0, _0x1e418d - Math.min(320, Math.floor(_0xc70ede * 0.6)));
-      _0x564dce.dispatchEvent(new Event("scroll", {
+      local.scrollTop = Math.max(0, result - Math.min(320, Math.floor(local4 * 0.6)));
+      local.dispatchEvent(new Event("scroll", {
         bubbles: true
       }));
-    } catch (_0x50806e) {}
-    if (typeof _0x3a7e48 === "function") {
-      await _0x3a7e48(280 + Math.random() * 180);
+    } catch (error) {}
+    if (typeof arg2 === "function") {
+      await arg2(280 + Math.random() * 180);
     }
   }
-  const _0x1c2495 = Math.max(480, Math.floor(_0xc70ede * (0.85 + Math.random() * 0.45)));
-  const _0x190634 = Math.max(0, (_0x564dce.scrollHeight || 0) - (_0x564dce.clientHeight || _0xc70ede));
+  const result2 = Math.max(480, Math.floor(local4 * (0.85 + Math.random() * 0.45)));
+  const result3 = Math.max(0, (local.scrollHeight || 0) - (local.clientHeight || local4));
   try {
-    _0x564dce.scrollTop = Math.min(_0x190634, (_0x564dce.scrollTop || 0) + _0x1c2495);
-    _0x564dce.dispatchEvent(new Event("scroll", {
+    local.scrollTop = Math.min(result3, (local.scrollTop || 0) + result2);
+    local.dispatchEvent(new Event("scroll", {
       bubbles: true
     }));
-  } catch (_0x24c430) {}
-  if (typeof _0x3a7e48 === "function") {
-    await _0x3a7e48(220 + Math.random() * 160);
+  } catch (error) {}
+  if (typeof arg2 === "function") {
+    await arg2(220 + Math.random() * 160);
   }
   try {
-    _0x564dce.scrollTop = Math.max(0, (_0x564dce.scrollHeight || 0) - (_0x564dce.clientHeight || _0xc70ede)) + 40;
-  } catch (_0x32e097) {}
-  const _0x24f0c9 = Array.from(_0x564dce.children || []);
-  const _0x282491 = _0x24f0c9[_0x24f0c9.length - 1] || _0x564dce.lastElementChild || _0x564dce.lastChild;
-  if (_0x282491 && typeof _0x282491.scrollIntoView === "function") {
+    local.scrollTop = Math.max(0, (local.scrollHeight || 0) - (local.clientHeight || local4)) + 40;
+  } catch (error) {}
+  const result4 = Array.from(local.children || []);
+  const local6 = result4[result4.length - 1] || local.lastElementChild || local.lastChild;
+  if (local6 && typeof local6.scrollIntoView === "function") {
     try {
-      _0x282491.scrollIntoView({
+      local6.scrollIntoView({
         block: "end",
         inline: "nearest"
       });
-    } catch (_0x4000e6) {}
+    } catch (error) {}
   }
-  const _0x56a83a = {
+  const obj = {
     deltaX: 0,
-    deltaY: _0x1c2495,
+    deltaY: result2,
     deltaMode: 0,
     bubbles: true,
     cancelable: true,
     view: window
   };
   try {
-    _0x564dce.dispatchEvent(new WheelEvent("wheel", _0x56a83a));
-    _0x564dce.dispatchEvent(new Event("scroll", {
+    local.dispatchEvent(new WheelEvent("wheel", obj));
+    local.dispatchEvent(new Event("scroll", {
       bubbles: true
     }));
-    if (_0x282491 && typeof _0x282491.dispatchEvent === "function") {
-      _0x282491.dispatchEvent(new WheelEvent("wheel", _0x56a83a));
+    if (local6 && typeof local6.dispatchEvent === "function") {
+      local6.dispatchEvent(new WheelEvent("wheel", obj));
     }
-    const _0x309a72 = {
+    const obj2 = {
       key: "PageDown",
       code: "PageDown",
       keyCode: 34,
@@ -312,153 +312,153 @@ async function scrollEntityMutualContainer(_0x58c25f, _0x3a7e48, _0x39a53e = nul
       bubbles: true,
       cancelable: true
     };
-    _0x564dce.dispatchEvent(new KeyboardEvent("keydown", _0x309a72));
-    _0x564dce.dispatchEvent(new KeyboardEvent("keyup", _0x309a72));
-  } catch (_0x286cb0) {}
-  const _0x23e0a0 = findEntityRelationModalContainer();
-  if (_0x23e0a0 && _0x23e0a0 !== _0x564dce) {
+    local.dispatchEvent(new KeyboardEvent("keydown", obj2));
+    local.dispatchEvent(new KeyboardEvent("keyup", obj2));
+  } catch (error) {}
+  const result5 = findEntityRelationModalContainer();
+  if (result5 && result5 !== local) {
     try {
-      const _0x3faa2a = Math.max(0, (_0x23e0a0.scrollHeight || 0) - (_0x23e0a0.clientHeight || 0));
-      if (_0x3faa2a > 40) {
-        if ((_0x23e0a0.scrollTop || 0) >= _0x3faa2a - 24) {
-          _0x23e0a0.scrollTop = Math.max(0, _0x3faa2a - 240);
+      const result = Math.max(0, (result5.scrollHeight || 0) - (result5.clientHeight || 0));
+      if (result > 40) {
+        if ((result5.scrollTop || 0) >= result - 24) {
+          result5.scrollTop = Math.max(0, result - 240);
         }
-        _0x23e0a0.scrollTop = _0x3faa2a + 40;
-        _0x23e0a0.dispatchEvent(new WheelEvent("wheel", _0x56a83a));
-        _0x23e0a0.dispatchEvent(new Event("scroll", {
+        result5.scrollTop = result + 40;
+        result5.dispatchEvent(new WheelEvent("wheel", obj));
+        result5.dispatchEvent(new Event("scroll", {
           bubbles: true
         }));
       }
-    } catch (_0x55ec79) {}
+    } catch (error) {}
   }
-  if (typeof _0x3a7e48 === "function") {
-    await _0x3a7e48(1600 + Math.random() * 800);
+  if (typeof arg2 === "function") {
+    await arg2(1600 + Math.random() * 800);
   }
-  const _0x4ede02 = _0x564dce.scrollTop || 0;
-  const _0x5ab458 = _0x564dce.scrollHeight || 0;
-  const _0x531199 = _0x564dce.querySelectorAll("a[href*=\"/user/\"]").length;
-  const _0xab60ea = _0x4ede02 > _0x4b9023 + 20 || _0x5ab458 > _0x43866a + 40 || _0x531199 > _0x37241b;
-  const _0x3ab28d = _0x4ede02 >= Math.max(0, _0x5ab458 - (_0x564dce.clientHeight || _0xc70ede)) - 24;
-  if (typeof _0x39a53e === "function") {
-    _0x39a53e("[调试] 互关列表滚动: scrollTop " + _0x4b9023 + "->" + _0x4ede02 + ", scrollH " + _0x43866a + "->" + _0x5ab458 + ", " + ("用户链 " + _0x37241b + "->" + _0x531199) + (_0x1fb110 ? "（底部回弹）" : "") + (_0xab60ea ? "" : "（本轮无明显位移，可能已到底或容器未命中）"));
+  const local7 = local.scrollTop || 0;
+  const local8 = local.scrollHeight || 0;
+  const value2 = local.querySelectorAll("a[href*=\"/user/\"]").length;
+  const local9 = local7 > local2 + 20 || local8 > local3 + 40 || value2 > value;
+  const value3 = local7 >= Math.max(0, local8 - (local.clientHeight || local4)) - 24;
+  if (typeof arg3 === "function") {
+    arg3("[调试] 互关列表滚动: scrollTop " + local2 + "->" + local7 + ", scrollH " + local3 + "->" + local8 + ", " + ("用户链 " + value + "->" + value2) + (local5 ? "（底部回弹）" : "") + (local9 ? "" : "（本轮无明显位移，可能已到底或容器未命中）"));
   }
   return {
-    moved: _0xab60ea,
-    atBottom: _0x3ab28d,
-    beforeTop: _0x4b9023,
-    afterTop: _0x4ede02,
-    beforeLinks: _0x37241b,
-    afterLinks: _0x531199
+    moved: local9,
+    atBottom: value3,
+    beforeTop: local2,
+    afterTop: local7,
+    beforeLinks: value,
+    afterLinks: value2
   };
 }
-function findEntitySelfProfileRelationEntry(_0x579688 = "fans") {
-  const _0x369d42 = _0x579688 === "following";
-  const _0x5bcb98 = _0x19b642 => {
-    if (!_0x19b642) {
+function findEntitySelfProfileRelationEntry(text = "fans") {
+  const value = text === "following";
+  const local = arg1 => {
+    if (!arg1) {
       return false;
     }
-    return !!_0x19b642.closest?.("header, #douyin-header, [class*=\"userMenuPanelShadowAnimation\"]");
+    return !!arg1.closest?.("header, #douyin-header, [class*=\"userMenuPanelShadowAnimation\"]");
   };
-  const _0x58c897 = _0x369d42 ? "[data-e2e=\"user-info-follow\"], [data-e2e*=\"user-follow\"], [data-e2e*=\"user-following\"], [data-e2e*=\"following-count\"]" : "[data-e2e=\"user-info-fans\"], [data-e2e*=\"user-fans\"], [data-e2e*=\"user-follower\"]";
-  const _0xb61ac = Array.from(document.querySelectorAll(_0x58c897)).filter(_0x313e8d => {
-    if (!isVisibleElement(_0x313e8d) || _0x5bcb98(_0x313e8d)) {
+  const value2 = value ? "[data-e2e=\"user-info-follow\"], [data-e2e*=\"user-follow\"], [data-e2e*=\"user-following\"], [data-e2e*=\"following-count\"]" : "[data-e2e=\"user-info-fans\"], [data-e2e*=\"user-fans\"], [data-e2e*=\"user-follower\"]";
+  const result = Array.from(document.querySelectorAll(value2)).filter(arg1 => {
+    if (!isVisibleElement(arg1) || local(arg1)) {
       return false;
     }
-    const _0x3f1abf = String(_0x313e8d.getAttribute?.("data-e2e") || "");
-    if (_0x369d42 && /follow-btn|follow-button/i.test(_0x3f1abf)) {
+    const result = String(arg1.getAttribute?.("data-e2e") || "");
+    if (value && /follow-btn|follow-button/i.test(result)) {
       return false;
     }
     return true;
   });
-  if (_0xb61ac.length > 0) {
-    return _0xb61ac[0];
+  if (result.length > 0) {
+    return result[0];
   }
-  const _0x1784ea = _0x369d42 ? ["[data-e2e*=\"user-info-follow\"]", "[data-e2e*=\"user-following\"]", "[data-e2e*=\"following-count\"]", "a[href*=\"following\"]", "button", "[role=\"button\"]", "a", "div", "span", "p"] : ["[data-e2e*=\"user-info-fans\"]", "[data-e2e*=\"user-fans\"]", "[data-e2e*=\"user-follower\"]", "[data-e2e*=\"follower-count\"]", "a[href*=\"follower\"]", "button", "[role=\"button\"]", "a", "div", "span", "p"];
-  const _0x13ebd9 = Array.from(document.querySelectorAll(_0x1784ea.join(","))).filter(_0x28f874 => {
-    if (!isVisibleElement(_0x28f874)) {
+  const value3 = value ? ["[data-e2e*=\"user-info-follow\"]", "[data-e2e*=\"user-following\"]", "[data-e2e*=\"following-count\"]", "a[href*=\"following\"]", "button", "[role=\"button\"]", "a", "div", "span", "p"] : ["[data-e2e*=\"user-info-fans\"]", "[data-e2e*=\"user-fans\"]", "[data-e2e*=\"user-follower\"]", "[data-e2e*=\"follower-count\"]", "a[href*=\"follower\"]", "button", "[role=\"button\"]", "a", "div", "span", "p"];
+  const result2 = Array.from(document.querySelectorAll(value3.join(","))).filter(arg1 => {
+    if (!isVisibleElement(arg1)) {
       return false;
     }
-    if (_0x5bcb98(_0x28f874)) {
+    if (local(arg1)) {
       return false;
     }
-    const _0x297b1e = String(_0x28f874.innerText || _0x28f874.textContent || "").replace(/\s+/g, " ").trim();
-    if (!_0x297b1e || _0x297b1e.length > 24) {
+    const result = String(arg1.innerText || arg1.textContent || "").replace(/\s+/g, " ").trim();
+    if (!result || result.length > 24) {
       return false;
     }
-    if (_0x369d42) {
-      if (/粉丝|粉丝团|回关|已关注|相互关注|互相关注|关注Ta|\+关注/.test(_0x297b1e)) {
+    if (value) {
+      if (/粉丝|粉丝团|回关|已关注|相互关注|互相关注|关注Ta|\+关注/.test(result)) {
         return false;
       }
-      if (/follow-btn|follow-button/i.test(String(_0x28f874.getAttribute?.("data-e2e") || ""))) {
+      if (/follow-btn|follow-button/i.test(String(arg1.getAttribute?.("data-e2e") || ""))) {
         return false;
       }
-      return /关注/.test(_0x297b1e);
+      return /关注/.test(result);
     }
-    return /粉丝/.test(_0x297b1e) && !/粉丝团|粉丝群|你的粉丝/.test(_0x297b1e);
-  }).sort((_0x111e36, _0x270610) => {
-    const _0x22c83a = _0x55c070 => {
-      const _0x483ce1 = String(_0x55c070.innerText || _0x55c070.textContent || "").replace(/\s+/g, " ").trim();
-      let _0x199118 = 0;
-      const _0xa4e1af = String(_0x55c070.getAttribute?.("data-e2e") || "");
-      const _0x591c1c = String(_0x55c070.getAttribute?.("href") || "");
-      if (_0x369d42) {
-        if (/user-info-follow|user-following|following-count/i.test(_0xa4e1af)) {
-          _0x199118 += 50;
+    return /粉丝/.test(result) && !/粉丝团|粉丝群|你的粉丝/.test(result);
+  }).sort((arg1, arg2) => {
+    const local = arg1 => {
+      const result = String(arg1.innerText || arg1.textContent || "").replace(/\s+/g, " ").trim();
+      let num = 0;
+      const result2 = String(arg1.getAttribute?.("data-e2e") || "");
+      const result3 = String(arg1.getAttribute?.("href") || "");
+      if (value) {
+        if (/user-info-follow|user-following|following-count/i.test(result2)) {
+          num += 50;
         }
-        if (/following/i.test(_0x591c1c) && !/follower/i.test(_0x591c1c)) {
-          _0x199118 += 25;
+        if (/following/i.test(result3) && !/follower/i.test(result3)) {
+          num += 25;
         }
-        if (/^关注\s*\d+(?:\.\d+)?[万wW]?$/.test(_0x483ce1)) {
-          _0x199118 += 20;
+        if (/^关注\s*\d+(?:\.\d+)?[万wW]?$/.test(result)) {
+          num += 20;
         }
-        if (/^\d+(?:\.\d+)?[万wW]?关注$/.test(_0x483ce1)) {
-          _0x199118 += 20;
+        if (/^\d+(?:\.\d+)?[万wW]?关注$/.test(result)) {
+          num += 20;
         }
-        if (_0x483ce1 === "关注") {
-          _0x199118 += 12;
+        if (result === "关注") {
+          num += 12;
         }
       } else {
-        if (/user-info-fans|user-fans/i.test(_0xa4e1af)) {
-          _0x199118 += 50;
+        if (/user-info-fans|user-fans/i.test(result2)) {
+          num += 50;
         }
-        if (/user-follower|follower-count/i.test(_0xa4e1af)) {
-          _0x199118 += 30;
+        if (/user-follower|follower-count/i.test(result2)) {
+          num += 30;
         }
-        if (/follower/i.test(_0x591c1c)) {
-          _0x199118 += 20;
+        if (/follower/i.test(result3)) {
+          num += 20;
         }
-        if (/^粉丝\s*\d+(?:\.\d+)?[万wW]?$/.test(_0x483ce1)) {
-          _0x199118 += 15;
+        if (/^粉丝\s*\d+(?:\.\d+)?[万wW]?$/.test(result)) {
+          num += 15;
         }
-        if (/^\d+(?:\.\d+)?[万wW]?粉丝$/.test(_0x483ce1)) {
-          _0x199118 += 15;
+        if (/^\d+(?:\.\d+)?[万wW]?粉丝$/.test(result)) {
+          num += 15;
         }
-        if (_0x483ce1 === "粉丝") {
-          _0x199118 += 10;
+        if (result === "粉丝") {
+          num += 10;
         }
       }
-      if (_0x55c070.matches?.("a, button, [role=\"button\"]")) {
-        _0x199118 += 10;
+      if (arg1.matches?.("a, button, [role=\"button\"]")) {
+        num += 10;
       }
-      _0x199118 -= Math.min(_0x483ce1.length, 20) / 20;
-      return _0x199118;
+      num -= Math.min(result.length, 20) / 20;
+      return num;
     };
-    return _0x22c83a(_0x270610) - _0x22c83a(_0x111e36);
+    return local(arg2) - local(arg1);
   });
-  const _0x182e02 = _0x13ebd9[0] || null;
-  if (!_0x182e02) {
+  const local2 = result2[0] || null;
+  if (!local2) {
     return null;
   }
-  if (_0x182e02.getAttribute?.("data-e2e") || _0x182e02.matches?.("a, button, [role=\"button\"], [class*=\"tfxaETAB\"]")) {
-    return _0x182e02;
+  if (local2.getAttribute?.("data-e2e") || local2.matches?.("a, button, [role=\"button\"], [class*=\"tfxaETAB\"]")) {
+    return local2;
   }
-  const _0x258b02 = _0x182e02.closest?.("a, button, [role=\"button\"], [data-e2e], div[class*=\"tfxaETAB\"]");
-  if (_0x258b02 && isVisibleElement(_0x258b02) && !_0x5bcb98(_0x258b02)) {
-    if (!_0x258b02.matches?.("a[href*=\"/user/self\"]") || _0x258b02.getAttribute?.("data-e2e")) {
-      return _0x258b02;
+  const local3 = local2.closest?.("a, button, [role=\"button\"], [data-e2e], div[class*=\"tfxaETAB\"]");
+  if (local3 && isVisibleElement(local3) && !local(local3)) {
+    if (!local3.matches?.("a[href*=\"/user/self\"]") || local3.getAttribute?.("data-e2e")) {
+      return local3;
     }
   }
-  return _0x182e02;
+  return local2;
 }
 function findEntitySelfFansEntry() {
   return findEntitySelfProfileRelationEntry("fans");
@@ -466,8 +466,8 @@ function findEntitySelfFansEntry() {
 function findEntitySelfFollowingEntry() {
   return findEntitySelfProfileRelationEntry("following");
 }
-function resolveEntityRelationProfileEntryKind(_0x2bc7b3) {
-  if (_0x2bc7b3 === "following") {
+function resolveEntityRelationProfileEntryKind(arg1) {
+  if (arg1 === "following") {
     return "following";
   } else {
     return "fans";
