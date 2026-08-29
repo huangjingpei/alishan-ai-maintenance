@@ -2,128 +2,128 @@
 
 const WebSocket = require("ws");
 function createPluginWebSocket({
-  getMainWindow: _0x564f2a,
-  getActiveSettings: _0x27dc6b,
-  getActiveAutomationSettings: _0x2eec3a,
-  store: _0x31a0f9,
-  setWss: _0x341553,
-  appendHistory: _0x1d5546,
-  trackInteractions: _0x1e61ca,
-  addToReportQueue: _0x43a3a2,
-  reconcileActiveSettings: _0x202429
+  getMainWindow: getMainWindow,
+  getActiveSettings: getActiveSettings,
+  getActiveAutomationSettings: getActiveAutomationSettings,
+  store: store,
+  setWss: setWss,
+  appendHistory: appendHistory,
+  trackInteractions: trackInteractions,
+  addToReportQueue: addToReportQueue,
+  reconcileActiveSettings: reconcileActiveSettings
 }) {
-  function _0x496b0f() {
+  function startWSServer() {
     try {
-      const _0x44640e = new WebSocket.Server({
+      const local = new WebSocket.Server({
         port: 12345
       });
-      _0x341553(_0x44640e);
+      setWss(local);
       console.log("[Main] WebSocket 辅助服务已启动 (内置兼容模式)");
-      _0x44640e.on("error", _0x535052 => {
-        console.error("[Main] WebSocket 服务启动失败:", _0x535052.message);
-        if (_0x535052.code === "EADDRINUSE") {
+      local.on("error", arg1 => {
+        console.error("[Main] WebSocket 服务启动失败:", arg1.message);
+        if (arg1.code === "EADDRINUSE") {
           console.error("[Main] 错误：12345 端口已被占用，请关闭冲突程序后重试");
         }
       });
-      _0x44640e.on("connection", _0x3537cc => {
+      local.on("connection", arg1 => {
         console.log("[Main] 浏览器插件已连接");
-        const _0x249ba3 = _0x564f2a();
-        if (_0x249ba3) {
-          _0x249ba3.webContents.send("plugin-status", {
+        const result = getMainWindow();
+        if (result) {
+          result.webContents.send("plugin-status", {
             connected: true
           });
         }
-        const _0x5e2906 = _0x27dc6b();
-        if (_0x5e2906) {
+        const result2 = getActiveSettings();
+        if (result2) {
           console.log("[Main] 同步当前活跃任务给新连接的插件 (静默同步)");
-          _0x3537cc.send(JSON.stringify({
+          arg1.send(JSON.stringify({
             type: "START_TASK",
-            payload: _0x5e2906,
+            payload: result2,
             isSync: true
           }));
         } else {
-          _0x3537cc.send(JSON.stringify({
+          arg1.send(JSON.stringify({
             type: "STOP_TASK",
             payload: {
               silent: true
             }
           }));
         }
-        _0x3537cc.on("close", () => {
+        arg1.on("close", () => {
           console.log("[Main] 浏览器插件连接已断开");
-          const _0x534d8f = Array.from(_0x44640e.clients).some(_0x4feabc => _0x4feabc.readyState === 1);
-          const _0x455eb6 = _0x564f2a();
-          if (_0x455eb6) {
-            _0x455eb6.webContents.send("plugin-status", {
-              connected: _0x534d8f
+          const result = Array.from(local.clients).some(arg1 => arg1.readyState === 1);
+          const result2 = getMainWindow();
+          if (result2) {
+            result2.webContents.send("plugin-status", {
+              connected: result
             });
-            if (!_0x534d8f) {
-              _0x455eb6.webContents.send("new-status", "所有浏览器插件已断开连接");
+            if (!result) {
+              result2.webContents.send("new-status", "所有浏览器插件已断开连接");
             }
           }
         });
-        _0x3537cc.on("message", _0x570965 => {
+        arg1.on("message", arg1 => {
           try {
-            const _0x5a0cdd = JSON.parse(_0x570965);
-            if (_0x2eec3a().length === 0 && (_0x5a0cdd.type === "DATA" || _0x5a0cdd.type === "STATUS")) {
-              console.log("[Main] 拒绝接收插件消息（当前无活跃任务）: Type=" + _0x5a0cdd.type);
+            const result = JSON.parse(arg1);
+            if (getActiveAutomationSettings().length === 0 && (result.type === "DATA" || result.type === "STATUS")) {
+              console.log("[Main] 拒绝接收插件消息（当前无活跃任务）: Type=" + result.type);
               return;
             }
-            const _0x10010f = _0x564f2a();
-            if (_0x5a0cdd.type === "DATA" || _0x5a0cdd.type === "STATUS") {
-              if (_0x10010f) {
-                _0x10010f.webContents.send(_0x5a0cdd.type === "DATA" ? "new-data" : "new-status", _0x5a0cdd.payload);
+            const result2 = getMainWindow();
+            if (result.type === "DATA" || result.type === "STATUS") {
+              if (result2) {
+                result2.webContents.send(result.type === "DATA" ? "new-data" : "new-status", result.payload);
               }
-            } else if (_0x5a0cdd.type === "VIDEO_PROCESSED") {
-              const _0x5591f2 = _0x5a0cdd.payload;
-              const _0x1a7e67 = require("./processedVideosAccess");
-              if (!_0x1a7e67.findByUrl(_0x31a0f9, _0x5591f2.url)) {
-                _0x1a7e67.upsert(_0x31a0f9, {
-                  url: _0x5591f2.url,
-                  title: _0x5591f2.title,
+            } else if (result.type === "VIDEO_PROCESSED") {
+              const value = result.payload;
+              const processedVideosAccess = require("./processedVideosAccess");
+              if (!processedVideosAccess.findByUrl(store, value.url)) {
+                processedVideosAccess.upsert(store, {
+                  url: value.url,
+                  title: value.title,
                   timestamp: Date.now(),
                   recordType: "history_video"
                 });
-                const _0x86fb7f = _0x1a7e67.listAll(_0x31a0f9);
-                const _0x43e083 = _0x86fb7f.map(_0x575d81 => _0x575d81.url);
-                const _0x425054 = JSON.stringify({
+                const result = processedVideosAccess.listAll(store);
+                const result2 = result.map(arg1 => arg1.url);
+                const result3 = JSON.stringify({
                   type: "UPDATE_MEMORY",
-                  payload: _0x43e083
+                  payload: result2
                 });
-                _0x44640e.clients.forEach(_0x9b9c53 => {
-                  if (_0x9b9c53.readyState === WebSocket.OPEN) {
-                    _0x9b9c53.send(_0x425054);
+                local.clients.forEach(arg1 => {
+                  if (arg1.readyState === WebSocket.OPEN) {
+                    arg1.send(result3);
                   }
                 });
               }
-            } else if (_0x5a0cdd.type === "TASK_COMPLETED") {
+            } else if (result.type === "TASK_COMPLETED") {
               console.log("[Main] 收到任务完成信号。");
-              _0x202429();
-              if (_0x10010f) {
-                _0x10010f.webContents.send("new-status", "任务已圆满完成 - 自动停止");
-                _0x10010f.webContents.send("task-stopped");
+              reconcileActiveSettings();
+              if (result2) {
+                result2.webContents.send("new-status", "任务已圆满完成 - 自动停止");
+                result2.webContents.send("task-stopped");
               }
             }
-            if (_0x5a0cdd.type === "DATA" && _0x5a0cdd.payload) {
-              const _0xdd1758 = Array.isArray(_0x5a0cdd.payload) ? _0x5a0cdd.payload : _0x5a0cdd.payload.items || [];
-              const _0x1c19a2 = _0x27dc6b();
-              const _0x19136f = _0x5a0cdd.taskId || _0x1c19a2?.taskId || "unknown_task";
-              const _0x41f0a4 = _0x5a0cdd.taskName || _0x1c19a2?.taskName || "未命名任务";
-              _0x1d5546(_0xdd1758, _0x19136f, _0x41f0a4);
-              _0x1e61ca(_0xdd1758);
-              _0x43a3a2(_0xdd1758);
+            if (result.type === "DATA" && result.payload) {
+              const value = Array.isArray(result.payload) ? result.payload : result.payload.items || [];
+              const result2 = getActiveSettings();
+              const local = result.taskId || result2?.taskId || "unknown_task";
+              const local2 = result.taskName || result2?.taskName || "未命名任务";
+              appendHistory(value, local, local2);
+              trackInteractions(value);
+              addToReportQueue(value);
             }
-          } catch (_0x23fe25) {
-            console.error("解析插件消息失败", _0x23fe25);
+          } catch (error) {
+            console.error("解析插件消息失败", error);
           }
         });
       });
-    } catch (_0x285f6e) {
-      console.error("[Main] WebSocket Server 创建异常:", _0x285f6e.message);
+    } catch (error) {
+      console.error("[Main] WebSocket Server 创建异常:", error.message);
     }
   }
   return {
-    startWSServer: _0x496b0f
+    startWSServer: startWSServer
   };
 }
 module.exports = {
