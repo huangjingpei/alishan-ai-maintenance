@@ -1,257 +1,257 @@
 'use strict';
 
-function splitSelectorList(_0xdea7c2) {
-  if (Array.isArray(_0xdea7c2)) {
-    return _0xdea7c2.map(_0x2479f6 => String(_0x2479f6 || "").trim()).filter(Boolean);
+function splitSelectorList(arg1) {
+  if (Array.isArray(arg1)) {
+    return arg1.map(arg1 => String(arg1 || "").trim()).filter(Boolean);
   }
-  return String(_0xdea7c2 || "").split(",").map(_0x534036 => _0x534036.trim()).filter(Boolean);
+  return String(arg1 || "").split(",").map(arg1 => arg1.trim()).filter(Boolean);
 }
-function compileOptionalRegex(_0x1b301c, _0x4565c8 = "i") {
-  const _0x2bb4bc = String(_0x1b301c || "").trim();
-  if (!_0x2bb4bc) {
+function compileOptionalRegex(arg1, text = "i") {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return null;
   }
   try {
-    return new RegExp(_0x2bb4bc, _0x4565c8);
-  } catch (_0x266f56) {
+    return new RegExp(result, text);
+  } catch (error) {
     return null;
   }
 }
-function resolveVideoEngagePack(_0x47801a = {}) {
-  if (typeof _0x47801a.getVideoEngagePack === "function") {
+function resolveVideoEngagePack(options = {}) {
+  if (typeof options.getVideoEngagePack === "function") {
     try {
-      const _0x5adde2 = _0x47801a.getVideoEngagePack();
-      if (_0x5adde2 && typeof _0x5adde2 === "object") {
-        return _0x5adde2;
+      const result = options.getVideoEngagePack();
+      if (result && typeof result === "object") {
+        return result;
       }
-    } catch (_0x33a064) {}
+    } catch (error) {}
   }
-  if (_0x47801a.videoEngagePack && typeof _0x47801a.videoEngagePack === "object") {
-    return _0x47801a.videoEngagePack;
+  if (options.videoEngagePack && typeof options.videoEngagePack === "object") {
+    return options.videoEngagePack;
   }
   return null;
 }
-function getVideoEngageSelector(_0x12fa98, _0xf0a986) {
-  const _0x384372 = resolveVideoEngagePack(_0x12fa98);
-  return String(_0x384372?.[_0xf0a986] || "").trim();
+function getVideoEngageSelector(arg1, arg2) {
+  const result = resolveVideoEngagePack(arg1);
+  return String(result?.[arg2] || "").trim();
 }
-function hasVideoEngagePack(_0x25a54c = {}) {
-  const _0xc7dec4 = resolveVideoEngagePack(_0x25a54c);
-  if (!_0xc7dec4) {
+function hasVideoEngagePack(options = {}) {
+  const result = resolveVideoEngagePack(options);
+  if (!result) {
     return false;
   }
-  return splitSelectorList(_0xc7dec4.likeSelectors).length > 0 || splitSelectorList(_0xc7dec4.collectSelectors).length > 0 || splitSelectorList(_0xc7dec4.shareSelectors).length > 0;
+  return splitSelectorList(result.likeSelectors).length > 0 || splitSelectorList(result.collectSelectors).length > 0 || splitSelectorList(result.shareSelectors).length > 0;
 }
-function pickVisibleActionButton(_0x8c0bf2, {
-  isVisibleElement: _0x11fe60,
-  scope: _0x404adc,
-  matchText: _0x16ae51,
-  rejectText: _0x7b3d49,
-  commentListExclude: _0x31ef6d
+function pickVisibleActionButton(arg1, {
+  isVisibleElement: isVisibleElement,
+  scope: scope,
+  matchText: matchText,
+  rejectText: rejectText,
+  commentListExclude: commentListExclude
 } = {}) {
-  const _0x1d3384 = _0x404adc || document;
-  const _0x10e888 = [];
-  for (const _0x556d3f of _0x8c0bf2 || []) {
+  const local = scope || document;
+  const list = [];
+  for (const item of arg1 || []) {
     try {
-      _0x10e888.push(...Array.from(_0x1d3384.querySelectorAll(_0x556d3f)));
-    } catch (_0xf6b4f5) {}
+      list.push(...Array.from(local.querySelectorAll(item)));
+    } catch (error) {}
   }
-  const _0xb9eaa2 = String(_0x31ef6d || "").trim();
-  const _0x274fd0 = _0x10e888.filter(_0x1efc28 => {
-    if (!_0x1efc28 || _0x11fe60 && !_0x11fe60(_0x1efc28)) {
+  const result = String(commentListExclude || "").trim();
+  const result2 = list.filter(arg12 => {
+    if (!arg12 || isVisibleElement && !isVisibleElement(arg12)) {
       return false;
     }
     try {
-      if (_0xb9eaa2 && _0x1efc28.closest?.(_0xb9eaa2)) {
+      if (result && arg12.closest?.(result)) {
         return false;
       }
-    } catch (_0x56882c) {}
-    const _0x3498b3 = [_0x1efc28.getAttribute?.("aria-label") || "", _0x1efc28.getAttribute?.("title") || "", _0x1efc28.getAttribute?.("data-e2e") || "", _0x1efc28.innerText || ""].join(" ");
-    if (_0x7b3d49 && _0x7b3d49.test(_0x3498b3)) {
+    } catch (error) {}
+    const result2 = [arg12.getAttribute?.("aria-label") || "", arg12.getAttribute?.("title") || "", arg12.getAttribute?.("data-e2e") || "", arg12.innerText || ""].join(" ");
+    if (rejectText && rejectText.test(result2)) {
       return false;
     }
-    if (_0x16ae51 && !_0x16ae51.test(_0x3498b3) && !(_0x8c0bf2 || []).some(_0x4f0677 => {
+    if (matchText && !matchText.test(result2) && !(arg1 || []).some(arg1 => {
       try {
-        return _0x1efc28.matches?.(_0x4f0677);
-      } catch (_0xe12b4d) {
+        return arg12.matches?.(arg1);
+      } catch (error) {
         return false;
       }
     })) {
       return false;
     }
-    const _0x50c0ec = _0x1efc28.getBoundingClientRect?.();
-    return _0x50c0ec && _0x50c0ec.width > 0 && _0x50c0ec.height > 0;
-  }).sort((_0x2b7589, _0x1d9c35) => {
-    const _0x383aeb = _0x2b7589.getBoundingClientRect();
-    const _0x5021d2 = _0x1d9c35.getBoundingClientRect();
-    return _0x5021d2.left - _0x383aeb.left || _0x383aeb.top - _0x5021d2.top;
+    const local = arg12.getBoundingClientRect?.();
+    return local && local.width > 0 && local.height > 0;
+  }).sort((arg1, arg2) => {
+    const result = arg1.getBoundingClientRect();
+    const result2 = arg2.getBoundingClientRect();
+    return result2.left - result.left || result.top - result2.top;
   });
-  const _0x13865c = _0x274fd0[0];
-  if (!_0x13865c) {
+  const value = result2[0];
+  if (!value) {
     return null;
   }
-  return _0x13865c.closest?.("div[role=\"button\"], button, [role=\"button\"]") || _0x13865c;
+  return value.closest?.("div[role=\"button\"], button, [role=\"button\"]") || value;
 }
-function looksAlreadyActive(_0x50e8dd, _0x533dfe = null) {
-  if (!_0x50e8dd) {
+function looksAlreadyActive(arg1, arg2 = null) {
+  if (!arg1) {
     return false;
   }
   try {
-    if (_0x50e8dd.getAttribute?.("aria-pressed") === "true") {
+    if (arg1.getAttribute?.("aria-pressed") === "true") {
       return true;
     }
-    if (_0x50e8dd.getAttribute?.("aria-checked") === "true") {
+    if (arg1.getAttribute?.("aria-checked") === "true") {
       return true;
     }
-    const _0x420691 = (_0x50e8dd.className || "") + " " + (_0x50e8dd.parentElement?.className || "");
-    const _0x168613 = compileOptionalRegex(_0x533dfe?.activeClassPattern);
-    if (_0x168613 && _0x168613.test(_0x420691)) {
+    const value = (arg1.className || "") + " " + (arg1.parentElement?.className || "");
+    const result = compileOptionalRegex(arg2?.activeClassPattern);
+    if (result && result.test(value)) {
       return true;
     }
-    const _0x3c0303 = (_0x50e8dd.getAttribute?.("aria-label") || "") + " " + (_0x50e8dd.innerText || "");
-    const _0x5e5899 = Array.isArray(_0x533dfe?.activeStateHints) ? _0x533dfe.activeStateHints.map(_0x536ad0 => String(_0x536ad0 || "").trim()).filter(Boolean) : [];
-    if (_0x5e5899.length && _0x5e5899.some(_0xa3047d => _0x3c0303.includes(_0xa3047d))) {
+    const value2 = (arg1.getAttribute?.("aria-label") || "") + " " + (arg1.innerText || "");
+    const value3 = Array.isArray(arg2?.activeStateHints) ? arg2.activeStateHints.map(arg1 => String(arg1 || "").trim()).filter(Boolean) : [];
+    if (value3.length && value3.some(arg1 => value2.includes(arg1))) {
       return true;
     }
-  } catch (_0x363572) {}
+  } catch (error) {}
   return false;
 }
-async function clickVisibleSideActionButton(_0x15cd91, _0xae9cc3, _0x4d1641, _0x238049, _0x54779f = null) {
+async function clickVisibleSideActionButton(arg1, arg2, arg3, arg4, arg5 = null) {
   const {
-    simulateHumanClick: _0x97af43,
-    randomDelay: _0x3fec15,
-    reportTraceLog: _0x4abd0d
-  } = _0x4d1641;
-  if (!_0x15cd91 || typeof _0x97af43 !== "function") {
-    _0x4abd0d?.("未找到" + _0x238049 + "按钮", null, "warning");
+    simulateHumanClick: simulateHumanClick,
+    randomDelay: randomDelay,
+    reportTraceLog: reportTraceLog
+  } = arg3;
+  if (!arg1 || typeof simulateHumanClick !== "function") {
+    reportTraceLog?.("未找到" + arg4 + "按钮", null, "warning");
     return false;
   }
-  if (looksAlreadyActive(_0x15cd91, _0x54779f)) {
-    _0x4abd0d?.(_0x238049 + "已是选中状态，跳过重复点击");
+  if (looksAlreadyActive(arg1, arg5)) {
+    reportTraceLog?.(arg4 + "已是选中状态，跳过重复点击");
     return true;
   }
-  await _0x97af43(_0x15cd91, _0xae9cc3);
-  await _0x3fec15?.(400, 900, _0xae9cc3, _0x238049 + "后停顿");
+  await simulateHumanClick(arg1, arg2);
+  await randomDelay?.(400, 900, arg2, arg4 + "后停顿");
   return true;
 }
-function resolveVideoSideActionScope(_0x433960 = {}) {
+function resolveVideoSideActionScope(options = {}) {
   const {
-    resolveDouyinVideoDetailModal: _0x43882e,
-    getDouyinFeedScope: _0x5f4928
-  } = _0x433960;
+    resolveDouyinVideoDetailModal: resolveDouyinVideoDetailModal,
+    getDouyinFeedScope: getDouyinFeedScope
+  } = options;
   try {
-    const _0x23c036 = _0x43882e?.({
+    const local = resolveDouyinVideoDetailModal?.({
       includeFeed: false
     });
-    if (_0x23c036) {
-      return _0x23c036;
+    if (local) {
+      return local;
     }
-  } catch (_0x14fd44) {}
+  } catch (error) {}
   try {
-    const _0x5eb9b8 = _0x5f4928?.();
-    if (_0x5eb9b8) {
-      return _0x5eb9b8;
+    const local = getDouyinFeedScope?.();
+    if (local) {
+      return local;
     }
-  } catch (_0x53b59c) {}
+  } catch (error) {}
   return document;
 }
-async function likeCurrentVideoSideAction(_0x3b5dea, _0x137bec = {}) {
-  const _0x35c7bf = resolveVideoEngagePack(_0x137bec);
-  const _0x1aa47d = splitSelectorList(_0x35c7bf?.likeSelectors);
-  if (!_0x1aa47d.length) {
-    _0x137bec.reportTraceLog?.("videoEngageV2 未就绪或缺少 likeSelectors，跳过点赞", null, "warning");
+async function likeCurrentVideoSideAction(arg1, options = {}) {
+  const result = resolveVideoEngagePack(options);
+  const result2 = splitSelectorList(result?.likeSelectors);
+  if (!result2.length) {
+    options.reportTraceLog?.("videoEngageV2 未就绪或缺少 likeSelectors，跳过点赞", null, "warning");
     return false;
   }
-  const _0x2b3aca = resolveVideoSideActionScope(_0x137bec);
-  const _0x2ff94d = pickVisibleActionButton(_0x1aa47d, {
-    isVisibleElement: _0x137bec.isVisibleElement,
-    scope: _0x2b3aca,
-    rejectText: compileOptionalRegex(_0x35c7bf.likeRejectPattern),
-    commentListExclude: _0x35c7bf.commentListExclude
+  const result3 = resolveVideoSideActionScope(options);
+  const result4 = pickVisibleActionButton(result2, {
+    isVisibleElement: options.isVisibleElement,
+    scope: result3,
+    rejectText: compileOptionalRegex(result.likeRejectPattern),
+    commentListExclude: result.commentListExclude
   });
-  return clickVisibleSideActionButton(_0x2ff94d, _0x3b5dea, _0x137bec, "点赞", _0x35c7bf);
+  return clickVisibleSideActionButton(result4, arg1, options, "点赞", result);
 }
-async function collectCurrentVideoSideAction(_0x20e2a1, _0x375e33 = {}) {
-  const _0x22ee1c = resolveVideoEngagePack(_0x375e33);
-  const _0x41941d = splitSelectorList(_0x22ee1c?.collectSelectors);
-  if (!_0x41941d.length) {
-    _0x375e33.reportTraceLog?.("videoEngageV2 未就绪或缺少 collectSelectors，跳过收藏", null, "warning");
+async function collectCurrentVideoSideAction(arg1, options = {}) {
+  const result = resolveVideoEngagePack(options);
+  const result2 = splitSelectorList(result?.collectSelectors);
+  if (!result2.length) {
+    options.reportTraceLog?.("videoEngageV2 未就绪或缺少 collectSelectors，跳过收藏", null, "warning");
     return false;
   }
-  const _0x558f8b = resolveVideoSideActionScope(_0x375e33);
-  const _0x5c8456 = pickVisibleActionButton(_0x41941d, {
-    isVisibleElement: _0x375e33.isVisibleElement,
-    scope: _0x558f8b,
-    matchText: compileOptionalRegex(_0x22ee1c.collectMatchPattern),
-    rejectText: compileOptionalRegex(_0x22ee1c.collectRejectPattern),
-    commentListExclude: _0x22ee1c.commentListExclude
+  const result3 = resolveVideoSideActionScope(options);
+  const result4 = pickVisibleActionButton(result2, {
+    isVisibleElement: options.isVisibleElement,
+    scope: result3,
+    matchText: compileOptionalRegex(result.collectMatchPattern),
+    rejectText: compileOptionalRegex(result.collectRejectPattern),
+    commentListExclude: result.commentListExclude
   });
-  return clickVisibleSideActionButton(_0x5c8456, _0x20e2a1, _0x375e33, "收藏", _0x22ee1c);
+  return clickVisibleSideActionButton(result4, arg1, options, "收藏", result);
 }
-async function findShareSideActionButton(_0x11ba12, _0x18319b = {}) {
-  const _0x1c9985 = resolveVideoEngagePack(_0x18319b);
-  const _0xa6042c = splitSelectorList(_0x1c9985?.shareSelectors);
-  if (!_0xa6042c.length) {
-    _0x18319b.reportTraceLog?.("videoEngageV2 未就绪或缺少 shareSelectors，跳过转发", null, "warning");
+async function findShareSideActionButton(arg1, options = {}) {
+  const result = resolveVideoEngagePack(options);
+  const result2 = splitSelectorList(result?.shareSelectors);
+  if (!result2.length) {
+    options.reportTraceLog?.("videoEngageV2 未就绪或缺少 shareSelectors，跳过转发", null, "warning");
     return null;
   }
-  const _0x164661 = _0x18319b.getDouyinFeedScope?.() || resolveVideoSideActionScope(_0x18319b);
-  return pickVisibleActionButton(_0xa6042c, {
-    isVisibleElement: _0x18319b.isVisibleElement,
-    scope: _0x164661,
-    matchText: compileOptionalRegex(_0x1c9985.shareMatchPattern),
-    rejectText: compileOptionalRegex(_0x1c9985.shareRejectPattern),
-    commentListExclude: _0x1c9985.commentListExclude
+  const local = options.getDouyinFeedScope?.() || resolveVideoSideActionScope(options);
+  return pickVisibleActionButton(result2, {
+    isVisibleElement: options.isVisibleElement,
+    scope: local,
+    matchText: compileOptionalRegex(result.shareMatchPattern),
+    rejectText: compileOptionalRegex(result.shareRejectPattern),
+    commentListExclude: result.commentListExclude
   });
 }
-function findSharePanelCopyLinkButton(_0x466cb4, _0x1fe756 = null) {
-  const _0x5b455c = Array.isArray(_0x1fe756?.copyLinkExactTexts) ? _0x1fe756.copyLinkExactTexts.map(_0x2c4144 => String(_0x2c4144 || "").trim()).filter(Boolean) : [];
-  const _0x3fbae1 = compileOptionalRegex(_0x1fe756?.copyLinkRejectPattern);
-  if (!_0x5b455c.length) {
+function findSharePanelCopyLinkButton(arg1, arg2 = null) {
+  const value = Array.isArray(arg2?.copyLinkExactTexts) ? arg2.copyLinkExactTexts.map(arg1 => String(arg1 || "").trim()).filter(Boolean) : [];
+  const result = compileOptionalRegex(arg2?.copyLinkRejectPattern);
+  if (!value.length) {
     return null;
   }
-  const _0x516b0c = Array.from(document.querySelectorAll("button, div, span, a, [role=\"button\"], li"));
-  const _0x1d98d3 = [];
-  for (const _0x578b5c of _0x516b0c) {
-    if (!_0x578b5c || _0x466cb4 && !_0x466cb4(_0x578b5c)) {
+  const result2 = Array.from(document.querySelectorAll("button, div, span, a, [role=\"button\"], li"));
+  const list = [];
+  for (const item of result2) {
+    if (!item || arg1 && !arg1(item)) {
       continue;
     }
-    const _0x47a4ab = (_0x578b5c.innerText || _0x578b5c.textContent || "") + " " + (_0x578b5c.getAttribute?.("aria-label") || "");
-    const _0x7fd07 = _0x47a4ab.replace(/\s+/g, "");
-    if (!_0x5b455c.some(_0x24be19 => _0x7fd07.includes(String(_0x24be19).replace(/\s+/g, "")))) {
+    const value2 = (item.innerText || item.textContent || "") + " " + (item.getAttribute?.("aria-label") || "");
+    const result2 = value2.replace(/\s+/g, "");
+    if (!value.some(arg1 => result2.includes(String(arg1).replace(/\s+/g, "")))) {
       continue;
     }
-    if (_0x3fbae1 && _0x3fbae1.test(_0x7fd07)) {
+    if (result && result.test(result2)) {
       continue;
     }
-    if (_0x7fd07.length > 24) {
+    if (result2.length > 24) {
       continue;
     }
-    let _0x8ee729;
+    let local;
     try {
-      _0x8ee729 = _0x578b5c.getBoundingClientRect();
-    } catch (_0x19de43) {
+      local = item.getBoundingClientRect();
+    } catch (error) {
       continue;
     }
-    if (!_0x8ee729 || _0x8ee729.width < 24 || _0x8ee729.height < 16) {
+    if (!local || local.width < 24 || local.height < 16) {
       continue;
     }
-    const _0xcee3d9 = window.innerHeight || 800;
-    const _0x7f32db = _0x8ee729.top > _0xcee3d9 * 0.42 ? 120 : _0x8ee729.top > _0xcee3d9 * 0.28 ? 40 : 0;
-    const _0x550620 = _0x5b455c.some(_0x1ec0e2 => _0x7fd07 === String(_0x1ec0e2).replace(/\s+/g, "")) ? 80 : 0;
-    const _0x55994e = _0x8ee729.width >= 88 && _0x8ee729.width <= 280 ? 30 : 0;
-    const _0x49839d = _0x8ee729.left < (window.innerWidth || 1280) * 0.55 ? 20 : 0;
-    _0x1d98d3.push({
-      el: _0x578b5c,
-      score: _0x7f32db + _0x550620 + _0x55994e + _0x49839d + Math.min(_0x8ee729.width, 180) * 0.15
+    const local2 = window.innerHeight || 800;
+    const value3 = local.top > local2 * 0.42 ? 120 : local.top > local2 * 0.28 ? 40 : 0;
+    const value4 = value.some(arg1 => result2 === String(arg1).replace(/\s+/g, "")) ? 80 : 0;
+    const value5 = local.width >= 88 && local.width <= 280 ? 30 : 0;
+    const value6 = local.left < (window.innerWidth || 1280) * 0.55 ? 20 : 0;
+    list.push({
+      el: item,
+      score: value3 + value4 + value5 + value6 + Math.min(local.width, 180) * 0.15
     });
   }
-  _0x1d98d3.sort((_0xc5033c, _0x2ab9e5) => _0x2ab9e5.score - _0xc5033c.score);
-  const _0x29eb82 = _0x1d98d3[0]?.el;
-  if (!_0x29eb82) {
+  list.sort((arg1, arg2) => arg2.score - arg1.score);
+  const local = list[0]?.el;
+  if (!local) {
     return null;
   }
-  return _0x29eb82.closest?.("button, [role=\"button\"], a, div") || _0x29eb82;
+  return local.closest?.("button, [role=\"button\"], a, div") || local;
 }
 module.exports = {
   splitSelectorList: splitSelectorList,
