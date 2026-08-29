@@ -3,88 +3,88 @@
 const INTERACTION_MIRROR_CAPTURE_INTERVAL_MS = 360;
 const INTERACTION_MIRROR_WIDTH = 640;
 const INTERACTION_MIRROR_JPEG_QUALITY = 58;
-function isAliveView(_0x327dc8) {
-  return !!_0x327dc8?.webContents && !_0x327dc8.webContents.isDestroyed?.() && typeof _0x327dc8.webContents.capturePage === "function";
+function isAliveView(arg1) {
+  return !!arg1?.webContents && !arg1.webContents.isDestroyed?.() && typeof arg1.webContents.capturePage === "function";
 }
 function listEligibleInteractionMirrorKeys({
-  interactionLocksMap: _0x5f646a,
-  interactionViewsMap: _0x322853,
-  automationViewsVisible: _0x46a98a,
-  visibleAutomationViewKeys: _0x2549c2
+  interactionLocksMap: interactionLocksMap,
+  interactionViewsMap: interactionViewsMap,
+  automationViewsVisible: automationViewsVisible,
+  visibleAutomationViewKeys: visibleAutomationViewKeys
 } = {}) {
-  if (!_0x46a98a) {
+  if (!automationViewsVisible) {
     return [];
   }
-  const _0x3512a0 = _0x2549c2 instanceof Set ? _0x2549c2 : null;
-  const _0x42e2ff = [];
-  for (const [_0x565540, _0x46e575] of _0x5f646a?.entries?.() || []) {
-    if (!_0x46e575?.requireStableViewport) {
+  const value = visibleAutomationViewKeys instanceof Set ? visibleAutomationViewKeys : null;
+  const list = [];
+  for (const [local, local2] of interactionLocksMap?.entries?.() || []) {
+    if (!local2?.requireStableViewport) {
       continue;
     }
-    if (_0x3512a0 && !_0x3512a0.has(_0x565540)) {
+    if (value && !value.has(local)) {
       continue;
     }
-    if (!isAliveView(_0x322853?.get?.(_0x565540))) {
+    if (!isAliveView(interactionViewsMap?.get?.(local))) {
       continue;
     }
-    _0x42e2ff.push(String(_0x565540));
+    list.push(String(local));
   }
-  return _0x42e2ff.sort();
+  return list.sort();
 }
-function createInteractionMirrorStream(_0x6a92ee = {}) {
+function createInteractionMirrorStream(options = {}) {
   const {
-    getMainWindow: _0x2652e3,
-    getInteractionLocksMap: _0x3ef745,
-    getInteractionViewsMap: _0x2ad3e,
-    getAutomationViewsVisible: _0x496081,
-    getVisibleAutomationViewKeys: _0x5dddcf,
+    getMainWindow: getMainWindow,
+    getInteractionLocksMap: getInteractionLocksMap,
+    getInteractionViewsMap: getInteractionViewsMap,
+    getAutomationViewsVisible: getAutomationViewsVisible,
+    getVisibleAutomationViewKeys: getVisibleAutomationViewKeys,
     captureIntervalMs = INTERACTION_MIRROR_CAPTURE_INTERVAL_MS,
     mirrorWidth = INTERACTION_MIRROR_WIDTH,
     jpegQuality = INTERACTION_MIRROR_JPEG_QUALITY
-  } = _0x6a92ee;
-  let _0x101813 = new Set();
-  let _0xba9877 = null;
-  let _0x3cfbc6 = false;
-  let _0x4d519b = false;
-  let _0x3388e5 = 0;
-  let _0x3f9e15 = 0;
-  let _0x32af8a = "";
-  const _0x30b36e = new Map();
-  function _0x2a0244(_0x24559b, _0xf44e93) {
-    const _0x2ceb39 = _0x2652e3?.();
-    if (!_0x2ceb39 || _0x2ceb39.isDestroyed?.() || _0x2ceb39.webContents?.isDestroyed?.()) {
+  } = options;
+  let set = new Set();
+  let local = null;
+  let flag = false;
+  let flag2 = false;
+  let num = 0;
+  let num2 = 0;
+  let text = "";
+  const map = new Map();
+  function fn(arg1, arg2) {
+    const local = getMainWindow?.();
+    if (!local || local.isDestroyed?.() || local.webContents?.isDestroyed?.()) {
       return false;
     }
     try {
-      _0x2ceb39.webContents.send(_0x24559b, _0xf44e93);
+      local.webContents.send(arg1, arg2);
       return true;
-    } catch (_0x37b01b) {
+    } catch (error) {
       return false;
     }
   }
-  function _0x2f067c() {
+  function fn2() {
     return listEligibleInteractionMirrorKeys({
-      interactionLocksMap: _0x3ef745?.(),
-      interactionViewsMap: _0x2ad3e?.(),
-      automationViewsVisible: !!_0x496081?.(),
-      visibleAutomationViewKeys: _0x5dddcf?.()
+      interactionLocksMap: getInteractionLocksMap?.(),
+      interactionViewsMap: getInteractionViewsMap?.(),
+      automationViewsVisible: !!getAutomationViewsVisible?.(),
+      visibleAutomationViewKeys: getVisibleAutomationViewKeys?.()
     });
   }
-  function _0x1d25b0() {
-    const _0x5be348 = _0x2f067c();
-    const _0x2af556 = new Set(_0x5be348);
-    for (const _0x9b2dca of _0x101813) {
-      if (!_0x2af556.has(_0x9b2dca)) {
-        _0x2a0244("automation-interaction-mirror-state", {
-          viewKey: _0x9b2dca,
+  function fn3() {
+    const result = fn2();
+    const set2 = new Set(result);
+    for (const item of set) {
+      if (!set2.has(item)) {
+        fn("automation-interaction-mirror-state", {
+          viewKey: item,
           active: false
         });
       }
     }
-    for (const _0xe80520 of _0x2af556) {
-      if (!_0x101813.has(_0xe80520)) {
-        _0x2a0244("automation-interaction-mirror-state", {
-          viewKey: _0xe80520,
+    for (const item of set2) {
+      if (!set.has(item)) {
+        fn("automation-interaction-mirror-state", {
+          viewKey: item,
           active: true,
           mode: "first-comment-large-native",
           sourceWidth: 1200,
@@ -92,135 +92,135 @@ function createInteractionMirrorStream(_0x6a92ee = {}) {
         });
       }
     }
-    _0x101813 = _0x2af556;
-    if (_0x3388e5 >= _0x5be348.length) {
-      _0x3388e5 = 0;
+    set = set2;
+    if (num >= result.length) {
+      num = 0;
     }
-    return _0x5be348;
+    return result;
   }
-  function _0x4b8f0c() {
-    if (!_0xba9877) {
+  function fn4() {
+    if (!local) {
       return;
     }
-    clearTimeout(_0xba9877);
-    _0xba9877 = null;
+    clearTimeout(local);
+    local = null;
   }
-  function _0xe7793(_0x55d714 = captureIntervalMs) {
-    if (_0x4d519b || _0xba9877 || _0x3cfbc6 || _0x101813.size === 0) {
+  function fn5(arg1 = captureIntervalMs) {
+    if (flag2 || local || flag || set.size === 0) {
       return;
     }
-    _0xba9877 = setTimeout(() => {
-      _0xba9877 = null;
-      _0x232491();
-    }, Math.max(0, Number(_0x55d714) || 0));
-    if (typeof _0xba9877.unref === "function") {
-      _0xba9877.unref();
+    local = setTimeout(() => {
+      local = null;
+      fn6();
+    }, Math.max(0, Number(arg1) || 0));
+    if (typeof local.unref === "function") {
+      local.unref();
     }
   }
-  function _0x2e8b45(_0x3fa02e) {
-    if (!_0x496081?.()) {
+  function fn7(arg1) {
+    if (!getAutomationViewsVisible?.()) {
       return false;
     }
-    const _0x4c2bb1 = _0x5dddcf?.();
-    if (_0x4c2bb1 instanceof Set && !_0x4c2bb1.has(_0x3fa02e)) {
+    const local = getVisibleAutomationViewKeys?.();
+    if (local instanceof Set && !local.has(arg1)) {
       return false;
     }
-    const _0x2ecfcd = _0x3ef745?.().get?.(_0x3fa02e);
-    return !!_0x2ecfcd?.requireStableViewport && !!isAliveView(_0x2ad3e?.().get?.(_0x3fa02e));
+    const local2 = getInteractionLocksMap?.().get?.(arg1);
+    return !!local2?.requireStableViewport && !!isAliveView(getInteractionViewsMap?.().get?.(arg1));
   }
-  async function _0x232491() {
-    if (_0x4d519b || _0x3cfbc6) {
+  async function fn6() {
+    if (flag2 || flag) {
       return;
     }
-    _0x3cfbc6 = true;
+    flag = true;
     try {
-      const _0xca778c = _0x1d25b0();
-      if (!_0xca778c.length) {
+      const result = fn3();
+      if (!result.length) {
         return;
       }
-      const _0x794650 = _0xca778c[_0x3388e5 % _0xca778c.length];
-      _0x32af8a = _0x794650;
-      _0x3388e5 = (_0x3388e5 + 1) % _0xca778c.length;
-      const _0x3065e2 = _0x2ad3e?.().get?.(_0x794650);
-      if (!isAliveView(_0x3065e2)) {
+      const value = result[num % result.length];
+      text = value;
+      num = (num + 1) % result.length;
+      const local = getInteractionViewsMap?.().get?.(value);
+      if (!isAliveView(local)) {
         return;
       }
-      const _0x9eef36 = await _0x3065e2.webContents.capturePage();
-      if (!_0x2e8b45(_0x794650) || !_0x9eef36 || _0x9eef36.isEmpty?.()) {
+      const result2 = await local.webContents.capturePage();
+      if (!fn7(value) || !result2 || result2.isEmpty?.()) {
         return;
       }
-      const _0x2da7ff = _0x9eef36.getSize?.() || {
+      const local2 = result2.getSize?.() || {
         width: 1200,
         height: 800
       };
-      const _0x2d17e6 = Math.max(240, Math.min(Number(mirrorWidth) || INTERACTION_MIRROR_WIDTH, _0x2da7ff.width || 1200));
-      const _0x1844c6 = _0x2da7ff.width > _0x2d17e6 ? _0x9eef36.resize({
-        width: _0x2d17e6,
+      const result3 = Math.max(240, Math.min(Number(mirrorWidth) || INTERACTION_MIRROR_WIDTH, local2.width || 1200));
+      const value2 = local2.width > result3 ? result2.resize({
+        width: result3,
         quality: "good"
-      }) : _0x9eef36;
-      const _0x1a7d78 = _0x1844c6.getSize?.() || _0x2da7ff;
-      const _0x4aee2e = _0x1844c6.toJPEG(Math.max(30, Math.min(85, Number(jpegQuality) || INTERACTION_MIRROR_JPEG_QUALITY)));
-      if (!_0x4aee2e?.length || !_0x2e8b45(_0x794650)) {
+      }) : result2;
+      const local3 = value2.getSize?.() || local2;
+      const result4 = value2.toJPEG(Math.max(30, Math.min(85, Number(jpegQuality) || INTERACTION_MIRROR_JPEG_QUALITY)));
+      if (!result4?.length || !fn7(value)) {
         return;
       }
-      _0x3f9e15 += 1;
-      _0x2a0244("automation-interaction-mirror-frame", {
-        viewKey: _0x794650,
-        sequence: _0x3f9e15,
+      num2 += 1;
+      fn("automation-interaction-mirror-frame", {
+        viewKey: value,
+        sequence: num2,
         capturedAt: Date.now(),
-        width: Number(_0x1a7d78.width) || _0x2d17e6,
-        height: Number(_0x1a7d78.height) || 0,
-        jpeg: _0x4aee2e
+        width: Number(local3.width) || result3,
+        height: Number(local3.height) || 0,
+        jpeg: result4
       });
-    } catch (_0x66cb70) {
-      const _0x5adfb4 = _0x32af8a || "unknown";
-      const _0x504572 = Date.now();
-      if (_0x504572 - Number(_0x30b36e.get(_0x5adfb4) || 0) > 10000) {
-        _0x30b36e.set(_0x5adfb4, _0x504572);
-        console.warn("[Mirror] 互动页镜像捕获失败 " + _0x5adfb4 + ": " + (_0x66cb70?.message || _0x66cb70));
+    } catch (error) {
+      const local = text || "unknown";
+      const result = Date.now();
+      if (result - Number(map.get(local) || 0) > 10000) {
+        map.set(local, result);
+        console.warn("[Mirror] 互动页镜像捕获失败 " + local + ": " + (error?.message || error));
       }
     } finally {
-      _0x32af8a = "";
-      _0x3cfbc6 = false;
-      if (!_0x4d519b) {
-        _0x1d25b0();
-        _0xe7793(captureIntervalMs);
+      text = "";
+      flag = false;
+      if (!flag2) {
+        fn3();
+        fn5(captureIntervalMs);
       }
     }
   }
-  function _0x2e2d66({
+  function refresh({
     immediate = true
   } = {}) {
-    if (_0x4d519b) {
+    if (flag2) {
       return [];
     }
-    const _0x5dc608 = _0x1d25b0();
-    if (!_0x5dc608.length) {
-      _0x4b8f0c();
-      return _0x5dc608;
+    const result = fn3();
+    if (!result.length) {
+      fn4();
+      return result;
     }
-    _0xe7793(immediate ? 0 : captureIntervalMs);
-    return _0x5dc608;
+    fn5(immediate ? 0 : captureIntervalMs);
+    return result;
   }
-  function _0x35e2c3() {
-    if (_0x4d519b) {
+  function dispose() {
+    if (flag2) {
       return;
     }
-    _0x4d519b = true;
-    _0x4b8f0c();
-    for (const _0x3329d2 of _0x101813) {
-      _0x2a0244("automation-interaction-mirror-state", {
-        viewKey: _0x3329d2,
+    flag2 = true;
+    fn4();
+    for (const item of set) {
+      fn("automation-interaction-mirror-state", {
+        viewKey: item,
         active: false
       });
     }
-    _0x101813.clear();
-    _0x30b36e.clear();
+    set.clear();
+    map.clear();
   }
   return {
-    refresh: _0x2e2d66,
-    dispose: _0x35e2c3,
-    getActiveKeys: () => [..._0x101813]
+    refresh: refresh,
+    dispose: dispose,
+    getActiveKeys: () => [...set]
   };
 }
 module.exports = {
