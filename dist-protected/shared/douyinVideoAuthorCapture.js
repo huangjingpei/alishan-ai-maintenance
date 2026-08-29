@@ -5,467 +5,467 @@ const {
   matchExcludedVideoAuthor
 } = require("./douyinVideoAuthor");
 const FEED_SCOPE_E2E = ["feed-active-video", "feed-active-live", "feed-live", "browse-live", "webcast-player"];
-function createDouyinVideoAuthorApi(_0x498b05 = {}) {
-  const _0x4c529d = _0x498b05.isVisibleElement || (() => true);
-  const _0x2384df = _0x498b05.extractAuthorFromReactFiber || (() => null);
-  const _0x529803 = _0x498b05.normalizeDouyinAuthorProfileUrl || (_0x5ef415 => String(_0x5ef415 || "").trim());
-  const _0x484ceb = _0x498b05.getElementsIncludingRoot || ((_0x12a375, _0x5d7c4e) => {
-    if (!_0x12a375?.querySelectorAll) {
+function createDouyinVideoAuthorApi(options = {}) {
+  const local = options.isVisibleElement || (() => true);
+  const local2 = options.extractAuthorFromReactFiber || (() => null);
+  const local3 = options.normalizeDouyinAuthorProfileUrl || (arg1 => String(arg1 || "").trim());
+  const local4 = options.getElementsIncludingRoot || ((arg1, arg2) => {
+    if (!arg1?.querySelectorAll) {
       return [];
     }
-    return Array.from(_0x12a375.querySelectorAll(_0x5d7c4e));
+    return Array.from(arg1.querySelectorAll(arg2));
   });
-  const _0x39dc72 = _0x498b05.extractSpecificVideoId || (() => "");
-  const _0xa51a5e = _0x498b05.getModalContainerSelector || (() => "[data-e2e=\"video-detail\"], .video-detail-container");
-  function _0x38df1b(_0x79a18d, _0x30caa2 = document) {
-    if (!_0x79a18d) {
+  const local5 = options.extractSpecificVideoId || (() => "");
+  const local6 = options.getModalContainerSelector || (() => "[data-e2e=\"video-detail\"], .video-detail-container");
+  function scoreAuthorProfileLink(arg1, arg2 = document) {
+    if (!arg1) {
       return -999;
     }
-    const _0x4f8d33 = _0x529803(_0x79a18d.href || _0x79a18d.getAttribute?.("href") || "");
-    if (!_0x4f8d33) {
+    const result = local3(arg1.href || arg1.getAttribute?.("href") || "");
+    if (!result) {
       return -999;
     }
-    const _0x4af716 = _0x79a18d.closest?.("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
-    if (_0x4af716) {
+    const local = arg1.closest?.("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
+    if (local) {
       return -999;
     }
-    let _0x1c14cc = 10;
-    const _0x583727 = normalizeAuthorNicknameText(_0x79a18d.innerText || _0x79a18d.textContent || _0x79a18d.getAttribute?.("title") || "");
-    if (_0x583727) {
-      _0x1c14cc += 25;
+    let num = 10;
+    const result2 = normalizeAuthorNicknameText(arg1.innerText || arg1.textContent || arg1.getAttribute?.("title") || "");
+    if (result2) {
+      num += 25;
     }
-    if (_0x79a18d.closest?.("[data-e2e=\"feed-video-nickname\"], [data-e2e=\"video-author-name\"], .author-card-user-name")) {
-      _0x1c14cc += 90;
+    if (arg1.closest?.("[data-e2e=\"feed-video-nickname\"], [data-e2e=\"video-author-name\"], .author-card-user-name")) {
+      num += 90;
     }
-    if (_0x79a18d.closest?.("[data-e2e*=\"author\"], [data-e2e*=\"user-name\"], [class*=\"author-name\"], [class*=\"AuthorName\"], [class*=\"nickname\"]")) {
-      _0x1c14cc += 45;
+    if (arg1.closest?.("[data-e2e*=\"author\"], [data-e2e*=\"user-name\"], [class*=\"author-name\"], [class*=\"AuthorName\"], [class*=\"nickname\"]")) {
+      num += 45;
     }
-    if (_0x79a18d.closest?.(".video-info-detail, .account-card-container, [class*=\"video-info\"], [class*=\"VideoInfo\"]")) {
-      _0x1c14cc += 35;
+    if (arg1.closest?.(".video-info-detail, .account-card-container, [class*=\"video-info\"], [class*=\"VideoInfo\"]")) {
+      num += 35;
     }
-    if (_0x79a18d.closest?.("[data-e2e=\"video-desc\"], [data-e2e=\"note-desc\"], [class*=\"desc\"], [class*=\"Desc\"]")) {
-      _0x1c14cc -= 55;
+    if (arg1.closest?.("[data-e2e=\"video-desc\"], [data-e2e=\"note-desc\"], [class*=\"desc\"], [class*=\"Desc\"]")) {
+      num -= 55;
     }
     try {
-      const _0x1f2e6f = _0x79a18d.getBoundingClientRect();
-      const _0x160249 = _0x30caa2.getBoundingClientRect?.() || {
+      const result = arg1.getBoundingClientRect();
+      const local = arg2.getBoundingClientRect?.() || {
         top: 0,
         height: window.innerHeight,
         bottom: window.innerHeight
       };
-      const _0xf57c9c = _0x1f2e6f.top - (_0x160249.top || 0);
-      const _0x54ec63 = _0x160249.height || window.innerHeight;
-      if (_0xf57c9c >= 0 && _0xf57c9c < Math.max(180, _0x54ec63 * 0.35)) {
-        _0x1c14cc += 20;
+      const value = result.top - (local.top || 0);
+      const local2 = local.height || window.innerHeight;
+      if (value >= 0 && value < Math.max(180, local2 * 0.35)) {
+        num += 20;
       }
-      if (_0x1f2e6f.top > (_0x160249.bottom || window.innerHeight) - 8) {
-        _0x1c14cc -= 120;
+      if (result.top > (local.bottom || window.innerHeight) - 8) {
+        num -= 120;
       }
-      if (_0x1f2e6f.top > window.innerHeight * 0.72) {
-        _0x1c14cc -= 80;
+      if (result.top > window.innerHeight * 0.72) {
+        num -= 80;
       }
-      const _0x5690c7 = Math.min(_0x1f2e6f.bottom, _0x160249.bottom || window.innerHeight) - Math.max(_0x1f2e6f.top, _0x160249.top || 0);
-      if (_0x5690c7 < Math.min(_0x1f2e6f.height || 0, 16)) {
-        _0x1c14cc -= 100;
+      const value2 = Math.min(result.bottom, local.bottom || window.innerHeight) - Math.max(result.top, local.top || 0);
+      if (value2 < Math.min(result.height || 0, 16)) {
+        num -= 100;
       }
-    } catch (_0x387350) {}
-    return _0x1c14cc;
+    } catch (error) {}
+    return num;
   }
-  function _0x2f3a71(_0x409803) {
-    if (!_0x409803) {
+  function fn2(arg1) {
+    if (!arg1) {
       return "";
     }
-    const _0x27299e = [];
-    const _0x52cd47 = _0x500f2c => {
-      const _0x556185 = String(_0x500f2c || "").trim();
-      if (_0x556185) {
-        _0x27299e.push(_0x556185);
+    const list = [];
+    const local = arg1 => {
+      const result = String(arg1 || "").trim();
+      if (result) {
+        list.push(result);
       }
     };
-    let _0x25b1c2 = _0x409803;
-    for (let _0x375d1e = 0; _0x375d1e < 8 && _0x25b1c2; _0x375d1e += 1) {
-      _0x52cd47(_0x25b1c2.getAttribute?.("href"));
-      _0x52cd47(_0x25b1c2.getAttribute?.("to"));
-      _0x52cd47(_0x25b1c2.getAttribute?.("data-href"));
-      _0x52cd47(_0x25b1c2.dataset?.href);
-      _0x52cd47(_0x25b1c2.getAttribute?.("data-user-url"));
-      _0x52cd47(_0x25b1c2.getAttribute?.("data-sec-uid"));
-      _0x52cd47(_0x25b1c2.getAttribute?.("data-secUid"));
-      _0x52cd47(_0x25b1c2.dataset?.secUid);
-      const _0x19eb8e = _0x25b1c2.getAttribute?.("data-sec-uid") || _0x25b1c2.getAttribute?.("data-secUid") || _0x25b1c2.dataset?.secUid || "";
-      if (/^[A-Za-z0-9._-]{12,}$/.test(_0x19eb8e) && !/^\d+$/.test(_0x19eb8e)) {
-        return _0x529803("https://www.douyin.com/user/" + _0x19eb8e);
+    let local2 = arg1;
+    for (let num = 0; num < 8 && local2; num += 1) {
+      local(local2.getAttribute?.("href"));
+      local(local2.getAttribute?.("to"));
+      local(local2.getAttribute?.("data-href"));
+      local(local2.dataset?.href);
+      local(local2.getAttribute?.("data-user-url"));
+      local(local2.getAttribute?.("data-sec-uid"));
+      local(local2.getAttribute?.("data-secUid"));
+      local(local2.dataset?.secUid);
+      const local4 = local2.getAttribute?.("data-sec-uid") || local2.getAttribute?.("data-secUid") || local2.dataset?.secUid || "";
+      if (/^[A-Za-z0-9._-]{12,}$/.test(local4) && !/^\d+$/.test(local4)) {
+        return local3("https://www.douyin.com/user/" + local4);
       }
-      const _0x5bc88a = [_0x25b1c2.matches?.("a[href]") ? _0x25b1c2 : null, _0x25b1c2.querySelector?.("a[href*=\"/user/\"], a[href*=\"sec_uid\"], a[href*=\"secUid\"]")].filter(Boolean);
-      for (const _0x3efded of _0x5bc88a) {
-        _0x52cd47(_0x3efded.href);
-        _0x52cd47(_0x3efded.getAttribute?.("href"));
+      const result = [local2.matches?.("a[href]") ? local2 : null, local2.querySelector?.("a[href*=\"/user/\"], a[href*=\"sec_uid\"], a[href*=\"secUid\"]")].filter(Boolean);
+      for (const item of result) {
+        local(item.href);
+        local(item.getAttribute?.("href"));
       }
-      _0x25b1c2 = _0x25b1c2.parentElement;
+      local2 = local2.parentElement;
     }
-    for (const _0x3c0df6 of _0x27299e) {
-      if (/^[A-Za-z0-9._-]{12,}$/.test(_0x3c0df6) && !/^\d+$/.test(_0x3c0df6) && !_0x3c0df6.includes("/")) {
-        const _0x351dff = _0x529803("https://www.douyin.com/user/" + _0x3c0df6);
-        if (_0x351dff) {
-          return _0x351dff;
+    for (const item of list) {
+      if (/^[A-Za-z0-9._-]{12,}$/.test(item) && !/^\d+$/.test(item) && !item.includes("/")) {
+        const result = local3("https://www.douyin.com/user/" + item);
+        if (result) {
+          return result;
         }
       }
-      const _0x232bce = _0x529803(_0x3c0df6);
-      if (_0x232bce) {
-        return _0x232bce;
+      const result = local3(item);
+      if (result) {
+        return result;
       }
     }
     return "";
   }
-  function _0xb7635c(_0x11cff3, _0x2b8e82) {
-    const _0x3afc8f = normalizeAuthorAccountName(_0x2b8e82);
-    if (!_0x3afc8f || !_0x11cff3?.getBoundingClientRect) {
+  function fn3(arg1, arg2) {
+    const result = normalizeAuthorAccountName(arg2);
+    if (!result || !arg1?.getBoundingClientRect) {
       return "";
     }
-    const _0x14332b = _0x11cff3.getBoundingClientRect();
-    const _0x2669a9 = Array.from(document.querySelectorAll("a[href*=\"/user/\"], a[href*=\"douyin.com/user/\"]"));
-    let _0x1eb59a = "";
-    let _0x1d7636 = -Infinity;
-    for (const _0x2d735f of _0x2669a9) {
-      if (!_0x4c529d(_0x2d735f)) {
+    const result2 = arg1.getBoundingClientRect();
+    const result3 = Array.from(document.querySelectorAll("a[href*=\"/user/\"], a[href*=\"douyin.com/user/\"]"));
+    let text = "";
+    let value = -Infinity;
+    for (const item of result3) {
+      if (!local(item)) {
         continue;
       }
-      const _0x3a9430 = _0x2d735f.closest?.("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
-      if (_0x3a9430) {
+      const local2 = item.closest?.("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
+      if (local2) {
         continue;
       }
-      const _0x57de06 = normalizeAuthorNicknameText(_0x2d735f.innerText || _0x2d735f.textContent || _0x2d735f.getAttribute?.("title") || "");
-      if (!_0x57de06 || normalizeAuthorAccountName(_0x57de06) !== _0x3afc8f) {
+      const result3 = normalizeAuthorNicknameText(item.innerText || item.textContent || item.getAttribute?.("title") || "");
+      if (!result3 || normalizeAuthorAccountName(result3) !== result) {
         continue;
       }
-      const _0x41a1a5 = _0x529803(_0x2d735f.href || _0x2d735f.getAttribute?.("href") || "");
-      if (!_0x41a1a5) {
+      const result4 = local3(item.href || item.getAttribute?.("href") || "");
+      if (!result4) {
         continue;
       }
-      const _0x1a7880 = _0x2d735f.getBoundingClientRect();
-      if (_0x1a7880.top >= _0x14332b.bottom - 12) {
+      const result5 = item.getBoundingClientRect();
+      if (result5.top >= result2.bottom - 12) {
         continue;
       }
-      if (_0x1a7880.top > _0x14332b.top + _0x14332b.height * 0.94) {
+      if (result5.top > result2.top + result2.height * 0.94) {
         continue;
       }
-      const _0x18d9f4 = Math.min(_0x1a7880.bottom, _0x14332b.bottom) - Math.max(_0x1a7880.top, _0x14332b.top);
-      const _0x30d61e = Math.min(_0x1a7880.right, _0x14332b.right) - Math.max(_0x1a7880.left, _0x14332b.left);
-      if (_0x18d9f4 < 8 || _0x30d61e < 4) {
+      const value2 = Math.min(result5.bottom, result2.bottom) - Math.max(result5.top, result2.top);
+      const value3 = Math.min(result5.right, result2.right) - Math.max(result5.left, result2.left);
+      if (value2 < 8 || value3 < 4) {
         continue;
       }
-      const _0x290103 = _0x18d9f4 + Math.min(_0x30d61e, 60);
-      if (_0x290103 > _0x1d7636) {
-        _0x1d7636 = _0x290103;
-        _0x1eb59a = _0x41a1a5;
+      const value4 = value2 + Math.min(value3, 60);
+      if (value4 > value) {
+        value = value4;
+        text = result4;
       }
     }
-    return _0x1eb59a;
+    return text;
   }
-  function _0x5dfa7b(_0x52ad43, _0x334599, _0x219097, _0x3ac755) {
-    if (!_0x3ac755) {
+  function fn4(arg1, arg2, arg3, arg4) {
+    if (!arg4) {
       return "";
     }
-    const _0x124bdd = _0x2f3a71(_0x52ad43?.link);
-    if (_0x124bdd) {
-      return _0x124bdd;
+    const result = fn2(arg1?.link);
+    if (result) {
+      return result;
     }
     try {
-      const _0x3739ef = _0x2384df(_0x52ad43?.link, "", {
+      const result = local2(arg1?.link, "", {
         maxSteps: 12,
         shallowOnly: true
       });
-      if (_0x3739ef?.secUid) {
-        const _0x3da6ab = normalizeAuthorNicknameText(_0x3739ef.nickname || "");
-        if (!_0x3da6ab || normalizeAuthorAccountName(_0x3da6ab) === normalizeAuthorAccountName(_0x3ac755)) {
-          return _0x529803("https://www.douyin.com/user/" + _0x3739ef.secUid);
+      if (result?.secUid) {
+        const result2 = normalizeAuthorNicknameText(result.nickname || "");
+        if (!result2 || normalizeAuthorAccountName(result2) === normalizeAuthorAccountName(arg4)) {
+          return local3("https://www.douyin.com/user/" + result.secUid);
         }
       }
-    } catch (_0x111f8d) {}
+    } catch (error) {}
     try {
-      const _0x5b4ca7 = _0x2384df(_0x334599, _0x219097);
-      if (_0x5b4ca7?.secUid) {
-        const _0x5b9fc0 = normalizeAuthorNicknameText(_0x5b4ca7.nickname || "");
-        const _0x4eff7d = _0x5b9fc0 && normalizeAuthorAccountName(_0x5b9fc0) === normalizeAuthorAccountName(_0x3ac755);
-        if (_0x4eff7d) {
-          return _0x529803("https://www.douyin.com/user/" + _0x5b4ca7.secUid);
+      const result = local2(arg2, arg3);
+      if (result?.secUid) {
+        const result2 = normalizeAuthorNicknameText(result.nickname || "");
+        const local = result2 && normalizeAuthorAccountName(result2) === normalizeAuthorAccountName(arg4);
+        if (local) {
+          return local3("https://www.douyin.com/user/" + result.secUid);
         }
       }
-    } catch (_0x406805) {}
-    return _0xb7635c(_0x334599, _0x3ac755);
+    } catch (error) {}
+    return fn3(arg2, arg4);
   }
-  function _0x406d80(_0xfba5b4) {
-    if (!_0xfba5b4 || !_0xfba5b4.getBoundingClientRect) {
+  function findFeedPublisherNearScope(arg1) {
+    if (!arg1 || !arg1.getBoundingClientRect) {
       return null;
     }
-    const _0x864973 = _0xfba5b4.getAttribute?.("data-e2e") || "";
-    if (!FEED_SCOPE_E2E.includes(_0x864973)) {
+    const local4 = arg1.getAttribute?.("data-e2e") || "";
+    if (!FEED_SCOPE_E2E.includes(local4)) {
       return null;
     }
-    const _0x3fc43f = _0xfba5b4.getBoundingClientRect();
-    if (_0x3fc43f.height < 80 || _0x3fc43f.width < 80) {
+    const result = arg1.getBoundingClientRect();
+    if (result.height < 80 || result.width < 80) {
       return null;
     }
-    const _0x4103af = Array.from(document.querySelectorAll("[data-e2e=\"feed-video-nickname\"], [data-e2e=\"video-author-name\"], .author-card-user-name"));
-    let _0x1fc343 = null;
-    let _0x2f318d = -Infinity;
-    for (const _0x546e0a of _0x4103af) {
-      if (!_0x4c529d(_0x546e0a)) {
+    const result2 = Array.from(document.querySelectorAll("[data-e2e=\"feed-video-nickname\"], [data-e2e=\"video-author-name\"], .author-card-user-name"));
+    let local5 = null;
+    let value = -Infinity;
+    for (const item of result2) {
+      if (!local(item)) {
         continue;
       }
-      const _0xd536a5 = _0x546e0a.getBoundingClientRect();
-      const _0x195ad5 = Math.min(_0xd536a5.bottom, _0x3fc43f.bottom) - Math.max(_0xd536a5.top, _0x3fc43f.top);
-      const _0x39efd7 = Math.min(_0xd536a5.right, _0x3fc43f.right) - Math.max(_0xd536a5.left, _0x3fc43f.left);
-      if (_0x195ad5 < Math.min(_0xd536a5.height || 0, 12) || _0x39efd7 < 8) {
+      const result2 = item.getBoundingClientRect();
+      const value2 = Math.min(result2.bottom, result.bottom) - Math.max(result2.top, result.top);
+      const value3 = Math.min(result2.right, result.right) - Math.max(result2.left, result.left);
+      if (value2 < Math.min(result2.height || 0, 12) || value3 < 8) {
         continue;
       }
-      if (_0xd536a5.top >= _0x3fc43f.bottom - 12) {
+      if (result2.top >= result.bottom - 12) {
         continue;
       }
-      if (_0xd536a5.top > _0x3fc43f.top + _0x3fc43f.height * 0.94) {
+      if (result2.top > result.top + result.height * 0.94) {
         continue;
       }
-      const _0x5de795 = _0x546e0a.matches?.("a[href*=\"/user/\"]") ? _0x546e0a : _0x546e0a.closest?.("a[href*=\"/user/\"]") || _0x546e0a.querySelector?.("a[href*=\"/user/\"]") || _0x546e0a;
-      let _0x43ebc3 = _0x2f3a71(_0x5de795 || _0x546e0a);
-      let _0xd39dd5 = normalizeAuthorNicknameText(_0x5de795?.innerText || _0x546e0a.innerText || _0x546e0a.textContent || _0x546e0a.getAttribute?.("title") || "");
-      if (!_0x43ebc3 || !_0xd39dd5) {
+      const value4 = item.matches?.("a[href*=\"/user/\"]") ? item : item.closest?.("a[href*=\"/user/\"]") || item.querySelector?.("a[href*=\"/user/\"]") || item;
+      let result3 = fn2(value4 || item);
+      let result4 = normalizeAuthorNicknameText(value4?.innerText || item.innerText || item.textContent || item.getAttribute?.("title") || "");
+      if (!result3 || !result4) {
         try {
-          const _0x13a108 = _0x2384df(_0x546e0a, "", {
+          const result = local2(item, "", {
             maxSteps: 12,
             shallowOnly: true
           });
-          if (!_0x43ebc3 && _0x13a108?.secUid) {
-            _0x43ebc3 = _0x529803("https://www.douyin.com/user/" + _0x13a108.secUid);
+          if (!result3 && result?.secUid) {
+            result3 = local3("https://www.douyin.com/user/" + result.secUid);
           }
-          if (!_0xd39dd5 && _0x13a108?.nickname) {
-            _0xd39dd5 = normalizeAuthorNicknameText(_0x13a108.nickname);
+          if (!result4 && result?.nickname) {
+            result4 = normalizeAuthorNicknameText(result.nickname);
           }
-        } catch (_0x4c2bfa) {}
+        } catch (error) {}
       }
-      if (!_0x43ebc3 && !_0xd39dd5) {
+      if (!result3 && !result4) {
         continue;
       }
-      let _0x4c67f6 = _0x195ad5 + Math.min(_0x39efd7, 80);
-      if (_0x43ebc3) {
-        _0x4c67f6 += 40;
+      let value5 = value2 + Math.min(value3, 80);
+      if (result3) {
+        value5 += 40;
       }
-      if (_0xd39dd5) {
-        _0x4c67f6 += 20;
+      if (result4) {
+        value5 += 20;
       }
-      if (_0x546e0a.getAttribute?.("data-e2e") === "feed-video-nickname") {
-        _0x4c67f6 += 30;
+      if (item.getAttribute?.("data-e2e") === "feed-video-nickname") {
+        value5 += 30;
       }
-      _0x4c67f6 += Math.max(0, 120 - Math.abs(_0xd536a5.top + _0xd536a5.height / 2 - (_0x3fc43f.top + _0x3fc43f.height * 0.72)));
-      if (_0x4c67f6 > _0x2f318d) {
-        _0x2f318d = _0x4c67f6;
-        _0x1fc343 = {
-          link: _0x5de795 || _0x546e0a,
-          href: _0x43ebc3,
-          nickname: _0xd39dd5
+      value5 += Math.max(0, 120 - Math.abs(result2.top + result2.height / 2 - (result.top + result.height * 0.72)));
+      if (value5 > value) {
+        value = value5;
+        local5 = {
+          link: value4 || item,
+          href: result3,
+          nickname: result4
         };
       }
     }
-    return _0x1fc343;
+    return local5;
   }
-  function _0x2a1c79(_0x38653e) {
-    if (!_0x38653e) {
+  function pickBestAuthorProfileLink(arg1) {
+    if (!arg1) {
       return null;
     }
-    const _0x23054d = _0x406d80(_0x38653e);
-    if (_0x23054d?.link && _0x23054d.href) {
-      return _0x23054d.link;
+    const result = findFeedPublisherNearScope(arg1);
+    if (result?.link && result.href) {
+      return result.link;
     }
-    const _0x527432 = _0x484ceb(_0x38653e, "a[href*=\"/user/\"], a[href*=\"douyin.com/user/\"], [data-e2e*=\"author\"] a[href], [data-e2e*=\"user\"] a[href]");
-    let _0x56bc82 = null;
-    let _0x1eff0c = 40;
-    for (const _0x37d697 of _0x527432) {
-      const _0x5b176c = _0x38df1b(_0x37d697, _0x38653e);
-      if (_0x5b176c > _0x1eff0c) {
-        _0x56bc82 = _0x37d697;
-        _0x1eff0c = _0x5b176c;
+    const result2 = local4(arg1, "a[href*=\"/user/\"], a[href*=\"douyin.com/user/\"], [data-e2e*=\"author\"] a[href], [data-e2e*=\"user\"] a[href]");
+    let local = null;
+    let num = 40;
+    for (const item of result2) {
+      const result = scoreAuthorProfileLink(item, arg1);
+      if (result > num) {
+        local = item;
+        num = result;
       }
     }
-    return _0x56bc82;
+    return local;
   }
-  function _0x3ea897(_0x442d6a, _0x33ddc9 = "") {
-    if (!_0x442d6a) {
+  function findDouyinAuthorProfileUrlInRoot(arg1, text = "") {
+    if (!arg1) {
       return "";
     }
-    const _0x24c3ff = _0x406d80(_0x442d6a);
-    if (_0x24c3ff?.href) {
-      return _0x24c3ff.href;
+    const result = findFeedPublisherNearScope(arg1);
+    if (result?.href) {
+      return result.href;
     }
-    const _0x30447c = _0x2a1c79(_0x442d6a);
-    if (_0x30447c) {
-      const _0x455491 = _0x529803(_0x30447c.href || _0x30447c.getAttribute?.("href") || "");
-      if (_0x455491) {
-        return _0x455491;
+    const result2 = pickBestAuthorProfileLink(arg1);
+    if (result2) {
+      const result = local3(result2.href || result2.getAttribute?.("href") || "");
+      if (result) {
+        return result;
       }
     }
     try {
-      const _0x2427af = _0x2384df(_0x442d6a, _0x33ddc9);
-      if (_0x2427af?.secUid) {
-        return "https://www.douyin.com/user/" + _0x2427af.secUid;
+      const result = local2(arg1, text);
+      if (result?.secUid) {
+        return "https://www.douyin.com/user/" + result.secUid;
       }
-    } catch (_0x2c5cef) {}
-    if (_0x39dc72(_0x33ddc9)) {
+    } catch (error) {}
+    if (local5(text)) {
       return "";
     }
-    const _0xcde932 = [_0x442d6a, ...Array.from(_0x442d6a.querySelectorAll?.("*") || []).slice(0, 180)];
-    for (const _0x2ba654 of _0xcde932) {
-      const _0x2dea04 = _0x2ba654.getAttributeNames?.() || [];
-      for (const _0x1368ee of _0x2dea04) {
-        const _0x3811e9 = String(_0x2ba654.getAttribute?.(_0x1368ee) || "").trim();
-        if (!_0x3811e9) {
+    const list = [arg1, ...Array.from(arg1.querySelectorAll?.("*") || []).slice(0, 180)];
+    for (const item of list) {
+      const local = item.getAttributeNames?.() || [];
+      for (const item2 of local) {
+        const result = String(item.getAttribute?.(item2) || "").trim();
+        if (!result) {
           continue;
         }
-        const _0x53a090 = [_0x3811e9];
-        if (/%(?:2f|3a)/i.test(_0x3811e9)) {
+        const list = [result];
+        if (/%(?:2f|3a)/i.test(result)) {
           try {
-            _0x53a090.push(decodeURIComponent(_0x3811e9));
-          } catch (_0x3772a1) {}
+            list.push(decodeURIComponent(result));
+          } catch (error) {}
         }
-        for (const _0x40747d of _0x53a090) {
-          const _0x2c090f = _0x529803(_0x40747d);
-          if (_0x2c090f) {
-            return _0x2c090f;
+        for (const item of list) {
+          const result = local3(item);
+          if (result) {
+            return result;
           }
-          const _0x5033e5 = _0x40747d.match(/(?:https?:)?\/\/(?:www\.)?douyin\.com\/user\/[^?&#"'\s<>]+|\/user\/[^?&#"'\s<>]+/i);
-          const _0x3ff5d7 = _0x529803(_0x5033e5?.[0] || "");
-          if (_0x3ff5d7) {
-            return _0x3ff5d7;
+          const result2 = item.match(/(?:https?:)?\/\/(?:www\.)?douyin\.com\/user\/[^?&#"'\s<>]+|\/user\/[^?&#"'\s<>]+/i);
+          const result3 = local3(result2?.[0] || "");
+          if (result3) {
+            return result3;
           }
         }
-        if (/^(?:data-)?(?:author-)?sec[-_]?uid$/i.test(_0x1368ee) && /^[A-Za-z0-9._-]{12,}$/.test(_0x3811e9) && !/^\d+$/.test(_0x3811e9)) {
-          return "https://www.douyin.com/user/" + _0x3811e9;
+        if (/^(?:data-)?(?:author-)?sec[-_]?uid$/i.test(item2) && /^[A-Za-z0-9._-]{12,}$/.test(result) && !/^\d+$/.test(result)) {
+          return "https://www.douyin.com/user/" + result;
         }
       }
     }
     return "";
   }
-  function _0x5e9df6(_0x1c0103 = null, _0x42f8f7 = "") {
+  function getVideoAuthorNickname(arg1 = null, text = "") {
     try {
-      const _0x352a12 = _0x1c0103 || document;
-      const _0x1c1f5f = _0x2a1c79(_0x352a12);
-      const _0x5dd762 = normalizeAuthorNicknameText(_0x1c1f5f?.innerText || _0x1c1f5f?.textContent || _0x1c1f5f?.getAttribute?.("title") || "");
-      if (_0x5dd762) {
-        return _0x5dd762;
+      const local3 = arg1 || document;
+      const result = pickBestAuthorProfileLink(local3);
+      const result2 = normalizeAuthorNicknameText(result?.innerText || result?.textContent || result?.getAttribute?.("title") || "");
+      if (result2) {
+        return result2;
       }
-      const _0x4ea01e = _0x352a12.matches?.("[data-e2e=\"feed-video-nickname\"]") ? _0x352a12 : _0x352a12.querySelector?.("[data-e2e=\"feed-video-nickname\"]");
-      const _0x118c71 = normalizeAuthorNicknameText(_0x4ea01e?.innerText || "");
-      if (_0x118c71) {
-        return _0x118c71;
+      const value = local3.matches?.("[data-e2e=\"feed-video-nickname\"]") ? local3 : local3.querySelector?.("[data-e2e=\"feed-video-nickname\"]");
+      const result3 = normalizeAuthorNicknameText(value?.innerText || "");
+      if (result3) {
+        return result3;
       }
-      const _0x30738e = _0x352a12.querySelector?.(_0xa51a5e()) || _0x352a12;
-      const _0x12d054 = [_0x30738e.querySelector?.(".video-info-detail"), _0x30738e.querySelector?.(".account-card-container"), _0x30738e.querySelector?.("[class*=\"video-info\"]"), _0x30738e, _0x352a12].filter(Boolean);
-      for (const _0xd4ce4c of _0x12d054) {
-        const _0x2a6bd6 = Array.from(_0xd4ce4c.querySelectorAll?.("a[href*=\"/user/\"]") || []).filter(_0x2577db => {
-          const _0x466d68 = _0x2577db.href || "";
-          if (!_0x466d68.includes("/user/") || _0x466d68.includes("/user/self")) {
+      const local4 = local3.querySelector?.(local6()) || local3;
+      const result4 = [local4.querySelector?.(".video-info-detail"), local4.querySelector?.(".account-card-container"), local4.querySelector?.("[class*=\"video-info\"]"), local4, local3].filter(Boolean);
+      for (const item of result4) {
+        const result = Array.from(item.querySelectorAll?.("a[href*=\"/user/\"]") || []).filter(arg1 => {
+          const local2 = arg1.href || "";
+          if (!local2.includes("/user/") || local2.includes("/user/self")) {
             return false;
           }
-          return _0x4c529d(_0x2577db);
+          return local(arg1);
         });
-        for (const _0x3d13dc of _0x2a6bd6) {
-          const _0x372ea8 = _0x3d13dc.closest("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
-          if (_0x372ea8) {
+        for (const item of result) {
+          const result = item.closest("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
+          if (result) {
             continue;
           }
-          const _0x1e6845 = normalizeAuthorNicknameText(_0x3d13dc.innerText || _0x3d13dc.getAttribute("title") || "");
-          if (_0x1e6845) {
-            return _0x1e6845;
+          const result2 = normalizeAuthorNicknameText(item.innerText || item.getAttribute("title") || "");
+          if (result2) {
+            return result2;
           }
         }
       }
-      const _0x3ac26a = [".account-name", ".author-card-user-name", "[class*=\"author-name\"]", "[class*=\"AccountName\"]", "[data-e2e=\"video-author-name\"]"];
-      for (const _0x791adb of _0x3ac26a) {
-        const _0x558299 = _0x352a12.querySelector?.(_0x791adb);
-        const _0x1f64ab = normalizeAuthorNicknameText(_0x558299?.innerText || "");
-        if (_0x1f64ab) {
-          return _0x1f64ab;
+      const list = [".account-name", ".author-card-user-name", "[class*=\"author-name\"]", "[class*=\"AccountName\"]", "[data-e2e=\"video-author-name\"]"];
+      for (const item of list) {
+        const local = local3.querySelector?.(item);
+        const result = normalizeAuthorNicknameText(local?.innerText || "");
+        if (result) {
+          return result;
         }
       }
       try {
-        const _0x39e9c4 = _0x2384df(_0x352a12, _0x42f8f7);
-        const _0x388d2a = normalizeAuthorNicknameText(_0x39e9c4?.nickname || "");
-        if (_0x388d2a) {
-          return _0x388d2a;
+        const result = local2(local3, text);
+        const result2 = normalizeAuthorNicknameText(result?.nickname || "");
+        if (result2) {
+          return result2;
         }
-      } catch (_0x44636a) {}
-    } catch (_0x2101e5) {}
+      } catch (error) {}
+    } catch (error) {}
     return "";
   }
-  function _0x3c5fee(_0x13e0e5 = null, _0x318c7e = "") {
+  function getVideoAuthorProfileUrl(arg1 = null, text = "") {
     try {
-      const _0x4b6715 = _0x13e0e5 || document;
-      const _0x3c7854 = [...new Set([_0x4b6715.querySelector?.(_0xa51a5e()), _0x4b6715.querySelector?.(".video-info-detail"), _0x4b6715.querySelector?.(".account-card-container"), _0x4b6715, ...(_0x13e0e5 ? [] : [document.querySelector?.(_0xa51a5e()), document.querySelector?.(".video-info-detail"), document.querySelector?.(".account-card-container"), document])].filter(Boolean))];
-      for (const _0x40107f of _0x3c7854) {
-        const _0x49cc89 = _0x3ea897(_0x40107f, _0x318c7e);
-        if (_0x49cc89) {
-          return _0x49cc89;
+      const local = arg1 || document;
+      const list = [...new Set([local.querySelector?.(local6()), local.querySelector?.(".video-info-detail"), local.querySelector?.(".account-card-container"), local, ...(arg1 ? [] : [document.querySelector?.(local6()), document.querySelector?.(".video-info-detail"), document.querySelector?.(".account-card-container"), document])].filter(Boolean))];
+      for (const item of list) {
+        const result = findDouyinAuthorProfileUrlInRoot(item, text);
+        if (result) {
+          return result;
         }
       }
-      if (!_0x13e0e5) {
-        for (const _0x551a92 of _0x3c7854.slice(0, -1)) {
-          const _0xad1b34 = _0x3ea897(_0x551a92);
-          if (_0xad1b34) {
-            return _0xad1b34;
+      if (!arg1) {
+        for (const item of list.slice(0, -1)) {
+          const result = findDouyinAuthorProfileUrlInRoot(item);
+          if (result) {
+            return result;
           }
         }
       }
       try {
-        const _0x5b0068 = _0x2384df(_0x4b6715, _0x318c7e);
-        if (_0x5b0068?.secUid) {
-          return "https://www.douyin.com/user/" + _0x5b0068.secUid;
+        const result = local2(local, text);
+        if (result?.secUid) {
+          return "https://www.douyin.com/user/" + result.secUid;
         }
-      } catch (_0x3aedd3) {}
-    } catch (_0x1a9507) {}
+      } catch (error) {}
+    } catch (error) {}
     return "";
   }
-  function _0xb53ebb(_0x46e6d3 = null, _0x5ecf31 = "") {
-    const _0x493da9 = _0x46e6d3 || document;
-    const _0x328f4a = _0x493da9.getAttribute?.("data-e2e") || "";
-    const _0x586a36 = FEED_SCOPE_E2E.includes(_0x328f4a);
-    const _0x259318 = _0x406d80(_0x493da9);
-    let _0x17a31b = _0x259318?.href || "";
-    let _0x461b6a = _0x259318?.nickname || "";
-    if (_0x586a36 && _0x259318 && _0x461b6a && !_0x17a31b) {
-      _0x17a31b = _0x5dfa7b(_0x259318, _0x493da9, _0x5ecf31, _0x461b6a);
-    } else if (!_0x586a36 || !_0x259318) {
-      if (!_0x17a31b) {
-        _0x17a31b = _0x3c5fee(_0x493da9, _0x5ecf31);
+  function getVideoAuthorInfo(arg1 = null, text = "") {
+    const local = arg1 || document;
+    const local4 = local.getAttribute?.("data-e2e") || "";
+    const result = FEED_SCOPE_E2E.includes(local4);
+    const result2 = findFeedPublisherNearScope(local);
+    let local5 = result2?.href || "";
+    let local6 = result2?.nickname || "";
+    if (result && result2 && local6 && !local5) {
+      local5 = fn4(result2, local, text, local6);
+    } else if (!result || !result2) {
+      if (!local5) {
+        local5 = getVideoAuthorProfileUrl(local, text);
       }
-      if (!_0x461b6a) {
-        _0x461b6a = normalizeAuthorNicknameText(_0x5e9df6(_0x493da9, _0x5ecf31));
+      if (!local6) {
+        local6 = normalizeAuthorNicknameText(getVideoAuthorNickname(local, text));
       }
     }
-    if (_0x17a31b) {
-      const _0x195080 = Array.from(document.querySelectorAll?.("a[href*=\"/user/\"]") || []).find(_0x53347b => {
-        const _0x3e2d6a = _0x53347b.closest?.("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
-        if (_0x3e2d6a) {
+    if (local5) {
+      const local4 = Array.from(document.querySelectorAll?.("a[href*=\"/user/\"]") || []).find(arg1 => {
+        const local = arg1.closest?.("[data-e2e=\"comment-item\"], [data-e2e=\"comment-reply-item\"], [class*=\"comment-item\"], [class*=\"reply-item\"]");
+        if (local) {
           return false;
         }
-        return _0x529803(_0x53347b.href || _0x53347b.getAttribute?.("href") || "") === _0x17a31b;
-      }) || (_0x259318?.href === _0x17a31b ? _0x259318.link : null);
-      const _0x161a0f = normalizeAuthorNicknameText(_0x195080?.innerText || _0x195080?.textContent || _0x195080?.getAttribute?.("title") || "");
-      if (_0x161a0f) {
-        if (!_0x461b6a || normalizeAuthorAccountName(_0x161a0f) === normalizeAuthorAccountName(_0x461b6a)) {
-          _0x461b6a = _0x161a0f;
+        return local3(arg1.href || arg1.getAttribute?.("href") || "") === local5;
+      }) || (result2?.href === local5 ? result2.link : null);
+      const result3 = normalizeAuthorNicknameText(local4?.innerText || local4?.textContent || local4?.getAttribute?.("title") || "");
+      if (result3) {
+        if (!local6 || normalizeAuthorAccountName(result3) === normalizeAuthorAccountName(local6)) {
+          local6 = result3;
         }
-      } else if (!_0x461b6a && (!_0x586a36 || !_0x259318)) {
+      } else if (!local6 && (!result || !result2)) {
         try {
-          const _0x6c4c7a = _0x2384df(_0x493da9, _0x5ecf31);
-          const _0x393446 = _0x6c4c7a?.secUid ? _0x529803("https://www.douyin.com/user/" + _0x6c4c7a.secUid) : "";
-          if (_0x393446 === _0x17a31b && _0x6c4c7a?.nickname) {
-            _0x461b6a = normalizeAuthorNicknameText(_0x6c4c7a.nickname);
+          const result = local2(local, text);
+          const value = result?.secUid ? local3("https://www.douyin.com/user/" + result.secUid) : "";
+          if (value === local5 && result?.nickname) {
+            local6 = normalizeAuthorNicknameText(result.nickname);
           }
-        } catch (_0x46abad) {}
+        } catch (error) {}
       }
     }
     return {
-      nickname: _0x461b6a || "",
-      profileUrl: _0x17a31b || "",
-      source: _0x259318 ? _0x17a31b && _0x461b6a ? "feed-publisher" : "feed-publisher-partial" : "scoped-fallback"
+      nickname: local6 || "",
+      profileUrl: local5 || "",
+      source: result2 ? local5 && local6 ? "feed-publisher" : "feed-publisher-partial" : "scoped-fallback"
     };
   }
   return {
@@ -473,13 +473,13 @@ function createDouyinVideoAuthorApi(_0x498b05 = {}) {
     normalizeAuthorAccountName: normalizeAuthorAccountName,
     parseExcludeAuthorAccounts: parseExcludeAuthorAccounts,
     matchExcludedVideoAuthor: matchExcludedVideoAuthor,
-    scoreAuthorProfileLink: _0x38df1b,
-    findFeedPublisherNearScope: _0x406d80,
-    pickBestAuthorProfileLink: _0x2a1c79,
-    findDouyinAuthorProfileUrlInRoot: _0x3ea897,
-    getVideoAuthorNickname: _0x5e9df6,
-    getVideoAuthorProfileUrl: _0x3c5fee,
-    getVideoAuthorInfo: _0xb53ebb
+    scoreAuthorProfileLink: scoreAuthorProfileLink,
+    findFeedPublisherNearScope: findFeedPublisherNearScope,
+    pickBestAuthorProfileLink: pickBestAuthorProfileLink,
+    findDouyinAuthorProfileUrlInRoot: findDouyinAuthorProfileUrlInRoot,
+    getVideoAuthorNickname: getVideoAuthorNickname,
+    getVideoAuthorProfileUrl: getVideoAuthorProfileUrl,
+    getVideoAuthorInfo: getVideoAuthorInfo
   };
 }
 module.exports = {
