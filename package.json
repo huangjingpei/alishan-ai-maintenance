@@ -32,6 +32,8 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
+    "@babel/parser": "^7.29.8",
+    "@babel/traverse": "^7.29.8",
     "@electron/asar": "4.3.0",
     "electron": "24.8.8",
     "electron-builder": "26.15.3"
