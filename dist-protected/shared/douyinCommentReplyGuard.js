@@ -2,50 +2,50 @@
 
 const DOUYIN_SECONDARY_COMMENT_NODE_SELECTOR = ["[data-e2e=\"comment-reply-item\"]", "div[class*=\"reply-item\"]", "div[class*=\"ReplyItem\"]", "[class*=\"sub-comment-item\"]", "[class*=\"SubCommentItem\"]"].join(", ");
 const DOUYIN_SECONDARY_COMMENT_ANCESTOR_SELECTOR = ["[data-e2e=\"comment-reply-list\"]", "[class*=\"reply-list\"]", "[class*=\"ReplyList\"]", "[class*=\"reply-container\"]", "[class*=\"ReplyContainer\"]", "[class*=\"sub-comment\"]", "[class*=\"SubComment\"]"].join(", ");
-function isNonZeroId(_0x4d4832) {
-  const _0x58e26d = String(_0x4d4832 ?? "").trim();
-  return !!_0x58e26d && _0x58e26d !== "0";
+function isNonZeroId(arg1) {
+  const result = String(arg1 ?? "").trim();
+  return !!result && result !== "0";
 }
-function isDouyinSecondaryCommentNode(_0x2c8f0c) {
-  if (!_0x2c8f0c) {
+function isDouyinSecondaryCommentNode(arg1) {
+  if (!arg1) {
     return false;
   }
   try {
-    if (typeof _0x2c8f0c.matches === "function" && _0x2c8f0c.matches(DOUYIN_SECONDARY_COMMENT_NODE_SELECTOR)) {
+    if (typeof arg1.matches === "function" && arg1.matches(DOUYIN_SECONDARY_COMMENT_NODE_SELECTOR)) {
       return true;
     }
-  } catch (_0x1c8deb) {}
+  } catch (error) {}
   try {
-    if (typeof _0x2c8f0c.closest === "function" && _0x2c8f0c.closest(DOUYIN_SECONDARY_COMMENT_ANCESTOR_SELECTOR)) {
+    if (typeof arg1.closest === "function" && arg1.closest(DOUYIN_SECONDARY_COMMENT_ANCESTOR_SELECTOR)) {
       return true;
     }
-  } catch (_0x40b999) {}
+  } catch (error) {}
   return false;
 }
-function isDouyinNestedReplyComment(_0x49fb6f) {
-  if (!_0x49fb6f || typeof _0x49fb6f !== "object") {
+function isDouyinNestedReplyComment(arg1) {
+  if (!arg1 || typeof arg1 !== "object") {
     return false;
   }
-  if (isNonZeroId(_0x49fb6f.reply_id ?? _0x49fb6f.replyId)) {
+  if (isNonZeroId(arg1.reply_id ?? arg1.replyId)) {
     return true;
   }
-  if (isNonZeroId(_0x49fb6f.reply_to_reply_id ?? _0x49fb6f.replyToReplyId)) {
+  if (isNonZeroId(arg1.reply_to_reply_id ?? arg1.replyToReplyId)) {
     return true;
   }
-  if (isNonZeroId(_0x49fb6f.reply_to_userid ?? _0x49fb6f.reply_to_user_id ?? _0x49fb6f.replyToUserId)) {
+  if (isNonZeroId(arg1.reply_to_userid ?? arg1.reply_to_user_id ?? arg1.replyToUserId)) {
     return true;
   }
-  const _0x583b69 = Number(_0x49fb6f.level ?? _0x49fb6f.comment_level ?? _0x49fb6f.commentLevel);
-  if (Number.isFinite(_0x583b69) && _0x583b69 >= 2) {
+  const result = Number(arg1.level ?? arg1.comment_level ?? arg1.commentLevel);
+  if (Number.isFinite(result) && result >= 2) {
     return true;
   }
   return false;
 }
-function shouldWalkCommentNestedKey(_0x32ca18, {
+function shouldWalkCommentNestedKey(arg1, {
   includeReplies = false
 } = {}) {
-  const _0x1e5a9c = String(_0x32ca18 || "");
-  if (/^reply_comments?$/i.test(_0x1e5a9c) || /^replyComments?$/i.test(_0x1e5a9c)) {
+  const result = String(arg1 || "");
+  if (/^reply_comments?$/i.test(result) || /^replyComments?$/i.test(result)) {
     return !!includeReplies;
   }
   return true;
