@@ -5,208 +5,208 @@ const crypto = require("crypto");
 const {
   ipcMain
 } = require("electron");
-function createAuthService(_0x308d63) {
+function createAuthService(arg1) {
   const {
-    store: _0x23c568,
-    getApiBase: _0x367461,
-    productSlug: _0x13a8cc,
-    productToken: _0x5b6be8,
-    jwtSecret: _0x1bf2f8,
-    appVersion: _0x465515,
-    getRobustDeviceID: _0x2e511b,
-    getIsCurrentUserFree: _0xda36df,
-    setIsCurrentUserFree: _0x937529,
-    persistAuthLicenseSnapshot: _0x3f527e,
-    runtimeConfig: _0xa2fde1,
-    stopMessageCenterIfNeeded: _0x559c51,
-    stopXianyuMonitorIfNeeded: _0x4d3f35,
-    syncChatNotificationMonitor: _0x346496,
-    isBackgroundChatMonitorEnabled: _0x5d7468,
-    failoverToApiBase2: _0x274f7e,
-    getMainWindow: _0x334fa9,
-    radarDeviceHeaders: _0x44011c
-  } = _0x308d63;
-  function _0x401dbd(_0x511962, _0x470772) {
-    return crypto.createHmac("sha256", _0x470772).update(_0x511962).digest("hex");
+    store: store,
+    getApiBase: getApiBase,
+    productSlug: productSlug,
+    productToken: productToken,
+    jwtSecret: jwtSecret,
+    appVersion: appVersion,
+    getRobustDeviceID: getRobustDeviceID,
+    getIsCurrentUserFree: getIsCurrentUserFree,
+    setIsCurrentUserFree: setIsCurrentUserFree,
+    persistAuthLicenseSnapshot: persistAuthLicenseSnapshot,
+    runtimeConfig: runtimeConfig,
+    stopMessageCenterIfNeeded: stopMessageCenterIfNeeded,
+    stopXianyuMonitorIfNeeded: stopXianyuMonitorIfNeeded,
+    syncChatNotificationMonitor: syncChatNotificationMonitor,
+    isBackgroundChatMonitorEnabled: isBackgroundChatMonitorEnabled,
+    failoverToApiBase2: failoverToApiBase2,
+    getMainWindow: getMainWindow,
+    radarDeviceHeaders: radarDeviceHeaders
+  } = arg1;
+  function generateSign(arg1, arg2) {
+    return crypto.createHmac("sha256", arg2).update(arg1).digest("hex");
   }
-  function _0x355b81(_0x4cdc23) {
-    if (!_0x4cdc23) {
+  function isTransientAuthNetworkError(arg1) {
+    if (!arg1) {
       return false;
     }
-    if (!_0x4cdc23.response) {
+    if (!arg1.response) {
       return true;
     }
-    const _0x10eb31 = String(_0x4cdc23.code || "");
-    return ["ECONNABORTED", "ECONNRESET", "ENOTFOUND", "ETIMEDOUT", "ERR_NETWORK", "EAI_AGAIN"].includes(_0x10eb31);
+    const result = String(arg1.code || "");
+    return ["ECONNABORTED", "ECONNRESET", "ENOTFOUND", "ETIMEDOUT", "ERR_NETWORK", "EAI_AGAIN"].includes(result);
   }
-  const _0x1cba8b = 86400000;
-  function _0x18a967(_0x39daab = "network") {
-    const _0x725b03 = _0x23c568.get("auth_license") || {};
-    const _0x14b6fe = _0x23c568.get("auth_code");
-    const _0x497565 = _0x23c568.get("auth_token");
-    const _0x3cbf68 = !!_0x725b03.isTrial || _0x725b03.licenseType === "trial";
-    const _0x2928d3 = !_0x725b03.isFree && !_0x725b03.isTrial || _0x725b03.licenseType === "pro";
-    if (_0x725b03.expireTime && new Date(_0x725b03.expireTime) < new Date() && !_0x3cbf68) {
+  const num = 86400000;
+  function buildOfflineAuthCheckResult(text = "network") {
+    const local = store.get("auth_license") || {};
+    const result = store.get("auth_code");
+    const result2 = store.get("auth_token");
+    const local2 = !!local.isTrial || local.licenseType === "trial";
+    const local3 = !local.isFree && !local.isTrial || local.licenseType === "pro";
+    if (local.expireTime && new Date(local.expireTime) < new Date() && !local2) {
       return null;
     }
-    const _0x5e1fdc = Number(_0x725b03.updatedAt) || 0;
-    if (!_0x5e1fdc || Date.now() - _0x5e1fdc > _0x1cba8b) {
-      console.warn("[Auth] 离线授权缓存已超过 " + Math.round(_0x1cba8b / 3600000) + " 小时或缺少 updatedAt，拒绝离线放行");
+    const local4 = Number(local.updatedAt) || 0;
+    if (!local4 || Date.now() - local4 > num) {
+      console.warn("[Auth] 离线授权缓存已超过 " + Math.round(num / 3600000) + " 小时或缺少 updatedAt，拒绝离线放行");
       return null;
     }
-    if (_0x3cbf68 && _0x497565) {
-      _0x937529(false);
+    if (local2 && result2) {
+      setIsCurrentUserFree(false);
       return {
         success: true,
         offline: true,
         isFree: false,
         isTrial: true,
-        msg: _0x39daab === "network" ? "网络异常，已使用本地试用授权缓存" : "离线模式（试用）",
-        expireTime: _0x725b03.expireTime || null,
-        aiQuota: _0x725b03.aiQuota ?? 0,
-        planType: _0x725b03.planType || null,
-        personaTestQuota: _0x725b03.personaTestQuota || null,
-        workPublishQuota: _0x725b03.workPublishQuota || null,
-        savedCode: _0x14b6fe
+        msg: text === "network" ? "网络异常，已使用本地试用授权缓存" : "离线模式（试用）",
+        expireTime: local.expireTime || null,
+        aiQuota: local.aiQuota ?? 0,
+        planType: local.planType || null,
+        personaTestQuota: local.personaTestQuota || null,
+        workPublishQuota: local.workPublishQuota || null,
+        savedCode: result
       };
     }
-    if (_0x2928d3 && (_0x14b6fe || _0x497565)) {
-      _0x937529(false);
+    if (local3 && (result || result2)) {
+      setIsCurrentUserFree(false);
       return {
         success: true,
         offline: true,
         isFree: false,
         isTrial: false,
-        msg: _0x39daab === "network" ? "网络异常，已使用本地授权缓存" : "离线模式（已激活）",
-        expireTime: _0x725b03.expireTime || null,
-        aiQuota: _0x725b03.aiQuota,
-        planType: _0x725b03.planType || null,
-        personaTestQuota: _0x725b03.personaTestQuota || null,
-        workPublishQuota: _0x725b03.workPublishQuota || null,
-        savedCode: _0x14b6fe
+        msg: text === "network" ? "网络异常，已使用本地授权缓存" : "离线模式（已激活）",
+        expireTime: local.expireTime || null,
+        aiQuota: local.aiQuota,
+        planType: local.planType || null,
+        personaTestQuota: local.personaTestQuota || null,
+        workPublishQuota: local.workPublishQuota || null,
+        savedCode: result
       };
     }
     return null;
   }
-  let _0x87c989 = null;
-  async function _0xa53603() {
-    if (_0x87c989) {
-      return _0x87c989;
+  let local = null;
+  async function fn4() {
+    if (local) {
+      return local;
     }
-    _0x87c989 = _0xe87bbd().finally(() => {
-      _0x87c989 = null;
+    local = fn5().finally(() => {
+      local = null;
     });
-    return _0x87c989;
+    return local;
   }
-  async function _0xe87bbd() {
+  async function fn5() {
     try {
-      const _0x1c5457 = _0x23c568.get("auth_token");
-      const _0x4096e0 = _0x23c568.get("auth_code");
+      const result = store.get("auth_token");
+      const result2 = store.get("auth_code");
       try {
-        const _0x21ac43 = _0x2e511b();
-        const _0x2c0f65 = Math.floor(Date.now() / 1000).toString();
-        const _0x3a9f94 = _0x401dbd(_0x13a8cc + _0x21ac43 + _0x2c0f65, _0x5b6be8);
-        const _0x1013dd = require("os");
-        const _0x232298 = _0x1013dd.networkInterfaces();
-        let _0x23fa59 = "127.0.0.1";
-        for (const _0x408130 of Object.keys(_0x232298)) {
-          for (const _0x380e4e of _0x232298[_0x408130]) {
-            if (_0x380e4e.family === "IPv4" && !_0x380e4e.internal) {
-              _0x23fa59 = _0x380e4e.address;
+        const result3 = getRobustDeviceID();
+        const result4 = Math.floor(Date.now() / 1000).toString();
+        const result5 = generateSign(productSlug + result3 + result4, productToken);
+        const os = require("os");
+        const result6 = os.networkInterfaces();
+        let text = "127.0.0.1";
+        for (const item of Object.keys(result6)) {
+          for (const item2 of result6[item]) {
+            if (item2.family === "IPv4" && !item2.internal) {
+              text = item2.address;
               break;
             }
           }
         }
-        const _0x3fbd86 = await axios.post(_0x367461() + "/device/report", {
-          deviceId: _0x21ac43,
-          slug: _0x13a8cc,
+        const result7 = await axios.post(getApiBase() + "/device/report", {
+          deviceId: result3,
+          slug: productSlug,
           osVersion: process.getSystemVersion(),
-          modelName: _0x1013dd.hostname(),
-          cpuInfo: _0x1013dd.cpus()[0].model,
-          memoryInfo: (_0x1013dd.totalmem() / 1024 / 1024 / 1024).toFixed(2) + " GB",
-          localIp: _0x23fa59,
-          appVersion: _0x465515,
-          ts: _0x2c0f65,
-          sign: _0x3a9f94
+          modelName: os.hostname(),
+          cpuInfo: os.cpus()[0].model,
+          memoryInfo: (os.totalmem() / 1024 / 1024 / 1024).toFixed(2) + " GB",
+          localIp: text,
+          appVersion: appVersion,
+          ts: result4,
+          sign: result5
         }, {
-          headers: _0x1c5457 ? {
-            Authorization: "Bearer " + _0x1c5457
+          headers: result ? {
+            Authorization: "Bearer " + result
           } : {},
           timeout: 5000
         });
-        if (_0x3fbd86.data.code === 200 || _0x3fbd86.data.success) {
-          const _0x3b2fe8 = _0x3fbd86.data.data || _0x3fbd86.data;
-          const _0x11969a = _0x3b2fe8.status;
-          const _0x3868f9 = _0x3b2fe8.expireTime;
-          let _0x4b5207 = _0x3868f9 && new Date(_0x3868f9) < new Date();
-          let _0x4cf68f = false;
-          let _0x3b0094 = _0x3868f9;
-          let _0x3fa21b = false;
-          if (_0x3b2fe8.isTrial) {
-            if (_0x3b2fe8.aiQuota <= 0) {
-              _0x4b5207 = true;
-              _0x3fa21b = true;
-            } else if (_0x3868f9) {
-              _0x3b0094 = _0x3868f9;
-              if (new Date(_0x3868f9) < new Date()) {
-                _0x4b5207 = true;
-                _0x4cf68f = true;
+        if (result7.data.code === 200 || result7.data.success) {
+          const local = result7.data.data || result7.data;
+          const value = local.status;
+          const value2 = local.expireTime;
+          let local2 = value2 && new Date(value2) < new Date();
+          let flag = false;
+          let local3 = value2;
+          let flag2 = false;
+          if (local.isTrial) {
+            if (local.aiQuota <= 0) {
+              local2 = true;
+              flag2 = true;
+            } else if (value2) {
+              local3 = value2;
+              if (new Date(value2) < new Date()) {
+                local2 = true;
+                flag = true;
               }
             }
           }
-          if (_0x3b2fe8.isPaid === false && !_0x3b2fe8.isTrial) {
-            _0x4b5207 = true;
+          if (local.isPaid === false && !local.isTrial) {
+            local2 = true;
           }
-          if (_0x11969a === "active" && !_0x4b5207) {
-            if (_0x3b2fe8.token) {
-              _0x23c568.set("auth_token", _0x3b2fe8.token);
+          if (value === "active" && !local2) {
+            if (local.token) {
+              store.set("auth_token", local.token);
             }
-            const _0x1a7459 = _0x3b2fe8.isPaid === true;
-            const _0x882767 = !!_0x3b2fe8.isTrial && !_0x1a7459;
-            _0x937529(!_0x1a7459 && !_0x882767);
-            if (_0xda36df()) {
-              _0x559c51();
+            const value = local.isPaid === true;
+            const local2 = !!local.isTrial && !value;
+            setIsCurrentUserFree(!value && !local2);
+            if (getIsCurrentUserFree()) {
+              stopMessageCenterIfNeeded();
             } else {
-              _0x346496({
-                immediate: _0x5d7468()
+              syncChatNotificationMonitor({
+                immediate: isBackgroundChatMonitorEnabled()
               });
             }
-            _0x3f527e({
-              isFree: _0xda36df(),
-              isTrial: _0x882767,
-              planType: _0x3b2fe8.planType || "",
-              expireTime: _0x3b0094,
-              aiQuota: _0x3b2fe8.aiQuota,
-              personaTestQuota: _0x3b2fe8.personaTestQuota || null,
-              workPublishQuota: _0x3b2fe8.workPublishQuota || null
+            persistAuthLicenseSnapshot({
+              isFree: getIsCurrentUserFree(),
+              isTrial: local2,
+              planType: local.planType || "",
+              expireTime: local3,
+              aiQuota: local.aiQuota,
+              personaTestQuota: local.personaTestQuota || null,
+              workPublishQuota: local.workPublishQuota || null
             });
-            _0xa2fde1.ensureFetchedInBackground("check-auth");
+            runtimeConfig.ensureFetchedInBackground("check-auth");
             return {
               success: true,
               msg: "验证通过",
-              expireTime: _0x3b0094,
-              isFree: _0xda36df(),
-              aiQuota: _0x3b2fe8.aiQuota,
-              isTrial: _0x882767,
-              planType: _0x3b2fe8.planType || null,
-              personaTestQuota: _0x3b2fe8.personaTestQuota || null,
-              workPublishQuota: _0x3b2fe8.workPublishQuota || null,
-              savedCode: _0x4096e0
+              expireTime: local3,
+              isFree: getIsCurrentUserFree(),
+              aiQuota: local.aiQuota,
+              isTrial: local2,
+              planType: local.planType || null,
+              personaTestQuota: local.personaTestQuota || null,
+              workPublishQuota: local.workPublishQuota || null,
+              savedCode: result2
             };
-          } else if (_0x11969a === "blocked") {
-            _0x937529(true);
-            _0x4d3f35();
-            _0x559c51();
+          } else if (value === "blocked") {
+            setIsCurrentUserFree(true);
+            stopXianyuMonitorIfNeeded();
+            stopMessageCenterIfNeeded();
             return {
               success: false,
               msg: "该设备已被封禁"
             };
-          } else if (_0x4b5207) {
-            _0x937529(true);
-            _0x4d3f35();
-            _0x559c51();
-            const _0x2be698 = _0x3fa21b ? "您的试用期 AI 额度已耗尽，请激活专业版" : _0x4cf68f ? "您的试用期已结束，已自动切换为未激活状态" : "授权已过期";
-            _0x3f527e({
+          } else if (local2) {
+            setIsCurrentUserFree(true);
+            stopXianyuMonitorIfNeeded();
+            stopMessageCenterIfNeeded();
+            const value = flag2 ? "您的试用期 AI 额度已耗尽，请激活专业版" : flag ? "您的试用期已结束，已自动切换为未激活状态" : "授权已过期";
+            persistAuthLicenseSnapshot({
               isFree: true,
               isTrial: false,
               planType: ""
@@ -215,283 +215,283 @@ function createAuthService(_0x308d63) {
               success: true,
               isFree: true,
               isTrial: false,
-              msg: _0x2be698,
+              msg: value,
               aiQuota: 0,
               expireTime: null,
               planType: null,
-              personaTestQuota: _0x3b2fe8.personaTestQuota || null,
+              personaTestQuota: local.personaTestQuota || null,
               savedCode: null
             };
           }
         }
-      } catch (_0xff0b14) {
-        console.error("[Auth] 设备状态同步失败:", _0xff0b14.message);
+      } catch (error) {
+        console.error("[Auth] 设备状态同步失败:", error.message);
       }
-      if (_0x4096e0) {
-        const _0x1831b5 = await _0x26d191(_0x4096e0);
-        if (_0x1831b5.success) {
-          _0x937529(false);
-          _0x3f527e({
+      if (result2) {
+        const result = await internalActivate(result2);
+        if (result.success) {
+          setIsCurrentUserFree(false);
+          persistAuthLicenseSnapshot({
             isFree: false,
             isTrial: false,
-            planType: _0x1831b5.planType || "",
-            expireTime: _0x1831b5.expireTime || null
+            planType: result.planType || "",
+            expireTime: result.expireTime || null
           });
-          _0xa2fde1.ensureFetchedInBackground("check-auth-reactivate");
+          runtimeConfig.ensureFetchedInBackground("check-auth-reactivate");
           return {
-            ..._0x1831b5,
+            ...result,
             isFree: false,
             isTrial: false
           };
         }
-        const _0x369bf0 = _0x1831b5.networkError ? _0x18a967("network") : null;
-        if (_0x369bf0) {
-          return _0x369bf0;
+        const value = result.networkError ? buildOfflineAuthCheckResult("network") : null;
+        if (value) {
+          return value;
         }
-        _0x937529(true);
-        _0x559c51();
+        setIsCurrentUserFree(true);
+        stopMessageCenterIfNeeded();
         return {
           success: true,
           isFree: true,
           isTrial: false,
-          msg: _0x1831b5.msg,
-          savedCode: _0x4096e0
+          msg: result.msg,
+          savedCode: result2
         };
       }
-      const _0x23772a = _0x18a967("network");
-      if (_0x23772a) {
-        return _0x23772a;
+      const result3 = buildOfflineAuthCheckResult("network");
+      if (result3) {
+        return result3;
       }
-      _0x937529(true);
-      _0x559c51();
+      setIsCurrentUserFree(true);
+      stopMessageCenterIfNeeded();
       return {
         success: true,
         isFree: true,
         msg: "授权未激活",
         savedCode: null
       };
-    } catch (_0x1a7e2b) {
-      const _0x178e18 = _0x18a967("network");
-      if (_0x178e18) {
-        return _0x178e18;
+    } catch (error) {
+      const result = buildOfflineAuthCheckResult("network");
+      if (result) {
+        return result;
       }
-      _0x937529(true);
-      _0x559c51();
+      setIsCurrentUserFree(true);
+      stopMessageCenterIfNeeded();
       return {
         success: true,
         isFree: true,
         msg: "离线模式（未激活）",
-        savedCode: _0x23c568.get("auth_code")
+        savedCode: store.get("auth_code")
       };
     }
   }
-  async function _0x26d191(_0x1fea7f) {
-    if (!_0x1fea7f || _0x1fea7f.length < 5) {
+  async function internalActivate(arg1) {
+    if (!arg1 || arg1.length < 5) {
       return {
         success: false,
         msg: "授权码格式不正确"
       };
     }
-    console.log("[Auth] 正在发起激活请求: code=" + _0x1fea7f);
+    console.log("[Auth] 正在发起激活请求: code=" + arg1);
     const {
-      isApiBaseConnResetError: _0x5c1c94
+      isApiBaseConnResetError: isApiBaseConnResetError
     } = require("./apiBaseRegion");
-    const _0x4f59d7 = () => {
-      const _0xf9d35b = _0x2e511b();
-      const _0x4a8a08 = Math.floor(Date.now() / 1000);
-      let _0x3cec66 = "";
-      if (_0x5b6be8) {
-        _0x3cec66 = crypto.createHmac("sha256", _0x5b6be8).update("" + _0x1fea7f + _0xf9d35b + _0x4a8a08).digest("hex");
-      } else if (_0x1bf2f8) {
-        _0x3cec66 = crypto.createHash("md5").update(_0x1fea7f + _0xf9d35b + _0x4a8a08 + _0x1bf2f8).digest("hex");
+    const local = () => {
+      const result = getRobustDeviceID();
+      const result2 = Math.floor(Date.now() / 1000);
+      let text = "";
+      if (productToken) {
+        text = crypto.createHmac("sha256", productToken).update("" + arg1 + result + result2).digest("hex");
+      } else if (jwtSecret) {
+        text = crypto.createHash("md5").update(arg1 + result + result2 + jwtSecret).digest("hex");
       }
       return {
-        deviceID: _0xf9d35b,
+        deviceID: result,
         body: {
-          authCode: _0x1fea7f,
-          deviceId: _0xf9d35b,
-          slug: _0x13a8cc,
-          timestamp: _0x4a8a08,
-          sign: _0x3cec66,
-          signVer: _0x5b6be8 ? 2 : 1
+          authCode: arg1,
+          deviceId: result,
+          slug: productSlug,
+          timestamp: result2,
+          sign: text,
+          signVer: productToken ? 2 : 1
         }
       };
     };
-    const _0x1debe0 = _0x52b86d => {
-      const _0x2b9468 = _0x52b86d || {};
-      const _0x2ba330 = _0x2b9468.message || _0x2b9468.Message || _0x2b9468.msg || "未知错误";
-      console.log("[Auth] 接口处理结果: success=" + _0x2b9468.success + ", msg=" + _0x2ba330);
-      if (_0x2b9468.success || _0x2b9468.token) {
+    const local2 = arg12 => {
+      const local = arg12 || {};
+      const local2 = local.message || local.Message || local.msg || "未知错误";
+      console.log("[Auth] 接口处理结果: success=" + local.success + ", msg=" + local2);
+      if (local.success || local.token) {
         console.log("[Auth] 激活成功，正在持久化授权码...");
-        _0x23c568.set("auth_code", _0x1fea7f);
-        if (_0x2b9468.token) {
-          _0x23c568.set("auth_token", _0x2b9468.token);
+        store.set("auth_code", arg1);
+        if (local.token) {
+          store.set("auth_token", local.token);
         }
-        const _0x3544b1 = _0x2b9468.planType || _0x2b9468.PlanType || "";
-        const _0xc90b05 = _0x2b9468.expireTime || _0x2b9468.ExpireTime;
-        _0x3f527e({
+        const local2 = local.planType || local.PlanType || "";
+        const local3 = local.expireTime || local.ExpireTime;
+        persistAuthLicenseSnapshot({
           isFree: false,
           isTrial: false,
-          planType: _0x3544b1,
-          expireTime: _0xc90b05 || null
+          planType: local2,
+          expireTime: local3 || null
         });
-        _0xa2fde1.ensureFetchedInBackground("activate");
+        runtimeConfig.ensureFetchedInBackground("activate");
         return {
           success: true,
-          expireTime: _0xc90b05,
-          planType: _0x3544b1 || null,
+          expireTime: local3,
+          planType: local2 || null,
           isFree: false,
           isTrial: false,
           msg: "激活成功",
-          savedCode: _0x1fea7f
+          savedCode: arg1
         };
       }
       return {
         success: false,
-        msg: _0x2ba330,
-        raw: _0x2b9468
+        msg: local2,
+        raw: local
       };
     };
-    const _0x548624 = async () => {
+    const local3 = async () => {
       const {
-        body: _0x3c2137
-      } = _0x4f59d7();
-      const _0x2dcf64 = await axios.post(_0x367461() + "/auth-codes/use", _0x3c2137);
-      return _0x1debe0(_0x2dcf64.data);
+        body: body
+      } = local();
+      const result = await axios.post(getApiBase() + "/auth-codes/use", body);
+      return local2(result.data);
     };
     try {
-      return await _0x548624();
-    } catch (_0x5c2d90) {
-      if (_0x5c1c94(_0x5c2d90) && _0x274f7e("auth_econnreset")) {
+      return await local3();
+    } catch (error) {
+      if (isApiBaseConnResetError(error) && failoverToApiBase2("auth_econnreset")) {
         try {
           console.log("[Auth] ECONNRESET，已切 apiBase2，静默重试激活…");
-          return await _0x548624();
-        } catch (_0x3f6d53) {
-          const _0x3d1d40 = _0x3f6d53.response?.data?.message || _0x3f6d53.response?.data?.msg || _0x3f6d53.message;
-          console.error("[Auth] apiBase2 重试仍失败: " + _0x3d1d40);
+          return await local3();
+        } catch (error) {
+          const local = error.response?.data?.message || error.response?.data?.msg || error.message;
+          console.error("[Auth] apiBase2 重试仍失败: " + local);
           return {
             success: false,
-            msg: _0x3d1d40,
-            networkError: _0x355b81(_0x3f6d53)
+            msg: local,
+            networkError: isTransientAuthNetworkError(error)
           };
         }
       }
-      const _0x349546 = _0x5c2d90.response?.data?.message || _0x5c2d90.response?.data?.msg || _0x5c2d90.message;
-      console.error("[Auth] 激活接口调用异常: " + _0x349546);
+      const local = error.response?.data?.message || error.response?.data?.msg || error.message;
+      console.error("[Auth] 激活接口调用异常: " + local);
       return {
         success: false,
-        msg: _0x349546,
-        networkError: _0x355b81(_0x5c2d90)
+        msg: local,
+        networkError: isTransientAuthNetworkError(error)
       };
     }
   }
-  async function _0x52ac7e() {
-    const _0x3d6256 = _0x23c568.get("auth_code");
-    if (_0x3d6256) {
+  async function autoLogin() {
+    const result = store.get("auth_code");
+    if (result) {
       console.log("[Auth] 发现本地授权码，正在自动续期 Token...");
-      const _0x2c834d = await _0x26d191(_0x3d6256);
-      if (_0x2c834d.success) {
+      const result2 = await internalActivate(result);
+      if (result2.success) {
         console.log("[Auth] 自动续期成功");
       } else {
-        console.warn("[Auth] 自动续期失败:", _0x2c834d.msg);
-        const _0x2e4189 = _0x334fa9();
-        if (!_0x2c834d.networkError && _0x2e4189 && !_0x2e4189.isDestroyed()) {
-          _0x2e4189.webContents.send("show-auth-modal", _0x2c834d.msg);
+        console.warn("[Auth] 自动续期失败:", result2.msg);
+        const result = getMainWindow();
+        if (!result2.networkError && result && !result.isDestroyed()) {
+          result.webContents.send("show-auth-modal", result2.msg);
         }
       }
     }
   }
-  async function _0x167d46(_0x138118, _0x345c84) {
+  async function fn8(arg1, arg2) {
     try {
-      let _0x3a0162 = _0x23c568.get("auth_token");
-      const _0x38889a = _0x2e511b();
-      const _0x416e95 = async _0x38f3eb => {
-        return await axios.post(_0x367461() + "/radar/analyze", {
-          title: _0x345c84.title,
-          content: _0x345c84.content
+      let result = store.get("auth_token");
+      const result2 = getRobustDeviceID();
+      const local = async arg1 => {
+        return await axios.post(getApiBase() + "/radar/analyze", {
+          title: arg2.title,
+          content: arg2.content
         }, {
-          headers: _0x44011c(_0x38f3eb, _0x38889a)
+          headers: radarDeviceHeaders(arg1, result2)
         });
       };
       try {
-        const _0x29b72a = await _0x416e95(_0x3a0162);
-        if (_0x29b72a.data.code === 200) {
+        const result2 = await local(result);
+        if (result2.data.code === 200) {
           return {
             success: true,
-            data: _0x29b72a.data.data
+            data: result2.data.data
           };
         } else {
           return {
             success: false,
-            msg: _0x29b72a.data.msg
+            msg: result2.data.msg
           };
         }
-      } catch (_0x1d318c) {
-        if (_0x1d318c.response?.status === 401) {
+      } catch (error) {
+        if (error.response?.status === 401) {
           console.log("[Auth] Token 过期，尝试自动刷新并重试...");
-          await _0x52ac7e();
-          _0x3a0162 = _0x23c568.get("auth_token");
-          const _0x1e4344 = await _0x416e95(_0x3a0162);
-          if (_0x1e4344.data.code === 200) {
+          await autoLogin();
+          result = store.get("auth_token");
+          const result2 = await local(result);
+          if (result2.data.code === 200) {
             return {
               success: true,
-              data: _0x1e4344.data.data
+              data: result2.data.data
             };
           } else {
             return {
               success: false,
-              msg: _0x1e4344.data.msg
+              msg: result2.data.msg
             };
           }
         }
-        throw _0x1d318c;
+        throw error;
       }
-    } catch (_0x137b71) {
+    } catch (error) {
       return {
         success: false,
         msg: "分析失败"
       };
     }
   }
-  function _0x3a4d73() {
+  function registerIpc() {
     ipcMain.handle("check-auth", async () => {
-      return await _0xa53603();
+      return await fn4();
     });
     ipcMain.handle("refresh-auth", async () => {
-      const _0x4a91c2 = await _0xa53603();
-      const _0x2da6ec = _0x23c568.get("auth_token");
-      const _0x3e9647 = !!_0x4a91c2 && _0x4a91c2.offline !== true && !!_0x2da6ec;
-      let _0xc9e751 = _0xa2fde1.getStatus();
-      if (_0x3e9647) {
+      const result = await fn4();
+      const result2 = store.get("auth_token");
+      const local = !!result && result.offline !== true && !!result2;
+      let result3 = runtimeConfig.getStatus();
+      if (local) {
         try {
-          await _0xa2fde1.ensureFetched({
+          await runtimeConfig.ensureFetched({
             force: true
           });
-        } catch (_0x40ab8d) {
-          console.warn("[Auth] refresh-auth 拉取 runtime-config 失败:", _0x40ab8d?.message || _0x40ab8d);
+        } catch (error) {
+          console.warn("[Auth] refresh-auth 拉取 runtime-config 失败:", error?.message || error);
         }
-        _0xc9e751 = _0xa2fde1.getStatus();
+        result3 = runtimeConfig.getStatus();
       }
       return {
-        ..._0x4a91c2,
-        connected: _0x3e9647,
-        runtimeConfig: _0xc9e751
+        ...result,
+        connected: local,
+        runtimeConfig: result3
       };
     });
-    ipcMain.handle("analyze", async (_0x5b202c, _0x4cba06) => {
-      return await _0x167d46(_0x5b202c, _0x4cba06);
+    ipcMain.handle("analyze", async (arg1, arg2) => {
+      return await fn8(arg1, arg2);
     });
-    ipcMain.handle("activate", async (_0x52837a, _0x5963da) => {
-      return await _0x26d191(_0x5963da);
+    ipcMain.handle("activate", async (arg1, arg2) => {
+      return await internalActivate(arg2);
     });
   }
   return {
-    generateSign: _0x401dbd,
-    internalActivate: _0x26d191,
-    autoLogin: _0x52ac7e,
-    registerIpc: _0x3a4d73,
-    isTransientAuthNetworkError: _0x355b81,
-    buildOfflineAuthCheckResult: _0x18a967
+    generateSign: generateSign,
+    internalActivate: internalActivate,
+    autoLogin: autoLogin,
+    registerIpc: registerIpc,
+    isTransientAuthNetworkError: isTransientAuthNetworkError,
+    buildOfflineAuthCheckResult: buildOfflineAuthCheckResult
   };
 }
 module.exports = {
