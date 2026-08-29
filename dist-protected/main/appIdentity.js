@@ -6,109 +6,109 @@ const {
   app
 } = require("electron");
 function resolveAppDisplayName({
-  appDir: _0x3eeb30
+  appDir: appDir
 } = {}) {
-  const _0x3853a4 = String("抖多客" || "").trim();
-  if (_0x3853a4) {
-    return _0x3853a4;
+  const result = String("抖多客" || "").trim();
+  if (result) {
+    return result;
   }
-  const _0xa1add6 = [];
+  const list = [];
   try {
-    _0xa1add6.push(_0x3eeb30 || path.join(__dirname, ".."));
-  } catch (_0x42fa93) {}
+    list.push(appDir || path.join(__dirname, ".."));
+  } catch (error) {}
   try {
-    _0xa1add6.push(app.getAppPath());
-  } catch (_0x4727fd) {}
-  for (const _0x53a6f1 of _0xa1add6) {
-    if (!_0x53a6f1) {
+    list.push(app.getAppPath());
+  } catch (error) {}
+  for (const item of list) {
+    if (!item) {
       continue;
     }
-    for (const _0x537ae5 of ["build-variant.manifest.json", "electron-builder.effective.json", "package.json"]) {
+    for (const item2 of ["build-variant.manifest.json", "electron-builder.effective.json", "package.json"]) {
       try {
-        const _0x317ff7 = path.join(_0x53a6f1, _0x537ae5);
-        if (!fs.existsSync(_0x317ff7)) {
+        const result = path.join(item, item2);
+        if (!fs.existsSync(result)) {
           continue;
         }
-        const _0x377bd0 = JSON.parse(fs.readFileSync(_0x317ff7, "utf8"));
-        const _0x333e13 = _0x377bd0?.productName || _0x377bd0?.build?.productName;
-        if (_0x333e13 && String(_0x333e13).trim()) {
-          return String(_0x333e13).trim();
+        const result2 = JSON.parse(fs.readFileSync(result, "utf8"));
+        const local = result2?.productName || result2?.build?.productName;
+        if (local && String(local).trim()) {
+          return String(local).trim();
         }
-      } catch (_0x12e721) {}
+      } catch (error) {}
     }
   }
   try {
-    const _0x1b9556 = app.getName();
-    if (_0x1b9556 && _0x1b9556 !== "Electron" && !/^huoke-radar/i.test(_0x1b9556)) {
-      return _0x1b9556;
+    const result = app.getName();
+    if (result && result !== "Electron" && !/^huoke-radar/i.test(result)) {
+      return result;
     }
-  } catch (_0x4bb4a2) {}
+  } catch (error) {}
   return "获客雷达";
 }
-function applyAppDisplayName(_0x4338d8 = {}) {
-  const _0x32b198 = resolveAppDisplayName(_0x4338d8);
+function applyAppDisplayName(options = {}) {
+  const result = resolveAppDisplayName(options);
   try {
-    app.setName(_0x32b198);
-    console.log("[AppName] display => " + _0x32b198);
-  } catch (_0x282b14) {
-    console.warn("[AppName] setName 失败:", _0x282b14?.message || _0x282b14);
+    app.setName(result);
+    console.log("[AppName] display => " + result);
+  } catch (error) {
+    console.warn("[AppName] setName 失败:", error?.message || error);
   }
-  return _0x32b198;
+  return result;
 }
-function stripTrailingVersionSuffixes(_0x57f7fb) {
-  const _0x54a71e = String(_0x57f7fb || "").trim();
-  if (!_0x54a71e) {
+function stripTrailingVersionSuffixes(arg1) {
+  const result = String(arg1 || "").trim();
+  if (!result) {
     return "";
   }
-  const _0xd22845 = _0x54a71e.replace(/(?:_\d+\.\d+\.\d+(?:[-+][\w.]+)?)+$/i, "").trim();
-  return _0xd22845 || _0x54a71e;
+  const result2 = result.replace(/(?:_\d+\.\d+\.\d+(?:[-+][\w.]+)?)+$/i, "").trim();
+  return result2 || result;
 }
 function getAppProductName({
-  appDir: _0x42d211,
-  displayName: _0x2c8039
+  appDir: appDir,
+  displayName: displayName
 } = {}) {
-  const _0x1149f0 = String(typeof _0x2c8039 === "string" ? _0x2c8039 : "").trim() || String("抖多客" || "").trim();
-  if (_0x1149f0) {
-    return _0x1149f0;
+  const local = String(typeof displayName === "string" ? displayName : "").trim() || String("抖多客" || "").trim();
+  if (local) {
+    return local;
   }
-  const _0x5167c0 = (() => {
+  const result = (() => {
     try {
       return app.getAppPath();
-    } catch (_0x318fa) {
+    } catch (error) {
       return "";
     }
   })();
-  const _0x5d5e49 = [_0x42d211 || path.join(__dirname, ".."), _0x5167c0].filter(Boolean);
-  const _0xbfb456 = ["build-variant.manifest.json", "electron-builder.effective.json", "package.json"];
-  for (const _0x53526e of _0x5d5e49) {
-    for (const _0x45a973 of _0xbfb456) {
+  const result2 = [appDir || path.join(__dirname, ".."), result].filter(Boolean);
+  const list = ["build-variant.manifest.json", "electron-builder.effective.json", "package.json"];
+  for (const item of result2) {
+    for (const item2 of list) {
       try {
-        const _0x2722c8 = path.join(_0x53526e, _0x45a973);
-        if (!fs.existsSync(_0x2722c8)) {
+        const result = path.join(item, item2);
+        if (!fs.existsSync(result)) {
           continue;
         }
-        const _0x1af9a3 = JSON.parse(fs.readFileSync(_0x2722c8, "utf8"));
-        const _0x1e931c = _0x1af9a3?.productName || _0x1af9a3?.build?.productName;
-        if (_0x1e931c) {
-          return String(_0x1e931c).trim();
+        const result2 = JSON.parse(fs.readFileSync(result, "utf8"));
+        const local = result2?.productName || result2?.build?.productName;
+        if (local) {
+          return String(local).trim();
         }
-      } catch (_0x351f14) {}
+      } catch (error) {}
     }
   }
-  const _0xd500e5 = (process.env.PORTABLE_EXECUTABLE_FILE || "").trim();
-  if (_0xd500e5) {
-    const _0x51a256 = path.basename(_0xd500e5, path.extname(_0xd500e5));
-    const _0x1c1215 = stripTrailingVersionSuffixes(_0x51a256);
-    if (_0x1c1215) {
-      return _0x1c1215;
+  const result3 = (process.env.PORTABLE_EXECUTABLE_FILE || "").trim();
+  if (result3) {
+    const result = path.basename(result3, path.extname(result3));
+    const result2 = stripTrailingVersionSuffixes(result);
+    if (result2) {
+      return result2;
     }
   }
   try {
-    const _0x50adb5 = app.getName();
-    if (_0x50adb5 && _0x50adb5 !== "Electron" && !/^huoke-radar/i.test(_0x50adb5)) {
-      return _0x50adb5;
+    const result = app.getName();
+    if (result && result !== "Electron" && !/^huoke-radar/i.test(result)) {
+      return result;
     }
-  } catch (_0x4b51a1) {}
+  } catch (error) {}
   return "app";
 }
 module.exports = {
