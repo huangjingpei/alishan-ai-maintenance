@@ -106,39 +106,39 @@ const PAGE_SETTLE_MIN_MS = 1200;
 const PAGE_SETTLE_MAX_MS = 8000;
 const EXEC_JS_TIMEOUT_MS = 4000;
 const BLANK_NAV_TIMEOUT_MS = 8000;
-function sleep(_0x172183) {
-  return new Promise(_0x3d181e => setTimeout(_0x3d181e, _0x172183));
+function sleep(arg1) {
+  return new Promise(arg12 => setTimeout(arg12, arg1));
 }
-function withTimeout(_0x4b4a7f, _0x57911a, _0x21bb0f = "timeout") {
-  let _0x23893d = null;
-  return Promise.race([Promise.resolve(_0x4b4a7f), new Promise((_0x2bead4, _0x12fbcb) => {
-    _0x23893d = setTimeout(() => {
-      _0x12fbcb(Object.assign(new Error(_0x21bb0f), {
+function withTimeout(arg1, arg2, text = "timeout") {
+  let local = null;
+  return Promise.race([Promise.resolve(arg1), new Promise((arg1, arg22) => {
+    local = setTimeout(() => {
+      arg22(Object.assign(new Error(text), {
         code: "entity_timeout"
       }));
-    }, _0x57911a);
+    }, arg2);
   })]).finally(() => {
-    if (_0x23893d) {
-      clearTimeout(_0x23893d);
+    if (local) {
+      clearTimeout(local);
     }
   });
 }
-function createEntityLeadgenRunner(_0x32e717) {
-  const _0x480154 = () => runtimeConfig?.getPlain?.()?.urls || null;
-  const _0x16b42b = createMonitorAuthorWorkNav();
+function createEntityLeadgenRunner(arg1) {
+  const local = () => runtimeConfig?.getPlain?.()?.urls || null;
+  const result = createMonitorAuthorWorkNav();
   const {
-    app: _0x1c921e,
-    store: _0x26dd8d,
-    fs: _0x866731,
-    mainWindow: _0x427b5e,
+    app: app,
+    store: store,
+    fs: fs,
+    mainWindow: mainWindow,
     runtimeConfig = null,
-    applyAccountProxy: _0x4b949e,
-    configureAutomationSession: _0x2d035a,
-    applyPackagedWindowMenuPolicy: _0x25147e,
-    attachProtocolGuard: _0x2df114,
-    appendHistory: _0x31f44a,
-    listKnownLeadUserKeys: _0x24d0c1,
-    listKnownCollectedAuthorKeys: _0x3a8ec1,
+    applyAccountProxy: applyAccountProxy,
+    configureAutomationSession: configureAutomationSession,
+    applyPackagedWindowMenuPolicy: applyPackagedWindowMenuPolicy,
+    attachProtocolGuard: attachProtocolGuard,
+    appendHistory: appendHistory,
+    listKnownLeadUserKeys: listKnownLeadUserKeys,
+    listKnownCollectedAuthorKeys: listKnownCollectedAuthorKeys,
     getPlatformViews = null,
     attachAutomationViewToBackgroundHost = null,
     ensureBackgroundAutomationHostWindow = null,
@@ -152,1280 +152,1280 @@ function createEntityLeadgenRunner(_0x32e717) {
     getBoundsStateByViewKey = null,
     automationLiveViewLifecycle = null,
     destroyAutomationBrowserView = null,
-    resolveAutomationPreloadPath: _0x16ef68 = null,
+    resolveAutomationPreloadPath: resolveAutomationPreloadPath = null,
     automationUserAgent = "",
     getViewSettingsMap = null,
     isCommentLeadgenAccountBusy = null,
     isVideoMonitorAccountBusy = null
-  } = _0x32e717;
-  let _0x41183a = null;
-  function _0x5dd514(_0x12e9c1) {
-    if (!_0x12e9c1 || _0x12e9c1.isDestroyed?.() || !_0x427b5e || _0x427b5e.isDestroyed?.()) {
+  } = arg1;
+  let local2 = null;
+  function fn(arg1) {
+    if (!arg1 || arg1.isDestroyed?.() || !mainWindow || mainWindow.isDestroyed?.()) {
       return false;
     }
-    const _0x53f453 = String(_0x12e9c1.__radarEntityViewKey || "").trim();
-    const _0x10f36b = _0x53f453 && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(_0x53f453) : null;
-    if (!_0x10f36b) {
+    const result = String(arg1.__radarEntityViewKey || "").trim();
+    const value = result && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(result) : null;
+    if (!value) {
       return false;
     }
     try {
-      return _0x427b5e.getBrowserViews?.().includes(_0x10f36b) === true;
-    } catch (_0x53f838) {
+      return mainWindow.getBrowserViews?.().includes(value) === true;
+    } catch (error) {
       return false;
     }
   }
-  function _0x5dc34d(_0x3d6616) {
-    if (!_0x3d6616 || _0x3d6616.isDestroyed?.() || _0x3d6616.webContents?.isDestroyed?.()) {
+  function fn2(arg1) {
+    if (!arg1 || arg1.isDestroyed?.() || arg1.webContents?.isDestroyed?.()) {
       return;
     }
-    const _0xe81a7a = _0x5dd514(_0x3d6616);
-    const _0x2e7577 = String(_0x3d6616.__radarEntityViewKey || "").trim();
-    if (_0x2e7577) {
+    const result = fn(arg1);
+    const result2 = String(arg1.__radarEntityViewKey || "").trim();
+    if (result2) {
       try {
-        automationLiveViewLifecycle?.wake?.(_0x2e7577);
-      } catch (_0xb4ff9) {}
+        automationLiveViewLifecycle?.wake?.(result2);
+      } catch (error) {}
     }
     try {
-      _0x3d6616.webContents.setBackgroundThrottling?.(false);
-    } catch (_0x1192a2) {}
+      arg1.webContents.setBackgroundThrottling?.(false);
+    } catch (error) {}
     try {
-      _0x3d6616.webContents.setFrameRate?.(30);
-    } catch (_0x3f6f47) {}
+      arg1.webContents.setFrameRate?.(30);
+    } catch (error) {}
     try {
-      _0x3d6616.webContents.invalidate?.();
-    } catch (_0x4753c9) {}
-    if (_0xe81a7a) {
+      arg1.webContents.invalidate?.();
+    } catch (error) {}
+    if (result) {
       return;
     }
   }
-  function _0x33c5c7() {
-    if (typeof _0x16ef68 === "function") {
+  function fn3() {
+    if (typeof resolveAutomationPreloadPath === "function") {
       try {
-        return _0x16ef68();
-      } catch (_0x43f7fa) {}
+        return resolveAutomationPreloadPath();
+      } catch (error) {}
     }
-    let _0x357fae = path.join(__dirname, "..", "automation-preload.js");
-    if (_0x1c921e.isPackaged) {
-      const _0x33ae11 = _0x26dd8d.get("latest_resource_path");
-      if (_0x33ae11 && _0x866731.existsSync(path.join(_0x33ae11, "automation-preload.js"))) {
-        _0x357fae = path.join(_0x33ae11, "automation-preload.js");
+    let result = path.join(__dirname, "..", "automation-preload.js");
+    if (app.isPackaged) {
+      const result2 = store.get("latest_resource_path");
+      if (result2 && fs.existsSync(path.join(result2, "automation-preload.js"))) {
+        result = path.join(result2, "automation-preload.js");
       }
     }
-    return _0x357fae;
+    return result;
   }
-  const _0x5c36b6 = createEntityAutomationViewHostFactory({
+  const result2 = createEntityAutomationViewHostFactory({
     getPlatformViews: typeof getPlatformViews === "function" ? getPlatformViews : () => null,
-    getMainWindow: () => _0x427b5e,
+    getMainWindow: () => mainWindow,
     attachAutomationViewToBackgroundHost: attachAutomationViewToBackgroundHost,
     ensureBackgroundAutomationHostWindow: ensureBackgroundAutomationHostWindow,
-    configureAutomationSession: _0x2d035a,
-    attachProtocolGuard: _0x2df114,
-    applyAccountProxy: _0x4b949e,
-    resolveAutomationPreloadPath: _0x33c5c7,
+    configureAutomationSession: configureAutomationSession,
+    attachProtocolGuard: attachProtocolGuard,
+    applyAccountProxy: applyAccountProxy,
+    resolveAutomationPreloadPath: fn3,
     automationUserAgent: automationUserAgent,
-    store: _0x26dd8d,
+    store: store,
     destroyAutomationBrowserView: destroyAutomationBrowserView
   });
-  async function _0x31a7f4(_0x39d875) {
-    if (!runtimeConfig || !_0x39d875 || _0x39d875.isDestroyed?.()) {
+  async function fn4(arg1) {
+    if (!runtimeConfig || !arg1 || arg1.isDestroyed?.()) {
       return;
     }
     try {
       if (typeof runtimeConfig.ensureFetched === "function") {
         await withTimeout(runtimeConfig.ensureFetched(), 8000, "entity_runtime_config_timeout");
       }
-      runtimeConfig.pushToWebContents?.(_0x39d875);
-    } catch (_0x2530ef) {
-      console.warn("[EntityLeadgen] runtime config push failed:", _0x2530ef?.message || _0x2530ef);
+      runtimeConfig.pushToWebContents?.(arg1);
+    } catch (error) {
+      console.warn("[EntityLeadgen] runtime config push failed:", error?.message || error);
     }
   }
-  function _0xc7ac45(_0x7b423) {
-    if (!_0x7b423) {
+  function fn5(arg1) {
+    if (!arg1) {
       return [];
     }
-    const _0x4e5dd1 = String(_0x7b423);
-    const _0xab42b0 = [];
-    const _0x3ec3d0 = /(https?:\/\/[^\s,，;；"'<>()]+|(?:v\.)?douyin\.com\/[^\s,，;；"'<>()]+)/gi;
-    let _0x5809b2;
-    while ((_0x5809b2 = _0x3ec3d0.exec(_0x4e5dd1)) !== null) {
-      let _0x169d9e = _0x5809b2[1].replace(/[),.;:，。！？、》」』】]+$/g, "");
-      if (!/^https?:\/\//i.test(_0x169d9e)) {
-        _0x169d9e = "https://" + _0x169d9e;
+    const result = String(arg1);
+    const list = [];
+    const pattern = /(https?:\/\/[^\s,，;；"'<>()]+|(?:v\.)?douyin\.com\/[^\s,，;；"'<>()]+)/gi;
+    let local;
+    while ((local = pattern.exec(result)) !== null) {
+      let result = local[1].replace(/[),.;:，。！？、》」』】]+$/g, "");
+      if (!/^https?:\/\//i.test(result)) {
+        result = "https://" + result;
       }
-      if (/douyin\.com|iesdouyin\.com/i.test(_0x169d9e) && !_0xab42b0.includes(_0x169d9e)) {
-        _0xab42b0.push(_0x169d9e);
-      }
-    }
-    const _0xfb8cd3 = /\b(\d{18,20})\b/g;
-    while ((_0x5809b2 = _0xfb8cd3.exec(_0x4e5dd1)) !== null) {
-      const _0x39c98a = _0x5809b2[1];
-      const _0x34192c = "https://www.douyin.com/video/" + _0x39c98a;
-      if (!_0xab42b0.some(_0x494ed9 => _0x494ed9.includes(_0x39c98a))) {
-        _0xab42b0.push(_0x34192c);
+      if (/douyin\.com|iesdouyin\.com/i.test(result) && !list.includes(result)) {
+        list.push(result);
       }
     }
-    return _0xab42b0;
+    const pattern2 = /\b(\d{18,20})\b/g;
+    while ((local = pattern2.exec(result)) !== null) {
+      const value = local[1];
+      const value2 = "https://www.douyin.com/video/" + value;
+      if (!list.some(arg1 => arg1.includes(value))) {
+        list.push(value2);
+      }
+    }
+    return list;
   }
-  const _0x5ea9b0 = new Map();
-  const _0x4b41fa = new Map();
-  const _0x1362f9 = new Map();
-  const _0x31c2d3 = new Map();
-  const _0x494c23 = _0x2d7b27 => "entity-leadgen:" + _0x2d7b27;
-  function _0x4085b5() {
-    const _0x372d30 = os.totalmem();
-    const _0x296194 = os.freemem();
-    const _0x2be815 = _0x296194 / 1073741824;
-    const _0x35dbed = _0x372d30 > 0 ? _0x296194 / _0x372d30 : 1;
-    let _0x5c03d4 = 0;
-    let _0x5e26f3 = 0;
+  const map = new Map();
+  const map2 = new Map();
+  const map3 = new Map();
+  const map4 = new Map();
+  const local3 = arg1 => "entity-leadgen:" + arg1;
+  function fn6() {
+    const result = os.totalmem();
+    const result2 = os.freemem();
+    const value = result2 / 1073741824;
+    const value2 = result > 0 ? result2 / result : 1;
+    let num = 0;
+    let num2 = 0;
     try {
-      (_0x1c921e.getAppMetrics?.() || []).forEach(_0x2811c8 => {
-        _0x5c03d4 += Number(_0x2811c8?.cpu?.percentCPUUsage || 0);
-        if (_0x2811c8?.type === "Tab" || _0x2811c8?.type === "Renderer") {
-          const _0x678d8d = Number(_0x2811c8?.memory?.workingSetSize || 0) / 1024;
-          _0x5e26f3 = Math.max(_0x5e26f3, _0x678d8d);
+      (app.getAppMetrics?.() || []).forEach(arg1 => {
+        num += Number(arg1?.cpu?.percentCPUUsage || 0);
+        if (arg1?.type === "Tab" || arg1?.type === "Renderer") {
+          const value = Number(arg1?.memory?.workingSetSize || 0) / 1024;
+          num2 = Math.max(num2, value);
         }
       });
-    } catch (_0x5c2335) {}
-    const _0x21efd5 = Math.min(100, _0x5c03d4 / Math.max(1, os.cpus().length));
-    const _0x4fedcf = _0x2be815 < 2 || _0x35dbed < 0.12 || _0x21efd5 >= 75 || _0x5e26f3 >= 700;
+    } catch (error) {}
+    const result3 = Math.min(100, num / Math.max(1, os.cpus().length));
+    const local = value < 2 || value2 < 0.12 || result3 >= 75 || num2 >= 700;
     return {
-      pressured: _0x4fedcf,
-      freeMemGB: _0x2be815,
-      appCpuPercent: _0x21efd5,
-      largestRendererMemoryMb: _0x5e26f3
+      pressured: local,
+      freeMemGB: value,
+      appCpuPercent: result3,
+      largestRendererMemoryMb: num2
     };
   }
-  function _0x396135(_0x37edad, _0x5ac000) {
+  function fn7(arg1, arg2) {
     try {
-      if (_0x427b5e && !_0x427b5e.isDestroyed() && !_0x427b5e.webContents?.isDestroyed?.()) {
-        _0x427b5e.webContents.send("entity-leadgen-task-event", {
-          taskId: _0x37edad,
-          ..._0x5ac000
+      if (mainWindow && !mainWindow.isDestroyed() && !mainWindow.webContents?.isDestroyed?.()) {
+        mainWindow.webContents.send("entity-leadgen-task-event", {
+          taskId: arg1,
+          ...arg2
         });
       }
-    } catch (_0x929f53) {}
+    } catch (error) {}
   }
-  function _0x9d21b4(_0xe6528a, _0x4ac9d3, _0x25a72d = "info", _0x184412 = {}) {
-    if (!_0xe6528a || !_0x4ac9d3) {
+  function fn8(arg1, arg2, text = "info", options = {}) {
+    if (!arg1 || !arg2) {
       return;
     }
-    let _0x3751f2 = String(_0x184412.accountId || "").trim();
-    if (!_0x3751f2) {
+    let result = String(options.accountId || "").trim();
+    if (!result) {
       try {
-        const _0x1de90a = _0x5ea9b0.get(_0xe6528a);
-        const _0x16f6ae = Array.isArray(_0x1de90a?.accounts) ? _0x1de90a.accounts : [];
-        const _0x5b96e6 = String(_0x4ac9d3).match(/^\[([^\]]+)\]/);
-        if (_0x5b96e6) {
-          const _0x1e7448 = _0x5b96e6[1];
-          const _0x155c0f = _0x16f6ae.find(_0x120938 => String(_0x120938?.nickname || "") === _0x1e7448 || String(_0x120938?.name || "") === _0x1e7448 || String(_0x120938?.id || "") === _0x1e7448);
-          if (_0x155c0f?.id) {
-            _0x3751f2 = String(_0x155c0f.id);
+        const result2 = map.get(arg1);
+        const value = Array.isArray(result2?.accounts) ? result2.accounts : [];
+        const result3 = String(arg2).match(/^\[([^\]]+)\]/);
+        if (result3) {
+          const value2 = result3[1];
+          const result2 = value.find(arg1 => String(arg1?.nickname || "") === value2 || String(arg1?.name || "") === value2 || String(arg1?.id || "") === value2);
+          if (result2?.id) {
+            result = String(result2.id);
           }
         }
-        if (!_0x3751f2 && _0x16f6ae.length === 1 && _0x16f6ae[0]?.id) {
-          _0x3751f2 = String(_0x16f6ae[0].id);
+        if (!result && value.length === 1 && value[0]?.id) {
+          result = String(value[0].id);
         }
-      } catch (_0x6bc764) {}
+      } catch (error) {}
     }
-    const _0x271725 = {
-      taskId: _0xe6528a,
+    const obj = {
+      taskId: arg1,
       type: "log",
-      message: _0x4ac9d3,
-      level: _0x25a72d,
+      message: arg2,
+      level: text,
       ts: Date.now(),
-      ...(_0x3751f2 ? {
-        accountId: _0x3751f2
+      ...(result ? {
+        accountId: result
       } : {})
     };
-    if (!_0x1362f9.has(_0xe6528a) && _0x1362f9.size >= RUNTIME_LOG_TASK_LIMIT) {
-      const _0x395f63 = [..._0x1362f9.keys()].find(_0x47b20e => !_0x5ea9b0.has(_0x47b20e)) || _0x1362f9.keys().next().value;
-      if (_0x395f63 != null) {
-        _0x1362f9.delete(_0x395f63);
+    if (!map3.has(arg1) && map3.size >= RUNTIME_LOG_TASK_LIMIT) {
+      const local = [...map3.keys()].find(arg1 => !map.has(arg1)) || map3.keys().next().value;
+      if (local != null) {
+        map3.delete(local);
       }
     }
-    const _0x4660d0 = _0x1362f9.get(_0xe6528a) || [];
-    _0x4660d0.push(_0x271725);
-    if (_0x4660d0.length > RUNTIME_LOG_LIMIT) {
-      _0x4660d0.splice(0, _0x4660d0.length - RUNTIME_LOG_LIMIT);
+    const local = map3.get(arg1) || [];
+    local.push(obj);
+    if (local.length > RUNTIME_LOG_LIMIT) {
+      local.splice(0, local.length - RUNTIME_LOG_LIMIT);
     }
-    _0x1362f9.set(_0xe6528a, _0x4660d0);
-    _0x396135(_0xe6528a, _0x271725);
+    map3.set(arg1, local);
+    fn7(arg1, obj);
   }
-  function _0x28e1c2(_0x31c029, _0x1ebd0a, _0x293d96 = {}) {
-    if (!_0x31c029 || !_0x1ebd0a?.patchTask || !_0x293d96?.url) {
+  function fn9(arg1, arg2, options = {}) {
+    if (!arg1 || !arg2?.patchTask || !options?.url) {
       return null;
     }
-    const _0x2f951a = _0x1ebd0a.findTaskById?.(_0x31c029);
-    const _0x370aaa = Array.isArray(_0x2f951a?.roomHints) ? _0x2f951a.roomHints : [];
-    const _0x248f56 = {
-      url: String(_0x293d96.url || ""),
-      reason: String(_0x293d96.reason || "live_private"),
-      message: String(_0x293d96.message || "直播间为私密或隐私设置，已跳过"),
-      ts: Number(_0x293d96.ts || Date.now()) || Date.now()
+    const local = arg2.findTaskById?.(arg1);
+    const value = Array.isArray(local?.roomHints) ? local.roomHints : [];
+    const obj = {
+      url: String(options.url || ""),
+      reason: String(options.reason || "live_private"),
+      message: String(options.message || "直播间为私密或隐私设置，已跳过"),
+      ts: Number(options.ts || Date.now()) || Date.now()
     };
-    const _0x200a58 = [..._0x370aaa.filter(_0x4b8010 => _0x4b8010.url !== _0x248f56.url || _0x4b8010.reason !== _0x248f56.reason), _0x248f56].slice(-50);
-    const _0x5e28c6 = _0x1ebd0a.patchTask(_0x31c029, {
-      roomHints: _0x200a58
+    const result = [...value.filter(arg1 => arg1.url !== obj.url || arg1.reason !== obj.reason), obj].slice(-50);
+    const result2 = arg2.patchTask(arg1, {
+      roomHints: result
     });
-    if (_0x5e28c6) {
-      _0x396135(_0x31c029, {
+    if (result2) {
+      fn7(arg1, {
         type: "task-updated",
-        task: _0x5e28c6
+        task: result2
       });
     }
-    return _0x5e28c6;
+    return result2;
   }
-  function _0x2ea3e5(_0x9c139c = null) {
-    if (_0x9c139c != null && _0x9c139c !== "") {
-      return (_0x1362f9.get(_0x9c139c) || []).map(_0x4991f9 => ({
-        ..._0x4991f9
+  function fn10(arg1 = null) {
+    if (arg1 != null && arg1 !== "") {
+      return (map3.get(arg1) || []).map(arg1 => ({
+        ...arg1
       }));
     }
-    const _0x463a06 = {};
-    for (const [_0x26d743, _0x433e04] of _0x1362f9.entries()) {
-      _0x463a06[_0x26d743] = _0x433e04.map(_0x5da8ff => ({
-        ..._0x5da8ff
+    const obj = {};
+    for (const [local, local2] of map3.entries()) {
+      obj[local] = local2.map(arg1 => ({
+        ...arg1
       }));
     }
-    return _0x463a06;
+    return obj;
   }
-  function _0x5db3ad(_0x1772b4 = null) {
-    if (_0x1772b4 != null && _0x1772b4 !== "") {
-      return _0x1362f9.delete(_0x1772b4);
+  function fn11(arg1 = null) {
+    if (arg1 != null && arg1 !== "") {
+      return map3.delete(arg1);
     }
-    const _0x2c2109 = _0x1362f9.size > 0;
-    _0x1362f9.clear();
-    return _0x2c2109;
+    const value = map3.size > 0;
+    map3.clear();
+    return value;
   }
-  function _0x28927d(_0x4f2aac) {
-    return String(_0x4f2aac || "").split(/[\n,，、;；]+/).map(_0x547147 => _0x547147.trim()).filter(Boolean);
+  function fn12(arg1) {
+    return String(arg1 || "").split(/[\n,，、;；]+/).map(arg1 => arg1.trim()).filter(Boolean);
   }
-  function _0x28ca8e(_0x3d932a = {}) {
-    const _0x4b4f70 = new Set(["user", "following", "mutual", "live", "video_search", "video_recommend", "video_like", "video_specific", "author_profile"]);
-    const _0x323c13 = new Set(["comments", "video", "author"]);
-    const _0x2d083b = new Set(["enter", "like", "follow", "comment", "interaction", "gift"]);
-    const _0x4de87f = [..._0x2d083b];
-    const _0x41218b = Array.isArray(_0x3d932a.sourceTypes) ? [...new Set(_0x3d932a.sourceTypes.filter(_0x4bb8c5 => _0x4b4f70.has(_0x4bb8c5)))] : [];
-    const _0x2b18c8 = _0x41218b.length ? [_0x41218b[0]] : ["video_search"];
-    const _0x1af6b7 = _0x2b18c8[0];
-    const _0x425839 = ["video_search", "video_recommend", "video_like", "video_specific", "author_profile"].includes(_0x1af6b7);
-    let _0x288035 = Array.isArray(_0x3d932a.scrapeTargets) ? [...new Set(_0x3d932a.scrapeTargets.filter(_0x4722cb => _0x323c13.has(_0x4722cb)))] : [];
-    if (_0x1af6b7 === "video_specific") {
-      _0x288035 = ["comments"];
-    } else if (_0x1af6b7 === "author_profile") {
-      const _0xb0e519 = new Set(["comments", "video"]);
-      _0x288035 = _0x288035.filter(_0x19499e => _0xb0e519.has(_0x19499e));
-      if (!_0x288035.length) {
-        _0x288035 = ["comments", "video"];
+  function fn13(options = {}) {
+    const set = new Set(["user", "following", "mutual", "live", "video_search", "video_recommend", "video_like", "video_specific", "author_profile"]);
+    const set2 = new Set(["comments", "video", "author"]);
+    const set3 = new Set(["enter", "like", "follow", "comment", "interaction", "gift"]);
+    const list = [...set3];
+    const value = Array.isArray(options.sourceTypes) ? [...new Set(options.sourceTypes.filter(arg1 => set.has(arg1)))] : [];
+    const value2 = value.length ? [value[0]] : ["video_search"];
+    const value3 = value2[0];
+    const result = ["video_search", "video_recommend", "video_like", "video_specific", "author_profile"].includes(value3);
+    let value4 = Array.isArray(options.scrapeTargets) ? [...new Set(options.scrapeTargets.filter(arg1 => set2.has(arg1)))] : [];
+    if (value3 === "video_specific") {
+      value4 = ["comments"];
+    } else if (value3 === "author_profile") {
+      const set = new Set(["comments", "video"]);
+      value4 = value4.filter(arg1 => set.has(arg1));
+      if (!value4.length) {
+        value4 = ["comments", "video"];
       }
-    } else if (_0x425839 && !_0x288035.length) {
-      _0x288035 = ["comments", "video", "author"];
+    } else if (result && !value4.length) {
+      value4 = ["comments", "video", "author"];
     }
-    if (!_0x425839) {
-      _0x288035 = [];
+    if (!result) {
+      value4 = [];
     }
-    const _0x1b1ce1 = Array.isArray(_0x3d932a.liveEventTypes) ? [...new Set(_0x3d932a.liveEventTypes.filter(_0x5cdd12 => _0x2d083b.has(_0x5cdd12)))] : _0x4de87f;
-    const _0xabec34 = Number(_0x3d932a.maxCollect);
-    let _0x2950cd = 0;
-    if (_0x1af6b7 === "video_recommend") {
-      _0x2950cd = Number.isFinite(_0xabec34) && _0xabec34 > 0 ? Math.min(20000, Math.floor(_0xabec34)) : 100;
+    const value5 = Array.isArray(options.liveEventTypes) ? [...new Set(options.liveEventTypes.filter(arg1 => set3.has(arg1)))] : list;
+    const result2 = Number(options.maxCollect);
+    let num = 0;
+    if (value3 === "video_recommend") {
+      num = Number.isFinite(result2) && result2 > 0 ? Math.min(20000, Math.floor(result2)) : 100;
     } else {
-      _0x2950cd = Number.isFinite(_0xabec34) && _0xabec34 > 0 ? Math.min(20000, Math.floor(_0xabec34)) : 0;
+      num = Number.isFinite(result2) && result2 > 0 ? Math.min(20000, Math.floor(result2)) : 0;
     }
-    const _0x277369 = new Set(["0", "1", "2", "3", "4", "5"]);
-    const _0x12aa00 = new Set(["0", "1", "2", "3"]);
-    const _0xea10f1 = String(_0x3d932a.userFanCount == null ? "0" : _0x3d932a.userFanCount);
-    const _0x1b3ce1 = String(_0x3d932a.userTypeFilter == null ? "0" : _0x3d932a.userTypeFilter);
-    const _0x5d2458 = parseEntityLiveUrls(Array.isArray(_0x3d932a.liveUrls) ? _0x3d932a.liveUrls.join("\n") : _0x3d932a.liveUrls);
-    const _0x13cec5 = String(_0x3d932a.specifiedUrls || "").trim();
-    const _0x2bb287 = String(_0x3d932a.bloggerProfileUrls || "").trim();
-    const _0x2979d9 = normalizeBloggerWorkSelectMode(_0x3d932a.bloggerWorkSelectMode);
-    const _0x4820ff = normalizeBloggerWorkCount(_0x3d932a.bloggerWorkCount);
-    const _0x56823c = normalizeBloggerPublishWithinDays(_0x3d932a.bloggerPublishWithinDays);
-    const _0x471444 = _0x3d932a.bloggerExcludePinned !== false;
-    const _0x248794 = (_0x304a17, _0x362a14, _0x5383fe = "0") => {
-      const _0x49875b = String(_0x304a17 == null ? _0x5383fe : _0x304a17);
-      if (_0x362a14.has(_0x49875b)) {
-        return _0x49875b;
+    const set4 = new Set(["0", "1", "2", "3", "4", "5"]);
+    const set5 = new Set(["0", "1", "2", "3"]);
+    const result3 = String(options.userFanCount == null ? "0" : options.userFanCount);
+    const result4 = String(options.userTypeFilter == null ? "0" : options.userTypeFilter);
+    const result5 = parseEntityLiveUrls(Array.isArray(options.liveUrls) ? options.liveUrls.join("\n") : options.liveUrls);
+    const result6 = String(options.specifiedUrls || "").trim();
+    const result7 = String(options.bloggerProfileUrls || "").trim();
+    const result8 = normalizeBloggerWorkSelectMode(options.bloggerWorkSelectMode);
+    const result9 = normalizeBloggerWorkCount(options.bloggerWorkCount);
+    const result10 = normalizeBloggerPublishWithinDays(options.bloggerPublishWithinDays);
+    const value6 = options.bloggerExcludePinned !== false;
+    const local = (arg1, arg2, text = "0") => {
+      const result = String(arg1 == null ? text : arg1);
+      if (arg2.has(result)) {
+        return result;
       } else {
-        return _0x5383fe;
+        return text;
       }
     };
-    const _0x5786ec = _0x1bd4f6 => {
-      const _0xe7a75f = Number(_0x1bd4f6);
-      if (!Number.isFinite(_0xe7a75f) || _0xe7a75f <= 0) {
+    const local2 = arg1 => {
+      const result = Number(arg1);
+      if (!Number.isFinite(result) || result <= 0) {
         return 0;
       }
-      return Math.floor(_0xe7a75f);
+      return Math.floor(result);
     };
-    const _0x579408 = Number(_0x3d932a.liveDurationSeconds);
-    const _0x507ad7 = Number.isFinite(_0x579408) && _0x579408 >= 0 ? Math.min(10080, Math.max(0, Math.round(_0x579408 / 60))) * 60 : 180;
-    const _0x4e310d = normalizeLiveConcurrency(_0x3d932a.liveConcurrency, LIVE_CONCURRENCY_DEFAULT);
-    const _0x5741a8 = new Set(["all", "1d", "3d", "1w", "1mo", "custom"]);
-    let _0x1e4434 = String(_0x3d932a.commentTimePreset || "").trim();
-    const _0x3bc5d2 = {
+    const result11 = Number(options.liveDurationSeconds);
+    const value7 = Number.isFinite(result11) && result11 >= 0 ? Math.min(10080, Math.max(0, Math.round(result11 / 60))) * 60 : 180;
+    const result12 = normalizeLiveConcurrency(options.liveConcurrency, LIVE_CONCURRENCY_DEFAULT);
+    const set6 = new Set(["all", "1d", "3d", "1w", "1mo", "custom"]);
+    let result13 = String(options.commentTimePreset || "").trim();
+    const obj = {
       all: 0,
       "1d": 1440,
       "3d": 4320,
       "1w": 10080,
       "1mo": 43200
     };
-    const _0x46ba2b = Number(_0x3d932a.commentWindowMinutes);
-    let _0x432a3e = Number.isFinite(_0x46ba2b) && _0x46ba2b > 0 ? Math.min(43200, Math.floor(_0x46ba2b)) : 0;
-    if (!_0x5741a8.has(_0x1e4434)) {
-      if (_0x432a3e <= 0) {
-        _0x1e4434 = "all";
+    const result14 = Number(options.commentWindowMinutes);
+    let value8 = Number.isFinite(result14) && result14 > 0 ? Math.min(43200, Math.floor(result14)) : 0;
+    if (!set6.has(result13)) {
+      if (value8 <= 0) {
+        result13 = "all";
       } else {
-        const _0x33c56a = Object.entries(_0x3bc5d2).find(([, _0x51c67]) => _0x51c67 === _0x432a3e);
-        _0x1e4434 = _0x33c56a ? _0x33c56a[0] : "custom";
+        const result = Object.entries(obj).find(([, arg1]) => arg1 === value8);
+        result13 = result ? result[0] : "custom";
       }
     }
-    if (_0x1e4434 !== "custom" && Object.prototype.hasOwnProperty.call(_0x3bc5d2, _0x1e4434)) {
-      _0x432a3e = _0x3bc5d2[_0x1e4434];
+    if (result13 !== "custom" && Object.prototype.hasOwnProperty.call(obj, result13)) {
+      value8 = obj[result13];
     }
-    const _0x33ad6d = _0x3d932a.commentLocationFilterMode === "exclude" ? "exclude" : "include";
-    const _0x16e2ac = Array.isArray(_0x3d932a.commentLocationFilterRegions) ? _0x3d932a.commentLocationFilterRegions.map(_0x5a5904 => String(_0x5a5904 || "").trim()).filter(Boolean) : String(_0x3d932a.commentLocationFilterRegions || "").split(/[,，\n\r]+/).map(_0x5eccac => _0x5eccac.trim()).filter(Boolean);
+    const value9 = options.commentLocationFilterMode === "exclude" ? "exclude" : "include";
+    const value10 = Array.isArray(options.commentLocationFilterRegions) ? options.commentLocationFilterRegions.map(arg1 => String(arg1 || "").trim()).filter(Boolean) : String(options.commentLocationFilterRegions || "").split(/[,，\n\r]+/).map(arg1 => arg1.trim()).filter(Boolean);
     return {
-      selectedAccounts: Array.isArray(_0x3d932a.selectedAccounts) ? _0x3d932a.selectedAccounts.map(String) : [],
-      sourceTypes: _0x2b18c8,
-      scrapeTargets: _0x288035,
-      keywords: Array.isArray(_0x3d932a.keywords) ? _0x3d932a.keywords.map(_0x44fc6e => String(_0x44fc6e || "").trim()).filter(Boolean) : _0x28927d(_0x3d932a.keywords),
-      specifiedUrls: _0x13cec5,
-      bloggerProfileUrls: _0x2bb287,
-      bloggerWorkSelectMode: _0x2979d9,
-      bloggerWorkCount: _0x4820ff,
-      bloggerPublishWithinDays: _0x56823c,
-      bloggerExcludePinned: _0x471444,
-      liveUrls: _0x5d2458,
-      liveEventTypes: _0x1b1ce1,
-      liveDurationSeconds: _0x507ad7,
-      liveConcurrency: _0x4e310d,
-      userFanCount: _0x277369.has(_0xea10f1) ? _0xea10f1 : "0",
-      userTypeFilter: _0x12aa00.has(_0x1b3ce1) ? _0x1b3ce1 : "0",
-      maxCollect: _0x2950cd,
-      searchSort: _0x248794(_0x3d932a.searchSort, new Set(["0", "1", "2"])),
-      searchPublishTime: _0x248794(_0x3d932a.searchPublishTime, new Set(["0", "1", "2", "3"])),
-      searchDuration: _0x248794(_0x3d932a.searchDuration, new Set(["0", "1", "2", "3"])),
-      searchScope: _0x248794(_0x3d932a.searchScope, new Set(["0", "1", "2", "3"])),
-      searchFormat: _0x248794(_0x3d932a.searchFormat, new Set(["0", "1", "2"])),
-      excludeTitleKeywords: String(_0x3d932a.excludeTitleKeywords || ""),
-      includeTitleKeywords: String(_0x3d932a.includeTitleKeywords || ""),
-      excludeAuthorAccounts: String(_0x3d932a.excludeAuthorAccounts || ""),
-      videoPublishWithinDays: _0x5786ec(_0x3d932a.videoPublishWithinDays),
-      localVideoDuration: _0x248794(_0x3d932a.localVideoDuration, new Set(["0", "1", "2", "3"])),
-      minVideoLike: _0x5786ec(_0x3d932a.minVideoLike),
-      minVideoComment: _0x5786ec(_0x3d932a.minVideoComment),
-      minVideoCollect: _0x5786ec(_0x3d932a.minVideoCollect),
-      minVideoShare: _0x5786ec(_0x3d932a.minVideoShare),
-      commentTimePreset: _0x1e4434,
-      commentWindowMinutes: _0x432a3e,
-      commentLocationFilterMode: _0x33ad6d,
-      commentLocationFilterRegions: _0x16e2ac,
-      commentIncludeKeywords: String(_0x3d932a.commentIncludeKeywords || ""),
-      commentExcludeKeywords: String(_0x3d932a.commentExcludeKeywords || "")
+      selectedAccounts: Array.isArray(options.selectedAccounts) ? options.selectedAccounts.map(String) : [],
+      sourceTypes: value2,
+      scrapeTargets: value4,
+      keywords: Array.isArray(options.keywords) ? options.keywords.map(arg1 => String(arg1 || "").trim()).filter(Boolean) : fn12(options.keywords),
+      specifiedUrls: result6,
+      bloggerProfileUrls: result7,
+      bloggerWorkSelectMode: result8,
+      bloggerWorkCount: result9,
+      bloggerPublishWithinDays: result10,
+      bloggerExcludePinned: value6,
+      liveUrls: result5,
+      liveEventTypes: value5,
+      liveDurationSeconds: value7,
+      liveConcurrency: result12,
+      userFanCount: set4.has(result3) ? result3 : "0",
+      userTypeFilter: set5.has(result4) ? result4 : "0",
+      maxCollect: num,
+      searchSort: local(options.searchSort, new Set(["0", "1", "2"])),
+      searchPublishTime: local(options.searchPublishTime, new Set(["0", "1", "2", "3"])),
+      searchDuration: local(options.searchDuration, new Set(["0", "1", "2", "3"])),
+      searchScope: local(options.searchScope, new Set(["0", "1", "2", "3"])),
+      searchFormat: local(options.searchFormat, new Set(["0", "1", "2"])),
+      excludeTitleKeywords: String(options.excludeTitleKeywords || ""),
+      includeTitleKeywords: String(options.includeTitleKeywords || ""),
+      excludeAuthorAccounts: String(options.excludeAuthorAccounts || ""),
+      videoPublishWithinDays: local2(options.videoPublishWithinDays),
+      localVideoDuration: local(options.localVideoDuration, new Set(["0", "1", "2", "3"])),
+      minVideoLike: local2(options.minVideoLike),
+      minVideoComment: local2(options.minVideoComment),
+      minVideoCollect: local2(options.minVideoCollect),
+      minVideoShare: local2(options.minVideoShare),
+      commentTimePreset: result13,
+      commentWindowMinutes: value8,
+      commentLocationFilterMode: value9,
+      commentLocationFilterRegions: value10,
+      commentIncludeKeywords: String(options.commentIncludeKeywords || ""),
+      commentExcludeKeywords: String(options.commentExcludeKeywords || "")
     };
   }
-  function _0x3c2c48(_0x51ec93, _0x51f5c0) {
-    return Array.isArray(_0x51ec93?.scrapeTargets) && _0x51ec93.scrapeTargets.includes(_0x51f5c0);
+  function fn14(arg1, arg2) {
+    return Array.isArray(arg1?.scrapeTargets) && arg1.scrapeTargets.includes(arg2);
   }
-  function _0x4bfbda(_0x19cfb8 = {}) {
-    if (isEntityRelationAuthorSource(_0x19cfb8.sourceType, _0x19cfb8.entrySource)) {
+  function fn15(options = {}) {
+    if (isEntityRelationAuthorSource(options.sourceType, options.entrySource)) {
       return false;
     }
-    const _0x237cb7 = String(_0x19cfb8.sourceType || "").trim();
-    if (_0x237cb7 === "video" || _0x237cb7.startsWith("video_") || _0x237cb7 === "author_profile") {
+    const result = String(options.sourceType || "").trim();
+    if (result === "video" || result.startsWith("video_") || result === "author_profile") {
       return true;
     }
-    if (String(_0x19cfb8.identityType || "") === "video") {
+    if (String(options.identityType || "") === "video") {
       return true;
     }
-    if (String(_0x19cfb8.leadKind || "") === "video_card") {
+    if (String(options.leadKind || "") === "video_card") {
       return true;
     }
-    if (/^video:\d{10,}$/.test(String(_0x19cfb8.userKey || _0x19cfb8.leadId || _0x19cfb8.key || "").trim())) {
+    if (/^video:\d{10,}$/.test(String(options.userKey || options.leadId || options.key || "").trim())) {
       return true;
     }
-    const _0x3998ad = Array.isArray(_0x19cfb8.collectedFields) ? _0x19cfb8.collectedFields : [];
-    return _0x3998ad.includes("video") || _0x3998ad.includes("author");
+    const value = Array.isArray(options.collectedFields) ? options.collectedFields : [];
+    return value.includes("video") || value.includes("author");
   }
-  function _0x3ba01a(_0x3de88c, _0x408592) {
-    const _0x12a097 = _0x3c2c48(_0x408592, "video");
-    const _0x1a016b = _0x3c2c48(_0x408592, "author");
-    if (!_0x12a097 && !_0x1a016b) {
-      return _0x3de88c;
+  function fn16(arg1, arg2) {
+    const result = fn14(arg2, "video");
+    const result2 = fn14(arg2, "author");
+    if (!result && !result2) {
+      return arg1;
     }
-    return (Array.isArray(_0x3de88c) ? _0x3de88c : []).map(_0xa8e277 => {
-      const _0x179855 = String(_0xa8e277.authorProfileUrl || "").trim() || (/\/user\//i.test(String(_0xa8e277.userUrl || "")) && !/\/(?:video|note)\//i.test(String(_0xa8e277.userUrl || "")) ? String(_0xa8e277.userUrl || "").trim() : "");
-      const _0x38bcb3 = String(_0xa8e277.authorNickname || "").trim().replace(/^@+/, "");
-      const _0x51c941 = [];
-      if (_0x12a097) {
-        _0x51c941.push("video");
+    return (Array.isArray(arg1) ? arg1 : []).map(arg1 => {
+      const local = String(arg1.authorProfileUrl || "").trim() || (/\/user\//i.test(String(arg1.userUrl || "")) && !/\/(?:video|note)\//i.test(String(arg1.userUrl || "")) ? String(arg1.userUrl || "").trim() : "");
+      const result3 = String(arg1.authorNickname || "").trim().replace(/^@+/, "");
+      const list = [];
+      if (result) {
+        list.push("video");
       }
-      if (_0x1a016b && _0x179855 && !/\/(?:video|note)\//i.test(_0x179855)) {
-        _0x51c941.push("author");
+      if (result2 && local && !/\/(?:video|note)\//i.test(local)) {
+        list.push("author");
       }
-      const _0x123519 = getEntityEntryMeta(_0xa8e277.sourceType || "video");
+      const result4 = getEntityEntryMeta(arg1.sourceType || "video");
       return {
-        ..._0xa8e277,
-        authorProfileUrl: _0x179855,
-        authorNickname: _0x38bcb3 || (_0x51c941.includes("author") ? "未知作者" : ""),
-        collectedFields: _0x51c941,
+        ...arg1,
+        authorProfileUrl: local,
+        authorNickname: result3 || (list.includes("author") ? "未知作者" : ""),
+        collectedFields: list,
         sourceType: "video",
         identityType: "video",
-        entrySource: _0xa8e277.entrySource || _0x123519.entrySource,
-        entryLabel: _0xa8e277.entryLabel || _0x123519.entryLabel
+        entrySource: arg1.entrySource || result4.entrySource,
+        entryLabel: arg1.entryLabel || result4.entryLabel
       };
-    }).filter(_0x569aa8 => Array.isArray(_0x569aa8.collectedFields) && _0x569aa8.collectedFields.length > 0);
+    }).filter(arg1 => Array.isArray(arg1.collectedFields) && arg1.collectedFields.length > 0);
   }
-  function _0x5c2229(_0x2c518b) {
-    return String(_0x2c518b || "").split(/[,，、;；\n\r]+/).map(_0x542fdf => _0x542fdf.trim()).filter(Boolean);
+  function fn17(arg1) {
+    return String(arg1 || "").split(/[,，、;；\n\r]+/).map(arg1 => arg1.trim()).filter(Boolean);
   }
-  function _0x4c8c61(_0x44e7ff, _0x139125 = {}) {
-    const _0x57c112 = _0x5c2229(_0x139125.excludeTitleKeywords).map(_0x5b1e0c => _0x5b1e0c.toLowerCase());
-    const _0x58b4d2 = _0x5c2229(_0x139125.includeTitleKeywords).map(_0x1c634e => _0x1c634e.toLowerCase());
-    const _0x9447ea = new Set(_0x5c2229(_0x139125.excludeAuthorAccounts).map(_0x4cd8f8 => _0x4cd8f8.replace(/^@+/, "").toLowerCase()));
-    const _0x4529f4 = Number(_0x139125.minVideoLike) || 0;
-    const _0x1b156f = Number(_0x139125.minVideoComment) || 0;
-    const _0x500e21 = Number(_0x139125.minVideoCollect) || 0;
-    const _0x1f9f28 = Number(_0x139125.minVideoShare) || 0;
-    const _0x1f5fe4 = String(Array.isArray(_0x139125.sourceTypes) && _0x139125.sourceTypes[0] || _0x139125.sourceType || "");
-    const _0x1cb4ac = _0x1f5fe4 !== "video_search";
-    const _0x111817 = _0x1cb4ac ? Number(_0x139125.videoPublishWithinDays) || 0 : 0;
-    const _0x36c74c = _0x1cb4ac ? String(_0x139125.localVideoDuration || "0") : "0";
-    const _0x4adad0 = Date.now();
-    const _0x85156 = (Array.isArray(_0x44e7ff) ? _0x44e7ff : []).map(_0x55fd91 => _0x1f5fe4 === "video_search" ? enrichVideoPublishTime(_0x55fd91, _0x4adad0) : _0x55fd91);
-    return _0x85156.filter(_0x47f992 => {
-      const _0x466df8 = String(_0x47f992.title || _0x47f992.nickname || "").toLowerCase();
-      if (_0x57c112.length && _0x57c112.some(_0x532c5e => _0x466df8.includes(_0x532c5e))) {
+  function fn18(arg1, options = {}) {
+    const result = fn17(options.excludeTitleKeywords).map(arg1 => arg1.toLowerCase());
+    const result2 = fn17(options.includeTitleKeywords).map(arg1 => arg1.toLowerCase());
+    const set = new Set(fn17(options.excludeAuthorAccounts).map(arg1 => arg1.replace(/^@+/, "").toLowerCase()));
+    const local = Number(options.minVideoLike) || 0;
+    const local2 = Number(options.minVideoComment) || 0;
+    const local3 = Number(options.minVideoCollect) || 0;
+    const local4 = Number(options.minVideoShare) || 0;
+    const result3 = String(Array.isArray(options.sourceTypes) && options.sourceTypes[0] || options.sourceType || "");
+    const value = result3 !== "video_search";
+    const value2 = value ? Number(options.videoPublishWithinDays) || 0 : 0;
+    const value3 = value ? String(options.localVideoDuration || "0") : "0";
+    const result4 = Date.now();
+    const result5 = (Array.isArray(arg1) ? arg1 : []).map(arg1 => result3 === "video_search" ? enrichVideoPublishTime(arg1, result4) : arg1);
+    return result5.filter(arg1 => {
+      const result3 = String(arg1.title || arg1.nickname || "").toLowerCase();
+      if (result.length && result.some(arg1 => result3.includes(arg1))) {
         return false;
       }
-      if (_0x58b4d2.length && !_0x58b4d2.some(_0x3d0640 => _0x466df8.includes(_0x3d0640))) {
+      if (result2.length && !result2.some(arg1 => result3.includes(arg1))) {
         return false;
       }
-      const _0x16b08d = String(_0x47f992.authorNickname || _0x47f992.nickname || "").replace(/^@+/, "").toLowerCase();
-      if (_0x16b08d && _0x9447ea.has(_0x16b08d)) {
+      const result5 = String(arg1.authorNickname || arg1.nickname || "").replace(/^@+/, "").toLowerCase();
+      if (result5 && set.has(result5)) {
         return false;
       }
-      const _0x26c8dc = Number(_0x47f992.likeCount || _0x47f992.diggCount || 0);
-      const _0x1b6461 = Number(_0x47f992.commentCount || 0);
-      const _0xa677c6 = Number(_0x47f992.collectCount || 0);
-      const _0x1e1e02 = Number(_0x47f992.shareCount || 0);
-      if (_0x4529f4 > 0 && _0x26c8dc < _0x4529f4) {
+      const result6 = Number(arg1.likeCount || arg1.diggCount || 0);
+      const result7 = Number(arg1.commentCount || 0);
+      const result8 = Number(arg1.collectCount || 0);
+      const result9 = Number(arg1.shareCount || 0);
+      if (local > 0 && result6 < local) {
         return false;
       }
-      if (_0x1b156f > 0 && _0x1b6461 < _0x1b156f) {
+      if (local2 > 0 && result7 < local2) {
         return false;
       }
-      if (_0x500e21 > 0 && _0xa677c6 < _0x500e21) {
+      if (local3 > 0 && result8 < local3) {
         return false;
       }
-      if (_0x1f9f28 > 0 && _0x1e1e02 < _0x1f9f28) {
+      if (local4 > 0 && result9 < local4) {
         return false;
       }
-      if (_0x111817 > 0) {
-        const _0x15da00 = Number(_0x47f992.createTime || _0x47f992.publishTime || _0x47f992.eventTimestamp || 0);
-        const _0x5766d6 = _0x15da00 > 1000000000000 ? _0x15da00 : _0x15da00 > 1000000000 ? _0x15da00 * 1000 : 0;
-        if (_0x5766d6 > 0 && _0x4adad0 - _0x5766d6 > _0x111817 * 24 * 60 * 60 * 1000) {
+      if (value2 > 0) {
+        const result = Number(arg1.createTime || arg1.publishTime || arg1.eventTimestamp || 0);
+        const value = result > 1000000000000 ? result : result > 1000000000 ? result * 1000 : 0;
+        if (value > 0 && result4 - value > value2 * 24 * 60 * 60 * 1000) {
           return false;
         }
       }
-      const _0x58e6cc = Number(_0x47f992.duration || _0x47f992.videoDuration || 0);
-      if (_0x36c74c !== "0" && _0x58e6cc > 0) {
-        if (_0x36c74c === "1" && _0x58e6cc >= 60) {
+      const result10 = Number(arg1.duration || arg1.videoDuration || 0);
+      if (value3 !== "0" && result10 > 0) {
+        if (value3 === "1" && result10 >= 60) {
           return false;
         }
-        if (_0x36c74c === "2" && (_0x58e6cc < 60 || _0x58e6cc > 300)) {
+        if (value3 === "2" && (result10 < 60 || result10 > 300)) {
           return false;
         }
-        if (_0x36c74c === "3" && _0x58e6cc <= 300) {
+        if (value3 === "3" && result10 <= 300) {
           return false;
         }
       }
       return true;
     });
   }
-  function _0x5309f1(_0x58958d = {}, _0x65a9dc = null) {
-    const _0x3c7452 = new Set(Array.isArray(_0x65a9dc) ? _0x65a9dc : ["enter", "like", "follow", "comment", "interaction", "gift"]);
-    const _0x15da1e = Array.isArray(_0x58958d.liveEvents) ? _0x58958d.liveEvents : _0x58958d.liveEvent ? [_0x58958d.liveEvent] : [];
-    const _0xb34ca5 = _0x15da1e.filter(_0x79d87c => _0x3c7452.has(resolveLiveEventCategory(_0x79d87c)));
-    if (!_0xb34ca5.length) {
+  function fn19(options = {}, arg2 = null) {
+    const set = new Set(Array.isArray(arg2) ? arg2 : ["enter", "like", "follow", "comment", "interaction", "gift"]);
+    const value = Array.isArray(options.liveEvents) ? options.liveEvents : options.liveEvent ? [options.liveEvent] : [];
+    const result = value.filter(arg1 => set.has(resolveLiveEventCategory(arg1)));
+    if (!result.length) {
       return null;
     }
-    const _0x285f50 = _0xb34ca5[_0xb34ca5.length - 1];
+    const value2 = result[result.length - 1];
     return {
-      ..._0x58958d,
-      content: _0x285f50.content || _0x58958d.content || "",
-      liveEvent: _0x285f50,
-      liveEvents: _0xb34ca5,
-      messageId: _0x285f50.messageId || _0x58958d.messageId || "",
-      eventTimestamp: _0x285f50.occurredAt || _0x58958d.eventTimestamp || 0
+      ...options,
+      content: value2.content || options.content || "",
+      liveEvent: value2,
+      liveEvents: result,
+      messageId: value2.messageId || options.messageId || "",
+      eventTimestamp: value2.occurredAt || options.eventTimestamp || 0
     };
   }
-  function _0x48363(_0x5d9a42) {
-    if (!_0x5d9a42 || typeof _0x5d9a42 !== "string") {
+  function fn20(arg1) {
+    if (!arg1 || typeof arg1 !== "string") {
       return false;
     }
-    const _0x398aea = _0x5d9a42.trim();
-    if (_0x398aea.length < 15) {
+    const result = arg1.trim();
+    if (result.length < 15) {
       return false;
     }
-    if (["self", "login", "anonymous", "undefined", "null"].includes(_0x398aea.toLowerCase())) {
+    if (["self", "login", "anonymous", "undefined", "null"].includes(result.toLowerCase())) {
       return false;
     }
-    if (_0x398aea.startsWith("name:") || _0x398aea.startsWith("live_")) {
+    if (result.startsWith("name:") || result.startsWith("live_")) {
       return false;
     }
-    return /^[A-Za-z0-9_\-]+$/.test(_0x398aea);
+    return /^[A-Za-z0-9_\-]+$/.test(result);
   }
-  function _0x27bca1(_0x2eb6dd) {
-    const _0x25a92b = String(_0x2eb6dd || "").trim();
-    return /^\d{5,24}$/.test(_0x25a92b) && !/^0+$/.test(_0x25a92b) && _0x25a92b !== "111111";
+  function fn21(arg1) {
+    const result = String(arg1 || "").trim();
+    return /^\d{5,24}$/.test(result) && !/^0+$/.test(result) && result !== "111111";
   }
-  function _0x9edf83(_0x49c09f) {
-    const _0x1cf498 = String(_0x49c09f || "").trim();
-    return _0x1cf498.length >= 15 && _0x1cf498 !== "111111" && /^[A-Za-z0-9_\-]+$/.test(_0x1cf498);
+  function fn22(arg1) {
+    const result = String(arg1 || "").trim();
+    return result.length >= 15 && result !== "111111" && /^[A-Za-z0-9_\-]+$/.test(result);
   }
-  function _0x7d3fb2(_0x54e18f = {}) {
-    const _0x56face = String(_0x54e18f.userKey || "").trim();
-    if (/^video:\d{10,}$/.test(_0x56face)) {
-      return _0x56face;
+  function fn23(options = {}) {
+    const result = String(options.userKey || "").trim();
+    if (/^video:\d{10,}$/.test(result)) {
+      return result;
     }
-    const _0x3ba2e4 = String(_0x54e18f.sourceType || "").trim();
-    const _0x1cadd6 = _0x3ba2e4 === "video" || _0x3ba2e4.startsWith("video_") || String(_0x54e18f.identityType || "") === "video" || _0x56face.startsWith("video:");
-    const _0x2f09e1 = /douyin\.com\/(?:video|note)\//i.test(String(_0x54e18f.userUrl || ""));
-    if (_0x1cadd6 || _0x2f09e1) {
-      const _0x2fb330 = extractDouyinVideoId(_0x54e18f.userUrl || "") || extractDouyinVideoId(_0x54e18f.videoUrl || "") || extractDouyinVideoId(_0x54e18f.content || "") || (_0x56face.startsWith("video:") ? _0x56face.slice(6) : "");
-      if (_0x2fb330) {
-        return "video:" + _0x2fb330;
+    const result2 = String(options.sourceType || "").trim();
+    const local = result2 === "video" || result2.startsWith("video_") || String(options.identityType || "") === "video" || result.startsWith("video:");
+    const result3 = /douyin\.com\/(?:video|note)\//i.test(String(options.userUrl || ""));
+    if (local || result3) {
+      const local = extractDouyinVideoId(options.userUrl || "") || extractDouyinVideoId(options.videoUrl || "") || extractDouyinVideoId(options.content || "") || (result.startsWith("video:") ? result.slice(6) : "");
+      if (local) {
+        return "video:" + local;
       }
     }
-    const _0x3d3977 = String(_0x54e18f.secUid || _0x54e18f.sec_uid || "").trim();
-    if (_0x48363(_0x3d3977)) {
-      return _0x3d3977;
+    const result4 = String(options.secUid || options.sec_uid || "").trim();
+    if (fn20(result4)) {
+      return result4;
     }
-    const _0x3db751 = String(_0x54e18f.webcastUid || _0x54e18f.webcast_uid || _0x54e18f.webcast_uid_str || "").trim();
-    if (_0x9edf83(_0x3db751)) {
-      return "webcast:" + _0x3db751;
+    const result5 = String(options.webcastUid || options.webcast_uid || options.webcast_uid_str || "").trim();
+    if (fn22(result5)) {
+      return "webcast:" + result5;
     }
-    const _0x5d0ac5 = leadUserKey.getLeadUserKey({
-      userUrl: _0x54e18f.userUrl
+    const result6 = leadUserKey.getLeadUserKey({
+      userUrl: options.userUrl
     });
-    if (_0x5d0ac5) {
-      return _0x5d0ac5;
+    if (result6) {
+      return result6;
     }
-    const _0xfd270f = String(_0x54e18f.uid || _0x54e18f.id_str || _0x54e18f.idStr || _0x54e18f.user_id || "").trim();
-    if (_0x27bca1(_0xfd270f)) {
-      return "uid:" + _0xfd270f;
+    const result7 = String(options.uid || options.id_str || options.idStr || options.user_id || "").trim();
+    if (fn21(result7)) {
+      return "uid:" + result7;
     }
-    if (_0x48363(_0x56face) || /^uid:\d{5,24}$/.test(_0x56face) || /^webcast:[A-Za-z0-9_-]{15,}$/.test(_0x56face)) {
-      return _0x56face;
+    if (fn20(result) || /^uid:\d{5,24}$/.test(result) || /^webcast:[A-Za-z0-9_-]{15,}$/.test(result)) {
+      return result;
     }
-    const _0x6346c8 = String(_0x54e18f.nickname || "").trim();
-    if (_0x6346c8) {
-      return "name:" + _0x6346c8;
+    const result8 = String(options.nickname || "").trim();
+    if (result8) {
+      return "name:" + result8;
     } else {
       return "";
     }
   }
-  function _0x37ab25(_0x305487 = {}) {
-    const _0x4f0571 = {
-      ..._0x305487
+  function fn24(options = {}) {
+    const obj = {
+      ...options
     };
-    let _0x1ff324 = String(_0x4f0571.userUrl || _0x4f0571.content || "").trim();
-    if (_0x4bfbda(_0x4f0571)) {
-      const _0x294228 = extractDouyinVideoId(_0x4f0571.videoUrl || "") || extractDouyinVideoId(_0x1ff324) || extractDouyinVideoId(_0x4f0571.content || "") || (String(_0x4f0571.userKey || "").startsWith("video:") ? String(_0x4f0571.userKey).slice(6) : "");
-      if (_0x294228) {
-        const _0x3b280d = "https://www.douyin.com/video/" + _0x294228;
-        const _0x19695e = String(_0x4f0571.authorProfileUrl || "").trim() || (/\/user\//i.test(String(_0x4f0571.userUrl || "")) && !/\/(?:video|note)\//i.test(String(_0x4f0571.userUrl || "")) ? String(_0x4f0571.userUrl || "").trim() : "");
-        const _0x57ffb8 = String(_0x4f0571.authorNickname || "").trim().replace(/^@+/, "");
-        const _0x59730b = getEntityEntryMeta(_0x4f0571.sourceType || "video");
-        _0x4f0571.videoUrl = _0x3b280d;
-        _0x4f0571.userUrl = _0x3b280d;
-        _0x4f0571.userKey = "video:" + _0x294228;
-        _0x4f0571.content = _0x3b280d;
-        _0x4f0571.title = String(_0x4f0571.title || _0x4f0571.nickname || "").replace(/\s+/g, " ").trim() || "抖音视频作品";
-        _0x4f0571.nickname = _0x4f0571.title;
-        _0x4f0571.authorProfileUrl = _0x19695e;
-        _0x4f0571.authorNickname = _0x57ffb8;
-        _0x4f0571.secUid = "";
-        _0x4f0571.uid = "";
-        _0x4f0571.webcastUid = "";
-        _0x4f0571.identityType = "video";
-        _0x4f0571.sourceType = "video";
-        _0x4f0571.entrySource = _0x4f0571.entrySource || _0x59730b.entrySource;
-        _0x4f0571.entryLabel = _0x4f0571.entryLabel || _0x59730b.entryLabel;
-        _0x4f0571.profileAvailable = false;
-        _0x4f0571.profileUnavailable = true;
-        _0x4f0571.profileUnavailableReason = "视频作品链接";
-        return _0x4f0571;
+    let result = String(obj.userUrl || obj.content || "").trim();
+    if (fn15(obj)) {
+      const local = extractDouyinVideoId(obj.videoUrl || "") || extractDouyinVideoId(result) || extractDouyinVideoId(obj.content || "") || (String(obj.userKey || "").startsWith("video:") ? String(obj.userKey).slice(6) : "");
+      if (local) {
+        const value = "https://www.douyin.com/video/" + local;
+        const local2 = String(obj.authorProfileUrl || "").trim() || (/\/user\//i.test(String(obj.userUrl || "")) && !/\/(?:video|note)\//i.test(String(obj.userUrl || "")) ? String(obj.userUrl || "").trim() : "");
+        const result = String(obj.authorNickname || "").trim().replace(/^@+/, "");
+        const result2 = getEntityEntryMeta(obj.sourceType || "video");
+        obj.videoUrl = value;
+        obj.userUrl = value;
+        obj.userKey = "video:" + local;
+        obj.content = value;
+        obj.title = String(obj.title || obj.nickname || "").replace(/\s+/g, " ").trim() || "抖音视频作品";
+        obj.nickname = obj.title;
+        obj.authorProfileUrl = local2;
+        obj.authorNickname = result;
+        obj.secUid = "";
+        obj.uid = "";
+        obj.webcastUid = "";
+        obj.identityType = "video";
+        obj.sourceType = "video";
+        obj.entrySource = obj.entrySource || result2.entrySource;
+        obj.entryLabel = obj.entryLabel || result2.entryLabel;
+        obj.profileAvailable = false;
+        obj.profileUnavailable = true;
+        obj.profileUnavailableReason = "视频作品链接";
+        return obj;
       }
     }
-    const _0x2cafa1 = String(_0x4f0571.secUid || _0x4f0571.sec_uid || "").trim();
-    const _0x485675 = String(_0x4f0571.webcastUid || _0x4f0571.webcast_uid || _0x4f0571.webcast_uid_str || "").trim();
-    const _0xd44149 = leadUserKey.extractUserKeyFromUrl(_0x1ff324);
-    const _0x2bcb1d = _0x48363(_0x2cafa1) ? _0x2cafa1 : !_0x485675 && _0x48363(_0xd44149) ? _0xd44149 : "";
-    const _0x3f6f56 = String(_0x4f0571.uid || _0x4f0571.id_str || _0x4f0571.idStr || _0x4f0571.user_id || "").trim();
-    const _0x2d397a = _0x27bca1(_0x3f6f56) ? _0x3f6f56 : "";
-    const _0x274bb3 = !_0x2d397a && !_0x2bcb1d && _0x9edf83(_0x485675) ? _0x485675 : "";
-    if (_0x2bcb1d) {
-      _0x1ff324 = "https://www.douyin.com/user/" + _0x2bcb1d;
-      _0x4f0571.secUid = _0x2bcb1d;
+    const result2 = String(obj.secUid || obj.sec_uid || "").trim();
+    const result3 = String(obj.webcastUid || obj.webcast_uid || obj.webcast_uid_str || "").trim();
+    const result4 = leadUserKey.extractUserKeyFromUrl(result);
+    const value = fn20(result2) ? result2 : !result3 && fn20(result4) ? result4 : "";
+    const result5 = String(obj.uid || obj.id_str || obj.idStr || obj.user_id || "").trim();
+    const value2 = fn21(result5) ? result5 : "";
+    const value3 = !value2 && !value && fn22(result3) ? result3 : "";
+    if (value) {
+      result = "https://www.douyin.com/user/" + value;
+      obj.secUid = value;
     } else {
-      _0x4f0571.secUid = "";
-      if (!/\/user\//i.test(_0x1ff324) || /\/(?:video|note)\//i.test(_0x1ff324)) {
-        _0x1ff324 = "";
+      obj.secUid = "";
+      if (!/\/user\//i.test(result) || /\/(?:video|note)\//i.test(result)) {
+        result = "";
       }
     }
-    _0x4f0571.uid = _0x2d397a;
-    _0x4f0571.webcastUid = _0x274bb3;
-    _0x4f0571.userUrl = _0x1ff324;
-    _0x4f0571.userKey = _0x7d3fb2(_0x4f0571);
-    _0x4f0571.nickname = String(_0x4f0571.nickname || "").trim().replace(/^@+/, "");
-    _0x4f0571.identityType = _0x2bcb1d ? "profile" : _0x274bb3 ? "webcast" : "numeric";
-    _0x4f0571.profileAvailable = !!_0x2bcb1d;
-    _0x4f0571.profileUnavailable = !_0x2bcb1d;
-    _0x4f0571.profileUnavailableReason = _0x2bcb1d ? "" : String(_0x4f0571.profileUnavailableReason || (_0x274bb3 ? "主播设置不支持查看他人资料" : "实时消息未提供主页标识"));
-    _0x4f0571.liveEvents = Array.isArray(_0x4f0571.liveEvents) ? _0x4f0571.liveEvents.filter(_0x1c241d => _0x1c241d && typeof _0x1c241d === "object") : _0x4f0571.liveEvent ? [_0x4f0571.liveEvent] : [];
-    return _0x4f0571;
+    obj.uid = value2;
+    obj.webcastUid = value3;
+    obj.userUrl = result;
+    obj.userKey = fn23(obj);
+    obj.nickname = String(obj.nickname || "").trim().replace(/^@+/, "");
+    obj.identityType = value ? "profile" : value3 ? "webcast" : "numeric";
+    obj.profileAvailable = !!value;
+    obj.profileUnavailable = !value;
+    obj.profileUnavailableReason = value ? "" : String(obj.profileUnavailableReason || (value3 ? "主播设置不支持查看他人资料" : "实时消息未提供主页标识"));
+    obj.liveEvents = Array.isArray(obj.liveEvents) ? obj.liveEvents.filter(arg1 => arg1 && typeof arg1 === "object") : obj.liveEvent ? [obj.liveEvent] : [];
+    return obj;
   }
-  function _0xfbaad0() {
+  function fn25() {
     try {
-      if (typeof _0x24d0c1 === "function") {
-        const _0x616be2 = _0x24d0c1();
-        return new Set(Array.isArray(_0x616be2) ? _0x616be2.map(String).filter(Boolean) : []);
+      if (typeof listKnownLeadUserKeys === "function") {
+        const result = listKnownLeadUserKeys();
+        return new Set(Array.isArray(result) ? result.map(String).filter(Boolean) : []);
       }
-    } catch (_0x40cd6c) {}
+    } catch (error) {}
     return new Set();
   }
-  function _0x43b82a() {
+  function fn26() {
     try {
-      if (typeof _0x3a8ec1 === "function") {
-        const _0x5aae36 = _0x3a8ec1();
-        return new Set(Array.isArray(_0x5aae36) ? _0x5aae36.map(String).filter(Boolean) : []);
+      if (typeof listKnownCollectedAuthorKeys === "function") {
+        const result = listKnownCollectedAuthorKeys();
+        return new Set(Array.isArray(result) ? result.map(String).filter(Boolean) : []);
       }
-    } catch (_0x555faf) {}
+    } catch (error) {}
     return new Set();
   }
-  function _0x2f7dbf(_0x20e270) {
-    if (isEntityRelationAuthorSource(_0x20e270)) {
-      return _0x43b82a();
+  function fn27(arg1) {
+    if (isEntityRelationAuthorSource(arg1)) {
+      return fn26();
     }
-    return _0xfbaad0();
+    return fn25();
   }
-  async function _0xdfab78(_0x3af6b6, _0x39b4fe, {
+  async function fn28(arg1, arg2, {
     guest = false,
     platform = "douyin"
   } = {}) {
     const {
-      facade: _0x2c8f74,
-      viewKey: _0x4732fe
-    } = await _0x5c36b6.createEntityAccountHost(_0x3af6b6, _0x39b4fe, {
-      guest: guest || isAnonymousEntityAccountId(_0x3af6b6),
+      facade: facade,
+      viewKey: viewKey
+    } = await result2.createEntityAccountHost(arg1, arg2, {
+      guest: guest || isAnonymousEntityAccountId(arg1),
       platform: platform || "douyin"
     });
-    _0x2c8f74.__radarEntityViewKey = _0x4732fe;
+    facade.__radarEntityViewKey = viewKey;
     try {
-      const _0x28267a = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
-      _0x28267a?.set?.(_0x4732fe, {
-        taskId: "entity-host:" + _0x3af6b6,
-        accountId: String(_0x3af6b6),
+      const value = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
+      value?.set?.(viewKey, {
+        taskId: "entity-host:" + arg1,
+        accountId: String(arg1),
         platform: platform || "douyin",
         taskMode: "entity_leadgen",
         entityLeadgen: true
       });
-    } catch (_0x584965) {}
-    _0x2c8f74.webContents.on("dom-ready", () => {
-      runtimeConfig?.ensureAndPushToWebContents?.(_0x2c8f74.webContents);
-      _0x5dc34d(_0x2c8f74);
+    } catch (error) {}
+    facade.webContents.on("dom-ready", () => {
+      runtimeConfig?.ensureAndPushToWebContents?.(facade.webContents);
+      fn2(facade);
       try {
-        nudgeAutomationViewRepaint?.(_0x2c8f74.webContents, getPlatformViews?.()?.get?.(_0x4732fe));
-      } catch (_0x23123c) {}
+        nudgeAutomationViewRepaint?.(facade.webContents, getPlatformViews?.()?.get?.(viewKey));
+      } catch (error) {}
     });
-    _0x2c8f74.webContents.on("did-finish-load", () => {
-      _0x5dc34d(_0x2c8f74);
+    facade.webContents.on("did-finish-load", () => {
+      fn2(facade);
       try {
-        nudgeAutomationViewRepaint?.(_0x2c8f74.webContents, getPlatformViews?.()?.get?.(_0x4732fe));
-      } catch (_0x41e589) {}
+        nudgeAutomationViewRepaint?.(facade.webContents, getPlatformViews?.()?.get?.(viewKey));
+      } catch (error) {}
       try {
         requestAutomationLayoutRefresh?.();
-      } catch (_0x2303d1) {}
+      } catch (error) {}
     });
-    _0x2c8f74.webContents.on("render-process-gone", () => {
-      _0x2c8f74.__radarEntityUnhealthy = true;
+    facade.webContents.on("render-process-gone", () => {
+      facade.__radarEntityUnhealthy = true;
     });
-    _0x2c8f74.webContents.on("unresponsive", () => {
-      _0x2c8f74.__radarEntityUnhealthy = true;
+    facade.webContents.on("unresponsive", () => {
+      facade.__radarEntityUnhealthy = true;
     });
-    _0x2c8f74.webContents.on("responsive", () => {
-      _0x2c8f74.__radarEntityUnhealthy = false;
+    facade.webContents.on("responsive", () => {
+      facade.__radarEntityUnhealthy = false;
     });
     try {
       ensureAutomationPaintWatchdog?.();
-    } catch (_0x2f4ea6) {}
-    _0x2c8f74.__radarEntityNetworkCapture = createEntityLeadgenNetworkCapture(_0x2c8f74);
-    return _0x2c8f74;
+    } catch (error) {}
+    facade.__radarEntityNetworkCapture = createEntityLeadgenNetworkCapture(facade);
+    return facade;
   }
-  function _0x4b30e6(_0x211c9d, _0x8824b2, _0x471b93 = "") {
-    if (!_0x211c9d || _0x211c9d.isDestroyed?.()) {
+  function fn29(arg1, arg2, text = "") {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return false;
     }
-    const _0x2698a9 = String(_0x211c9d.__radarEntityViewKey || "").trim();
-    const _0x2dc936 = _0x2698a9 && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(_0x2698a9) : null;
-    if (!_0x2dc936 || _0x2dc936.webContents?.isDestroyed?.()) {
+    const result = String(arg1.__radarEntityViewKey || "").trim();
+    const value = result && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(result) : null;
+    if (!value || value.webContents?.isDestroyed?.()) {
       return false;
     }
-    _0x5dc34d(_0x211c9d);
-    const _0x490d74 = automationLiveViewLifecycle?.beginTask?.(_0x2698a9, {
-      taskId: String(_0x471b93 || "entity-host:" + _0x8824b2),
-      runtimeTaskId: String(_0x471b93 || ""),
-      accountId: String(_0x8824b2),
+    fn2(arg1);
+    const local = automationLiveViewLifecycle?.beginTask?.(result, {
+      taskId: String(text || "entity-host:" + arg2),
+      runtimeTaskId: String(text || ""),
+      accountId: String(arg2),
       taskMode: "entity_leadgen",
       entityLeadgen: true
     });
-    return _0x490d74?.ok === true;
+    return local?.ok === true;
   }
-  async function _0x3ca1a0(_0x19a067, _0x507a1b, _0x503480 = "") {
-    if (!_0x19a067 || _0x19a067.isDestroyed?.()) {
+  async function fn30(arg1, arg2, text = "") {
+    if (!arg1 || arg1.isDestroyed?.()) {
       return {
         ok: false,
         reason: "window_unavailable"
       };
     }
-    const _0x1e40ee = String(_0x19a067.__radarEntityViewKey || "").trim();
-    const _0x164e8c = _0x1e40ee && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(_0x1e40ee) : null;
-    if (!_0x164e8c || _0x164e8c.webContents?.isDestroyed?.()) {
+    const result = String(arg1.__radarEntityViewKey || "").trim();
+    const value = result && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(result) : null;
+    if (!value || value.webContents?.isDestroyed?.()) {
       return {
         ok: false,
         reason: "view_unavailable"
       };
     }
-    const _0x298154 = await automationLiveViewLifecycle?.acquireExecutionViewport?.(_0x1e40ee, {
-      runtimeTaskId: String(_0x507a1b || "")
+    const result2 = await automationLiveViewLifecycle?.acquireExecutionViewport?.(result, {
+      runtimeTaskId: String(arg2 || "")
     });
-    if (_0x298154?.ok === false) {
-      return _0x298154;
+    if (result2?.ok === false) {
+      return result2;
     }
-    _0x19a067.__radarEntityExecutionViewportGeneration = _0x298154?.generation ?? null;
-    if (_0x5dd514(_0x19a067)) {
+    arg1.__radarEntityExecutionViewportGeneration = result2?.generation ?? null;
+    if (fn(arg1)) {
       try {
-        const _0x321b2e = _0x164e8c.getBounds?.() || {};
-        const _0xbdb88 = Math.max(1, Number(_0x321b2e.width) || 1);
-        const _0x5ddc78 = Math.max(1, Number(_0x321b2e.height) || 1);
-        const _0x43083e = Math.max(0.25, Math.min(1, _0xbdb88 / 1200, _0x5ddc78 / 800));
-        _0x164e8c.webContents.setZoomFactor?.(_0x43083e);
-      } catch (_0x439bac) {}
+        const local = value.getBounds?.() || {};
+        const result = Math.max(1, Number(local.width) || 1);
+        const result2 = Math.max(1, Number(local.height) || 1);
+        const result3 = Math.max(0.25, Math.min(1, result / 1200, result2 / 800));
+        value.webContents.setZoomFactor?.(result3);
+      } catch (error) {}
     }
     await sleep(180);
-    let _0x148d5a = null;
+    let local = null;
     try {
-      _0x148d5a = await withTimeout(_0x164e8c.webContents.executeJavaScript("({\n          innerWidth: window.innerWidth || 0,\n          innerHeight: window.innerHeight || 0,\n          scrollHeight: Math.max(document.documentElement?.scrollHeight || 0, document.body?.scrollHeight || 0),\n          visibility: String(document.visibilityState || '')\n        })", true), 2500, "entity_execution_viewport_probe_timeout");
-    } catch (_0x3bbcda) {}
-    if (_0x148d5a && (Number(_0x148d5a.innerWidth) < 1000 || Number(_0x148d5a.innerHeight) < 650)) {
-      _0x9d21b4(_0x507a1b, "[" + (_0x503480 || "采集账号") + "] 执行视口偏小 " + _0x148d5a.innerWidth + "×" + _0x148d5a.innerHeight + "，已保持桌面缩放继续运行", "warning");
+      local = await withTimeout(value.webContents.executeJavaScript("({\n          innerWidth: window.innerWidth || 0,\n          innerHeight: window.innerHeight || 0,\n          scrollHeight: Math.max(document.documentElement?.scrollHeight || 0, document.body?.scrollHeight || 0),\n          visibility: String(document.visibilityState || '')\n        })", true), 2500, "entity_execution_viewport_probe_timeout");
+    } catch (error) {}
+    if (local && (Number(local.innerWidth) < 1000 || Number(local.innerHeight) < 650)) {
+      fn8(arg2, "[" + (text || "采集账号") + "] 执行视口偏小 " + local.innerWidth + "×" + local.innerHeight + "，已保持桌面缩放继续运行", "warning");
     }
     return {
       ok: true,
-      ..._0x298154,
-      viewport: _0x148d5a
+      ...result2,
+      viewport: local
     };
   }
-  function _0x14e7cd(_0x2fa41d) {
-    if (!_0x2fa41d) {
+  function fn31(arg1) {
+    if (!arg1) {
       return;
     }
-    const _0x1f086a = String(_0x2fa41d.__radarEntityViewKey || "").trim();
-    if (!_0x1f086a) {
+    const result = String(arg1.__radarEntityViewKey || "").trim();
+    if (!result) {
       return;
     }
-    const _0xf45701 = _0x2fa41d.__radarEntityExecutionViewportGeneration;
-    _0x2fa41d.__radarEntityExecutionViewportGeneration = null;
+    const value = arg1.__radarEntityExecutionViewportGeneration;
+    arg1.__radarEntityExecutionViewportGeneration = null;
     try {
-      automationLiveViewLifecycle?.releaseExecutionViewport?.(_0x1f086a, {
-        generation: _0xf45701
+      automationLiveViewLifecycle?.releaseExecutionViewport?.(result, {
+        generation: value
       });
-    } catch (_0x41591f) {}
+    } catch (error) {}
   }
-  async function _0x533ade(_0x3371bf, _0x5e5218, {
+  async function fn32(arg1, arg2, {
     platform = "douyin",
     runtimeTaskId = ""
   } = {}) {
-    const _0xafa176 = String(_0x3371bf);
-    const _0x31833b = isAnonymousEntityAccountId(_0xafa176);
-    let _0x4fa331 = _0x31c2d3.get(_0xafa176);
-    if (_0x4fa331 && !_0x4fa331.isDestroyed() && !_0x4fa331.__radarEntityUnhealthy) {
-      const _0x4054cf = String(_0x4fa331.__radarEntityViewKey || "").trim();
-      const _0x7ff21e = _0x4054cf && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(_0x4054cf) : null;
-      if (_0x7ff21e?.webContents === _0x4fa331.webContents && !_0x7ff21e.webContents?.isDestroyed?.()) {
-        const _0x2ed428 = typeof getViewSettingsMap === "function" ? getViewSettingsMap()?.get?.(_0x4054cf) : null;
-        const _0x5b542a = !!runtimeTaskId && !_0x2ed428?.finishedAt && String(_0x2ed428?.runtimeTaskId || "") === String(runtimeTaskId);
-        if (_0x5b542a) {
-          _0x4b30e6(_0x4fa331, _0x3371bf, runtimeTaskId);
-          return _0x4fa331;
+    const result = String(arg1);
+    const flag = isAnonymousEntityAccountId(result);
+    let result2 = map4.get(result);
+    if (result2 && !result2.isDestroyed() && !result2.__radarEntityUnhealthy) {
+      const result3 = String(result2.__radarEntityViewKey || "").trim();
+      const value = result3 && typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(result3) : null;
+      if (value?.webContents === result2.webContents && !value.webContents?.isDestroyed?.()) {
+        const value = typeof getViewSettingsMap === "function" ? getViewSettingsMap()?.get?.(result3) : null;
+        const local = !!runtimeTaskId && !value?.finishedAt && String(value?.runtimeTaskId || "") === String(runtimeTaskId);
+        if (local) {
+          fn29(result2, arg1, runtimeTaskId);
+          return result2;
         }
         try {
-          cancelPendingAutomationViewDestroy?.(_0x4054cf);
-        } catch (_0x340198) {}
+          cancelPendingAutomationViewDestroy?.(result3);
+        } catch (error) {}
       }
       try {
-        _0x4fa331.destroy?.();
-      } catch (_0xf3a307) {}
-      _0x31c2d3.delete(_0xafa176);
-      _0x4fa331 = null;
+        result2.destroy?.();
+      } catch (error) {}
+      map4.delete(result);
+      result2 = null;
       await sleep(process.platform === "darwin" ? 1300 : 260);
     }
-    if (_0x4fa331 && !_0x4fa331.isDestroyed()) {
+    if (result2 && !result2.isDestroyed()) {
       try {
-        _0x4fa331.destroy?.();
-      } catch (_0x159539) {}
-      _0x31c2d3.delete(_0xafa176);
-      _0x4fa331 = null;
+        result2.destroy?.();
+      } catch (error) {}
+      map4.delete(result);
+      result2 = null;
       await sleep(process.platform === "darwin" ? 1300 : 260);
     }
-    _0x4fa331 = await _0xdfab78(_0x3371bf, _0x5e5218, {
-      guest: _0x31833b,
+    result2 = await fn28(arg1, arg2, {
+      guest: flag,
       platform: platform
     });
-    _0x31c2d3.set(_0xafa176, _0x4fa331);
-    _0x4fa331.on("closed", () => {
+    map4.set(result, result2);
+    result2.on("closed", () => {
       try {
-        _0x4fa331.__radarEntityNetworkCapture?.dispose?.();
-      } catch (_0x590202) {}
-      if (_0x31c2d3.get(_0xafa176) === _0x4fa331) {
-        _0x31c2d3.delete(_0xafa176);
+        result2.__radarEntityNetworkCapture?.dispose?.();
+      } catch (error) {}
+      if (map4.get(result) === result2) {
+        map4.delete(result);
       }
     });
     try {
-      _0x4fa331.setTitle(_0x31833b ? "线索采集（无账号游客）" : "线索采集 - " + _0x3371bf);
-    } catch (_0x11a760) {}
-    _0x4b30e6(_0x4fa331, _0x3371bf, runtimeTaskId);
-    await _0x31a7f4(_0x4fa331.webContents);
-    return _0x4fa331;
+      result2.setTitle(flag ? "线索采集（无账号游客）" : "线索采集 - " + arg1);
+    } catch (error) {}
+    fn29(result2, arg1, runtimeTaskId);
+    await fn4(result2.webContents);
+    return result2;
   }
-  function _0x15119e() {
-    const _0x106662 = new Set();
-    for (const _0x18dc9f of _0x5ea9b0.values()) {
-      if (_0x18dc9f?.windowKeys && _0x18dc9f.windowKeys.size) {
-        for (const _0x29f8ad of _0x18dc9f.windowKeys) {
-          if (_0x29f8ad) {
-            _0x106662.add(String(_0x29f8ad));
+  function fn33() {
+    const set = new Set();
+    for (const item of map.values()) {
+      if (item?.windowKeys && item.windowKeys.size) {
+        for (const item2 of item.windowKeys) {
+          if (item2) {
+            set.add(String(item2));
           }
         }
       }
-      const _0x1ed7fe = Array.isArray(_0x18dc9f?.accounts) ? _0x18dc9f.accounts : [];
-      for (const _0x1444de of _0x1ed7fe) {
-        const _0x4e4aa6 = String(_0x1444de?.id || "").trim();
-        if (_0x4e4aa6) {
-          _0x106662.add(_0x4e4aa6);
+      const value = Array.isArray(item?.accounts) ? item.accounts : [];
+      for (const item of value) {
+        const result = String(item?.id || "").trim();
+        if (result) {
+          set.add(result);
         }
       }
     }
-    return _0x106662;
+    return set;
   }
-  function _0x20dc44(_0x5e5a36 = null) {
-    let _0x338eed;
-    if (_0x5e5a36 != null && _0x5e5a36 !== "") {
-      _0x338eed = [String(_0x5e5a36)];
+  function fn34(arg1 = null) {
+    let local;
+    if (arg1 != null && arg1 !== "") {
+      local = [String(arg1)];
     } else {
-      const _0x200d15 = _0x15119e();
-      _0x338eed = _0x200d15.size ? [..._0x200d15] : [];
+      const result = fn33();
+      local = result.size ? [...result] : [];
     }
-    const _0x44822b = [];
-    const _0x3ef6e1 = new Set();
-    _0x338eed.forEach(_0x833565 => {
-      const _0x47cbcd = _0x31c2d3.get(String(_0x833565));
-      if (!_0x47cbcd || _0x47cbcd.isDestroyed?.()) {
+    const list = [];
+    const set = new Set();
+    local.forEach(arg1 => {
+      const result = map4.get(String(arg1));
+      if (!result || result.isDestroyed?.()) {
         return;
       }
-      const _0x1df4e5 = _0x47cbcd.__radarEntityViewKey;
-      if (!_0x1df4e5 || _0x3ef6e1.has(_0x1df4e5)) {
+      const value = result.__radarEntityViewKey;
+      if (!value || set.has(value)) {
         return;
       }
-      const _0x46661a = typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(_0x1df4e5) : null;
-      if (!_0x46661a || _0x46661a.webContents?.isDestroyed?.()) {
+      const value2 = typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(value) : null;
+      if (!value2 || value2.webContents?.isDestroyed?.()) {
         return;
       }
-      _0x3ef6e1.add(_0x1df4e5);
-      _0x44822b.push(_0x1df4e5);
+      set.add(value);
+      list.push(value);
     });
-    return _0x44822b;
+    return list;
   }
-  function _0xd6004(_0x4d5ea9 = null) {
-    const _0x58277e = _0x20dc44(_0x4d5ea9);
-    if (!_0x58277e.length) {
+  function fn35(arg1 = null) {
+    const result = fn34(arg1);
+    if (!result.length) {
       return {
         success: false,
         error: "暂无采集窗口可监控",
         shown: 0
       };
     }
-    for (const _0x185168 of _0x58277e) {
-      const _0xce7ec0 = [..._0x31c2d3.values()].find(_0x2709e7 => _0x2709e7?.__radarEntityViewKey === _0x185168);
-      _0x5dc34d(_0xce7ec0);
+    for (const item of result) {
+      const result = [...map4.values()].find(arg1 => arg1?.__radarEntityViewKey === item);
+      fn2(result);
     }
-    _0x41183a = {
-      viewKeys: _0x58277e,
-      accountId: _0x4d5ea9 != null ? String(_0x4d5ea9) : null,
+    local2 = {
+      viewKeys: result,
+      accountId: arg1 != null ? String(arg1) : null,
       at: Date.now()
     };
     try {
-      if (_0x427b5e && !_0x427b5e.isDestroyed() && !_0x427b5e.webContents?.isDestroyed?.()) {
-        _0x427b5e.webContents.send("entity-leadgen-open-live-preview", {
-          viewKeys: _0x58277e,
-          accountId: _0x4d5ea9 != null ? String(_0x4d5ea9) : null
+      if (mainWindow && !mainWindow.isDestroyed() && !mainWindow.webContents?.isDestroyed?.()) {
+        mainWindow.webContents.send("entity-leadgen-open-live-preview", {
+          viewKeys: result,
+          accountId: arg1 != null ? String(arg1) : null
         });
       }
-    } catch (_0x14e7ff) {}
+    } catch (error) {}
     return {
       success: true,
-      shown: _0x58277e.length,
-      viewKeys: _0x58277e,
+      shown: result.length,
+      viewKeys: result,
       livePreview: true
     };
   }
-  function _0x2d7f14(_0x3cb101 = null) {
-    const _0x4099ad = _0x20dc44(_0x3cb101);
-    _0x41183a = null;
+  function fn36(arg1 = null) {
+    const result = fn34(arg1);
+    local2 = null;
     try {
-      if (_0x427b5e && !_0x427b5e.isDestroyed() && !_0x427b5e.webContents?.isDestroyed?.()) {
-        _0x427b5e.webContents.send("entity-leadgen-close-live-preview", {
-          viewKeys: _0x4099ad,
-          accountId: _0x3cb101 != null ? String(_0x3cb101) : null
+      if (mainWindow && !mainWindow.isDestroyed() && !mainWindow.webContents?.isDestroyed?.()) {
+        mainWindow.webContents.send("entity-leadgen-close-live-preview", {
+          viewKeys: result,
+          accountId: arg1 != null ? String(arg1) : null
         });
       }
-    } catch (_0x37a98d) {}
+    } catch (error) {}
     return {
       success: true,
-      hidden: _0x4099ad.length,
-      viewKeys: _0x4099ad,
+      hidden: result.length,
+      viewKeys: result,
       livePreview: true
     };
   }
-  function _0x49db9b() {
-    if (!_0x41183a) {
+  function fn37() {
+    if (!local2) {
       return null;
     }
-    const _0x506bb9 = {
-      ..._0x41183a,
-      viewKeys: Array.isArray(_0x41183a.viewKeys) ? [..._0x41183a.viewKeys] : []
+    const obj = {
+      ...local2,
+      viewKeys: Array.isArray(local2.viewKeys) ? [...local2.viewKeys] : []
     };
-    _0x41183a = null;
-    const _0x1caf5c = _0x506bb9.viewKeys.filter(_0x2c42f7 => {
+    local2 = null;
+    const result = obj.viewKeys.filter(arg1 => {
       try {
-        const _0x44637d = typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(_0x2c42f7) : null;
-        return !!_0x44637d && !_0x44637d.webContents?.isDestroyed?.();
-      } catch (_0x1b447f) {
+        const value = typeof getPlatformViews === "function" ? getPlatformViews()?.get?.(arg1) : null;
+        return !!value && !value.webContents?.isDestroyed?.();
+      } catch (error) {
         return false;
       }
     });
-    if (!_0x1caf5c.length) {
+    if (!result.length) {
       return null;
     }
     return {
-      ..._0x506bb9,
-      viewKeys: _0x1caf5c
+      ...obj,
+      viewKeys: result
     };
   }
-  function _0x4f28b9(_0x56a464) {
-    const _0x4a31b9 = String(_0x56a464 || "");
-    return /douyin\.com\/(?:video|note|jingxuan)\//i.test(_0x4a31b9) || /[?&#]modal_id=/i.test(_0x4a31b9);
+  function fn38(arg1) {
+    const result = String(arg1 || "");
+    return /douyin\.com\/(?:video|note|jingxuan)\//i.test(result) || /[?&#]modal_id=/i.test(result);
   }
-  function _0x76d548(_0x25dda2) {
-    if (!_0x25dda2 || _0x25dda2.isDestroyed() || _0x25dda2.webContents.isDestroyed()) {
+  function fn39(arg1) {
+    if (!arg1 || arg1.isDestroyed() || arg1.webContents.isDestroyed()) {
       return;
     }
-    withTimeout(_0x25dda2.webContents.executeJavaScript("\n      (() => {\n        const pauseMedia = (media) => {\n          try {\n            media.muted = true;\n            media.autoplay = false;\n            media.loop = false;\n            if (typeof media.pause === 'function') media.pause();\n            media.preload = 'metadata';\n          } catch (_) {}\n        };\n        document.querySelectorAll('video, audio').forEach(pauseMedia);\n        if (!window.__radarEntityVideoMediaBlockerInstalled) {\n          window.__radarEntityVideoMediaBlockerInstalled = true;\n          document.addEventListener('play', (event) => {\n            if (window.__radarEntityAllowVideoPlay) return;\n            const media = event.target;\n            if (media && (media.tagName === 'VIDEO' || media.tagName === 'AUDIO')) {\n              pauseMedia(media);\n            }\n          }, true);\n        }\n        return true;\n      })()\n    ", true), EXEC_JS_TIMEOUT_MS, "entity_media_blocker_timeout").catch(() => {});
+    withTimeout(arg1.webContents.executeJavaScript("\n      (() => {\n        const pauseMedia = (media) => {\n          try {\n            media.muted = true;\n            media.autoplay = false;\n            media.loop = false;\n            if (typeof media.pause === 'function') media.pause();\n            media.preload = 'metadata';\n          } catch (_) {}\n        };\n        document.querySelectorAll('video, audio').forEach(pauseMedia);\n        if (!window.__radarEntityVideoMediaBlockerInstalled) {\n          window.__radarEntityVideoMediaBlockerInstalled = true;\n          document.addEventListener('play', (event) => {\n            if (window.__radarEntityAllowVideoPlay) return;\n            const media = event.target;\n            if (media && (media.tagName === 'VIDEO' || media.tagName === 'AUDIO')) {\n              pauseMedia(media);\n            }\n          }, true);\n        }\n        return true;\n      })()\n    ", true), EXEC_JS_TIMEOUT_MS, "entity_media_blocker_timeout").catch(() => {});
   }
-  async function _0x250a37(_0x48aaa7, _0x48fb76) {
-    if (!_0x48aaa7 || _0x48aaa7.isDestroyed?.() || _0x48aaa7.webContents?.isDestroyed?.()) {
+  async function fn40(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed?.() || arg1.webContents?.isDestroyed?.()) {
       return false;
     }
     try {
-      await withTimeout(_0x48aaa7.webContents.executeJavaScript("window.__radarEntityAllowVideoPlay = " + (_0x48fb76 ? "true" : "false") + "; true;", true), EXEC_JS_TIMEOUT_MS, "entity_allow_play_timeout");
+      await withTimeout(arg1.webContents.executeJavaScript("window.__radarEntityAllowVideoPlay = " + (arg2 ? "true" : "false") + "; true;", true), EXEC_JS_TIMEOUT_MS, "entity_allow_play_timeout");
       return true;
-    } catch (_0x72cba1) {
+    } catch (error) {
       return false;
     }
   }
-  async function _0x1c60ea(_0x295092) {
-    if (!_0x295092 || _0x295092.isDestroyed?.() || _0x295092.webContents?.isDestroyed?.()) {
+  async function fn41(arg1) {
+    if (!arg1 || arg1.isDestroyed?.() || arg1.webContents?.isDestroyed?.()) {
       return false;
     }
-    await _0x250a37(_0x295092, false);
-    _0x76d548(_0x295092);
+    await fn40(arg1, false);
+    fn39(arg1);
     try {
-      await withTimeout(_0x295092.webContents.executeJavaScript("\n          (() => {\n            document.querySelectorAll('video, audio').forEach((media) => {\n              try {\n                media.muted = true;\n                media.autoplay = false;\n                if (typeof media.pause === 'function') media.pause();\n              } catch (_) {}\n            });\n            return true;\n          })()\n        ", true), EXEC_JS_TIMEOUT_MS, "entity_publish_time_pause_timeout");
+      await withTimeout(arg1.webContents.executeJavaScript("\n          (() => {\n            document.querySelectorAll('video, audio').forEach((media) => {\n              try {\n                media.muted = true;\n                media.autoplay = false;\n                if (typeof media.pause === 'function') media.pause();\n              } catch (_) {}\n            });\n            return true;\n          })()\n        ", true), EXEC_JS_TIMEOUT_MS, "entity_publish_time_pause_timeout");
       return true;
-    } catch (_0x2c67df) {
+    } catch (error) {
       return false;
     }
   }
-  async function _0x4125dc(_0x337c24) {
-    if (!_0x337c24 || _0x337c24.isDestroyed?.() || _0x337c24.webContents?.isDestroyed?.()) {
+  async function fn42(arg1) {
+    if (!arg1 || arg1.isDestroyed?.() || arg1.webContents?.isDestroyed?.()) {
       return "";
     }
     try {
-      const _0x4aedc4 = await withTimeout(_0x337c24.webContents.executeJavaScript(buildDouyinVideoCreateTimeWidgetReadExpression(), true), EXEC_JS_TIMEOUT_MS, "entity_create_time_widget_timeout");
-      return String(_0x4aedc4 || "").trim();
-    } catch (_0xe98a5e) {
+      const result = await withTimeout(arg1.webContents.executeJavaScript(buildDouyinVideoCreateTimeWidgetReadExpression(), true), EXEC_JS_TIMEOUT_MS, "entity_create_time_widget_timeout");
+      return String(result || "").trim();
+    } catch (error) {
       return "";
     }
   }
-  function _0x4d8ab(_0x6bd895) {
-    return String(_0x6bd895 || "").replace(/\s+/g, "").trim();
+  function fn43(arg1) {
+    return String(arg1 || "").replace(/\s+/g, "").trim();
   }
-  async function _0x460524(_0x46548f, {
+  async function fn44(arg1, {
     seenTexts = [],
     timeoutMs = 12000,
-    taskId: _0x3078f5 = "",
-    generation: _0x2bd676 = 0
+    taskId: taskId = "",
+    generation: generation = 0
   } = {}) {
-    const _0x595dde = new Set((Array.isArray(seenTexts) ? seenTexts : []).map(_0x1967f6 => _0x4d8ab(_0x1967f6)).filter(Boolean));
-    await _0x250a37(_0x46548f, true);
-    let _0x3e1a0a = "";
-    const _0x273f05 = Date.now();
-    while (Date.now() - _0x273f05 < timeoutMs) {
-      if (_0x3078f5 && !_0x4ec184(_0x3078f5, _0x2bd676)) {
+    const set = new Set((Array.isArray(seenTexts) ? seenTexts : []).map(arg1 => fn43(arg1)).filter(Boolean));
+    await fn40(arg1, true);
+    let text = "";
+    const result = Date.now();
+    while (Date.now() - result < timeoutMs) {
+      if (taskId && !fn45(taskId, generation)) {
         return {
           text: "",
           refreshed: false,
           cancelled: true
         };
       }
-      const _0x27f2cf = await _0x4125dc(_0x46548f);
-      const _0x36935a = _0x4d8ab(_0x27f2cf);
-      if (_0x36935a && !_0x595dde.has(_0x36935a)) {
-        if (_0x36935a === _0x3e1a0a) {
+      const result = await fn42(arg1);
+      const result2 = fn43(result);
+      if (result2 && !set.has(result2)) {
+        if (result2 === text) {
           return {
-            text: _0x27f2cf,
+            text: result,
             refreshed: true
           };
         }
-        _0x3e1a0a = _0x36935a;
+        text = result2;
       } else {
-        _0x3e1a0a = "";
+        text = "";
       }
       await sleep(500);
     }
     return {
-      text: _0x3e1a0a,
+      text: text,
       refreshed: false
     };
   }
-  async function _0x22f4bb(_0x4d5f67) {
-    if (!_0x4d5f67 || _0x4d5f67.isDestroyed() || _0x4d5f67.webContents.isDestroyed()) {
+  async function fn46(arg1) {
+    if (!arg1 || arg1.isDestroyed() || arg1.webContents.isDestroyed()) {
       return;
     }
     try {
-      _0x4d5f67.webContents.stop();
-    } catch (_0x271e38) {}
+      arg1.webContents.stop();
+    } catch (error) {}
     try {
-      await withTimeout(_0x4d5f67.loadURL("about:blank"), BLANK_NAV_TIMEOUT_MS, "entity_blank_timeout");
-    } catch (_0x12fef7) {
+      await withTimeout(arg1.loadURL("about:blank"), BLANK_NAV_TIMEOUT_MS, "entity_blank_timeout");
+    } catch (error) {
       try {
-        _0x4d5f67.webContents.stop();
-      } catch (_0x23aeba) {}
+        arg1.webContents.stop();
+      } catch (error) {}
     }
     await sleep(280);
   }
-  async function _0x44de06(_0x1d2c39, _0x5210b7) {
-    if (!_0x1d2c39 || _0x1d2c39.isDestroyed()) {
+  async function fn47(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed()) {
       throw new Error("线索采集窗口已销毁");
     }
-    _0x5dc34d(_0x1d2c39);
-    const _0x267aae = () => {
-      if (!_0x1d2c39 || _0x1d2c39.isDestroyed()) {
+    fn2(arg1);
+    const local = () => {
+      if (!arg1 || arg1.isDestroyed()) {
         return;
       }
-      const _0x5f0462 = runtimeConfig?.getPlain?.()?.apiHooks || null;
-      withTimeout(_0x1d2c39.webContents.executeJavaScript(getEntityLeadgenApiHookInstaller(_0x5f0462), true), EXEC_JS_TIMEOUT_MS, "entity_api_hook_timeout").catch(() => {});
-      withTimeout(_0x1d2c39.webContents.executeJavaScript(getLeadgenScrapeApiHookInstaller(_0x5f0462), true), EXEC_JS_TIMEOUT_MS, "leadgen_scrape_api_hook_timeout").catch(() => {});
-      if (/^https:\/\/live\.douyin\.com\//i.test(String(_0x5210b7 || ""))) {
-        withTimeout(_0x1d2c39.webContents.executeJavaScript(getEntityLeadgenLiveHookInstaller(), true), EXEC_JS_TIMEOUT_MS, "entity_live_hook_timeout").catch(() => {});
+      const local = runtimeConfig?.getPlain?.()?.apiHooks || null;
+      withTimeout(arg1.webContents.executeJavaScript(getEntityLeadgenApiHookInstaller(local), true), EXEC_JS_TIMEOUT_MS, "entity_api_hook_timeout").catch(() => {});
+      withTimeout(arg1.webContents.executeJavaScript(getLeadgenScrapeApiHookInstaller(local), true), EXEC_JS_TIMEOUT_MS, "leadgen_scrape_api_hook_timeout").catch(() => {});
+      if (/^https:\/\/live\.douyin\.com\//i.test(String(arg2 || ""))) {
+        withTimeout(arg1.webContents.executeJavaScript(getEntityLeadgenLiveHookInstaller(), true), EXEC_JS_TIMEOUT_MS, "entity_live_hook_timeout").catch(() => {});
       }
-      if (_0x4f28b9(_0x5210b7)) {
-        _0x76d548(_0x1d2c39);
+      if (fn38(arg2)) {
+        fn39(arg1);
       }
     };
-    const _0x2cf08b = () => _0x267aae();
-    const _0x1f4a7d = () => _0x267aae();
+    const local2 = () => local();
+    const local3 = () => local();
     try {
-      _0x1d2c39.webContents.once("dom-ready", _0x2cf08b);
-      _0x1d2c39.webContents.once("did-finish-load", _0x1f4a7d);
-    } catch (_0x1f000b) {}
-    let _0x23554e = null;
+      arg1.webContents.once("dom-ready", local2);
+      arg1.webContents.once("did-finish-load", local3);
+    } catch (error) {}
+    let local4 = null;
     try {
-      await Promise.race([_0x1d2c39.loadURL(_0x5210b7), new Promise((_0xded2a3, _0x3defed) => {
-        _0x23554e = setTimeout(() => {
-          _0x3defed(Object.assign(new Error("页面加载超时"), {
+      await Promise.race([arg1.loadURL(arg2), new Promise((arg1, arg2) => {
+        local4 = setTimeout(() => {
+          arg2(Object.assign(new Error("页面加载超时"), {
             code: "entity_navigation_timeout"
           }));
         }, NAVIGATION_TIMEOUT_MS);
       })]);
-    } catch (_0x474802) {
-      if (_0x474802?.code === "entity_navigation_timeout") {
+    } catch (error) {
+      if (error?.code === "entity_navigation_timeout") {
         try {
-          _0x1d2c39.webContents.stop();
-        } catch (_0x276326) {}
-        throw _0x474802;
+          arg1.webContents.stop();
+        } catch (error) {}
+        throw error;
       }
-      const _0x4d601e = String(_0x474802?.message || _0x474802 || "");
-      if (!/ERR_ABORTED|\(-3\)/.test(_0x4d601e)) {
-        throw _0x474802;
+      const result = String(error?.message || error || "");
+      if (!/ERR_ABORTED|\(-3\)/.test(result)) {
+        throw error;
       }
-      console.log("[EntityLeadgen] loadURL aborted（已忽略）: " + String(_0x5210b7 || "").slice(0, 120));
+      console.log("[EntityLeadgen] loadURL aborted（已忽略）: " + String(arg2 || "").slice(0, 120));
     } finally {
-      if (_0x23554e) {
-        clearTimeout(_0x23554e);
+      if (local4) {
+        clearTimeout(local4);
       }
       try {
-        _0x1d2c39.webContents.removeListener("dom-ready", _0x2cf08b);
-        _0x1d2c39.webContents.removeListener("did-finish-load", _0x1f4a7d);
-      } catch (_0x351c2b) {}
+        arg1.webContents.removeListener("dom-ready", local2);
+        arg1.webContents.removeListener("did-finish-load", local3);
+      } catch (error) {}
     }
-    _0x267aae();
-    await _0x573728(_0x1d2c39);
-    _0x267aae();
+    local();
+    await fn48(arg1);
+    local();
   }
-  async function _0x573728(_0xf87e4a) {
-    if (!_0xf87e4a || _0xf87e4a.isDestroyed()) {
+  async function fn48(arg1) {
+    if (!arg1 || arg1.isDestroyed()) {
       return;
     }
-    const _0x2870cf = Date.now();
+    const result = Date.now();
     await sleep(PAGE_SETTLE_MIN_MS);
-    while (Date.now() - _0x2870cf < PAGE_SETTLE_MAX_MS) {
-      if (!_0xf87e4a || _0xf87e4a.isDestroyed()) {
+    while (Date.now() - result < PAGE_SETTLE_MAX_MS) {
+      if (!arg1 || arg1.isDestroyed()) {
         return;
       }
-      let _0x23da27 = false;
+      let flag = false;
       try {
-        _0x23da27 = await withTimeout(_0xf87e4a.webContents.executeJavaScript("(() => {\n              try {\n                if (document.readyState !== 'complete') return false;\n                const text = ((document.body && document.body.innerText) || '').trim();\n                return text.length > 60;\n              } catch (_) { return false; }\n            })()", true), EXEC_JS_TIMEOUT_MS, "entity_settle_js_timeout");
-      } catch (_0x45f422) {
-        _0x23da27 = false;
+        flag = await withTimeout(arg1.webContents.executeJavaScript("(() => {\n              try {\n                if (document.readyState !== 'complete') return false;\n                const text = ((document.body && document.body.innerText) || '').trim();\n                return text.length > 60;\n              } catch (_) { return false; }\n            })()", true), EXEC_JS_TIMEOUT_MS, "entity_settle_js_timeout");
+      } catch (error) {
+        flag = false;
       }
-      if (_0x23da27) {
+      if (flag) {
         return;
       }
       await sleep(400);
     }
   }
-  async function _0x1f6c38(_0x20cd70, _0x4865bd) {
-    if (!_0x20cd70 || _0x20cd70.isDestroyed() || !_0x20cd70.__radarEntityGuest) {
+  async function fn49(arg1, arg2) {
+    if (!arg1 || arg1.isDestroyed() || !arg1.__radarEntityGuest) {
       return;
     }
-    if (_0x20cd70.__radarEntityGuestWarmed) {
+    if (arg1.__radarEntityGuestWarmed) {
       return;
     }
-    _0x9d21b4(_0x4865bd, "正在准备无账号采集环境…", "info");
+    fn8(arg2, "正在准备无账号采集环境…", "info");
     try {
-      await _0x44de06(_0x20cd70, "https://www.douyin.com/");
+      await fn47(arg1, "https://www.douyin.com/");
       await sleep(1800);
-    } catch (_0x41f49e) {
-      _0x9d21b4(_0x4865bd, "无账号采集环境准备未完成，将继续尝试", "warning");
+    } catch (error) {
+      fn8(arg2, "无账号采集环境准备未完成，将继续尝试", "warning");
     }
-    _0x20cd70.__radarEntityGuestWarmed = true;
+    arg1.__radarEntityGuestWarmed = true;
   }
-  function _0x745e87(_0x12ae7a = []) {
-    return (Array.isArray(_0x12ae7a) ? _0x12ae7a : []).map(_0x33ed53 => String(_0x33ed53?.id || _0x33ed53 || "").trim()).filter(Boolean);
+  function fn50(list = []) {
+    return (Array.isArray(list) ? list : []).map(arg1 => String(arg1?.id || arg1 || "").trim()).filter(Boolean);
   }
-  function _0x3ea421(_0x2cfcef = null) {
-    const _0x34506c = _0x2cfcef == null ? [..._0x31c2d3.keys()] : _0x745e87(_0x2cfcef);
-    _0x34506c.forEach(_0x4e82c1 => {
-      const _0x18db22 = _0x31c2d3.get(_0x4e82c1);
-      if (!_0x18db22) {
+  function fn51(arg1 = null) {
+    const value = arg1 == null ? [...map4.keys()] : fn50(arg1);
+    value.forEach(arg1 => {
+      const result = map4.get(arg1);
+      if (!result) {
         return;
       }
-      _0x31c2d3.delete(_0x4e82c1);
+      map4.delete(arg1);
       try {
-        _0x18db22.__radarEntityNetworkCapture?.dispose?.();
-      } catch (_0xb7e11d) {}
+        result.__radarEntityNetworkCapture?.dispose?.();
+      } catch (error) {}
       try {
-        const _0x4dac5c = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
-        const _0x25e6b5 = _0x18db22.__radarEntityViewKey;
-        if (_0x4dac5c && _0x25e6b5) {
-          _0x4dac5c.delete(_0x25e6b5);
+        const value = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
+        const value2 = result.__radarEntityViewKey;
+        if (value && value2) {
+          value.delete(value2);
         }
-      } catch (_0x58a5df) {}
+      } catch (error) {}
       try {
-        if (typeof _0x18db22.destroy === "function") {
-          _0x18db22.destroy();
+        if (typeof result.destroy === "function") {
+          result.destroy();
         } else {
-          _0x18db22.close?.();
+          result.close?.();
         }
-      } catch (_0x175be6) {}
+      } catch (error) {}
     });
   }
-  function _0xf412fd(_0x5151d6 = null) {
-    _0x41183a = null;
-    const _0x54dcad = _0x5151d6 == null ? [..._0x31c2d3.keys()] : _0x745e87(_0x5151d6);
-    const _0x3a07fb = [];
-    _0x54dcad.forEach(_0x5f920 => {
-      const _0x461456 = _0x31c2d3.get(String(_0x5f920));
-      if (!_0x461456 || _0x461456.isDestroyed?.()) {
+  function fn52(arg1 = null) {
+    local2 = null;
+    const value = arg1 == null ? [...map4.keys()] : fn50(arg1);
+    const list = [];
+    value.forEach(arg1 => {
+      const result = map4.get(String(arg1));
+      if (!result || result.isDestroyed?.()) {
         return;
       }
-      const _0x4ba06c = _0x461456.__radarEntityViewKey;
-      if (!_0x4ba06c) {
+      const value = result.__radarEntityViewKey;
+      if (!value) {
         return;
       }
-      _0x3a07fb.push(_0x4ba06c);
+      list.push(value);
       try {
-        const _0x20772b = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
-        const _0x2b1d4a = _0x20772b?.get?.(_0x4ba06c);
-        automationLiveViewLifecycle?.finishTask?.(_0x4ba06c, {
+        const value2 = typeof getViewSettingsMap === "function" ? getViewSettingsMap() : null;
+        const local = value2?.get?.(value);
+        automationLiveViewLifecycle?.finishTask?.(value, {
           reason: "entity-finished",
-          settingsSnapshot: _0x2b1d4a && typeof _0x2b1d4a === "object" ? {
-            ..._0x2b1d4a
+          settingsSnapshot: local && typeof local === "object" ? {
+            ...local
           } : null
         });
-      } catch (_0x28b8da) {}
+      } catch (error) {}
     });
     try {
-      const _0x322400 = _0x427b5e;
-      if (_0x322400 && !_0x322400.isDestroyed() && !_0x322400.webContents?.isDestroyed?.()) {
-        _0x322400.webContents.send("entity-leadgen-detach-live-preview", {
-          viewKeys: _0x3a07fb,
-          accountIds: _0x5151d6 == null ? null : _0x54dcad.map(String)
+      const local = mainWindow;
+      if (local && !local.isDestroyed() && !local.webContents?.isDestroyed?.()) {
+        local.webContents.send("entity-leadgen-detach-live-preview", {
+          viewKeys: list,
+          accountIds: arg1 == null ? null : value.map(String)
         });
       }
-    } catch (_0x5eb0b6) {}
+    } catch (error) {}
   }
-  async function _0x317311(_0xf0508d, _0x29cb4e, _0x5c5775 = "", _0x59527f = "") {
+  async function fn53(arg1, arg2, text = "", text2 = "") {
     try {
-      await _0xf0508d?.__radarEntityNetworkCapture?.begin?.({
-        sourceType: _0x29cb4e,
-        searchKeyword: _0x5c5775,
-        sourceVideoUrl: _0x29cb4e === "comment" ? _0x59527f || _0x5c5775 : _0x59527f
+      await arg1?.__radarEntityNetworkCapture?.begin?.({
+        sourceType: arg2,
+        searchKeyword: text,
+        sourceVideoUrl: arg2 === "comment" ? text2 || text : text2
       });
-    } catch (_0x3b1999) {}
+    } catch (error) {}
   }
-  function _0x516d3(_0x28a3d7, _0x13d4db) {
-    const _0x4f58f2 = String(_0x13d4db || "0");
-    if (_0x4f58f2 === "0") {
+  function fn54(arg1, arg2) {
+    const result = String(arg2 || "0");
+    if (result === "0") {
       return true;
     }
-    const _0x4de509 = Number(_0x28a3d7);
-    if (!Number.isFinite(_0x4de509) || _0x4de509 < 0) {
+    const result2 = Number(arg1);
+    if (!Number.isFinite(result2) || result2 < 0) {
       return false;
     }
-    if (_0x4f58f2 === "1") {
-      return _0x4de509 < 1000;
+    if (result === "1") {
+      return result2 < 1000;
     }
-    if (_0x4f58f2 === "2") {
-      return _0x4de509 >= 1000 && _0x4de509 < 10000;
+    if (result === "2") {
+      return result2 >= 1000 && result2 < 10000;
     }
-    if (_0x4f58f2 === "3") {
-      return _0x4de509 >= 10000 && _0x4de509 < 100000;
+    if (result === "3") {
+      return result2 >= 10000 && result2 < 100000;
     }
-    if (_0x4f58f2 === "4") {
-      return _0x4de509 >= 100000 && _0x4de509 < 1000000;
+    if (result === "4") {
+      return result2 >= 100000 && result2 < 1000000;
     }
-    if (_0x4f58f2 === "5") {
-      return _0x4de509 >= 1000000;
+    if (result === "5") {
+      return result2 >= 1000000;
     }
     return true;
   }
-  async function _0x5ccd3f(_0x59a333, _0x369c66, _0x5e1b07 = 0, {
+  async function fn55(arg1, arg2, num = 0, {
     sourceType = "",
     userFanCount = "0",
     liveEventTypes = null,
@@ -1433,152 +1433,152 @@ function createEntityLeadgenRunner(_0x32e717) {
     targetVideoUrl = ""
   } = {}) {
     await sleep(350);
-    let _0x4bb59b = [];
+    let list = [];
     try {
-      _0x4bb59b = _0x59a333?.__radarEntityNetworkCapture?.takeUsers?.(_0x5e1b07) || [];
-    } catch (_0x1bd895) {}
+      list = arg1?.__radarEntityNetworkCapture?.takeUsers?.(num) || [];
+    } catch (error) {}
     if (sourceType === "video") {
-      _0x4bb59b = _0x4bb59b.filter(_0x41ec4e => String(_0x41ec4e?.sourceType || "") === "video" || String(_0x41ec4e?.userKey || "").startsWith("video:") || !!extractDouyinVideoId(_0x41ec4e?.userUrl || _0x41ec4e?.videoUrl || _0x41ec4e?.content || ""));
-      const _0x217718 = Array.isArray(_0x369c66?.users) ? _0x369c66.users : [];
-      const _0x24cbe4 = new Set(_0x217718.map(_0x29c56e => _0x7d3fb2(_0x29c56e)).filter(Boolean));
-      if (_0x24cbe4.size) {
-        _0x4bb59b = _0x4bb59b.filter(_0x10c40d => _0x24cbe4.has(_0x7d3fb2(_0x10c40d)));
+      list = list.filter(arg1 => String(arg1?.sourceType || "") === "video" || String(arg1?.userKey || "").startsWith("video:") || !!extractDouyinVideoId(arg1?.userUrl || arg1?.videoUrl || arg1?.content || ""));
+      const value = Array.isArray(arg2?.users) ? arg2.users : [];
+      const set = new Set(value.map(arg1 => fn23(arg1)).filter(Boolean));
+      if (set.size) {
+        list = list.filter(arg1 => set.has(fn23(arg1)));
       }
-      if (!_0x4bb59b.length) {
-        return _0x369c66 || {
+      if (!list.length) {
+        return arg2 || {
           success: true,
-          users: _0x217718
+          users: value
         };
       }
     }
-    if (!_0x4bb59b.length) {
-      return _0x369c66;
+    if (!list.length) {
+      return arg2;
     }
     if (sourceType === "user" && String(userFanCount || "0") !== "0") {
-      _0x4bb59b = _0x4bb59b.filter(_0x4b45c9 => _0x516d3(_0x4b45c9.followerCount, userFanCount));
+      list = list.filter(arg1 => fn54(arg1.followerCount, userFanCount));
     }
     if (sourceType === "comment") {
-      const _0x5c160c = normalizeEntityCommentFilters(commentFilters || {});
-      if (_0x5c160c.active) {
-        _0x4bb59b = _0x4bb59b.filter(_0x275162 => evaluateEntityCommentFilters(_0x275162, _0x5c160c).pass);
+      const result = normalizeEntityCommentFilters(commentFilters || {});
+      if (result.active) {
+        list = list.filter(arg1 => evaluateEntityCommentFilters(arg1, result).pass);
       }
-      if (!_0x4bb59b.length) {
-        return _0x369c66 || {
+      if (!list.length) {
+        return arg2 || {
           success: true,
           users: []
         };
       }
     }
-    const _0x48b229 = new Map();
-    const _0x39d539 = [...(Array.isArray(_0x369c66?.users) ? _0x369c66.users : []), ..._0x4bb59b].map(_0x128442 => sourceType === "live" ? _0x5309f1(_0x128442, liveEventTypes) : _0x128442).filter(Boolean);
-    _0x39d539.forEach(_0x1ad92a => {
-      const _0xd7392c = _0x7d3fb2(_0x1ad92a);
-      if (!_0xd7392c) {
+    const map = new Map();
+    const result = [...(Array.isArray(arg2?.users) ? arg2.users : []), ...list].map(arg1 => sourceType === "live" ? fn19(arg1, liveEventTypes) : arg1).filter(Boolean);
+    result.forEach(arg1 => {
+      const result = fn23(arg1);
+      if (!result) {
         return;
       }
-      if (!_0x48b229.has(_0xd7392c)) {
-        _0x48b229.set(_0xd7392c, _0x1ad92a);
+      if (!map.has(result)) {
+        map.set(result, arg1);
         return;
       }
       if (sourceType === "video") {
-        const _0x283294 = _0x48b229.get(_0xd7392c) || {};
-        const _0x2cfe42 = (_0x182549, _0xb0b7bc) => {
-          const _0x113cb7 = String(_0x182549 || "").trim();
-          const _0x431a81 = String(_0xb0b7bc || "").trim();
-          return _0x113cb7 || _0x431a81;
+        const local = map.get(result) || {};
+        const local2 = (arg1, arg2) => {
+          const result = String(arg1 || "").trim();
+          const result2 = String(arg2 || "").trim();
+          return result || result2;
         };
-        _0x48b229.set(_0xd7392c, {
-          ..._0x283294,
-          ..._0x1ad92a,
-          title: _0x2cfe42(_0x283294.title || _0x283294.nickname, _0x1ad92a.title || _0x1ad92a.nickname),
-          nickname: _0x2cfe42(_0x283294.title || _0x283294.nickname, _0x1ad92a.title || _0x1ad92a.nickname),
-          videoUrl: _0x2cfe42(_0x283294.videoUrl, _0x1ad92a.videoUrl),
-          authorProfileUrl: _0x2cfe42(_0x283294.authorProfileUrl, _0x1ad92a.authorProfileUrl),
-          authorNickname: _0x2cfe42(_0x283294.authorNickname, _0x1ad92a.authorNickname),
-          publishTimeText: _0x2cfe42(_0x283294.publishTimeText, _0x1ad92a.publishTimeText),
-          createTime: Number(_0x283294.createTime || _0x1ad92a.createTime || 0) || Number(_0x1ad92a.createTime || _0x283294.createTime || 0) || 0,
-          publishTime: Number(_0x283294.publishTime || _0x1ad92a.publishTime || _0x283294.createTime || _0x1ad92a.createTime || 0) || 0
+        map.set(result, {
+          ...local,
+          ...arg1,
+          title: local2(local.title || local.nickname, arg1.title || arg1.nickname),
+          nickname: local2(local.title || local.nickname, arg1.title || arg1.nickname),
+          videoUrl: local2(local.videoUrl, arg1.videoUrl),
+          authorProfileUrl: local2(local.authorProfileUrl, arg1.authorProfileUrl),
+          authorNickname: local2(local.authorNickname, arg1.authorNickname),
+          publishTimeText: local2(local.publishTimeText, arg1.publishTimeText),
+          createTime: Number(local.createTime || arg1.createTime || 0) || Number(arg1.createTime || local.createTime || 0) || 0,
+          publishTime: Number(local.publishTime || arg1.publishTime || local.createTime || arg1.createTime || 0) || 0
         });
         return;
       }
       if (sourceType === "comment") {
-        const _0x3c5d4b = _0x48b229.get(_0xd7392c) || {};
-        const _0x592f8b = (_0x2ab106, _0x537d01) => {
-          const _0x35a360 = String(_0x2ab106 || "").trim();
-          const _0x3cdc33 = String(_0x537d01 || "").trim();
-          if (_0x35a360 && _0x35a360 !== "视频评论区潜客" && _0x35a360 !== "实体获客" && _0x35a360 !== "线索采集") {
-            return _0x35a360;
+        const local = map.get(result) || {};
+        const local2 = (arg1, arg2) => {
+          const result = String(arg1 || "").trim();
+          const result2 = String(arg2 || "").trim();
+          if (result && result !== "视频评论区潜客" && result !== "实体获客" && result !== "线索采集") {
+            return result;
           }
-          return _0x3cdc33 || _0x35a360;
+          return result2 || result;
         };
-        _0x48b229.set(_0xd7392c, {
-          ..._0x3c5d4b,
-          ..._0x1ad92a,
-          content: _0x592f8b(_0x3c5d4b.content, _0x1ad92a.content),
-          time: _0x592f8b(_0x3c5d4b.time, _0x1ad92a.time),
-          timeText: _0x592f8b(_0x3c5d4b.timeText, _0x1ad92a.timeText),
-          ipLocation: _0x592f8b(_0x3c5d4b.ipLocation, _0x1ad92a.ipLocation) || _0x592f8b(_0x3c5d4b.location, _0x1ad92a.location),
-          location: _0x592f8b(_0x3c5d4b.location, _0x1ad92a.location) || _0x592f8b(_0x3c5d4b.ipLocation, _0x1ad92a.ipLocation),
-          videoUrl: canonicalizeDouyinVideoUrl(_0x3c5d4b.videoUrl) || canonicalizeDouyinVideoUrl(_0x1ad92a.videoUrl) || ""
+        map.set(result, {
+          ...local,
+          ...arg1,
+          content: local2(local.content, arg1.content),
+          time: local2(local.time, arg1.time),
+          timeText: local2(local.timeText, arg1.timeText),
+          ipLocation: local2(local.ipLocation, arg1.ipLocation) || local2(local.location, arg1.location),
+          location: local2(local.location, arg1.location) || local2(local.ipLocation, arg1.ipLocation),
+          videoUrl: canonicalizeDouyinVideoUrl(local.videoUrl) || canonicalizeDouyinVideoUrl(arg1.videoUrl) || ""
         });
       }
     });
-    let _0x3d96aa = [..._0x48b229.values()];
+    let list2 = [...map.values()];
     if (sourceType === "comment") {
-      const _0xbae743 = normalizeEntityCommentFilters(commentFilters || {});
-      if (_0xbae743.active) {
-        _0x3d96aa = _0x3d96aa.filter(_0x319dc3 => evaluateEntityCommentFilters(_0x319dc3, _0xbae743).pass);
+      const result = normalizeEntityCommentFilters(commentFilters || {});
+      if (result.active) {
+        list2 = list2.filter(arg1 => evaluateEntityCommentFilters(arg1, result).pass);
       }
-      const _0x12c785 = canonicalizeDouyinVideoUrl(targetVideoUrl);
-      if (_0x12c785) {
-        _0x3d96aa = _0x3d96aa.map(_0x32f87a => ({
-          ..._0x32f87a,
-          videoUrl: canonicalizeDouyinVideoUrl(_0x32f87a.videoUrl) || _0x12c785,
-          title: String(_0x32f87a.title || _0x32f87a.sourceVideoTitle || "").trim(),
-          sourceVideoTitle: String(_0x32f87a.sourceVideoTitle || _0x32f87a.title || "").trim()
+      const result2 = canonicalizeDouyinVideoUrl(targetVideoUrl);
+      if (result2) {
+        list2 = list2.map(arg1 => ({
+          ...arg1,
+          videoUrl: canonicalizeDouyinVideoUrl(arg1.videoUrl) || result2,
+          title: String(arg1.title || arg1.sourceVideoTitle || "").trim(),
+          sourceVideoTitle: String(arg1.sourceVideoTitle || arg1.title || "").trim()
         }));
       }
     }
     return {
-      ...(_0x369c66 || {}),
-      success: _0x369c66?.success !== false || _0x3d96aa.length > 0,
-      users: _0x5e1b07 > 0 ? _0x3d96aa.slice(0, _0x5e1b07) : _0x3d96aa
+      ...(arg2 || {}),
+      success: arg2?.success !== false || list2.length > 0,
+      users: num > 0 ? list2.slice(0, num) : list2
     };
   }
-  function _0x33fd1c(_0x13b8b1, _0x431ff6, _0x2c1d9d, _0x1aa370) {
-    const _0x180752 = getEntityEntryMeta(_0x13b8b1.sourceType);
-    const _0x449be4 = Date.now();
-    const _0x516891 = Number(_0x13b8b1.eventTimestamp || _0x13b8b1.liveEvent?.occurredAt || 0);
-    const _0x4390cc = Number.isFinite(_0x516891) && _0x516891 > 0 ? _0x516891 : _0x449be4;
-    const _0x27c446 = String(_0x13b8b1.sourceType || "").trim();
-    const _0x4ea295 = _0x4bfbda(_0x13b8b1) ? extractDouyinVideoId(_0x13b8b1.videoUrl || _0x13b8b1.userUrl || _0x13b8b1.content || "") || (String(_0x13b8b1.userKey || "").startsWith("video:") ? String(_0x13b8b1.userKey).slice(6) : "") : "";
-    if (_0x4ea295) {
-      const _0xff0b4e = "https://www.douyin.com/video/" + _0x4ea295;
-      const _0x43e9fa = String(_0x13b8b1.title || _0x13b8b1.nickname || "").replace(/\s+/g, " ").trim() || "抖音视频作品";
-      const _0x5eac21 = "video:" + _0x4ea295;
-      const _0x5afb0c = Array.isArray(_0x13b8b1.collectedFields) && _0x13b8b1.collectedFields.length ? _0x13b8b1.collectedFields.map(String) : ["video"];
-      const _0x5ef6aa = String(_0x13b8b1.authorProfileUrl || "").trim() || (/\/user\//i.test(String(_0x13b8b1.userUrl || "")) && !/\/(?:video|note)\//i.test(String(_0x13b8b1.userUrl || "")) ? String(_0x13b8b1.userUrl || "").trim() : "");
-      const _0x270bf2 = String(_0x13b8b1.authorNickname || "").trim().replace(/^@+/, "");
-      const _0x32be97 = String(_0x13b8b1.entrySource || _0x180752.entrySource || "").trim();
-      const _0x2e979b = String(_0x13b8b1.entryLabel || _0x180752.entryLabel || "").trim();
-      const _0x8a5f0a = normalizeAwemeCreateTimeMs(_0x13b8b1.publishTime ?? _0x13b8b1.createTime ?? _0x13b8b1.create_time ?? 0);
-      const _0x23a570 = String(_0x13b8b1.publishTimeText || "").trim();
-      const _0x3c5332 = {
+  function fn56(arg1, arg2, arg3, arg4) {
+    const result = getEntityEntryMeta(arg1.sourceType);
+    const result2 = Date.now();
+    const result3 = Number(arg1.eventTimestamp || arg1.liveEvent?.occurredAt || 0);
+    const value = Number.isFinite(result3) && result3 > 0 ? result3 : result2;
+    const result4 = String(arg1.sourceType || "").trim();
+    const value2 = fn15(arg1) ? extractDouyinVideoId(arg1.videoUrl || arg1.userUrl || arg1.content || "") || (String(arg1.userKey || "").startsWith("video:") ? String(arg1.userKey).slice(6) : "") : "";
+    if (value2) {
+      const value3 = "https://www.douyin.com/video/" + value2;
+      const local = String(arg1.title || arg1.nickname || "").replace(/\s+/g, " ").trim() || "抖音视频作品";
+      const value4 = "video:" + value2;
+      const value5 = Array.isArray(arg1.collectedFields) && arg1.collectedFields.length ? arg1.collectedFields.map(String) : ["video"];
+      const local2 = String(arg1.authorProfileUrl || "").trim() || (/\/user\//i.test(String(arg1.userUrl || "")) && !/\/(?:video|note)\//i.test(String(arg1.userUrl || "")) ? String(arg1.userUrl || "").trim() : "");
+      const result2 = String(arg1.authorNickname || "").trim().replace(/^@+/, "");
+      const result3 = String(arg1.entrySource || result.entrySource || "").trim();
+      const result4 = String(arg1.entryLabel || result.entryLabel || "").trim();
+      const result5 = normalizeAwemeCreateTimeMs(arg1.publishTime ?? arg1.createTime ?? arg1.create_time ?? 0);
+      const result6 = String(arg1.publishTimeText || "").trim();
+      const obj = {
         platform: "DY",
         leadKind: "video_card",
-        leadId: _0x5eac21,
-        key: _0x5eac21,
-        userKey: _0x5eac21,
+        leadId: value4,
+        key: value4,
+        userKey: value4,
         type: "LEAD",
-        title: _0x43e9fa,
-        nickname: _0x270bf2 || "未知作者",
+        title: local,
+        nickname: result2 || "未知作者",
         content: "",
-        timeText: _0x23a570 || "卡片采集",
+        timeText: result6 || "卡片采集",
         ipLocation: "",
         userUrl: "",
         authorProfileUrl: "",
-        url: _0xff0b4e,
-        videoUrl: _0xff0b4e,
+        url: value3,
+        videoUrl: value3,
         uid: "",
         secUid: "",
         webcastUid: "",
@@ -1587,28 +1587,28 @@ function createEntityLeadgenRunner(_0x32e717) {
         profileAvailable: false,
         profileUnavailable: true,
         profileUnavailableReason: "视频作品链接",
-        collectedFields: _0x5afb0c,
+        collectedFields: value5,
         messageId: "",
         liveEvent: null,
         liveEvents: [],
-        eventTimestamp: _0x4390cc,
-        publishTime: _0x8a5f0a,
-        publishTimeText: _0x23a570,
-        createTime: _0x8a5f0a,
-        firstSeenAt: _0x4390cc,
-        lastSeenAt: _0x4390cc,
+        eventTimestamp: value,
+        publishTime: result5,
+        publishTimeText: result6,
+        createTime: result5,
+        firstSeenAt: value,
+        lastSeenAt: value,
         liveUrl: "",
-        timestamp: _0x4390cc,
-        capturedAt: new Date(_0x4390cc).toISOString(),
+        timestamp: value,
+        capturedAt: new Date(value).toISOString(),
         isHighIntention: true,
-        accountId: String(_0x431ff6.id || _0x431ff6.accountId || ""),
-        accountName: _0x431ff6.nickname || _0x431ff6.name || "未知账号",
-        taskName: _0x1aa370,
-        taskId: _0x2c1d9d,
-        searchKeyword: String(_0x13b8b1.searchKeyword || ""),
-        entrySource: _0x32be97 || _0x180752.entrySource,
-        entryLabel: _0x2e979b || _0x180752.entryLabel,
-        thought: _0x2e979b || _0x180752.entryLabel || "线索采集：从搜索结果采集视频链接",
+        accountId: String(arg2.id || arg2.accountId || ""),
+        accountName: arg2.nickname || arg2.name || "未知账号",
+        taskName: arg4,
+        taskId: arg3,
+        searchKeyword: String(arg1.searchKeyword || ""),
+        entrySource: result3 || result.entrySource,
+        entryLabel: result4 || result.entryLabel,
+        thought: result4 || result.entryLabel || "线索采集：从搜索结果采集视频链接",
         actions: {
           liked: false,
           replied: false,
@@ -1617,43 +1617,43 @@ function createEntityLeadgenRunner(_0x32e717) {
         },
         sourceType: "video"
       };
-      if (_0x5afb0c.includes("author") && _0x5ef6aa && !/\/(?:video|note)\//i.test(_0x5ef6aa)) {
-        _0x3c5332.userUrl = _0x5ef6aa;
-        _0x3c5332.authorProfileUrl = _0x5ef6aa;
-        _0x3c5332.nickname = _0x270bf2 || _0x3c5332.nickname;
-        _0x3c5332.profileAvailable = true;
-        _0x3c5332.profileUnavailable = false;
-        _0x3c5332.profileUnavailableReason = "";
+      if (value5.includes("author") && local2 && !/\/(?:video|note)\//i.test(local2)) {
+        obj.userUrl = local2;
+        obj.authorProfileUrl = local2;
+        obj.nickname = result2 || obj.nickname;
+        obj.profileAvailable = true;
+        obj.profileUnavailable = false;
+        obj.profileUnavailableReason = "";
       }
-      return _0x3c5332;
+      return obj;
     }
-    if (isEntityRelationAuthorSource(_0x27c446, _0x13b8b1.entrySource)) {
-      const _0x55382a = resolveAuthorSecUidFromLead(_0x13b8b1);
-      if (_0x55382a) {
-        const _0x4c630b = normalizeAuthorProfileUrl(_0x55382a);
-        const _0x5e8c80 = toCollectedAuthorKey(_0x55382a);
-        const _0x45a5bd = String(_0x13b8b1.nickname || "").trim().replace(/^@+/, "") || "未知用户";
+    if (isEntityRelationAuthorSource(result4, arg1.entrySource)) {
+      const result2 = resolveAuthorSecUidFromLead(arg1);
+      if (result2) {
+        const result3 = normalizeAuthorProfileUrl(result2);
+        const result5 = toCollectedAuthorKey(result2);
+        const local = String(arg1.nickname || "").trim().replace(/^@+/, "") || "未知用户";
         return {
           platform: "DY",
           leadKind: "collected_author",
-          leadId: _0x5e8c80,
-          key: _0x5e8c80,
-          userKey: _0x5e8c80,
+          leadId: result5,
+          key: result5,
+          userKey: result5,
           type: "LEAD",
           title: "",
-          nickname: _0x45a5bd,
-          authorNickname: _0x45a5bd,
-          content: _0x180752.entryLabel || "线索采集",
-          timeText: stripLocationFromCommentTimeText(_0x13b8b1.timeText || _0x13b8b1.time) || String(_0x13b8b1.timeText || _0x13b8b1.time || "").trim() || "线索采集",
-          ipLocation: String(_0x13b8b1.ipLocation || _0x13b8b1.location || "").trim(),
-          userUrl: _0x4c630b,
-          authorProfileUrl: _0x4c630b,
-          url: _0x4c630b,
+          nickname: local,
+          authorNickname: local,
+          content: result.entryLabel || "线索采集",
+          timeText: stripLocationFromCommentTimeText(arg1.timeText || arg1.time) || String(arg1.timeText || arg1.time || "").trim() || "线索采集",
+          ipLocation: String(arg1.ipLocation || arg1.location || "").trim(),
+          userUrl: result3,
+          authorProfileUrl: result3,
+          url: result3,
           videoUrl: "",
-          uid: String(_0x13b8b1.uid || "").trim(),
-          secUid: _0x55382a,
+          uid: String(arg1.uid || "").trim(),
+          secUid: result2,
           webcastUid: "",
-          privacyMasked: !!_0x13b8b1.privacyMasked,
+          privacyMasked: !!arg1.privacyMasked,
           identityType: "author",
           profileAvailable: true,
           profileUnavailable: false,
@@ -1662,467 +1662,467 @@ function createEntityLeadgenRunner(_0x32e717) {
           messageId: "",
           liveEvent: null,
           liveEvents: [],
-          eventTimestamp: _0x4390cc,
-          firstSeenAt: _0x4390cc,
-          lastSeenAt: _0x4390cc,
-          timestamp: _0x4390cc,
-          capturedAt: new Date(_0x4390cc).toISOString(),
+          eventTimestamp: value,
+          firstSeenAt: value,
+          lastSeenAt: value,
+          timestamp: value,
+          capturedAt: new Date(value).toISOString(),
           isHighIntention: false,
-          accountId: String(_0x431ff6.id || _0x431ff6.accountId || ""),
-          accountName: _0x431ff6.nickname || _0x431ff6.name || "未知账号",
-          taskName: _0x1aa370,
-          taskId: _0x2c1d9d,
-          searchKeyword: String(_0x13b8b1.searchKeyword || ""),
-          entrySource: _0x180752.entrySource,
-          entryLabel: _0x180752.entryLabel,
-          thought: _0x180752.entryLabel,
+          accountId: String(arg2.id || arg2.accountId || ""),
+          accountName: arg2.nickname || arg2.name || "未知账号",
+          taskName: arg4,
+          taskId: arg3,
+          searchKeyword: String(arg1.searchKeyword || ""),
+          entrySource: result.entrySource,
+          entryLabel: result.entryLabel,
+          thought: result.entryLabel,
           actions: {
             liked: false,
             replied: false,
             messaged: false,
             followed: false
           },
-          sourceType: _0x27c446
+          sourceType: result4
         };
       }
     }
-    const _0x16691d = {
+    const obj = {
       platform: "DY",
-      title: _0x13b8b1.liveUrl ? "直播间：" + _0x13b8b1.liveUrl : String(_0x13b8b1.title || _0x13b8b1.sourceVideoTitle || "").replace(/\s+/g, " ").trim(),
-      sourceVideoTitle: String(_0x13b8b1.sourceVideoTitle || _0x13b8b1.title || "").replace(/\s+/g, " ").trim(),
-      nickname: String(_0x13b8b1.nickname || "").trim() || "未知用户",
-      content: _0x13b8b1.content ? _0x13b8b1.content : _0x13b8b1.searchKeyword ? "线索采集关键词：" + _0x13b8b1.searchKeyword : _0x180752.entryLabel || "线索采集",
-      timeText: stripLocationFromCommentTimeText(_0x13b8b1.timeText || _0x13b8b1.time) || String(_0x13b8b1.timeText || _0x13b8b1.time || "").trim() || "线索采集",
-      ipLocation: String(_0x13b8b1.ipLocation || _0x13b8b1.location || "").trim(),
-      userUrl: String(_0x13b8b1.userUrl || "").trim(),
-      url: String(_0x13b8b1.userUrl || _0x13b8b1.liveUrl || "").trim(),
-      videoUrl: canonicalizeDouyinVideoUrl(_0x13b8b1.videoUrl) || (_0x27c446 === "comment" ? canonicalizeDouyinVideoUrl(_0x13b8b1.sourceVideoUrl || _0x13b8b1.searchKeyword) : "") || "",
-      uid: String(_0x13b8b1.uid || "").trim(),
-      secUid: String(_0x13b8b1.secUid || "").trim(),
-      webcastUid: String(_0x13b8b1.webcastUid || "").trim(),
-      privacyMasked: !!_0x13b8b1.privacyMasked,
-      identityType: String(_0x13b8b1.identityType || ""),
-      profileAvailable: !!_0x13b8b1.profileAvailable,
-      profileUnavailable: !!_0x13b8b1.profileUnavailable,
-      profileUnavailableReason: String(_0x13b8b1.profileUnavailableReason || ""),
-      userKey: _0x7d3fb2(_0x13b8b1),
-      messageId: String(_0x13b8b1.messageId || _0x13b8b1.liveEvent?.messageId || "").trim(),
-      liveEvent: _0x13b8b1.liveEvent || null,
-      liveEvents: Array.isArray(_0x13b8b1.liveEvents) ? _0x13b8b1.liveEvents : [],
-      eventTimestamp: _0x4390cc,
-      firstSeenAt: _0x4390cc,
-      lastSeenAt: _0x4390cc,
-      liveUrl: String(_0x13b8b1.liveUrl || "").trim(),
-      timestamp: _0x4390cc,
-      capturedAt: new Date(_0x4390cc).toISOString(),
+      title: arg1.liveUrl ? "直播间：" + arg1.liveUrl : String(arg1.title || arg1.sourceVideoTitle || "").replace(/\s+/g, " ").trim(),
+      sourceVideoTitle: String(arg1.sourceVideoTitle || arg1.title || "").replace(/\s+/g, " ").trim(),
+      nickname: String(arg1.nickname || "").trim() || "未知用户",
+      content: arg1.content ? arg1.content : arg1.searchKeyword ? "线索采集关键词：" + arg1.searchKeyword : result.entryLabel || "线索采集",
+      timeText: stripLocationFromCommentTimeText(arg1.timeText || arg1.time) || String(arg1.timeText || arg1.time || "").trim() || "线索采集",
+      ipLocation: String(arg1.ipLocation || arg1.location || "").trim(),
+      userUrl: String(arg1.userUrl || "").trim(),
+      url: String(arg1.userUrl || arg1.liveUrl || "").trim(),
+      videoUrl: canonicalizeDouyinVideoUrl(arg1.videoUrl) || (result4 === "comment" ? canonicalizeDouyinVideoUrl(arg1.sourceVideoUrl || arg1.searchKeyword) : "") || "",
+      uid: String(arg1.uid || "").trim(),
+      secUid: String(arg1.secUid || "").trim(),
+      webcastUid: String(arg1.webcastUid || "").trim(),
+      privacyMasked: !!arg1.privacyMasked,
+      identityType: String(arg1.identityType || ""),
+      profileAvailable: !!arg1.profileAvailable,
+      profileUnavailable: !!arg1.profileUnavailable,
+      profileUnavailableReason: String(arg1.profileUnavailableReason || ""),
+      userKey: fn23(arg1),
+      messageId: String(arg1.messageId || arg1.liveEvent?.messageId || "").trim(),
+      liveEvent: arg1.liveEvent || null,
+      liveEvents: Array.isArray(arg1.liveEvents) ? arg1.liveEvents : [],
+      eventTimestamp: value,
+      firstSeenAt: value,
+      lastSeenAt: value,
+      liveUrl: String(arg1.liveUrl || "").trim(),
+      timestamp: value,
+      capturedAt: new Date(value).toISOString(),
       type: "LEAD",
       isHighIntention: true,
-      accountId: String(_0x431ff6.id || _0x431ff6.accountId || ""),
-      accountName: _0x431ff6.nickname || _0x431ff6.name || "未知账号",
-      taskName: _0x1aa370,
-      taskId: _0x2c1d9d,
-      searchKeyword: String(_0x13b8b1.searchKeyword || ""),
-      entrySource: _0x180752.entrySource,
-      entryLabel: _0x180752.entryLabel,
-      thought: _0x180752.entryLabel,
+      accountId: String(arg2.id || arg2.accountId || ""),
+      accountName: arg2.nickname || arg2.name || "未知账号",
+      taskName: arg4,
+      taskId: arg3,
+      searchKeyword: String(arg1.searchKeyword || ""),
+      entrySource: result.entrySource,
+      entryLabel: result.entryLabel,
+      thought: result.entryLabel,
       actions: {
         liked: false,
         replied: false,
         messaged: false,
         followed: false
       },
-      sourceType: _0x27c446
+      sourceType: result4
     };
-    const _0x463cbe = leadUserKey.buildLeadId(_0x16691d);
-    _0x16691d.leadId = _0x463cbe;
-    _0x16691d.key = _0x463cbe;
-    return _0x16691d;
+    const result5 = leadUserKey.buildLeadId(obj);
+    obj.leadId = result5;
+    obj.key = result5;
+    return obj;
   }
-  function _0x4b6592(_0x49433c, _0x260272, _0x3e0c37) {
-    const _0x5cc008 = (Array.isArray(_0x49433c) ? _0x49433c : [_0x49433c]).filter(isEntityLeadEligibleForLeadPool);
-    if (!_0x5cc008.length || typeof _0x31f44a !== "function") {
+  function fn57(arg1, arg2, arg3) {
+    const result = (Array.isArray(arg1) ? arg1 : [arg1]).filter(isEntityLeadEligibleForLeadPool);
+    if (!result.length || typeof appendHistory !== "function") {
       return 0;
     }
-    _0x31f44a(_0x5cc008, _0x260272, _0x3e0c37);
-    const _0x34ad0e = _0x5cc008.filter(_0x1be306 => _0x1be306.leadKind !== "collected_author" && _0x1be306.leadKind !== "collected_video" && _0x1be306.leadKind !== "video_card" && !/^author:/.test(String(_0x1be306.leadId || _0x1be306.key || "")));
-    if (_0x34ad0e.length && _0x427b5e && !_0x427b5e.isDestroyed()) {
-      _0x427b5e.webContents.send("automation-data", {
+    appendHistory(result, arg2, arg3);
+    const result2 = result.filter(arg1 => arg1.leadKind !== "collected_author" && arg1.leadKind !== "collected_video" && arg1.leadKind !== "video_card" && !/^author:/.test(String(arg1.leadId || arg1.key || "")));
+    if (result2.length && mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send("automation-data", {
         type: "comment",
-        payload: _0x34ad0e.length === 1 ? _0x34ad0e[0] : _0x34ad0e,
-        taskId: _0x260272,
-        taskName: _0x3e0c37
+        payload: result2.length === 1 ? result2[0] : result2,
+        taskId: arg2,
+        taskName: arg3
       });
     }
-    return _0x5cc008.length;
+    return result.length;
   }
-  function _0x1f13af(_0x18f104, _0x33e556) {
-    const _0x24b284 = _0x4b41fa.get(_0x18f104);
-    if (!_0x24b284) {
+  function fn58(arg1, arg2) {
+    const result = map2.get(arg1);
+    if (!result) {
       return;
     }
-    clearTimeout(_0x24b284.timer);
-    if (_0x24b284.softFailTimer) {
-      clearTimeout(_0x24b284.softFailTimer);
+    clearTimeout(result.timer);
+    if (result.softFailTimer) {
+      clearTimeout(result.softFailTimer);
     }
-    _0x4b41fa.delete(_0x18f104);
-    _0x24b284.resolve(_0x33e556 || {});
+    map2.delete(arg1);
+    result.resolve(arg2 || {});
   }
-  function _0x23fbd4(_0x4fd112, _0x4bf093) {
-    for (const [_0x3207cb, _0x28f7bf] of _0x4b41fa.entries()) {
-      if (String(_0x28f7bf.taskId) !== String(_0x4fd112)) {
+  function fn59(arg1, arg2) {
+    for (const [local, local2] of map2.entries()) {
+      if (String(local2.taskId) !== String(arg1)) {
         continue;
       }
-      if (_0x28f7bf.failing) {
+      if (local2.failing) {
         continue;
       }
-      _0x28f7bf.failing = true;
-      if (_0x28f7bf.softFailTimer) {
-        clearTimeout(_0x28f7bf.softFailTimer);
+      local2.failing = true;
+      if (local2.softFailTimer) {
+        clearTimeout(local2.softFailTimer);
       }
-      _0x28f7bf.softFailTimer = setTimeout(() => {
-        if (!_0x4b41fa.has(_0x3207cb)) {
+      local2.softFailTimer = setTimeout(() => {
+        if (!map2.has(local)) {
           return;
         }
-        clearTimeout(_0x28f7bf.timer);
-        _0x4b41fa.delete(_0x3207cb);
-        _0x28f7bf.resolve({
+        clearTimeout(local2.timer);
+        map2.delete(local);
+        local2.resolve({
           success: false,
           cancelled: true,
-          error: _0x4bf093 || "任务已停止",
+          error: arg2 || "任务已停止",
           users: []
         });
       }, 2500);
     }
   }
-  function _0x48606e(_0x42e1fe, _0x2ca280) {
-    const _0x3e8060 = "entity_scrape_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
-    return new Promise(_0x206544 => {
-      const _0x152d31 = _0x2ca280.sourceType === "live" && Number(_0x2ca280.liveDurationSeconds) === 0;
-      const _0x23a880 = _0x2ca280.sourceType === "live" ? Math.max(0, Number(_0x2ca280.liveDurationSeconds) || 0) * 1000 : 0;
-      const _0x8847b4 = _0x2ca280.sourceType === "live" ? Math.max(PAGE_SCRAPE_TIMEOUT_MS, _0x23a880 + 60000) : PAGE_SCRAPE_TIMEOUT_MS;
-      const _0x2619ec = _0x152d31 ? null : setTimeout(() => {
-        _0x4b41fa.delete(_0x3e8060);
-        _0x206544({
+  function fn60(arg1, arg2) {
+    const value = "entity_scrape_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+    return new Promise(arg12 => {
+      const local = arg2.sourceType === "live" && Number(arg2.liveDurationSeconds) === 0;
+      const value2 = arg2.sourceType === "live" ? Math.max(0, Number(arg2.liveDurationSeconds) || 0) * 1000 : 0;
+      const value3 = arg2.sourceType === "live" ? Math.max(PAGE_SCRAPE_TIMEOUT_MS, value2 + 60000) : PAGE_SCRAPE_TIMEOUT_MS;
+      const value4 = local ? null : setTimeout(() => {
+        map2.delete(value);
+        arg12({
           success: false,
-          error: "页面采集超时（" + Math.round(_0x8847b4 / 60000) + " 分钟）",
+          error: "页面采集超时（" + Math.round(value3 / 60000) + " 分钟）",
           users: []
         });
-      }, _0x8847b4);
-      _0x4b41fa.set(_0x3e8060, {
-        resolve: _0x206544,
-        timer: _0x2619ec,
-        taskId: _0x2ca280.taskId,
-        webContentsId: _0x42e1fe.webContents.id
+      }, value3);
+      map2.set(value, {
+        resolve: arg12,
+        timer: value4,
+        taskId: arg2.taskId,
+        webContentsId: arg1.webContents.id
       });
       (async () => {
         try {
-          await _0x31a7f4(_0x42e1fe.webContents);
-          if (!_0x42e1fe || _0x42e1fe.isDestroyed()) {
+          await fn4(arg1.webContents);
+          if (!arg1 || arg1.isDestroyed()) {
             throw new Error("线索采集窗口已销毁");
           }
-          _0x42e1fe.webContents.send("control-task", {
+          arg1.webContents.send("control-task", {
             type: "ENTITY_LEADGEN_SCRAPE_PAGE",
             payload: {
-              ..._0x2ca280,
-              requestId: _0x3e8060
+              ...arg2,
+              requestId: value
             }
           });
-        } catch (_0x5d8c39) {
-          clearTimeout(_0x2619ec);
-          _0x4b41fa.delete(_0x3e8060);
-          _0x206544({
+        } catch (error) {
+          clearTimeout(value4);
+          map2.delete(value);
+          arg12({
             success: false,
-            error: _0x5d8c39.message || "发送采集指令失败",
+            error: error.message || "发送采集指令失败",
             users: []
           });
         }
       })();
     });
   }
-  function _0x176869(_0x50010a, _0x3774ec, _0x5d654a = {}, _0x1507e9 = 45000) {
-    const _0x3bdb47 = "entity_ctrl_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
-    return new Promise(_0x24535c => {
-      const _0x2d96e8 = setTimeout(() => {
-        _0x4b41fa.delete(_0x3bdb47);
-        _0x24535c({
+  function fn61(arg1, arg2, options = {}, num = 45000) {
+    const value = "entity_ctrl_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+    return new Promise(arg12 => {
+      const result = setTimeout(() => {
+        map2.delete(value);
+        arg12({
           success: false,
           error: "操作超时",
           timedOut: true
         });
-      }, Math.max(8000, Number(_0x1507e9) || 45000));
-      _0x4b41fa.set(_0x3bdb47, {
-        resolve: _0x24535c,
-        timer: _0x2d96e8,
-        taskId: _0x5d654a.taskId,
-        webContentsId: _0x50010a?.webContents?.id
+      }, Math.max(8000, Number(num) || 45000));
+      map2.set(value, {
+        resolve: arg12,
+        timer: result,
+        taskId: options.taskId,
+        webContentsId: arg1?.webContents?.id
       });
       (async () => {
         try {
-          await _0x31a7f4(_0x50010a.webContents);
-          if (!_0x50010a || _0x50010a.isDestroyed()) {
+          await fn4(arg1.webContents);
+          if (!arg1 || arg1.isDestroyed()) {
             throw new Error("线索采集窗口已销毁");
           }
-          _0x50010a.webContents.send("control-task", {
-            type: _0x3774ec,
+          arg1.webContents.send("control-task", {
+            type: arg2,
             payload: {
-              ..._0x5d654a,
-              requestId: _0x3bdb47
+              ...options,
+              requestId: value
             }
           });
-        } catch (_0x5e60d5) {
-          clearTimeout(_0x2d96e8);
-          _0x4b41fa.delete(_0x3bdb47);
-          _0x24535c({
+        } catch (error) {
+          clearTimeout(result);
+          map2.delete(value);
+          arg12({
             success: false,
-            error: _0x5e60d5.message || "发送指令失败"
+            error: error.message || "发送指令失败"
           });
         }
       })();
     });
   }
-  function _0x4ec184(_0xf381ea, _0x48a903) {
-    const _0x1422bd = _0x5ea9b0.get(_0xf381ea);
-    return !!_0x1422bd && _0x1422bd.generation === _0x48a903 && !_0x1422bd.stopRequested;
+  function fn45(arg1, arg2) {
+    const result = map.get(arg1);
+    return !!result && result.generation === arg2 && !result.stopRequested;
   }
-  function _0x5e63d3(_0x3ea507) {
-    if (!_0x3ea507) {
+  function fn62(arg1) {
+    if (!arg1) {
       return false;
     }
-    if (_0x3ea507.limitReached) {
+    if (arg1.limitReached) {
       return true;
     }
-    const _0x11c846 = Array.isArray(_0x3ea507.config?.sourceTypes) ? _0x3ea507.config.sourceTypes[0] : "";
-    if (_0x11c846 === "video_recommend") {
+    const value = Array.isArray(arg1.config?.sourceTypes) ? arg1.config.sourceTypes[0] : "";
+    if (value === "video_recommend") {
       return false;
     }
-    const _0x77d162 = Number(_0x3ea507?.config?.maxCollect) || 0;
-    if (_0x77d162 <= 0) {
+    const local = Number(arg1?.config?.maxCollect) || 0;
+    if (local <= 0) {
       return false;
     }
-    return (_0x3ea507?.progress?.collectedThisRun || 0) >= _0x77d162;
+    return (arg1?.progress?.collectedThisRun || 0) >= local;
   }
-  function _0x41ccb7(_0x2c15e3) {
-    if (!_0x2c15e3 || _0x2c15e3.stopRequested || _0x5e63d3(_0x2c15e3)) {
+  function fn63(arg1) {
+    if (!arg1 || arg1.stopRequested || fn62(arg1)) {
       return null;
     }
-    const _0x459986 = Array.isArray(_0x2c15e3.config?.keywords) ? _0x2c15e3.config.keywords : [];
-    const _0x49a87d = Number(_0x2c15e3.nextKeywordIndex) || 0;
-    if (_0x49a87d >= _0x459986.length) {
+    const value = Array.isArray(arg1.config?.keywords) ? arg1.config.keywords : [];
+    const local = Number(arg1.nextKeywordIndex) || 0;
+    if (local >= value.length) {
       return null;
     }
-    const _0x260795 = _0x459986[_0x49a87d];
-    _0x2c15e3.nextKeywordIndex = _0x49a87d + 1;
+    const value2 = value[local];
+    arg1.nextKeywordIndex = local + 1;
     return {
-      keyword: _0x260795,
-      index: _0x49a87d
+      keyword: value2,
+      index: local
     };
   }
-  function _0x37cbb4(_0x5b2a28) {
-    if (!_0x5b2a28 || _0x5b2a28.stopRequested || _0x5e63d3(_0x5b2a28)) {
+  function fn64(arg1) {
+    if (!arg1 || arg1.stopRequested || fn62(arg1)) {
       return null;
     }
-    const _0x4e7e3f = Array.isArray(_0x5b2a28.config?.liveUrls) ? _0x5b2a28.config.liveUrls : [];
-    const _0x232c99 = Number(_0x5b2a28.nextLiveUrlIndex) || 0;
-    if (_0x232c99 >= _0x4e7e3f.length) {
+    const value = Array.isArray(arg1.config?.liveUrls) ? arg1.config.liveUrls : [];
+    const local = Number(arg1.nextLiveUrlIndex) || 0;
+    if (local >= value.length) {
       return null;
     }
-    const _0x392515 = _0x4e7e3f[_0x232c99];
-    _0x5b2a28.nextLiveUrlIndex = _0x232c99 + 1;
+    const value2 = value[local];
+    arg1.nextLiveUrlIndex = local + 1;
     return {
-      rawUrl: _0x392515,
-      index: _0x232c99,
-      total: _0x4e7e3f.length
+      rawUrl: value2,
+      index: local,
+      total: value.length
     };
   }
-  async function _0x4cd8c8(_0x2db41e) {
-    const _0x3eb998 = String(_0x2db41e || "").trim();
-    if (!_0x3eb998) {
+  async function fn65(arg1) {
+    const result = String(arg1 || "").trim();
+    if (!result) {
       return "";
     }
-    const _0x2cd609 = buildDouyinLiveUrl(_0x3eb998);
-    if (_0x2cd609 && /^https:\/\/live\.douyin\.com\/\d{6,24}$/i.test(_0x2cd609)) {
-      return _0x2cd609;
+    const result2 = buildDouyinLiveUrl(result);
+    if (result2 && /^https:\/\/live\.douyin\.com\/\d{6,24}$/i.test(result2)) {
+      return result2;
     }
-    if (/v\.douyin\.com|iesdouyin\.com\/share|webcast\.amemv\.com|\/webcast\/reflow\//i.test(_0x3eb998) || /v\.douyin\.com|iesdouyin\.com\/share|webcast\.amemv\.com|\/webcast\/reflow\//i.test(_0x2cd609)) {
+    if (/v\.douyin\.com|iesdouyin\.com\/share|webcast\.amemv\.com|\/webcast\/reflow\//i.test(result) || /v\.douyin\.com|iesdouyin\.com\/share|webcast\.amemv\.com|\/webcast\/reflow\//i.test(result2)) {
       try {
-        const _0x682252 = await resolveDouyinShareUrl(_0x3eb998);
-        const _0x1a2f31 = buildDouyinLiveUrl(_0x682252 || "");
-        if (_0x1a2f31 && /^https:\/\/live\.douyin\.com\/\d{6,24}$/i.test(_0x1a2f31)) {
-          return _0x1a2f31;
+        const result3 = await resolveDouyinShareUrl(result);
+        const result4 = buildDouyinLiveUrl(result3 || "");
+        if (result4 && /^https:\/\/live\.douyin\.com\/\d{6,24}$/i.test(result4)) {
+          return result4;
         }
-        return _0x1a2f31 || _0x2cd609 || _0x3eb998;
-      } catch (_0x1d3b05) {
-        return _0x2cd609 || _0x3eb998;
+        return result4 || result2 || result;
+      } catch (error) {
+        return result2 || result;
       }
     }
-    return _0x2cd609 || _0x3eb998;
+    return result2 || result;
   }
-  async function _0x25efc1(_0x37ad5c, _0x59b1b4, _0x1fe10b = 0) {
-    if (_0x1fe10b <= 0) {
+  async function fn66(arg1, arg2, num = 0) {
+    if (num <= 0) {
       return true;
     }
-    let _0x3d1c86 = false;
-    while (_0x4ec184(_0x37ad5c, _0x59b1b4)) {
-      const _0xbc6811 = _0x4085b5();
-      if (!_0xbc6811.pressured) {
-        if (_0x3d1c86) {
-          _0x9d21b4(_0x37ad5c, "电脑资源已恢复，继续启动下一个直播间", "info");
+    let flag = false;
+    while (fn45(arg1, arg2)) {
+      const result = fn6();
+      if (!result.pressured) {
+        if (flag) {
+          fn8(arg1, "电脑资源已恢复，继续启动下一个直播间", "info");
         }
         return true;
       }
-      if (!_0x3d1c86) {
-        _0x3d1c86 = true;
-        _0x9d21b4(_0x37ad5c, "当前电脑负载较高，暂停启动新的直播间（可用内存 " + _0xbc6811.freeMemGB.toFixed(1) + "GB，应用 CPU " + _0xbc6811.appCpuPercent.toFixed(0) + "%）", "warning");
+      if (!flag) {
+        flag = true;
+        fn8(arg1, "当前电脑负载较高，暂停启动新的直播间（可用内存 " + result.freeMemGB.toFixed(1) + "GB，应用 CPU " + result.appCpuPercent.toFixed(0) + "%）", "warning");
       }
       await sleep(3000);
     }
     return false;
   }
-  function _0xf71364(_0x49af7f = null) {
-    let _0x41e6af = 0;
-    for (const [_0x471466, _0x122df5] of _0x5ea9b0.entries()) {
-      if (_0x49af7f && String(_0x471466) === String(_0x49af7f)) {
+  function fn67(arg1 = null) {
+    let num = 0;
+    for (const [local, local2] of map.entries()) {
+      if (arg1 && String(local) === String(arg1)) {
         continue;
       }
-      _0x41e6af += Math.max(0, Number(_0x122df5.liveWorkerCount) || 0);
+      num += Math.max(0, Number(local2.liveWorkerCount) || 0);
     }
-    return _0x41e6af;
+    return num;
   }
-  async function _0x2f1658(_0x1b683b, _0x1833ba, _0x25d54b, _0x3a9ae7 = LIVE_CONCURRENCY_DEFAULT) {
-    let _0x4e6991 = false;
-    const _0xe9713 = normalizeLiveConcurrency(_0x3a9ae7, LIVE_CONCURRENCY_DEFAULT);
-    while (_0x4ec184(_0x1b683b, _0x1833ba)) {
-      const _0x4fef40 = getLocalLiveRoomConcurrencyDetails(_0x25d54b, _0xe9713);
-      const _0x49fb4b = getLocalLiveRoomConcurrencyDetails(_0xe9713, _0xe9713);
-      const _0x3b5db2 = Math.max(0, _0x49fb4b.workers - _0xf71364(_0x1b683b));
-      if (_0x3b5db2 > 0) {
-        const _0x438d88 = Math.max(1, Math.min(_0x4fef40.workers, _0x3b5db2));
-        const _0x845d99 = _0x5ea9b0.get(_0x1b683b);
-        if (_0x845d99 && _0x845d99.generation === _0x1833ba) {
-          _0x845d99.liveWorkerCount = _0x438d88;
-          _0x845d99.liveConcurrencyDetails = _0x4fef40;
+  async function fn68(arg1, arg2, arg3, arg4 = LIVE_CONCURRENCY_DEFAULT) {
+    let flag = false;
+    const result = normalizeLiveConcurrency(arg4, LIVE_CONCURRENCY_DEFAULT);
+    while (fn45(arg1, arg2)) {
+      const result2 = getLocalLiveRoomConcurrencyDetails(arg3, result);
+      const result3 = getLocalLiveRoomConcurrencyDetails(result, result);
+      const result4 = Math.max(0, result3.workers - fn67(arg1));
+      if (result4 > 0) {
+        const result = Math.max(1, Math.min(result2.workers, result4));
+        const result3 = map.get(arg1);
+        if (result3 && result3.generation === arg2) {
+          result3.liveWorkerCount = result;
+          result3.liveConcurrencyDetails = result2;
         }
-        if (_0x4e6991) {
-          _0x9d21b4(_0x1b683b, "直播采集资源已释放，开始处理直播间队列", "info");
+        if (flag) {
+          fn8(arg1, "直播采集资源已释放，开始处理直播间队列", "info");
         }
-        return _0x438d88;
+        return result;
       }
-      if (!_0x4e6991) {
-        _0x4e6991 = true;
-        _0x9d21b4(_0x1b683b, "其它直播采集任务已占满安全并发额度，正在排队等待", "warning");
+      if (!flag) {
+        flag = true;
+        fn8(arg1, "其它直播采集任务已占满安全并发额度，正在排队等待", "warning");
       }
       await sleep(3000);
     }
     return 0;
   }
-  function _0x314742(_0x34aa33 = {}) {
-    const _0x1afcca = _0x34aa33.taskId;
-    if (!_0x1afcca || !_0x5ea9b0.has(_0x1afcca)) {
+  function fn69(options = {}) {
+    const value = options.taskId;
+    if (!value || !map.has(value)) {
       return;
     }
-    const _0x1e8775 = _0x5ea9b0.get(_0x1afcca);
-    if (!_0x1e8775) {
+    const result = map.get(value);
+    if (!result) {
       return;
     }
-    if (_0x34aa33.generation != null && _0x1e8775.generation != null && Number(_0x34aa33.generation) !== Number(_0x1e8775.generation)) {
+    if (options.generation != null && result.generation != null && Number(options.generation) !== Number(result.generation)) {
       return;
     }
-    if (_0x34aa33.resetNetworkCapture) {
-      const _0x2d7f12 = _0x31c2d3.get(String(_0x34aa33.accountId || ""));
+    if (options.resetNetworkCapture) {
+      const result = map4.get(String(options.accountId || ""));
       try {
-        _0x2d7f12?.__radarEntityNetworkCapture?.begin?.({
-          sourceType: _0x34aa33.sourceType || "mutual",
+        result?.__radarEntityNetworkCapture?.begin?.({
+          sourceType: options.sourceType || "mutual",
           searchKeyword: ""
         });
-      } catch (_0x52c323) {}
+      } catch (error) {}
       try {
-        if (_0x2d7f12 && !_0x2d7f12.isDestroyed()) {
-          _0x2d7f12.webContents.send("entity-leadgen-clear-scrape-aweme", {
+        if (result && !result.isDestroyed()) {
+          result.webContents.send("entity-leadgen-clear-scrape-aweme", {
             reason: "reset-network-capture"
           });
         }
-      } catch (_0x21e8e4) {}
+      } catch (error) {}
     }
-    if (_0x34aa33.message) {
-      const _0x5f53ea = String(_0x34aa33.accountId || "");
-      const _0xf6afcd = (_0x1e8775.accounts || []).find(_0x3a8c2e => String(_0x3a8c2e.id) === _0x5f53ea);
-      const _0x5f4ff9 = String(_0x34aa33.accountName || _0xf6afcd?.nickname || _0xf6afcd?.name || (_0x5f53ea === "anonymous" ? "无账号采集" : _0x5f53ea)).trim();
-      const _0x45d47e = String(_0x34aa33.message);
-      const _0x45d910 = _0x5f4ff9 && !_0x45d47e.startsWith("[" + _0x5f4ff9 + "]") ? "[" + _0x5f4ff9 + "] " + _0x45d47e : _0x45d47e;
-      _0x9d21b4(_0x1afcca, _0x45d910, _0x34aa33.level || "info", {
-        accountId: _0x5f53ea || String(_0xf6afcd?.id || "")
+    if (options.message) {
+      const result2 = String(options.accountId || "");
+      const result3 = (result.accounts || []).find(arg1 => String(arg1.id) === result2);
+      const result4 = String(options.accountName || result3?.nickname || result3?.name || (result2 === "anonymous" ? "无账号采集" : result2)).trim();
+      const result5 = String(options.message);
+      const value2 = result4 && !result5.startsWith("[" + result4 + "]") ? "[" + result4 + "] " + result5 : result5;
+      fn8(value, value2, options.level || "info", {
+        accountId: result2 || String(result3?.id || "")
       });
     }
-    const _0x30890c = Array.isArray(_0x34aa33.users) ? _0x34aa33.users : [];
-    if (!_0x30890c.length) {
+    const value2 = Array.isArray(options.users) ? options.users : [];
+    if (!value2.length) {
       return;
     }
-    if (_0x34aa33.skipIngest) {
+    if (options.skipIngest) {
       return;
     }
-    if (!_0x1e8775?.knownKeys || !_0x1e8775.tasksApi) {
+    if (!result?.knownKeys || !result.tasksApi) {
       return;
     }
-    const _0x4ff2da = String(_0x34aa33.accountId || "");
-    const _0x35bdfc = (_0x1e8775.accounts || []).find(_0x181ec9 => String(_0x181ec9.id) === _0x4ff2da) || (_0x1e8775.accounts || [])[0] || {
-      id: _0x4ff2da || "anonymous",
-      nickname: _0x34aa33.accountName || "无账号采集",
+    const result2 = String(options.accountId || "");
+    const local = (result.accounts || []).find(arg1 => String(arg1.id) === result2) || (result.accounts || [])[0] || {
+      id: result2 || "anonymous",
+      nickname: options.accountName || "无账号采集",
       name: "无账号采集"
     };
-    const _0x3e9dea = String(_0x34aa33.sourceType || "blogger");
-    let _0x440d89 = _0x30890c;
-    let _0x646234 = _0x3e9dea;
-    if (_0x3e9dea === "video" || _0x3e9dea.startsWith("video_") || _0x3e9dea === "blogger" || _0x3e9dea === "author_profile") {
-      const _0x572b69 = _0x3c2c48(_0x1e8775.config, "video") || _0x3c2c48(_0x1e8775.config, "author");
-      if (_0x572b69) {
-        const _0xeb221b = _0x4c8c61(_0x30890c, _0x1e8775.config);
-        const _0x2a398d = getEntityEntryMeta(_0x3e9dea === "blogger" ? "video_search" : _0x3e9dea);
-        _0x440d89 = _0x3ba01a(_0xeb221b, _0x1e8775.config).map(_0x4e4e5f => ({
-          ..._0x4e4e5f,
+    const result3 = String(options.sourceType || "blogger");
+    let local2 = value2;
+    let local3 = result3;
+    if (result3 === "video" || result3.startsWith("video_") || result3 === "blogger" || result3 === "author_profile") {
+      const local = fn14(result.config, "video") || fn14(result.config, "author");
+      if (local) {
+        const result2 = fn18(value2, result.config);
+        const result4 = getEntityEntryMeta(result3 === "blogger" ? "video_search" : result3);
+        local2 = fn16(result2, result.config).map(arg1 => ({
+          ...arg1,
           sourceType: "video",
           identityType: "video",
-          entrySource: _0x4e4e5f.entrySource || _0x2a398d.entrySource,
-          entryLabel: _0x4e4e5f.entryLabel || _0x2a398d.entryLabel
+          entrySource: arg1.entrySource || result4.entrySource,
+          entryLabel: arg1.entryLabel || result4.entryLabel
         }));
-        _0x646234 = "video";
+        local3 = "video";
       }
     }
-    if (!_0x440d89.length) {
+    if (!local2.length) {
       return;
     }
-    _0x22b125({
-      users: _0x440d89,
-      account: _0x35bdfc,
-      taskId: _0x1afcca,
-      taskName: _0x1e8775.taskName || "线索采集",
-      tasksApi: _0x1e8775.tasksApi,
-      knownKeys: _0x1e8775.knownKeys,
-      sourceType: _0x646234,
-      progress: _0x1e8775.progress,
-      maxCollect: _0x1e8775.config?.maxCollect || 0,
-      generation: _0x1e8775.generation
+    fn70({
+      users: local2,
+      account: local,
+      taskId: value,
+      taskName: result.taskName || "线索采集",
+      tasksApi: result.tasksApi,
+      knownKeys: result.knownKeys,
+      sourceType: local3,
+      progress: result.progress,
+      maxCollect: result.config?.maxCollect || 0,
+      generation: result.generation
     });
   }
-  function _0x5bf25b(_0xad3435 = {}) {
-    if (!_0xad3435.requestId) {
+  function fn71(options = {}) {
+    if (!options.requestId) {
       return;
     }
-    _0x1f13af(_0xad3435.requestId, _0xad3435);
+    fn58(options.requestId, options);
   }
-  function _0x22b125({
-    users: _0x50f045,
-    account: _0x186842,
-    taskId: _0x55589f,
-    taskName: _0x28f788,
-    tasksApi: _0x364631,
-    knownKeys: _0x46a93f,
-    sourceType: _0x452d00,
+  function fn70({
+    users: users,
+    account: account,
+    taskId: taskId,
+    taskName: taskName,
+    tasksApi: tasksApi,
+    knownKeys: knownKeys,
+    sourceType: sourceType,
     progress = null,
     maxCollect = 0,
     generation = null
   }) {
-    const _0x33041d = _0x5ea9b0.get(_0x55589f);
-    if (generation != null && _0x33041d && Number(_0x33041d.generation) !== Number(generation)) {
+    const result = map.get(taskId);
+    if (generation != null && result && Number(result.generation) !== Number(generation)) {
       return {
         synced: 0,
         duplicates: 0,
@@ -2131,239 +2131,239 @@ function createEntityLeadgenRunner(_0x32e717) {
         truncated: 0
       };
     }
-    const _0x261528 = (Array.isArray(_0x50f045) ? _0x50f045 : []).map(_0x4e9811 => _0x37ab25(_0x4e9811)).filter(_0x3514da => {
-      if (!_0x3514da || !_0x3514da.nickname) {
+    const result2 = (Array.isArray(users) ? users : []).map(arg1 => fn24(arg1)).filter(arg1 => {
+      if (!arg1 || !arg1.nickname) {
         return false;
       }
-      const _0x4ce5df = _0x3514da.sourceType || _0x452d00;
-      if (_0x4ce5df === "live" || _0x3514da.entrySource === "entity_live") {
-        return hasUsableSecUid(_0x3514da);
+      const local = arg1.sourceType || sourceType;
+      if (local === "live" || arg1.entrySource === "entity_live") {
+        return hasUsableSecUid(arg1);
       }
       return true;
     });
-    const _0x4bb387 = [];
-    const _0x5c607a = [];
-    const _0x4caa0a = [];
-    let _0x1b2d5a = 0;
-    let _0x364976 = 0;
-    let _0x4131db = 0;
-    let _0x34a820 = 0;
-    let _0x5e266b = 0;
-    const _0x466c53 = progress || _0x33041d?.progress || null;
-    if (_0x33041d && !(_0x33041d.ingestedKeysThisRun instanceof Set)) {
-      _0x33041d.ingestedKeysThisRun = new Set();
+    const list = [];
+    const list2 = [];
+    const list3 = [];
+    let num = 0;
+    let num2 = 0;
+    let num3 = 0;
+    let num4 = 0;
+    let num5 = 0;
+    const local = progress || result?.progress || null;
+    if (result && !(result.ingestedKeysThisRun instanceof Set)) {
+      result.ingestedKeysThisRun = new Set();
     }
-    if (_0x33041d && !(_0x33041d.duplicateTrailKeys instanceof Set)) {
-      _0x33041d.duplicateTrailKeys = new Set();
+    if (result && !(result.duplicateTrailKeys instanceof Set)) {
+      result.duplicateTrailKeys = new Set();
     }
-    const _0x1d5eef = _0x33041d?.ingestedKeysThisRun || null;
-    const _0x2261f6 = _0x33041d?.duplicateTrailKeys || null;
-    const _0x5f10f0 = Number(maxCollect) > 0 ? Number(maxCollect) : Number(_0x33041d?.config?.maxCollect) || 0;
-    _0x261528.forEach(_0x46df62 => {
-      if (isEntityRelationAuthorSource(_0x46df62.sourceType || _0x452d00, _0x46df62.entrySource)) {
-        const _0x24ca53 = resolveAuthorSecUidFromLead({
-          ..._0x46df62,
-          sourceType: _0x46df62.sourceType || _0x452d00
+    const local2 = result?.ingestedKeysThisRun || null;
+    const local3 = result?.duplicateTrailKeys || null;
+    const value = Number(maxCollect) > 0 ? Number(maxCollect) : Number(result?.config?.maxCollect) || 0;
+    result2.forEach(arg1 => {
+      if (isEntityRelationAuthorSource(arg1.sourceType || sourceType, arg1.entrySource)) {
+        const result = resolveAuthorSecUidFromLead({
+          ...arg1,
+          sourceType: arg1.sourceType || sourceType
         });
-        if (_0x24ca53) {
-          _0x46df62.secUid = _0x24ca53;
-          _0x46df62.userUrl = normalizeAuthorProfileUrl(_0x24ca53);
-          _0x46df62.authorProfileUrl = _0x46df62.userUrl;
+        if (result) {
+          arg1.secUid = result;
+          arg1.userUrl = normalizeAuthorProfileUrl(result);
+          arg1.authorProfileUrl = arg1.userUrl;
         }
       }
-      const _0x2577eb = _0x7d3fb2(_0x46df62);
-      if (!_0x2577eb) {
-        _0x34a820 += 1;
+      const result = fn23(arg1);
+      if (!result) {
+        num4 += 1;
         return;
       }
-      if (_0x46a93f.has(_0x2577eb)) {
-        if ((_0x46df62.sourceType || _0x452d00) === "live" && (_0x46df62.liveEvent || _0x46df62.liveEvents?.length || _0x46df62.messageId || _0x46df62.content)) {
-          _0x5c607a.push({
-            ..._0x46df62,
-            userKey: _0x2577eb,
+      if (knownKeys.has(result)) {
+        if ((arg1.sourceType || sourceType) === "live" && (arg1.liveEvent || arg1.liveEvents?.length || arg1.messageId || arg1.content)) {
+          list2.push({
+            ...arg1,
+            userKey: result,
             sourceType: "live"
           });
-        } else if (_0x1d5eef?.has(_0x2577eb)) {
-          _0x4131db += 1;
+        } else if (local2?.has(result)) {
+          num3 += 1;
         } else {
-          _0x364976 += 1;
-          if (!_0x2261f6?.has(_0x2577eb)) {
+          num2 += 1;
+          if (!local3?.has(result)) {
             try {
-              _0x2261f6?.add(_0x2577eb);
-            } catch (_0x25658f) {}
-            _0x1b2d5a += 1;
-            _0x4caa0a.push({
-              ..._0x46df62,
-              userKey: _0x2577eb,
-              sourceType: _0x46df62.sourceType || _0x452d00
+              local3?.add(result);
+            } catch (error) {}
+            num += 1;
+            list3.push({
+              ...arg1,
+              userKey: result,
+              sourceType: arg1.sourceType || sourceType
             });
           }
         }
         return;
       }
-      if (_0x5f10f0 > 0 && _0x466c53 && (_0x466c53.collectedThisRun || 0) + _0x4bb387.length >= _0x5f10f0) {
-        _0x5e266b += 1;
+      if (value > 0 && local && (local.collectedThisRun || 0) + list.length >= value) {
+        num5 += 1;
         return;
       }
-      _0x46a93f.add(_0x2577eb);
+      knownKeys.add(result);
       try {
-        _0x1d5eef?.add(_0x2577eb);
-      } catch (_0x3f5324) {}
-      _0x4bb387.push({
-        ..._0x46df62,
-        userKey: _0x2577eb,
-        sourceType: _0x46df62.sourceType || _0x452d00
+        local2?.add(result);
+      } catch (error) {}
+      list.push({
+        ...arg1,
+        userKey: result,
+        sourceType: arg1.sourceType || sourceType
       });
     });
-    if (_0x466c53 && _0x4bb387.length) {
-      _0x466c53.collectedThisRun = (_0x466c53.collectedThisRun || 0) + _0x4bb387.length;
+    if (local && list.length) {
+      local.collectedThisRun = (local.collectedThisRun || 0) + list.length;
     }
-    if (_0x5f10f0 > 0 && _0x466c53 && (_0x466c53.collectedThisRun || 0) >= _0x5f10f0 && _0x33041d && !_0x33041d.limitReached) {
-      _0x33041d.limitReached = true;
-      _0x23fbd4(_0x55589f, "已达到最大采集数");
-      const _0x2adce3 = _0x33041d.windowKeys && _0x33041d.windowKeys.size ? [..._0x33041d.windowKeys] : _0x745e87(_0x33041d.accounts || []);
-      for (const _0x24ba5d of _0x2adce3) {
-        const _0x27d11a = _0x31c2d3.get(String(_0x24ba5d));
-        if (!_0x27d11a || _0x27d11a.isDestroyed()) {
+    if (value > 0 && local && (local.collectedThisRun || 0) >= value && result && !result.limitReached) {
+      result.limitReached = true;
+      fn59(taskId, "已达到最大采集数");
+      const value = result.windowKeys && result.windowKeys.size ? [...result.windowKeys] : fn50(result.accounts || []);
+      for (const item of value) {
+        const result2 = map4.get(String(item));
+        if (!result2 || result2.isDestroyed()) {
           continue;
         }
         try {
-          _0x27d11a.webContents.send("control-task", {
+          result2.webContents.send("control-task", {
             type: "ENTITY_LEADGEN_CANCEL",
             payload: {
-              taskId: _0x55589f,
-              accountId: _0x24ba5d,
-              generation: _0x33041d.generation
+              taskId: taskId,
+              accountId: item,
+              generation: result.generation
             }
           });
-        } catch (_0x2b49cc) {}
+        } catch (error) {}
       }
     }
-    const _0x2518ba = [..._0x4bb387, ..._0x5c607a];
-    const _0x232881 = _0x2518ba.map(_0x1e576b => _0x33fd1c(_0x1e576b, _0x186842, _0x55589f, _0x28f788));
-    _0x4b6592(_0x232881, _0x55589f, _0x28f788);
-    const _0x57d716 = _0x4bb387.length;
-    const _0x2d4356 = (_0x11c331, {
+    const list4 = [...list, ...list2];
+    const result3 = list4.map(arg1 => fn56(arg1, account, taskId, taskName));
+    fn57(result3, taskId, taskName);
+    const value2 = list.length;
+    const local4 = (arg1, {
       duplicate = false,
       tsOffset = 0
     } = {}) => {
-      const _0x1da146 = _0x33fd1c(_0x11c331, _0x186842, _0x55589f, _0x28f788);
-      const _0x37361e = _0x1da146.leadKind === "video_card" || (_0x11c331.sourceType || _0x452d00) === "video" || String(_0x11c331.identityType || "") === "video" || String(_0x11c331.userKey || "").startsWith("video:");
-      const _0x63955d = Array.isArray(_0x1da146.collectedFields) && _0x1da146.collectedFields.length ? _0x1da146.collectedFields.map(String) : Array.isArray(_0x11c331.collectedFields) && _0x11c331.collectedFields.length ? _0x11c331.collectedFields.map(String) : _0x37361e ? ["video"] : [];
-      const _0xbf8a22 = getEntityEntryMeta(_0x37361e ? _0x11c331.entrySource || _0x1da146.entrySource || "video" : _0x11c331.sourceType || _0x452d00);
+      const result = fn56(arg1, account, taskId, taskName);
+      const local = result.leadKind === "video_card" || (arg1.sourceType || sourceType) === "video" || String(arg1.identityType || "") === "video" || String(arg1.userKey || "").startsWith("video:");
+      const value = Array.isArray(result.collectedFields) && result.collectedFields.length ? result.collectedFields.map(String) : Array.isArray(arg1.collectedFields) && arg1.collectedFields.length ? arg1.collectedFields.map(String) : local ? ["video"] : [];
+      const result2 = getEntityEntryMeta(local ? arg1.entrySource || result.entrySource || "video" : arg1.sourceType || sourceType);
       return {
-        accountId: String(_0x186842.id),
-        accountName: _0x186842.nickname || _0x186842.name || "",
-        nickname: _0x37361e ? _0x1da146.nickname || _0x11c331.authorNickname || _0x1da146.title || _0x11c331.nickname : _0x11c331.nickname,
-        title: _0x1da146.title || _0x11c331.title || _0x11c331.sourceVideoTitle || "",
-        sourceVideoTitle: _0x1da146.sourceVideoTitle || _0x11c331.sourceVideoTitle || _0x11c331.title || "",
-        uid: _0x37361e ? "" : _0x11c331.uid || "",
-        secUid: _0x37361e ? "" : _0x11c331.secUid || "",
-        webcastUid: _0x37361e ? "" : _0x11c331.webcastUid || "",
-        privacyMasked: !!_0x11c331.privacyMasked,
-        identityType: _0x37361e ? "video" : _0x11c331.identityType || "",
-        profileAvailable: _0x37361e ? !!_0x1da146.profileAvailable : !!_0x11c331.profileAvailable,
-        profileUnavailable: _0x37361e ? !!_0x1da146.profileUnavailable : !!_0x11c331.profileUnavailable,
-        profileUnavailableReason: _0x37361e ? _0x1da146.profileUnavailableReason || "视频作品链接" : _0x11c331.profileUnavailableReason || "",
-        userUrl: _0x37361e ? _0x1da146.userUrl || _0x1da146.authorProfileUrl || "" : _0x11c331.userUrl || "",
-        authorProfileUrl: _0x37361e ? _0x1da146.authorProfileUrl || _0x11c331.authorProfileUrl || "" : "",
-        authorNickname: _0x37361e ? _0x11c331.authorNickname || _0x1da146.nickname || "" : "",
-        videoUrl: _0x1da146.videoUrl || canonicalizeDouyinVideoUrl(_0x11c331.videoUrl) || "",
-        url: _0x37361e ? _0x1da146.url || _0x1da146.videoUrl || "" : _0x1da146.userUrl || _0x11c331.userUrl || "",
-        leadKind: _0x37361e ? "video_card" : "",
-        leadId: _0x1da146.leadId || "",
-        collectedFields: _0x63955d,
-        content: _0x37361e ? _0x1da146.videoUrl || _0x11c331.content || "" : _0x11c331.content || "",
-        timeText: _0x37361e ? String(_0x11c331.publishTimeText || _0x1da146.timeText || "").trim() || "卡片采集" : stripLocationFromCommentTimeText(_0x11c331.timeText || _0x11c331.time) || String(_0x11c331.timeText || _0x11c331.time || "").trim(),
-        ipLocation: _0x37361e ? "" : String(_0x11c331.ipLocation || _0x11c331.location || "").trim(),
-        messageId: _0x11c331.messageId || _0x11c331.liveEvent?.messageId || "",
-        eventTimestamp: _0x11c331.eventTimestamp || _0x11c331.liveEvent?.occurredAt || 0,
-        publishTime: _0x37361e ? normalizeAwemeCreateTimeMs(_0x11c331.publishTime ?? _0x11c331.createTime ?? _0x11c331.create_time ?? _0x1da146.publishTime ?? 0) : 0,
-        publishTimeText: _0x37361e ? String(_0x11c331.publishTimeText || "").trim() : "",
-        liveEvent: _0x11c331.liveEvent || null,
-        liveEvents: Array.isArray(_0x11c331.liveEvents) ? _0x11c331.liveEvents : [],
-        sourceType: _0x37361e ? "video" : _0x11c331.sourceType || _0x452d00,
-        searchKeyword: _0x11c331.searchKeyword || "",
-        entrySource: _0x11c331.entrySource || _0x1da146.entrySource || _0xbf8a22.entrySource,
-        entryLabel: _0x11c331.entryLabel || _0x1da146.entryLabel || _0xbf8a22.entryLabel,
+        accountId: String(account.id),
+        accountName: account.nickname || account.name || "",
+        nickname: local ? result.nickname || arg1.authorNickname || result.title || arg1.nickname : arg1.nickname,
+        title: result.title || arg1.title || arg1.sourceVideoTitle || "",
+        sourceVideoTitle: result.sourceVideoTitle || arg1.sourceVideoTitle || arg1.title || "",
+        uid: local ? "" : arg1.uid || "",
+        secUid: local ? "" : arg1.secUid || "",
+        webcastUid: local ? "" : arg1.webcastUid || "",
+        privacyMasked: !!arg1.privacyMasked,
+        identityType: local ? "video" : arg1.identityType || "",
+        profileAvailable: local ? !!result.profileAvailable : !!arg1.profileAvailable,
+        profileUnavailable: local ? !!result.profileUnavailable : !!arg1.profileUnavailable,
+        profileUnavailableReason: local ? result.profileUnavailableReason || "视频作品链接" : arg1.profileUnavailableReason || "",
+        userUrl: local ? result.userUrl || result.authorProfileUrl || "" : arg1.userUrl || "",
+        authorProfileUrl: local ? result.authorProfileUrl || arg1.authorProfileUrl || "" : "",
+        authorNickname: local ? arg1.authorNickname || result.nickname || "" : "",
+        videoUrl: result.videoUrl || canonicalizeDouyinVideoUrl(arg1.videoUrl) || "",
+        url: local ? result.url || result.videoUrl || "" : result.userUrl || arg1.userUrl || "",
+        leadKind: local ? "video_card" : "",
+        leadId: result.leadId || "",
+        collectedFields: value,
+        content: local ? result.videoUrl || arg1.content || "" : arg1.content || "",
+        timeText: local ? String(arg1.publishTimeText || result.timeText || "").trim() || "卡片采集" : stripLocationFromCommentTimeText(arg1.timeText || arg1.time) || String(arg1.timeText || arg1.time || "").trim(),
+        ipLocation: local ? "" : String(arg1.ipLocation || arg1.location || "").trim(),
+        messageId: arg1.messageId || arg1.liveEvent?.messageId || "",
+        eventTimestamp: arg1.eventTimestamp || arg1.liveEvent?.occurredAt || 0,
+        publishTime: local ? normalizeAwemeCreateTimeMs(arg1.publishTime ?? arg1.createTime ?? arg1.create_time ?? result.publishTime ?? 0) : 0,
+        publishTimeText: local ? String(arg1.publishTimeText || "").trim() : "",
+        liveEvent: arg1.liveEvent || null,
+        liveEvents: Array.isArray(arg1.liveEvents) ? arg1.liveEvents : [],
+        sourceType: local ? "video" : arg1.sourceType || sourceType,
+        searchKeyword: arg1.searchKeyword || "",
+        entrySource: arg1.entrySource || result.entrySource || result2.entrySource,
+        entryLabel: arg1.entryLabel || result.entryLabel || result2.entryLabel,
         duplicate: !!duplicate,
         ts: Date.now() + tsOffset
       };
     };
-    const _0x1b38b6 = [..._0x2518ba.map((_0x2abae6, _0xe43ae2) => _0x2d4356(_0x2abae6, {
-      duplicate: _0xe43ae2 >= _0x4bb387.length,
-      tsOffset: _0xe43ae2
-    })), ..._0x4caa0a.map((_0x1214f0, _0x2bb6ba) => _0x2d4356(_0x1214f0, {
+    const list5 = [...list4.map((arg1, arg2) => local4(arg1, {
+      duplicate: arg2 >= list.length,
+      tsOffset: arg2
+    })), ...list3.map((arg1, arg2) => local4(arg1, {
       duplicate: true,
-      tsOffset: _0x2518ba.length + _0x2bb6ba
+      tsOffset: list4.length + arg2
     }))];
-    if (_0x1b38b6.length) {
-      _0x364631.appendLeadRecords(_0x55589f, _0x1b38b6);
+    if (list5.length) {
+      tasksApi.appendLeadRecords(taskId, list5);
     }
-    const _0x593b40 = _0x505556 => _0x4bb387.filter(_0x27c889 => {
-      const _0xc75e5a = Array.isArray(_0x27c889.collectedFields) ? _0x27c889.collectedFields : [];
-      if (_0x505556 === "video" || _0x505556 === "author") {
-        return _0xc75e5a.includes(_0x505556) || _0x505556 === "video" && ((_0x27c889.sourceType || _0x452d00) === "video" || String(_0x27c889.userKey || "").startsWith("video:")) && !_0xc75e5a.length;
+    const local5 = arg1 => list.filter(arg12 => {
+      const value = Array.isArray(arg12.collectedFields) ? arg12.collectedFields : [];
+      if (arg1 === "video" || arg1 === "author") {
+        return value.includes(arg1) || arg1 === "video" && ((arg12.sourceType || sourceType) === "video" || String(arg12.userKey || "").startsWith("video:")) && !value.length;
       }
-      return (_0x27c889.sourceType || _0x452d00) === _0x505556;
+      return (arg12.sourceType || sourceType) === arg1;
     }).length;
-    const _0xbc2ed4 = {
-      collected: _0x57d716 || _0x4bb387.length,
-      duplicates: _0x1b2d5a,
-      blogger: _0x593b40("blogger"),
-      user: _0x593b40("user"),
-      mutual: _0x593b40("mutual"),
-      following: _0x593b40("following"),
-      live: _0x593b40("live"),
-      comment: _0x593b40("comment"),
-      video: _0x593b40("video"),
-      author: _0x593b40("author"),
+    const obj = {
+      collected: value2 || list.length,
+      duplicates: num,
+      blogger: local5("blogger"),
+      user: local5("user"),
+      mutual: local5("mutual"),
+      following: local5("following"),
+      live: local5("live"),
+      comment: local5("comment"),
+      video: local5("video"),
+      author: local5("author"),
       lastCycleAt: Date.now()
     };
-    if (_0x57d716 || _0x1b2d5a || _0x4bb387.length || _0x5c607a.length || _0x4caa0a.length) {
-      const _0x208ee7 = _0x364631.incrementStats(_0x55589f, _0xbc2ed4);
-      _0x396135(_0x55589f, {
+    if (value2 || num || list.length || list2.length || list3.length) {
+      const result = tasksApi.incrementStats(taskId, obj);
+      fn7(taskId, {
         type: "stats",
-        accountId: String(_0x186842?.id || ""),
-        delta: _0xbc2ed4,
+        accountId: String(account?.id || ""),
+        delta: obj,
         ts: Date.now()
       });
-      if (_0x208ee7) {
-        _0x396135(_0x55589f, {
+      if (result) {
+        fn7(taskId, {
           type: "task-updated",
           task: {
-            id: _0x55589f,
-            stats: _0x208ee7.stats,
-            status: _0x208ee7.status
+            id: taskId,
+            stats: result.stats,
+            status: result.status
           },
           ts: Date.now()
         });
       }
     }
-    if (_0x1b38b6.length) {
-      _0x396135(_0x55589f, {
+    if (list5.length) {
+      fn7(taskId, {
         type: "leads",
         ts: Date.now()
       });
     }
     return {
-      synced: _0x57d716,
-      updated: _0x5c607a.length,
-      duplicates: _0x1b2d5a,
-      inPool: _0x364976,
-      alreadyCounted: _0x4131db,
-      skipped: _0x34a820,
-      truncated: _0x5e266b,
-      received: _0x261528.length,
-      duplicatePoolLabel: isEntityRelationAuthorSource(_0x452d00) ? "采集主页" : "线索库"
+      synced: value2,
+      updated: list2.length,
+      duplicates: num,
+      inPool: num2,
+      alreadyCounted: num3,
+      skipped: num4,
+      truncated: num5,
+      received: result2.length,
+      duplicatePoolLabel: isEntityRelationAuthorSource(sourceType) ? "采集主页" : "线索库"
     };
   }
-  function _0x43ff91(_0x20baed = {}) {
-    return formatEntityIngestSummary(_0x20baed);
+  function fn72(options = {}) {
+    return formatEntityIngestSummary(options);
   }
-  function _0x461305(_0x32fd7a, _0x584c00) {
-    const _0x4bcf8b = Array.isArray(_0x32fd7a?.users) ? _0x32fd7a.users : [];
-    if (!_0x4bcf8b.length) {
+  function fn73(arg1, arg2) {
+    const value = Array.isArray(arg1?.users) ? arg1.users : [];
+    if (!value.length) {
       return {
         synced: 0,
         duplicates: 0,
@@ -2372,28 +2372,28 @@ function createEntityLeadgenRunner(_0x32e717) {
         received: 0
       };
     }
-    return _0x22b125({
-      users: _0x4bcf8b,
-      account: _0x584c00.account,
-      taskId: _0x584c00.taskId,
-      taskName: _0x584c00.taskName,
-      tasksApi: _0x584c00.tasksApi,
-      knownKeys: _0x584c00.knownKeys,
-      sourceType: _0x584c00.sourceType,
-      progress: _0x584c00.progress,
-      maxCollect: _0x584c00.maxCollect,
-      generation: _0x584c00.generation
+    return fn70({
+      users: value,
+      account: arg2.account,
+      taskId: arg2.taskId,
+      taskName: arg2.taskName,
+      tasksApi: arg2.tasksApi,
+      knownKeys: arg2.knownKeys,
+      sourceType: arg2.sourceType,
+      progress: arg2.progress,
+      maxCollect: arg2.maxCollect,
+      generation: arg2.generation
     });
   }
-  async function _0x89f5d3(_0x4c4028, {
-    taskId: _0x708ea6,
-    accountId: _0x2bb81f,
-    accountName: _0x437354,
-    sourceType: _0x3c9ccd,
-    searchKeyword: _0x54214b,
-    maxCollect: _0x3bfe96,
-    collectedThisRun: _0x4b7a0a,
-    knownKeys: _0x3ceddb,
+  async function fn74(arg1, {
+    taskId: taskId,
+    accountId: accountId,
+    accountName: accountName,
+    sourceType: sourceType,
+    searchKeyword: searchKeyword,
+    maxCollect: maxCollect,
+    collectedThisRun: collectedThisRun,
+    knownKeys: knownKeys,
     generation = null,
     userFanCount = "0",
     userTypeFilter = "0",
@@ -2409,140 +2409,140 @@ function createEntityLeadgenRunner(_0x32e717) {
     searchScope = "0",
     searchFormat = "0"
   }) {
-    const _0x2938b7 = _0x3bfe96 > 0 ? Math.max(0, _0x3bfe96 - _0x4b7a0a) : 0;
-    if (_0x3bfe96 > 0 && _0x2938b7 <= 0) {
+    const value = maxCollect > 0 ? Math.max(0, maxCollect - collectedThisRun) : 0;
+    if (maxCollect > 0 && value <= 0) {
       return {
         success: true,
         users: [],
         reachedLimit: true
       };
     }
-    const _0x312acd = await _0x48606e(_0x4c4028, {
-      taskId: _0x708ea6,
-      accountId: _0x2bb81f,
-      accountName: _0x437354,
-      sourceType: _0x3c9ccd,
-      searchKeyword: _0x54214b || "",
-      maxCollect: _0x3bfe96 > 0 ? _0x2938b7 : 0,
-      seenKeys: _0x3c9ccd === "video" || _0x3c9ccd === "comment" ? [] : [..._0x3ceddb],
+    const result = await fn60(arg1, {
+      taskId: taskId,
+      accountId: accountId,
+      accountName: accountName,
+      sourceType: sourceType,
+      searchKeyword: searchKeyword || "",
+      maxCollect: maxCollect > 0 ? value : 0,
+      seenKeys: sourceType === "video" || sourceType === "comment" ? [] : [...knownKeys],
       generation: generation,
       skipIngest: !!skipIngest,
-      userFanCount: _0x3c9ccd === "user" ? String(userFanCount || "0") : "0",
-      userTypeFilter: _0x3c9ccd === "user" ? String(userTypeFilter || "0") : "0",
-      ...(_0x3c9ccd === "video" ? {
+      userFanCount: sourceType === "user" ? String(userFanCount || "0") : "0",
+      userTypeFilter: sourceType === "user" ? String(userTypeFilter || "0") : "0",
+      ...(sourceType === "video" ? {
         searchSort: String(searchSort || "0"),
         searchPublishTime: String(searchPublishTime || "0"),
         searchDuration: String(searchDuration || "0"),
         searchScope: String(searchScope || "0"),
         searchFormat: String(searchFormat || "0")
       } : {}),
-      liveEventTypes: _0x3c9ccd === "live" && Array.isArray(liveEventTypes) ? liveEventTypes : undefined,
-      liveDurationSeconds: _0x3c9ccd === "live" ? liveDurationSeconds : undefined,
-      commentFilters: _0x3c9ccd === "comment" && commentFilters ? commentFilters : undefined,
-      targetVideoUrl: _0x3c9ccd === "comment" ? String(targetVideoUrl || "").trim() : undefined,
-      alreadyOnCurrentVideo: _0x3c9ccd === "comment" ? !!alreadyOnCurrentVideo : undefined
+      liveEventTypes: sourceType === "live" && Array.isArray(liveEventTypes) ? liveEventTypes : undefined,
+      liveDurationSeconds: sourceType === "live" ? liveDurationSeconds : undefined,
+      commentFilters: sourceType === "comment" && commentFilters ? commentFilters : undefined,
+      targetVideoUrl: sourceType === "comment" ? String(targetVideoUrl || "").trim() : undefined,
+      alreadyOnCurrentVideo: sourceType === "comment" ? !!alreadyOnCurrentVideo : undefined
     });
-    return _0x5ccd3f(_0x4c4028, _0x312acd, _0x2938b7, {
-      sourceType: _0x3c9ccd,
+    return fn55(arg1, result, value, {
+      sourceType: sourceType,
       userFanCount: userFanCount,
       liveEventTypes: liveEventTypes,
       commentFilters: commentFilters,
-      targetVideoUrl: _0x3c9ccd === "comment" ? String(targetVideoUrl || "").trim() : ""
+      targetVideoUrl: sourceType === "comment" ? String(targetVideoUrl || "").trim() : ""
     });
   }
-  function _0x1aefde(_0x355c6c = {}) {
+  function fn75(options = {}) {
     return {
-      commentTimePreset: String(_0x355c6c.commentTimePreset || "all"),
-      commentWindowMinutes: Number(_0x355c6c.commentWindowMinutes) || 0,
-      commentLocationFilterMode: _0x355c6c.commentLocationFilterMode === "exclude" ? "exclude" : "include",
-      commentLocationFilterRegions: Array.isArray(_0x355c6c.commentLocationFilterRegions) ? _0x355c6c.commentLocationFilterRegions : [],
-      commentIncludeKeywords: String(_0x355c6c.commentIncludeKeywords || ""),
-      commentExcludeKeywords: String(_0x355c6c.commentExcludeKeywords || "")
+      commentTimePreset: String(options.commentTimePreset || "all"),
+      commentWindowMinutes: Number(options.commentWindowMinutes) || 0,
+      commentLocationFilterMode: options.commentLocationFilterMode === "exclude" ? "exclude" : "include",
+      commentLocationFilterRegions: Array.isArray(options.commentLocationFilterRegions) ? options.commentLocationFilterRegions : [],
+      commentIncludeKeywords: String(options.commentIncludeKeywords || ""),
+      commentExcludeKeywords: String(options.commentExcludeKeywords || "")
     };
   }
-  async function _0xe58fbe(_0x2e170b, _0x3e5511, _0x5d04c0) {
-    const _0xe78b8e = String(_0x3e5511.id);
-    const _0xa0bd0b = _0x3e5511.nickname || _0x3e5511.name || _0xe78b8e;
-    const _0xbffe5d = Math.max(0, Number(_0x3e5511.liveWorkerIndex) || 0);
-    _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 开始线索采集", "info", {
-      accountId: _0xe78b8e
+  async function fn76(arg1, arg2, arg3) {
+    const result2 = String(arg2.id);
+    const local2 = arg2.nickname || arg2.name || result2;
+    const result3 = Math.max(0, Number(arg2.liveWorkerIndex) || 0);
+    fn8(arg1, "[" + local2 + "] 开始线索采集", "info", {
+      accountId: result2
     });
-    let _0x2cc526;
-    let _0x36dedb = 0;
-    let _0x379707 = 0;
-    let _0x3637c0 = 0;
-    const _0x533aac = _0x5ea9b0.get(_0x2e170b);
-    const _0x783633 = _0x533aac?.progress?.collectedThisRun || 0;
-    const _0x36adf7 = () => {
-      const _0x33b2f7 = _0x5ea9b0.get(_0x2e170b);
-      if (!_0x33b2f7 || _0x33b2f7.generation !== _0x5d04c0) {
+    let local3;
+    let num = 0;
+    let num2 = 0;
+    let num3 = 0;
+    const result4 = map.get(arg1);
+    const local4 = result4?.progress?.collectedThisRun || 0;
+    const local5 = () => {
+      const result = map.get(arg1);
+      if (!result || result.generation !== arg3) {
         return null;
       }
-      return _0x33b2f7;
+      return result;
     };
     try {
-      if (isAnonymousEntityAccountId(_0xe78b8e) && _0xbffe5d > 0) {
-        await sleep(_0xbffe5d * 600);
+      if (isAnonymousEntityAccountId(result2) && result3 > 0) {
+        await sleep(result3 * 600);
       }
-      _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 正在创建采集窗口…", "info");
-      _0x2cc526 = await _0x533ade(_0xe78b8e, _0x3e5511.proxy, {
-        platform: _0x3e5511.platform || "douyin",
-        runtimeTaskId: _0x2e170b
+      fn8(arg1, "[" + local2 + "] 正在创建采集窗口…", "info");
+      local3 = await fn32(result2, arg2.proxy, {
+        platform: arg2.platform || "douyin",
+        runtimeTaskId: arg1
       });
-      if (!_0x4ec184(_0x2e170b, _0x5d04c0)) {
+      if (!fn45(arg1, arg3)) {
         return {
           collected: 0,
           duplicates: 0
         };
       }
       {
-        const _0x238a49 = _0x36adf7();
-        if (_0x238a49) {
-          if (!_0x238a49.windowKeys) {
-            _0x238a49.windowKeys = new Set();
+        const result = local5();
+        if (result) {
+          if (!result.windowKeys) {
+            result.windowKeys = new Set();
           }
-          _0x238a49.windowKeys.add(_0xe78b8e);
+          result.windowKeys.add(result2);
         }
       }
-      _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 采集窗口已就绪", "info");
-      const _0x18ee22 = await _0x3ca1a0(_0x2cc526, _0x2e170b, _0xa0bd0b);
-      if (_0x18ee22?.ok === false) {
-        throw new Error("无法准备稳定执行视口：" + (_0x18ee22.reason || "unknown"));
+      fn8(arg1, "[" + local2 + "] 采集窗口已就绪", "info");
+      const result4 = await fn30(local3, arg1, local2);
+      if (result4?.ok === false) {
+        throw new Error("无法准备稳定执行视口：" + (result4.reason || "unknown"));
       }
-      await _0x1f6c38(_0x2cc526, _0x2e170b);
-      if (!_0x4ec184(_0x2e170b, _0x5d04c0)) {
+      await fn49(local3, arg1);
+      if (!fn45(arg1, arg3)) {
         return {
           collected: 0,
           duplicates: 0
         };
       }
-      const _0x5752bd = _0x4a3d19 => {
-        const _0x405849 = Array.isArray(_0x4a3d19?.users) ? _0x4a3d19.users : [];
-        const _0x2fcedd = [];
-        const _0x3b9416 = new Set();
-        for (const _0x22c15f of _0x405849) {
-          const _0x203460 = String(_0x22c15f?.videoUrl || _0x22c15f?.userUrl || _0x22c15f?.content || _0x22c15f?.userKey || "").trim();
-          const _0x2bbf40 = extractDouyinVideoId(_0x203460) || (_0x203460.startsWith("video:") ? _0x203460.slice(6) : "");
-          if (!_0x2bbf40 || _0x3b9416.has(_0x2bbf40)) {
+      const local6 = arg1 => {
+        const value = Array.isArray(arg1?.users) ? arg1.users : [];
+        const list = [];
+        const set = new Set();
+        for (const item of value) {
+          const result = String(item?.videoUrl || item?.userUrl || item?.content || item?.userKey || "").trim();
+          const local = extractDouyinVideoId(result) || (result.startsWith("video:") ? result.slice(6) : "");
+          if (!local || set.has(local)) {
             continue;
           }
-          _0x3b9416.add(_0x2bbf40);
-          const _0x1cb721 = String(_0x22c15f?.title || _0x22c15f?.nickname || "").replace(/\s+/g, " ").trim();
-          _0x2fcedd.push({
-            url: "https://www.douyin.com/video/" + _0x2bbf40,
-            title: _0x1cb721 && _0x1cb721 !== "抖音视频作品" && _0x1cb721 !== "未知视频" ? _0x1cb721 : ""
+          set.add(local);
+          const result2 = String(item?.title || item?.nickname || "").replace(/\s+/g, " ").trim();
+          list.push({
+            url: "https://www.douyin.com/video/" + local,
+            title: result2 && result2 !== "抖音视频作品" && result2 !== "未知视频" ? result2 : ""
           });
         }
-        return _0x2fcedd;
+        return list;
       };
-      const _0x2b9453 = _0x1152f6 => _0x5752bd(_0x1152f6).map(_0x47697a => _0x47697a.url);
-      const _0x35e20c = async (_0x3dfc6e, {
+      const local7 = arg1 => local6(arg1).map(arg1 => arg1.url);
+      const local8 = async (arg12, {
         label = "视频评论区",
         searchKeyword = "",
         videoTitleByUrl = null
       } = {}) => {
-        const _0x36d173 = _0x36adf7();
-        if (!_0x36d173) {
+        const result = local5();
+        if (!result) {
           return {
             success: true,
             users: [],
@@ -2550,324 +2550,324 @@ function createEntityLeadgenRunner(_0x32e717) {
           };
         }
         const {
-          config: _0x49397b,
-          tasksApi: _0x2ddb6c,
-          taskName: _0x31a4d9,
-          knownKeys: _0x103769,
-          progress: _0x41b8b9
-        } = _0x36d173;
-        const _0x4dbf6c = Array.isArray(_0x3dfc6e) ? _0x3dfc6e.filter(Boolean) : [];
-        const _0x34be37 = videoTitleByUrl instanceof Map ? videoTitleByUrl : new Map();
-        const _0x2a5d29 = String(searchKeyword || "").trim();
-        const _0x368a3e = !!_0x2a5d29 && _0x2a5d29 !== "喜欢列表" && _0x2a5d29 !== "推荐页";
-        const _0x24bef0 = 3;
-        let _0x5c896b = {
+          config: config,
+          tasksApi: tasksApi,
+          taskName: taskName,
+          knownKeys: knownKeys,
+          progress: progress
+        } = result;
+        const value = Array.isArray(arg12) ? arg12.filter(Boolean) : [];
+        const value2 = videoTitleByUrl instanceof Map ? videoTitleByUrl : new Map();
+        const result3 = String(searchKeyword || "").trim();
+        const local = !!result3 && result3 !== "喜欢列表" && result3 !== "推荐页";
+        const num3 = 3;
+        let obj = {
           success: true,
           users: []
         };
-        let _0x5671d6 = false;
-        const _0x18e0ae = async (_0x2fbd2e, _0x3e0621, _0x155071) => {
-          const _0x22c6fa = buildEntitySearchModalUrl(_0x2fbd2e, _0x2a5d29);
-          if (!_0x22c6fa) {
+        let flag = false;
+        const local4 = async (arg12, arg2, arg32) => {
+          const result = buildEntitySearchModalUrl(arg12, result3);
+          if (!result) {
             return {
               ok: false,
-              targetUrl: toDouyinJingxuanUrl(_0x2fbd2e)
+              targetUrl: toDouyinJingxuanUrl(arg12)
             };
           }
-          _0x9d21b4(_0x2e170b, _0x155071 === 1 ? "[" + _0xa0bd0b + "] " + label + "：搜索页打开视频 (" + (_0x3e0621 + 1) + "/" + _0x4dbf6c.length + ")" : "[" + _0xa0bd0b + "] " + label + "：重新在搜索页打开 (" + _0x155071 + "/" + _0x24bef0 + ")", _0x155071 === 1 ? "info" : "warning");
-          if (_0x5671d6 || _0x155071 === 1) {
-            const _0x584d0c = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_OPEN_SEARCH_VIDEO", {
-              taskId: _0x2e170b,
-              accountId: _0xe78b8e,
-              accountName: _0xa0bd0b,
-              generation: _0x5d04c0,
-              videoUrl: _0x2fbd2e,
-              searchKeyword: _0x2a5d29,
+          fn8(arg1, arg32 === 1 ? "[" + local2 + "] " + label + "：搜索页打开视频 (" + (arg2 + 1) + "/" + value.length + ")" : "[" + local2 + "] " + label + "：重新在搜索页打开 (" + arg32 + "/" + num3 + ")", arg32 === 1 ? "info" : "warning");
+          if (flag || arg32 === 1) {
+            const result4 = await fn61(local3, "ENTITY_LEADGEN_OPEN_SEARCH_VIDEO", {
+              taskId: arg1,
+              accountId: result2,
+              accountName: local2,
+              generation: arg3,
+              videoUrl: arg12,
+              searchKeyword: result3,
               softOnly: true
             }, 35000);
-            if (_0x584d0c?.cancelled) {
+            if (result4?.cancelled) {
               return {
                 ok: false,
                 cancelled: true,
-                targetUrl: _0x22c6fa
+                targetUrl: result
               };
             }
-            if (_0x584d0c?.ready || _0x584d0c?.success) {
-              _0x5671d6 = true;
+            if (result4?.ready || result4?.success) {
+              flag = true;
               return {
                 ok: true,
-                targetUrl: _0x22c6fa,
-                openedUrl: _0x584d0c.videoUrl || _0x2fbd2e
+                targetUrl: result,
+                openedUrl: result4.videoUrl || arg12
               };
             }
-            if (_0x584d0c?.navigating) {
+            if (result4?.navigating) {
               await sleep(2200);
-              const _0x515a76 = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_WAIT_VIDEO_READY", {
-                taskId: _0x2e170b,
-                accountId: _0xe78b8e,
-                generation: _0x5d04c0,
-                videoUrl: _0x2fbd2e
+              const result3 = await fn61(local3, "ENTITY_LEADGEN_WAIT_VIDEO_READY", {
+                taskId: arg1,
+                accountId: result2,
+                generation: arg3,
+                videoUrl: arg12
               }, 25000);
-              if (_0x515a76?.ready || _0x515a76?.success) {
-                _0x5671d6 = true;
+              if (result3?.ready || result3?.success) {
+                flag = true;
                 return {
                   ok: true,
-                  targetUrl: _0x22c6fa,
-                  openedUrl: _0x515a76.videoUrl || _0x2fbd2e
+                  targetUrl: result,
+                  openedUrl: result3.videoUrl || arg12
                 };
               }
             }
           }
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：加载搜索详情弹层 (" + (_0x3e0621 + 1) + "/" + _0x4dbf6c.length + ")…", "info");
-          if (_0x5671d6 === false && (_0x3e0621 > 0 || _0x155071 > 1)) {
-            await _0x22f4bb(_0x2cc526);
+          fn8(arg1, "[" + local2 + "] " + label + "：加载搜索详情弹层 (" + (arg2 + 1) + "/" + value.length + ")…", "info");
+          if (flag === false && (arg2 > 0 || arg32 > 1)) {
+            await fn46(local3);
           }
           try {
-            await _0x44de06(_0x2cc526, _0x22c6fa);
-          } catch (_0x15bb8e) {
+            await fn47(local3, result);
+          } catch (error) {
             return {
               ok: false,
-              targetUrl: _0x22c6fa,
-              error: _0x15bb8e?.message || String(_0x15bb8e)
+              targetUrl: result,
+              error: error?.message || String(error)
             };
           }
           await sleep(1600);
-          const _0x33f12f = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_WAIT_VIDEO_READY", {
-            taskId: _0x2e170b,
-            accountId: _0xe78b8e,
-            generation: _0x5d04c0,
-            videoUrl: _0x2fbd2e
+          const result4 = await fn61(local3, "ENTITY_LEADGEN_WAIT_VIDEO_READY", {
+            taskId: arg1,
+            accountId: result2,
+            generation: arg3,
+            videoUrl: arg12
           }, 25000);
-          if (_0x33f12f?.ready || _0x33f12f?.success) {
-            _0x5671d6 = true;
+          if (result4?.ready || result4?.success) {
+            flag = true;
             return {
               ok: true,
-              targetUrl: _0x22c6fa,
-              openedUrl: _0x33f12f.videoUrl || _0x2fbd2e
+              targetUrl: result,
+              openedUrl: result4.videoUrl || arg12
             };
           }
           return {
             ok: false,
-            targetUrl: _0x22c6fa
+            targetUrl: result
           };
         };
-        const _0x1a524b = async _0x1b789e => {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：弹层切到下一条 (" + (_0x1b789e + 1) + "/" + _0x4dbf6c.length + ")", "info");
-          const _0x2fc4df = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_MOVE_NEXT_SEARCH_VIDEO", {
-            taskId: _0x2e170b,
-            accountId: _0xe78b8e,
-            accountName: _0xa0bd0b,
-            generation: _0x5d04c0
+        const local6 = async arg12 => {
+          fn8(arg1, "[" + local2 + "] " + label + "：弹层切到下一条 (" + (arg12 + 1) + "/" + value.length + ")", "info");
+          const result = await fn61(local3, "ENTITY_LEADGEN_MOVE_NEXT_SEARCH_VIDEO", {
+            taskId: arg1,
+            accountId: result2,
+            accountName: local2,
+            generation: arg3
           }, 40000);
-          if (_0x2fc4df?.cancelled) {
+          if (result?.cancelled) {
             return {
               ok: false,
               cancelled: true
             };
           }
-          if (_0x2fc4df?.success || _0x2fc4df?.continued) {
+          if (result?.success || result?.continued) {
             return {
               ok: true,
-              openedUrl: _0x2fc4df.videoUrl || ""
+              openedUrl: result.videoUrl || ""
             };
           }
           return {
             ok: false
           };
         };
-        for (let _0x54f22b = 0; _0x54f22b < _0x4dbf6c.length; _0x54f22b += 1) {
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        for (let num4 = 0; num4 < value.length; num4 += 1) {
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          const _0x268e41 = _0x4dbf6c[_0x54f22b];
-          const _0x1800e8 = _0x34be37.get(canonicalizeDouyinVideoUrl(_0x268e41)) || _0x34be37.get(String(_0x268e41 || "").trim()) || "";
-          let _0x25b177 = {
+          const value3 = value[num4];
+          const local7 = value2.get(canonicalizeDouyinVideoUrl(value3)) || value2.get(String(value3 || "").trim()) || "";
+          let obj2 = {
             success: false,
             users: []
           };
-          let _0x5e0bb5 = _0x368a3e ? buildEntitySearchModalUrl(_0x268e41, _0x2a5d29) || toDouyinJingxuanUrl(_0x268e41) : toDouyinJingxuanUrl(_0x268e41);
-          let _0x288909 = false;
-          for (let _0x253fbb = 1; _0x253fbb <= _0x24bef0; _0x253fbb += 1) {
-            if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          let value4 = local ? buildEntitySearchModalUrl(value3, result3) || toDouyinJingxuanUrl(value3) : toDouyinJingxuanUrl(value3);
+          let flag2 = false;
+          for (let num = 1; num <= num3; num += 1) {
+            if (!fn45(arg1, arg3) || fn62(local5())) {
               break;
             }
-            if (_0x368a3e) {
-              if (_0x54f22b > 0 && _0x253fbb === 1 && _0x5671d6) {
-                const _0x44ef03 = await _0x1a524b(_0x54f22b);
-                if (_0x44ef03.cancelled) {
-                  _0x25b177 = {
+            if (local) {
+              if (num4 > 0 && num === 1 && flag) {
+                const result = await local6(num4);
+                if (result.cancelled) {
+                  obj2 = {
                     success: false,
                     cancelled: true,
                     users: []
                   };
                   break;
                 }
-                if (_0x44ef03.ok) {
-                  _0x288909 = true;
-                  if (_0x44ef03.openedUrl) {
-                    _0x5e0bb5 = _0x44ef03.openedUrl;
+                if (result.ok) {
+                  flag2 = true;
+                  if (result.openedUrl) {
+                    value4 = result.openedUrl;
                   }
                 }
               }
-              if (!_0x288909) {
-                const _0x17f4da = await _0x18e0ae(_0x268e41, _0x54f22b, _0x253fbb);
-                if (_0x17f4da.cancelled) {
-                  _0x25b177 = {
+              if (!flag2) {
+                const result = await local4(value3, num4, num);
+                if (result.cancelled) {
+                  obj2 = {
                     success: false,
                     cancelled: true,
                     users: []
                   };
                   break;
                 }
-                _0x5e0bb5 = _0x17f4da.targetUrl || _0x5e0bb5;
-                _0x288909 = !!_0x17f4da.ok;
-                if (_0x17f4da.openedUrl) {
-                  _0x5e0bb5 = _0x17f4da.openedUrl;
+                value4 = result.targetUrl || value4;
+                flag2 = !!result.ok;
+                if (result.openedUrl) {
+                  value4 = result.openedUrl;
                 }
               }
-              if (!_0x288909 && _0x253fbb >= _0x24bef0) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：搜索弹层未就绪，回退精选页打开 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")", "warning");
-                _0x5e0bb5 = toDouyinJingxuanUrl(_0x268e41);
-                await _0x22f4bb(_0x2cc526);
+              if (!flag2 && num >= num3) {
+                fn8(arg1, "[" + local2 + "] " + label + "：搜索弹层未就绪，回退精选页打开 (" + (num4 + 1) + "/" + value.length + ")", "warning");
+                value4 = toDouyinJingxuanUrl(value3);
+                await fn46(local3);
                 try {
-                  await _0x44de06(_0x2cc526, _0x5e0bb5);
-                  _0x288909 = true;
-                } catch (_0x29aef3) {
-                  _0x25b177 = {
+                  await fn47(local3, value4);
+                  flag2 = true;
+                } catch (error) {
+                  obj2 = {
                     success: false,
-                    error: _0x29aef3?.message || String(_0x29aef3),
+                    error: error?.message || String(error),
                     users: []
                   };
                   break;
                 }
               }
-              if (!_0x288909) {
-                await sleep(600 + _0x253fbb * 300);
+              if (!flag2) {
+                await sleep(600 + num * 300);
                 continue;
               }
             } else {
-              _0x9d21b4(_0x2e170b, _0x253fbb === 1 ? "[" + _0xa0bd0b + "] " + label + "：打开视频 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")" : "[" + _0xa0bd0b + "] " + label + "：页面未进入视频，重新打开 (" + _0x253fbb + "/" + _0x24bef0 + ")", _0x253fbb === 1 ? "info" : "warning");
-              if (_0x54f22b > 0 || _0x253fbb > 1) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：清理上一页后加载 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")", "info");
-                await _0x22f4bb(_0x2cc526);
+              fn8(arg1, num === 1 ? "[" + local2 + "] " + label + "：打开视频 (" + (num4 + 1) + "/" + value.length + ")" : "[" + local2 + "] " + label + "：页面未进入视频，重新打开 (" + num + "/" + num3 + ")", num === 1 ? "info" : "warning");
+              if (num4 > 0 || num > 1) {
+                fn8(arg1, "[" + local2 + "] " + label + "：清理上一页后加载 (" + (num4 + 1) + "/" + value.length + ")", "info");
+                await fn46(local3);
               }
-              if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+              if (!fn45(arg1, arg3) || fn62(local5())) {
                 break;
               }
-              await _0x317311(_0x2cc526, "comment", _0x5e0bb5);
+              await fn53(local3, "comment", value4);
               try {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：正在加载视频页 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")…", "info");
-                await _0x44de06(_0x2cc526, _0x5e0bb5);
-                _0x288909 = true;
-              } catch (_0x3c80c9) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：打开视频失败 " + (_0x3c80c9?.message || _0x3c80c9), "warning");
-                if (_0x253fbb < _0x24bef0) {
-                  await _0x22f4bb(_0x2cc526);
-                  await sleep(800 + _0x253fbb * 400);
+                fn8(arg1, "[" + local2 + "] " + label + "：正在加载视频页 (" + (num4 + 1) + "/" + value.length + ")…", "info");
+                await fn47(local3, value4);
+                flag2 = true;
+              } catch (error) {
+                fn8(arg1, "[" + local2 + "] " + label + "：打开视频失败 " + (error?.message || error), "warning");
+                if (num < num3) {
+                  await fn46(local3);
+                  await sleep(800 + num * 400);
                   continue;
                 }
-                _0x25b177 = {
+                obj2 = {
                   success: false,
-                  error: _0x3c80c9?.message || String(_0x3c80c9),
+                  error: error?.message || String(error),
                   users: []
                 };
                 break;
               }
             }
-            if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+            if (!fn45(arg1, arg3) || fn62(local5())) {
               break;
             }
-            const _0x48857c = _0x36adf7();
-            if (!_0x48857c) {
+            const result = local5();
+            if (!result) {
               break;
             }
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：视频页已打开，开始采集评论区 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")", "info");
-            await _0x317311(_0x2cc526, "comment", _0x5e0bb5);
-            _0x25b177 = await _0x89f5d3(_0x2cc526, {
-              taskId: _0x2e170b,
-              accountId: _0xe78b8e,
-              accountName: _0xa0bd0b,
+            fn8(arg1, "[" + local2 + "] " + label + "：视频页已打开，开始采集评论区 (" + (num4 + 1) + "/" + value.length + ")", "info");
+            await fn53(local3, "comment", value4);
+            obj2 = await fn74(local3, {
+              taskId: arg1,
+              accountId: result2,
+              accountName: local2,
               sourceType: "comment",
-              searchKeyword: _0x2a5d29 || _0x5e0bb5,
-              maxCollect: _0x49397b.maxCollect,
-              collectedThisRun: _0x48857c.progress.collectedThisRun,
-              knownKeys: _0x103769,
-              generation: _0x5d04c0,
-              commentFilters: _0x1aefde(_0x49397b),
-              targetVideoUrl: _0x5e0bb5
+              searchKeyword: result3 || value4,
+              maxCollect: config.maxCollect,
+              collectedThisRun: result.progress.collectedThisRun,
+              knownKeys: knownKeys,
+              generation: arg3,
+              commentFilters: fn75(config),
+              targetVideoUrl: value4
             });
-            if (_0x25b177?.cancelled) {
+            if (obj2?.cancelled) {
               break;
             }
-            if (_0x25b177?.videoUnavailable) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：视频失效，已跳过 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")" + (_0x25b177?.unavailableReason ? "（" + _0x25b177.unavailableReason + "）" : ""), "warning");
-              _0x5671d6 = false;
+            if (obj2?.videoUnavailable) {
+              fn8(arg1, "[" + local2 + "] " + label + "：视频失效，已跳过 (" + (num4 + 1) + "/" + value.length + ")" + (obj2?.unavailableReason ? "（" + obj2.unavailableReason + "）" : ""), "warning");
+              flag = false;
               break;
             }
-            if (_0x25b177?.needReload || _0x25b177?.videoNotReady) {
-              _0x288909 = false;
-              _0x5671d6 = false;
-              if (_0x253fbb < _0x24bef0) {
-                await sleep(600 + _0x253fbb * 300);
+            if (obj2?.needReload || obj2?.videoNotReady) {
+              flag2 = false;
+              flag = false;
+              if (num < num3) {
+                await sleep(600 + num * 300);
                 continue;
               }
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：多次重进仍未进入视频，跳过 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ")", "warning");
+              fn8(arg1, "[" + local2 + "] " + label + "：多次重进仍未进入视频，跳过 (" + (num4 + 1) + "/" + value.length + ")", "warning");
             }
             break;
           }
-          _0x5c896b = _0x25b177;
-          if (_0x25b177?.cancelled || !_0x4ec184(_0x2e170b, _0x5d04c0)) {
+          obj = obj2;
+          if (obj2?.cancelled || !fn45(arg1, arg3)) {
             break;
           }
-          if (_0x25b177?.videoUnavailable) {
+          if (obj2?.videoUnavailable) {
             continue;
           }
-          if (_0x25b177?.needReload || _0x25b177?.videoNotReady) {
+          if (obj2?.needReload || obj2?.videoNotReady) {
             continue;
           }
-          const _0x5c5b38 = canonicalizeDouyinVideoUrl(_0x5e0bb5) || canonicalizeDouyinVideoUrl(_0x268e41);
-          let _0x3effff = _0x1800e8;
-          if (!_0x3effff) {
+          const local8 = canonicalizeDouyinVideoUrl(value4) || canonicalizeDouyinVideoUrl(value3);
+          let local9 = local7;
+          if (!local9) {
             try {
-              _0x3effff = await withTimeout(_0x2cc526.webContents.executeJavaScript("\n                  (() => {\n                    try {\n                      const t = typeof getVideoTitle === 'function' ? String(getVideoTitle() || '').trim() : '';\n                      return t && t !== '未知视频' ? t : '';\n                    } catch (_) { return ''; }\n                  })()\n                ", true), EXEC_JS_TIMEOUT_MS, "entity_comment_title_timeout");
-            } catch (_0x47bf71) {
-              _0x3effff = "";
+              local9 = await withTimeout(local3.webContents.executeJavaScript("\n                  (() => {\n                    try {\n                      const t = typeof getVideoTitle === 'function' ? String(getVideoTitle() || '').trim() : '';\n                      return t && t !== '未知视频' ? t : '';\n                    } catch (_) { return ''; }\n                  })()\n                ", true), EXEC_JS_TIMEOUT_MS, "entity_comment_title_timeout");
+            } catch (error) {
+              local9 = "";
             }
           }
-          const _0x358591 = (Array.isArray(_0x25b177?.users) ? _0x25b177.users : []).map(_0x169aa6 => ({
-            ..._0x169aa6,
-            videoUrl: canonicalizeDouyinVideoUrl(_0x169aa6.videoUrl) || _0x5c5b38 || "",
-            title: String(_0x169aa6.title || _0x169aa6.sourceVideoTitle || _0x3effff || "").trim(),
-            sourceVideoTitle: String(_0x169aa6.sourceVideoTitle || _0x169aa6.title || _0x3effff || "").trim()
+          const result = (Array.isArray(obj2?.users) ? obj2.users : []).map(arg1 => ({
+            ...arg1,
+            videoUrl: canonicalizeDouyinVideoUrl(arg1.videoUrl) || local8 || "",
+            title: String(arg1.title || arg1.sourceVideoTitle || local9 || "").trim(),
+            sourceVideoTitle: String(arg1.sourceVideoTitle || arg1.title || local9 || "").trim()
           }));
-          const _0x5f3d14 = {
-            ..._0x25b177,
-            users: _0x358591
+          const obj3 = {
+            ...obj2,
+            users: result
           };
-          const _0xa3ddcb = _0x461305(_0x5f3d14, {
-            account: _0x3e5511,
-            taskId: _0x2e170b,
-            taskName: _0x31a4d9,
-            tasksApi: _0x2ddb6c,
-            knownKeys: _0x103769,
+          const result4 = fn73(obj3, {
+            account: arg2,
+            taskId: arg1,
+            taskName: taskName,
+            tasksApi: tasksApi,
+            knownKeys: knownKeys,
             sourceType: "comment",
-            progress: _0x41b8b9,
-            maxCollect: _0x49397b.maxCollect,
-            generation: _0x5d04c0
+            progress: progress,
+            maxCollect: config.maxCollect,
+            generation: arg3
           });
-          _0x36dedb += _0xa3ddcb.synced;
-          _0x379707 += _0xa3ddcb.duplicates;
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + " 视频 (" + (_0x54f22b + 1) + "/" + _0x4dbf6c.length + ") 完成：" + _0x43ff91(_0xa3ddcb), entityIngestSummaryLevel(_0xa3ddcb));
+          num += result4.synced;
+          num2 += result4.duplicates;
+          fn8(arg1, "[" + local2 + "] " + label + " 视频 (" + (num4 + 1) + "/" + value.length + ") 完成：" + fn72(result4), entityIngestSummaryLevel(result4));
         }
-        return _0x5c896b;
+        return obj;
       };
-      const _0x25402a = async ({
+      const local9 = async ({
         label = "搜索视频评论区",
         searchKeyword = "",
         alsoIngestCards = false
       } = {}) => {
-        const _0x5800a5 = _0x36adf7();
-        if (!_0x5800a5) {
+        const result = local5();
+        if (!result) {
           return {
             success: true,
             users: [],
@@ -2875,475 +2875,475 @@ function createEntityLeadgenRunner(_0x32e717) {
           };
         }
         const {
-          config: _0xf2d10a,
-          tasksApi: _0xa4588,
-          taskName: _0x966978,
-          knownKeys: _0x32f0ff,
-          progress: _0x426913
-        } = _0x5800a5;
-        const _0x658ae5 = String(searchKeyword || "").trim();
-        const _0x51a394 = _0xf2d10a || {};
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：应用筛选后从第一条视频开始采集评论区", "info");
-        const _0x1bd334 = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_OPEN_FIRST_SEARCH_VIDEO", {
-          taskId: _0x2e170b,
-          accountId: _0xe78b8e,
-          accountName: _0xa0bd0b,
-          generation: _0x5d04c0,
-          searchKeyword: _0x658ae5,
-          searchSort: _0x51a394.searchSort,
-          searchPublishTime: _0x51a394.searchPublishTime,
-          searchDuration: _0x51a394.searchDuration,
-          searchScope: _0x51a394.searchScope,
-          searchFormat: _0x51a394.searchFormat
+          config: config,
+          tasksApi: tasksApi,
+          taskName: taskName,
+          knownKeys: knownKeys,
+          progress: progress
+        } = result;
+        const result3 = String(searchKeyword || "").trim();
+        const local = config || {};
+        fn8(arg1, "[" + local2 + "] " + label + "：应用筛选后从第一条视频开始采集评论区", "info");
+        const result4 = await fn61(local3, "ENTITY_LEADGEN_OPEN_FIRST_SEARCH_VIDEO", {
+          taskId: arg1,
+          accountId: result2,
+          accountName: local2,
+          generation: arg3,
+          searchKeyword: result3,
+          searchSort: local.searchSort,
+          searchPublishTime: local.searchPublishTime,
+          searchDuration: local.searchDuration,
+          searchScope: local.searchScope,
+          searchFormat: local.searchFormat
         }, 60000);
-        if (_0x1bd334?.cancelled) {
+        if (result4?.cancelled) {
           return {
             success: false,
             cancelled: true,
             users: []
           };
         }
-        let _0x248fdb = _0x1bd334;
-        if (_0x248fdb?.navigating) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：等待搜索详情弹层加载…", "info");
+        let local4 = result4;
+        if (local4?.navigating) {
+          fn8(arg1, "[" + local2 + "] " + label + "：等待搜索详情弹层加载…", "info");
           await sleep(2000);
-          _0x248fdb = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_WAIT_VIDEO_READY", {
-            taskId: _0x2e170b,
-            accountId: _0xe78b8e,
-            generation: _0x5d04c0,
-            videoUrl: _0x248fdb.videoUrl || ""
+          local4 = await fn61(local3, "ENTITY_LEADGEN_WAIT_VIDEO_READY", {
+            taskId: arg1,
+            accountId: result2,
+            generation: arg3,
+            videoUrl: local4.videoUrl || ""
           }, 25000);
         }
-        if (!_0x248fdb?.ready && !_0x248fdb?.success) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：未能打开搜索结果第一条视频（" + (_0x248fdb?.reason || _0x248fdb?.error || "未知") + "）", "warning");
+        if (!local4?.ready && !local4?.success) {
+          fn8(arg1, "[" + local2 + "] " + label + "：未能打开搜索结果第一条视频（" + (local4?.reason || local4?.error || "未知") + "）", "warning");
           return {
             success: false,
             users: [],
-            error: _0x248fdb?.error || _0x248fdb?.reason || "open_first_failed"
+            error: local4?.error || local4?.reason || "open_first_failed"
           };
         }
-        let _0x4a8344 = String(_0x248fdb.videoUrl || _0x1bd334?.videoUrl || "").trim();
-        let _0x4fcc8d = {
+        let result5 = String(local4.videoUrl || result4?.videoUrl || "").trim();
+        let obj = {
           success: true,
           users: []
         };
-        const _0x39784d = Math.max(20, Math.min(500, Number(_0x51a394.maxCollect) > 0 ? Number(_0x51a394.maxCollect) : 200));
-        let _0x4b4586 = 0;
-        for (let _0xb7f25a = 0; _0xb7f25a < _0x39784d; _0xb7f25a += 1) {
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        const result6 = Math.max(20, Math.min(500, Number(local.maxCollect) > 0 ? Number(local.maxCollect) : 200));
+        let num3 = 0;
+        for (let num4 = 0; num4 < result6; num4 += 1) {
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          const _0x563e4e = _0x36adf7();
-          if (!_0x563e4e) {
+          const result = local5();
+          if (!result) {
             break;
           }
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：采集第 " + (_0xb7f25a + 1) + " 条视频评论区", "info");
-          await _0x317311(_0x2cc526, "comment", _0x4a8344 || _0x658ae5);
-          let _0x142a54 = await _0x89f5d3(_0x2cc526, {
-            taskId: _0x2e170b,
-            accountId: _0xe78b8e,
-            accountName: _0xa0bd0b,
+          fn8(arg1, "[" + local2 + "] " + label + "：采集第 " + (num4 + 1) + " 条视频评论区", "info");
+          await fn53(local3, "comment", result5 || result3);
+          let result4 = await fn74(local3, {
+            taskId: arg1,
+            accountId: result2,
+            accountName: local2,
             sourceType: "comment",
-            searchKeyword: _0x658ae5,
-            targetVideoUrl: _0x4a8344,
-            maxCollect: _0x563e4e.config.maxCollect,
-            collectedThisRun: _0x563e4e.progress.collectedThisRun,
-            knownKeys: _0x563e4e.knownKeys,
-            generation: _0x5d04c0,
-            commentFilters: _0x1aefde(_0x563e4e.config)
+            searchKeyword: result3,
+            targetVideoUrl: result5,
+            maxCollect: result.config.maxCollect,
+            collectedThisRun: result.progress.collectedThisRun,
+            knownKeys: result.knownKeys,
+            generation: arg3,
+            commentFilters: fn75(result.config)
           });
-          if (_0x142a54?.cancelled) {
+          if (result4?.cancelled) {
             return {
               success: false,
               cancelled: true,
               users: []
             };
           }
-          _0x4fcc8d = _0x142a54 || _0x4fcc8d;
-          if (alsoIngestCards && Array.isArray(_0x142a54?.videoUsers) && _0x142a54.videoUsers.length) {
-            await _0x4f9a2a({
+          obj = result4 || obj;
+          if (alsoIngestCards && Array.isArray(result4?.videoUsers) && result4.videoUsers.length) {
+            await local10({
               success: true,
-              users: _0x142a54.videoUsers
+              users: result4.videoUsers
             }, {
               label: label + "卡片",
-              searchKeyword: _0x658ae5,
+              searchKeyword: result3,
               sourceType: "video_search",
               skipComments: true
             });
           }
-          const _0x31fe33 = String(_0x142a54?.videoTitle || "").trim();
-          const _0x3e5cf6 = canonicalizeDouyinVideoUrl(_0x4a8344) || _0x4a8344;
-          const _0x576a8d = (Array.isArray(_0x142a54?.users) ? _0x142a54.users : []).map(_0x490a42 => ({
-            ..._0x490a42,
-            videoUrl: canonicalizeDouyinVideoUrl(_0x490a42.videoUrl) || _0x3e5cf6 || "",
-            title: String(_0x490a42.title || _0x490a42.sourceVideoTitle || _0x31fe33 || "").trim(),
-            sourceVideoTitle: String(_0x490a42.sourceVideoTitle || _0x490a42.title || _0x31fe33 || "").trim()
+          const result6 = String(result4?.videoTitle || "").trim();
+          const local = canonicalizeDouyinVideoUrl(result5) || result5;
+          const result7 = (Array.isArray(result4?.users) ? result4.users : []).map(arg1 => ({
+            ...arg1,
+            videoUrl: canonicalizeDouyinVideoUrl(arg1.videoUrl) || local || "",
+            title: String(arg1.title || arg1.sourceVideoTitle || result6 || "").trim(),
+            sourceVideoTitle: String(arg1.sourceVideoTitle || arg1.title || result6 || "").trim()
           }));
-          const _0x30f441 = _0x461305({
-            ..._0x142a54,
-            users: _0x576a8d
+          const result8 = fn73({
+            ...result4,
+            users: result7
           }, {
-            account: _0x3e5511,
-            taskId: _0x2e170b,
-            taskName: _0x966978,
-            tasksApi: _0xa4588,
-            knownKeys: _0x32f0ff,
+            account: arg2,
+            taskId: arg1,
+            taskName: taskName,
+            tasksApi: tasksApi,
+            knownKeys: knownKeys,
             sourceType: "comment",
-            progress: _0x426913,
-            maxCollect: _0xf2d10a.maxCollect,
-            generation: _0x5d04c0
+            progress: progress,
+            maxCollect: config.maxCollect,
+            generation: arg3
           });
-          _0x36dedb += _0x30f441.synced;
-          _0x379707 += _0x30f441.duplicates;
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + " 第 " + (_0xb7f25a + 1) + " 条完成：" + _0x43ff91(_0x30f441), entityIngestSummaryLevel(_0x30f441));
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          num += result8.synced;
+          num2 += result8.duplicates;
+          fn8(arg1, "[" + local2 + "] " + label + " 第 " + (num4 + 1) + " 条完成：" + fn72(result8), entityIngestSummaryLevel(result8));
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          let _0x2e10b5 = false;
-          let _0x7d3dae = 0;
-          while (_0x4ec184(_0x2e170b, _0x5d04c0) && !_0x5e63d3(_0x36adf7())) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：弹层切到下一条", "info");
-            const _0x1fe08d = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_MOVE_NEXT_SEARCH_VIDEO", {
-              taskId: _0x2e170b,
-              accountId: _0xe78b8e,
-              accountName: _0xa0bd0b,
-              generation: _0x5d04c0
+          let flag = false;
+          let num5 = 0;
+          while (fn45(arg1, arg3) && !fn62(local5())) {
+            fn8(arg1, "[" + local2 + "] " + label + "：弹层切到下一条", "info");
+            const result = await fn61(local3, "ENTITY_LEADGEN_MOVE_NEXT_SEARCH_VIDEO", {
+              taskId: arg1,
+              accountId: result2,
+              accountName: local2,
+              generation: arg3
             }, 40000);
-            if (_0x1fe08d?.cancelled) {
+            if (result?.cancelled) {
               return {
                 success: false,
                 cancelled: true,
                 users: []
               };
             }
-            const _0x3a7691 = String(_0x1fe08d?.videoUrl || "").trim();
-            const _0x30a4c4 = extractDouyinVideoId(_0x4a8344);
-            const _0x2d8591 = extractDouyinVideoId(_0x3a7691);
-            const _0x191b3c = !!_0x30a4c4 && !!_0x2d8591 && _0x30a4c4 === _0x2d8591 || _0x1fe08d?.reason === "same_video";
-            if (_0x191b3c) {
-              _0x7d3dae += 1;
-              if (_0x7d3dae >= 2) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：连续两次切条仍是同一视频，结束本词", "info");
+            const result3 = String(result?.videoUrl || "").trim();
+            const result4 = extractDouyinVideoId(result5);
+            const result6 = extractDouyinVideoId(result3);
+            const local = !!result4 && !!result6 && result4 === result6 || result?.reason === "same_video";
+            if (local) {
+              num5 += 1;
+              if (num5 >= 2) {
+                fn8(arg1, "[" + local2 + "] " + label + "：连续两次切条仍是同一视频，结束本词", "info");
                 break;
               }
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：切条后仍是同一视频（" + _0x7d3dae + "/2），再切一次以防卡顿误判", "info");
+              fn8(arg1, "[" + local2 + "] " + label + "：切条后仍是同一视频（" + num5 + "/2），再切一次以防卡顿误判", "info");
               continue;
             }
-            if (_0x1fe08d?.success || _0x1fe08d?.continued) {
-              _0x4b4586 = 0;
-              if (_0x1fe08d.videoUrl) {
-                _0x4a8344 = String(_0x1fe08d.videoUrl).trim();
+            if (result?.success || result?.continued) {
+              num3 = 0;
+              if (result.videoUrl) {
+                result5 = String(result.videoUrl).trim();
               }
-              _0x2e10b5 = true;
+              flag = true;
               break;
             }
-            _0x4b4586 += 1;
-            if (_0x4b4586 >= 2) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：无法继续切到下一条，结束本词", "info");
+            num3 += 1;
+            if (num3 >= 2) {
+              fn8(arg1, "[" + local2 + "] " + label + "：无法继续切到下一条，结束本词", "info");
               break;
             }
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：切条未成功，再试一次", "warning");
+            fn8(arg1, "[" + local2 + "] " + label + "：切条未成功，再试一次", "warning");
           }
-          if (!_0x2e10b5) {
+          if (!flag) {
             break;
           }
         }
-        return _0x4fcc8d;
+        return obj;
       };
-      const _0x5b6acf = async (_0x993220, _0x21eb1b) => {
-        const _0x1fce3c = _0x36adf7();
-        if (!_0x1fce3c || _0x5e63d3(_0x1fce3c)) {
+      const local11 = async (arg12, arg22) => {
+        const result = local5();
+        if (!result || fn62(result)) {
           return {
             success: true,
             users: [],
-            cancelled: !!_0x1fce3c?.stopRequested,
+            cancelled: !!result?.stopRequested,
             reachedLimit: true
           };
         }
         const {
-          config: _0x518287,
-          tasksApi: _0x124d59,
-          taskName: _0x37bb3c,
-          knownKeys: _0x118c04,
-          progress: _0x251b1b
-        } = _0x1fce3c;
-        let _0x29f340 = "搜索视频博主";
-        if (_0x21eb1b === "user") {
-          _0x29f340 = "搜索用户";
+          config: config,
+          tasksApi: tasksApi,
+          taskName: taskName,
+          knownKeys: knownKeys,
+          progress: progress
+        } = result;
+        let text = "搜索视频博主";
+        if (arg22 === "user") {
+          text = "搜索用户";
         }
-        if (_0x21eb1b === "comment") {
-          _0x29f340 = "视频评论区潜客";
+        if (arg22 === "comment") {
+          text = "视频评论区潜客";
         }
-        if (_0x21eb1b === "video") {
-          _0x29f340 = "视频作品链接";
+        if (arg22 === "video") {
+          text = "视频作品链接";
         }
-        const _0x1315cd = _0x21eb1b === "user" && (_0x518287.userFanCount !== "0" || _0x518287.userTypeFilter !== "0") ? "（粉丝" + ({
+        const value = arg22 === "user" && (config.userFanCount !== "0" || config.userTypeFilter !== "0") ? "（粉丝" + ({
           0: "不限",
           1: "1000以下",
           2: "1000-1w",
           3: "1w-10w",
           4: "10w-100w",
           5: "100w以上"
-        }[_0x518287.userFanCount] || "不限") + "·类型" + ({
+        }[config.userFanCount] || "不限") + "·类型" + ({
           0: "不限",
           1: "普通用户",
           2: "企业认证",
           3: "个人认证"
-        }[_0x518287.userTypeFilter] || "不限") + "）" : "";
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + _0x29f340 + "：打开搜索页「" + _0x993220 + "」" + _0x1315cd, "info");
-        await _0x317311(_0x2cc526, _0x21eb1b === "comment" ? "video" : _0x21eb1b, _0x993220);
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        }[config.userTypeFilter] || "不限") + "）" : "";
+        fn8(arg1, "[" + local2 + "] " + text + "：打开搜索页「" + arg12 + "」" + value, "info");
+        await fn53(local3, arg22 === "comment" ? "video" : arg22, arg12);
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        await _0x44de06(_0x2cc526, _0x21eb1b === "user" ? buildDouyinUserSearchUrl(_0x993220, {
-          userFanCount: _0x518287.userFanCount,
-          userTypeFilter: _0x518287.userTypeFilter
-        }) : buildDouyinSearchUrl(_0x993220, _0x480154()));
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        await fn47(local3, arg22 === "user" ? buildDouyinUserSearchUrl(arg12, {
+          userFanCount: config.userFanCount,
+          userTypeFilter: config.userTypeFilter
+        }) : buildDouyinSearchUrl(arg12, local()));
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        const _0xba57ec = _0x36adf7();
-        if (!_0xba57ec) {
+        const result3 = local5();
+        if (!result3) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        if (_0x21eb1b === "comment") {
-          _0x3637c0 += 1;
-          return await _0x25402a({
-            label: _0x29f340 + "「" + _0x993220 + "」",
-            searchKeyword: _0x993220,
+        if (arg22 === "comment") {
+          num3 += 1;
+          return await local9({
+            label: text + "「" + arg12 + "」",
+            searchKeyword: arg12,
             alsoIngestCards: false
           });
         }
-        const _0x3fb75c = await _0x89f5d3(_0x2cc526, {
-          taskId: _0x2e170b,
-          accountId: _0xe78b8e,
-          accountName: _0xa0bd0b,
-          sourceType: _0x21eb1b,
-          searchKeyword: _0x993220,
-          maxCollect: _0x518287.maxCollect,
-          collectedThisRun: _0xba57ec.progress.collectedThisRun,
-          knownKeys: _0x118c04,
-          generation: _0x5d04c0,
-          userFanCount: _0x518287.userFanCount,
-          userTypeFilter: _0x518287.userTypeFilter
+        const result4 = await fn74(local3, {
+          taskId: arg1,
+          accountId: result2,
+          accountName: local2,
+          sourceType: arg22,
+          searchKeyword: arg12,
+          maxCollect: config.maxCollect,
+          collectedThisRun: result3.progress.collectedThisRun,
+          knownKeys: knownKeys,
+          generation: arg3,
+          userFanCount: config.userFanCount,
+          userTypeFilter: config.userTypeFilter
         });
-        _0x3637c0 += 1;
-        const _0x118bd2 = _0x461305(_0x3fb75c, {
-          account: _0x3e5511,
-          taskId: _0x2e170b,
-          taskName: _0x37bb3c,
-          tasksApi: _0x124d59,
-          knownKeys: _0x118c04,
-          sourceType: _0x21eb1b,
-          progress: _0x251b1b,
-          maxCollect: _0x518287.maxCollect,
-          generation: _0x5d04c0
+        num3 += 1;
+        const result5 = fn73(result4, {
+          account: arg2,
+          taskId: arg1,
+          taskName: taskName,
+          tasksApi: tasksApi,
+          knownKeys: knownKeys,
+          sourceType: arg22,
+          progress: progress,
+          maxCollect: config.maxCollect,
+          generation: arg3
         });
-        _0x36dedb += _0x118bd2.synced;
-        _0x379707 += _0x118bd2.duplicates;
-        if (!_0x3fb75c.success && !_0x3fb75c.cancelled && !_0x118bd2.received) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + _0x29f340 + "「" + _0x993220 + "」失败：" + (_0x3fb75c.error || "未知错误"), "error");
+        num += result5.synced;
+        num2 += result5.duplicates;
+        if (!result4.success && !result4.cancelled && !result5.received) {
+          fn8(arg1, "[" + local2 + "] " + text + "「" + arg12 + "」失败：" + (result4.error || "未知错误"), "error");
         } else {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + _0x29f340 + "「" + _0x993220 + "」完成：" + _0x43ff91(_0x118bd2) + (_0x3fb75c.cancelled ? "（提前结束，已入库已采数据）" : ""), entityIngestSummaryLevel(_0x118bd2));
+          fn8(arg1, "[" + local2 + "] " + text + "「" + arg12 + "」完成：" + fn72(result5) + (result4.cancelled ? "（提前结束，已入库已采数据）" : ""), entityIngestSummaryLevel(result5));
         }
-        return _0x3fb75c;
+        return result4;
       };
-      const _0xa9175a = async _0x4d5d51 => {
-        const _0xfefdde = _0x4d5d51 === "following" ? "following" : "mutual";
-        const _0x2fe593 = _0xfefdde === "following" ? "关注列表" : "相互关注";
-        const _0x1f1bc = _0x36adf7();
-        if (!_0x1f1bc || !_0x1f1bc.config.sourceTypes.includes(_0xfefdde)) {
+      const local12 = async arg12 => {
+        const value = arg12 === "following" ? "following" : "mutual";
+        const value2 = value === "following" ? "关注列表" : "相互关注";
+        const result = local5();
+        if (!result || !result.config.sourceTypes.includes(value)) {
           return null;
         }
-        if (_0x1f1bc.stopRequested || _0x5e63d3(_0x1f1bc)) {
+        if (result.stopRequested || fn62(result)) {
           return null;
         }
         const {
-          config: _0x1a0425,
-          tasksApi: _0x2fccaf,
-          taskName: _0x28d0a2,
-          knownKeys: _0x463d6e,
-          progress: _0x326619
-        } = _0x1f1bc;
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + _0x2fe593 + "：打开当前账号主页", "info");
-        await _0x317311(_0x2cc526, _0xfefdde, "");
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          config: config,
+          tasksApi: tasksApi,
+          taskName: taskName,
+          knownKeys: knownKeys,
+          progress: progress
+        } = result;
+        fn8(arg1, "[" + local2 + "] " + value2 + "：打开当前账号主页", "info");
+        await fn53(local3, value, "");
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        await _0x44de06(_0x2cc526, DOUYIN_SELF_PROFILE_URL);
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        await fn47(local3, DOUYIN_SELF_PROFILE_URL);
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        const _0x267697 = _0x36adf7();
-        if (!_0x267697) {
+        const result3 = local5();
+        if (!result3) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        const _0x4ba05b = await _0x89f5d3(_0x2cc526, {
-          taskId: _0x2e170b,
-          accountId: _0xe78b8e,
-          accountName: _0xa0bd0b,
-          sourceType: _0xfefdde,
+        const result4 = await fn74(local3, {
+          taskId: arg1,
+          accountId: result2,
+          accountName: local2,
+          sourceType: value,
           searchKeyword: "",
-          maxCollect: _0x1a0425.maxCollect,
-          collectedThisRun: _0x267697.progress.collectedThisRun,
-          knownKeys: _0x463d6e,
-          generation: _0x5d04c0
+          maxCollect: config.maxCollect,
+          collectedThisRun: result3.progress.collectedThisRun,
+          knownKeys: knownKeys,
+          generation: arg3
         });
-        const _0x2ad35a = _0x461305(_0x4ba05b, {
-          account: _0x3e5511,
-          taskId: _0x2e170b,
-          taskName: _0x28d0a2,
-          tasksApi: _0x2fccaf,
-          knownKeys: _0x463d6e,
-          sourceType: _0xfefdde,
-          progress: _0x326619,
-          maxCollect: _0x1a0425.maxCollect,
-          generation: _0x5d04c0
+        const result5 = fn73(result4, {
+          account: arg2,
+          taskId: arg1,
+          taskName: taskName,
+          tasksApi: tasksApi,
+          knownKeys: knownKeys,
+          sourceType: value,
+          progress: progress,
+          maxCollect: config.maxCollect,
+          generation: arg3
         });
-        _0x36dedb += _0x2ad35a.synced;
-        _0x379707 += _0x2ad35a.duplicates;
-        if (!_0x4ba05b.success && !_0x4ba05b.cancelled && !_0x2ad35a.received) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + _0x2fe593 + "失败：" + (_0x4ba05b.error || "未知错误"), "error");
+        num += result5.synced;
+        num2 += result5.duplicates;
+        if (!result4.success && !result4.cancelled && !result5.received) {
+          fn8(arg1, "[" + local2 + "] " + value2 + "失败：" + (result4.error || "未知错误"), "error");
         } else {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + _0x2fe593 + "完成：" + _0x43ff91(_0x2ad35a) + (_0x4ba05b.cancelled ? "（提前结束，已入库已采数据）" : ""), entityIngestSummaryLevel(_0x2ad35a));
+          fn8(arg1, "[" + local2 + "] " + value2 + "完成：" + fn72(result5) + (result4.cancelled ? "（提前结束，已入库已采数据）" : ""), entityIngestSummaryLevel(result5));
         }
-        return _0x4ba05b;
+        return result4;
       };
-      const _0x26606b = async () => _0xa9175a("mutual");
-      const _0x4e7b1f = async () => _0xa9175a("following");
-      const _0x16e958 = async () => {
-        if (_0x3e5511.liveWorkerEnabled === false) {
+      const local13 = async () => local12("mutual");
+      const local14 = async () => local12("following");
+      const local15 = async () => {
+        if (arg2.liveWorkerEnabled === false) {
           return null;
         }
         while (true) {
-          const _0x395168 = _0x36adf7();
-          if (!_0x395168 || !_0x395168.config.sourceTypes.includes("live")) {
+          const result = local5();
+          if (!result || !result.config.sourceTypes.includes("live")) {
             return null;
           }
-          if (_0x395168.stopRequested || _0x5e63d3(_0x395168)) {
+          if (result.stopRequested || fn62(result)) {
             return null;
           }
-          const _0x5c6938 = Array.isArray(_0x395168.config.liveUrls) ? _0x395168.config.liveUrls : [];
-          if ((Number(_0x395168.nextLiveUrlIndex) || 0) >= _0x5c6938.length) {
+          const value = Array.isArray(result.config.liveUrls) ? result.config.liveUrls : [];
+          if ((Number(result.nextLiveUrlIndex) || 0) >= value.length) {
             return null;
           }
-          if (!(await _0x25efc1(_0x2e170b, _0x5d04c0, _0xbffe5d))) {
+          if (!(await fn66(arg1, arg3, result3))) {
             return null;
           }
-          const _0x363389 = _0x37cbb4(_0x36adf7());
-          if (!_0x363389) {
+          const result4 = fn64(local5());
+          if (!result4) {
             return null;
           }
-          const _0x39f257 = _0x36adf7();
-          if (!_0x39f257) {
+          const result5 = local5();
+          if (!result5) {
             return null;
           }
           const {
-            config: _0x18ed02,
-            tasksApi: _0x37e03c,
-            taskName: _0x10f145,
-            knownKeys: _0x464716,
-            progress: _0x4a0b95
-          } = _0x39f257;
-          const _0x59a76f = await _0x4cd8c8(_0x363389.rawUrl);
-          if (!_0x59a76f) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 直播间链接无效，已跳过：" + String(_0x363389.rawUrl || "").slice(0, 80), "warning");
+            config: config,
+            tasksApi: tasksApi,
+            taskName: taskName,
+            knownKeys: knownKeys,
+            progress: progress
+          } = result5;
+          const result6 = await fn65(result4.rawUrl);
+          if (!result6) {
+            fn8(arg1, "[" + local2 + "] 直播间链接无效，已跳过：" + String(result4.rawUrl || "").slice(0, 80), "warning");
             continue;
           }
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 领取直播间 " + (_0x363389.index + 1) + "/" + _0x363389.total + "：正在打开 " + _0x59a76f, "info");
-          await _0x317311(_0x2cc526, "live", "");
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          fn8(arg1, "[" + local2 + "] 领取直播间 " + (result4.index + 1) + "/" + result4.total + "：正在打开 " + result6, "info");
+          await fn53(local3, "live", "");
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          let _0xdc1566 = null;
+          let local = null;
           try {
-            await _0x44de06(_0x2cc526, _0x59a76f);
-            if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+            await fn47(local3, result6);
+            if (!fn45(arg1, arg3) || fn62(local5())) {
               break;
             }
-            const _0x3c60c0 = _0x36adf7();
-            if (!_0x3c60c0) {
+            const result = local5();
+            if (!result) {
               break;
             }
-            _0xdc1566 = await _0x89f5d3(_0x2cc526, {
-              taskId: _0x2e170b,
-              accountId: _0xe78b8e,
-              accountName: _0xa0bd0b,
+            local = await fn74(local3, {
+              taskId: arg1,
+              accountId: result2,
+              accountName: local2,
               sourceType: "live",
-              searchKeyword: _0x59a76f,
-              maxCollect: _0x18ed02.maxCollect,
-              collectedThisRun: _0x3c60c0.progress.collectedThisRun,
-              knownKeys: _0x464716,
-              generation: _0x5d04c0,
-              liveEventTypes: _0x18ed02.liveEventTypes,
-              liveDurationSeconds: _0x18ed02.liveDurationSeconds
+              searchKeyword: result6,
+              maxCollect: config.maxCollect,
+              collectedThisRun: result.progress.collectedThisRun,
+              knownKeys: knownKeys,
+              generation: arg3,
+              liveEventTypes: config.liveEventTypes,
+              liveDurationSeconds: config.liveDurationSeconds
             });
-          } catch (_0x27d0f1) {
-            if (!_0x2cc526 || _0x2cc526.isDestroyed() || !_0x4ec184(_0x2e170b, _0x5d04c0)) {
-              throw _0x27d0f1;
+          } catch (error) {
+            if (!local3 || local3.isDestroyed() || !fn45(arg1, arg3)) {
+              throw error;
             }
-            const _0x40e523 = String(_0x27d0f1?.message || _0x27d0f1 || "未知错误").slice(0, 120);
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 直播间打开失败，已跳过：" + _0x59a76f + "（" + _0x40e523 + "）", "warning");
-            _0x28e1c2(_0x2e170b, _0x37e03c, {
-              url: _0x59a76f,
+            const result = String(error?.message || error || "未知错误").slice(0, 120);
+            fn8(arg1, "[" + local2 + "] 直播间打开失败，已跳过：" + result6 + "（" + result + "）", "warning");
+            fn9(arg1, tasksApi, {
+              url: result6,
               reason: "live_unreachable",
-              message: "直播间打开失败，已跳过（" + _0x40e523 + "）"
+              message: "直播间打开失败，已跳过（" + result + "）"
             });
             continue;
           }
-          const _0x2b1fc6 = _0x461305(_0xdc1566, {
-            account: _0x3e5511,
-            taskId: _0x2e170b,
-            taskName: _0x10f145,
-            tasksApi: _0x37e03c,
-            knownKeys: _0x464716,
+          const result7 = fn73(local, {
+            account: arg2,
+            taskId: arg1,
+            taskName: taskName,
+            tasksApi: tasksApi,
+            knownKeys: knownKeys,
             sourceType: "live",
-            progress: _0x4a0b95,
-            maxCollect: _0x18ed02.maxCollect,
-            generation: _0x5d04c0
+            progress: progress,
+            maxCollect: config.maxCollect,
+            generation: arg3
           });
-          _0x36dedb += _0x2b1fc6.synced;
-          _0x379707 += _0x2b1fc6.duplicates;
-          if (_0xdc1566.ended) {
-            const _0x489b2 = _0xdc1566.endReason === "live_private";
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + (_0xdc1566.message || (_0x489b2 ? "直播间为私密或隐私设置，已跳过" : "直播间已经结束")) + "：" + _0x59a76f, "warning");
-            if (_0x489b2) {
-              _0x28e1c2(_0x2e170b, _0x37e03c, {
-                url: _0x59a76f,
+          num += result7.synced;
+          num2 += result7.duplicates;
+          if (local.ended) {
+            const value = local.endReason === "live_private";
+            fn8(arg1, "[" + local2 + "] " + (local.message || (value ? "直播间为私密或隐私设置，已跳过" : "直播间已经结束")) + "：" + result6, "warning");
+            if (value) {
+              fn9(arg1, tasksApi, {
+                url: result6,
                 reason: "live_private",
-                message: String(_0xdc1566.message || "").replace(/^⏭\s*/, "").replace(/，已退出当前直播间监控$/, "") || "直播间为私密或隐私设置，已跳过"
+                message: String(local.message || "").replace(/^⏭\s*/, "").replace(/，已退出当前直播间监控$/, "") || "直播间为私密或隐私设置，已跳过"
               });
             }
             continue;
           }
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 直播间「" + _0x59a76f + "」采集完成：" + _0x43ff91(_0x2b1fc6), entityIngestSummaryLevel(_0x2b1fc6));
+          fn8(arg1, "[" + local2 + "] 直播间「" + result6 + "」采集完成：" + fn72(result7), entityIngestSummaryLevel(result7));
         }
       };
-      const _0x4f9a2a = async (_0xb53baf, {
+      const local10 = async (arg12, {
         label = "视频列表",
         searchKeyword = "",
         sourceType = "video",
@@ -3351,52 +3351,52 @@ function createEntityLeadgenRunner(_0x32e717) {
         maxCollectOverride = null,
         skipLocalFilter = false
       } = {}) => {
-        const _0x5d7218 = _0x36adf7();
-        if (!_0x5d7218 || !_0xb53baf) {
-          return _0xb53baf;
+        const result = local5();
+        if (!result || !arg12) {
+          return arg12;
         }
-        const _0x320e72 = _0x3c2c48(_0x5d7218.config, "video") || _0x3c2c48(_0x5d7218.config, "author");
-        if (_0x320e72 && Array.isArray(_0xb53baf.users) && _0xb53baf.users.length) {
-          const _0x4742ce = _0xb53baf.users;
-          const _0x52af7d = String(sourceType || "") === "video_search" || String(_0x5d7218.config?.sourceTypes?.[0] || "") === "video_search";
-          const _0x434bfd = _0x4742ce;
-          const _0x49fd3f = skipLocalFilter ? _0x434bfd : _0x4c8c61(_0x434bfd, _0x5d7218.config);
-          if (!skipLocalFilter && _0x49fd3f.length < _0x4742ce.length) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：本地过滤去掉 " + (_0x4742ce.length - _0x49fd3f.length) + "/" + _0x4742ce.length + " 条视频卡片", "info");
+        const local = fn14(result.config, "video") || fn14(result.config, "author");
+        if (local && Array.isArray(arg12.users) && arg12.users.length) {
+          const value = arg12.users;
+          const local = String(sourceType || "") === "video_search" || String(result.config?.sourceTypes?.[0] || "") === "video_search";
+          const local3 = value;
+          const value2 = skipLocalFilter ? local3 : fn18(local3, result.config);
+          if (!skipLocalFilter && value2.length < value.length) {
+            fn8(arg1, "[" + local2 + "] " + label + "：本地过滤去掉 " + (value.length - value2.length) + "/" + value.length + " 条视频卡片", "info");
           }
-          const _0x322219 = getEntityEntryMeta(sourceType || "video");
-          const _0xc1b28c = _0x3ba01a(_0x49fd3f, _0x5d7218.config).map(_0x4ee280 => {
-            const _0x273c8a = _0x52af7d ? enrichVideoPublishTime(_0x4ee280) : _0x4ee280;
+          const result2 = getEntityEntryMeta(sourceType || "video");
+          const result3 = fn16(value2, result.config).map(arg1 => {
+            const value = local ? enrichVideoPublishTime(arg1) : arg1;
             return {
-              ..._0x273c8a,
+              ...value,
               sourceType: "video",
               identityType: "video",
-              entrySource: _0x4ee280.entrySource || _0x322219.entrySource,
-              entryLabel: _0x4ee280.entryLabel || _0x322219.entryLabel,
-              searchKeyword: searchKeyword || _0x4ee280.searchKeyword || ""
+              entrySource: arg1.entrySource || result2.entrySource,
+              entryLabel: arg1.entryLabel || result2.entryLabel,
+              searchKeyword: searchKeyword || arg1.searchKeyword || ""
             };
           });
-          if (_0x52af7d && _0xc1b28c[0]) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 搜索视频发布时间 " + JSON.stringify(buildVideoPublishTimeLogJson(_0xc1b28c[0])), "info");
+          if (local && result3[0]) {
+            fn8(arg1, "[" + local2 + "] 搜索视频发布时间 " + JSON.stringify(buildVideoPublishTimeLogJson(result3[0])), "info");
           }
-          if (!_0xc1b28c.length) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "卡片入库：0 条（勾选=" + ((_0x5d7218.config.scrapeTargets || []).join("+") || "无") + "，过滤后无有效卡片）", "warning");
+          if (!result3.length) {
+            fn8(arg1, "[" + local2 + "] " + label + "卡片入库：0 条（勾选=" + ((result.config.scrapeTargets || []).join("+") || "无") + "，过滤后无有效卡片）", "warning");
           }
-          const _0x202518 = {
-            ..._0xb53baf,
-            users: _0xc1b28c
+          const obj = {
+            ...arg12,
+            users: result3
           };
-          const _0x58cf7a = maxCollectOverride != null ? Number(maxCollectOverride) || 0 : _0x5d7218.config.maxCollect;
-          const _0x2cebd7 = _0xc1b28c.length ? _0x461305(_0x202518, {
-            account: _0x3e5511,
-            taskId: _0x2e170b,
-            taskName: _0x5d7218.taskName,
-            tasksApi: _0x5d7218.tasksApi,
-            knownKeys: _0x5d7218.knownKeys,
+          const value3 = maxCollectOverride != null ? Number(maxCollectOverride) || 0 : result.config.maxCollect;
+          const value4 = result3.length ? fn73(obj, {
+            account: arg2,
+            taskId: arg1,
+            taskName: result.taskName,
+            tasksApi: result.tasksApi,
+            knownKeys: result.knownKeys,
             sourceType: "video",
-            progress: _0x5d7218.progress,
-            maxCollect: _0x58cf7a,
-            generation: _0x5d04c0
+            progress: result.progress,
+            maxCollect: value3,
+            generation: arg3
           }) : {
             synced: 0,
             duplicates: 0,
@@ -3404,180 +3404,180 @@ function createEntityLeadgenRunner(_0x32e717) {
             truncated: 0,
             received: 0
           };
-          _0x36dedb += _0x2cebd7.synced;
-          _0x379707 += _0x2cebd7.duplicates;
-          const _0x197342 = _0x43ff91(_0x2cebd7);
-          const _0x4742c9 = _0xc1b28c[0]?.collectedFields?.length ? "，字段 " + _0xc1b28c[0].collectedFields.join("+") : "";
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "卡片入库：" + _0x197342 + _0x4742c9 + (Number(_0x2cebd7.synced || 0) === 0 && Number(_0x2cebd7.duplicates || 0) > 0 ? "（已在库，已跳过）" : Number(_0x2cebd7.synced || 0) === 0 && Number(_0x2cebd7.duplicates || 0) === 0 && Number(_0x2cebd7.received || 0) === 0 ? "（本条未计入，可能被筛选规则过滤）" : ""), entityIngestSummaryLevel(_0x2cebd7));
-        } else if (Array.isArray(_0xb53baf.users) && _0xb53baf.users.length) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：未勾选视频链接/作者主页，跳过卡片入库（勾选=" + ((_0x5d7218.config.scrapeTargets || []).join("+") || "无") + "）", "info");
+          num += value4.synced;
+          num2 += value4.duplicates;
+          const result4 = fn72(value4);
+          const value5 = result3[0]?.collectedFields?.length ? "，字段 " + result3[0].collectedFields.join("+") : "";
+          fn8(arg1, "[" + local2 + "] " + label + "卡片入库：" + result4 + value5 + (Number(value4.synced || 0) === 0 && Number(value4.duplicates || 0) > 0 ? "（已在库，已跳过）" : Number(value4.synced || 0) === 0 && Number(value4.duplicates || 0) === 0 && Number(value4.received || 0) === 0 ? "（本条未计入，可能被筛选规则过滤）" : ""), entityIngestSummaryLevel(value4));
+        } else if (Array.isArray(arg12.users) && arg12.users.length) {
+          fn8(arg1, "[" + local2 + "] " + label + "：未勾选视频链接/作者主页，跳过卡片入库（勾选=" + ((result.config.scrapeTargets || []).join("+") || "无") + "）", "info");
         }
-        if (!skipComments && _0x3c2c48(_0x5d7218.config, "comments")) {
-          const _0x499900 = _0x5752bd(_0xb53baf);
-          if (!_0x499900.length) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：未找到可打开的视频（评论区跳过）", "warning");
-            return _0xb53baf;
+        if (!skipComments && fn14(result.config, "comments")) {
+          const result = local6(arg12);
+          if (!result.length) {
+            fn8(arg1, "[" + local2 + "] " + label + "：未找到可打开的视频（评论区跳过）", "warning");
+            return arg12;
           }
-          const _0x354ec4 = new Map();
-          _0x499900.forEach(_0x3fa1b7 => {
-            const _0x4f7dd4 = canonicalizeDouyinVideoUrl(_0x3fa1b7.url) || _0x3fa1b7.url;
-            if (_0x4f7dd4 && _0x3fa1b7.title) {
-              _0x354ec4.set(_0x4f7dd4, _0x3fa1b7.title);
+          const map = new Map();
+          result.forEach(arg1 => {
+            const local = canonicalizeDouyinVideoUrl(arg1.url) || arg1.url;
+            if (local && arg1.title) {
+              map.set(local, arg1.title);
             }
           });
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] " + label + "：找到 " + _0x499900.length + " 个视频，开始采集评论区", "info");
-          return await _0x35e20c(_0x499900.map(_0x29d4d9 => _0x29d4d9.url), {
+          fn8(arg1, "[" + local2 + "] " + label + "：找到 " + result.length + " 个视频，开始采集评论区", "info");
+          return await local8(result.map(arg1 => arg1.url), {
             label: label + "评论区",
             searchKeyword: searchKeyword,
-            videoTitleByUrl: _0x354ec4
+            videoTitleByUrl: map
           });
         }
-        return _0xb53baf;
+        return arg12;
       };
-      const _0x114075 = async () => {
-        const _0x4c1780 = _0x36adf7();
-        if (!_0x4c1780 || _0x4c1780.stopRequested || _0x5e63d3(_0x4c1780)) {
+      const local16 = async () => {
+        const result = local5();
+        if (!result || result.stopRequested || fn62(result)) {
           return null;
         }
-        const _0x58137f = "https://www.douyin.com/user/self?showTab=like";
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 喜欢列表：打开点赞作品列表", "info");
-        await _0x317311(_0x2cc526, "video", "like");
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        const text = "https://www.douyin.com/user/self?showTab=like";
+        fn8(arg1, "[" + local2 + "] 喜欢列表：打开点赞作品列表", "info");
+        await fn53(local3, "video", "like");
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return null;
         }
-        await _0x44de06(_0x2cc526, _0x58137f);
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        await fn47(local3, text);
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return null;
         }
-        const _0x1595b = _0x36adf7();
-        if (!_0x1595b) {
+        const result3 = local5();
+        if (!result3) {
           return null;
         }
-        const _0x2bc410 = await _0x89f5d3(_0x2cc526, {
-          taskId: _0x2e170b,
-          accountId: _0xe78b8e,
-          accountName: _0xa0bd0b,
+        const result4 = await fn74(local3, {
+          taskId: arg1,
+          accountId: result2,
+          accountName: local2,
           sourceType: "video",
           searchKeyword: "喜欢列表",
-          maxCollect: _0x1595b.config.maxCollect,
-          collectedThisRun: _0x1595b.progress.collectedThisRun,
-          knownKeys: _0x1595b.knownKeys,
-          generation: _0x5d04c0,
+          maxCollect: result3.config.maxCollect,
+          collectedThisRun: result3.progress.collectedThisRun,
+          knownKeys: result3.knownKeys,
+          generation: arg3,
           skipIngest: false
         });
-        return await _0x4f9a2a(_0x2bc410, {
+        return await local10(result4, {
           label: "喜欢列表",
           searchKeyword: "喜欢列表",
           sourceType: "video_like"
         });
       };
-      const _0x163241 = async () => {
-        const _0x3d1348 = _0x36adf7();
-        if (!_0x3d1348 || _0x3d1348.stopRequested) {
+      const local17 = async () => {
+        const result = local5();
+        if (!result || result.stopRequested) {
           return null;
         }
-        const _0x1b1612 = "https://www.douyin.com/?recommend=1&from_nav=1";
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：从当前第一条视频开始逐条识别", "info");
-        const _0x2cd09e = await _0x3ca1a0(_0x2cc526, _0x2e170b, _0xa0bd0b);
-        if (_0x2cd09e?.ok === false) {
-          throw new Error("推荐页执行视口未就绪：" + (_0x2cd09e.reason || "unknown"));
+        const text = "https://www.douyin.com/?recommend=1&from_nav=1";
+        fn8(arg1, "[" + local2 + "] 推荐页：从当前第一条视频开始逐条识别", "info");
+        const result3 = await fn30(local3, arg1, local2);
+        if (result3?.ok === false) {
+          throw new Error("推荐页执行视口未就绪：" + (result3.reason || "unknown"));
         }
-        await _0x317311(_0x2cc526, "video", "recommend");
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0)) {
+        await fn53(local3, "video", "recommend");
+        if (!fn45(arg1, arg3)) {
           return null;
         }
-        await _0x44de06(_0x2cc526, _0x1b1612);
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0)) {
+        await fn47(local3, text);
+        if (!fn45(arg1, arg3)) {
           return null;
         }
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：页面刚打开，额外等待约 10 秒让首屏稳定…", "info");
+        fn8(arg1, "[" + local2 + "] 推荐页：页面刚打开，额外等待约 10 秒让首屏稳定…", "info");
         await sleep(10000);
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0)) {
+        if (!fn45(arg1, arg3)) {
           return null;
         }
-        const _0x78c436 = _0x36adf7();
-        if (!_0x78c436) {
+        const result4 = local5();
+        if (!result4) {
           return null;
         }
-        const _0x17bcbe = _0x3c2c48(_0x78c436.config, "video") || _0x3c2c48(_0x78c436.config, "author");
-        const _0x5901ea = _0x3c2c48(_0x78c436.config, "author");
-        const _0x2f222b = _0x3c2c48(_0x78c436.config, "comments");
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页采集内容：" + ((_0x78c436.config.scrapeTargets || []).join("+") || "无") + ("（卡片=" + (_0x17bcbe ? "是" : "否") + "，评论=" + (_0x2f222b ? "是" : "否") + "）"), "info");
-        const _0x2add2e = new Set();
-        let _0x5dc082 = 0;
-        let _0x1c549a = 0;
-        let _0x1fcac3 = 0;
-        let _0x48d7e8 = 0;
-        let _0x158f5e = 0;
-        let _0x399433 = 0;
-        let _0x5b17c2 = 0;
-        let _0x2d4465 = null;
-        let _0x525cf1 = "";
-        const _0x5bc1c2 = Number(_0x78c436.config.maxCollect) > 0 ? Number(_0x78c436.config.maxCollect) : 100;
-        const _0x58b10a = Math.max(30, Math.min(2000, _0x5bc1c2 * 4));
-        const _0x2c1d63 = () => _0x1c549a >= _0x5bc1c2;
-        const _0x4e1d4f = () => {
-          const _0xccf92c = _0x36adf7();
-          if (!_0xccf92c || _0xccf92c.limitReached) {
+        const local = fn14(result4.config, "video") || fn14(result4.config, "author");
+        const result5 = fn14(result4.config, "author");
+        const result6 = fn14(result4.config, "comments");
+        fn8(arg1, "[" + local2 + "] 推荐页采集内容：" + ((result4.config.scrapeTargets || []).join("+") || "无") + ("（卡片=" + (local ? "是" : "否") + "，评论=" + (result6 ? "是" : "否") + "）"), "info");
+        const set = new Set();
+        let num3 = 0;
+        let num4 = 0;
+        let num5 = 0;
+        let num6 = 0;
+        let num7 = 0;
+        let num8 = 0;
+        let num9 = 0;
+        let local4 = null;
+        let text2 = "";
+        const value = Number(result4.config.maxCollect) > 0 ? Number(result4.config.maxCollect) : 100;
+        const result7 = Math.max(30, Math.min(2000, value * 4));
+        const local6 = () => num4 >= value;
+        const local7 = () => {
+          const result = local5();
+          if (!result || result.limitReached) {
             return;
           }
-          _0xccf92c.limitReached = true;
-          _0xccf92c.limitKind = "link_count";
+          result.limitReached = true;
+          result.limitKind = "link_count";
         };
-        const _0x2a5592 = async _0x5b2440 => {
-          if (_0x399433 >= 3 || !_0x4ec184(_0x2e170b, _0x5d04c0)) {
+        const local8 = async arg12 => {
+          if (num8 >= 3 || !fn45(arg1, arg3)) {
             return false;
           }
-          _0x399433 += 1;
-          _0x2d4465 = null;
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：" + _0x5b2440 + "，正在重新进入推荐流恢复画面（" + _0x399433 + "/3）", "warning");
+          num8 += 1;
+          local4 = null;
+          fn8(arg1, "[" + local2 + "] 推荐页：" + arg12 + "，正在重新进入推荐流恢复画面（" + num8 + "/3）", "warning");
           try {
-            _0x5dc34d(_0x2cc526);
-            await _0x317311(_0x2cc526, "video", "recommend_recover_" + _0x399433);
-            await _0x44de06(_0x2cc526, _0x1b1612);
-            _0x158f5e = 0;
-            return _0x4ec184(_0x2e170b, _0x5d04c0);
-          } catch (_0x4c3e5e) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：恢复失败 " + (_0x4c3e5e?.message || _0x4c3e5e), "warning");
+            fn2(local3);
+            await fn53(local3, "video", "recommend_recover_" + num8);
+            await fn47(local3, text);
+            num7 = 0;
+            return fn45(arg1, arg3);
+          } catch (error) {
+            fn8(arg1, "[" + local2 + "] 推荐页：恢复失败 " + (error?.message || error), "warning");
             return false;
           }
         };
-        const _0x441b5e = _0xbfe78d => {
-          const _0x24a172 = _0xbfe78d?.nextSnapshot;
-          if (_0x24a172 && _0x24a172.ready) {
-            _0x2d4465 = _0x24a172;
-            _0x158f5e = 0;
+        const local9 = arg1 => {
+          const local = arg1?.nextSnapshot;
+          if (local && local.ready) {
+            local4 = local;
+            num7 = 0;
             return true;
           }
-          return !!_0xbfe78d?.success || !!_0xbfe78d?.continued;
+          return !!arg1?.success || !!arg1?.continued;
         };
-        const _0x3ae32d = async (_0x40afed, _0x1a78a3, _0x518910, {
+        const local11 = async (arg12, arg2, arg32, {
           skipLive = false
         } = {}) => {
-          const _0x542238 = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_MOVE_NEXT_RECOMMEND_VIDEO", {
-            taskId: _0x2e170b,
-            accountId: _0xe78b8e,
-            accountName: _0xa0bd0b,
-            generation: _0x5d04c0,
+          const result = await fn61(local3, "ENTITY_LEADGEN_MOVE_NEXT_RECOMMEND_VIDEO", {
+            taskId: arg1,
+            accountId: result2,
+            accountName: local2,
+            generation: arg3,
             runningSource: "recommend",
             skipLive: skipLive,
-            previousIdentity: _0x40afed.identity || "",
-            previousTitle: _0x40afed.title || "",
-            previousVideoId: _0x1a78a3,
-            previousVideoUrl: _0x518910 || _0x40afed.videoUrl || "",
-            previousAuthor: _0x40afed.authorNickname || ""
+            previousIdentity: arg12.identity || "",
+            previousTitle: arg12.title || "",
+            previousVideoId: arg2,
+            previousVideoUrl: arg32 || arg12.videoUrl || "",
+            previousAuthor: arg12.authorNickname || ""
           }, 40000);
-          if (_0x542238?.cancelled) {
+          if (result?.cancelled) {
             return {
               cancelled: true
             };
           }
-          if (!_0x441b5e(_0x542238)) {
-            _0x158f5e += 1;
-            _0x9d21b4(_0x2e170b, skipLive ? "[" + _0xa0bd0b + "] 推荐页：直播间跳过未生效（" + _0x158f5e + "/3）" : "[" + _0xa0bd0b + "] 推荐页：切换下一条未确认（" + _0x158f5e + "/3），将再核对当前画面", "warning");
-            if (_0x158f5e >= 3) {
-              const _0x29f023 = await _0x2a5592(skipLive ? "连续无法跳过直播间" : "连续切换下一条未响应");
-              if (!_0x29f023) {
+          if (!local9(result)) {
+            num7 += 1;
+            fn8(arg1, skipLive ? "[" + local2 + "] 推荐页：直播间跳过未生效（" + num7 + "/3）" : "[" + local2 + "] 推荐页：切换下一条未确认（" + num7 + "/3），将再核对当前画面", "warning");
+            if (num7 >= 3) {
+              const result = await local8(skipLive ? "连续无法跳过直播间" : "连续切换下一条未响应");
+              if (!result) {
                 return {
                   cancelled: true
                 };
@@ -3588,143 +3588,143 @@ function createEntityLeadgenRunner(_0x32e717) {
             cancelled: false
           };
         };
-        while (_0x5dc082 < _0x58b10a && _0x4ec184(_0x2e170b, _0x5d04c0) && !_0x2c1d63()) {
-          const _0x1435ee = _0x36adf7();
-          if (!_0x1435ee) {
+        while (num3 < result7 && fn45(arg1, arg3) && !local6()) {
+          const result = local5();
+          if (!result) {
             break;
           }
-          let _0x38161c = _0x2d4465;
-          _0x2d4465 = null;
-          if (!_0x38161c?.ready) {
-            for (let _0x4d7f8f = 1; _0x4d7f8f <= 3; _0x4d7f8f += 1) {
-              if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x2c1d63()) {
+          let local8 = local4;
+          local4 = null;
+          if (!local8?.ready) {
+            for (let num = 1; num <= 3; num += 1) {
+              if (!fn45(arg1, arg3) || local6()) {
                 break;
               }
-              if (_0x4d7f8f === 2) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：加载时间较长，重新进入推荐页后继续等待", "warning");
-                _0x5dc34d(_0x2cc526);
-                await _0x317311(_0x2cc526, "video", "recommend_retry");
-                await _0x44de06(_0x2cc526, _0x1b1612);
-              } else if (_0x4d7f8f === 3) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：页面仍在缓冲，延长等待当前第一条作品", "info");
-                _0x5dc34d(_0x2cc526);
+              if (num === 2) {
+                fn8(arg1, "[" + local2 + "] 推荐页：加载时间较长，重新进入推荐页后继续等待", "warning");
+                fn2(local3);
+                await fn53(local3, "video", "recommend_retry");
+                await fn47(local3, text);
+              } else if (num === 3) {
+                fn8(arg1, "[" + local2 + "] 推荐页：页面仍在缓冲，延长等待当前第一条作品", "info");
+                fn2(local3);
               }
-              _0x38161c = await _0x176869(_0x2cc526, "ENTITY_LEADGEN_INSPECT_RECOMMEND_VIDEO", {
-                taskId: _0x2e170b,
-                accountId: _0xe78b8e,
-                accountName: _0xa0bd0b,
-                generation: _0x5d04c0,
+              local8 = await fn61(local3, "ENTITY_LEADGEN_INSPECT_RECOMMEND_VIDEO", {
+                taskId: arg1,
+                accountId: result2,
+                accountName: local2,
+                generation: arg3,
                 runningSource: "recommend",
-                wantAuthor: _0x5901ea,
-                maxWaitMs: _0x5dc082 === 0 && _0x4d7f8f === 1 ? 30000 : 20000,
-                quietReady: _0x5dc082 > 0
-              }, _0x5dc082 === 0 && _0x4d7f8f === 1 ? 45000 : 35000);
-              if (_0x38161c?.cancelled || _0x38161c?.success && _0x38161c?.ready) {
+                wantAuthor: result5,
+                maxWaitMs: num3 === 0 && num === 1 ? 30000 : 20000,
+                quietReady: num3 > 0
+              }, num3 === 0 && num === 1 ? 45000 : 35000);
+              if (local8?.cancelled || local8?.success && local8?.ready) {
                 break;
               }
-              if (_0x4d7f8f === 1) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：当前作品加载较慢，将自动重试，不会按 0 条直接结束", "info");
+              if (num === 1) {
+                fn8(arg1, "[" + local2 + "] 推荐页：当前作品加载较慢，将自动重试，不会按 0 条直接结束", "info");
               }
             }
           }
-          if (_0x38161c?.cancelled) {
+          if (local8?.cancelled) {
             break;
           }
-          if (!_0x38161c?.success || !_0x38161c?.ready) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：已等待并重试约 60 秒，当前视频仍未就绪，停止本轮采集", "warning");
+          if (!local8?.success || !local8?.ready) {
+            fn8(arg1, "[" + local2 + "] 推荐页：已等待并重试约 60 秒，当前视频仍未就绪，停止本轮采集", "warning");
             break;
           }
-          _0x5dc082 += 1;
-          const _0x2e6699 = String(_0x38161c.videoId || extractDouyinVideoId(_0x38161c.videoUrl) || "").trim();
-          if (_0x525cf1 && _0x2e6699 && _0x2e6699 !== _0x525cf1) {
-            _0x158f5e = 0;
+          num3 += 1;
+          const result3 = String(local8.videoId || extractDouyinVideoId(local8.videoUrl) || "").trim();
+          if (text2 && result3 && result3 !== text2) {
+            num7 = 0;
           }
-          if (_0x38161c.live) {
-            _0x1fcac3 += 1;
-            const _0x22f704 = await _0x3ae32d(_0x38161c, _0x2e6699, _0x38161c.videoUrl || "", {
+          if (local8.live) {
+            num5 += 1;
+            const result = await local11(local8, result3, local8.videoUrl || "", {
               skipLive: true
             });
-            if (_0x22f704.cancelled) {
+            if (result.cancelled) {
               break;
             }
             continue;
           }
-          const _0x433f3d = _0x2e6699;
-          const _0x346ed1 = String(_0x38161c.videoUrl || (_0x433f3d ? "https://www.douyin.com/video/" + _0x433f3d : "")).trim();
-          _0x525cf1 = _0x433f3d || _0x525cf1;
-          if (!_0x433f3d || !_0x346ed1) {
-            _0x5b17c2 += 1;
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：当前作品链接未识别，直接切换下一条", "warning");
-          } else if (_0x2add2e.has(_0x433f3d) || _0x1435ee.knownKeys?.has("video:" + _0x433f3d)) {
-            _0x48d7e8 += 1;
-            if (!_0x2add2e.has(_0x433f3d)) {
-              _0x2add2e.add(_0x433f3d);
+          const local9 = result3;
+          const result4 = String(local8.videoUrl || (local9 ? "https://www.douyin.com/video/" + local9 : "")).trim();
+          text2 = local9 || text2;
+          if (!local9 || !result4) {
+            num9 += 1;
+            fn8(arg1, "[" + local2 + "] 推荐页：当前作品链接未识别，直接切换下一条", "warning");
+          } else if (set.has(local9) || result.knownKeys?.has("video:" + local9)) {
+            num6 += 1;
+            if (!set.has(local9)) {
+              set.add(local9);
             }
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：当前作品已分析，跳过且不计入链接数", "info");
+            fn8(arg1, "[" + local2 + "] 推荐页：当前作品已分析，跳过且不计入链接数", "info");
           } else {
-            _0x2add2e.add(_0x433f3d);
-            _0x1c549a += 1;
-            const _0x12d4c7 = Number(_0x1435ee.progress.collectedThisRun) || 0;
-            const _0xe426a4 = String(_0x38161c.title || "").replace(/\s+/g, " ").trim().slice(0, 40);
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：识别第 " + _0x1c549a + "/" + _0x5bc1c2 + " 条作品" + (_0xe426a4 ? "「" + _0xe426a4 + "」" : ""), "info");
-            if (_0x17bcbe) {
+            set.add(local9);
+            num4 += 1;
+            const local4 = Number(result.progress.collectedThisRun) || 0;
+            const result3 = String(local8.title || "").replace(/\s+/g, " ").trim().slice(0, 40);
+            fn8(arg1, "[" + local2 + "] 推荐页：识别第 " + num4 + "/" + value + " 条作品" + (result3 ? "「" + result3 + "」" : ""), "info");
+            if (local) {
               try {
-                let _0x2a89c7 = String(_0x38161c.authorNickname || "").trim().replace(/^@+/, "");
-                let _0x5bc49a = String(_0x38161c.authorUrl || "").trim();
-                const _0x5b5c23 = /^\d{10,}$/.test(_0x433f3d) ? _0x433f3d : extractDouyinVideoId(_0x346ed1) || "";
-                if (_0x5901ea && !/\/user\//i.test(_0x5bc49a)) {
+                let result = String(local8.authorNickname || "").trim().replace(/^@+/, "");
+                let result2 = String(local8.authorUrl || "").trim();
+                const value = /^\d{10,}$/.test(local9) ? local9 : extractDouyinVideoId(result4) || "";
+                if (result5 && !/\/user\//i.test(result2)) {
                   try {
-                    let _0x2e4627 = await _0x51be1d(_0x346ed1 || _0x5b5c23);
-                    if (!_0x2e4627?.userUrl) {
+                    let result3 = await local18(result4 || value);
+                    if (!result3?.userUrl) {
                       await sleep(900);
-                      _0x2e4627 = await _0x51be1d(_0x346ed1 || _0x5b5c23);
+                      result3 = await local18(result4 || value);
                     }
-                    _0x5bc49a = String(_0x2e4627?.userUrl || "").trim() || _0x5bc49a;
-                    _0x2a89c7 = String(_0x2e4627?.nickname || "").trim().replace(/^@+/, "") || _0x2a89c7;
-                  } catch (_0x25269b) {
-                    _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：读取作者主页失败 " + (_0x25269b?.message || _0x25269b), "warning");
+                    result2 = String(result3?.userUrl || "").trim() || result2;
+                    result = String(result3?.nickname || "").trim().replace(/^@+/, "") || result;
+                  } catch (error) {
+                    fn8(arg1, "[" + local2 + "] 推荐页：读取作者主页失败 " + (error?.message || error), "warning");
                   }
-                  if (!/\/user\//i.test(_0x5bc49a) && _0x5b5c23) {
+                  if (!/\/user\//i.test(result2) && value) {
                     try {
-                      const _0x3d6d54 = _0x2cc526?.__radarEntityNetworkCapture?.findVideoUser?.(_0x5b5c23);
-                      if (_0x3d6d54?.authorProfileUrl && /\/user\//i.test(_0x3d6d54.authorProfileUrl)) {
-                        _0x5bc49a = String(_0x3d6d54.authorProfileUrl).trim();
-                        _0x2a89c7 = String(_0x3d6d54.authorNickname || "").trim().replace(/^@+/, "") || _0x2a89c7;
-                        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：已从网络包补齐作者主页", "info");
+                      const local = local3?.__radarEntityNetworkCapture?.findVideoUser?.(value);
+                      if (local?.authorProfileUrl && /\/user\//i.test(local.authorProfileUrl)) {
+                        result2 = String(local.authorProfileUrl).trim();
+                        result = String(local.authorNickname || "").trim().replace(/^@+/, "") || result;
+                        fn8(arg1, "[" + local2 + "] 推荐页：已从网络包补齐作者主页", "info");
                       }
-                    } catch (_0x43bf1f) {}
+                    } catch (error) {}
                   }
-                  if (!/\/user\//i.test(_0x5bc49a)) {
-                    _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：未识别到作者主页，主页本条未入库（视频链接仍会入库）", "warning");
+                  if (!/\/user\//i.test(result2)) {
+                    fn8(arg1, "[" + local2 + "] 推荐页：未识别到作者主页，主页本条未入库（视频链接仍会入库）", "warning");
                   }
                 }
-                if (!_0x5b5c23) {
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：作品 ID 无效，跳过卡片入库（" + (_0x433f3d || _0x346ed1) + "）", "warning");
+                if (!value) {
+                  fn8(arg1, "[" + local2 + "] 推荐页：作品 ID 无效，跳过卡片入库（" + (local9 || result4) + "）", "warning");
                 } else {
-                  const _0x353133 = "https://www.douyin.com/video/" + _0x5b5c23;
-                  await _0x4f9a2a({
+                  const value2 = "https://www.douyin.com/video/" + value;
+                  await local10({
                     success: true,
                     users: [{
-                      nickname: _0x38161c.title || "抖音视频作品",
-                      title: _0x38161c.title || "抖音视频作品",
-                      userUrl: _0x353133,
-                      videoUrl: _0x353133,
-                      userKey: "video:" + _0x5b5c23,
-                      content: _0x353133,
+                      nickname: local8.title || "抖音视频作品",
+                      title: local8.title || "抖音视频作品",
+                      userUrl: value2,
+                      videoUrl: value2,
+                      userKey: "video:" + value,
+                      content: value2,
                       sourceType: "video",
                       identityType: "video",
                       entrySource: "entity_video_recommend",
                       entryLabel: "线索采集：推荐页",
                       searchKeyword: "推荐页",
-                      authorNickname: _0x2a89c7,
-                      authorProfileUrl: _0x5bc49a,
-                      likeCount: Number(_0x38161c.likeCount) || 0,
-                      commentCount: Number(_0x38161c.commentCount) || 0,
-                      collectCount: Number(_0x38161c.collectCount) || 0,
-                      shareCount: Number(_0x38161c.shareCount) || 0
+                      authorNickname: result,
+                      authorProfileUrl: result2,
+                      likeCount: Number(local8.likeCount) || 0,
+                      commentCount: Number(local8.commentCount) || 0,
+                      collectCount: Number(local8.collectCount) || 0,
+                      shareCount: Number(local8.shareCount) || 0
                     }]
                   }, {
-                    label: "推荐页第 " + _0x1c549a + " 条",
+                    label: "推荐页第 " + num4 + " 条",
                     searchKeyword: "推荐页",
                     sourceType: "video_recommend",
                     skipComments: true,
@@ -3732,84 +3732,84 @@ function createEntityLeadgenRunner(_0x32e717) {
                     skipLocalFilter: true
                   });
                 }
-              } catch (_0x13df4b) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：卡片入库异常 " + (_0x13df4b?.message || _0x13df4b), "error");
+              } catch (error) {
+                fn8(arg1, "[" + local2 + "] 推荐页：卡片入库异常 " + (error?.message || error), "error");
               }
             }
-            if (_0x2f222b) {
-              const _0x370ae1 = _0x36adf7();
-              if (!_0x370ae1) {
+            if (result6) {
+              const result = local5();
+              if (!result) {
                 break;
               }
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：采集当前作品评论区", "info");
-              const _0x415c7a = await _0x89f5d3(_0x2cc526, {
-                taskId: _0x2e170b,
-                accountId: _0xe78b8e,
-                accountName: _0xa0bd0b,
+              fn8(arg1, "[" + local2 + "] 推荐页：采集当前作品评论区", "info");
+              const result3 = await fn74(local3, {
+                taskId: arg1,
+                accountId: result2,
+                accountName: local2,
                 sourceType: "comment",
-                searchKeyword: _0x346ed1,
-                targetVideoUrl: _0x346ed1,
+                searchKeyword: result4,
+                targetVideoUrl: result4,
                 alreadyOnCurrentVideo: true,
                 maxCollect: 0,
-                collectedThisRun: _0x370ae1.progress.collectedThisRun,
-                knownKeys: _0x370ae1.knownKeys,
-                generation: _0x5d04c0,
+                collectedThisRun: result.progress.collectedThisRun,
+                knownKeys: result.knownKeys,
+                generation: arg3,
                 skipIngest: false,
-                commentFilters: _0x1aefde(_0x370ae1.config)
+                commentFilters: fn75(result.config)
               });
-              const _0x2ef83a = _0x36adf7();
-              if (!_0x2ef83a) {
+              const result5 = local5();
+              if (!result5) {
                 break;
               }
-              const _0xb37949 = _0x461305(_0x415c7a, {
-                account: _0x3e5511,
-                taskId: _0x2e170b,
-                taskName: _0x2ef83a.taskName,
-                tasksApi: _0x2ef83a.tasksApi,
-                knownKeys: _0x2ef83a.knownKeys,
+              const result6 = fn73(result3, {
+                account: arg2,
+                taskId: arg1,
+                taskName: result5.taskName,
+                tasksApi: result5.tasksApi,
+                knownKeys: result5.knownKeys,
                 sourceType: "video_recommend",
-                progress: _0x2ef83a.progress,
+                progress: result5.progress,
                 maxCollect: 0,
-                generation: _0x5d04c0
+                generation: arg3
               });
-              _0x36dedb += _0xb37949.synced;
-              _0x379707 += _0xb37949.duplicates;
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页当前作品评论区：" + _0x43ff91(_0xb37949), entityIngestSummaryLevel(_0xb37949));
-              if (_0x415c7a?.cancelled && _0x36adf7()?.stopRequested) {
+              num += result6.synced;
+              num2 += result6.duplicates;
+              fn8(arg1, "[" + local2 + "] 推荐页当前作品评论区：" + fn72(result6), entityIngestSummaryLevel(result6));
+              if (result3?.cancelled && local5()?.stopRequested) {
                 break;
               }
             }
-            const _0x1c915f = Number(_0x36adf7()?.progress?.collectedThisRun) || _0x12d4c7;
-            _0x5b17c2 = _0x1c915f > _0x12d4c7 ? 0 : _0x5b17c2 + 1;
+            const local6 = Number(local5()?.progress?.collectedThisRun) || local4;
+            num9 = local6 > local4 ? 0 : num9 + 1;
           }
-          if (_0x2c1d63()) {
-            _0x4e1d4f();
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：已达到采集链接数 " + _0x5bc1c2 + "，结束本轮", "info");
+          if (local6()) {
+            local7();
+            fn8(arg1, "[" + local2 + "] 推荐页：已达到采集链接数 " + value + "，结束本轮", "info");
             break;
           }
-          if (_0x5b17c2 >= 20) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页：连续 20 条没有新增线索，结束本轮采集", "info");
+          if (num9 >= 20) {
+            fn8(arg1, "[" + local2 + "] 推荐页：连续 20 条没有新增线索，结束本轮采集", "info");
             break;
           }
-          const _0x756be3 = await _0x3ae32d(_0x38161c, _0x433f3d, _0x346ed1);
-          if (_0x756be3.cancelled) {
+          const result7 = await local11(local8, local9, result4);
+          if (result7.cancelled) {
             break;
           }
         }
-        if (_0x2c1d63()) {
-          _0x4e1d4f();
+        if (local6()) {
+          local7();
         }
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 推荐页本轮完成：识别 " + _0x1c549a + "/" + _0x5bc1c2 + " 条作品，跳过直播 " + _0x1fcac3 + "、已分析 " + _0x48d7e8, "success");
+        fn8(arg1, "[" + local2 + "] 推荐页本轮完成：识别 " + num4 + "/" + value + " 条作品，跳过直播 " + num5 + "、已分析 " + num6, "success");
         return {
           success: true,
           users: [],
-          processedVideos: _0x1c549a,
-          skippedLives: _0x1fcac3,
-          skippedAnalyzed: _0x48d7e8
+          processedVideos: num4,
+          skippedLives: num5,
+          skippedAnalyzed: num6
         };
       };
-      const _0x51be1d = async (_0x10a011 = "", _0x1ae5d7 = {}) => {
-        const _0x4edd83 = {
+      const local18 = async (text = "", options = {}) => {
+        const obj = {
           nickname: "",
           userUrl: "",
           secUid: "",
@@ -3817,545 +3817,545 @@ function createEntityLeadgenRunner(_0x32e717) {
           publishTimeMs: 0,
           publishTimeText: ""
         };
-        if (!_0x2cc526 || _0x2cc526.isDestroyed() || _0x2cc526.webContents.isDestroyed()) {
-          return _0x4edd83;
+        if (!local3 || local3.isDestroyed() || local3.webContents.isDestroyed()) {
+          return obj;
         }
-        const _0x25ea37 = String(_0x10a011 || "").trim();
-        const _0x3b1423 = buildDouyinVideoPublishTimeScrapeExpression({
-          rejectPublishTimeTexts: Array.isArray(_0x1ae5d7?.rejectPublishTimeTexts) ? _0x1ae5d7.rejectPublishTimeTexts : []
+        const result = String(text || "").trim();
+        const result2 = buildDouyinVideoPublishTimeScrapeExpression({
+          rejectPublishTimeTexts: Array.isArray(options?.rejectPublishTimeTexts) ? options.rejectPublishTimeTexts : []
         });
         try {
-          const _0x3c17a4 = await withTimeout(_0x2cc526.webContents.executeJavaScript("\n              (() => {\n                try {\n                  const expected = " + JSON.stringify(_0x25ea37) + ";\n                  try {\n                    if (typeof ensureLeadgenScrapeApiHook === 'function') {\n                      ensureLeadgenScrapeApiHook({ force: true });\n                    }\n                  } catch (_) {}\n                  let fromApi = null;\n                  try {\n                    if (expected && typeof lookupLeadgenScrapeAweme === 'function') {\n                      fromApi = lookupLeadgenScrapeAweme(expected);\n                    }\n                  } catch (_) {}\n                  const filter = typeof resolveEntityVideoAuthorFilter === 'function'\n                    ? resolveEntityVideoAuthorFilter(document.body)\n                    : null;\n                  let title = '';\n                  try {\n                    if (typeof getVideoTitle === 'function') {\n                      const t = String(getVideoTitle() || '').trim();\n                      if (t && t !== '未知视频') title = t;\n                    }\n                  } catch (_) {}\n                  const apiUrl = String(fromApi?.authorUrl || '').trim();\n                  const filterUrl = String(filter?.userUrl || '').trim();\n                  const userUrl = apiUrl || filterUrl;\n                  const nickname = String(fromApi?.authorNickname || filter?.nickname || '')\n                    .trim()\n                    .replace(/^@+/, '');\n                  const secUid = String(filter?.secUid || '').trim()\n                    || (userUrl.match(/\\/user\\/([^/?#]+)/i)?.[1] || '');\n                  let publishTimeMs = Number(\n                    fromApi?.createTime || fromApi?.create_time || fromApi?.publishTime || 0,\n                  ) || 0;\n                  if (publishTimeMs > 0 && publishTimeMs < 1e12) publishTimeMs *= 1000;\n                  let publishTimeText = '';\n                  let publishTimeSource = publishTimeMs > 0 ? 'api' : '';\n                  // DOM：昵称旁 / create-time；相对时间优先；可压低上一条残留文案\n                  try {\n                    const pub = " + _0x3b1423 + ";\n                    const domMs = Number(pub && pub.publishTimeMs) || 0;\n                    const domText = String((pub && pub.publishTimeText) || '').trim();\n                    const domSource = String((pub && pub.source) || '');\n                    if (domMs > 0 && domText && !/^(rejected_|stale_)/.test(domSource)) {\n                      publishTimeMs = domMs;\n                      publishTimeText = domText;\n                      publishTimeSource = domSource || 'dom';\n                    }\n                  } catch (_) { /* ignore */ }\n                  return {\n                    nickname,\n                    userUrl,\n                    secUid,\n                    title: String(fromApi?.title || title || '').trim(),\n                    fromApi: !!apiUrl,\n                    publishTimeMs,\n                    publishTimeText,\n                    publishTimeSource,\n                  };\n                } catch (e) {\n                  return {\n                    nickname: '',\n                    userUrl: '',\n                    secUid: '',\n                    title: '',\n                    publishTimeMs: 0,\n                    publishTimeText: '',\n                    error: String(e && e.message || e),\n                  };\n                }\n              })()\n            ", true), Math.max(EXEC_JS_TIMEOUT_MS, 8000), "entity_capture_author_timeout");
-          if (!_0x3c17a4 || typeof _0x3c17a4 !== "object") {
-            return _0x4edd83;
+          const result3 = await withTimeout(local3.webContents.executeJavaScript("\n              (() => {\n                try {\n                  const expected = " + JSON.stringify(result) + ";\n                  try {\n                    if (typeof ensureLeadgenScrapeApiHook === 'function') {\n                      ensureLeadgenScrapeApiHook({ force: true });\n                    }\n                  } catch (_) {}\n                  let fromApi = null;\n                  try {\n                    if (expected && typeof lookupLeadgenScrapeAweme === 'function') {\n                      fromApi = lookupLeadgenScrapeAweme(expected);\n                    }\n                  } catch (_) {}\n                  const filter = typeof resolveEntityVideoAuthorFilter === 'function'\n                    ? resolveEntityVideoAuthorFilter(document.body)\n                    : null;\n                  let title = '';\n                  try {\n                    if (typeof getVideoTitle === 'function') {\n                      const t = String(getVideoTitle() || '').trim();\n                      if (t && t !== '未知视频') title = t;\n                    }\n                  } catch (_) {}\n                  const apiUrl = String(fromApi?.authorUrl || '').trim();\n                  const filterUrl = String(filter?.userUrl || '').trim();\n                  const userUrl = apiUrl || filterUrl;\n                  const nickname = String(fromApi?.authorNickname || filter?.nickname || '')\n                    .trim()\n                    .replace(/^@+/, '');\n                  const secUid = String(filter?.secUid || '').trim()\n                    || (userUrl.match(/\\/user\\/([^/?#]+)/i)?.[1] || '');\n                  let publishTimeMs = Number(\n                    fromApi?.createTime || fromApi?.create_time || fromApi?.publishTime || 0,\n                  ) || 0;\n                  if (publishTimeMs > 0 && publishTimeMs < 1e12) publishTimeMs *= 1000;\n                  let publishTimeText = '';\n                  let publishTimeSource = publishTimeMs > 0 ? 'api' : '';\n                  // DOM：昵称旁 / create-time；相对时间优先；可压低上一条残留文案\n                  try {\n                    const pub = " + result2 + ";\n                    const domMs = Number(pub && pub.publishTimeMs) || 0;\n                    const domText = String((pub && pub.publishTimeText) || '').trim();\n                    const domSource = String((pub && pub.source) || '');\n                    if (domMs > 0 && domText && !/^(rejected_|stale_)/.test(domSource)) {\n                      publishTimeMs = domMs;\n                      publishTimeText = domText;\n                      publishTimeSource = domSource || 'dom';\n                    }\n                  } catch (_) { /* ignore */ }\n                  return {\n                    nickname,\n                    userUrl,\n                    secUid,\n                    title: String(fromApi?.title || title || '').trim(),\n                    fromApi: !!apiUrl,\n                    publishTimeMs,\n                    publishTimeText,\n                    publishTimeSource,\n                  };\n                } catch (e) {\n                  return {\n                    nickname: '',\n                    userUrl: '',\n                    secUid: '',\n                    title: '',\n                    publishTimeMs: 0,\n                    publishTimeText: '',\n                    error: String(e && e.message || e),\n                  };\n                }\n              })()\n            ", true), Math.max(EXEC_JS_TIMEOUT_MS, 8000), "entity_capture_author_timeout");
+          if (!result3 || typeof result3 !== "object") {
+            return obj;
           }
-          const _0x4a5740 = normalizeAwemeCreateTimeMs(_0x3c17a4.publishTimeMs || 0) || parseDouyinRelativePublishTimeMs(_0x3c17a4.publishTimeText || "");
+          const local = normalizeAwemeCreateTimeMs(result3.publishTimeMs || 0) || parseDouyinRelativePublishTimeMs(result3.publishTimeText || "");
           return {
-            ..._0x4edd83,
-            ..._0x3c17a4,
-            publishTimeMs: _0x4a5740,
-            publishTimeText: String(_0x3c17a4.publishTimeText || "").trim()
+            ...obj,
+            ...result3,
+            publishTimeMs: local,
+            publishTimeText: String(result3.publishTimeText || "").trim()
           };
-        } catch (_0x27704e) {
-          return _0x4edd83;
+        } catch (error) {
+          return obj;
         }
       };
-      const _0x5508c7 = async () => {
-        const _0x2c6a38 = _0x36adf7();
-        if (!_0x2c6a38 || _0x2c6a38.stopRequested || _0x5e63d3(_0x2c6a38)) {
+      const local19 = async () => {
+        const result3 = local5();
+        if (!result3 || result3.stopRequested || fn62(result3)) {
           return null;
         }
-        const _0x4833b0 = _0x2c6a38.config || {};
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 正在解析指定博主主页…", "info");
-        const _0x1fe7d3 = await resolveBloggerProfileUrls(_0x4833b0.bloggerProfileUrls);
-        if (!_0x1fe7d3.length) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：未找到有效主页链接", "warning");
+        const local = result3.config || {};
+        fn8(arg1, "[" + local2 + "] 正在解析指定博主主页…", "info");
+        const result4 = await resolveBloggerProfileUrls(local.bloggerProfileUrls);
+        if (!result4.length) {
+          fn8(arg1, "[" + local2 + "] 指定博主：未找到有效主页链接", "warning");
           return null;
         }
-        const _0x118a23 = normalizeBloggerWorkSelectMode(_0x4833b0.bloggerWorkSelectMode);
-        const _0x20a7c0 = _0x4833b0.bloggerExcludePinned !== false;
-        const _0x94063d = _0x118a23 === "count" ? "前 " + normalizeBloggerWorkCount(_0x4833b0.bloggerWorkCount) + " 条" : normalizeBloggerPublishWithinDays(_0x4833b0.bloggerPublishWithinDays) + " 天内";
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：" + _0x1fe7d3.length + " 个主页，作品筛选=" + _0x94063d + (_0x20a7c0 ? "（排除置顶）" : "（含置顶）"), "info");
-        const _0x3e6dfe = _0x3c2c48(_0x4833b0, "video");
-        const _0x258b4f = _0x3c2c48(_0x4833b0, "comments");
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主采集目标：视频链接=" + (_0x3e6dfe ? "是" : "否") + "，评论区=" + (_0x258b4f ? "是" : "否"), _0x258b4f || _0x3e6dfe ? "info" : "warning");
-        if (!_0x3e6dfe && !_0x258b4f) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：未勾选视频链接/评论区，跳过", "warning");
+        const result5 = normalizeBloggerWorkSelectMode(local.bloggerWorkSelectMode);
+        const value = local.bloggerExcludePinned !== false;
+        const value2 = result5 === "count" ? "前 " + normalizeBloggerWorkCount(local.bloggerWorkCount) + " 条" : normalizeBloggerPublishWithinDays(local.bloggerPublishWithinDays) + " 天内";
+        fn8(arg1, "[" + local2 + "] 指定博主：" + result4.length + " 个主页，作品筛选=" + value2 + (value ? "（排除置顶）" : "（含置顶）"), "info");
+        const result6 = fn14(local, "video");
+        const result7 = fn14(local, "comments");
+        fn8(arg1, "[" + local2 + "] 指定博主采集目标：视频链接=" + (result6 ? "是" : "否") + "，评论区=" + (result7 ? "是" : "否"), result7 || result6 ? "info" : "warning");
+        if (!result6 && !result7) {
+          fn8(arg1, "[" + local2 + "] 指定博主：未勾选视频链接/评论区，跳过", "warning");
           return null;
         }
-        let _0x4d6d8c = {
+        let obj = {
           success: true,
           users: []
         };
-        for (let _0x117e3e = 0; _0x117e3e < _0x1fe7d3.length; _0x117e3e += 1) {
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        for (let num3 = 0; num3 < result4.length; num3 += 1) {
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          const _0x242c7e = _0x1fe7d3[_0x117e3e];
-          const _0x444f57 = String(_0x242c7e.secUid || "").trim();
-          const _0x23b894 = _0x444f57 ? "@" + _0x444f57.slice(0, 12) + "…" : "主页 " + (_0x117e3e + 1);
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 (" + (_0x117e3e + 1) + "/" + _0x1fe7d3.length + ")：打开 " + _0x242c7e.url, "info");
-          let _0x782300;
+          const value2 = result4[num3];
+          const result3 = String(value2.secUid || "").trim();
+          const value3 = result3 ? "@" + result3.slice(0, 12) + "…" : "主页 " + (num3 + 1);
+          fn8(arg1, "[" + local2 + "] 指定博主 (" + (num3 + 1) + "/" + result4.length + ")：打开 " + value2.url, "info");
+          let local4;
           try {
-            if (_0x117e3e > 0) {
-              await _0x22f4bb(_0x2cc526);
+            if (num3 > 0) {
+              await fn46(local3);
             }
-            _0x782300 = await captureBloggerProfileWorks(_0x2cc526, {
-              profileUrl: _0x242c7e.url,
-              secUid: _0x444f57,
-              maxWorks: resolveCaptureMaxWorks(_0x4833b0),
-              filterPinned: _0x20a7c0,
-              scrollRounds: resolveScrollRounds(_0x4833b0),
-              withinDays: _0x118a23 === "days" ? normalizeBloggerPublishWithinDays(_0x4833b0.bloggerPublishWithinDays) : 0,
-              loadUrl: _0x44de06,
-              isActive: () => _0x4ec184(_0x2e170b, _0x5d04c0)
+            local4 = await captureBloggerProfileWorks(local3, {
+              profileUrl: value2.url,
+              secUid: result3,
+              maxWorks: resolveCaptureMaxWorks(local),
+              filterPinned: value,
+              scrollRounds: resolveScrollRounds(local),
+              withinDays: result5 === "days" ? normalizeBloggerPublishWithinDays(local.bloggerPublishWithinDays) : 0,
+              loadUrl: fn47,
+              isActive: () => fn45(arg1, arg3)
             });
-          } catch (_0x58a477) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + _0x23b894 + "：主页打开失败 " + (_0x58a477?.message || _0x58a477), "warning");
+          } catch (error) {
+            fn8(arg1, "[" + local2 + "] 指定博主 " + value3 + "：主页打开失败 " + (error?.message || error), "warning");
             continue;
           }
-          const _0x5e5d6c = String(_0x782300.authorName || "").trim();
-          let _0x2b699c = Array.isArray(_0x782300.works) ? _0x782300.works.slice() : [];
-          const _0x34976e = _0x782300?.diagnostics || {};
-          if (_0x34976e.pinFilterFallback) {
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：置顶过滤疑似误判（" + (_0x34976e.pinnedCount || 0) + "/" + (_0x34976e.beforePinFilter || 0) + "），已回退保留作品列表", "warning");
+          const result8 = String(local4.authorName || "").trim();
+          let value4 = Array.isArray(local4.works) ? local4.works.slice() : [];
+          const local6 = local4?.diagnostics || {};
+          if (local6.pinFilterFallback) {
+            fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：置顶过滤疑似误判（" + (local6.pinnedCount || 0) + "/" + (local6.beforePinFilter || 0) + "），已回退保留作品列表", "warning");
           }
-          if (_0x20a7c0) {
-            const _0x521248 = _0x2b699c.length;
-            _0x2b699c = _0x2b699c.filter(_0x117371 => !_0x117371?.pinned);
-            const _0x255716 = _0x521248 - _0x2b699c.length;
-            if (_0x255716 > 0) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：已排除置顶 " + _0x255716 + " 条", "info");
+          if (value) {
+            const value = value4.length;
+            value4 = value4.filter(arg1 => !arg1?.pinned);
+            const value2 = value - value4.length;
+            if (value2 > 0) {
+              fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：已排除置顶 " + value2 + " 条", "info");
             }
           }
-          if (!_0x2b699c.length) {
-            const _0x1ad6ac = [];
-            if (_0x34976e.scrapeError) {
-              _0x1ad6ac.push("错误 " + _0x34976e.scrapeError);
+          if (!value4.length) {
+            const list = [];
+            if (local6.scrapeError) {
+              list.push("错误 " + local6.scrapeError);
             }
-            if (_0x34976e.cardsFound != null) {
-              _0x1ad6ac.push("卡片候选 " + _0x34976e.cardsFound);
+            if (local6.cardsFound != null) {
+              list.push("卡片候选 " + local6.cardsFound);
             }
-            if (_0x34976e.hrefLinkCount != null) {
-              _0x1ad6ac.push("视频链 " + _0x34976e.hrefLinkCount);
+            if (local6.hrefLinkCount != null) {
+              list.push("视频链 " + local6.hrefLinkCount);
             }
-            if (_0x34976e.beforePinFilter != null) {
-              _0x1ad6ac.push("刮取 " + _0x34976e.beforePinFilter + "/置顶标记 " + (_0x34976e.pinnedCount || 0));
+            if (local6.beforePinFilter != null) {
+              list.push("刮取 " + local6.beforePinFilter + "/置顶标记 " + (local6.pinnedCount || 0));
             }
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：DOM 未识别到作品" + (_0x1ad6ac.length ? "（" + _0x1ad6ac.join("，") + "）" : ""), "warning");
+            fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：DOM 未识别到作品" + (list.length ? "（" + list.join("，") + "）" : ""), "warning");
           }
-          const _0x2c6b0f = _0x2b699c.filter(_0x3226b8 => !normalizeAwemeCreateTimeMs(_0x3226b8.createTime || 0)).length;
-          const _0x60cb5 = _0x2c6b0f > 0 && (_0x118a23 === "days" || _0x3e6dfe || _0x258b4f);
-          const _0x5694ba = (_0x60cb5 || _0x258b4f) && _0x2b699c.length > 0;
-          const _0x457217 = [];
-          let _0x1816b0 = false;
-          if (_0x5694ba) {
-            if (_0x60cb5) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：" + _0x2c6b0f + " 条缺发布时间，打开作品识别" + (_0x258b4f ? "并采集评论…" : "…"), "info");
+          const value5 = value4.filter(arg1 => !normalizeAwemeCreateTimeMs(arg1.createTime || 0)).length;
+          const local7 = value5 > 0 && (result5 === "days" || result6 || result7);
+          const local8 = (local7 || result7) && value4.length > 0;
+          const list = [];
+          let flag = false;
+          if (local8) {
+            if (local7) {
+              fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：" + value5 + " 条缺发布时间，打开作品识别" + (result7 ? "并采集评论…" : "…"), "info");
             } else {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：打开作品采集评论…", "info");
+              fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：打开作品采集评论…", "info");
             }
-            const _0x567da5 = Math.min(_0x2b699c.length, _0x118a23 === "count" ? normalizeBloggerWorkCount(_0x4833b0.bloggerWorkCount) : resolveCaptureMaxWorks(_0x4833b0));
-            const _0x58c360 = _0x118a23 === "count" ? normalizeBloggerWorkCount(_0x4833b0.bloggerWorkCount) : 0;
-            let _0xffc89c = false;
-            const _0x420929 = [];
-            for (let _0x5685eb = 0; _0x5685eb < _0x567da5; _0x5685eb += 1) {
-              if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+            const result4 = Math.min(value4.length, result5 === "count" ? normalizeBloggerWorkCount(local.bloggerWorkCount) : resolveCaptureMaxWorks(local));
+            const value6 = result5 === "count" ? normalizeBloggerWorkCount(local.bloggerWorkCount) : 0;
+            let flag2 = false;
+            const list2 = [];
+            for (let num3 = 0; num3 < result4; num3 += 1) {
+              if (!fn45(arg1, arg3) || fn62(local5())) {
                 break;
               }
-              const _0x1e8caa = _0x2b699c[_0x5685eb];
-              if (!_0x1e8caa) {
+              const value5 = value4[num3];
+              if (!value5) {
                 continue;
               }
-              if (_0x20a7c0 && _0x1e8caa.pinned) {
+              if (value && value5.pinned) {
                 continue;
               }
-              let _0x43aeb5 = _0x1e8caa.url || "";
-              let _0x417d0f = false;
-              if (!_0xffc89c) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：点击主页作品 (" + (_0x5685eb + 1) + "/" + _0x2b699c.length + ")", "info");
+              let local4 = value5.url || "";
+              let flag3 = false;
+              if (!flag2) {
+                fn8(arg1, "[" + local2 + "] 指定博主：点击主页作品 (" + (num3 + 1) + "/" + value4.length + ")", "info");
                 try {
-                  const _0x1ec92d = String(_0x2cc526.webContents?.getURL?.() || "");
-                  if (!/\/user\//i.test(_0x1ec92d) || /[?&]modal_id=/i.test(_0x1ec92d)) {
-                    await _0x44de06(_0x2cc526, _0x242c7e.url);
+                  const result = String(local3.webContents?.getURL?.() || "");
+                  if (!/\/user\//i.test(result) || /[?&]modal_id=/i.test(result)) {
+                    await fn47(local3, value2.url);
                     await sleep(1200);
                   }
-                } catch (_0x517a61) {}
-                const _0x1d1d06 = await _0x16b42b.openAuthorWork(_0x2cc526.webContents, {
-                  taskId: _0x2e170b,
-                  awemeId: _0x1e8caa.awemeId || extractDouyinVideoId(_0x1e8caa.url),
-                  url: _0x1e8caa.url,
-                  authorUrl: _0x242c7e.url,
-                  preferFirstCard: _0x457217.length === 0,
-                  skipPinnedCards: _0x20a7c0 && _0x457217.length === 0,
+                } catch (error) {}
+                const result2 = await result.openAuthorWork(local3.webContents, {
+                  taskId: arg1,
+                  awemeId: value5.awemeId || extractDouyinVideoId(value5.url),
+                  url: value5.url,
+                  authorUrl: value2.url,
+                  preferFirstCard: list.length === 0,
+                  skipPinnedCards: value && list.length === 0,
                   knownHasWorks: true,
                   allowUrlFallback: false,
                   timeoutMs: 50000
                 });
-                if (_0x1d1d06?.cancelled) {
-                  _0x4d6d8c = {
+                if (result2?.cancelled) {
+                  obj = {
                     success: false,
                     cancelled: true,
                     users: []
                   };
                   break;
                 }
-                _0x417d0f = !!_0x1d1d06?.ok;
-                if (_0x1d1d06?.videoUrl) {
-                  _0x43aeb5 = _0x1d1d06.videoUrl;
-                  _0x1e8caa.url = _0x1d1d06.videoUrl;
+                flag3 = !!result2?.ok;
+                if (result2?.videoUrl) {
+                  local4 = result2.videoUrl;
+                  value5.url = result2.videoUrl;
                 }
-                if (_0x1d1d06?.awemeId) {
-                  _0x1e8caa.awemeId = _0x1d1d06.awemeId;
+                if (result2?.awemeId) {
+                  value5.awemeId = result2.awemeId;
                 }
-                _0xffc89c = _0x417d0f;
-                if (!_0x417d0f) {
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：未能点击打开作品（" + (_0x1d1d06?.reason || _0x1d1d06?.error || "unknown") + "）" + (_0x1d1d06?.debug ? "｜" + _0x1d1d06.debug : ""), "warning");
-                  if (_0x457217.length === 0) {
+                flag2 = flag3;
+                if (!flag3) {
+                  fn8(arg1, "[" + local2 + "] 指定博主：未能点击打开作品（" + (result2?.reason || result2?.error || "unknown") + "）" + (result2?.debug ? "｜" + result2.debug : ""), "warning");
+                  if (list.length === 0) {
                     break;
                   }
                   continue;
                 }
               } else {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：下一条 (" + (_0x5685eb + 1) + "/" + _0x2b699c.length + ")", "info");
-                const _0x6346c7 = await _0x16b42b.moveNextAuthorWork(_0x2cc526.webContents, {
-                  taskId: _0x2e170b,
-                  expectedAwemeId: _0x1e8caa.awemeId || extractDouyinVideoId(_0x1e8caa.url),
-                  expectedUrl: _0x1e8caa.url,
+                fn8(arg1, "[" + local2 + "] 指定博主：下一条 (" + (num3 + 1) + "/" + value4.length + ")", "info");
+                const result2 = await result.moveNextAuthorWork(local3.webContents, {
+                  taskId: arg1,
+                  expectedAwemeId: value5.awemeId || extractDouyinVideoId(value5.url),
+                  expectedUrl: value5.url,
                   requireMatch: false
                 });
-                if (_0x6346c7?.cancelled) {
-                  _0x4d6d8c = {
+                if (result2?.cancelled) {
+                  obj = {
                     success: false,
                     cancelled: true,
                     users: []
                   };
                   break;
                 }
-                _0x417d0f = !!_0x6346c7?.ok;
-                if (_0x6346c7?.videoUrl) {
-                  _0x43aeb5 = _0x6346c7.videoUrl;
-                  _0x1e8caa.url = _0x6346c7.videoUrl;
+                flag3 = !!result2?.ok;
+                if (result2?.videoUrl) {
+                  local4 = result2.videoUrl;
+                  value5.url = result2.videoUrl;
                 }
-                if (_0x6346c7?.awemeId) {
-                  _0x1e8caa.awemeId = _0x6346c7.awemeId;
+                if (result2?.awemeId) {
+                  value5.awemeId = result2.awemeId;
                 }
-                if (!_0x417d0f) {
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：下一条失败，回主页点卡继续", "warning");
-                  _0xffc89c = false;
+                if (!flag3) {
+                  fn8(arg1, "[" + local2 + "] 指定博主：下一条失败，回主页点卡继续", "warning");
+                  flag2 = false;
                   try {
-                    await _0x44de06(_0x2cc526, _0x242c7e.url);
+                    await fn47(local3, value2.url);
                     await sleep(900);
-                  } catch (_0x3962f3) {}
-                  _0x5685eb -= 1;
+                  } catch (error) {}
+                  num3 -= 1;
                   continue;
                 }
               }
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：等待发布时间控件刷新…", "info");
-              const _0x1df4ec = await _0x460524(_0x2cc526, {
-                seenTexts: _0x420929,
+              fn8(arg1, "[" + local2 + "] 指定博主：等待发布时间控件刷新…", "info");
+              const result4 = await fn44(local3, {
+                seenTexts: list2,
                 timeoutMs: 12000,
-                taskId: _0x2e170b,
-                generation: _0x5d04c0
+                taskId: arg1,
+                generation: arg3
               });
-              if (_0x1df4ec?.cancelled) {
-                _0x4d6d8c = {
+              if (result4?.cancelled) {
+                obj = {
                   success: false,
                   cancelled: true,
                   users: []
                 };
                 break;
               }
-              if (!_0x1df4ec?.refreshed) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：作品 (" + (_0x5685eb + 1) + "/" + _0x2b699c.length + ") 发布时间控件未刷新" + (_0x1df4ec?.text ? "（仍为 " + _0x1df4ec.text + "）" : "") + "，跳过本条", "warning");
+              if (!result4?.refreshed) {
+                fn8(arg1, "[" + local2 + "] 指定博主：作品 (" + (num3 + 1) + "/" + value4.length + ") 发布时间控件未刷新" + (result4?.text ? "（仍为 " + result4.text + "）" : "") + "，跳过本条", "warning");
                 continue;
               }
-              await _0x1c60ea(_0x2cc526);
-              const _0xf32e4b = String(_0x1df4ec.text || "").trim();
-              const _0x4c8fe0 = parseDouyinRelativePublishTimeMs(_0xf32e4b);
-              const _0x2d7cae = _0x4d8ab(_0xf32e4b);
-              if (_0x4c8fe0 > 0 && _0xf32e4b) {
-                _0x1e8caa.createTime = _0x4c8fe0;
-                _0x1e8caa.publishTimeText = _0xf32e4b;
-                if (_0x2d7cae) {
-                  _0x420929.push(_0x2d7cae);
+              await fn41(local3);
+              const result6 = String(result4.text || "").trim();
+              const result9 = parseDouyinRelativePublishTimeMs(result6);
+              const result10 = fn43(result6);
+              if (result9 > 0 && result6) {
+                value5.createTime = result9;
+                value5.publishTimeText = result6;
+                if (result10) {
+                  list2.push(result10);
                 }
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：作品 (" + (_0x5685eb + 1) + "/" + _0x2b699c.length + ") 识别发布时间: " + _0xf32e4b + "（dom-video-create-time）", "info");
+                fn8(arg1, "[" + local2 + "] 指定博主：作品 (" + (num3 + 1) + "/" + value4.length + ") 识别发布时间: " + result6 + "（dom-video-create-time）", "info");
               } else {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：作品 (" + (_0x5685eb + 1) + "/" + _0x2b699c.length + ") 未识别到可信发布时间" + (_0x118a23 === "days" ? "，跳过本条" : ""), "warning");
-                if (_0x118a23 === "days") {
+                fn8(arg1, "[" + local2 + "] 指定博主：作品 (" + (num3 + 1) + "/" + value4.length + ") 未识别到可信发布时间" + (result5 === "days" ? "，跳过本条" : ""), "warning");
+                if (result5 === "days") {
                   continue;
                 }
               }
-              const _0xd48ac8 = await _0x51be1d(_0x43aeb5 || _0x1e8caa.url);
-              const _0x381945 = String(_0xd48ac8?.secUid || "").trim();
-              if (_0x444f57 && _0x381945 && _0x381945 !== _0x444f57) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：切条后非本博主作品（已离开作品流），跳下一个博主", "warning");
+              const result11 = await local18(local4 || value5.url);
+              const result12 = String(result11?.secUid || "").trim();
+              if (result3 && result12 && result12 !== result3) {
+                fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：切条后非本博主作品（已离开作品流），跳下一个博主", "warning");
                 break;
               }
-              const _0x586208 = normalizeAwemeCreateTimeMs(_0x1e8caa.createTime || 0);
-              if (_0x118a23 === "days" && (_0x586208 > 0 || _0x1e8caa.publishTimeText)) {
-                const _0x590b6f = isBloggerWorkWithinPublishDays(_0x1e8caa, _0x4833b0.bloggerPublishWithinDays);
-                if (!_0x590b6f) {
-                  const _0x299ed0 = _0x1e8caa.publishTimeText || new Date(_0x586208).toLocaleDateString("zh-CN");
-                  const _0x5ed620 = !!_0x1e8caa.pinned || looksLikeMissedPinnedPublishTime(_0x586208, _0x1e8caa.publishTimeText || "", _0x4833b0.bloggerPublishWithinDays);
-                  if (_0x5ed620) {
-                    _0x1e8caa.pinned = true;
-                    _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：作品 (" + (_0x5685eb + 1) + ") 为置顶作品且发布时间 (" + _0x299ed0 + ") 超出设置范围，跳过并切下一条", "warning");
+              const result13 = normalizeAwemeCreateTimeMs(value5.createTime || 0);
+              if (result5 === "days" && (result13 > 0 || value5.publishTimeText)) {
+                const flag = isBloggerWorkWithinPublishDays(value5, local.bloggerPublishWithinDays);
+                if (!flag) {
+                  const local3 = value5.publishTimeText || new Date(result13).toLocaleDateString("zh-CN");
+                  const local4 = !!value5.pinned || looksLikeMissedPinnedPublishTime(result13, value5.publishTimeText || "", local.bloggerPublishWithinDays);
+                  if (local4) {
+                    value5.pinned = true;
+                    fn8(arg1, "[" + local2 + "] 指定博主：作品 (" + (num3 + 1) + ") 为置顶作品且发布时间 (" + local3 + ") 超出设置范围，跳过并切下一条", "warning");
                     continue;
                   }
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主：作品 (" + (_0x5685eb + 1) + ") 为非置顶作品且发布时间 (" + _0x299ed0 + ") 超出 " + (normalizeBloggerPublishWithinDays(_0x4833b0.bloggerPublishWithinDays) + " 天内，停止本博主"), "info");
+                  fn8(arg1, "[" + local2 + "] 指定博主：作品 (" + (num3 + 1) + ") 为非置顶作品且发布时间 (" + local3 + ") 超出 " + (normalizeBloggerPublishWithinDays(local.bloggerPublishWithinDays) + " 天内，停止本博主"), "info");
                   break;
                 }
               }
-              if (_0x1e8caa.pinned) {
+              if (value5.pinned) {
                 continue;
               }
-              _0x457217.push(_0x1e8caa);
-              if (_0x258b4f) {
-                const _0x4ffa35 = _0x36adf7();
-                if (!_0x4ffa35) {
+              list.push(value5);
+              if (result7) {
+                const result = local5();
+                if (!result) {
                   break;
                 }
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：打开评论区 (" + _0x457217.length + "/" + (_0x58c360 || _0x457217.length) + ")", "info");
-                await _0x317311(_0x2cc526, "comment", _0x43aeb5);
-                const _0x592a85 = await _0x89f5d3(_0x2cc526, {
-                  taskId: _0x2e170b,
-                  accountId: _0xe78b8e,
-                  accountName: _0xa0bd0b,
+                fn8(arg1, "[" + local2 + "] 指定博主评论：打开评论区 (" + list.length + "/" + (value6 || list.length) + ")", "info");
+                await fn53(local3, "comment", local4);
+                const result3 = await fn74(local3, {
+                  taskId: arg1,
+                  accountId: result2,
+                  accountName: local2,
                   sourceType: "comment",
                   searchKeyword: "指定博主",
-                  maxCollect: _0x4ffa35.config.maxCollect,
-                  collectedThisRun: _0x4ffa35.progress.collectedThisRun,
-                  knownKeys: _0x4ffa35.knownKeys,
-                  generation: _0x5d04c0,
-                  commentFilters: _0x1aefde(_0x4ffa35.config),
-                  targetVideoUrl: _0x43aeb5,
+                  maxCollect: result.config.maxCollect,
+                  collectedThisRun: result.progress.collectedThisRun,
+                  knownKeys: result.knownKeys,
+                  generation: arg3,
+                  commentFilters: fn75(result.config),
+                  targetVideoUrl: local4,
                   alreadyOnCurrentVideo: true
                 });
-                _0x1816b0 = true;
-                if (_0x592a85?.cancelled) {
-                  _0x4d6d8c = _0x592a85;
+                flag = true;
+                if (result3?.cancelled) {
+                  obj = result3;
                   break;
                 }
-                if (_0x592a85?.videoUnavailable) {
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：视频失效，已跳过", "warning");
-                } else if (_0x592a85?.needReload || _0x592a85?.videoNotReady) {
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：详情未就绪，跳过", "warning");
-                  _0xffc89c = false;
+                if (result3?.videoUnavailable) {
+                  fn8(arg1, "[" + local2 + "] 指定博主评论：视频失效，已跳过", "warning");
+                } else if (result3?.needReload || result3?.videoNotReady) {
+                  fn8(arg1, "[" + local2 + "] 指定博主评论：详情未就绪，跳过", "warning");
+                  flag2 = false;
                 } else {
-                  const _0x49a610 = _0x461305(_0x592a85, {
-                    account: _0x3e5511,
-                    taskId: _0x2e170b,
-                    taskName: _0x4ffa35.taskName,
-                    tasksApi: _0x4ffa35.tasksApi,
-                    knownKeys: _0x4ffa35.knownKeys,
+                  const result2 = fn73(result3, {
+                    account: arg2,
+                    taskId: arg1,
+                    taskName: result.taskName,
+                    tasksApi: result.tasksApi,
+                    knownKeys: result.knownKeys,
                     sourceType: "comment",
-                    progress: _0x4ffa35.progress,
-                    maxCollect: _0x4ffa35.config.maxCollect,
-                    generation: _0x5d04c0
+                    progress: result.progress,
+                    maxCollect: result.config.maxCollect,
+                    generation: arg3
                   });
-                  _0x36dedb += _0x49a610.synced;
-                  _0x379707 += _0x49a610.duplicates;
-                  _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论完成：" + _0x43ff91(_0x49a610), entityIngestSummaryLevel(_0x49a610));
-                  _0x4d6d8c = _0x592a85;
+                  num += result2.synced;
+                  num2 += result2.duplicates;
+                  fn8(arg1, "[" + local2 + "] 指定博主评论完成：" + fn72(result2), entityIngestSummaryLevel(result2));
+                  obj = result3;
                 }
               }
-              if (_0x58c360 > 0 && _0x457217.length >= _0x58c360) {
+              if (value6 > 0 && list.length >= value6) {
                 break;
               }
-              if (_0x5e63d3(_0x36adf7())) {
+              if (fn62(local5())) {
                 break;
               }
             }
-            if (_0x20a7c0) {
-              _0x2b699c = _0x2b699c.filter(_0x3164cc => !_0x3164cc?.pinned);
+            if (value) {
+              value4 = value4.filter(arg1 => !arg1?.pinned);
             }
           }
-          const _0x26be21 = _0x5694ba && (_0x118a23 === "days" || _0x258b4f) ? selectWorksForBloggerConfig(_0x457217, _0x4833b0) : selectWorksForBloggerConfig(_0x2b699c, _0x4833b0);
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：DOM 识别 " + _0x2b699c.length + " 条，筛选后 " + _0x26be21.length + " 条" + (_0x60cb5 ? "（已补时间 " + _0x2b699c.filter(_0x29f4ca => normalizeAwemeCreateTimeMs(_0x29f4ca.createTime || 0)).length + "）" : "") + (_0x1816b0 ? "（评论已同趟采集）" : ""), _0x26be21.length ? "info" : "warning");
-          if (!_0x26be21.length) {
+          const value6 = local8 && (result5 === "days" || result7) ? selectWorksForBloggerConfig(list, local) : selectWorksForBloggerConfig(value4, local);
+          fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：DOM 识别 " + value4.length + " 条，筛选后 " + value6.length + " 条" + (local7 ? "（已补时间 " + value4.filter(arg1 => normalizeAwemeCreateTimeMs(arg1.createTime || 0)).length + "）" : "") + (flag ? "（评论已同趟采集）" : ""), value6.length ? "info" : "warning");
+          if (!value6.length) {
             continue;
           }
-          if (_0x3e6dfe) {
-            const _0x2e8bc6 = _0x26be21.map(_0xb2585d => ({
-              nickname: _0x5e5d6c || _0xb2585d.authorName || "未知作者",
-              title: _0xb2585d.title || "博主作品",
-              videoUrl: _0xb2585d.url,
-              userUrl: _0xb2585d.url,
-              userKey: _0xb2585d.awemeId ? "video:" + _0xb2585d.awemeId : _0xb2585d.url,
+          if (result6) {
+            const result = value6.map(arg1 => ({
+              nickname: result8 || arg1.authorName || "未知作者",
+              title: arg1.title || "博主作品",
+              videoUrl: arg1.url,
+              userUrl: arg1.url,
+              userKey: arg1.awemeId ? "video:" + arg1.awemeId : arg1.url,
               identityType: "video",
               sourceType: "author_profile",
               searchKeyword: "指定博主",
-              authorProfileUrl: _0x242c7e.url,
-              authorNickname: _0x5e5d6c || _0xb2585d.authorName || "",
-              secUid: _0x444f57 || _0xb2585d.authorSecUid || "",
-              createTime: normalizeAwemeCreateTimeMs(_0xb2585d.createTime || 0),
-              publishTime: normalizeAwemeCreateTimeMs(_0xb2585d.createTime || 0),
-              timeText: _0xb2585d.publishTimeText || ""
+              authorProfileUrl: value2.url,
+              authorNickname: result8 || arg1.authorName || "",
+              secUid: result3 || arg1.authorSecUid || "",
+              createTime: normalizeAwemeCreateTimeMs(arg1.createTime || 0),
+              publishTime: normalizeAwemeCreateTimeMs(arg1.createTime || 0),
+              timeText: arg1.publishTimeText || ""
             }));
-            await _0x4f9a2a({
+            await local10({
               success: true,
-              users: _0x2e8bc6
+              users: result
             }, {
-              label: "指定博主 " + (_0x5e5d6c || _0x23b894),
+              label: "指定博主 " + (result8 || value3),
               searchKeyword: "指定博主",
               sourceType: "author_profile",
               skipComments: true
             });
           }
-          if (!_0x258b4f || _0x1816b0) {
+          if (!result7 || flag) {
             continue;
           }
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          let _0x285e6d = false;
-          let _0x1047db = false;
-          for (let _0x17ad10 = 0; _0x17ad10 < _0x26be21.length; _0x17ad10 += 1) {
-            if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          let flag2 = false;
+          let flag3 = false;
+          for (let num3 = 0; num3 < value6.length; num3 += 1) {
+            if (!fn45(arg1, arg3) || fn62(local5())) {
               break;
             }
-            const _0x694de6 = _0x26be21[_0x17ad10];
-            let _0x43f828 = _0x694de6.url || "";
-            if (!_0x1047db) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：点击主页作品 (" + (_0x17ad10 + 1) + "/" + _0x26be21.length + ")", "info");
+            const value4 = value6[num3];
+            let local = value4.url || "";
+            if (!flag3) {
+              fn8(arg1, "[" + local2 + "] 指定博主评论：点击主页作品 (" + (num3 + 1) + "/" + value6.length + ")", "info");
               try {
-                const _0x36aef7 = String(_0x2cc526.webContents?.getURL?.() || "");
-                if (!/\/user\//i.test(_0x36aef7) || /[?&]modal_id=/i.test(_0x36aef7)) {
-                  await _0x44de06(_0x2cc526, _0x242c7e.url);
+                const result = String(local3.webContents?.getURL?.() || "");
+                if (!/\/user\//i.test(result) || /[?&]modal_id=/i.test(result)) {
+                  await fn47(local3, value2.url);
                   await sleep(1200);
                 }
-              } catch (_0x2ad13d) {}
-              const _0x2697b6 = await _0x16b42b.openAuthorWork(_0x2cc526.webContents, {
-                taskId: _0x2e170b,
-                awemeId: _0x694de6.awemeId || extractDouyinVideoId(_0x694de6.url),
-                url: _0x694de6.url,
-                authorUrl: _0x242c7e.url,
-                preferFirstCard: _0x17ad10 === 0,
-                skipPinnedCards: _0x20a7c0 && _0x17ad10 === 0,
+              } catch (error) {}
+              const result2 = await result.openAuthorWork(local3.webContents, {
+                taskId: arg1,
+                awemeId: value4.awemeId || extractDouyinVideoId(value4.url),
+                url: value4.url,
+                authorUrl: value2.url,
+                preferFirstCard: num3 === 0,
+                skipPinnedCards: value && num3 === 0,
                 knownHasWorks: true,
                 allowUrlFallback: false,
                 timeoutMs: 50000
               });
-              if (_0x2697b6?.cancelled) {
-                _0x4d6d8c = {
+              if (result2?.cancelled) {
+                obj = {
                   success: false,
                   cancelled: true,
                   users: []
                 };
                 break;
               }
-              if (!_0x2697b6?.ok) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：未能点击打开（" + (_0x2697b6?.reason || _0x2697b6?.error || "unknown") + "）", "warning");
-                if (_0x17ad10 === 0) {
+              if (!result2?.ok) {
+                fn8(arg1, "[" + local2 + "] 指定博主评论：未能点击打开（" + (result2?.reason || result2?.error || "unknown") + "）", "warning");
+                if (num3 === 0) {
                   break;
                 }
                 continue;
               }
-              if (_0x2697b6.videoUrl) {
-                _0x43f828 = _0x2697b6.videoUrl;
+              if (result2.videoUrl) {
+                local = result2.videoUrl;
               }
-              _0x1047db = true;
+              flag3 = true;
             } else {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：下一条 (" + (_0x17ad10 + 1) + "/" + _0x26be21.length + ")", "info");
-              const _0x337386 = await _0x16b42b.moveNextAuthorWork(_0x2cc526.webContents, {
-                taskId: _0x2e170b,
-                expectedAwemeId: _0x694de6.awemeId || extractDouyinVideoId(_0x694de6.url),
-                expectedUrl: _0x694de6.url,
+              fn8(arg1, "[" + local2 + "] 指定博主评论：下一条 (" + (num3 + 1) + "/" + value6.length + ")", "info");
+              const result2 = await result.moveNextAuthorWork(local3.webContents, {
+                taskId: arg1,
+                expectedAwemeId: value4.awemeId || extractDouyinVideoId(value4.url),
+                expectedUrl: value4.url,
                 requireMatch: false
               });
-              if (_0x337386?.cancelled) {
-                _0x4d6d8c = {
+              if (result2?.cancelled) {
+                obj = {
                   success: false,
                   cancelled: true,
                   users: []
                 };
                 break;
               }
-              if (!_0x337386?.ok) {
-                _0x1047db = false;
-                _0x17ad10 -= 1;
+              if (!result2?.ok) {
+                flag3 = false;
+                num3 -= 1;
                 try {
-                  await _0x44de06(_0x2cc526, _0x242c7e.url);
+                  await fn47(local3, value2.url);
                   await sleep(900);
-                } catch (_0x30943d) {}
+                } catch (error) {}
                 continue;
               }
-              if (_0x337386.videoUrl) {
-                _0x43f828 = _0x337386.videoUrl;
+              if (result2.videoUrl) {
+                local = result2.videoUrl;
               }
             }
-            const _0x400f73 = await _0x51be1d(_0x43f828 || _0x694de6.url);
-            const _0x739879 = String(_0x400f73.secUid || "").trim();
-            if (_0x444f57 && _0x739879 && _0x739879 !== _0x444f57) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主 " + (_0x5e5d6c || _0x23b894) + "：已离开本博主作品流，进入下一作者", "warning");
-              _0x285e6d = true;
+            const result4 = await local18(local || value4.url);
+            const result5 = String(result4.secUid || "").trim();
+            if (result3 && result5 && result5 !== result3) {
+              fn8(arg1, "[" + local2 + "] 指定博主 " + (result8 || value3) + "：已离开本博主作品流，进入下一作者", "warning");
+              flag2 = true;
               break;
             }
-            const _0x14b3fb = _0x36adf7();
-            if (!_0x14b3fb) {
+            const result6 = local5();
+            if (!result6) {
               break;
             }
-            await _0x317311(_0x2cc526, "comment", _0x43f828);
-            const _0x3e7d56 = await _0x89f5d3(_0x2cc526, {
-              taskId: _0x2e170b,
-              accountId: _0xe78b8e,
-              accountName: _0xa0bd0b,
+            await fn53(local3, "comment", local);
+            const result7 = await fn74(local3, {
+              taskId: arg1,
+              accountId: result2,
+              accountName: local2,
               sourceType: "comment",
               searchKeyword: "指定博主",
-              maxCollect: _0x14b3fb.config.maxCollect,
-              collectedThisRun: _0x14b3fb.progress.collectedThisRun,
-              knownKeys: _0x14b3fb.knownKeys,
-              generation: _0x5d04c0,
-              commentFilters: _0x1aefde(_0x14b3fb.config),
-              targetVideoUrl: _0x43f828,
+              maxCollect: result6.config.maxCollect,
+              collectedThisRun: result6.progress.collectedThisRun,
+              knownKeys: result6.knownKeys,
+              generation: arg3,
+              commentFilters: fn75(result6.config),
+              targetVideoUrl: local,
               alreadyOnCurrentVideo: true
             });
-            if (_0x3e7d56?.cancelled) {
-              _0x4d6d8c = _0x3e7d56;
+            if (result7?.cancelled) {
+              obj = result7;
               break;
             }
-            if (_0x3e7d56?.videoUnavailable || _0x3e7d56?.needReload || _0x3e7d56?.videoNotReady) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论：详情未就绪或失效，跳过 (" + (_0x17ad10 + 1) + "/" + _0x26be21.length + ")", "warning");
-              _0x1047db = false;
+            if (result7?.videoUnavailable || result7?.needReload || result7?.videoNotReady) {
+              fn8(arg1, "[" + local2 + "] 指定博主评论：详情未就绪或失效，跳过 (" + (num3 + 1) + "/" + value6.length + ")", "warning");
+              flag3 = false;
               continue;
             }
-            const _0x37be4a = _0x461305(_0x3e7d56, {
-              account: _0x3e5511,
-              taskId: _0x2e170b,
-              taskName: _0x14b3fb.taskName,
-              tasksApi: _0x14b3fb.tasksApi,
-              knownKeys: _0x14b3fb.knownKeys,
+            const result9 = fn73(result7, {
+              account: arg2,
+              taskId: arg1,
+              taskName: result6.taskName,
+              tasksApi: result6.tasksApi,
+              knownKeys: result6.knownKeys,
               sourceType: "comment",
-              progress: _0x14b3fb.progress,
-              maxCollect: _0x14b3fb.config.maxCollect,
-              generation: _0x5d04c0
+              progress: result6.progress,
+              maxCollect: result6.config.maxCollect,
+              generation: arg3
             });
-            _0x36dedb += _0x37be4a.synced;
-            _0x379707 += _0x37be4a.duplicates;
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定博主评论 (" + (_0x17ad10 + 1) + "/" + _0x26be21.length + ") 完成：" + _0x43ff91(_0x37be4a), entityIngestSummaryLevel(_0x37be4a));
-            _0x4d6d8c = _0x3e7d56;
+            num += result9.synced;
+            num2 += result9.duplicates;
+            fn8(arg1, "[" + local2 + "] 指定博主评论 (" + (num3 + 1) + "/" + value6.length + ") 完成：" + fn72(result9), entityIngestSummaryLevel(result9));
+            obj = result7;
           }
-          if (_0x285e6d) {
+          if (flag2) {
             continue;
           }
         }
-        return _0x4d6d8c;
+        return obj;
       };
-      const _0x5bdb8f = async () => {
-        const _0x5453f5 = _0x36adf7();
-        if (!_0x5453f5 || _0x5453f5.stopRequested || _0x5e63d3(_0x5453f5)) {
+      const local20 = async () => {
+        const result = local5();
+        if (!result || result.stopRequested || fn62(result)) {
           return null;
         }
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 正在解析指定视频链接…", "info");
-        const _0x38c6ee = _0xc7ac45(_0x5453f5.config.specifiedUrls);
-        if (!_0x38c6ee.length) {
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频：未找到有效链接", "warning");
+        fn8(arg1, "[" + local2 + "] 正在解析指定视频链接…", "info");
+        const result3 = fn5(result.config.specifiedUrls);
+        if (!result3.length) {
+          fn8(arg1, "[" + local2 + "] 指定视频：未找到有效链接", "warning");
           return null;
         }
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频：解析出 " + _0x38c6ee.length + " 个链接", "info");
-        const _0x1172c7 = _0x3c2c48(_0x5453f5.config, "author");
-        const _0x83b12 = _0x3c2c48(_0x5453f5.config, "video");
-        const _0x3d9c6d = _0x3c2c48(_0x5453f5.config, "comments");
-        const _0x2f6294 = _0x36656e => {
-          const _0x5a7022 = extractDouyinVideoId(_0x36656e) || "";
+        fn8(arg1, "[" + local2 + "] 指定视频：解析出 " + result3.length + " 个链接", "info");
+        const result4 = fn14(result.config, "author");
+        const result5 = fn14(result.config, "video");
+        const result6 = fn14(result.config, "comments");
+        const local = arg1 => {
+          const local = extractDouyinVideoId(arg1) || "";
           return {
             nickname: "未知作者",
             title: "指定视频",
-            videoUrl: _0x36656e,
-            userUrl: _0x36656e,
-            userKey: _0x5a7022 ? "video:" + _0x5a7022 : _0x36656e,
+            videoUrl: arg1,
+            userUrl: arg1,
+            userKey: local ? "video:" + local : arg1,
             identityType: "video",
             sourceType: "video_specific",
             searchKeyword: "指定视频"
           };
         };
-        if (_0x83b12 && !_0x1172c7 && !_0x3d9c6d) {
-          const _0x46804c = _0x38c6ee.map(_0x2f6294);
-          return await _0x4f9a2a({
+        if (result5 && !result4 && !result6) {
+          const result = result3.map(local);
+          return await local10({
             success: true,
-            users: _0x46804c
+            users: result
           }, {
             label: "指定视频",
             searchKeyword: "指定视频",
@@ -4364,624 +4364,624 @@ function createEntityLeadgenRunner(_0x32e717) {
           });
         }
         const {
-          config: _0x21c34a,
-          tasksApi: _0x31345a,
-          taskName: _0x5d31d3,
-          knownKeys: _0x4e2a91,
-          progress: _0x5d521a
-        } = _0x5453f5;
-        let _0x474c65 = {
+          config: config,
+          tasksApi: tasksApi,
+          taskName: taskName,
+          knownKeys: knownKeys,
+          progress: progress
+        } = result;
+        let obj = {
           success: true,
           users: []
         };
-        for (let _0x37083d = 0; _0x37083d < _0x38c6ee.length; _0x37083d += 1) {
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        for (let num3 = 0; num3 < result3.length; num3 += 1) {
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          const _0x5c25c4 = _0x38c6ee[_0x37083d];
-          const _0x21613f = toDouyinJingxuanUrl(_0x5c25c4);
-          const _0x3359d6 = 3;
-          let _0x4fee1e = false;
-          let _0x598657 = null;
-          for (let _0x11d51e = 1; _0x11d51e <= _0x3359d6; _0x11d51e += 1) {
-            if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          const value = result3[num3];
+          const result = toDouyinJingxuanUrl(value);
+          const num4 = 3;
+          let flag = false;
+          let local4 = null;
+          for (let num = 1; num <= num4; num += 1) {
+            if (!fn45(arg1, arg3) || fn62(local5())) {
               break;
             }
-            _0x9d21b4(_0x2e170b, _0x11d51e === 1 ? "[" + _0xa0bd0b + "] 指定视频：打开视频 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ")" : "[" + _0xa0bd0b + "] 指定视频：重新打开 (" + _0x11d51e + "/" + _0x3359d6 + ")", _0x11d51e === 1 ? "info" : "warning");
-            if (_0x37083d > 0 || _0x11d51e > 1) {
-              await _0x22f4bb(_0x2cc526);
+            fn8(arg1, num === 1 ? "[" + local2 + "] 指定视频：打开视频 (" + (num3 + 1) + "/" + result3.length + ")" : "[" + local2 + "] 指定视频：重新打开 (" + num + "/" + num4 + ")", num === 1 ? "info" : "warning");
+            if (num3 > 0 || num > 1) {
+              await fn46(local3);
             }
-            if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+            if (!fn45(arg1, arg3) || fn62(local5())) {
               break;
             }
-            await _0x317311(_0x2cc526, _0x3d9c6d ? "comment" : "video", _0x21613f);
+            await fn53(local3, result6 ? "comment" : "video", result);
             try {
-              await _0x44de06(_0x2cc526, _0x21613f);
-            } catch (_0x3c09ec) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频：打开失败 " + (_0x3c09ec?.message || _0x3c09ec), "warning");
-              if (_0x11d51e < _0x3359d6) {
-                await _0x22f4bb(_0x2cc526);
-                await sleep(800 + _0x11d51e * 400);
+              await fn47(local3, result);
+            } catch (error) {
+              fn8(arg1, "[" + local2 + "] 指定视频：打开失败 " + (error?.message || error), "warning");
+              if (num < num4) {
+                await fn46(local3);
+                await sleep(800 + num * 400);
                 continue;
               }
               break;
             }
-            if (_0x3d9c6d) {
-              const _0x134831 = _0x36adf7();
-              if (!_0x134831) {
+            if (result6) {
+              const result4 = local5();
+              if (!result4) {
                 break;
               }
-              _0x598657 = await _0x89f5d3(_0x2cc526, {
-                taskId: _0x2e170b,
-                accountId: _0xe78b8e,
-                accountName: _0xa0bd0b,
+              local4 = await fn74(local3, {
+                taskId: arg1,
+                accountId: result2,
+                accountName: local2,
                 sourceType: "comment",
                 searchKeyword: "指定视频",
-                maxCollect: _0x21c34a.maxCollect,
-                collectedThisRun: _0x134831.progress.collectedThisRun,
-                knownKeys: _0x4e2a91,
-                generation: _0x5d04c0,
-                commentFilters: _0x1aefde(_0x21c34a),
-                targetVideoUrl: _0x21613f
+                maxCollect: config.maxCollect,
+                collectedThisRun: result4.progress.collectedThisRun,
+                knownKeys: knownKeys,
+                generation: arg3,
+                commentFilters: fn75(config),
+                targetVideoUrl: result
               });
-              if (_0x598657?.cancelled) {
-                _0x474c65 = _0x598657;
+              if (local4?.cancelled) {
+                obj = local4;
                 break;
               }
-              if (_0x598657?.videoUnavailable) {
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频：视频失效，已跳过 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ")", "warning");
-                _0x4fee1e = false;
+              if (local4?.videoUnavailable) {
+                fn8(arg1, "[" + local2 + "] 指定视频：视频失效，已跳过 (" + (num3 + 1) + "/" + result3.length + ")", "warning");
+                flag = false;
                 break;
               }
-              if (_0x598657?.needReload || _0x598657?.videoNotReady) {
-                if (_0x11d51e < _0x3359d6) {
-                  await sleep(600 + _0x11d51e * 300);
+              if (local4?.needReload || local4?.videoNotReady) {
+                if (num < num4) {
+                  await sleep(600 + num * 300);
                   continue;
                 }
-                _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频：多次重进仍未进入视频，跳过 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ")", "warning");
-                _0x4fee1e = false;
+                fn8(arg1, "[" + local2 + "] 指定视频：多次重进仍未进入视频，跳过 (" + (num3 + 1) + "/" + result3.length + ")", "warning");
+                flag = false;
                 break;
               }
-              _0x4fee1e = true;
+              flag = true;
               break;
             }
-            await sleep(1600 + _0x11d51e * 200);
-            _0x4fee1e = true;
+            await sleep(1600 + num * 200);
+            flag = true;
             break;
           }
-          if (!_0x4fee1e || !_0x4ec184(_0x2e170b, _0x5d04c0)) {
-            if (_0x598657?.cancelled) {
+          if (!flag || !fn45(arg1, arg3)) {
+            if (local4?.cancelled) {
               break;
             }
             continue;
           }
-          let _0x2e91e0 = await _0x51be1d(_0x5c25c4);
-          if (_0x1172c7 && !_0x2e91e0.userUrl) {
+          let result7 = await local18(value);
+          if (result4 && !result7.userUrl) {
             await sleep(1200);
-            _0x2e91e0 = await _0x51be1d(_0x5c25c4);
+            result7 = await local18(value);
           }
-          const _0xe0f11d = {
-            ..._0x2f6294(_0x5c25c4),
-            authorProfileUrl: String(_0x2e91e0.userUrl || "").trim(),
-            authorNickname: String(_0x2e91e0.nickname || "").trim().replace(/^@+/, ""),
-            nickname: String(_0x2e91e0.nickname || "").trim().replace(/^@+/, "") || "未知作者",
-            title: String(_0x2e91e0.title || "").trim() || "指定视频",
-            secUid: String(_0x2e91e0.secUid || "").trim()
+          const obj2 = {
+            ...local(value),
+            authorProfileUrl: String(result7.userUrl || "").trim(),
+            authorNickname: String(result7.nickname || "").trim().replace(/^@+/, ""),
+            nickname: String(result7.nickname || "").trim().replace(/^@+/, "") || "未知作者",
+            title: String(result7.title || "").trim() || "指定视频",
+            secUid: String(result7.secUid || "").trim()
           };
-          if (_0x83b12 || _0x1172c7) {
-            if (_0x1172c7 && !_0xe0f11d.authorProfileUrl) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ")：未识别到作者主页，主页未入库", "warning");
-            } else if (_0x1172c7 && _0xe0f11d.authorProfileUrl) {
-              _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ")：作者 @" + (_0xe0f11d.authorNickname || "未知") + " " + _0xe0f11d.authorProfileUrl, "info");
+          if (result5 || result4) {
+            if (result4 && !obj2.authorProfileUrl) {
+              fn8(arg1, "[" + local2 + "] 指定视频 (" + (num3 + 1) + "/" + result3.length + ")：未识别到作者主页，主页未入库", "warning");
+            } else if (result4 && obj2.authorProfileUrl) {
+              fn8(arg1, "[" + local2 + "] 指定视频 (" + (num3 + 1) + "/" + result3.length + ")：作者 @" + (obj2.authorNickname || "未知") + " " + obj2.authorProfileUrl, "info");
             }
-            await _0x4f9a2a({
+            await local10({
               success: true,
-              users: [_0xe0f11d]
+              users: [obj2]
             }, {
-              label: "指定视频 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ")",
+              label: "指定视频 (" + (num3 + 1) + "/" + result3.length + ")",
               searchKeyword: "指定视频",
               sourceType: "video_specific",
               skipComments: true
             });
           }
-          if (_0x3d9c6d && _0x598657 && !_0x598657.videoUnavailable && !_0x598657.needReload) {
-            const _0x3b2bb5 = _0x461305(_0x598657, {
-              account: _0x3e5511,
-              taskId: _0x2e170b,
-              taskName: _0x5d31d3,
-              tasksApi: _0x31345a,
-              knownKeys: _0x4e2a91,
+          if (result6 && local4 && !local4.videoUnavailable && !local4.needReload) {
+            const result = fn73(local4, {
+              account: arg2,
+              taskId: arg1,
+              taskName: taskName,
+              tasksApi: tasksApi,
+              knownKeys: knownKeys,
               sourceType: "comment",
-              progress: _0x5d521a,
-              maxCollect: _0x21c34a.maxCollect,
-              generation: _0x5d04c0
+              progress: progress,
+              maxCollect: config.maxCollect,
+              generation: arg3
             });
-            _0x36dedb += _0x3b2bb5.synced;
-            _0x379707 += _0x3b2bb5.duplicates;
-            _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 指定视频评论区 (" + (_0x37083d + 1) + "/" + _0x38c6ee.length + ") 完成：" + _0x43ff91(_0x3b2bb5), entityIngestSummaryLevel(_0x3b2bb5));
-            _0x474c65 = _0x598657;
+            num += result.synced;
+            num2 += result.duplicates;
+            fn8(arg1, "[" + local2 + "] 指定视频评论区 (" + (num3 + 1) + "/" + result3.length + ") 完成：" + fn72(result), entityIngestSummaryLevel(result));
+            obj = local4;
           }
         }
-        return _0x474c65;
+        return obj;
       };
-      const _0x4ce78f = async _0x44f5ff => {
-        const _0x11f975 = _0x36adf7();
-        if (!_0x11f975 || _0x5e63d3(_0x11f975)) {
+      const local21 = async arg12 => {
+        const result = local5();
+        if (!result || fn62(result)) {
           return {
             success: true,
             users: [],
-            cancelled: !!_0x11f975?.stopRequested,
+            cancelled: !!result?.stopRequested,
             reachedLimit: true
           };
         }
-        const _0x1279c4 = _0x11f975.config || {};
-        const _0x43fccb = [];
-        if (String(_0x1279c4.searchSort || "0") !== "0") {
-          _0x43fccb.push(["综合排序", "最新发布", "最多点赞"][Number(_0x1279c4.searchSort)] || "排序");
+        const local4 = result.config || {};
+        const list = [];
+        if (String(local4.searchSort || "0") !== "0") {
+          list.push(["综合排序", "最新发布", "最多点赞"][Number(local4.searchSort)] || "排序");
         }
-        if (String(_0x1279c4.searchPublishTime || "0") !== "0") {
-          _0x43fccb.push(["", "一天内", "一周内", "半年内"][Number(_0x1279c4.searchPublishTime)] || "发布时间");
+        if (String(local4.searchPublishTime || "0") !== "0") {
+          list.push(["", "一天内", "一周内", "半年内"][Number(local4.searchPublishTime)] || "发布时间");
         }
-        if (String(_0x1279c4.searchDuration || "0") !== "0") {
-          _0x43fccb.push(["", "1分钟以下", "1-5分钟", "5分钟以上"][Number(_0x1279c4.searchDuration)] || "时长");
+        if (String(local4.searchDuration || "0") !== "0") {
+          list.push(["", "1分钟以下", "1-5分钟", "5分钟以上"][Number(local4.searchDuration)] || "时长");
         }
-        if (String(_0x1279c4.searchScope || "0") !== "0") {
-          _0x43fccb.push(["", "关注的人", "最近看过", "还未看过"][Number(_0x1279c4.searchScope)] || "范围");
+        if (String(local4.searchScope || "0") !== "0") {
+          list.push(["", "关注的人", "最近看过", "还未看过"][Number(local4.searchScope)] || "范围");
         }
-        if (String(_0x1279c4.searchFormat || "0") !== "0") {
-          _0x43fccb.push(["", "视频", "图文"][Number(_0x1279c4.searchFormat)] || "形式");
+        if (String(local4.searchFormat || "0") !== "0") {
+          list.push(["", "视频", "图文"][Number(local4.searchFormat)] || "形式");
         }
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 搜索视频：打开搜索页「" + _0x44f5ff + "」" + (_0x43fccb.length ? "（官方筛选：" + _0x43fccb.join(" · ") + "）" : ""), "info");
-        const _0x6e5ab5 = await _0x3ca1a0(_0x2cc526, _0x2e170b, _0xa0bd0b);
-        if (_0x6e5ab5?.ok === false) {
-          throw new Error("搜索页执行视口未就绪：" + (_0x6e5ab5.reason || "unknown"));
+        fn8(arg1, "[" + local2 + "] 搜索视频：打开搜索页「" + arg12 + "」" + (list.length ? "（官方筛选：" + list.join(" · ") + "）" : ""), "info");
+        const result3 = await fn30(local3, arg1, local2);
+        if (result3?.ok === false) {
+          throw new Error("搜索页执行视口未就绪：" + (result3.reason || "unknown"));
         }
         try {
-          if (_0x2cc526 && !_0x2cc526.isDestroyed()) {
-            _0x2cc526.webContents.send("entity-leadgen-clear-scrape-aweme", {
-              reason: "keyword:" + _0x44f5ff
+          if (local3 && !local3.isDestroyed()) {
+            local3.webContents.send("entity-leadgen-clear-scrape-aweme", {
+              reason: "keyword:" + arg12
             });
             await sleep(80);
           }
-        } catch (_0x5508bf) {}
-        await _0x317311(_0x2cc526, "video", _0x44f5ff);
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        } catch (error) {}
+        await fn53(local3, "video", arg12);
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        await _0x44de06(_0x2cc526, buildDouyinSearchUrl(_0x44f5ff, _0x480154()));
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+        await fn47(local3, buildDouyinSearchUrl(arg12, local()));
+        if (!fn45(arg1, arg3) || fn62(local5())) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        const _0xad9edf = _0x36adf7();
-        if (!_0xad9edf) {
+        const result4 = local5();
+        if (!result4) {
           return {
             success: true,
             users: [],
             cancelled: true
           };
         }
-        const _0x4a56d3 = _0xad9edf.config || {};
-        const _0x1ed36b = _0x3c2c48(_0x4a56d3, "comments");
-        const _0x22e52e = _0x3c2c48(_0x4a56d3, "video") || _0x3c2c48(_0x4a56d3, "author");
-        if (_0x1ed36b && !_0x22e52e) {
-          _0x3637c0 += 1;
-          return await _0x25402a({
-            label: "搜索视频「" + _0x44f5ff + "」",
-            searchKeyword: _0x44f5ff,
+        const local6 = result4.config || {};
+        const result5 = fn14(local6, "comments");
+        const local7 = fn14(local6, "video") || fn14(local6, "author");
+        if (result5 && !local7) {
+          num3 += 1;
+          return await local9({
+            label: "搜索视频「" + arg12 + "」",
+            searchKeyword: arg12,
             alsoIngestCards: false
           });
         }
-        const _0x2fc774 = await _0x89f5d3(_0x2cc526, {
-          taskId: _0x2e170b,
-          accountId: _0xe78b8e,
-          accountName: _0xa0bd0b,
+        const result6 = await fn74(local3, {
+          taskId: arg1,
+          accountId: result2,
+          accountName: local2,
           sourceType: "video",
-          searchKeyword: _0x44f5ff,
-          maxCollect: _0xad9edf.config.maxCollect,
-          collectedThisRun: _0xad9edf.progress.collectedThisRun,
-          knownKeys: _0xad9edf.knownKeys,
-          generation: _0x5d04c0,
+          searchKeyword: arg12,
+          maxCollect: result4.config.maxCollect,
+          collectedThisRun: result4.progress.collectedThisRun,
+          knownKeys: result4.knownKeys,
+          generation: arg3,
           skipIngest: false,
-          searchSort: _0x4a56d3.searchSort,
-          searchPublishTime: _0x4a56d3.searchPublishTime,
-          searchDuration: _0x4a56d3.searchDuration,
-          searchScope: _0x4a56d3.searchScope,
-          searchFormat: _0x4a56d3.searchFormat
+          searchSort: local6.searchSort,
+          searchPublishTime: local6.searchPublishTime,
+          searchDuration: local6.searchDuration,
+          searchScope: local6.searchScope,
+          searchFormat: local6.searchFormat
         });
-        _0x3637c0 += 1;
-        const _0x416b19 = await _0x4f9a2a(_0x2fc774, {
-          label: "搜索视频「" + _0x44f5ff + "」",
-          searchKeyword: _0x44f5ff,
+        num3 += 1;
+        const result7 = await local10(result6, {
+          label: "搜索视频「" + arg12 + "」",
+          searchKeyword: arg12,
           sourceType: "video_search",
           skipComments: true
         });
-        if (!_0x1ed36b) {
-          return _0x416b19;
+        if (!result5) {
+          return result7;
         }
-        if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
-          return _0x416b19;
+        if (!fn45(arg1, arg3) || fn62(local5())) {
+          return result7;
         }
-        _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 搜索视频「" + _0x44f5ff + "」：列表采完，回顶从第一条开始采评论区", "info");
-        return await _0x25402a({
-          label: "搜索视频「" + _0x44f5ff + "」",
-          searchKeyword: _0x44f5ff,
+        fn8(arg1, "[" + local2 + "] 搜索视频「" + arg12 + "」：列表采完，回顶从第一条开始采评论区", "info");
+        return await local9({
+          label: "搜索视频「" + arg12 + "」",
+          searchKeyword: arg12,
           alsoIngestCards: false
         });
       };
-      const _0x2a8e85 = (_0x36adf7()?.config?.sourceTypes || [])[0] || "video_search";
-      if (_0x2a8e85 === "user") {
+      const local22 = (local5()?.config?.sourceTypes || [])[0] || "video_search";
+      if (local22 === "user") {
         while (true) {
-          const _0x6bc192 = _0x36adf7();
-          if (!_0x6bc192) {
+          const result = local5();
+          if (!result) {
             break;
           }
-          const _0x21d341 = _0x41ccb7(_0x6bc192);
-          if (!_0x21d341) {
+          const result2 = fn63(result);
+          if (!result2) {
             break;
           }
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 领取关键词「" + _0x21d341.keyword + "」（" + (_0x21d341.index + 1) + "/" + _0x6bc192.config.keywords.length + "）", "info");
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          fn8(arg1, "[" + local2 + "] 领取关键词「" + result2.keyword + "」（" + (result2.index + 1) + "/" + result.config.keywords.length + "）", "info");
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          const _0x34fca0 = await _0x5b6acf(_0x21d341.keyword, "user");
-          if (_0x34fca0?.cancelled && _0x36adf7()?.stopRequested) {
+          const result3 = await local11(result2.keyword, "user");
+          if (result3?.cancelled && local5()?.stopRequested) {
             break;
           }
-          if (_0x5e63d3(_0x36adf7())) {
+          if (fn62(local5())) {
             break;
           }
         }
-      } else if (_0x2a8e85 === "video_search") {
+      } else if (local22 === "video_search") {
         while (true) {
-          const _0x1542f7 = _0x36adf7();
-          if (!_0x1542f7) {
+          const result = local5();
+          if (!result) {
             break;
           }
-          const _0x80ffd3 = _0x41ccb7(_0x1542f7);
-          if (!_0x80ffd3) {
+          const result2 = fn63(result);
+          if (!result2) {
             break;
           }
-          _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 领取关键词「" + _0x80ffd3.keyword + "」（" + (_0x80ffd3.index + 1) + "/" + _0x1542f7.config.keywords.length + "）", "info");
-          if (!_0x4ec184(_0x2e170b, _0x5d04c0) || _0x5e63d3(_0x36adf7())) {
+          fn8(arg1, "[" + local2 + "] 领取关键词「" + result2.keyword + "」（" + (result2.index + 1) + "/" + result.config.keywords.length + "）", "info");
+          if (!fn45(arg1, arg3) || fn62(local5())) {
             break;
           }
-          const _0x6b1b13 = await _0x4ce78f(_0x80ffd3.keyword);
-          if (_0x6b1b13?.cancelled && _0x36adf7()?.stopRequested) {
+          const result3 = await local21(result2.keyword);
+          if (result3?.cancelled && local5()?.stopRequested) {
             break;
           }
-          if (_0x5e63d3(_0x36adf7())) {
+          if (fn62(local5())) {
             break;
           }
         }
-      } else if (_0x2a8e85 === "mutual") {
-        await _0x26606b();
-      } else if (_0x2a8e85 === "following") {
-        await _0x4e7b1f();
-      } else if (_0x2a8e85 === "video_like") {
-        await _0x114075();
-      } else if (_0x2a8e85 === "video_recommend") {
-        await _0x163241();
-      } else if (_0x2a8e85 === "video_specific") {
-        await _0x5bdb8f();
-      } else if (_0x2a8e85 === "author_profile") {
-        await _0x5508c7();
-      } else if (_0x2a8e85 === "live") {
-        await _0x16e958();
+      } else if (local22 === "mutual") {
+        await local13();
+      } else if (local22 === "following") {
+        await local14();
+      } else if (local22 === "video_like") {
+        await local16();
+      } else if (local22 === "video_recommend") {
+        await local17();
+      } else if (local22 === "video_specific") {
+        await local20();
+      } else if (local22 === "author_profile") {
+        await local19();
+      } else if (local22 === "live") {
+        await local15();
       }
-      if (_0x3637c0 > 0) {
-        const _0x44780e = _0x36adf7();
-        if (_0x44780e?.tasksApi) {
-          _0x44780e.tasksApi.incrementStats(_0x2e170b, {
-            keywordsDone: _0x3637c0,
+      if (num3 > 0) {
+        const result = local5();
+        if (result?.tasksApi) {
+          result.tasksApi.incrementStats(arg1, {
+            keywordsDone: num3,
             lastCycleAt: Date.now()
           });
         }
       }
-      const _0x43009a = _0x36adf7()?.progress?.collectedThisRun ?? _0x783633 + _0x36dedb;
-      const _0x1ceb28 = Math.max(_0x36dedb, _0x43009a - _0x783633);
-      _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 本账号结束：新入库 " + _0x1ceb28 + (_0x379707 > 0 ? "，线索库已有跳过 " + _0x379707 : ""), "success");
+      const local23 = local5()?.progress?.collectedThisRun ?? local4 + num;
+      const result5 = Math.max(num, local23 - local4);
+      fn8(arg1, "[" + local2 + "] 本账号结束：新入库 " + result5 + (num2 > 0 ? "，线索库已有跳过 " + num2 : ""), "success");
       return {
-        collected: _0x1ceb28,
-        duplicates: _0x379707
+        collected: result5,
+        duplicates: num2
       };
-    } catch (_0x32f08a) {
-      _0x9d21b4(_0x2e170b, "[" + _0xa0bd0b + "] 异常：" + (_0x32f08a.message || _0x32f08a), "error");
+    } catch (error) {
+      fn8(arg1, "[" + local2 + "] 异常：" + (error.message || error), "error");
       return {
-        collected: _0x36dedb,
-        duplicates: _0x379707
+        collected: num,
+        duplicates: num2
       };
     } finally {
-      if (_0x2cc526 && !_0x2cc526.isDestroyed()) {
+      if (local3 && !local3.isDestroyed()) {
         try {
-          _0x2cc526.webContents.send("control-task", {
+          local3.webContents.send("control-task", {
             type: "ENTITY_LEADGEN_CANCEL",
             payload: {
-              taskId: _0x2e170b,
-              accountId: _0xe78b8e,
-              generation: _0x5d04c0
+              taskId: arg1,
+              accountId: result2,
+              generation: arg3
             }
           });
-        } catch (_0x35b1fc) {}
+        } catch (error) {}
       }
-      _0x14e7cd(_0x2cc526);
+      fn31(local3);
     }
   }
-  async function _0x187aa5(_0xcc7d73) {
-    const _0x4ede73 = _0x5ea9b0.get(_0xcc7d73);
-    if (!_0x4ede73 || _0x4ede73.running) {
+  async function fn77(arg1) {
+    const result = map.get(arg1);
+    if (!result || result.running) {
       return;
     }
-    _0x4ede73.running = true;
-    const _0x238af5 = _0x4ede73.generation;
+    result.running = true;
+    const value = result.generation;
     const {
-      config: _0x47c68e,
-      accounts: _0x342e7f,
-      tasksApi: _0x535302,
-      taskName: _0x68c40a
-    } = _0x4ede73;
-    const _0x4fa6a5 = _0x2f7dbf(_0x47c68e.sourceTypes[0]);
-    const _0xbdc38c = {
+      config: config,
+      accounts: accounts,
+      tasksApi: tasksApi,
+      taskName: taskName
+    } = result;
+    const result2 = fn27(config.sourceTypes[0]);
+    const obj = {
       collectedThisRun: 0
     };
-    _0x4ede73.knownKeys = _0x4fa6a5;
-    _0x4ede73.ingestedKeysThisRun = new Set();
-    _0x4ede73.duplicateTrailKeys = new Set();
-    _0x4ede73.progress = _0xbdc38c;
-    _0x4ede73.nextKeywordIndex = 0;
-    _0x4ede73.nextLiveUrlIndex = 0;
-    _0x4ede73.windowKeys = new Set();
-    const _0x1e77ca = _0x47c68e.sourceTypes.length === 1 && _0x47c68e.sourceTypes[0] === "live";
-    const _0xa0b1ea = (Array.isArray(_0x342e7f) ? _0x342e7f : []).filter(_0x5a5968 => {
-      const _0x54644b = String(_0x5a5968?.id || "").trim();
-      return _0x54644b && !isAnonymousEntityAccountId(_0x54644b);
+    result.knownKeys = result2;
+    result.ingestedKeysThisRun = new Set();
+    result.duplicateTrailKeys = new Set();
+    result.progress = obj;
+    result.nextKeywordIndex = 0;
+    result.nextLiveUrlIndex = 0;
+    result.windowKeys = new Set();
+    const local = config.sourceTypes.length === 1 && config.sourceTypes[0] === "live";
+    const result3 = (Array.isArray(accounts) ? accounts : []).filter(arg1 => {
+      const result = String(arg1?.id || "").trim();
+      return result && !isAnonymousEntityAccountId(result);
     });
-    let _0x2f6375 = _0xa0b1ea;
-    if (_0x1e77ca) {
-      const _0x4feeae = Array.isArray(_0x47c68e.liveUrls) ? _0x47c68e.liveUrls.length : 0;
-      if (_0xa0b1ea.length > 0) {
-        const _0x37f394 = await _0x2f1658(_0xcc7d73, _0x238af5, Math.min(_0x4feeae, _0xa0b1ea.length), _0x47c68e.liveConcurrency);
-        _0x2f6375 = _0xa0b1ea.map((_0x3cfa35, _0x44a167) => ({
-          ..._0x3cfa35,
-          liveWorkerIndex: _0x44a167,
-          liveWorkerEnabled: _0x44a167 < _0x37f394
+    let local2 = result3;
+    if (local) {
+      const value2 = Array.isArray(config.liveUrls) ? config.liveUrls.length : 0;
+      if (result3.length > 0) {
+        const result = await fn68(arg1, value, Math.min(value2, result3.length), config.liveConcurrency);
+        local2 = result3.map((arg1, arg2) => ({
+          ...arg1,
+          liveWorkerIndex: arg2,
+          liveWorkerEnabled: arg2 < result
         }));
-        _0x9d21b4(_0xcc7d73, "直播间将由 " + Math.min(_0x37f394, _0xa0b1ea.length) + " 个账号窗口共享领取（并发上限 " + normalizeLiveConcurrency(_0x47c68e.liveConcurrency) + "）" + ("" + (_0x5ea9b0.get(_0xcc7d73)?.liveConcurrencyDetails?.reason ? "；本机自适应：" + _0x5ea9b0.get(_0xcc7d73).liveConcurrencyDetails.reason : "")), _0x37f394 < normalizeLiveConcurrency(_0x47c68e.liveConcurrency) ? "warning" : "info");
+        fn8(arg1, "直播间将由 " + Math.min(result, result3.length) + " 个账号窗口共享领取（并发上限 " + normalizeLiveConcurrency(config.liveConcurrency) + "）" + ("" + (map.get(arg1)?.liveConcurrencyDetails?.reason ? "；本机自适应：" + map.get(arg1).liveConcurrencyDetails.reason : "")), result < normalizeLiveConcurrency(config.liveConcurrency) ? "warning" : "info");
       } else {
-        const _0x13bc4e = await _0x2f1658(_0xcc7d73, _0x238af5, _0x4feeae, _0x47c68e.liveConcurrency);
-        _0x2f6375 = Array.from({
-          length: _0x13bc4e
-        }, (_0x26f0bd, _0x131c97) => ({
-          id: "anonymous:" + _0xcc7d73 + ":" + _0x131c97,
+        const result = await fn68(arg1, value, value2, config.liveConcurrency);
+        local2 = Array.from({
+          length: result
+        }, (arg12, arg2) => ({
+          id: "anonymous:" + arg1 + ":" + arg2,
           platform: "douyin",
-          name: "无账号采集 " + (_0x131c97 + 1),
-          nickname: "无账号采集 " + (_0x131c97 + 1),
-          liveWorkerIndex: _0x131c97
+          name: "无账号采集 " + (arg2 + 1),
+          nickname: "无账号采集 " + (arg2 + 1),
+          liveWorkerIndex: arg2
         }));
-        if (_0x13bc4e > 0) {
-          const _0x27e014 = _0x5ea9b0.get(_0xcc7d73)?.liveConcurrencyDetails;
-          const _0xaeaeb0 = _0x27e014?.reason ? "；本机自适应：" + _0x27e014.reason : "";
-          _0x9d21b4(_0xcc7d73, "无账号直播间队列已启动：" + _0x4feeae + " 个直播间，并发上限 " + normalizeLiveConcurrency(_0x47c68e.liveConcurrency) + "，实际启动 " + _0x13bc4e + " 个" + _0xaeaeb0, _0x13bc4e < normalizeLiveConcurrency(_0x47c68e.liveConcurrency) ? "warning" : "success");
+        if (result > 0) {
+          const local = map.get(arg1)?.liveConcurrencyDetails;
+          const value = local?.reason ? "；本机自适应：" + local.reason : "";
+          fn8(arg1, "无账号直播间队列已启动：" + value2 + " 个直播间，并发上限 " + normalizeLiveConcurrency(config.liveConcurrency) + "，实际启动 " + result + " 个" + value, result < normalizeLiveConcurrency(config.liveConcurrency) ? "warning" : "success");
         }
       }
     }
-    if (!_0x2f6375.length) {
-      _0x9d21b4(_0xcc7d73, _0x1e77ca ? "直播采集任务已取消启动" : "未选择执行账号，已取消启动（游客仅可跑直播间）", "error");
-      _0x4ede73.running = false;
-      _0x5ea9b0.delete(_0xcc7d73);
-      releaseTaskRuntimeGuard(_0x494c23(_0xcc7d73));
+    if (!local2.length) {
+      fn8(arg1, local ? "直播采集任务已取消启动" : "未选择执行账号，已取消启动（游客仅可跑直播间）", "error");
+      result.running = false;
+      map.delete(arg1);
+      releaseTaskRuntimeGuard(local3(arg1));
       return;
     }
-    const _0x5012f7 = _0x47c68e.sourceTypes[0] || "video_search";
-    const _0x44e405 = Array.isArray(_0x47c68e.scrapeTargets) ? _0x47c68e.scrapeTargets.join("+") : "";
-    let _0x294b4f = "";
-    if (_0x3c2c48(_0x47c68e, "comments")) {
+    const local4 = config.sourceTypes[0] || "video_search";
+    const value2 = Array.isArray(config.scrapeTargets) ? config.scrapeTargets.join("+") : "";
+    let text = "";
+    if (fn14(config, "comments")) {
       try {
         const {
-          formatEntityCommentFiltersSummary: _0x4eaae6
+          formatEntityCommentFiltersSummary: formatEntityCommentFiltersSummary
         } = require("../shared/entityCommentFilters");
-        const _0x1e849f = _0x4eaae6(_0x47c68e);
-        if (_0x1e849f && _0x1e849f !== "不限") {
-          _0x294b4f = "；评论筛选 " + _0x1e849f;
+        const result = formatEntityCommentFiltersSummary(config);
+        if (result && result !== "不限") {
+          text = "；评论筛选 " + result;
         }
-      } catch (_0x485747) {}
+      } catch (error) {}
     }
-    const _0x39ed09 = _0x5012f7 === "video_specific" ? "指定视频 " + _0xc7ac45(_0x47c68e.specifiedUrls).length + " 个" : _0x5012f7 === "video_recommend" ? "采集链接数 " + (_0x47c68e.maxCollect || 100) : _0x5012f7 === "live" ? "直播间 " + _0x47c68e.liveUrls.length + " 个" : "关键词 " + (_0x47c68e.keywords.length || 0) + " 个";
-    const _0x2027b9 = _0x5012f7 === "video_specific" ? "无上限" : _0x5012f7 === "video_recommend" ? "采集链接数 " + (_0x47c68e.maxCollect || 100) : "上限 " + (_0x47c68e.maxCollect || "不限");
-    const _0x5c90c9 = isEntityRelationAuthorSource(_0x5012f7) ? "采集主页" : "线索库";
-    _0x9d21b4(_0xcc7d73, "线索采集已启动：来源 " + _0x5012f7 + (_0x44e405 ? "（" + _0x44e405 + "）" : "") + "，" + _0x39ed09 + "，" + _0x2027b9 + "，账号 " + (_0x1e77ca && !_0xa0b1ea.length ? "无账号游客" : _0x2f6375.map(_0x56182f => _0x56182f.nickname || _0x56182f.name || _0x56182f.id).join("、")) + "；" + _0x5c90c9 + "已有 " + _0x4fa6a5.size + " 个用户将自动跳过" + _0x294b4f, "success");
+    const value3 = local4 === "video_specific" ? "指定视频 " + fn5(config.specifiedUrls).length + " 个" : local4 === "video_recommend" ? "采集链接数 " + (config.maxCollect || 100) : local4 === "live" ? "直播间 " + config.liveUrls.length + " 个" : "关键词 " + (config.keywords.length || 0) + " 个";
+    const value4 = local4 === "video_specific" ? "无上限" : local4 === "video_recommend" ? "采集链接数 " + (config.maxCollect || 100) : "上限 " + (config.maxCollect || "不限");
+    const value5 = isEntityRelationAuthorSource(local4) ? "采集主页" : "线索库";
+    fn8(arg1, "线索采集已启动：来源 " + local4 + (value2 ? "（" + value2 + "）" : "") + "，" + value3 + "，" + value4 + "，账号 " + (local && !result3.length ? "无账号游客" : local2.map(arg1 => arg1.nickname || arg1.name || arg1.id).join("、")) + "；" + value5 + "已有 " + result2.size + " 个用户将自动跳过" + text, "success");
     try {
-      await Promise.all(_0x2f6375.map(_0x42bd89 => _0xe58fbe(_0xcc7d73, _0x42bd89, _0x238af5)));
-      const _0x46cb53 = _0x5ea9b0.get(_0xcc7d73);
-      if (!_0x46cb53 || _0x46cb53.generation !== _0x238af5) {
+      await Promise.all(local2.map(arg12 => fn76(arg1, arg12, value)));
+      const result = map.get(arg1);
+      if (!result || result.generation !== value) {
         return;
       }
-      const _0x458b9e = Date.now();
-      const _0x37f124 = _0x46cb53.stopRequested ? "manual_stop" : _0x5e63d3(_0x46cb53) ? "limit_reached" : "completed";
-      const _0x2149b1 = _0x46cb53.stopRequested ? "stopped" : "completed";
-      if (_0x37f124 === "limit_reached") {
-        const _0x348ea4 = _0x46cb53.limitKind || (_0x5012f7 === "video_recommend" ? "link_count" : "max_collect");
-        _0x9d21b4(_0xcc7d73, _0x348ea4 === "link_count" ? "已达到采集链接数 " + _0x47c68e.maxCollect + "，结束任务" : "已达到最大采集数 " + _0x47c68e.maxCollect + "，结束任务", "info");
+      const result2 = Date.now();
+      const value2 = result.stopRequested ? "manual_stop" : fn62(result) ? "limit_reached" : "completed";
+      const value3 = result.stopRequested ? "stopped" : "completed";
+      if (value2 === "limit_reached") {
+        const local = result.limitKind || (local4 === "video_recommend" ? "link_count" : "max_collect");
+        fn8(arg1, local === "link_count" ? "已达到采集链接数 " + config.maxCollect + "，结束任务" : "已达到最大采集数 " + config.maxCollect + "，结束任务", "info");
       }
-      const _0x1f3460 = (_0x535302.findTaskById(_0xcc7d73)?.runs || []).map(_0x3c7331 => ({
-        ..._0x3c7331,
-        endedAt: _0x3c7331.endedAt || _0x458b9e,
-        endReason: _0x3c7331.endReason || _0x37f124
+      const result3 = (tasksApi.findTaskById(arg1)?.runs || []).map(arg1 => ({
+        ...arg1,
+        endedAt: arg1.endedAt || result2,
+        endReason: arg1.endReason || value2
       }));
-      _0x535302.patchTask(_0xcc7d73, {
-        status: _0x2149b1,
-        endedAt: _0x458b9e,
-        endReason: _0x37f124,
-        runs: _0x1f3460
+      tasksApi.patchTask(arg1, {
+        status: value3,
+        endedAt: result2,
+        endReason: value2,
+        runs: result3
       });
-      _0x9d21b4(_0xcc7d73, _0x2149b1 === "completed" ? "线索采集任务已完成" : "线索采集任务已停止", _0x2149b1 === "completed" ? "success" : "info");
-      _0x396135(_0xcc7d73, {
+      fn8(arg1, value3 === "completed" ? "线索采集任务已完成" : "线索采集任务已停止", value3 === "completed" ? "success" : "info");
+      fn7(arg1, {
         type: "finished",
-        status: _0x2149b1,
-        endReason: _0x37f124,
-        ts: _0x458b9e
+        status: value3,
+        endReason: value2,
+        ts: result2
       });
-    } catch (_0x572ceb) {
-      const _0xc897d8 = _0x5ea9b0.get(_0xcc7d73);
-      if (!_0xc897d8 || _0xc897d8.generation !== _0x238af5) {
+    } catch (error) {
+      const result = map.get(arg1);
+      if (!result || result.generation !== value) {
         return;
       }
-      const _0x3e7d7c = Date.now();
-      _0x535302.patchTask(_0xcc7d73, {
+      const result2 = Date.now();
+      tasksApi.patchTask(arg1, {
         status: "stopped",
-        endedAt: _0x3e7d7c,
+        endedAt: result2,
         endReason: "error"
       });
-      _0x9d21b4(_0xcc7d73, "任务异常结束：" + (_0x572ceb.message || _0x572ceb), "error");
-      _0x396135(_0xcc7d73, {
+      fn8(arg1, "任务异常结束：" + (error.message || error), "error");
+      fn7(arg1, {
         type: "finished",
         status: "stopped",
         endReason: "error",
-        ts: _0x3e7d7c
+        ts: result2
       });
     } finally {
-      const _0x2ed12c = _0x5ea9b0.get(_0xcc7d73);
-      if (_0x2ed12c && _0x2ed12c.generation === _0x238af5) {
-        const _0x1dec3f = _0x2ed12c.windowKeys && _0x2ed12c.windowKeys.size ? [..._0x2ed12c.windowKeys] : _0x745e87(_0x2ed12c.accounts || []);
-        _0x5ea9b0.delete(_0xcc7d73);
-        releaseTaskRuntimeGuard(_0x494c23(_0xcc7d73));
-        _0xf412fd(_0x1dec3f);
+      const result = map.get(arg1);
+      if (result && result.generation === value) {
+        const value = result.windowKeys && result.windowKeys.size ? [...result.windowKeys] : fn50(result.accounts || []);
+        map.delete(arg1);
+        releaseTaskRuntimeGuard(local3(arg1));
+        fn52(value);
       } else {
-        releaseTaskRuntimeGuard(_0x494c23(_0xcc7d73));
+        releaseTaskRuntimeGuard(local3(arg1));
       }
     }
   }
-  function _0x59800c(_0x57315e, _0x900263, _0x5f873f) {
-    const _0x7551d9 = _0x57315e.id;
-    const _0x2411d5 = _0x28ca8e(_0x57315e.configSnapshot || {});
-    if (_0x26fd46(_0x2411d5) && _0x22bc32(_0x7551d9)) {
+  function fn78(arg1, arg2, arg3) {
+    const value = arg1.id;
+    const result = fn13(arg1.configSnapshot || {});
+    if (fn79(result) && fn80(value)) {
       return {
         ok: false,
         error: "已有直播间采集任务在运行，请先停止后再启动"
       };
     }
-    const _0x3b5f2e = [];
-    const _0x38570d = Array.isArray(_0x900263) ? _0x900263 : [];
-    for (const _0x12665f of _0x38570d) {
-      const _0x3d319f = String(_0x12665f?.id || "").trim();
-      if (!_0x3d319f || isAnonymousEntityAccountId(_0x3d319f)) {
+    const list = [];
+    const value2 = Array.isArray(arg2) ? arg2 : [];
+    for (const item of value2) {
+      const result = String(item?.id || "").trim();
+      if (!result || isAnonymousEntityAccountId(result)) {
         continue;
       }
-      if (typeof isCommentLeadgenAccountBusy === "function" && isCommentLeadgenAccountBusy(_0x3d319f)) {
-        _0x3b5f2e.push(_0x3d319f);
-      } else if (typeof isVideoMonitorAccountBusy === "function" && isVideoMonitorAccountBusy(_0x3d319f)) {
-        _0x3b5f2e.push(_0x3d319f);
+      if (typeof isCommentLeadgenAccountBusy === "function" && isCommentLeadgenAccountBusy(result)) {
+        list.push(result);
+      } else if (typeof isVideoMonitorAccountBusy === "function" && isVideoMonitorAccountBusy(result)) {
+        list.push(result);
       }
     }
-    if (_0x3b5f2e.length) {
+    if (list.length) {
       return {
         ok: false,
-        error: "账号正在评论获客或监控任务中，请先停止后再启动线索采集（" + _0x3b5f2e.join("、") + "）",
-        conflictAccountIds: _0x3b5f2e
+        error: "账号正在评论获客或监控任务中，请先停止后再启动线索采集（" + list.join("、") + "）",
+        conflictAccountIds: list
       };
     }
-    const _0x211ef6 = _0x5ea9b0.get(_0x7551d9);
-    const _0x31a195 = (_0x211ef6?.generation || 0) + 1;
-    if (_0x211ef6) {
-      _0x211ef6.stopRequested = true;
-      _0x23fbd4(_0x7551d9, "任务已重启");
-      const _0x53f28e = _0x745e87(_0x211ef6.accounts || []);
-      for (const _0x519c2a of _0x53f28e) {
-        const _0x3f5487 = _0x31c2d3.get(String(_0x519c2a));
-        if (!_0x3f5487 || _0x3f5487.isDestroyed()) {
+    const result2 = map.get(value);
+    const value3 = (result2?.generation || 0) + 1;
+    if (result2) {
+      result2.stopRequested = true;
+      fn59(value, "任务已重启");
+      const result = fn50(result2.accounts || []);
+      for (const item of result) {
+        const result = map4.get(String(item));
+        if (!result || result.isDestroyed()) {
           continue;
         }
         try {
-          _0x3f5487.webContents.send("control-task", {
+          result.webContents.send("control-task", {
             type: "ENTITY_LEADGEN_CANCEL",
             payload: {
-              taskId: _0x7551d9,
-              accountId: _0x519c2a,
-              generation: _0x211ef6.generation
+              taskId: value,
+              accountId: item,
+              generation: result2.generation
             }
           });
-        } catch (_0x2d285e) {}
+        } catch (error) {}
       }
     }
-    const _0x51224c = _0x745e87(_0x900263 || []);
-    const _0x2087df = _0x51224c.filter(_0x847fd8 => isAnonymousEntityAccountId(_0x847fd8));
-    if (_0x2087df.length) {
-      _0x3ea421(_0x2087df);
+    const result3 = fn50(arg2 || []);
+    const result4 = result3.filter(arg1 => isAnonymousEntityAccountId(arg1));
+    if (result4.length) {
+      fn51(result4);
     }
-    _0x5ea9b0.set(_0x7551d9, {
-      config: _0x2411d5,
-      accounts: Array.isArray(_0x900263) ? _0x900263 : [],
-      tasksApi: _0x5f873f,
-      taskName: _0x57315e.name || "线索采集",
+    map.set(value, {
+      config: result,
+      accounts: Array.isArray(arg2) ? arg2 : [],
+      tasksApi: arg3,
+      taskName: arg1.name || "线索采集",
       running: false,
       stopRequested: false,
-      generation: _0x31a195,
+      generation: value3,
       nextKeywordIndex: 0,
       nextLiveUrlIndex: 0,
       liveWorkerCount: 0,
       windowKeys: new Set()
     });
-    acquireTaskRuntimeGuard(_0x494c23(_0x7551d9), {
+    acquireTaskRuntimeGuard(local3(value), {
       type: "entity-leadgen",
-      taskId: _0x7551d9
+      taskId: value
     });
     setTimeout(() => {
-      _0x187aa5(_0x7551d9);
+      fn77(value);
     }, 300);
     return {
       ok: true
     };
   }
-  function _0x4b8fec(_0x5068fc = {}) {
+  function fn81(options = {}) {
     try {
-      _0x16b42b.handleNavResult(_0x5068fc || {});
-    } catch (_0x1ee4f3) {}
+      result.handleNavResult(options || {});
+    } catch (error) {}
   }
-  function _0x288fee(_0x31dc97) {
-    const _0x5d0705 = _0x5ea9b0.get(_0x31dc97);
-    if (!_0x5d0705) {
-      _0x23fbd4(_0x31dc97, "任务已停止");
+  function fn82(arg1) {
+    const result2 = map.get(arg1);
+    if (!result2) {
+      fn59(arg1, "任务已停止");
       try {
-        _0x16b42b.cancelPendingForTask(_0x31dc97);
-      } catch (_0x3f3ef8) {}
+        result.cancelPendingForTask(arg1);
+      } catch (error) {}
       return false;
     }
-    const _0x48484c = _0x5d0705.generation;
-    const _0x1c06c9 = !!_0x5d0705.running;
-    _0x5d0705.stopRequested = true;
-    _0x23fbd4(_0x31dc97, "任务已停止");
+    const value = result2.generation;
+    const flag = !!result2.running;
+    result2.stopRequested = true;
+    fn59(arg1, "任务已停止");
     try {
-      _0x16b42b.cancelPendingForTask(_0x31dc97);
-    } catch (_0x5ce491) {}
-    const _0x3e0f45 = _0x5d0705.windowKeys && _0x5d0705.windowKeys.size ? [..._0x5d0705.windowKeys] : _0x745e87(_0x5d0705.accounts || []);
-    for (const _0x192aa4 of _0x3e0f45) {
-      const _0xd9075e = _0x31c2d3.get(String(_0x192aa4));
-      if (!_0xd9075e || _0xd9075e.isDestroyed()) {
+      result.cancelPendingForTask(arg1);
+    } catch (error) {}
+    const value2 = result2.windowKeys && result2.windowKeys.size ? [...result2.windowKeys] : fn50(result2.accounts || []);
+    for (const item of value2) {
+      const result = map4.get(String(item));
+      if (!result || result.isDestroyed()) {
         continue;
       }
       try {
-        _0xd9075e.webContents.send("control-task", {
+        result.webContents.send("control-task", {
           type: "ENTITY_LEADGEN_CANCEL",
           payload: {
-            taskId: _0x31dc97,
-            accountId: _0x192aa4,
-            generation: _0x48484c
+            taskId: arg1,
+            accountId: item,
+            generation: value
           }
         });
-      } catch (_0x21ef21) {}
+      } catch (error) {}
     }
-    _0xf412fd(_0x3e0f45);
-    _0x5ea9b0.delete(_0x31dc97);
-    releaseTaskRuntimeGuard(_0x494c23(_0x31dc97));
-    _0x9d21b4(_0x31dc97, _0x1c06c9 ? "线索采集任务已停止（账号占用已释放）" : "线索采集任务已停止", "info");
-    _0x396135(_0x31dc97, {
+    fn52(value2);
+    map.delete(arg1);
+    releaseTaskRuntimeGuard(local3(arg1));
+    fn8(arg1, flag ? "线索采集任务已停止（账号占用已释放）" : "线索采集任务已停止", "info");
+    fn7(arg1, {
       type: "finished",
       status: "stopped",
       endReason: "manual_stop",
@@ -4989,92 +4989,92 @@ function createEntityLeadgenRunner(_0x32e717) {
     });
     return true;
   }
-  function _0x3eef61(_0x55faa9) {
-    const _0x5c1e06 = _0x5ea9b0.get(_0x55faa9);
-    return !!_0x5c1e06 && !_0x5c1e06.stopRequested;
+  function fn83(arg1) {
+    const result = map.get(arg1);
+    return !!result && !result.stopRequested;
   }
-  function _0x33b519() {
-    return [..._0x5ea9b0.entries()].filter(([, _0x41b0ab]) => _0x41b0ab && !_0x41b0ab.stopRequested).map(([_0x4fca9f]) => _0x4fca9f);
+  function fn84() {
+    return [...map.entries()].filter(([, arg1]) => arg1 && !arg1.stopRequested).map(([arg1]) => arg1);
   }
-  function _0x34a005() {
-    let _0x3f9169 = 0;
-    for (const _0x1c9eb7 of _0x5ea9b0.values()) {
-      if (_0x1c9eb7?.stopRequested) {
+  function fn85() {
+    let num = 0;
+    for (const item of map.values()) {
+      if (item?.stopRequested) {
         continue;
       }
-      const _0x4e0571 = Array.isArray(_0x1c9eb7.accounts) ? _0x1c9eb7.accounts : [];
-      _0x3f9169 += _0x4e0571.filter(_0x391942 => {
-        const _0x247186 = String(_0x391942?.id || "").trim();
-        return _0x247186 && !isAnonymousEntityAccountId(_0x247186);
+      const value = Array.isArray(item.accounts) ? item.accounts : [];
+      num += value.filter(arg1 => {
+        const result = String(arg1?.id || "").trim();
+        return result && !isAnonymousEntityAccountId(result);
       }).length;
     }
-    return _0x3f9169;
+    return num;
   }
-  function _0x27521e() {
-    const _0x5e1523 = [];
-    for (const _0x7c51e7 of _0x5ea9b0.values()) {
-      if (_0x7c51e7?.stopRequested) {
+  function fn86() {
+    const list = [];
+    for (const item of map.values()) {
+      if (item?.stopRequested) {
         continue;
       }
-      const _0x4edf49 = Array.isArray(_0x7c51e7.accounts) ? _0x7c51e7.accounts : [];
-      _0x4edf49.forEach(_0x195985 => {
-        const _0x468461 = String(_0x195985?.id || "").trim();
-        if (_0x468461 && !isAnonymousEntityAccountId(_0x468461)) {
-          _0x5e1523.push(_0x468461);
+      const value = Array.isArray(item.accounts) ? item.accounts : [];
+      value.forEach(arg1 => {
+        const result = String(arg1?.id || "").trim();
+        if (result && !isAnonymousEntityAccountId(result)) {
+          list.push(result);
         }
       });
     }
-    return _0x5e1523;
+    return list;
   }
-  function _0x26fd46(_0x4cabd1 = {}) {
-    const _0x4fc653 = Array.isArray(_0x4cabd1?.sourceTypes) ? _0x4cabd1.sourceTypes : [];
-    return _0x4fc653.map(String).includes("live");
+  function fn79(options = {}) {
+    const value = Array.isArray(options?.sourceTypes) ? options.sourceTypes : [];
+    return value.map(String).includes("live");
   }
-  function _0x22bc32(_0x535df4 = null) {
-    for (const [_0x30e6b0, _0x341c9c] of _0x5ea9b0.entries()) {
-      if (_0x535df4 && String(_0x30e6b0) === String(_0x535df4)) {
+  function fn80(arg1 = null) {
+    for (const [local, local2] of map.entries()) {
+      if (arg1 && String(local) === String(arg1)) {
         continue;
       }
-      if (_0x26fd46(_0x341c9c?.config)) {
+      if (fn79(local2?.config)) {
         return true;
       }
     }
     return false;
   }
-  function _0x3ce21d() {
-    const _0x5124a4 = [];
-    for (const [_0xfe5ec5, _0x8b6672] of _0x5ea9b0.entries()) {
-      if (_0x26fd46(_0x8b6672?.config)) {
-        _0x5124a4.push(_0xfe5ec5);
+  function fn87() {
+    const list = [];
+    for (const [local, local2] of map.entries()) {
+      if (fn79(local2?.config)) {
+        list.push(local);
       }
     }
-    return _0x5124a4;
+    return list;
   }
-  function _0x5a1016() {
-    [..._0x5ea9b0.keys()].forEach(_0x5094e2 => _0x288fee(_0x5094e2));
+  function fn88() {
+    [...map.keys()].forEach(arg1 => fn82(arg1));
   }
-  function _0x248269() {
-    return [..._0x31c2d3.values()].filter(_0x37ec1c => _0x37ec1c && !_0x37ec1c.isDestroyed()).map(_0x5df170 => _0x5df170.webContents).filter(_0x473316 => _0x473316 && !_0x473316.isDestroyed?.());
+  function fn89() {
+    return [...map4.values()].filter(arg1 => arg1 && !arg1.isDestroyed()).map(arg1 => arg1.webContents).filter(arg1 => arg1 && !arg1.isDestroyed?.());
   }
   return {
-    startTask: _0x59800c,
-    stopTask: _0x288fee,
-    stopAll: _0x5a1016,
-    isTaskRunning: _0x3eef61,
-    listRunningTaskIds: _0x33b519,
-    countRunningAccounts: _0x34a005,
-    listBusyAccountIds: _0x27521e,
-    hasRunningLiveTask: _0x22bc32,
-    listRunningLiveTaskIds: _0x3ce21d,
-    listWebContents: _0x248269,
-    getTaskLogs: _0x2ea3e5,
-    clearTaskLogs: _0x5db3ad,
-    handleCollectProgress: _0x314742,
-    handleCollectResult: _0x5bf25b,
-    handleAuthorNavResult: _0x4b8fec,
-    showMonitorWindow: _0xd6004,
-    hideMonitorWindow: _0x2d7f14,
-    consumePendingLivePreview: _0x49db9b
+    startTask: fn78,
+    stopTask: fn82,
+    stopAll: fn88,
+    isTaskRunning: fn83,
+    listRunningTaskIds: fn84,
+    countRunningAccounts: fn85,
+    listBusyAccountIds: fn86,
+    hasRunningLiveTask: fn80,
+    listRunningLiveTaskIds: fn87,
+    listWebContents: fn89,
+    getTaskLogs: fn10,
+    clearTaskLogs: fn11,
+    handleCollectProgress: fn69,
+    handleCollectResult: fn71,
+    handleAuthorNavResult: fn81,
+    showMonitorWindow: fn35,
+    hideMonitorWindow: fn36,
+    consumePendingLivePreview: fn37
   };
 }
 module.exports = {
