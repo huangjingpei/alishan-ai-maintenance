@@ -7,120 +7,120 @@ const {
   app
 } = require("electron");
 function createExtensionSync({
-  store: _0x2af811,
-  appDir: _0x3e0746
+  store: store,
+  appDir: appDir
 }) {
-  const _0x53877a = ".sync-meta.json";
-  function _0x3894e2() {
-    return new Promise(_0x5804b2 => setImmediate(_0x5804b2));
+  const text = ".sync-meta.json";
+  function fn() {
+    return new Promise(arg1 => setImmediate(arg1));
   }
-  async function _0x192f9f(_0x6fbbc0, _0x2fbc38, _0x22387d = {
+  async function copyRecursive(arg1, arg2, options = {
     files: 0
   }) {
-    if (!fs.existsSync(_0x6fbbc0)) {
+    if (!fs.existsSync(arg1)) {
       return;
     }
-    await fsp.mkdir(_0x2fbc38, {
+    await fsp.mkdir(arg2, {
       recursive: true
     });
-    const _0x3a2988 = await fsp.readdir(_0x6fbbc0);
-    for (const _0x5c39ed of _0x3a2988) {
-      const _0x1e8f81 = path.join(_0x6fbbc0, _0x5c39ed);
-      const _0x5a671d = path.join(_0x2fbc38, _0x5c39ed);
-      const _0x3e0b11 = await fsp.lstat(_0x1e8f81);
-      if (_0x3e0b11.isDirectory()) {
-        await _0x192f9f(_0x1e8f81, _0x5a671d, _0x22387d);
+    const result = await fsp.readdir(arg1);
+    for (const item of result) {
+      const result = path.join(arg1, item);
+      const result2 = path.join(arg2, item);
+      const result3 = await fsp.lstat(result);
+      if (result3.isDirectory()) {
+        await copyRecursive(result, result2, options);
       } else {
-        await fsp.copyFile(_0x1e8f81, _0x5a671d);
-        _0x22387d.files += 1;
-        if (_0x22387d.files % 16 === 0) {
-          await _0x3894e2();
+        await fsp.copyFile(result, result2);
+        options.files += 1;
+        if (options.files % 16 === 0) {
+          await fn();
         }
       }
     }
   }
-  async function _0x44f278(_0x38b03f) {
-    const _0x181eff = path.join(_0x38b03f, _0x53877a);
+  async function fn3(arg1) {
+    const result = path.join(arg1, text);
     try {
-      if (!fs.existsSync(_0x181eff)) {
+      if (!fs.existsSync(result)) {
         return null;
       }
-      return JSON.parse(await fsp.readFile(_0x181eff, "utf8"));
-    } catch (_0x1c5821) {
+      return JSON.parse(await fsp.readFile(result, "utf8"));
+    } catch (error) {
       return null;
     }
   }
-  async function _0x487992(_0x13225e) {
-    const _0x4b374b = path.join(_0x13225e, "manifest.json");
-    let _0x1a9dc1 = 0;
-    let _0x4eb193 = 0;
+  async function fn4(arg1) {
+    const result = path.join(arg1, "manifest.json");
+    let num = 0;
+    let num2 = 0;
     try {
-      if (fs.existsSync(_0x4b374b)) {
-        const _0x3d9e5d = await fsp.stat(_0x4b374b);
-        _0x1a9dc1 = _0x3d9e5d.mtimeMs;
-        _0x4eb193 = _0x3d9e5d.size;
+      if (fs.existsSync(result)) {
+        const result2 = await fsp.stat(result);
+        num = result2.mtimeMs;
+        num2 = result2.size;
       } else {
-        const _0x2240da = await fsp.stat(_0x13225e);
-        _0x1a9dc1 = _0x2240da.mtimeMs;
-        _0x4eb193 = _0x2240da.size;
+        const result = await fsp.stat(arg1);
+        num = result.mtimeMs;
+        num2 = result.size;
       }
-    } catch (_0x486cdc) {}
+    } catch (error) {}
     return {
-      srcPath: _0x13225e,
-      mtimeMs: _0x1a9dc1,
-      size: _0x4eb193,
-      version: String(_0x2af811.get("local_ext_version") || _0x2af811.get("latest_ext_version") || "")
+      srcPath: arg1,
+      mtimeMs: num,
+      size: num2,
+      version: String(store.get("local_ext_version") || store.get("latest_ext_version") || "")
     };
   }
-  function _0x807d0e(_0x9b2d5f, _0x3b3dbe) {
-    if (!_0x9b2d5f || !_0x3b3dbe) {
+  function fn5(arg1, arg2) {
+    if (!arg1 || !arg2) {
       return false;
     }
-    return _0x9b2d5f.srcPath === _0x3b3dbe.srcPath && Number(_0x9b2d5f.mtimeMs) === Number(_0x3b3dbe.mtimeMs) && Number(_0x9b2d5f.size) === Number(_0x3b3dbe.size) && String(_0x9b2d5f.version || "") === String(_0x3b3dbe.version || "");
+    return arg1.srcPath === arg2.srcPath && Number(arg1.mtimeMs) === Number(arg2.mtimeMs) && Number(arg1.size) === Number(arg2.size) && String(arg1.version || "") === String(arg2.version || "");
   }
-  async function _0x501e66() {
+  async function syncExtensionToFixedPath() {
     try {
-      let _0x1b47f8 = _0x2af811.get("latest_ext_path");
-      let _0x4f6586 = "";
-      if (_0x1b47f8 && fs.existsSync(path.join(_0x1b47f8, "extension"))) {
-        _0x4f6586 = path.join(_0x1b47f8, "extension");
+      let result = store.get("latest_ext_path");
+      let text2 = "";
+      if (result && fs.existsSync(path.join(result, "extension"))) {
+        text2 = path.join(result, "extension");
       } else {
-        _0x4f6586 = app.isPackaged ? path.join(process.resourcesPath, "extension") : path.join(_0x3e0746, "..", "extension");
+        text2 = app.isPackaged ? path.join(process.resourcesPath, "extension") : path.join(appDir, "..", "extension");
       }
-      if (!fs.existsSync(_0x4f6586)) {
+      if (!fs.existsSync(text2)) {
         return;
       }
-      const _0x348efc = path.join(app.getPath("home"), ".huoke-radar-ext-current");
-      const _0x2069a3 = await _0x487992(_0x4f6586);
-      if (fs.existsSync(_0x348efc)) {
-        const _0x547c59 = await _0x44f278(_0x348efc);
-        if (_0x807d0e(_0x547c59, _0x2069a3)) {
-          console.log("[Main] 插件固定目录已是最新，跳过同步: " + _0x348efc);
-          return _0x348efc;
+      const result2 = path.join(app.getPath("home"), ".huoke-radar-ext-current");
+      const result3 = await fn4(text2);
+      if (fs.existsSync(result2)) {
+        const result = await fn3(result2);
+        if (fn5(result, result3)) {
+          console.log("[Main] 插件固定目录已是最新，跳过同步: " + result2);
+          return result2;
         }
       }
-      console.log("[Main] 正在同步插件到固定目录: " + _0x348efc);
-      if (fs.existsSync(_0x348efc)) {
-        await fsp.rm(_0x348efc, {
+      console.log("[Main] 正在同步插件到固定目录: " + result2);
+      if (fs.existsSync(result2)) {
+        await fsp.rm(result2, {
           recursive: true,
           force: true
         });
-        await _0x3894e2();
+        await fn();
       }
-      await fsp.mkdir(_0x348efc, {
+      await fsp.mkdir(result2, {
         recursive: true
       });
-      await _0x192f9f(_0x4f6586, _0x348efc);
-      await fsp.writeFile(path.join(_0x348efc, _0x53877a), JSON.stringify(_0x2069a3, null, 2) + "\n", "utf8");
+      await copyRecursive(text2, result2);
+      await fsp.writeFile(path.join(result2, text), JSON.stringify(result3, null, 2) + "\n", "utf8");
       console.log("[Main] 插件同步完成，手动安装用户重启浏览器即可完成升级");
-      return _0x348efc;
-    } catch (_0x51bfcc) {
-      console.error("[Main] 同步插件固定目录失败:", _0x51bfcc);
+      return result2;
+    } catch (error) {
+      console.error("[Main] 同步插件固定目录失败:", error);
     }
   }
   return {
-    copyRecursive: _0x192f9f,
-    syncExtensionToFixedPath: _0x501e66
+    copyRecursive: copyRecursive,
+    syncExtensionToFixedPath: syncExtensionToFixedPath
   };
 }
 module.exports = {
