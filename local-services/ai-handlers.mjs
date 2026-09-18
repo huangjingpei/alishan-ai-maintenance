@@ -228,7 +228,16 @@ export function createAiHandlers(ollamaClient) {
     }
     const messages = buildCommentDecisionMessages(body);
     const parsed = await ollamaClient.chatStructured(messages, COMMENT_DECISION_SCHEMA, { temperature: 0.4 });
-    const arr = Array.isArray(parsed) ? parsed : [];
+    let arr = Array.isArray(parsed) ? parsed : null;
+    if (!arr && typeof parsed === "object" && parsed !== null) {
+      for (const val of Object.values(parsed)) {
+        if (Array.isArray(val)) {
+          arr = val;
+          break;
+        }
+      }
+    }
+    arr = arr || [];
     const data = leads.map((_lead, i) => {
       const item = arr[i] || {};
       return {

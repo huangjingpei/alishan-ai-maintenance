@@ -3,6 +3,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createLocalBackendServer, DEFAULT_LOCAL_HOST, DEFAULT_LOCAL_PORT } from "../local-services/backend.mjs";
+import { loadEnvIfPresent } from "../local-services/ai-factory.mjs";
 
 // 中文乱码修复（Windows）：把控制台代码页切到 UTF-8(65001)。
 // 默认控制台为 GBK(936)，Node 输出的 UTF-8 字节会被误读成 mojibake（如「第」→「绗?」）。
@@ -23,6 +24,9 @@ if (process.platform === "win32" && !process.env.HUOKE_CP_UTF8) {
 const require = createRequire(import.meta.url);
 const electronPath = require("electron");
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+loadEnvIfPresent(repositoryRoot);
+
 const port = Number(process.env.HUOKE_LOCAL_PORT || DEFAULT_LOCAL_PORT);
 const backend = createLocalBackendServer({
   host: DEFAULT_LOCAL_HOST,
@@ -32,7 +36,9 @@ const address = await backend.start();
 
 console.log(`[LocalDev] 本地服务：${address.apiBase}`);
 console.log("[LocalDev] Electron 数据目录：.local-data");
-if (process.env.OLLAMA_BASE_URL || process.env.HUOKE_OLLAMA_ENABLED === "1") {
+if (process.env.DEEPSEEK_API_KEY) {
+  console.log(`[LocalDev] 检测到 DeepSeek API 配置，优先使用云端模型：model=${process.env.DEEPSEEK_MODEL || "deepseek-chat"}（Ollama 备用）`);
+} else if (process.env.OLLAMA_BASE_URL || process.env.HUOKE_OLLAMA_ENABLED === "1") {
   console.log("[LocalDev] 检测到 Ollama 环境变量，AI 接口将改向本地模型：" + (process.env.OLLAMA_BASE_URL || "默认 http://127.0.0.1:11434") + " model=" + (process.env.OLLAMA_MODEL || "qwen2.5:7b"));
 }
 

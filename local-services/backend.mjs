@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { validateRuntimeConfig } from "./runtime-config-validation.mjs";
 import { createOllamaClient, sanitizeAiMessage } from "./ollama-client.mjs";
 import { createAiHandlers } from "./ai-handlers.mjs";
+import { resolveAiClient, loadEnvIfPresent } from "./ai-factory.mjs";
 
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_LOCAL_HOST = "127.0.0.1";
@@ -115,20 +116,20 @@ export function createLocalBackendServer({
   port = DEFAULT_LOCAL_PORT,
   runtimeConfigPath = DEFAULT_RUNTIME_CONFIG_PATH,
   logger = console,
-  ollamaClient: injectedOllamaClient = null
+  ollamaClient: injectedOllamaClient = null,
+  aiClient: injectedAiClient = null
 } = {}) {
-  let ollamaClient = injectedOllamaClient || null;
-  if (!ollamaClient && (process.env.HUOKE_OLLAMA_ENABLED === "1" || process.env.OLLAMA_BASE_URL)) {
-    try {
-      ollamaClient = createOllamaClient();
-    } catch (err) {
-      logger.warn?.(`[LocalBackend] Ollama 客户端初始化失败，AI 接口回退为 501：${err.message}`);
-      ollamaClient = null;
-    }
+  loadEnvIfPresent();
+
+  let activeAiClient = injectedAiClient || injectedOllamaClient || null;
+  if (!activeAiClient) {
+    activeAiClient = resolveAiClient({ logger });
   }
-  const ai = ollamaClient ? createAiHandlers(ollamaClient) : null;
+
+  const ai = activeAiClient ? createAiHandlers(activeAiClient) : null;
   if (ai) {
-    logger.info?.(`[LocalBackend] AI 接口已改向本地 Ollama：${ollamaClient.baseUrl} model=${ollamaClient.model}`);
+    const providerName = activeAiClient.provider || (activeAiClient === injectedOllamaClient ? "ollama" : "ai");
+    logger.info?.(`[LocalBackend] AI 引擎已就绪 [${providerName}]：${activeAiClient.baseUrl || "default"} model=${activeAiClient.model || "default"}`);
   }
   const server = http.createServer(async (request, response) => {
     const requestUrl = new URL(request.url || "/", `http://${host}:${port}`);
