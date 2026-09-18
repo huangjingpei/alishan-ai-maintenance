@@ -1301,19 +1301,40 @@ function createCommentAutomationController(options = {}) {
     const result = getMergedCommentInputSelector();
     const result2 = getCommentItemSelector();
     const result3 = getMainCommentInputShellSelector();
-    if (!result || !hasCommentRuntimeReady()) {
+    const resultDraft = getDraftEditorSelector();
+    if (!hasCommentRuntimeReady()) {
       return null;
     }
     const list = [];
     if (arg1) {
       list.push(arg1);
     }
-    if (arg1 !== document) {
+    if (arg1 !== document && !list.includes(document)) {
       list.push(document);
     }
     let list2 = [];
     for (const item of list) {
-      list2.push(...Array.from(item.querySelectorAll(result)));
+      if (result) {
+        try {
+          list2.push(...Array.from(item.querySelectorAll(result)));
+        } catch (error) {}
+      }
+      if (resultDraft) {
+        try {
+          list2.push(...Array.from(item.querySelectorAll(resultDraft)));
+        } catch (error) {}
+      }
+      if (result3) {
+        try {
+          list2.push(...Array.from(item.querySelectorAll(result3)));
+        } catch (error) {}
+      }
+      try {
+        list2.push(...Array.from(item.querySelectorAll(".public-DraftEditor-content, [contenteditable], [role=\"textbox\"]")));
+      } catch (error) {}
+    }
+    if (document.activeElement && isVisibleElement(document.activeElement)) {
+      list2.push(document.activeElement);
     }
     list2 = [...new Set(list2.map(resolveMainCommentWritableElement).filter(Boolean))].filter(arg1 => {
       if (!isVisibleElement(arg1)) {
@@ -1326,16 +1347,16 @@ function createCommentAutomationController(options = {}) {
         } catch (error) {}
       }
       if (!flag) {
-        flag = Boolean(arg1.closest("[class*=\"comment-item\"], [class*=\"CommentItem\"]") && !arg1.closest("[class*=\"input\"], [class*=\"Input\"], [class*=\"write\"], [class*=\"Write\"], [class*=\"editor\"], [class*=\"Editor\"]"));
+        flag = Boolean(arg1.closest("[class*=\"comment-item\"], [class*=\"CommentItem\"]") && !arg1.closest("[class*=\"input\"], [class*=\"Input\"], [class*=\"write\"], [class*=\"Write\"], [class*=\"editor\"], [class*=\"Editor\"], [class*=\"compose\"], [class*=\"Compose\"]"));
       }
       if (flag) {
         return false;
       }
-      if (arg1.closest("[class*=\"search\"], [data-e2e=\"searchbar\"]")) {
+      if (arg1.closest("[class*=\"search\"], [data-e2e=\"searchbar\"], input[type=\"search\"]")) {
         return false;
       }
       const result = arg1.getBoundingClientRect();
-      if (result.width < 40 || result.height < 16) {
+      if (result.width < 30 || result.height < 12) {
         return false;
       }
       const result3 = window.getComputedStyle(arg1);
@@ -1361,18 +1382,24 @@ function createCommentAutomationController(options = {}) {
       if (result3) {
         try {
           if (arg12.closest(result3)) {
-            num += 10;
+            num += 25;
           }
         } catch (error) {}
       }
       if (arg12.classList.contains("public-DraftEditor-content")) {
-        num += 6;
+        num += 15;
+      }
+      if (arg12.isContentEditable || (arg12.getAttribute("contenteditable") || "").toLowerCase() === "true") {
+        num += 10;
+      }
+      if (arg12 === document.activeElement) {
+        num += 20;
       }
       if (arg12.tagName === "TEXTAREA" || arg12.tagName === "INPUT") {
         num += 7;
       }
       if ((arg12.getAttribute("role") || "").toLowerCase() === "textbox") {
-        num += 5;
+        num += 8;
       }
       const result4 = (arg12.getAttribute("placeholder") || "").toLowerCase();
       if (result4.includes("评论") || result4.includes("说点")) {
@@ -1388,7 +1415,7 @@ function createCommentAutomationController(options = {}) {
       };
     }).sort((arg1, arg2) => arg2.score - arg1.score);
     if (result4[0]) {
-      console.log("[Built-in-Debug] [主贴输入框] 选中编辑器 (score=" + result4[0].score.toFixed(1) + ")");
+      console.log("[Built-in-Debug] [主贴输入框] 选中编辑器 (score=" + result4[0].score.toFixed(1) + ", tag=" + result4[0].el.tagName + ", class=" + (result4[0].el.className || "").toString().slice(0, 40) + ")");
     }
     return result4[0]?.el || null;
   }
@@ -1404,18 +1431,33 @@ function createCommentAutomationController(options = {}) {
       const result = String(arg1.getAttribute("type") || "text").toLowerCase();
       return !arg1.disabled && !arg1.readOnly && !["button", "submit", "checkbox", "radio", "hidden", "file"].includes(result);
     }
-    const result2 = String(arg1.getAttribute("contenteditable") || "").toLowerCase();
-    if (result2 === "true" || result2 === "plaintext-only" || arg1.isContentEditable) {
+    const rawCe = arg1.getAttribute("contenteditable");
+    if (rawCe !== null) {
+      const result2 = String(rawCe).toLowerCase();
+      if (result2 === "true" || result2 === "plaintext-only" || result2 === "") {
+        return true;
+      }
+    }
+    if (arg1.isContentEditable) {
       return true;
     }
-    return arg1.classList?.contains("public-DraftEditor-content") || false;
+    if (arg1.classList?.contains("public-DraftEditor-content")) {
+      return true;
+    }
+    if ((arg1.getAttribute("role") || "").toLowerCase() === "textbox" && (rawCe !== null || arg1.isContentEditable || arg1.classList?.contains("public-DraftEditor-content"))) {
+      return true;
+    }
+    return false;
   }
   function resolveMainCommentWritableElement(arg1) {
+    if (!arg1) {
+      return null;
+    }
     if (isEditableElement(arg1)) {
       return arg1;
     }
     try {
-      return Array.from(arg1.querySelectorAll(".public-DraftEditor-content, [contenteditable=\"true\"], [contenteditable=\"plaintext-only\"], textarea, input, [role=\"textbox\"]")).find(arg1 => isEditableElement(arg1) && isVisibleElement(arg1)) || null;
+      return Array.from(arg1.querySelectorAll(".public-DraftEditor-content, [contenteditable=\"true\"], [contenteditable=\"plaintext-only\"], [contenteditable], textarea, input, [role=\"textbox\"]")).find(arg1 => isEditableElement(arg1) && isVisibleElement(arg1)) || null;
     } catch (error) {
       return null;
     }
@@ -1497,6 +1539,10 @@ function createCommentAutomationController(options = {}) {
             local.click?.();
           } catch (error) {}
           await sleepWithinDeadline(300, result);
+          const found = findMainVideoCommentInput(arg1 || document) || resolveMainCommentWritableElement(local) || resolveMainCommentWritableElement(result5[0]) || resolveMainCommentWritableElement(document.activeElement);
+          if (found) {
+            return found;
+          }
         } else {
           const result2 = Array.from(item.querySelectorAll("div, span, p, textarea[placeholder], input[placeholder], [data-placeholder], [aria-label]")).filter(arg1 => {
             if (!isVisibleElement(arg1)) {
@@ -5617,7 +5663,7 @@ function createCommentAutomationController(options = {}) {
         if (arg1) {
           list.push(arg1);
         }
-        if (expandScope && arg1 !== document.body && !list.includes(document.body)) {
+        if (arg1 !== document.body && !list.includes(document.body)) {
           list.push(document.body);
         }
         if (list.length === 0) {
@@ -5756,7 +5802,7 @@ function createCommentAutomationController(options = {}) {
                   deadlineAt: value2
                 });
                 await sleepWithinDeadline(350, value2);
-                const result = findMainVideoCommentInput(item);
+                const result = findMainVideoCommentInput(item) || resolveMainCommentWritableElement(value[0]) || resolveMainCommentWritableElement(document.activeElement);
                 if (result) {
                   result8 = result;
                   const result2 = result8.getBoundingClientRect();
@@ -5849,7 +5895,7 @@ function createCommentAutomationController(options = {}) {
                 }
                 local.focus?.();
                 value.focus?.();
-                const result5 = findMainVideoCommentInput(item);
+                const result5 = findMainVideoCommentInput(item) || resolveMainCommentWritableElement(local) || resolveMainCommentWritableElement(value) || resolveMainCommentWritableElement(document.activeElement);
                 if (result5) {
                   result8 = result5;
                   break;
@@ -5899,7 +5945,7 @@ function createCommentAutomationController(options = {}) {
               } catch (error) {}
               await sleepWithinDeadline(profileVideo ? 700 : 1200, value2);
             }
-            const result9 = findMainVideoCommentInput(item);
+            const result9 = findMainVideoCommentInput(item) || resolveMainCommentWritableElement(document.activeElement);
             if (result9) {
               result8 = result9;
               const result = result8.getBoundingClientRect();

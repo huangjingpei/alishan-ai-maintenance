@@ -205,7 +205,19 @@ function createAutomationRuntimeController(options = {}) {
     try {
       const local = arg1 || document.body;
       const result = getCommentV2String("commentInput");
-      const value = result ? new Set(Array.from(local?.querySelectorAll?.(result) || []).map(resolveMainCommentWritableElement).filter(Boolean)).size : 0;
+      const candidates = [];
+      if (result) {
+        try {
+          candidates.push(...Array.from(local?.querySelectorAll?.(result) || []));
+        } catch (error) {}
+      }
+      try {
+        candidates.push(...Array.from(local?.querySelectorAll?.(".public-DraftEditor-content, [contenteditable], [role=\"textbox\"], textarea") || []));
+      } catch (error) {}
+      if (document.activeElement) {
+        candidates.push(document.activeElement);
+      }
+      const value = new Set(candidates.map(resolveMainCommentWritableElement).filter(Boolean)).size;
       const result2 = Array.from(local?.querySelectorAll?.("div, span, p, textarea[placeholder], input[placeholder], [contenteditable=\"true\"][data-placeholder], [role=\"textbox\"][aria-label]") || []).filter(arg1 => {
         const result = getCommentPlaceholderText(arg1);
         return matchesPlaceholderHint(result) || /评论|说点什么|留下.*评论|友善交流/.test(result);
