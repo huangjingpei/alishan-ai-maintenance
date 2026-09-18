@@ -2,6 +2,101 @@ const {
   ipcRenderer,
   webFrame
 } = require("electron");
+
+function getSafeStorage(type) {
+  try {
+    const s = type === "session" ? window.sessionStorage : window.localStorage;
+    if (s && typeof s.getItem === "function") {
+      return s;
+    }
+  } catch (_) {}
+  return null;
+}
+
+function createSafeStorageProxy(type) {
+  const memoryFallback = new Map();
+  return {
+    getItem(key) {
+      try {
+        const s = getSafeStorage(type);
+        if (s) {
+          const val = s.getItem(key);
+          if (val !== null && val !== undefined) {
+            return val;
+          }
+        }
+      } catch (_) {}
+      return memoryFallback.has(key) ? memoryFallback.get(key) : null;
+    },
+    setItem(key, value) {
+      const strVal = String(value);
+      memoryFallback.set(key, strVal);
+      try {
+        const s = getSafeStorage(type);
+        if (s) {
+          s.setItem(key, strVal);
+        }
+      } catch (_) {}
+    },
+    removeItem(key) {
+      memoryFallback.delete(key);
+      try {
+        const s = getSafeStorage(type);
+        if (s) {
+          s.removeItem(key);
+        }
+      } catch (_) {}
+    },
+    clear() {
+      memoryFallback.clear();
+      try {
+        const s = getSafeStorage(type);
+        if (s) {
+          s.clear();
+        }
+      } catch (_) {}
+    },
+    key(index) {
+      const allKeys = new Set();
+      try {
+        const s = getSafeStorage(type);
+        if (s && typeof s.length === "number") {
+          for (let i = 0; i < s.length; i++) {
+            const k = s.key(i);
+            if (k) allKeys.add(k);
+          }
+        }
+      } catch (_) {}
+      for (const k of memoryFallback.keys()) {
+        allKeys.add(k);
+      }
+      const arr = Array.from(allKeys);
+      return arr[index] ?? null;
+    },
+    get length() {
+      const allKeys = new Set();
+      try {
+        const s = getSafeStorage(type);
+        if (s && typeof s.length === "number") {
+          for (let i = 0; i < s.length; i++) {
+            const k = s.key(i);
+            if (k) allKeys.add(k);
+          }
+        }
+      } catch (_) {}
+      for (const k of memoryFallback.keys()) {
+        allKeys.add(k);
+      }
+      return allKeys.size;
+    }
+  };
+}
+
+const safeLocalStorage = createSafeStorageProxy("local");
+const safeSessionStorage = createSafeStorageProxy("session");
+const localStorage = safeLocalStorage;
+const sessionStorage = safeSessionStorage;
+
 function safeSessionGet(arg1, arg2 = null) {
   try {
     return sessionStorage.getItem(arg1);
