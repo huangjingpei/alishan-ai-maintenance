@@ -5242,7 +5242,9 @@ function createCommentAutomationController(options = {}) {
           reportProfileFirstTrace("@" + arg1.nickname + " 已开启表情/@，AI 预取期间保持互动执行权", arg1.accountId);
         }
         let local6 = null;
-        if (options.forceAi && !options.forceTemplateOnly) {
+        if (options.prefetchedCommentText && String(options.prefetchedCommentText).trim()) {
+          reportProfileFirstTrace("@" + arg1.nickname + " 使用续跑已生成的首作评论文案", arg1.accountId);
+        } else if (options.forceAi && !options.forceTemplateOnly) {
           const local = (typeof getVideoTitle === "function" ? getVideoTitle() : "") || "";
           reportProfileFirstTrace(local5 ? "@" + arg1.nickname + " 提前生成首作评论文案（保持互动执行权）" : "@" + arg1.nickname + " 提前生成首作评论文案（不占用互动执行权）", arg1.accountId);
           pingInteractionActivity("profile-first-ai-prefetch", 360000);
@@ -5284,8 +5286,8 @@ function createCommentAutomationController(options = {}) {
         } else if (isProfileFirstWorkTask() && result7 > 0) {
           reportProfileFirstTrace("@" + arg1.nickname + " 本条未命中收藏概率（" + result7 + "%）", arg1.accountId);
         }
-        let text = "";
-        let flag3 = false;
+        let text = options.prefetchedCommentText ? String(options.prefetchedCommentText).trim() : "";
+        let flag3 = Boolean(text);
         if (local6) {
           text = await local6;
           flag3 = true;
@@ -5355,6 +5357,16 @@ function createCommentAutomationController(options = {}) {
           reportProfileFirstTrace("@" + arg1.nickname + " 重进后已重启作品暂停守护（" + result.label + "，巡检 " + result3 + "ms）", arg1.accountId);
         };
         const local9 = async arg12 => {
+          if (window.location.pathname.startsWith("/video/") || window.location.pathname.startsWith("/note/")) {
+            reportProfileFirstTrace("@" + arg1.nickname + " 独立视频页重新探测输入环境（" + arg12 + "/" + num + "）", arg1.accountId);
+            reportCurrentAction("独立视频页重新探测输入框（" + arg12 + "/" + num + "）...");
+            local4();
+            await sleep(1200);
+            return {
+              ok: true,
+              videoId: result2
+            };
+          }
           reportProfileFirstTrace("@" + arg1.nickname + " 输入框未出现，关闭作品弹窗后重新进入（" + arg12 + "/" + num + "）", arg1.accountId);
           reportCurrentAction("评论输入框未出现，关闭作品后重新进入（" + arg12 + "/" + num + "）...");
           local4();
@@ -5986,10 +5998,39 @@ function createCommentAutomationController(options = {}) {
           }));
           if (!result8) {
             const local = getVideoIdFromPageUrl() || options.videoId || extractSpecificVideoId(window.location.href);
-            if (local) {
+            const isAlreadyDirect = window.location.pathname.startsWith("/video/") || window.location.pathname.startsWith("/note/");
+            if (local && !isAlreadyDirect) {
               console.log("[Built-in-Debug] [主页首作评论] 内嵌弹窗未挂载编辑器，自动跳转独立视频页: " + local);
               reportTraceLog("📝 首作评论：主页弹窗输入框未挂载，自动跳转独立视频页评论…");
               try {
+                let resolvedComment = options.prefetchedCommentText || "";
+                if (!resolvedComment && value4) {
+                  try {
+                    resolvedComment = await Promise.race([value4, sleepWithinDeadline(2000, value2)]);
+                  } catch (e) {}
+                }
+                const resumePayload = {
+                  phase: "video_detail",
+                  interactionId: state.currentTask?.interactionId,
+                  videoId: local,
+                  worksCount: Number(state.currentTask?.lead?.worksCount ?? 0),
+                  detailInfo: {},
+                  followedNow: false,
+                  batchCommentOpts: {
+                    useReplyConfig: options.useReplyConfig != null ? !!options.useReplyConfig : true,
+                    templateText: options.templateText,
+                    forceAi: !!options.forceAi,
+                    forceTemplateOnly: !!options.forceTemplateOnly,
+                    prefetchedCommentText: resolvedComment || "",
+                    prefetchedCommentResolved: !!resolvedComment
+                  },
+                  openMode: "direct",
+                  navigationAttempt: 2,
+                  createdAt: Date.now()
+                };
+                persistSubviewTaskForResume(state.currentTask, {
+                  __profileFirstResume: resumePayload
+                });
                 window.location.href = toSpecificVideoDirectUrl(local);
                 return await new Promise(() => {});
               } catch (error) {}

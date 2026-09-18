@@ -1170,6 +1170,23 @@ function createProfileInteractionController(options = {}) {
     });
   }
   async function fn33(arg1) {
+    if (window.location.pathname.startsWith("/video/") || window.location.pathname.startsWith("/note/")) {
+      const userUrl = state.currentTask?.lead?.userUrl;
+      console.log("%c[主页首作评论] 当前为独立视频页，返回用户主页以便后续动作...", "color: #f59e0b; font-weight: bold;");
+      reportCurrentAction("首作评论完成，正在返回用户主页...");
+      if (window.history.length > 1) {
+        window.history.back();
+      } else if (userUrl) {
+        window.location.href = normalizeUserUrl(userUrl);
+      }
+      for (let num = 0; num < 15; num++) {
+        await sleep(300);
+        if (window.location.pathname.includes("/user/")) {
+          return true;
+        }
+      }
+      return !fn35();
+    }
     if (!fn35()) {
       return true;
     }
@@ -1418,10 +1435,12 @@ function createProfileInteractionController(options = {}) {
           localStorage.removeItem("radar_pending_subview_task");
           return;
         }
-        if (fn32(result)) {
+        if (fn32(result) || (await fn36(result, 15000))) {
           flag = true;
           applySubviewRuntimeTask(result);
           await fn31(state.currentTask);
+        } else {
+          console.warn("[子视图] 续跑任务目标与当前 URL 仍不匹配，当前=" + window.location.href);
         }
       }
     } catch (error) {
