@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateRuntimeConfig } from "./runtime-config-validation.mjs";
+import { createOllamaClient, sanitizeAiMessage } from "./ollama-client.mjs";
+import { createAiHandlers } from "./ai-handlers.mjs";
 
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_LOCAL_HOST = "127.0.0.1";
@@ -72,12 +74,62 @@ function notImplemented(feature) {
   };
 }
 
+async function readJsonBody(request, limit = 1024 * 1024) {
+  const chunks = [];
+  let size = 0;
+  try {
+    for await (const chunk of request) {
+      size += chunk.length;
+      if (size > limit) {
+        return {};
+      }
+      chunks.push(chunk);
+    }
+  } catch {
+    return {};
+  }
+  if (chunks.length === 0) {
+    return {};
+  }
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch {
+    return {};
+  }
+}
+
+function aiError(error) {
+  const message = sanitizeAiMessage(error?.message || "本地模型调用失败");
+  return {
+    code: 502,
+    success: false,
+    localDevelopment: true,
+    implemented: true,
+    error: "LOCAL_AI_BACKEND_ERROR",
+    msg: message
+  };
+}
+
 export function createLocalBackendServer({
   host = DEFAULT_LOCAL_HOST,
   port = DEFAULT_LOCAL_PORT,
   runtimeConfigPath = DEFAULT_RUNTIME_CONFIG_PATH,
-  logger = console
+  logger = console,
+  ollamaClient: injectedOllamaClient = null
 } = {}) {
+  let ollamaClient = injectedOllamaClient || null;
+  if (!ollamaClient && (process.env.HUOKE_OLLAMA_ENABLED === "1" || process.env.OLLAMA_BASE_URL)) {
+    try {
+      ollamaClient = createOllamaClient();
+    } catch (err) {
+      logger.warn?.(`[LocalBackend] Ollama 客户端初始化失败，AI 接口回退为 501：${err.message}`);
+      ollamaClient = null;
+    }
+  }
+  const ai = ollamaClient ? createAiHandlers(ollamaClient) : null;
+  if (ai) {
+    logger.info?.(`[LocalBackend] AI 接口已改向本地 Ollama：${ollamaClient.baseUrl} model=${ollamaClient.model}`);
+  }
   const server = http.createServer(async (request, response) => {
     const requestUrl = new URL(request.url || "/", `http://${host}:${port}`);
     const pathname = routePath(requestUrl.pathname);
@@ -185,6 +237,52 @@ export function createLocalBackendServer({
         persisted: false
       });
       return;
+    }
+
+    // ---- 本地 Ollama 改向：AI 接口 ----
+    // ai 仅在注入 ollamaClient 或设置了 OLLAMA_BASE_URL/HUOKE_OLLAMA_ENABLED 时存在。
+    // 否则这些路径会继续落到下方的 unimplementedRoutes，返回 501（保持原 fail-closed 行为）。
+    if (ai) {
+      if (request.method === "POST" && pathname === "/radar/ai/v2/comment-decision") {
+        try {
+          const body = await readJsonBody(request);
+          sendJson(response, 200, await ai.commentDecision(body));
+        } catch (error) {
+          sendJson(response, 502, aiError(error));
+        }
+        return;
+      }
+      if (request.method === "POST" && pathname === "/radar/ai/v2/video-match") {
+        try {
+          const body = await readJsonBody(request);
+          sendJson(response, 200, await ai.videoMatch(body));
+        } catch (error) {
+          sendJson(response, 502, aiError(error));
+        }
+        return;
+      }
+      if (request.method === "POST" && pathname === "/radar/ai/lead-match") {
+        try {
+          const body = await readJsonBody(request);
+          sendJson(response, 200, await ai.leadMatch(body));
+        } catch (error) {
+          sendJson(response, 502, aiError(error));
+        }
+        return;
+      }
+      if (request.method === "POST" && pathname === "/radar/ai/work-publish-generate") {
+        try {
+          const body = await readJsonBody(request);
+          sendJson(response, 200, await ai.workPublishGenerate(body));
+        } catch (error) {
+          sendJson(response, 502, aiError(error));
+        }
+        return;
+      }
+      if (request.method === "GET" && pathname === "/radar/ai/work-publish-quota") {
+        sendJson(response, 200, ai.workPublishQuota());
+        return;
+      }
     }
 
     const unimplementedRoutes = new Map([

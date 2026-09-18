@@ -4,6 +4,16 @@ require("bytenode");
 const path = require("path");
 const fs = require("fs");
 
+// 方案A 运行时观测：在加载 jsc 之前安装主进程 HTTP 抓包（仅记录）。
+// 默认关闭；设置 HUOKE_TRACE_HTTP=1 后启动才会生效（如 npm run dev:local）。
+if (process.env.HUOKE_TRACE_HTTP === "1") {
+  try {
+    require("./observability/http-tap.cjs").installHttpTap();
+  } catch (err) {
+    console.warn("[HttpTap] 安装失败:", err && err.message ? err.message : String(err));
+  }
+}
+
 function enableLocalDevelopmentBootstrap() {
   if (process.env.HUOKE_LOCAL_DEV !== "1") {
     return;

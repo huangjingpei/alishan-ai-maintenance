@@ -12,8 +12,8 @@
   "scripts": {
     "validate": "node --experimental-vm-modules scripts/validate.mjs",
     "integrity:report": "node scripts/integrity-report.mjs",
-    "dev": "npm run validate && electron .",
-    "dev:local": "npm run validate && node scripts/dev-local.mjs",
+    "dev": "chcp 65001 >nul && npm run validate && electron .",
+    "dev:local": "chcp 65001 >nul && set HUOKE_CP_UTF8=1 && npm run validate && node scripts/dev-local.mjs",
     "local:server": "node scripts/local-backend.mjs",
     "test": "node --test tests/*.test.mjs",
     "pack:dir": "npm run validate && electron-builder --dir",
